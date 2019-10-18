@@ -1,0 +1,787 @@
+<template>
+  <v-row justify="center">
+    <v-dialog
+      v-model="intDialogVisible"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card class="grey lighten-3">
+        <!-- Header -->
+        <v-toolbar light color="white">
+          <!-- Arrow -->
+          <v-btn v-if="e1 == 1 || e1 == 8" icon tile style="border-right: 1px solid #717171" light @click="intDialogVisible = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <v-btn v-if="e1 > 1 && e1 < 8" icon tile style="border-right: 1px solid #717171" light @click="prev()">
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+
+          <!-- Logo -->
+          <v-toolbar-title>
+            <v-img
+              :src="logo"
+              :lazy-src="lazy"
+              max-width="40"
+              max-height="40"
+            >  
+            </v-img>
+          </v-toolbar-title>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn light text>Order Summary</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <!-- Step -->
+        <v-stepper v-model="e1">
+          <v-stepper-header style="display: none !important">
+            <v-stepper-step :complete="e1 > 1" step="1"></v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step :complete="e1 > 2" step="2">
+
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step step="3">
+
+            </v-stepper-step>
+          </v-stepper-header>
+
+          <v-stepper-items class="grey lighten-3">
+
+            <!-- Step 1 -->
+            <v-stepper-content step="1">
+              <v-card
+                class="mx-auto"
+              >
+                <v-card-title class="subtitle-1">Dengan Pulsa</v-card-title>
+                <v-divider></v-divider>
+                <v-row>
+                  <v-col
+                    class="text-center col-md-12"
+                  >
+                    <v-btn @click="e1 = 2" color="green" width="300" class="white--text">
+                      XL & Axis
+                    </v-btn>
+                  </v-col>
+                  <v-col
+                    class="text-center col-md-12 mb-3"
+                  >
+                    <v-btn @click="e1 = 3" color="green" width="300" class="white--text">
+                      Indosat
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
+
+              <!-- Content -->
+              <v-card
+                class="mx-auto mt-4 mb-2"
+              >
+                <v-card-title class="subtitle-1">Tanpa Pulsa</v-card-title>
+                <v-divider></v-divider>
+                <v-row>
+                  <v-col
+                    class="text-center col-md-12"
+                  >
+                    <v-btn @click="e1 = 5" color="green" width="300" class="white--text">
+                      Transfer ke Bank BCA
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF STEP 1 -->
+
+            <!-- Step 2 XL -->
+            <v-stepper-content step="2" class="mb-3">
+              <v-card
+                class="mx-auto mb-3"
+              >
+                <v-card-title class="subtitle-1">XL & Exist Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <v-btn @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')" block color="success" dark>Beli</v-btn>
+                </v-card-text>
+              </v-card>
+              <v-card
+                class="mx-auto mb-3"
+              >
+                <v-card-title class="subtitle-1">XL & Exist non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')" v-for="vip in vipItems" :key="vip.id">
+                  <v-row>
+                    <v-col
+                      cols="9"
+                    >
+                      <v-row>
+                        <v-col
+                          cols="3"
+                        >
+                          <img class="ml-2" width="50" :src="vip.image" :alt="vip.label">
+                        </v-col>
+                        <v-col
+                          cols="9"
+                        >
+                          <strong>{{ vip.label }}</strong><br>
+                          <strong>{{ vip.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col
+                      cols="3"
+                      class="mt-4"
+                    >
+                      <v-btn icon tile light @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')">
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF STEP 2 : XL -->
+
+            <!-- Step 3 : Indosat -->
+            <v-stepper-content step="3">
+              <v-card
+                class="mx-auto"
+              >
+                <v-card-title color="grey" class="subtitle-2">
+                  INDOSAT
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-row @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')">
+                  <v-col
+                    cols="2"
+                    class="ml-2 mr-3 mt-3"
+                  >
+                    <img width="60" :src="indosatviplogo" alt="">
+                  </v-col>
+                  <v-col
+                    cols="9"
+                    class="mr-2"
+                  >
+                    <v-row>
+                      <v-col
+                        cols="1"
+                        class="mt-1 mr-1"
+                      >
+                        <v-icon color="green">mdi-check-circle</v-icon>
+                      </v-col>
+                      <v-col
+                        cols="10"
+                      >
+                        <p class="heding"> Setiap SMS akan dikenakan Rp.2200 <br> (incl. PPN 10%).</p>
+                      </v-col>
+                    </v-row>
+                    <v-row style="margin-top: -30px">
+                      <v-col
+                        cols="1"
+                        class="mt-1 mr-1"
+                      >
+                        <v-icon color="green">mdi-check-circle</v-icon>
+                      </v-col>
+                      <v-col
+                        cols="10"
+                      >
+                        <p class="heding"> Dikirimkan 1 SMS per 3 hari selama 120 hari.</p>
+                      </v-col>
+                    </v-row>
+                    <v-row style="margin-top: -30px">
+                      <v-col
+                        cols="1"
+                        class="mt-1 mr-1"
+                      >
+                        <v-icon color="green">mdi-check-circle</v-icon>
+                      </v-col>
+                      <v-col
+                        cols="10"
+                      >
+                        <p class="heding"> 3 Hari keanggotaan VIP per SMS.</p>
+                      </v-col>
+                    </v-row>
+                    <v-row style="margin-top: -30px">
+                      <v-col
+                        cols="12"
+                      >
+                        <v-btn @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')" style="width: 100%" tile dark color="deep-orange">
+                          Beli
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF STEP 3 : Indosat -->
+
+            <!-- Step 4 : Order Detail -->
+            <v-stepper-content step="4">
+              <v-row style="margin-top: -10px">
+                <v-col cols="12">
+                  <v-card
+                    class="mx-auto mb-2"
+                  >
+                    <v-container>
+                      <v-row>
+                        <v-col
+                          cols="4"
+                          style="margin-top: -10px;"
+                        >
+                          <strong>Amount</strong>
+                        </v-col>
+                        <v-col
+                          cols="8"
+                          class="text-right"
+                          style="margin-bottom: -15px; margin-top: 15px;"
+                        >
+                          <strong class="headline deep-orange--text">{{itemprice}}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
+                </v-col>
+                <v-col cols="12" style="margin-top: -20px;" >
+                  <v-tabs
+                    grow
+                    v-model="tab"
+                    background-color="white"
+                    color="deep-orange"
+                  >
+                    <v-tab href="#order">Order Details</v-tab>
+                    <v-tab href="#customer">Customer Details</v-tab>
+                  </v-tabs>   
+                    
+                  <v-tabs-items v-model="tab">
+                    <v-tab-item value="order">
+                      <v-container>
+                          <v-row>
+                              <v-col
+                                  cols="6"
+                                  class="text-center bold"
+                              >
+                                  <strong class="caption">Item(s)</strong>
+                              </v-col>
+                              <v-col
+                                  cols="6"
+                                  class="text-center"
+                              >
+                                  <strong class="caption">Harga</strong>
+                              </v-col>
+                          </v-row>
+                          <v-divider></v-divider>
+                          <v-row>
+                              <v-col
+                                  cols="6"
+                                  class="text-center"
+                              >
+                                  <strong class="body-2">{{itemname}}</strong>
+                              </v-col>
+                              <v-col
+                                  cols="6"
+                                  class="text-center"
+                              >
+                                  <strong class="body-2">{{itemprice}}</strong>
+                              </v-col>
+                          </v-row>
+                      </v-container>
+                    </v-tab-item>
+                    <v-tab-item value="customer">
+                      <v-container>
+                        <p>
+                          <strong class="caption">Name</strong><br>
+                          <strong class="body-2">{{userdata.first_name ? userdata.first_name : '-'}}</strong>
+                        </p>
+                        <p>
+                          <strong class="caption">Phone Number</strong><br>
+                          <strong class="body-2">{{userdata.no_tlp ? userdata.no_tlp : '-'}}</strong>
+                        </p>
+                        <p>
+                          <strong class="caption">Email</strong><br>
+                          <strong class="body-2">{{userdata.email ? userdata.email : '-'}}</strong>
+                        </p>
+                      </v-container>
+                    </v-tab-item>
+                  </v-tabs-items>
+                </v-col>
+                <v-col
+                    cols="12"
+                >
+                  <v-card class="mx-auto mb-2">
+                    <v-btn icon tile color="blue">
+                      <v-icon>mdi-information</v-icon>
+                    </v-btn>
+                    <strong class="caption">Pilih salah satu metode pembelian berikut</strong>
+                    <v-divider></v-divider>
+
+                    <v-tabs
+                      grow
+                      v-model="buymethod"
+                      background-color="white"
+                      color="deep-orange"
+                    >
+                      <v-tab href="#sms">SMS</v-tab>
+                      <v-tab href="#ussd">USSD</v-tab>
+                      <v-tab href="#instant">Instant</v-tab>
+                    </v-tabs>   
+                
+                    <v-tabs-items v-model="buymethod">
+                      <v-tab-item value="sms">
+                        <v-form
+                          ref="form"
+                          v-model="valid"
+                          lazy-validation
+                        >
+                          <v-container>
+                            <v-btn style="margin-left: -10px" icon tile color="green">
+                              <v-icon>mdi-check-circle</v-icon>
+                            </v-btn>
+                            <strong class="caption">Masukkan nomor handphone kamu</strong>
+                            <v-text-field 
+                              label="+62" prepend-inner-icon=""
+                              counter
+                              maxlength="12"
+                              v-model="formdata.nomorhandphone"
+                              type="number"
+                              required
+                              :rules="numberRules"
+                            ></v-text-field>
+
+                            <v-btn style="margin-left: -10px" icon tile color="green">
+                              <v-icon>mdi-check-circle</v-icon>
+                            </v-btn>
+                            <strong class="caption">Cetang kotak dibawah ini untuk melanjutkan proses</strong>
+                            <vue-recaptcha
+                              class="mt-2"
+                              sitekey="6Ld8FDgUAAAAADGSSZayN8W2cTlJTmIGcv0NEPln"
+                              ref="recaptcha"
+                              @verify="onCaptchaVerified"
+                              @expired="onCaptchaExpired"
+                            ></vue-recaptcha>
+                            <v-btn
+                              @click="validate(itemvoucher)"
+                              color="green"
+                              width="300"
+                              class="white--text mt-2"
+                            >
+                              Lanjutkan
+                            </v-btn>
+                          </v-container>
+                        </v-form>
+
+                        <v-snackbar
+                          v-model="snackbar"
+                          :timeout="timeout"
+                          top
+                        >
+                          {{ responsemessage }}
+                          <v-btn
+                              color="primary"
+                              text
+                              icon
+                              @click="snackbar = false"
+                          >
+                          <v-icon color="white">mdi-close-circle-outline</v-icon>
+                          </v-btn>
+                        </v-snackbar>
+                      </v-tab-item>
+                      <v-tab-item value="ussd">
+                        <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                          <strong class="body-2">Pilihan Tidak Tersedia</strong>
+                        </v-container>
+                      </v-tab-item>
+                      <v-tab-item value="instant">
+                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                              <strong class="body-2">Pilihan Tidak Tersedia</strong>
+                          </v-container>
+                      </v-tab-item>
+                    </v-tabs-items>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-stepper-content>
+            <!-- END OF STEP 4 : Order Detail -->
+
+            <!-- Step 5 : Midtrans-->
+            <v-stepper-content step="5" class="mb-3">
+              <v-card
+                class="mx-auto"
+              >
+                <v-card-title class="subtitle-1">Transfer ke Bank BCA</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')">
+                    <v-col
+                      cols="9"
+                    >
+                      <v-row>
+                        <v-col
+                          cols="3"
+                        >
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label">
+                        </v-col>
+                        <v-col
+                          cols="9"
+                        >
+                          <strong>{{ trans.label }}</strong><br>
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col
+                      cols="3"
+                      class="mt-4"
+                    >
+                      <v-btn icon tile light @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')">
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF STEP 5 : Midtrans -->
+
+            <!-- Step 8 : Transaction Success -->
+            <v-stepper-content step="8">
+              <v-row
+                align="center"
+                justify="center"
+              >
+                <v-icon color="green" class="display-3" style="margin-top: 60px">mdi-check-circle</v-icon>
+              </v-row>
+              <v-row
+                align="center"
+                justify="center"
+              >
+                <p class="heading mt-4 text-center">PERIKSA HANDPHONE ANDA <br> UNTUK PROSES SELANJUTNYA</p>
+              </v-row>
+              <v-row
+                align="center"
+                justify="center"
+                class="mx-4"
+              >
+                <div>
+                  <v-btn
+                    @click="intDialogVisible = false"
+                    dark
+                    color="deep-orange"
+                    class="text-capitalize"
+                  >
+                    CLOSE
+                  </v-btn>
+                </div>
+              </v-row>
+            </v-stepper-content>
+            <!-- END OF STEP 8 : Transaction Success -->
+
+          </v-stepper-items>
+        </v-stepper>
+      </v-card>
+    </v-dialog>
+  </v-row>
+</template>
+
+<script>
+  import PurchaseService from '@/services/PurchaseService';
+  import UserService from '@/services/UserService';
+  import VueRecaptcha from "vue-recaptcha";
+  export default {
+    name:"BuyVip",
+    props: {
+      dialogVisible: Boolean,
+    },
+    components: {
+        VueRecaptcha
+    },
+    data () {
+      return {
+        e1: 1,
+        dialog: false,
+        itemprice: null,
+        itemname: null,
+        itemcode: null,
+        itemvoucher: null,
+        buymethod: null,
+        current : 0,
+        indosatvoucherid : 13,
+        indosatlabel : 'VIP BERLANGGANAN (Sudah termasuk PPN 10%)',
+        indosatprice : 'Rp 2.200',
+        xlregvoucher: 17,
+        xlreglabel: "VIP BERLANGGANAN (Sudah termasuk PPN 10%)",
+        xlregprice: 'Rp 2.200',
+        tab: null,
+        userdata: [],
+        valid: true,
+        recaptchaToken: null,
+        numberRules: [
+            v => !!v || 'Input Valid Number'
+        ],
+        formdata : {
+            voucher_id : null,
+            nomorhandphone : '',
+        },
+        snackbar: false,
+        timeout: 3000,
+        responsemessage: '',
+        lazy: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
+        logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
+        indosatviplogo: 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-s.svg',
+        vipItems: [
+          {
+            id    : 1,
+            voucher_id : 3,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 2 Hari",
+            price : "Rp 2.200",
+            code  : "PW3"
+          },
+          {
+            id    : 2,
+            voucher_id : 4,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 3 Hari",
+            price : "Rp 3.300",
+            code  : "PW4"
+          },
+          {
+            id    : 3,
+            voucher_id : 5,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 5 Hari",
+            price : "Rp 5.500",
+            code  : "PW5"
+          },
+          {
+            id    : 4,
+            voucher_id : 6,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 8 Hari",
+            price : "Rp 8.800",
+            code  : "REG"
+          },
+          {
+            id    : 5,
+            voucher_id : 7,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
+            label : "VIP 11 + Extra 1 Hari",
+            price : "Rp 11.000",
+            code  : "PW7"
+          },
+          {
+            id    : 6,
+            voucher_id : 8,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
+            label : "VIP 15 + Extra 2 Hari",
+            price : "Rp 16.500",
+            code  : "PW8"
+          },
+        ],
+        vipTrans: [
+          {
+            id    : 7,
+            voucher_id : 12,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 16 Hari",
+            price : "Rp 10.000",
+            code  : "PW"
+          },
+          {
+            id    : 8,
+            voucher_id : 9,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 40 Hari",
+            price : "Rp 40.000",
+            code  : "PW"
+          },
+          {
+            id    : 9,
+            voucher_id : 10,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 80 Hari",
+            price : "Rp 50.000",
+            code  : "PW"
+          },
+          {
+            id    : 10,
+            voucher_id : 11,
+            image : "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+            label : "VIP 160 Hari",
+            price : "Rp 100.000",
+            code  : "PW"
+          },
+        ]
+      }
+    },
+    computed: {
+
+      /* Init Modal */
+      intDialogVisible: {
+        get: function () {
+          if (this.dialogVisible) {
+            // Some dialog initialization code could be placed here
+            // because it is called only when this.dialogVisible changes
+            this.$emit('open');
+          }
+
+          return this.dialogVisible
+        },
+        set: function (value) {
+          if (!value) {
+            this.$emit('close')
+          }
+        }
+      },
+    },
+    methods: {
+
+      /* Change Icon Arrow Prev Step */
+      prev() {
+        if (this.e1 != 0) {
+          if (this.e1 == 3) {
+            this.e1 = this.e1 - 2;
+          } else if (this.e1 == 5) {
+            this.e1 = this.e1 - 4
+          } else {
+            if (this.e1 == 4) {
+              if (this.current == 'xl') {
+                this.e1 = this.e1 - 2;
+                this.current = 0;
+              } else if (this.current == 'indosat') {
+                this.e1 = 3;
+                this.current = 0;
+              }
+            } else {
+              this.e1 = this.e1 - 1;
+            }
+          }
+        }
+      },
+
+      /* Set Data Order */
+      setOrder(voucherId,label,price, currentstep) {
+        if (currentstep == 'midtrans') {
+          const sendvoucher = {
+            voucher_id : voucherId
+          }
+
+          PurchaseService.midtrans(sendvoucher)
+          .then(res => {
+              if (res.status == 200) {
+                return console.log(res.status);
+              }
+          })
+          .catch(err => {
+              console.log(err.response.data)
+          })
+        } else {
+          this.itemname = label
+          this.itemprice = price
+          this.itemvoucher = voucherId
+          this.current = currentstep;
+          this.e1 = 4;
+        }
+      },
+
+      /* Validasi Form */
+      validate (voucher) {
+        var vm = this;
+        vm.formdata.voucher_id = voucher;
+        if (this.$refs.form.validate()) {
+            if (this.recaptchaToken != null) {
+                this.submit();
+                // console.log('nggak');
+            } else {
+              this.snackbar = true;
+              this.responsemessage = 'Mohon Centang Recaptha';
+            }
+        }
+      },
+      reset () {
+          this.$refs.form.reset()
+      },
+      resetValidation () {
+          this.$refs.form.resetValidation()
+      },
+
+      /* Recapctcha */
+      onCaptchaVerified: function (res) {
+          this.recaptchaToken = res;
+      },
+      onCaptchaExpired: function () {
+          this.$refs.recaptcha.reset();
+          this.recaptchaToken = null;
+      },
+
+      /* Submit Form */
+      submit() {
+          let vm = this
+
+          // send the form
+          const sendform = vm.formdata
+
+          PurchaseService.BuyVip(sendform)
+          .then(res => {
+              vm.responsemessage = res.data.message
+              if (res.status == 200) {
+                this.e1 = 8;
+              }
+          })
+          .catch(err => {
+              console.log(err.response.data)
+          })
+
+          this.recaptchaToken = null;
+      },
+
+      /* Update Data */
+      fetchProgram() {
+        let vm = this
+        console.log(vm);
+        // StarxIzinService.checkIzin()
+        // .then( response => {
+        //     console.log(response.data.data);
+        //     var data = response.data.data;
+        //     vm.participant = data.participant;
+        //     localStorage.setItem('participant', JSON.stringify(data.participant));
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // });
+      }
+    },
+    mounted() {
+      /* Init Data User to Customer Detail */
+      if(this.$store.getters.isLoggedIn) {
+        UserService.getSingleUser()
+        .then(res => {
+          // console.log(res.data.status);
+          this.userdata = res.data.data;
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .v-stepper {
+    border-radius: none !important;
+    border-radius: none !important;
+    overflow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+</style>

@@ -1,0 +1,202 @@
+<template>
+    <v-card
+        class="mx-auto my-5"
+        elevation="1"
+    >
+        <a target="blank" :href="'https://www.youtube.com/watch?v='+youtubelink(latest.video)">
+            <v-img :src="vidimg(latest.video)"></v-img>
+        </a>
+        <v-card-title @click="$router.push( '/starx/band/video/'+latest.slug )" class="align-end fill-height text-amll"><span style="font-size:16px"><strong>{{ latest.description }}</strong></span></v-card-title>
+        <v-card-text>
+            <span>{{ latest.created_at }}</span><br>
+            <span class="text--primary">
+                <span @click="$router.push('/starx/band/detail/'+latest.band.slug)">By: <strong>{{ latest.band.name }}</strong></span><br>
+                <span @click="$router.push('/starx/band_school/'+latest.school_slug)">{{ latest.school }}</span><br>
+                <span><v-icon color="yellow">mdi-star</v-icon></span>
+                <span class="starr ml-2" :id="'starcount-'+latest.id"><strong style="text-align: center; vertical-align: middle;">{{ latest.star }}</strong></span>
+            </span>
+        </v-card-text>
+
+        <v-card-actions>
+            <v-list-item class="grow">
+                <v-list-item-content>
+                    <v-btn
+                        v-if="!hiddendetail"
+                        depressed
+                        dark
+                        small
+                        color="green lighten-2"
+                        @click="$router.push( '/starx/band/video/'+latest.slug )"
+                    >
+                        Detail
+                    </v-btn>
+                </v-list-item-content>
+                <v-row
+                    align="center"
+                    justify="end"
+                >
+                    <!-- <v-icon color="grey" class="mr-1">mdi-star</v-icon> -->
+                    <v-btn @click="checkVIP(latest.id, latest.band.id)" dark small color="deep-orange mr-3">Beri Star</v-btn>
+                </v-row>
+            </v-list-item>
+        </v-card-actions>
+        
+        <!-- =====================================================================================
+        ALERT
+        ===================================================================================== -->
+        <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+            top
+        >
+            <img width="30" class="mr-2" :src="snacksrc" alt="">
+            {{ responsemessage }}
+            <v-btn
+                color="primary"
+                text
+                icon
+                @click="snackbar = false"
+            >
+            <v-icon color="white">mdi-close-circle-outline</v-icon>
+            </v-btn>
+        </v-snackbar>
+        
+        <!-- =====================================================================================
+        MODAL
+        ===================================================================================== -->
+        <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+        <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
+        <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
+    </v-card>
+</template>
+
+<script>
+import StarxService from '@/services/StarxService'
+import UserService from '@/services/UserService'
+import BuyVip from '@/components/modal/BuyVip'
+import PleaseLogin from '@/components/modal/PleaseLogin'
+import NotVip from '@/components/modal/NotVip'
+export default {
+    name:"VideoLoop",
+    // props: {
+    //     latest: Array,
+    //     filtering: [],
+    //     activeBtn: Number,
+    //     hiddendetail: Boolean
+    // },
+    props: [
+        "latest",
+        "filtering",
+        "activeBtn",
+        "hiddendetail",
+    ],
+    components: {
+        BuyVip,
+        PleaseLogin,
+        NotVip,
+    },
+    data: () => ({
+        buyVipDialogVisible: false,
+        pleaseLoginDialogVisible: false,
+        notVipDialogVisible: false,
+        is_star: 'grey',
+        userdata: [],
+        snackbar: false,
+        snacksrc : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png',
+        timeout: 3000,
+        responsemessage: ''
+    }),
+    methods: {
+        vidimg(iframe) {
+            if( typeof iframe == 'undefined' ) {
+                return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
+            } else {
+                if( iframe.includes('iframe') ) {
+                    var url = iframe,
+                        /* eslint-disable */
+                        regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/,
+                        videoId = url.match(regExp);
+
+                    if (videoId && videoId[1].length === 11) {
+                        //console.log(videoId[1]);
+                        //return videoId[1];
+                        return 'https://img.youtube.com/vi/'+ videoId[1] +'/mqdefault.jpg';
+                    }
+                } else {
+                    return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
+                }
+            }
+        },
+        youtubelink(iframe) {
+            if( typeof iframe == 'undefined' ) {
+                return iframe;
+            } else {
+                if( iframe.includes('iframe') ) {
+                    var url = iframe;
+                    /* eslint-disable-next-line */
+                    var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/,
+                        videoId = url.match(regExp);
+
+                    if (videoId && videoId[1].length === 11) {
+                        return videoId[1];
+                    }
+                } else {
+                    return iframe;
+                }
+            }
+        },
+        makeStar(id, bandid) {
+            if(this.$store.getters.isLoggedIn) {
+                const sendstar = {
+                    participant_id : id,
+                    band_id : bandid,
+                    phase : this.activeBtn
+                };
+
+                StarxService.makeStar(sendstar)
+                .then(res => {
+                    if (res.data.status == 200) {
+                        this.snackbar = true;
+                        this.responsemessage = 'Selamat! anda mendapat extra poin 20 poin';
+                        var current = document.getElementById('starcount-'+id).textContent;
+                        var total = parseInt(current) + 1;
+                        document.getElementById('starcount-'+id).innerHTML = total;
+                    } else {
+                        this.snackbar = true;
+                        this.snacksrc = '';
+                        this.responsemessage = 'Anda sudah memberi star video ini';
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            }
+        },
+        myDialogClose () {
+            this.buyVipDialogVisible = false
+            this.pleaseLoginDialogVisible = false
+            this.notVipDialogVisible = false
+            // other code
+        },
+        checkVIP(id, bandid) {
+            if (this.$store.getters.isLoggedIn) {
+                UserService.getSingleUser()
+                .then(res => {
+                    // console.log(res.data.status);
+                    if (new Date(res.data.data.expire) > new Date() ) {
+                        this.makeStar(id, bandid);
+                    } else {
+                        // if not vip, show dialog
+                        this.notVipDialogVisible = true
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.data)
+                })
+            } else {
+                this.pleaseLoginDialogVisible = true
+            }
+        }
+    }
+}
+</script>
