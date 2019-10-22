@@ -255,10 +255,8 @@ export default {
         .catch(error => {
             console.log(error.response.data)
             if( error.response.status == 401 ) {
-                this.$store.dispatch('logout')
-                .then(() => {
-                    vm.$router.push("/login");
-                })
+                localStorage.setItem('loggedin', false);
+                vm.$router.push("/member/login");
             }
         });
     }

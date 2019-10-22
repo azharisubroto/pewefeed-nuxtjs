@@ -12,7 +12,7 @@
             height="250"
             :elevation="3"
             flex
-            @click="$router.push(link(article)).catch(err=>{})"
+            @click="$router.push(link(article))"
             >
                 <v-img :src="article.image ? article.image : article.thumbnail" :aspect-ratio="2/2.5">
                     <div class="align-end white promo_caption pa-2 text--light gray">

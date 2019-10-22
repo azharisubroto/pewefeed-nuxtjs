@@ -59,7 +59,7 @@
         temporary
         app
       >
-        <v-list-item v-if="!isLogin">
+        <v-list-item v-if="!isLogin()">
 			<v-list-item-avatar>
 				<v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
 			</v-list-item-avatar>
@@ -69,7 +69,7 @@
 			</v-list-item-content>
         </v-list-item>
 
-		<v-list-item v-if="isLogin">
+		<v-list-item v-if="isLogin()">
 			<v-list-item-avatar>
 				<v-img :src="userdata.avatar"></v-img>
 			</v-list-item-avatar>
@@ -85,7 +85,7 @@
 
 			<v-list-item
 				v-for="menu in menus" :key="menu.id"
-				@click="$router.push( menu.path ).catch(err => {})"
+				@click="$router.push( menu.path )"
 				link
 			>
 				<v-list-item-icon>
@@ -100,9 +100,9 @@
 			AUTH MENU
 			ooooooooooooooooooooooooooo -->
 			<v-list-item
-				@click="$router.push('/member/program/starx').catch(err => {})"
+				@click="$router.push('/member/program/starx')"
 				link
-				v-if="isLogin"
+				v-if="isLogin()"
 			>
 				<v-list-item-icon>
 					<v-icon>mdi-upload</v-icon>
@@ -114,9 +114,9 @@
 			</v-list-item>
 
 			<v-list-item
-				@click="$router.push( '/login' ).catch(err => {})"
+				@click="$router.push( '/member/login' )"
 				link
-				v-if="!isLogin"
+				v-if="!isLogin()"
 			>
 				<v-list-item-icon>
 					<v-icon>mdi-login-variant</v-icon>
@@ -130,7 +130,7 @@
 			<v-list-item
 				@click="logout"
 				link
-				v-if="isLogin"
+				v-if="isLogin()"
 			>
 				<v-list-item-icon>
 					<v-icon>mdi-logout-variant</v-icon>
@@ -160,59 +160,57 @@ export default {
 				isLoggedIn: false,
 				userdata:[],
 				menus: [
-          {
-            id: 1,
-            label: 'Home',
-            path: '/',
-            icon: 'mdi-home'
-          },
-          {
-            id: 2,
-            label: 'Starx',
-            path: '/starx',
-            icon: 'mdi-account-star'
-          },
-        ]
+					{
+						id: 1,
+						label: 'Home',
+						path: '/',
+						icon: 'mdi-home'
+					},
+					{
+						id: 2,
+						label: 'Starx',
+						path: '/starx',
+						icon: 'mdi-account-star'
+					},
+				]
 		  }
 	  },
 	methods: {
 		logout() {
 			let vm = this;
-			this.$store.dispatch('logout')
-			.then(() => {
-				vm.$router.push("/login");
-			})
-		}
-	},
-	computed: {
+			localStorage.removeItem('loggedin');
+			this.isLoggedIn = false;
+			this.isLogin();
+			vm.$router.push("/member/login");
+		},
 		isLogin() {
-			return this.$store.getters.isLoggedIn;
+			return this.isLoggedIn
 		},
 		isUserdata() {
-			return this.$store.getters.isLoggedIn;
+			return localStorage.getItem('loggedin');
+		},
+		async fetchUser() {
+			this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+				try {
+					const res = await UserService.getSingleUser()
+					this.userdata = res.data.data;
+				} catch (err) {
+					this.isLoggedIn = false;
+					localStorage.removeItem('loggedin');
+					window.location.reload
+				}
+			} else {
+				localStorage.removeItem('loggedin');
+				this.isLoggedIn = false;
+				this.isLogin();
+				window.location.reload
+			}
 		}
 	},
 	mounted() {
-		this.isLoggedIn = this.$store.getters.isLoggedIn;
-		if( this.isLoggedIn == true) {
-			UserService.getSingleUser()
-			.then(res => {
-				// console.log(res.data.status);
-				this.userdata = res.data.data;
-			})
-			.catch(err => {
-				console.log(err.response.data)
-				this.$store.dispatch('logout')
-				.then(() => {
-					window.location.reload;
-				})
-			})
-		} else {
-			this.$store.dispatch('logout')
-			.then(() => {
-				window.location.reload;
-			})
-		}
+		this.isLogin();
+		this.fetchUser()
 	}
 }
 </script>

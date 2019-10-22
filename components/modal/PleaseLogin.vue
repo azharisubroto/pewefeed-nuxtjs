@@ -58,7 +58,7 @@
         >
           <div>
             <v-btn
-              @click="$router.push( '/login' )"
+              @click="$router.push( '/member/login' )"
               dark
               color="deep-orange"
             >
