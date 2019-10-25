@@ -234,4 +234,16 @@ export default {
 	.v-content__wrap {
 		padding-top: 56px;
 	}
+
+  .scroller {
+    display: flex;
+    overflow-x: auto;
+    .carousel-cell {
+      width: 200px;
+      margin: 0 10px;
+    }
+    &::-webkit-scrollbar {
+      display: none
+    }
+  }
 </style>
