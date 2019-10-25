@@ -26,43 +26,6 @@
             </v-row>
         </div>
 
-
-        <div class="py-3 white">
-            <v-container>
-                <v-row>
-                    <v-col cols="12"><h4>TOP POIN</h4></v-col>
-                    <v-img :src="toppoinbanner"></v-img>
-                </v-row>
-            </v-container>
-            <v-list three-line>
-                <template v-for="(item, index) in garfik">
-                    <v-list-item
-                    :key="item.name+'-'+index"
-                    >
-                    <v-btn class="mr-4 juara" fab dark small color="deep-orange">
-                        {{ index + 1 }}
-                    </v-btn>
-
-                    <v-list-item-content>
-                        <v-list-item-title v-html="item.name"></v-list-item-title>
-                        <v-list-item-subtitle>Total Poin: <strong class="text--green">{{ item.total_poin }}</strong></v-list-item-subtitle>
-                    </v-list-item-content>
-                    </v-list-item>
-                </template>
-            </v-list>
-
-            <v-container>
-                <v-row>
-                    <v-col cols="12" md="12">
-                        <v-btn block outlined color="deep-orange">
-                            Lihat Peringkat Kamu
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-container>
-
-        </div>
-
         <div
         v-for="(cat, key, i) in mainCategories"
         :key="'cat-'+i"
@@ -103,7 +66,7 @@
                 </div>
                 <hr>
             </div>
-            <TopViews :items="sixty"/>
+            <TopViews :items="sixty" :isvideo="true"/>
         </div>
     </div>
 </template>

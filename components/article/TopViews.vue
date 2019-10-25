@@ -1,7 +1,7 @@
 <template>
-    <v-slide-group
-        class="pb-5 promo_news">
-        <v-slide-item
+    <div class="pb-5 promo_news scroller">
+        <div
+            class="carousel-cell"
             v-for="(article, i) in items"
             :key="'promo-'+i"
         >
@@ -14,6 +14,7 @@
             flex
             @click="$router.push(link(article))"
             >
+              <v-icon dark v-if="isvideo" :size="30" class="playbutton">mdi-play-circle-outline</v-icon>
               <v-img :src="article.image ? article.image.small : article.thumbnail" :aspect-ratio="2/2.5">
                   <div class="align-end white promo_caption pa-2 text--light gray">
                       <div style="font-size:14px;background:#fff" class="mb-2">{{article.title}}</div>
@@ -21,14 +22,25 @@
                   </div>
               </v-img>
             </v-card>
-        </v-slide-item>
-    </v-slide-group>
+        </div>
+    </div>
 </template>
 <script>
-//import ArticleService from '@/services/ArticleService.js'
 export default {
     name:"TopViews",
-    props:['items'],
+    data() {
+      return {
+        flickityOptions: {
+          prevNextButtons: false,
+          pageDots: false,
+          wrapAround: true
+        }
+      }
+    },
+    props:{
+      items: Array,
+      isvideo: Boolean
+    },
     methods: {
       link(article) {
         var url, cropped
@@ -44,3 +56,13 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+  .playbutton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #fff;
+    z-index: 2000;
+  }
+</style>
