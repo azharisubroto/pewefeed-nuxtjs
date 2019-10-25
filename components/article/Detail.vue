@@ -40,7 +40,7 @@
                             {{article.total_comment}}
                         </div>
                     </div>
-                    <v-img :src="article.image" :aspect-ratio="4/3" class="thumbnailmain mb-4">
+                    <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4">
                     </v-img>
 
                     <!-- CONTENT -->

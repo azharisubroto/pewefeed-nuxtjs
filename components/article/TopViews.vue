@@ -14,12 +14,12 @@
             flex
             @click="$router.push(link(article))"
             >
-                <v-img :src="article.image ? article.image : article.thumbnail" :aspect-ratio="2/2.5">
-                    <div class="align-end white promo_caption pa-2 text--light gray">
-                        <div style="font-size:14px;background:#fff" class="mb-2">{{article.title}}</div>
-                        <div class="grey--text text--darken-1 caption"><v-icon :size="12">mdi-clock</v-icon> {{article.publish_at}}</div>
-                    </div>
-                </v-img>
+              <v-img :src="article.image ? article.image.small : article.thumbnail" :aspect-ratio="2/2.5">
+                  <div class="align-end white promo_caption pa-2 text--light gray">
+                      <div style="font-size:14px;background:#fff" class="mb-2">{{article.title}}</div>
+                      <div class="grey--text text--darken-1 caption"><v-icon :size="12">mdi-clock</v-icon> {{article.publish_at}}</div>
+                  </div>
+              </v-img>
             </v-card>
         </v-slide-item>
     </v-slide-group>
@@ -28,19 +28,19 @@
 //import ArticleService from '@/services/ArticleService.js'
 export default {
     name:"TopViews",
-    props: ['items'],
+    props:['items'],
     methods: {
-        link(article) {
-            var url, cropped
-            if( article.link != 'https://m.playworld.id/sixty' ) {
-                url = article.link
-                cropped = url.replace('https://playworld.id/', '')
-            } else {
-                url = article.link_detail
-                cropped = url.replace('https://m.playworld.id/', '')
-            }
-            return cropped
+      link(article) {
+        var url, cropped
+        if( article.link != 'https://m.playworld.id/sixty' ) {
+            url = article.link
+            cropped = url.replace('https://playworld.id/', '')
+        } else {
+            url = article.link_detail
+            cropped = url.replace('https://m.playworld.id/', '')
         }
+        return cropped
+      }
     }
 }
 </script>

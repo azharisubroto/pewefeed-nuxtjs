@@ -1,31 +1,29 @@
 <template>
     <div>
         <div class="promo_news">
-            <v-slide-group
-                v-model="model"
-                class="pb-5">
-                <v-slide-item
-                    v-for="(article, i) in articles"
-                    :key="'promo-'+i"
-                >
-                    <v-card
+            <v-row class="mx-0">
+              <template v-for="(article, i) in articles">
+                <v-col
+                :cols="i == 0 ? '12' : '6'"
+                class="pa-0"
+                :key="'promo-'+i">
+                  <div
                     color="grey lighten-1"
-                    class="ma-3 flex"
-                    width="200"
-                    height="250"
-                    :elevation="3"
+                    class="ma-0 flex"
+                    :elevation="0"
                     flex
                     @click="$router.push(link(article))"
                     >
-                        <v-img :src="article.image" :aspect-ratio="2/2.5">
+                        <v-img :src="article.image.small" :aspect-ratio="i == 0 ? 16/9 : 2/2.5">
                             <div class="align-end white promo_caption pa-2 text--light gray">
                                 <div style="font-size:14px;background:#fff" class="mb-2">{{article.title}}</div>
                                 <div class="grey--text text--darken-1 caption"><v-icon :size="12">mdi-clock</v-icon> {{article.published_at}}</div>
                             </div>
                         </v-img>
-                    </v-card>
-                </v-slide-item>
-            </v-slide-group>
+                    </div>
+                </v-col>
+              </template>
+            </v-row>
         </div>
 
 
@@ -126,12 +124,12 @@ export default {
             toppoinbanner: 'http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg',
             garfik: '',
             mainCategories: {
-                viral: [],
-                sport: [],
-                piknik: [],
-                lagu: [],
-                nonton: [],
-                tekno: []
+                viral: null,
+                sport: null,
+                piknik: null,
+                lagu: null,
+                nonton: null,
+                tekno: null
             },
             sixty: []
 
@@ -164,7 +162,7 @@ export default {
         async fetchPromotedNews() {
             try {
                 const res = await ArticleService.getPromotedNews()
-                //console.log(res.data.article)
+               // console.log(JSON.parse(JSON.stringify(res.data.article)))
                 this.articles = res.data.article
             } catch (error) {
                 console.log(error)
