@@ -40,8 +40,10 @@
                             {{article.total_comment}}
                         </div>
                     </div>
-                    <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4">
-                    </v-img>
+
+                    <div class="article-thumb">
+                        <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
+                    </div>
 
                     <!-- CONTENT -->
                     <div v-html="article.content"></div>
@@ -155,9 +157,9 @@ export default {
                     background-size: cover
     .v-breadcrumbs__item:not(.v-breadcrumbs__item--disabled)
         color: #ff9800!important
-    .thumbnailmain
-      margin: 0 -20px
-      display: block
-      width: auto
-      max-width: unset
+    .article-thumb
+        margin: 0 -12px
+    .v-content__wrap
+        max-width: 100%
+        overflow-x: hidden
 </style>
