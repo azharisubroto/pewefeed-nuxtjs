@@ -1,55 +1,46 @@
 <template>
     <div>
-        <div class="promo_news">
-            <v-row class="mx-0">
-              <template v-for="(article, i) in articles">
-                <v-col
-                :cols="i == 0 ? '12' : '6'"
-                class="pa-0"
-                :key="'promo-'+i">
-                  <div
-                    color="grey lighten-1"
-                    class="ma-0 flex"
-                    :elevation="0"
-                    flex
-                    @click="$router.push(link(article))"
-                    >
-                        <v-img :src="article.image.small" :aspect-ratio="i == 0 ? 16/9 : 2/2.5">
-                            <div class="align-end white promo_caption pa-2 text--light gray">
-                                <div style="font-size:14px;background:#fff" class="mb-2">{{article.title}}</div>
-                                <div class="grey--text text--darken-1 caption"><v-icon :size="12">mdi-clock</v-icon> {{article.published_at}}</div>
-                            </div>
-                        </v-img>
-                    </div>
-                </v-col>
-              </template>
-            </v-row>
-        </div>
-
-        <div
-        v-for="(cat, key, i) in mainCategories"
-        :key="'cat-'+i"
-        class="my-3">
-            <div class="px-3">
-                <div class="text-capitalize d-flex justify-space-between">
-                    <div>
-                        {{key}}
-                    </div>
-                    <v-btn
-                    @click="$router.push('/'+key)"
-                    icon
-                    >
-                        <v-icon>
-                            mdi-arrow-right
-                        </v-icon>
-                    </v-btn>
-                </div>
-                <hr>
+        <!-- LATEST -->
+        <flickity ref="flickity" :options="flickityOptions">
+          <div
+          v-for="article in articles"
+          :key="article.id"
+          @click="$router.push(link(article))"
+          class="featured-item">
+            <v-img
+              :src="article.image.small"
+              aspect-ratio="1"
+              class="grey lighten-2"
+            ></v-img>
+            <div class="caption">
+              <div class="caption-inner">
+                <strong>{{article.type}}</strong>
+                <h2 class="mt-1">{{ article.title }}</h2>
+              </div>
             </div>
-            <TopViews :items="cat"/>
-        </div>
+          </div>
+        </flickity>
 
-        <div class="my-3">
+        <!-- TOP VIEWS -->
+        <div class="mt-5">
+          <v-container>
+            <Terbaru :items="topviews"/>
+            <v-row>
+              <v-col cols="12">
+                <v-btn
+                tile
+                block
+                depressed
+                dark
+                color="deep-orange"
+                @click="loadMore(next)">
+                  Load More
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
+        <!-- <div class="my-3">
             <div class="px-3">
                 <div class="text-capitalize d-flex justify-space-between">
                     <div>
@@ -67,23 +58,26 @@
                 <hr>
             </div>
             <TopViews :items="sixty" :isvideo="true"/>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
-
+import Terbaru from '@/components/article/Terbaru'
 export default {
     name:"HomePage",
     components: {
-        TopViews
+        TopViews,
+        Terbaru
     },
     data() {
         return {
             model: null,
             articles: [],
+            topviews: [],
+            next: 2,
             toppoinbanner: 'http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg',
             garfik: '',
             mainCategories: {
@@ -94,21 +88,34 @@ export default {
                 nonton: null,
                 tekno: null
             },
-            sixty: []
+            sixty: [],
+            flickityOptions: {
+              groupCells: 1,
+              prevNextButtons: false,
+              pageDots: true,
+              wrapAround: true
+            }
 
         }
     },
     methods: {
         async fetchTopViews() {
             try {
-                const res = await ArticleService.getTopViews()
-                console.log(JSON.parse(JSON.stringify(res.data)))
-                this.mainCategories.viral = res.data.viral
-                this.mainCategories.sport = res.data.sport
-                this.mainCategories.piknik = res.data.piknik
-                this.mainCategories.lagu = res.data.lagu
-                this.mainCategories.nonton = res.data.nonton
-                this.mainCategories.tekno = res.data.tekno
+                const res = await ArticleService.getTopViews(1)
+                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                this.topviews = res.data.data
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMore(n) {
+          try {
+                const res = await ArticleService.getTopViews(n)
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var newData = res.data.data
+                newData.forEach(element => {
+                  this.topviews.push(element)
+                });
             } catch (error) {
                 console.log(error)
             }
@@ -117,16 +124,19 @@ export default {
             try {
                 const res = await ArticleService.getSixty()
                 this.sixty = res.data.data.sixty
-                console.log(JSON.parse(JSON.stringify(res.data)))
+                //console.log(JSON.parse(JSON.stringify(res.data)))
             } catch (error) {
                 console.log(error)
             }
         },
         async fetchPromotedNews() {
             try {
-                const res = await ArticleService.getPromotedNews()
-               // console.log(JSON.parse(JSON.stringify(res.data.article)))
-                this.articles = res.data.article
+                const res = await ArticleService.getLatest()
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                this.articles = res.data.data
+                this.$nextTick(function() {
+                  this.$refs.flickity.rerender();
+                });
             } catch (error) {
                 console.log(error)
             }
@@ -151,6 +161,9 @@ export default {
                 cropped = url.replace('https://m.playworld.id/', '')
             }
             return cropped
+        },
+        random() {
+          return Math.random()
         }
     },
     created() {
@@ -162,7 +175,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .v-slide-group.v-item-group > .v-slide-group__next, .v-slide-group.v-item-group > .v-slide-group__prev {
         display: none;
     }
@@ -173,5 +186,47 @@ export default {
     }
     .juara {
         font-size: 20px;
+    }
+    .featured-item {
+      width: 100%;
+      text-align:center;
+      height: 40vh;
+      background: #000;
+      color: #fff;
+      position: relative;
+      .caption {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.7);
+        .caption-inner {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          padding: 30px;
+          h2 {
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 1.3
+          }
+        }
+      }
+    }
+    .flickity-page-dots {
+      bottom: 20px!important;
+      .dot {
+        background: #fff;
+        opacity: .5;
+        width: 7px;
+        height: 7px;
+      }
+    }
+    .dot.is-selected {
+      background-color: var(--primary)
     }
 </style>

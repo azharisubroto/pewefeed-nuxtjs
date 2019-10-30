@@ -5,81 +5,139 @@
           type="list-item-avatar-three-line, image, article"
         ></v-skeleton-loader>
 
-        <v-breadcrumbs v-if="article" :items="items" class="text-orange" divider=">"></v-breadcrumbs>
-        <v-container v-if="article">
-            <v-row>
+        <v-container v-if="article" class="mb-5 pb-5">
+            <!-- ARTICLE -->
+            <template v-if="isArticle">
+              <v-row class="pb-5">
+                  <v-col cols="12">
+                      <!-- META 1 -->
+                      <div class="mb-1">
+                          <div class="d-inline-block mr-2">
+                              <a @click="$router.push('/'+article.type+'/'+article.reaction)">{{article.reaction}}</a>
+                          </div>
+                          <div class="d-inline-block px-2 py-1" style="background:#f5f5f5;font-size:12px">
+                            <div class="d-inline-block mr-3 grey--text text--small">
+                                <v-icon small>
+                                    mdi-clock-outline
+                                </v-icon>
+                                {{article.published_at}}
+                            </div>
+                            <div class="d-inline-block mr-3 grey--text text--small">
+                                <v-icon small>
+                                    mdi-eye-outline
+                                </v-icon>
+                                {{article.total_view}}
+                            </div>
+                            <div class="d-inline-block mr-3 grey--text text--small">
+                                <v-icon small>
+                                    mdi-message-reply
+                                </v-icon>
+                                {{article.total_comment}}
+                            </div>
+                          </div>
+                      </div>
+
+                      <!-- TITLE -->
+                      <h2 class="mb-3">{{article.title}}</h2>
+
+                      <div class="article-thumb">
+                          <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
+                      </div>
+
+                      <!-- CONTENT -->
+                      <div v-html="article.content"></div>
+
+                      <hr>
+
+                      <!-- WRITER -->
+                      <div class="mt-4">
+                          <span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
+                          <v-row>
+                              <v-col cols="2">
+                                  <v-avatar>
+                                      <v-img :src="writer.avatar"></v-img>
+                                  </v-avatar>
+                              </v-col>
+                              <v-col cols="10">
+                                  <strong>{{writer.name}}</strong><br>
+                                  Writer
+                              </v-col>
+                          </v-row>
+                      </div>
+                  </v-col>
+              </v-row>
+
+              <!-- TERBARU -->
+              <div class="text-center">
+                ARTIKEL TERBARU LAINNYA
+              </div>
+              <Terbaru :items="latests" class="mb-5 pb-5"/>
+              <!-- <v-row class="mb-5">
                 <v-col cols="12">
-                    <!-- META 1 -->
-                    <div class="mb-1">
-                        <div class="d-inline-block mr-2">
-                            <a @click="$router.push('/'+article.type+'/'+article.reaction)">{{article.reaction}}</a>
-                        </div>
-                    </div>
-
-                    <!-- TITLE -->
-                    <h2 class="mb-3">{{article.title}}</h2>
-
-                    <!-- META 2 -->
-                    <div class="mb-4">
-                        <div class="d-inline-block mr-3 grey--text text--small">
-                            <v-icon small>
-                                mdi-clock-outline
-                            </v-icon>
-                            {{article.published_at}}
-                        </div>
-                        <div class="d-inline-block mr-3 grey--text text--small">
-                            <v-icon small>
-                                mdi-eye-outline
-                            </v-icon>
-                            {{article.total_view}}
-                        </div>
-                        <div class="d-inline-block mr-3 grey--text text--small">
-                            <v-icon small>
-                                mdi-message-reply
-                            </v-icon>
-                            {{article.total_comment}}
-                        </div>
-                    </div>
-
-                    <div class="article-thumb">
-                        <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div v-html="article.content"></div>
-
-                    <hr>
-
-                    <!-- WRITER -->
-                    <div class="mt-4">
-                        <span class="grey--text">Article ini dibuat oleh tim Playworld Indonesia</span><br>
-                        <v-row>
-                            <v-col cols="2">
-                                <v-avatar>
-                                    <v-img :src="writer.avatar"></v-img>
-                                </v-avatar>
-                            </v-col>
-                            <v-col cols="10">
-                                <strong>{{writer.name}}</strong><br>
-                                <span class="grey--text">{{article.created_at}}</span>
-                            </v-col>
-                        </v-row>
-                    </div>
+                  <v-btn
+                  tile
+                  block
+                  depressed
+                  dark
+                  color="deep-orange"
+                  @click="loadMore(next)">
+                    Load More
+                  </v-btn>
                 </v-col>
-            </v-row>
+              </v-row> -->
+
+            </template>
+
+            <!-- COMMENT -->
+            <template v-if="isComment">
+              KOMENTAR
+            </template>
+
+            <!-- QUIZ -->
+            <template v-if="isQuiz">
+              QUIZ
+            </template>
         </v-container>
 
+        <v-bottom-navigation
+          fixed
+          dark
+          grow
+          color="white"
+          background-color="black"
+        >
+          <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
+            <span>Artikel</span>
+          </v-btn>
+
+          <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
+            <span>Komentar</span>
+          </v-btn>
+
+          <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
+            <span>Quiz</span>
+          </v-btn>
+        </v-bottom-navigation>
     </section>
 </template>
 
 <script>
 import ArticleService from '@/services/ArticleService'
+import Terbaru from '@/components/article/Terbaru'
 export default {
+    components: {
+      Terbaru
+    },
     data() {
         return {
+            id: '',
             title: '',
             article: '',
             writer: '',
+            isArticle: true,
+            isComment: false,
+            isQuiz: false,
+            latests: [],
             items: [
                 {
                     text: this.$route.params.cat,
@@ -113,18 +171,36 @@ export default {
             console.log(this.$route.params.articleslug)
             try {
                 let res = await ArticleService.getDetail(this.$route.params.articleslug)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                this.id = res.data.data.article.id
                 this.article = res.data.data.article
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
+                this.fetchLatest()
             } catch (error) {
                 console.log(error)
             }
-        }
+        },
+        async fetchLatest() {
+            try {
+                const res = await ArticleService.getLatest()
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var articles = res.data.data
+                articles.forEach(element => {
+                  console.log(element.id)
+                  if( element.id != this.id ) {
+                    this.latests.push(element)
+                  }
+                });
+            } catch (error) {
+                console.log(error)
+            }
+        },
     },
     created() {
         this.fetchContent()
+        //this.fetchLatest()
     }
 }
 </script>
@@ -158,8 +234,14 @@ export default {
     .v-breadcrumbs__item:not(.v-breadcrumbs__item--disabled)
         color: #ff9800!important
     .article-thumb
-        margin: 0 -12px
+        margin: 0 -20px
     .v-content__wrap
         max-width: 100%
         overflow-x: hidden
+    .container
+      padding: 12px 20px
+    p
+      small
+        line-height:0
+        opacity:.5
 </style>

@@ -4,14 +4,17 @@ export default {
     getPromotedNews(){
         return Api().get('/article/promoted/')
     },
+    getLatest(){
+      return Api().get('/article/latest')
+    },
     getTopPoin() {
         return Api().get('/poin/top-poin/')
     },
     getTukarPoin() {
       return Api().get('/redeem/promoted/')
     },
-    getTopViews() {
-        return Api().get('/article/top-views/')
+    getTopViews(n) {
+        return Api().get('/article/top-views/?page='+n)
     },
     getSixty() {
         return Api().get('/article/category/sixty-widget/viral/')
