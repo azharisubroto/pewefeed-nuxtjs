@@ -12,24 +12,24 @@
                   <v-col cols="12">
                       <!-- META 1 -->
                       <div class="mb-1">
-                          <div class="d-inline-block mr-2">
+                          <div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
                               <a @click="$router.push('/'+article.type+'/'+article.reaction)">{{article.reaction}}</a>
                           </div>
-                          <div class="d-inline-block px-2 py-1" style="font-size:12px">
+                          <div class="d-inline-block" style="font-size:12px">
                             <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
+                                <v-icon small size="12">
                                     mdi-clock-outline
                                 </v-icon>
                                 {{article.published_at}}
                             </div>
                             <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
+                                <v-icon small size="12">
                                     mdi-eye-outline
                                 </v-icon>
                                 {{article.total_view}}
                             </div>
                             <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
+                                <v-icon small size="12">
                                     mdi-message-reply
                                 </v-icon>
                                 {{article.total_comment}}
@@ -66,12 +66,14 @@
                       </div>
                   </v-col>
               </v-row>
-
+              <hr>
               <!-- TERBARU -->
-              <div class="text-center">
-                ARTIKEL TERBARU LAINNYA
-              </div>
-              <Terbaru :items="latests" class="mb-5 pb-5"/>
+              <section class="py-4">
+                <div class="text-center mb-3">
+                  ARTIKEL TERBARU LAINNYA
+                </div>
+                <Terbaru :items="latests" class="mb-5 pb-5"/>
+              </section>
               <!-- <v-row class="mb-5">
                 <v-col cols="12">
                   <v-btn

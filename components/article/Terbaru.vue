@@ -32,10 +32,10 @@ export default {
         var url, cropped
         if( article.link != 'https://m.playworld.id/sixty' ) {
             url = article.link
-            cropped = url.replace('https://playworld.id/', '')
+            cropped = url.replace('https://playworld.id', '')
         } else {
             url = article.link_detail
-            cropped = url.replace('https://m.playworld.id/', '')
+            cropped = url.replace('https://m.playworld.id', '')
         }
         return cropped
     },
