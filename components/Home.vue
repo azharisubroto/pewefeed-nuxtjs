@@ -1,64 +1,77 @@
 <template>
     <div>
-        <!-- LATEST -->
-        <flickity ref="flickity" :options="flickityOptions">
-          <div
-          v-for="article in articles"
-          :key="article.id"
-          @click="$router.push(link(article))"
-          class="featured-item">
-            <v-img
-              :src="article.image.small"
-              aspect-ratio="1"
-              class="grey lighten-2"
-            ></v-img>
-            <div class="caption">
-              <div class="caption-inner">
-                <strong>{{article.type}}</strong>
-                <h2 class="mt-1">{{ article.title }}</h2>
+        <v-skeleton-loader v-if="articles==''"
+          class="mx-auto mt-5"
+          type="image"
+        ></v-skeleton-loader>
+
+        <template v-if="articles">
+          <!-- LATEST -->
+          <flickity ref="flickity" :options="flickityOptions">
+            <div
+            v-for="article in articles"
+            :key="article.id"
+            @click="$router.push(link(article))"
+            class="featured-item">
+              <v-img
+                :src="article.image.small"
+                aspect-ratio="1"
+                class="grey lighten-2"
+              ></v-img>
+              <div class="caption">
+                <div class="caption-inner">
+                  <strong>{{article.type}}</strong>
+                  <h2 class="mt-1">{{ article.title }}</h2>
+                </div>
               </div>
             </div>
-          </div>
-        </flickity>
+          </flickity>
+        </template>
 
-        <!-- TOP VIEWS -->
-        <div class="mt-5">
-          <v-container>
-            <Terbaru :items="topviews"/>
-            <v-row>
-              <v-col cols="12">
-                <v-btn
-                tile
-                block
-                depressed
-                dark
-                color="deep-orange"
-                @click="loadMore(next)">
-                  Load More
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-        <!-- <div class="my-3">
-            <div class="px-3">
-                <div class="text-capitalize d-flex justify-space-between">
-                    <div>
-                        Sixty
-                    </div>
-                    <v-btn
-                    @click="$router.push('/sixty')"
-                    icon
-                    >
-                        <v-icon>
-                            mdi-arrow-right
-                        </v-icon>
-                    </v-btn>
-                </div>
-                <hr>
-            </div>
-            <TopViews :items="sixty" :isvideo="true"/>
-        </div> -->
+        <v-skeleton-loader v-if="topviews.length==0"
+          class="mx-auto mt-5"
+          type="list-item-avatar-three-line"
+        ></v-skeleton-loader>
+        <template v-if="topviews">
+          <!-- TOP VIEWS -->
+          <div class="mt-5">
+            <v-container>
+              <Terbaru :items="topviews"/>
+              <v-row>
+                <v-col cols="12">
+                  <v-btn
+                  tile
+                  block
+                  depressed
+                  dark
+                  color="deep-orange"
+                  @click="loadMore(next)">
+                    Load More
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </div>
+          <!-- <div class="my-3">
+              <div class="px-3">
+                  <div class="text-capitalize d-flex justify-space-between">
+                      <div>
+                          Sixty
+                      </div>
+                      <v-btn
+                      @click="$router.push('/sixty')"
+                      icon
+                      >
+                          <v-icon>
+                              mdi-arrow-right
+                          </v-icon>
+                      </v-btn>
+                  </div>
+                  <hr>
+              </div>
+              <TopViews :items="sixty" :isvideo="true"/>
+          </div> -->
+        </template>
     </div>
 </template>
 
@@ -116,6 +129,7 @@ export default {
                 newData.forEach(element => {
                   this.topviews.push(element)
                 });
+                this.next += 1
             } catch (error) {
                 console.log(error)
             }
@@ -220,13 +234,14 @@ export default {
     .flickity-page-dots {
       bottom: 20px!important;
       .dot {
-        background: #fff;
-        opacity: .5;
-        width: 7px;
-        height: 7px;
+        background: #fff!important;
+        opacity: .5!important;
+        width: 7px!important;
+        height: 7px!important;
+        &.is-selected {
+          background-color: var(--primary)!important;
+          opacity:1!important;
+        }
       }
-    }
-    .dot.is-selected {
-      background-color: var(--primary)
     }
 </style>

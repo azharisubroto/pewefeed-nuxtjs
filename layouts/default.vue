@@ -218,12 +218,12 @@ export default {
 <style lang="scss">
   body {
     --primary: #fb9702;
-    --viral: #46c0ef;
-    --sport: #68a457;
-    --piknik: #803bdc;
-    --lagu: #d54444;
-    --nonton: #000;
-    --tekno: #8d8988
+    --VIRAL: #46c0ef;
+    --SPORT: #68a457;
+    --PIKNIK: #803bdc;
+    --LAGU: #d54444;
+    --NONTON: #000;
+    --TEKNO: #8d8988
   }
 	.v-toolbar {
 		flex: initial;

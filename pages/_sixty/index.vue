@@ -13,44 +13,30 @@
                       <!-- META 1 -->
                       <div class="mb-1">
                           <div class="d-inline-block mr-2">
-                              <a @click="$router.push('/'+article.type+'/'+article.reaction)">{{article.reaction}}</a>
+                              SIXTY
                           </div>
-                          <div class="d-inline-block px-2 py-1" style="font-size:12px">
+                          <div class="d-inline-block px-2 py-1" style="background:#f5f5f5;font-size:12px">
                             <div class="d-inline-block mr-3 grey--text text--small">
                                 <v-icon small>
                                     mdi-clock-outline
                                 </v-icon>
-                                {{article.published_at}}
-                            </div>
-                            <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
-                                    mdi-eye-outline
-                                </v-icon>
-                                {{article.total_view}}
-                            </div>
-                            <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
-                                    mdi-message-reply
-                                </v-icon>
-                                {{article.total_comment}}
+                                {{article.article.publish_at}}
                             </div>
                           </div>
                       </div>
 
                       <!-- TITLE -->
-                      <h2 class="mb-3">{{article.title}}</h2>
+                      <h2 class="mb-3">{{article.detail.title}}</h2>
 
-                      <div class="article-thumb">
-                          <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
-                      </div>
+                      <div v-html="article.detail.embed"></div>
 
                       <!-- CONTENT -->
-                      <div v-html="article.content"></div>
+                      <div class="iframe" v-html="article.content"></div>
 
                       <hr>
 
                       <!-- WRITER -->
-                      <div class="mt-4">
+                      <!-- <div class="mt-4">
                           <span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
                           <v-row>
                               <v-col cols="2">
@@ -63,7 +49,7 @@
                                   Writer
                               </v-col>
                           </v-row>
-                      </div>
+                      </div> -->
                   </v-col>
               </v-row>
 
@@ -168,12 +154,12 @@ export default {
     },
     methods: {
         async fetchContent() {
-            console.log(this.$route.params.articleslug)
+            console.log(this.$route.params.sixty)
             try {
-                let res = await ArticleService.getDetail(this.$route.params.articleslug)
+                let res = await ArticleService.getSixtyDetail(this.$route.params.sixty)
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.article.id
-                this.article = res.data.data.article
+                this.article = res.data.data
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
@@ -244,4 +230,6 @@ export default {
       small
         line-height:0
         opacity:.5
+    iframe
+      width: 100%
 </style>

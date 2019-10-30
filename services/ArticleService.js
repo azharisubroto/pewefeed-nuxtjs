@@ -21,5 +21,8 @@ export default {
     },
     getDetail(slug) {
         return Api().get('/article/'+slug)
+    },
+    getSixtyDetail(slug) {
+      return Api().get('/sixty/detail/'+slug)
     }
 }
