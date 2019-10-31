@@ -11,17 +11,17 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title @click="$router.push('/')">
-			<v-img
-			src="/img/playworld-logo.png"
-			width="130"
-			></v-img>
-		</v-toolbar-title>
+          <v-img
+          src="/img/playworld-logo.png"
+          width="130"
+          ></v-img>
+        </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
 
-        <!-- <v-btn icon>
+        <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
-        </v-btn> -->
+        </v-btn>
 
         <!-- <v-menu
           left
@@ -45,8 +45,20 @@
         </v-menu> -->
       </v-app-bar>
 
+      <v-tabs grow color="deep-orange" class="pw-tab">
+        <v-tab @click="$router.push('/')">Trending</v-tab>
+        <v-tab @click="$router.push('/tukarpoin')">Tukar Poin</v-tab>
+        <v-tab>Viral</v-tab>
+        <v-tab>Lagu</v-tab>
+        <v-tab>Nonton</v-tab>
+        <v-tab>Piknik</v-tab>
+        <v-tab>Tekno</v-tab>
+        <v-tab>Sport</v-tab>
+        <v-tab>Video</v-tab>
+      </v-tabs>
+
       <!-- CONTENT -->
-      <v-content>
+      <v-content class="maincontent">
         <nuxt />
       </v-content>
       <!-- CONTENT -->
@@ -179,6 +191,7 @@ export default {
 		logout() {
 			let vm = this;
 			localStorage.removeItem('loggedin');
+			localStorage.removeItem('access-token');
 			this.isLoggedIn = false;
 			this.isLogin();
 			vm.$router.push("/member/login");
@@ -225,6 +238,9 @@ export default {
     --NONTON: #000;
     --TEKNO: #8d8988
   }
+  .theme--light.v-application{
+    background: #fff;
+  }
 	.v-toolbar {
 		flex: initial;
 	}
@@ -241,7 +257,7 @@ export default {
 	}
 
 	.v-content__wrap {
-		padding-top: 56px;
+		padding-top: 100px;
 	}
 
   .scroller {
@@ -254,6 +270,19 @@ export default {
     &::-webkit-scrollbar {
       display: none
     }
+  }
+
+  .theme--light.v-navigation-drawer {
+    z-index:100;
+  }
+  .pw-tab {
+    position: fixed;
+    top: 55px;
+    z-index:10
+  }
+
+  .v-slide-group__prev {
+    display:none!important;
   }
 
 </style>

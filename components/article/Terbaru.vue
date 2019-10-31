@@ -25,7 +25,7 @@
           <h2>{{article.title}}</h2>
           <div class="meta text--gray" style="font-size:12px;">
             <span :class="article.type">{{ isSixty(article.title) ? 'SIXTY/' : ''}}</span>
-            <span :class="article.type">{{article.type}}</span> - {{article.published_at}}
+            <span :class="article.type">{{article.type}}</span> - {{article.published_at ? article.published_at : article.publish_at}}
           </div>
       </v-col>
     </v-row>
