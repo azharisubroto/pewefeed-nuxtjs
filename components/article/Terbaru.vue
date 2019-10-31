@@ -11,11 +11,20 @@
           :src="article.image.small"
           aspect-ratio="1"
           class="grey lighten-2"
-        ></v-img>
+        >
+          <v-icon
+          dark
+          size="35"
+          class="playbutton"
+          v-if="isSixty(article.title)">
+            mdi-play-circle-outline
+          </v-icon>
+        </v-img>
       </v-col>
       <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
           <h2>{{article.title}}</h2>
           <div class="meta text--gray" style="font-size:12px;">
+            <span :class="article.type">{{ isSixty(article.title) ? 'SIXTY/' : ''}}</span>
             <span :class="article.type">{{article.type}}</span> - {{article.published_at}}
           </div>
       </v-col>
@@ -39,6 +48,13 @@ export default {
         }
         return cropped
     },
+    isSixty(title) {
+      if( title.indexOf('SIXTY') >= 0 ) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
@@ -47,8 +63,16 @@ export default {
   .topview-item {
     h2 {
       font-size: 16px;
-      font-weight: normal;
+      font-weight: 500;
       line-height: 1.3
+    }
+    .playbutton {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      background: rgba(0,0,0,.5);
+      border-radius: 90px;
     }
     .VIRAL{color:var(--VIRAL)}
     .SPORT{color:var(--SPORT)}

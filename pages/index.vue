@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-tabs grow color="deep-orange">
+    <v-tabs grow color="deep-orange" class="pw-tab">
       <v-tab @click="article=true;pwpoin=false">Trending</v-tab>
       <v-tab @click="pwpoin=true;article=false">Tukar Poin</v-tab>
       <v-tab>Viral</v-tab>
@@ -12,8 +12,10 @@
       <v-tab>Video</v-tab>
     </v-tabs>
 
-    <Home v-if="article==true"/>
-    <PwPoin v-if="pwpoin==true"/>
+    <div class="pw-tab-container">
+      <Home v-if="article==true"/>
+      <PwPoin v-if="pwpoin==true"/>
+    </div>
   </section>
 </template>
 
@@ -46,5 +48,13 @@ export default {
 <style lang="scss">
   .v-slide-group__prev{
     display: none!important;
+  }
+  .pw-tab {
+    position: fixed;
+    top: 57px;
+    z-index:10
+  }
+  .pw-tab-container {
+    padding-top: 50px;
   }
 </style>
