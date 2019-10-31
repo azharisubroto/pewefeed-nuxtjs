@@ -15,9 +15,9 @@
                           <div class="d-inline-block mr-2">
                               SIXTY
                           </div>
-                          <div class="d-inline-block px-2 py-1" style="background:#f5f5f5;font-size:12px">
+                          <div class="d-inline-block">
                             <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small>
+                                <v-icon>
                                     mdi-clock-outline
                                 </v-icon>
                                 {{article.article.publish_at}}

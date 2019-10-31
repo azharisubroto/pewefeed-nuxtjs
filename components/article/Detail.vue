@@ -68,11 +68,20 @@
               </v-row>
               <hr>
               <!-- TERBARU -->
-              <section class="py-4">
+              <section class="py-4 mb-5 pb-5">
                 <div class="text-center mb-3">
                   ARTIKEL TERBARU LAINNYA
                 </div>
-                <Terbaru :items="latests" class="mb-5 pb-5"/>
+                <Terbaru :items="latests"/>
+                <v-btn
+                tile
+                block
+                depressed
+                dark
+                color="deep-orange"
+                @click="loadMore(next)">
+                  Load More
+                </v-btn>
               </section>
               <!-- <v-row class="mb-5">
                 <v-col cols="12">
@@ -113,11 +122,11 @@
           </v-btn>
 
           <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
-            <span>Komentar</span>
+            <span>Komentar<br>(+2 Poin)</span>
           </v-btn>
 
           <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
-            <span>Quiz</span>
+            <span>Quiz<br>(+20 Poin)</span>
           </v-btn>
         </v-bottom-navigation>
     </section>
