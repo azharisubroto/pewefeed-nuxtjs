@@ -1,11 +1,12 @@
 <template>
   <section>
-    <Home/>
+    <PwPoin/>
   </section>
 </template>
 
 <script>
-import Home from '@/components/Home';
+import PwPoin from '@/components/article/PwPoin';
+
 
 export default {
   data(){
@@ -23,13 +24,7 @@ export default {
     }
   },
   components: {
-    Home
+    PwPoin
   },
 };
 </script>
-
-<style lang="scss">
-  .v-slide-group__prev{
-    display: none!important;
-  }
-</style>

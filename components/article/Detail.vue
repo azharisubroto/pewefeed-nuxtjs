@@ -13,7 +13,7 @@
                       <!-- META 1 -->
                       <div class="mb-1">
                           <div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
-                              <a @click="$router.push('/'+article.type+'/'+article.reaction)">{{article.reaction}}</a>
+                              {{article.type}}
                           </div>
                           <div class="d-inline-block" style="font-size:12px">
                             <div class="d-inline-block mr-3 grey--text text--small">
@@ -101,12 +101,99 @@
 
             <!-- COMMENT -->
             <template v-if="isComment">
-              KOMENTAR
+              <h4 class="mb-4 mt-5">123 Comments</h4>
+
+              <!-- TEXT AREA -->
+              <v-textarea
+                outlined
+                color="deep-orange"
+                label="Komentar"
+                value=""
+                counter
+                rows="3"
+                auto-grow
+                v-model="comment_message"
+              ></v-textarea>
+
+              <v-btn block dark depressed color="deep-orange" @click="postComment()">
+                <template v-if="!commentIsPosting">Kirim Komentar</template>
+                <template v-else>Mengirim Komentar...</template>
+              </v-btn>
+
+              <!-- KOMEN LIST -->
+              <div
+                class="comment-item"
+                v-for="comment in reverseComment"
+                :key="comment.id"
+                :id="'comment'+comment.comment_id"
+              >
+                <v-row>
+                  <v-col cols="2">
+                    <v-avatar size="30">
+                      <img
+                        :src="comment.customer.avatar ? comment.customer.avatar : '/img/user.jpeg'"
+                        onerror="this.src='/img/user.jpeg';"
+                      >
+                    </v-avatar>
+                  </v-col>
+                  <v-col cols="10">
+                    <strong>{{ comment.customer.name }}</strong><br>
+                    <div style="font-size:12px;">{{ comment.message }}</div>
+                    <div class="mt-2 caption text--gray">
+                      {{comment.commented_at}} - Balas
+                    </div>
+                  </v-col>
+                </v-row>
+              </div>
+              <div class="mb-5"></div>
             </template>
 
             <!-- QUIZ -->
             <template v-if="isQuiz">
-              QUIZ
+              <div v-if="quiz && answered != true" class="mt-5">
+                <h4>{{ quiz.question }}</h4>
+                <v-radio-group v-model="jawabanQuiz">
+                  <v-row>
+                    <v-col cols="6">
+                      <v-radio
+                      :label="`${quiz.option_a}`"
+                      value="A"
+                    ></v-radio>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-radio
+                      :label="`${quiz.option_b}`"
+                      value="B"
+                    ></v-radio>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-radio
+                      :label="`${quiz.option_c}`"
+                      value="C"
+                    ></v-radio>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-radio
+                      :label="`${quiz.option_d}`"
+                      value="D"
+                    ></v-radio>
+                    </v-col>
+                  </v-row>
+                </v-radio-group>
+
+                <v-btn
+                  block
+                  large
+                  dark
+                  depressed
+                  color="green"
+                  @click="submitAnswer()"
+                >KIRIM JAWABAN</v-btn>
+              </div>
+
+              <div v-else class="mt-5">
+                <img src="/img/cactus.svg" style="max-width:100%" alt="">
+              </div>
             </template>
         </v-container>
 
@@ -134,6 +221,7 @@
 
 <script>
 import ArticleService from '@/services/ArticleService'
+import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
 export default {
     components: {
@@ -149,6 +237,14 @@ export default {
             isComment: false,
             isQuiz: false,
             latests: [],
+            commentIsPosting: false,
+            comments: [],
+            comment_message: null,
+            quiz: null,
+            answered: false,
+            quiz_id: null,
+            jawabanQuiz: null,
+            user_id:null,
             items: [
                 {
                     text: this.$route.params.cat,
@@ -177,27 +273,41 @@ export default {
         ]
       }
     },
+    computed: {
+      reverseComment: function(){
+        var commentArr = this.comments
+        var finalArr = commentArr.reverse()
+        return finalArr
+      }
+    },
     methods: {
         async fetchContent() {
-            console.log(this.$route.params.articleslug)
+            //console.log(this.$route.params.articleslug)
             try {
                 let res = await ArticleService.getDetail(this.$route.params.articleslug)
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.article.id
                 this.article = res.data.data.article
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
-                this.fetchLatest()
+                this.comments = res.data.data.article.comments
+                if( res.data.data.quiz && res.data.data.quiz.id ) {
+                  this.quiz = res.data.data.quiz
+                  this.quiz_id = res.data.data.quiz.id
+                  this.answered = res.data.data.quiz.answered
+                }
+
+                this.fetchLatest(res.data.data.article.slug)
             } catch (error) {
                 console.log(error)
             }
         },
-        async fetchLatest() {
+        async fetchLatest(slug) {
             try {
-                const res = await ArticleService.getLatest()
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var articles = res.data.data
+                const res = await ArticleService.getRelated(slug)
+                //console.log(JSON.parse(JSON.stringify(res)))
+                var articles = res.data.data.article
                 articles.forEach(element => {
                   console.log(element.id)
                   if( element.id != this.id ) {
@@ -208,9 +318,62 @@ export default {
                 console.log(error)
             }
         },
+        async fetchUserdata() {
+          try {
+            const res = await UserService.getSingleUser()
+            this.user_id = res.data.data.id
+          } catch (error) {
+            console.log(error)
+          }
+        },
+        async fetchComment() {
+          try {
+            let res = await ArticleService.getDetail(this.$route.params.articleslug)
+            this.comments = res.data.data.article.comments
+          } catch (error) {
+              console.log(error)
+          }
+        },
+        async postComment() {
+          this.commentIsPosting = true;
+          const params = {
+            id: this.id,
+            msg: this.comment_message,
+            type: 'news'
+          }
+
+          try {
+            const res = await UserService.postComment(params)
+            console.log(res)
+            this.fetchComment()
+            this.commentIsPosting = false;
+            this.comment_message = null;
+          } catch (error) {
+            console.log(error)
+            this.commentIsPosting = false;
+            alert('error! ' + error.message)
+          }
+        },
+        async submitAnswer() {
+          const params = {
+            jawaban: this.jawabanQuiz,
+            quiz_id: this.quiz_id
+          }
+          try {
+            const res = await UserService.answerQuiz(params)
+            console.log(res)
+            if( res.status == 200 ) {
+              alert(res.data.data.message)
+              this.answered = true
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        }
     },
     created() {
         this.fetchContent()
+        this.fetchUserdata()
         //this.fetchLatest()
     }
 }
@@ -255,4 +418,8 @@ export default {
       small
         line-height:0
         opacity:.5
+
+    .comment-item
+      padding: 10px 0
+      border-bottom: 1px solid #e5e5e5
 </style>

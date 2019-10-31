@@ -7,6 +7,9 @@ export default {
     getLatest(){
       return Api().get('/article/latest')
     },
+    getRelated(slug) {
+      return Api().get('/article/latest/'+slug)
+    },
     getTopPoin() {
         return Api().get('/poin/top-poin/')
     },
