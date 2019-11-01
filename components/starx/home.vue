@@ -117,15 +117,14 @@ export default {
     },
     methods: {
         async StarxHome () {
-            await StarxService.getStarx()
-            .then(response => {
+            try {
+                const response = await StarxService.getStarx()
                 const results = response.data.data
                 this.eskuls = results.eskuls
                 // console.log(JSON.parse(JSON.stringify(this.eskuls)))
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted () {

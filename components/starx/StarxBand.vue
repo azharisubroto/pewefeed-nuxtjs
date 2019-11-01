@@ -397,8 +397,8 @@ export default {
             return propername;
         },
         async StarxBandHome () {
-            await StarxService.getBand()
-            .then(response => {
+            try {
+                const response = await StarxService.getBand()
                 this.wholeResponse = response.data.data;
                 this.latests = this.wholeResponse.latests;
                 this.prizes = this.wholeResponse.prizes;
@@ -406,34 +406,32 @@ export default {
                 this.length = response.data.last_page;
                 this.page = response.data.current_page;
                 // console.log(JSON.parse(JSON.stringify(this.latests)));
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
 
-            await StarxService.finalist()
-            .then(response => {
+            try {
+                const response = await StarxService.finalist()
                 // console.log(response)
                 this.finalists = response.data.data.finalist;
                 //console.log(JSON.parse(JSON.stringify(this.finalists)))
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
 
-            await StarxService.winners()
-            .then(response => {
+            try {
+                const response = await StarxService.finalist()
                 this.winners = response.data.data.winners;
-                console.log(JSON.parse(JSON.stringify(this.winners)))
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+                // console.log(JSON.parse(JSON.stringify(this.winners)))
+            } catch (error) {
+                console.log(error)
+            }
         },
-        next (page) {
+        async next (page) {
             this.setloading()
-            StarxService.getBandByPage(page)
-            .then(response => {
+
+            try {
+                const response = await StarxService.getBandByPage(page)
                 this.notloading()
                 this.wholeResponse = response.data.data;
                 this.latests = this.wholeResponse.latests;
@@ -442,10 +440,9 @@ export default {
                 this.length = response.data.last_page;
                 this.page = response.data.current_page;
                 // console.log(JSON.parse(JSON.stringify(this.latests)));
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted () {

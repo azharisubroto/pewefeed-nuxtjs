@@ -171,14 +171,13 @@ export default {
     },
     methods: {
         async getSchools () {
-            await SchoolsService.getSchools()
-            .then(response => {
+            try {
+                const response = await SchoolsService.getSchools()
                 //console.log(response.data.data);
                 this.schools = response.data.data;
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         },
         removeAllFiles() {
             this.$refs.dropzone.removeAllFiles();

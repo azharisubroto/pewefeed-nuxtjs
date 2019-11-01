@@ -234,20 +234,19 @@ export default {
         resetValidation () {
             this.$refs.form.resetValidation()
         },
-        submit() {
+        async submit() {
             let vm = this
 
             // send the form
             const sendform = vm.formdata
 
-            PurchaseService.xlMedia(sendform)
-            .then(res => {
+            try {
+                const res = await PurchaseService.xlMedia(sendform)
                 vm.responsemessage = res.data.message
                 console.log(res);
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            } catch (error) {
+                console.log(error);
+            }
 
             this.recaptchaToken = null;
         },
@@ -264,20 +263,24 @@ export default {
             // .catch(error => {
             //     console.log(error)
             // });
+        },
+
+        async fetchUser() {
+            try {
+                const res = await UserService.getSingleUser()
+                // console.log(res.data.status);
+                this.userdata = res.data.data;
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted() {
-        this.isLoggedIn = this.$store.getters.isLoggedIn;
-		if( this.isLoggedIn == true) {
-			UserService.getSingleUser()
-			.then(res => {
-				// console.log(res.data.status);
-				this.userdata = res.data.data;
-			})
-			.catch(err => {
-				console.log(err.response.data)
-			})
-		}
+        /* Init Data User to Customer Detail */
+        this.isLoggedIn = localStorage.getItem('loggedin');
+        if( this.isLoggedIn == 'true') {
+            this.fetchUser()
+        }
     }
 }
 </script>
