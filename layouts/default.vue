@@ -46,8 +46,8 @@
       </v-app-bar>
 
       <v-tabs grow color="deep-orange" class="pw-tab">
-        <v-tab @click="$router.push('/')">Trending</v-tab>
-        <v-tab @click="$router.push('/tukarpoin')">Tukar Poin</v-tab>
+        <v-tab to="/">Trending</v-tab>
+        <v-tab to="/toko">Tukar Poin</v-tab>
         <v-tab>Viral</v-tab>
         <v-tab>Lagu</v-tab>
         <v-tab>Nonton</v-tab>
@@ -283,6 +283,28 @@ export default {
 
   .v-slide-group__prev {
     display:none!important;
+  }
+
+  .topview-item {
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.3
+    }
+    .playbutton {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      background: rgba(0,0,0,.5);
+      border-radius: 90px;
+    }
+    .VIRAL{color:var(--VIRAL)}
+    .SPORT{color:var(--SPORT)}
+    .PIKNIK{color:var(--PIKNIK)}
+    .LAGU{color:var(--LAGU)}
+    .NONTON{color:var(--NONTON)}
+    .TEKNO{color:var(--TEKNO)}
   }
 
 </style>

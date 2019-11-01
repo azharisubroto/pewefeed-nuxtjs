@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import PwPoin from '@/components/article/PwPoin';
-
-
+import PwPoin from '@/components/TukarPoin/TukarPoin';
 export default {
   data(){
     return {
@@ -17,7 +15,7 @@ export default {
   },
   head() {
     return{
-      title: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!',
+      title: 'Tukar Poin',
       meta: [
         {hid: 'description', name: 'des', content:'Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward.'}
       ]

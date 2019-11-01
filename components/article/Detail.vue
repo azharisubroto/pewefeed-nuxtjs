@@ -6,40 +6,43 @@
         ></v-skeleton-loader>
 
         <v-container v-if="article" class="mb-5 pb-5">
+            <v-row>
+              <v-col>
+                <!-- META 1 -->
+                <div class="mb-1">
+                    <div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
+                        {{article.type}}
+                    </div>
+                    <div class="d-inline-block" style="font-size:12px">
+                      <div class="d-inline-block mr-3 grey--text text--small">
+                          <v-icon small size="12">
+                              mdi-clock-outline
+                          </v-icon>
+                          {{article.published_at}}
+                      </div>
+                      <div class="d-inline-block mr-3 grey--text text--small">
+                          <v-icon small size="12">
+                              mdi-eye-outline
+                          </v-icon>
+                          {{article.total_view}}
+                      </div>
+                      <div class="d-inline-block mr-3 grey--text text--small">
+                          <v-icon small size="12">
+                              mdi-message-reply
+                          </v-icon>
+                          {{article.total_comment}}
+                      </div>
+                    </div>
+                </div>
+
+                <!-- TITLE -->
+                <h2 class="mb-0">{{article.title}}</h2>
+              </v-col>
+            </v-row>
             <!-- ARTICLE -->
             <template v-if="isArticle">
               <v-row class="pb-5">
                   <v-col cols="12">
-                      <!-- META 1 -->
-                      <div class="mb-1">
-                          <div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
-                              {{article.type}}
-                          </div>
-                          <div class="d-inline-block" style="font-size:12px">
-                            <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small size="12">
-                                    mdi-clock-outline
-                                </v-icon>
-                                {{article.published_at}}
-                            </div>
-                            <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small size="12">
-                                    mdi-eye-outline
-                                </v-icon>
-                                {{article.total_view}}
-                            </div>
-                            <div class="d-inline-block mr-3 grey--text text--small">
-                                <v-icon small size="12">
-                                    mdi-message-reply
-                                </v-icon>
-                                {{article.total_comment}}
-                            </div>
-                          </div>
-                      </div>
-
-                      <!-- TITLE -->
-                      <h2 class="mb-3">{{article.title}}</h2>
-
                       <div class="article-thumb">
                           <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
                       </div>
@@ -192,7 +195,9 @@
               </div>
 
               <div v-else class="mt-5">
-                <img src="/img/cactus.svg" style="max-width:100%" alt="">
+                <div class="text-center">
+                  Quiz Tidak Tersedia
+                </div>
               </div>
             </template>
         </v-container>

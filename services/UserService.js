@@ -10,5 +10,12 @@ export default {
     },
     answerQuiz(params) {
       return AuthApi().post('/member/post-quiz', params)
+    },
+    /**
+     * TUKAR POIN
+     * @param {redeem_id,target_point} params
+     */
+    tukarPoin(params) {
+      return AuthApi().post('/member/change-point', params)
     }
 }
