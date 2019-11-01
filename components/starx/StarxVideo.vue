@@ -63,7 +63,7 @@
                                         <h2 class="">Pilihan Juri</h2>
                                         <div>
                                             <VideoLoop 
-                                            v-if="latest.finalist_detail.category_choice == 'pilihan-juri'"
+                                            v-if="finalist.finalist_detail.category_choice == 'pilihan-juri'"
                                             :latest="latest"
                                             :activeBtn="2"
                                             :hiddendetail="true"
@@ -76,7 +76,7 @@
                                         <h2 class="">Calon Top Star</h2>
                                         <div>
                                             <VideoLoop 
-                                            v-if="latest.finalist_detail.category_choice == 'top-star'"
+                                            v-if="finalist.finalist_detail.category_choice == 'top-star'"
                                             :latest="latest"
                                             activeBtn="2"
                                             :hiddendetail="true"
@@ -96,7 +96,7 @@
                                 <v-row>
                                     <v-col cols="12" md="4">
                                         <div>
-                                            <h2 class=" text-capitalize">{{ propername(latest.winners_detail.winner_name) }}</h2>
+                                            <h2 class=" text-capitalize">{{ propername(winner.winners_detail.winner_name) }}</h2>
                                             <VideoLoop 
                                             :latest="latest"
                                             :activeBtn="3"
@@ -245,20 +245,19 @@ export default {
             return propername;
         },
         async StarxVideo () {
-            await StarxService.VideoDetail( this.$route.params.slug )
-            .then(response => {
+            try {
+                const response = await StarxService.VideoDetail( this.$route.params.detail )
                 this.wholeResponse = response.data.data;
                 this.latest = this.wholeResponse.latests;
                 this.finalist = this.wholeResponse.finalist;
+                console.log(this.finalist)
                 this.winner = this.wholeResponse.winners;
                 this.program = this.wholeResponse.program.term;
                 this.band = this.latest.band;
                 this.prizes = this.wholeResponse.prizes;
-                console.log(JSON.parse(JSON.stringify(this.latest)))
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted () {

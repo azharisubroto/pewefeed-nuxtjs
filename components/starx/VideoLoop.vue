@@ -10,7 +10,7 @@
         <v-card-text>
             <span>{{ latest.created_at }}</span><br>
             <span class="text--primary">
-                <span @click="$router.push('/starx/band/detail/'+latest.band.slug)">By: <strong>{{ latest.band.name }}</strong></span><br>
+                <span @click="$router.push('/starx/band/detail/'+latest.band.slug)">By: <strong>{{ latest.band ? latest.band.name : '-' }}</strong></span><br>
                 <span @click="$router.push('/starx/band_school/'+latest.school_slug)">{{ latest.school }}</span><br>
                 <span><v-icon color="yellow">mdi-star</v-icon></span>
                 <span class="starr ml-2" :id="'starcount-'+latest.id"><strong style="text-align: center; vertical-align: middle;">{{ latest.star }}</strong></span>
@@ -145,16 +145,17 @@ export default {
                 }
             }
         },
-        makeStar(id, bandid) {
-            if(this.$store.getters.isLoggedIn) {
+        async makeStar(id, bandid) {
+            this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
                 const sendstar = {
                     participant_id : id,
                     band_id : bandid,
                     phase : this.activeBtn
                 };
 
-                StarxService.makeStar(sendstar)
-                .then(res => {
+                try {
+                    const res = await StarxService.makeStar(sendstar)
                     if (res.data.status == 200) {
                         this.snackbar = true;
                         this.responsemessage = 'Selamat! anda mendapat extra poin 20 poin';
@@ -166,10 +167,9 @@ export default {
                         this.snacksrc = '';
                         this.responsemessage = 'Anda sudah memberi star video ini';
                     }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+                } catch (error) {
+                    console.log(error)
+                }
             }
         },
         myDialogClose () {
@@ -178,10 +178,11 @@ export default {
             this.notVipDialogVisible = false
             // other code
         },
-        checkVIP(id, bandid) {
-            if (this.$store.getters.isLoggedIn) {
-                UserService.getSingleUser()
-                .then(res => {
+        async checkVIP(id, bandid) {
+            this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+                try {
+                    const res = await UserService.getSingleUser()
                     // console.log(res.data.status);
                     if (new Date(res.data.data.expire) > new Date() ) {
                         this.makeStar(id, bandid);
@@ -189,14 +190,13 @@ export default {
                         // if not vip, show dialog
                         this.notVipDialogVisible = true
                     }
-                })
-                .catch(err => {
-                    console.log(err.response.data)
-                })
+                } catch (error) {
+                    console.log(error)
+                }
             } else {
                 this.pleaseLoginDialogVisible = true
             }
         }
-    }
+    },
 }
 </script>
