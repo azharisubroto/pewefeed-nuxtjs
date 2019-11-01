@@ -396,8 +396,8 @@ export default {
             return propername;
         },
         async getSchoolDetail () {
-            await StarxService.SchoolDetail( this.$route.params.schoolslug )
-            .then(response => {
+            try {
+                const response = await StarxService.SchoolDetail( this.$route.params.schoolslug )
                 this.band = response.data.data.band
                 if (response.data.data.band.avatar) {
                     this.avatar = response.data.data.band.avatar
@@ -413,17 +413,13 @@ export default {
                 this.prizes = this.wholeResponse.prizes;
                 this.school = this.wholeResponse.school
                 console.log(JSON.parse(JSON.stringify(response.data)))
-            })
-            .catch(error => {
+            } catch (error) {
                 console.log(error)
-            });
-        },
-        init() {
-            this.getSchoolDetail();
+            }
         }
     }, 
     mounted() {
-        this.init();
+        this.getSchoolDetail();
     }
 }
 </script>

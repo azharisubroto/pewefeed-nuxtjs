@@ -45,7 +45,7 @@
             >
                 <v-input
                 messages="Tambahkan data personel band kamu"
-                prepend-icon="person"
+                prepend-icon="mdi mdi-account"
                 >
                 Daftar Personil
                 </v-input>
@@ -122,21 +122,20 @@
 
                 <v-btn @click="addPersonel()" depressed block medium dark color="blue-grey lighten-2">Tambah Personel +</v-btn>
                 <!-- <pre>{{$data.bandData}}</pre> -->
+                <v-divider class="my-2"></v-divider>
+                <v-btn
+                    color="green accent-6"
+                    dark
+                    x-large
+                    block
+                    depressed
+                    class="mb-12"
+                    @click="saveForm()"
+                >
+                    SAVE DATA BAND
+                </v-btn>
             </v-col>
         </v-container>
-
-
-        <v-btn
-            color="green accent-6"
-            dark
-            x-large
-            block
-            depressed
-            tile
-            @click="saveForm()"
-        >
-            SAVE DATA BAND
-        </v-btn>
         <v-snackbar
             v-model="snackbar"
             :timeout="timeout"
@@ -156,14 +155,10 @@
 </template>
 
 <script>
-import vueDropzone from "vue2-dropzone";
 import Vue from 'vue';
 import StarxIzinService from '@/services/StarxIzinService';
 export default {
     name: "StarxProfile",
-    components:{
-        vueDropzone
-    },
     data(){
         return{
             snackbar: false,
@@ -254,43 +249,41 @@ export default {
             // console.log(i);
             Vue.set(this.bandData.avatar, i, response.link)
         },
-        saveForm() {
+        async saveForm() {
             let vm = this
             var formdata = JSON.parse(JSON.stringify(vm.bandData))
             //console.log(formdata);
-            StarxIzinService.submitBand(formdata)
-            .then( function(){
-                //console.log(response);
+            try {
+                const res = await StarxIzinService.submitBand(formdata)
                 vm.snackbar = true;
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         },
+        async checkIzin() {
+            try {
+                const response = await StarxIzinService.checkIzin()
+                // console.log(response.data.data.band.band);
+                var band = response.data.data.band.band;
+                if( band ) {
+                    vm.bandData.name_band = band.band_name
+                    vm.bandData.avatarband = band.avatar
+                    var band_detail = band.band_detail
+                    //console.log(band_detail);
+                    for(var i = 0, j = band_detail.length; i < j; ++i) {
+                        vm.bandData.nama_personil.push(Vue.util.extend(band_detail[i].personnel_name));
+                        vm.bandData.instagram.push(Vue.util.extend(band_detail[i].instagram));
+                        vm.bandData.avatar.push(Vue.util.extend(band_detail[i].avatar));
+                        vm.bandData.personil_posisi.push(Vue.util.extend(band_detail[i].position.id));
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
     },
     mounted() {
-        // console.log(localStorage.getItem('access-token'));
-        let vm = this
-        StarxIzinService.checkIzin()
-        .then( responsse => {
-            // console.log(responsse.data.data.band.band);
-            var band = responsse.data.data.band.band;
-            if( band ) {
-                vm.bandData.name_band = band.band_name
-                vm.bandData.avatarband = band.avatar
-                var band_detail = band.band_detail
-                //console.log(band_detail);
-                for(var i = 0, j = band_detail.length; i < j; ++i) {
-                    vm.bandData.nama_personil.push(Vue.util.extend(band_detail[i].personnel_name));
-                    vm.bandData.instagram.push(Vue.util.extend(band_detail[i].instagram));
-                    vm.bandData.avatar.push(Vue.util.extend(band_detail[i].avatar));
-                    vm.bandData.personil_posisi.push(Vue.util.extend(band_detail[i].position.id));
-                }
-            }
-        })
-        .catch(error => {
-            console.log(error.response.data)
-        })
+        this.checkIzin()
     }
 }
 </script>

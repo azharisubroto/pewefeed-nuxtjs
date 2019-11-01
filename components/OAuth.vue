@@ -15,9 +15,6 @@
 </template>
 
 <script>
-if (process.browser) {
-    require('oauthio-web')
-}
 import axios from 'axios'
 export default {
     props: ["provider", "btnclass"],

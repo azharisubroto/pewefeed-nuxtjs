@@ -492,8 +492,8 @@ export default {
             return propername;
         },
         async getBandDetail () {
-            await StarxService.BandDetail( this.$route.params.bandslug )
-            .then(response => {
+            try {
+                const response = await StarxService.BandDetail( this.$route.params.bandslug )
                 // console.log(response);
                 this.band = response.data.data.band
                 if (response.data.data.band.avatar) {
@@ -510,17 +510,13 @@ export default {
                 this.prizes = this.wholeResponse.prizes;
                 this.school = this.wholeResponse.band.school;
                 // console.log(JSON.parse(JSON.stringify(response.data)))
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
-        },
-        init() {
-            this.getBandDetail();
+            } catch (error) {
+                console.log(error)
+            }
         }
     }, 
     mounted() {
-        this.init();
+        this.getBandDetail();
     }
 }
 </script>

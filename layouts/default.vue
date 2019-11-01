@@ -73,7 +73,7 @@
       >
         <v-list-item v-if="!isLogin()">
 			<v-list-item-avatar>
-				<v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+				<v-img src="/img/user.jpeg"></v-img>
 			</v-list-item-avatar>
 
 			<v-list-item-content>
@@ -83,7 +83,7 @@
 
 		<v-list-item v-if="isLogin()">
 			<v-list-item-avatar>
-				<v-img :src="userdata.avatar"></v-img>
+				<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"></v-img>
 			</v-list-item-avatar>
 
 			<v-list-item-content>

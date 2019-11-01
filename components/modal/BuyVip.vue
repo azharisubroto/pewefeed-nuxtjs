@@ -669,21 +669,20 @@
       },
 
       /* Set Data Order */
-      setOrder(voucherId,label,price, currentstep) {
+      async setOrder(voucherId,label,price, currentstep) {
         if (currentstep == 'midtrans') {
           const sendvoucher = {
             voucher_id : voucherId
           }
 
-          PurchaseService.midtrans(sendvoucher)
-          .then(res => {
-              if (res.status == 200) {
-                return console.log(res.status);
-              }
-          })
-          .catch(err => {
-              console.log(err.response.data)
-          })
+          try {
+            const res = await PurchaseService.midtrans(sendvoucher)
+            if (res.status == 200) {
+              return console.log(res.status);
+            }
+          } catch (error) {
+            console.log(error)
+          }
         } else {
           this.itemname = label
           this.itemprice = price
@@ -724,22 +723,21 @@
       },
 
       /* Submit Form */
-      submit() {
+      async submit() {
           let vm = this
 
           // send the form
           const sendform = vm.formdata
 
-          PurchaseService.BuyVip(sendform)
-          .then(res => {
-              vm.responsemessage = res.data.message
-              if (res.status == 200) {
-                this.e1 = 8;
-              }
-          })
-          .catch(err => {
-              console.log(err.response.data)
-          })
+          try {
+            const res = await PurchaseService.BuyVip(sendform)
+            vm.responsemessage = res.data.message
+            if (res.status == 200) {
+              this.e1 = 8;
+            }
+          } catch (error) {
+            console.log(error)
+          }
 
           this.recaptchaToken = null;
       },
@@ -758,19 +756,23 @@
         // .catch(error => {
         //     console.log(error)
         // });
+      },
+
+      async fetchUser() {
+        try {
+          const res = await UserService.getSingleUser()
+          // console.log(res.data.status);
+          this.userdata = res.data.data;
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
     mounted() {
       /* Init Data User to Customer Detail */
-      if(this.$store.getters.isLoggedIn) {
-        UserService.getSingleUser()
-        .then(res => {
-          // console.log(res.data.status);
-          this.userdata = res.data.data;
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+      this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+        this.fetchUser()
       }
     }
   }

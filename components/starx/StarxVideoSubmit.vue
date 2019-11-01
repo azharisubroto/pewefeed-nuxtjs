@@ -132,7 +132,8 @@ export default {
             snackbar: false,
             timeout: 5000,
             responsemessage: '',
-            participant: []
+            participant: [],
+            isLoggedIn: false
         }
     },
     computed: {
@@ -142,7 +143,6 @@ export default {
     },
     methods: {
         vidimg(iframe) {
-
             if( iframe.includes('iframe') ) {
                 var url = iframe,
                     /* eslint-disable */
@@ -184,14 +184,13 @@ export default {
         resetValidation () {
             this.$refs.form.resetValidation()
         },
-        submit() {
+        async submit() {
             let vm = this
 
             // send the form
             const sendform = vm.formdata
-
-            StarxIzinService.submitVideo(sendform)
-            .then(res => {
+            try {
+                const res = await StarxIzinService.submitVideo(sendform)
                 console.log(res.data.message)
                 vm.responsemessage = res.data.message
                 if( res.data.message == 'Video Already Exist' ) {
@@ -202,40 +201,39 @@ export default {
                     vm.reset
                     vm.fetchProgram();
                 }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            } catch (error) {
+                console.log(error)
+            }
         },
-        fetchProgram() {
+        async fetchProgram() {
             let vm = this
-            StarxIzinService.checkIzin()
-            .then( response => {
-                console.log(response.data.data);
+            try {
+                const response = await StarxIzinService.checkIzin()
+                // console.log(response.data.data);
                 var data = response.data.data;
                 vm.participant = data.participant;
                 localStorage.setItem('participant', JSON.stringify(data.participant));
-            })
-            .catch(error => {
+            } catch (error) {
                 console.log(error)
-            });
+            }
+        },
+        async fetchUser() {
+            this.isLoggedIn = localStorage.getIt
+			if( this.isLoggedIn == 'true') {
+                try {
+                    const res = await UserService.getSingleUser()
+                    vm.formdata.customer_id = res.data.data.id
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            var participant = JSON.parse(localStorage.getItem('participant'));
+            console.log(participant);
+            vm.participant = participant;
         }
     },
     mounted() {
-        let vm = this;
-        if(this.$store.getters.isLoggedIn) {
-            UserService.getSingleUser()
-            .then(res => {
-                // console.log(res.data.status);
-                vm.formdata.customer_id = res.data.data.id
-            })
-            .catch(err => {
-                console.log(err.response.data)
-            })
-        }
-        var participant = JSON.parse(localStorage.getItem('participant'));
-        console.log(participant);
-        vm.participant = participant;
+        this.fetchUser()
     }
 }
 </script>

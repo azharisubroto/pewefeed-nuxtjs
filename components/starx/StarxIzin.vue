@@ -126,13 +126,9 @@
 <script>
 import SchoolsService from '@/services/SchoolsService';
 import StarxIzinService from '@/services/StarxIzinService';
-import vueDropzone from "vue2-dropzone";
 import pdficon from '@/assets/img/pdf.png';
 export default {
     name: "StarxIzin",
-    components:{
-        vueDropzone
-    },
     data(){
         return{
             valid: false,
@@ -175,14 +171,13 @@ export default {
     },
     methods: {
         async getSchools () {
-            await SchoolsService.getSchools()
-            .then(response => {
+            try {
+                const response = await SchoolsService.getSchools()
                 //console.log(response.data.data);
                 this.schools = response.data.data;
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         },
         removeAllFiles() {
             this.$refs.dropzone.removeAllFiles();
@@ -191,7 +186,7 @@ export default {
             // console.log(response.link.replace(' ', '-'));
             this.pdfdownload = encodeURI(response.link);
         },
-        submitform () { 
+        async submitform () { 
             let vm = this
             vm.loading = true // loading
             var formdata = {
@@ -200,9 +195,9 @@ export default {
             }
             // console.log(formdata);
 
-            // Send data
-            StarxIzinService.submitIzin(formdata)
-            .then(response => {
+            try {
+                // Send data
+                const response = await StarxIzinService.submitIzin(formdata)
                 console.log(response.data.status);
                 // var res = response;
                 // console.log(res);
@@ -211,54 +206,51 @@ export default {
                 vm.izinexists = true
                 vm.isuploaded = true
                 vm.skp = vm.pdfdownload
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            } catch (error) {
+                console.log(error)
+            }
         },
+        async checkIzin() {
+            let vm = this
+            // school list, check local storage
+            const school_storage = localStorage.getItem('schools')
+            if ( school_storage ) {
+                var schoooool = JSON.parse(school_storage);
+                this.schools = schoooool;
+            } else {
+                this.getSchools();
+            }
+
+            // check access token,
+            const usertoken = localStorage.getItem('access-token');
+            if( usertoken ) {
+                this.usertoken = usertoken;
+                // console.log(this.usertoken);
+            }
+
+            try {
+                const response = await StarxIzinService.checkIzin()
+                // console.log(response.data.data);
+                var data = response.data.data;
+                var band = data.band.band;
+                if( band ) {
+                    var skp = band.skp
+                    vm.izinexists = true
+                    vm.schoolData = band.school;
+                    if( skp ) {
+                        vm.isuploaded = true
+                        vm.skp = skp;
+                    }
+                }
+                localStorage.setItem('syarat', data.program.term);
+                localStorage.setItem('participant', JSON.stringify(data.participant));
+            } catch (error) {
+                console.log(error)
+            }
+        }
     },
     mounted() {
-        let vm = this
-        // school list, check local storage
-        const school_storage = localStorage.getItem('schools')
-        if ( school_storage ) {
-            var schoooool = JSON.parse(school_storage);
-            this.schools = schoooool;
-        } else {
-            this.getSchools();
-        }
-
-        // check access token,
-        const usertoken = localStorage.getItem('access-token');
-        if( usertoken ) {
-            this.usertoken = usertoken;
-            // console.log(this.usertoken);
-        }
-
-        StarxIzinService.checkIzin()
-        .then( response => {
-            // console.log(response.data.data);
-            var data = response.data.data;
-            var band = data.band.band;
-            if( band ) {
-                var skp = band.skp
-                vm.izinexists = true
-                vm.schoolData = band.school;
-                if( skp ) {
-                    vm.isuploaded = true
-                    vm.skp = skp;
-                }
-            }
-            localStorage.setItem('syarat', data.program.term);
-            localStorage.setItem('participant', JSON.stringify(data.participant));
-        })
-        .catch(error => {
-            console.log(error.response.data)
-            if( error.response.status == 401 ) {
-                localStorage.setItem('loggedin', false);
-                vm.$router.push("/member/login");
-            }
-        });
+        this.checkIzin()
     }
 }
 </script>
