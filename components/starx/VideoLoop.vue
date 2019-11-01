@@ -104,7 +104,8 @@ export default {
         snackbar: false,
         snacksrc : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png',
         timeout: 3000,
-        responsemessage: ''
+        responsemessage: '',
+        isLoggedIn: false
     }),
     methods: {
         vidimg(iframe) {
