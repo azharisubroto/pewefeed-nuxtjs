@@ -5,7 +5,7 @@
           type="image"
         ></v-skeleton-loader>
 
-        <template v-if="articles">
+        <div v-if="articles">
           <!-- LATEST -->
           <flickity ref="flickity" :options="flickityOptions">
             <div
@@ -26,13 +26,13 @@
               </div>
             </div>
           </flickity>
-        </template>
+        </div>
 
         <v-skeleton-loader v-if="articleList.length==0"
           class="mx-auto mt-5"
           type="list-item-avatar-three-line"
         ></v-skeleton-loader>
-        <template v-if="articleList">
+        <div v-if="articleList">
           <div class="mt-5">
             <v-container>
                <Terbaru :items="articleList"/> 
@@ -51,7 +51,7 @@
               </v-row>
             </v-container>
           </div>
-        </template>
+        </div>
     </div>
 </template>
 

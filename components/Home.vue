@@ -5,7 +5,7 @@
           type="image"
         ></v-skeleton-loader>
 
-        <template v-if="articles">
+        <div v-if="articles">
           <!-- LATEST -->
           <flickity ref="flickity" :options="flickityOptions">
             <div
@@ -26,13 +26,13 @@
               </div>
             </div>
           </flickity>
-        </template>
+        </div>
 
         <v-skeleton-loader v-if="topviews.length==0"
           class="mx-auto mt-5"
           type="list-item-avatar-three-line"
         ></v-skeleton-loader>
-        <template v-if="topviews">
+        <div v-if="topviews">
           <!-- TOP VIEWS -->
           <div class="mt-5">
             <v-container>
@@ -71,7 +71,7 @@
               </div>
               <TopViews :items="sixty" :isvideo="true"/>
           </div> -->
-        </template>
+        </div>
     </div>
 </template>
 
