@@ -30,5 +30,11 @@ export default {
     },
     getSixtyDetail(slug) {
       return Api().get('/sixty/detail/'+slug)
-    }
+    },
+    getTrendingArticleByCategory(slug) {
+      return Api().get('/article/category/trending/' + slug)
+    },
+    getListArticleByCategory(slug) {
+    return Api().get('/article/category/list/' + slug)
+  }
 }
