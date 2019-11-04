@@ -178,7 +178,7 @@ export default {
             const items = res.data.data.content
             items.forEach(article => {
               var obj = {
-                id: element.id,
+                id: article.id,
                 image: {
                   small: article.thumbnail
                 },
