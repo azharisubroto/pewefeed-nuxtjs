@@ -143,11 +143,11 @@ export default {
                   }
                   this.sixty.push(obj)
                 });
-                if( res.data.data.length > 0 ) {
+                // if( res.data.data.length > 0 ) {
                   this.$nextTick(function() {
                     this.$refs.flickity.rerender();
                   });
-                }
+                // }
             } catch (error) {
                 console.log(error)
             }

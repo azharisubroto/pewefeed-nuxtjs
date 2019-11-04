@@ -138,11 +138,11 @@ export default {
           const res = await TukarPoinService.getFlashPoint()
           console.log(JSON.parse(JSON.stringify(res.data.flash_point)))
           this.flashpoints = res.data.flash_point
-          if (this.flashpoints.length > 0){
+          // if (this.flashpoints.length > 0){
             this.$nextTick(function() {
               this.$refs.flashPoin.rerender();
             });
-          }
+          // }
         } catch (error) {
           console.log(error)
         }

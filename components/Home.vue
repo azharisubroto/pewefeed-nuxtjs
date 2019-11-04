@@ -165,11 +165,11 @@ export default {
                 const res = await ArticleService.getLatest()
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.articles = res.data.data
-                if (res.data.data.length > 0) {
+                // if (res.data.data.length > 0) {
                   this.$nextTick(function() {
                     this.$refs.flickity.rerender();
                   });
-                }
+                // }
             } catch (error) {
                 console.log(error)
             }
