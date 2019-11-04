@@ -28,13 +28,12 @@
         <v-tab to="/">Trending</v-tab>
         <v-tab to="/video">Video</v-tab>
         <v-tab to="/toko">Tukar Poin</v-tab>
-        <v-tab>Viral</v-tab>
-        <v-tab>Lagu</v-tab>
-        <v-tab>Nonton</v-tab>
-        <v-tab>Piknik</v-tab>
-        <v-tab>Tekno</v-tab>
-        <v-tab>Sport</v-tab>
-        <v-tab>Video</v-tab>
+        <v-tab to="/viral">Viral</v-tab>
+        <v-tab to="/lagu">Lagu</v-tab>
+        <v-tab to="/nonton">Nonton</v-tab>
+        <v-tab to="/piknik">Piknik</v-tab>
+        <v-tab to="/tekno">Tekno</v-tab>
+        <v-tab to="/sport">Sport</v-tab>
       </v-tabs>
 
       <!-- CONTENT -->

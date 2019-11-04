@@ -4,7 +4,7 @@
       :class="['topview-item ', article.class ? article.class : '']"
       v-for="(article, i) in items"
       :key="'topview-'+article.id+'-'+i"
-      @click="$router.push( article.link )"
+      @click="$router.push(article.link)"
     >
       <v-col cols="4">
         <v-img
