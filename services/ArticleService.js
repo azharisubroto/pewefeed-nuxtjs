@@ -19,8 +19,11 @@ export default {
     getTopViews(n) {
         return Api().get('/article/top-views/?page='+n)
     },
-    getSixty() {
-        return Api().get('/article/category/sixty-widget/viral/')
+    getSixty(section) {
+        return Api().get('/sixty/'+section)
+    },
+    getRandomVideo() {
+        return Api().get('/content/rand')
     },
     getDetail(slug) {
         return Api().get('/article/'+slug)

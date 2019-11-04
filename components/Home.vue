@@ -116,7 +116,24 @@ export default {
             try {
                 const res = await ArticleService.getTopViews(1)
                 console.log(JSON.parse(JSON.stringify(res.data.data)))
-                this.topviews = res.data.data
+                const items = res.data.data
+                items.forEach(element => {
+                  var link = element.link
+                  if( link.includes('sixty') ) {
+                    var slug = '/sixty'+element.link
+                  } else {
+                    var slug = element.link
+                  }
+                  var obj = {
+                    id: element.id,
+                    image: element.image,
+                    link: slug,
+                    title: element.title,
+                    type: element.type,
+                    published_at: element.publish_at
+                  }
+                  this.topviews.push(obj)
+                });
             } catch (error) {
                 console.log(error)
             }
@@ -184,66 +201,7 @@ export default {
     },
     created() {
         this.fetchPromotedNews()
-        this.fetchTopPoin()
         this.fetchTopViews()
-        this.fetchSixty()
     }
 }
 </script>
-
-<style lang="scss">
-    .v-slide-group.v-item-group > .v-slide-group__next, .v-slide-group.v-item-group > .v-slide-group__prev {
-        display: none;
-    }
-    .promo_news .promo_caption {
-        position: absolute;
-        bottom: 0;
-        margin: 10px;
-    }
-    .juara {
-        font-size: 20px;
-    }
-    .featured-item {
-      width: 100%;
-      text-align:center;
-      height: 40vh;
-      background: #000;
-      color: #fff;
-      position: relative;
-      .caption {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0,0,0,.7);
-        .caption-inner {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          left: 0;
-          right: 0;
-          margin: 0 auto;
-          padding: 30px;
-          h2 {
-            font-weight: 900;
-            font-size: 24px;
-            line-height: 1.3
-          }
-        }
-      }
-    }
-    .flickity-page-dots {
-      bottom: 20px!important;
-      .dot {
-        background: #fff!important;
-        opacity: .5!important;
-        width: 7px!important;
-        height: 7px!important;
-        &.is-selected {
-          background-color: var(--primary)!important;
-          opacity:1!important;
-        }
-      }
-    }
-</style>
