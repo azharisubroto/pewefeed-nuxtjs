@@ -18,6 +18,7 @@
     "oauthio-web": "^0.6.2",
     "vue-flickity": "^1.2.1",
     "vue-recaptcha": "^1.2.0",
+    "vue-simple-addthis-share": "^0.1.0",
     "vue2-dropzone": "^3.6.0"
   },
   "devDependencies": {

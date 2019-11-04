@@ -33,6 +33,7 @@ export default {
     { src: '~/plugins/flickity', ssr: false },
     { src: '~/plugins/oauthio-web', ssr: false },
     { src: '~/plugins/vue2-dropzone', ssr: false },
+    { src: '~/plugins/addthis', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules

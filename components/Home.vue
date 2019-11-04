@@ -148,9 +148,11 @@ export default {
                 const res = await ArticleService.getLatest()
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.articles = res.data.data
-                this.$nextTick(function() {
-                  this.$refs.flickity.rerender();
-                });
+                if (this.articles.length > 0) {
+                  this.$nextTick(function() {
+                    this.$refs.flickity.rerender();
+                  });
+                }
             } catch (error) {
                 console.log(error)
             }

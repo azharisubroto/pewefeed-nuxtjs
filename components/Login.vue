@@ -1,6 +1,6 @@
 <template>
     <div class="grey lighten-5 container">
-        <h1 align="center" class="my-3" id="loginhead">LOGIN</h1>
+        <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
         <OAuth provider="facebook" btnclass="indigo darken-1 " @makeloading="setloading" @notloading="notloading"/>
         <OAuth provider="google" btnclass="red darken-1" @makeloading="setloading" @notloading="notloading"/>
 

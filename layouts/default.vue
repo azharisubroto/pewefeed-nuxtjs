@@ -22,27 +22,6 @@
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-
-        <!-- <v-menu
-          left
-          bottom
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on">
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item
-              v-for="menu in menus" :key="menu.id"
-              @click="$router.push( menu.path )"
-            >
-              <v-list-item-title>{{ menu.label }}</v-list-item-title>
-            </v-list-item>
-
-          </v-list>
-        </v-menu> -->
       </v-app-bar>
 
       <v-tabs grow color="deep-orange" class="pw-tab">
@@ -68,92 +47,261 @@
       <v-navigation-drawer
         v-model="drawer"
         fixed
-        temporary
+		width="100%"
         app
       >
-        <v-list-item v-if="!isLogin()">
-			<v-list-item-avatar>
-				<v-img src="/img/user.jpeg"></v-img>
-			</v-list-item-avatar>
-
-			<v-list-item-content>
-				<v-list-item-title>Please Login</v-list-item-title>
-			</v-list-item-content>
-        </v-list-item>
-
-		<v-list-item v-if="isLogin()">
-			<v-list-item-avatar>
-				<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"></v-img>
-			</v-list-item-avatar>
-
-			<v-list-item-content>
-				<v-list-item-title>{{ userdata.first_name }}</v-list-item-title>
-			</v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-list dense>
-
-			<v-list-item
-				v-for="menu in menus" :key="menu.id"
-				@click="$router.push( menu.path )"
-				link
+		<v-card tile>
+			<v-app-bar
+				absolute
+				color="#9F7712"
+				elevation="0"
+				dark
 			>
-				<v-list-item-icon>
-					<v-icon>{{ menu.icon }}</v-icon>
-				</v-list-item-icon>
-				<v-list-item-content>
-				<v-list-item-title>{{ menu.label }}</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
+				<v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
 
-			<!-- oooooooooooooooooooooo
-			AUTH MENU
-			ooooooooooooooooooooooooooo -->
-			<v-list-item
-				@click="$router.push('/member/program/starx')"
-				link
-				v-if="isLogin()"
-			>
-				<v-list-item-icon>
-					<v-icon>mdi-upload</v-icon>
-				</v-list-item-icon>
+				<v-toolbar-title @click="$router.push('/')">
+					<v-img
+					src="/img/playworld-logo.png"
+					width="130"
+					></v-img>
+				</v-toolbar-title>
 
-				<v-list-item-content>
-					<v-list-item-title>Upload Video Band</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
+				<v-spacer></v-spacer>
 
-			<v-list-item
-				@click="$router.push( '/member/login' )"
-				link
-				v-if="!isLogin()"
-			>
-				<v-list-item-icon>
-					<v-icon>mdi-login-variant</v-icon>
-				</v-list-item-icon>
+				<v-btn icon @click="hidden = !hidden">
+					<v-icon>mdi-magnify</v-icon>
+				</v-btn>
+			</v-app-bar>
+		</v-card>
+		
+		<!-- 
+			SEARCH
+		 -->
+		<v-row>
+			<v-col cols="12">
+				<v-expand-transition>
+					<v-card tile dark color="#9F7712" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
+						<v-card-text>
+							<v-autocomplete
+							label="Cari Artikel"
+							:items="articles"
+							autofocus
+							></v-autocomplete>
+						</v-card-text>
+					</v-card>
+				</v-expand-transition>
+			</v-col>
+		</v-row>
 
-				<v-list-item-content>
-					<v-list-item-title>Login</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-list-item
-				@click="logout"
-				link
-				v-if="isLogin()"
-			>
-				<v-list-item-icon>
-					<v-icon>mdi-logout-variant</v-icon>
-				</v-list-item-icon>
-
-				<v-list-item-content>
-					<v-list-item-title>Logout</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
-
-        </v-list>
+		<!-- 
+			LOGIN / ACCOUNT
+		 -->
+		<v-container>
+			<v-row>
+				<v-col class="mt-6" v-if="!isLogin()" cols="10">
+					<Login />
+				</v-col>
+				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="10">
+					<v-row>
+						<v-col cols="3">
+							<v-avatar
+								size="50"
+								color="grey"
+							>
+								<img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
+							</v-avatar>
+						</v-col>
+						<v-col cols="9" style="margin-top: -10px">
+							<v-row>
+								<v-col cols="6">
+									<strong class="subheading">{{ userdata.first_name }}</strong>
+								</v-col>
+								<v-col cols="6" class="text-right">
+									<v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
+								</v-col>
+							</v-row>
+							<v-divider></v-divider>
+							<v-row>
+								<v-col cols="9">
+									<v-avatar color="orange" size="20">
+										<span class="white--text caption font-italic">V</span>
+									</v-avatar>
+									<strong class="body-2 green--text mr-2 font-weight-bold">(ACTIVE)</strong>
+									<v-avatar color="orange" size="20">
+										<span class="white--text caption font-italic">P</span>
+									</v-avatar>
+									<strong class="body-2 green--text font-weight-bold">500</strong>
+								</v-col>
+								<v-col cols="3" class="text-right">
+									<v-icon @click="$router.push('/member')">mdi mdi-arrow-right</v-icon>
+								</v-col>
+							</v-row>
+						</v-col>
+					</v-row>
+				</v-col>
+			</v-row>
+		</v-container>
+		<v-container style="margin-bottom: -20px">
+			<v-divider color="grey"></v-divider>	
+		</v-container>
+		<v-container>
+			<!-- 
+				MENU
+			-->
+			<v-row>
+				<v-col cols="6">
+					<v-list>
+						<v-subheader class="black--text">CATEGORY</v-subheader>
+						<v-list-item-group v-model="category">
+							<v-list-item
+								v-for="(cat, i) in categories"
+								:key="i"
+								@click="$router.push(cat.link)"
+							>
+								<v-list-item-content class="menu">
+									<v-list-item-title v-html="cat.title"></v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+				<v-col cols="6">
+					<v-list>
+						<v-subheader class="black--text">PREMIUM</v-subheader>
+						<v-list-item-group v-model="premium">
+							<v-list-item
+								v-for="(prem, i) in premiums"
+								:key="i"
+								@click="$router.push(rem.link)"
+							>
+								<v-list-item-content class="menu">
+									<v-list-item-title v-html="prem.title"></v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+					<v-container>
+						<v-divider ></v-divider>
+					</v-container>
+					<v-list>
+						<v-subheader class="black--text">PROGRAM</v-subheader>
+						<v-list-item-group v-model="program">
+							<v-list-item
+								v-for="(prog, i) in programs"
+								:key="i"
+								@click="$router.push(prog.link)"
+							>
+								<v-list-item-content class="menu">
+									<v-list-item-title v-html="prog.title"></v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+			</v-row>
+			<v-divider></v-divider>
+			<!-- 
+				CONTACT
+			 -->
+			<v-row>
+				<v-col cols="12" style="margin-bottom: -30px !important">
+					<v-subheader class="black--text">CONTACT</v-subheader>					
+				</v-col>
+				<v-col cols="6">
+					<v-list two-line>
+						<v-list-item-group v-model="contact">
+							<v-list-item
+								v-for="(con, i) in contacts"
+								:key="i"
+							>
+								<v-list-item-content class="menu">
+									<v-list-item-title v-html="con.title"></v-list-item-title>
+									<v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+				<v-col cols="6">
+					<v-list two-line>
+						<v-list-item-group v-model="contacttwo">
+							<v-list-item
+								v-for="(con, i) in contactstwo"
+								:key="i"
+							>
+								<v-list-item-content class="menu">
+									<v-list-item-title v-html="con.title"></v-list-item-title>
+									<v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+			</v-row>
+			<v-divider></v-divider>
+			<!-- 
+				SOCIAL MEDIA
+			 -->
+			<v-row>
+				<v-col cols="12">
+					<v-container>
+						<div class="addthis_inline_follow_toolbox">
+							<AddThis publicId="ra-56726fb53e3222fa" />
+						</div>
+					</v-container>
+				</v-col>
+			</v-row>
+			<v-divider></v-divider>
+			<!-- 
+				ABOUT
+			 -->
+			<v-row>
+				<v-col cols="6">
+					<v-list>
+						<v-subheader class="black--text">Tentang Playworld ID</v-subheader>
+						<v-list-item-group>
+							<v-list-item @click="$router.push('/bantuan')">
+								<v-list-item-content class="menu">
+									<v-list-item-title>Dewan Pers</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+							<v-list-item @click="$router.push('/bantuan')">
+								<v-list-item-content class="menu">
+									<v-list-item-title>Tim Redaksi</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+							<v-list-item>
+								<v-list-item-content class="menu" @click="$router.push('/bantuan')">
+									<v-list-item-title>Bantuan</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+				<v-col cols="6">
+					<v-list>
+						<v-subheader class="black--text">Kebijakan & Privasi</v-subheader>
+						<v-list-item-group>
+							<v-list-item @click="$router.push('/bantuan')">
+								<v-list-item-content class="menu">
+									<v-list-item-title>Keamanan Transaksi</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+							<v-list-item @click="$router.push('/bantuan')">
+								<v-list-item-content class="menu">
+									<v-list-item-title>Metode Pembayaran</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+							<v-list-item @click="$router.push('/bantuan')">
+								<v-list-item-content class="menu">
+									<v-list-item-title>Jasa Pengiriman</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-col>
+			</v-row>
+		</v-container>
       </v-navigation-drawer>
       <!-- END DRAWER -->
     </v-sheet>
@@ -162,14 +310,24 @@
 
 <script>
 import UserService from '@/services/UserService'
+import Login from '@/components/Login'
 export default {
 	name: 'App',
 	components: {
+		Login
 	},
 		data () {
 			return {
 				drawer: null,
 				isLoggedIn: false,
+				hidden: true,
+				articles: [
+					'Testing Article 1',
+					'Testing Article 2',
+					'Testing Article 3',
+					'Testing Article 4',
+					'Testing Article 5',
+				],
 				userdata:[],
 				menus: [
 					{
@@ -184,6 +342,89 @@ export default {
 						path: '/starx',
 						icon: 'mdi-account-star'
 					},
+				],
+				category: 5,
+				categories: [
+					{
+						title: 'TRENDING',
+						link: '/'
+					},
+					{
+						title: 'VIRAL',
+						link: '/viral'
+					},
+					{
+						title: 'LAGU',
+						link: '/lagu'
+					},
+					{
+						title: 'NONTON',
+						link: '/nonton'
+					},
+					{
+						title: 'PIKNIK',
+						link: '/piknik'
+					},
+					{
+						title: 'TEKNO',
+						link: '/tekno'
+					},
+					{
+						title: 'SPORT',
+						link: '/sport'
+					},
+					{
+						title: 'SIXTY',
+						link: '/sixty'
+					},
+				],
+				premium: 2,
+				premiums: [
+					{
+						title: 'FAKTA',
+						link: '/fakta'
+					},
+					{
+						title: 'KOMIK',
+						link: '/kontenreceh'
+					}
+				],
+				program: 3,
+				programs: [
+					{
+						title: 'TUKAR POIN',
+						link: '/toko'
+					},
+					{
+						title: 'TOP POIN',
+						link: '/toppoin'
+					},
+					{
+						title: 'KOMPETISI',
+						link: '/kompetisi'
+					}
+				],
+				contact: 2,
+				contacts: [
+					{
+						title: '(021) 293 85 381',
+						subtitle: '(Business Hour)'
+					},
+					{
+						title: '0815 1906 0929',
+						subtitle: '(24 Hour)'
+					}
+				],
+				contacttwo: 2,
+				contactstwo: [
+					{
+						title: '0817 1717 3029',
+						subtitle: '(24 Hour)'
+					},
+					{
+						title: 'halo@playworld.id',
+						subtitle: '(Official Email Address)'
+					}
 				]
 		  }
 	  },
@@ -194,7 +435,7 @@ export default {
 			localStorage.removeItem('access-token');
 			this.isLoggedIn = false;
 			this.isLogin();
-			vm.$router.push("/member/login");
+			vm.$router.push("/");
 		},
 		isLogin() {
 			return this.isLoggedIn
@@ -305,6 +546,10 @@ export default {
     .LAGU{color:var(--LAGU)}
     .NONTON{color:var(--NONTON)}
     .TEKNO{color:var(--TEKNO)}
+  }
+
+  .menu {
+	  color: #757575;
   }
 
 </style>
