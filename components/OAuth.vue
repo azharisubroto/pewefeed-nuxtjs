@@ -1,17 +1,19 @@
 <template>
     <!-- @click="Auth(provider);" -->
- <v-btn 
-    @click="Auth(provider);"
-    block 
-    large 
-    depressed 
-    dark
-    :color="btnclass" 
-    :class="class2 + ' my-3'"
->
-    <v-icon left dark>mdi-{{ provider }}</v-icon>
-    <span :class="class1"></span> Sign in with {{ provider }}
- </v-btn>
+    <v-btn 
+        @click="Auth(provider);"
+        block 
+        large 
+        depressed 
+        dark
+        style="justify-content: left"
+        tile
+        :color="btnclass" 
+        :class="class2 + ' my-3'"
+    >
+        <v-icon left dark>mdi-{{ provider }}</v-icon>
+        <span :class="class1"></span> Sign in with {{ provider }}
+    </v-btn>
 </template>
 
 <script>
