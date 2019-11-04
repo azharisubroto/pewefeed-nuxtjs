@@ -116,9 +116,9 @@ export default {
         },
         async loadMore(n) {
           try {
-                const res = await ArticleService.getListArticleByCategory(this.$route.params.cat + '/?page=' + n)
+                const res = await ArticleService.getListArticleByCategory(this.$route.params.cat + '?page=' + n)
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var newData = res.data.data
+                var newData = res.data.data.article
                 newData.forEach(element => {
                   this.articleList.push(element)
                 });
