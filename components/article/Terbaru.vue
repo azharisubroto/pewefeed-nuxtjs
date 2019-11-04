@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-row
-      class="topview-item"
+      :class="['topview-item ', article.class ? article.class : '']"
       v-for="(article, i) in items"
       :key="'topview-'+article.id+'-'+i"
-      @click="$router.push(link(article))"
+      @click="$router.push( article.link )"
     >
       <v-col cols="4">
         <v-img
@@ -16,7 +16,7 @@
           dark
           size="35"
           class="playbutton"
-          v-if="isSixty(article.title)">
+          v-if="isSixty(article.title) || isFakta( article.class ? article.class : null )">
             mdi-play-circle-outline
           </v-icon>
         </v-img>
@@ -37,24 +37,26 @@ export default {
   name:"Terbaru",
   props: ['items'],
   methods: {
-    link(article) {
-        var url, cropped
-        if( article.link != 'https://m.playworld.id/sixty' ) {
-            url = article.link
-            cropped = url.replace('https://playworld.id', '')
-        } else {
-            url = article.link_detail
-            cropped = url.replace('https://m.playworld.id', '')
-        }
-        return cropped
-    },
     isSixty(title) {
       if( title.indexOf('SIXTY') >= 0 ) {
         return true
       } else {
         return false
       }
+    },
+    isFakta(classname) {
+      if( classname == 'fakta') {
+        return true
+      }
+      return false
     }
   }
 }
 </script>
+
+<style lang="scss">
+  .fakta {
+    background: purple;
+    color: #fff;
+  }
+</style>

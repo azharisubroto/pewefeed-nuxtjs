@@ -26,6 +26,7 @@
 
       <v-tabs grow color="deep-orange" class="pw-tab">
         <v-tab to="/">Trending</v-tab>
+        <v-tab to="/video">Video</v-tab>
         <v-tab to="/toko">Tukar Poin</v-tab>
         <v-tab>Viral</v-tab>
         <v-tab>Lagu</v-tab>
@@ -73,8 +74,8 @@
 				</v-btn>
 			</v-app-bar>
 		</v-card>
-		
-		<!-- 
+
+		<!--
 			SEARCH
 		 -->
 		<v-row>
@@ -93,7 +94,7 @@
 			</v-col>
 		</v-row>
 
-		<!-- 
+		<!--
 			LOGIN / ACCOUNT
 		 -->
 		<v-container>
@@ -142,10 +143,10 @@
 			</v-row>
 		</v-container>
 		<v-container style="margin-bottom: -20px">
-			<v-divider color="grey"></v-divider>	
+			<v-divider color="grey"></v-divider>
 		</v-container>
 		<v-container>
-			<!-- 
+			<!--
 				MENU
 			-->
 			<v-row>
@@ -200,12 +201,12 @@
 				</v-col>
 			</v-row>
 			<v-divider></v-divider>
-			<!-- 
+			<!--
 				CONTACT
 			 -->
 			<v-row>
 				<v-col cols="12" style="margin-bottom: -30px !important">
-					<v-subheader class="black--text">CONTACT</v-subheader>					
+					<v-subheader class="black--text">CONTACT</v-subheader>
 				</v-col>
 				<v-col cols="6">
 					<v-list two-line>
@@ -239,7 +240,7 @@
 				</v-col>
 			</v-row>
 			<v-divider></v-divider>
-			<!-- 
+			<!--
 				SOCIAL MEDIA
 			 -->
 			<v-row>
@@ -252,7 +253,7 @@
 				</v-col>
 			</v-row>
 			<v-divider></v-divider>
-			<!-- 
+			<!--
 				ABOUT
 			 -->
 			<v-row>
@@ -551,5 +552,60 @@ export default {
   .menu {
 	  color: #757575;
   }
+  // INDEX ARTICLE
+  .v-slide-group.v-item-group > .v-slide-group__next, .v-slide-group.v-item-group > .v-slide-group__prev {
+        display: none;
+    }
+    .promo_news .promo_caption {
+        position: absolute;
+        bottom: 0;
+        margin: 10px;
+    }
+    .juara {
+        font-size: 20px;
+    }
+    .featured-item {
+      width: 100%;
+      text-align:center;
+      height: 40vh;
+      background: #000;
+      color: #fff;
+      position: relative;
+      .caption {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(2, 1, 1, 0.7);
+        .caption-inner {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          padding: 30px;
+          h2 {
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 1.3
+          }
+        }
+      }
+    }
+    .flickity-page-dots {
+      bottom: 20px!important;
+      .dot {
+        background: #fff!important;
+        opacity: .5!important;
+        width: 7px!important;
+        height: 7px!important;
+        &.is-selected {
+          background-color: var(--primary)!important;
+          opacity:1!important;
+        }
+      }
+    }
 
 </style>

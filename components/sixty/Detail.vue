@@ -6,54 +6,37 @@
         ></v-skeleton-loader>
 
         <v-container v-if="article" class="mb-5 pb-5">
-            <v-row>
-              <v-col>
-                <!-- META 1 -->
-                <div class="mb-1">
-                    <div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
-                        {{article.type}}
-                    </div>
-                    <div class="d-inline-block" style="font-size:12px">
-                      <div class="d-inline-block mr-3 grey--text text--small">
-                          <v-icon small size="12">
-                              mdi-clock-outline
-                          </v-icon>
-                          {{article.published_at}}
-                      </div>
-                      <div class="d-inline-block mr-3 grey--text text--small">
-                          <v-icon small size="12">
-                              mdi-eye-outline
-                          </v-icon>
-                          {{article.total_view}}
-                      </div>
-                      <div class="d-inline-block mr-3 grey--text text--small">
-                          <v-icon small size="12">
-                              mdi-message-reply
-                          </v-icon>
-                          {{article.total_comment}}
-                      </div>
-                    </div>
+            <!-- META 1 -->
+            <div class="mb-1 caption">
+                <div class="d-inline-block mr-2">
+                    SIXTY {{ article.article.type }}
                 </div>
+                <div class="d-inline-block">
+                  <div class="d-inline-block mr-3 grey--text text--small">
+                      <v-icon small>
+                        mdi-clock-outline
+                      </v-icon>
+                      {{article.detail.publish_at}}
+                  </div>
+                </div>
+            </div>
 
-                <!-- TITLE -->
-                <h2 class="mb-0">{{article.title}}</h2>
-              </v-col>
-            </v-row>
+            <!-- TITLE -->
+            <h2 class="mb-3">{{article.detail.title}}</h2>
+
             <!-- ARTICLE -->
             <template v-if="isArticle">
               <v-row class="pb-5">
                   <v-col cols="12">
-                      <div class="article-thumb">
-                          <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
-                      </div>
+                      <div v-html="article.detail.embed"></div>
 
                       <!-- CONTENT -->
-                      <div v-html="article.content"></div>
+                      <div class="iframe" v-html="article.article.content"></div>
 
                       <hr>
 
                       <!-- WRITER -->
-                      <div class="mt-4">
+                      <!-- <div class="mt-4">
                           <span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
                           <v-row>
                               <v-col cols="2">
@@ -66,26 +49,15 @@
                                   Writer
                               </v-col>
                           </v-row>
-                      </div>
+                      </div> -->
                   </v-col>
               </v-row>
-              <hr>
+
               <!-- TERBARU -->
-              <section class="py-4 mb-5 pb-5">
-                <div class="text-center mb-3">
-                  ARTIKEL TERBARU LAINNYA
-                </div>
-                <Terbaru :items="latests"/>
-                <v-btn
-                tile
-                block
-                depressed
-                dark
-                color="deep-orange"
-                @click="loadMore(next)">
-                  Load More
-                </v-btn>
-              </section>
+              <div class="text-center">
+                VIDEO TERBARU LAINNYA
+              </div>
+              <Terbaru :items="latests" class="mb-5 pb-5"/>
               <!-- <v-row class="mb-5">
                 <v-col cols="12">
                   <v-btn
@@ -287,38 +259,40 @@ export default {
     },
     methods: {
         async fetchContent() {
-            //console.log(this.$route.params.articleslug)
+            console.log(this.$route.params.sixty)
             try {
-                let res = await ArticleService.getDetail(this.$route.params.articleslug)
+                let res = await ArticleService.getSixtyDetail(this.$route.params.sixty)
                 console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.article.id
-                this.article = res.data.data.article
+                this.article = res.data.data
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
-                this.comments = res.data.data.article.comments
+
                 if( res.data.data.quiz && res.data.data.quiz.id ) {
                   this.quiz = res.data.data.quiz
                   this.quiz_id = res.data.data.quiz.id
                   this.answered = res.data.data.quiz.answered
                 }
 
-                this.fetchLatest(res.data.data.article.slug)
+                this.fetchLatest()
             } catch (error) {
                 console.log(error)
             }
         },
-        async fetchLatest(slug) {
+        async fetchLatest() {
             try {
-                const res = await ArticleService.getRelated(slug)
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var articles = res.data.data.article
+                const res = await ArticleService.getSixty('bottom')
+                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var articles = res.data.data
+                var i = 1
                 articles.forEach(element => {
+                  if(i == 6) return false
                   var link = element.link
-                      link = link.replace('https://playworld.id/', '')
+                      link = link.replace('http://m.playworld.id/', '')
                   var obj = {
                     image: {
-                      small: element.image.small
+                      small: element.image
                     },
                     link: '/'+link,
                     title: element.title,
@@ -327,19 +301,12 @@ export default {
                   }
                   if( element.id != this.id ) {
                     this.latests.push(obj)
+                    i++
                   }
                 });
             } catch (error) {
                 console.log(error)
             }
-        },
-        async fetchUserdata() {
-          try {
-            const res = await UserService.getSingleUser()
-            this.user_id = res.data.data.id
-          } catch (error) {
-            console.log(error)
-          }
         },
         async fetchComment() {
           try {
@@ -388,7 +355,6 @@ export default {
     },
     created() {
         this.fetchContent()
-        this.fetchUserdata()
         //this.fetchLatest()
     }
 }
@@ -433,8 +399,6 @@ export default {
       small
         line-height:0
         opacity:.5
-
-    .comment-item
-      padding: 10px 0
-      border-bottom: 1px solid #e5e5e5
+    iframe
+      width: 100%
 </style>
