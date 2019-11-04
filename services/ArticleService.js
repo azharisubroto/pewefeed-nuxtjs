@@ -17,16 +17,17 @@ export default {
       return Api().get('/redeem/promoted/')
     },
     getTopViews(n) {
-        return Api().get('/article/top-views/?page='+n)
+      return Api().get('/article/top-views/?page='+n)
     },
-    getSixty(section) {
-        return Api().get('/sixty/'+section)
+    getSixty(section, i) {
+      var increment = i ? i : 1
+      return Api().get('/sixty/' + section + '?page=' + increment)
     },
     getRandomVideo() {
-        return Api().get('/content/rand')
+      return Api().get('/content/rand')
     },
     getDetail(slug) {
-        return Api().get('/article/'+slug)
+      return Api().get('/article/'+slug)
     },
     getSixtyDetail(slug) {
       return Api().get('/sixty/detail/'+slug)
@@ -35,6 +36,6 @@ export default {
       return Api().get('/article/category/trending/' + slug)
     },
     getListArticleByCategory(slug) {
-    return Api().get('/article/category/list/' + slug)
-  }
+      return Api().get('/article/category/list/' + slug)
+    }
 }

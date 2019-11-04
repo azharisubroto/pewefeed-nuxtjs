@@ -105,11 +105,21 @@ export default {
     methods: {
         async loadMore(n) {
           try {
-                const res = await ArticleService.getTopViews(n)
+                const res = await ArticleService.getSixty('bottom', n)
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 var newData = res.data.data
                 newData.forEach(element => {
-                  this.topviews.push(element)
+                  var obj = {
+                    id: element.id,
+                    image: {
+                      small: element.image
+                    },
+                    link: '/sixty/'+element.slug,
+                    title: element.title,
+                    type: element.type,
+                    published_at: element.publish_at
+                  }
+                  this.sixtybottom.push(obj)
                 });
                 this.next += 1
             } catch (error) {
@@ -165,8 +175,8 @@ export default {
                     vm.getRandomVideo()
                   });
                 }
-                //console.log('sixty bottom:')
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                console.log('sixty bottom:')
+                console.log(JSON.parse(JSON.stringify(res)))
             } catch (error) {
                 console.log(error)
             }
@@ -174,7 +184,7 @@ export default {
         async getRandomVideo() {
           try {
             const res = await ArticleService.getRandomVideo()
-            console.log(res.data.data.content)
+            //console.log(res.data.data.content)
             const items = res.data.data.content
             items.forEach(article => {
               var obj = {
