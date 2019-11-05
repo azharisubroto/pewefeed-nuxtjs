@@ -104,7 +104,7 @@
 
             <!-- COMMENT -->
             <template v-if="isComment">
-              <h4 class="mb-4 mt-5">123 Comments</h4>
+              <h4 class="mb-4 mt-5">{{comments.length}} Comments</h4>
 
               <!-- TEXT AREA -->
               <v-textarea
@@ -124,36 +124,13 @@
               </v-btn>
 
               <!-- KOMEN LIST -->
-              <div
-                class="comment-item"
-                v-for="comment in reverseComment"
-                :key="comment.id"
-                :id="'comment'+comment.comment_id"
-              >
-                <v-row>
-                  <v-col cols="2">
-                    <v-avatar size="30">
-                      <img
-                        :src="comment.customer.avatar ? comment.customer.avatar : '/img/user.jpeg'"
-                        onerror="this.src='/img/user.jpeg';"
-                      >
-                    </v-avatar>
-                  </v-col>
-                  <v-col cols="10">
-                    <strong>{{ comment.customer.name }}</strong><br>
-                    <div style="font-size:12px;">{{ comment.message }}</div>
-                    <div class="mt-2 caption text--gray">
-                      {{comment.commented_at}} - Balas
-                    </div>
-                  </v-col>
-                </v-row>
-              </div>
+              <CommentList :items="reverseComment"/>
               <div class="mb-5"></div>
             </template>
 
             <!-- QUIZ -->
             <template v-if="isQuiz">
-              <div v-if="quiz && answered != true" class="mt-5">
+              <div v-if="quiz" class="mt-5">
                 <h4>{{ quiz.question }}</h4>
                 <v-radio-group v-model="jawabanQuiz">
                   <v-row>
@@ -199,6 +176,9 @@
                   Quiz Tidak Tersedia
                 </div>
               </div>
+
+              <QuizModal :dialogVisible="dialog" :jawaban="answerResult" :already="already" @close="myDialogClose"/>
+
             </template>
         </v-container>
 
@@ -228,9 +208,14 @@
 import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
+import QuizModal from '@/components/common/QuizModal'
+import CommentList from '@/components/common/CommentList'
+
 export default {
     components: {
-      Terbaru
+      Terbaru,
+      QuizModal,
+      CommentList
     },
     data() {
         return {
@@ -249,6 +234,9 @@ export default {
             answered: false,
             quiz_id: null,
             jawabanQuiz: null,
+            dialog: false,
+            answerResult: null,
+            already: false,
             user_id:null,
             items: [
                 {
@@ -364,9 +352,15 @@ export default {
             this.commentIsPosting = false;
             this.comment_message = null;
           } catch (error) {
-            console.log(error)
+            console.log(error.response.status)
             this.commentIsPosting = false;
-            alert('error! ' + error.message)
+            if( error.response.status == 422 ) {
+              alert('Mohon tulis komentar minimal 50 karakter')
+            } else if( error.response.status == 500 ) {
+              alert('an error occured')
+            } else {
+              alert('error! ' + error.message)
+            }
           }
         },
         async submitAnswer() {
@@ -377,19 +371,33 @@ export default {
           try {
             const res = await UserService.answerQuiz(params)
             console.log(res)
+            this.dialog = true
             if( res.status == 200 ) {
-              alert(res.data.data.message)
-              this.answered = true
+              //alert(res.data.data.message)
+              if( res.data.data.status == 'benar' ) {
+                this.answerResult = true
+              } else if( res.data.data.status == 'salah' ) {
+                this.answerResult = false
+              } else {
+                this.already = true
+              }
+              //this.answered = true
             }
           } catch (error) {
             console.log(error)
           }
-        }
+        },
+        myDialogClose () {
+            this.dialog = false
+            // other code
+        },
     },
     created() {
         this.fetchContent()
         this.fetchUserdata()
         //this.fetchLatest()
+    },
+    mounted() {
     }
 }
 </script>
