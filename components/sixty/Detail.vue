@@ -33,6 +33,23 @@
                       <!-- CONTENT -->
                       <div class="iframe" v-html="article.article.content"></div>
 
+                      <h4>Lihat Selengkapnya</h4>
+                      <v-row
+                      class="topview-item"
+                      @click="$router.push('/'+selengkapnya.link.replace('https://playworld.id/', ''))">
+                        <v-col cols="4">
+                          <v-img
+                          :src="selengkapnya.image"
+                          ></v-img>
+                        </v-col>
+                        <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
+                          <h2>{{article.detail.title}}</h2>
+                          <div class="meta text--gray" style="font-size:12px;">
+                            <span :class="article.detail.type">{{article.detail.type}}</span> - {{article.detail.published_at ? article.detail.published_at : article.detail.publish_at}}
+                          </div>
+                        </v-col>
+                      </v-row>
+
                       <hr>
 
                       <!-- WRITER -->
@@ -193,6 +210,7 @@ export default {
             id: '',
             title: '',
             article: '',
+            selengkapnya: '',
             writer: '',
             isArticle: true,
             isComment: false,
@@ -252,6 +270,7 @@ export default {
                 console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.detail.id
                 this.article = res.data.data
+                this.selengkapnya = res.data.data.article
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
