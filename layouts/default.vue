@@ -19,8 +19,8 @@
 
         <div class="flex-grow-1"></div>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
+        <v-btn icon @click="searchDialog = true">
+          <v-icon> mdi-magnify</v-icon>
         </v-btn>
       </v-app-bar>
 
@@ -369,6 +369,59 @@
 				</v-card-text>
 			</v-card>
 		</v-dialog>
+		<!--
+		SEARCH
+		-->
+		<div class="text-center">
+			<v-dialog
+			v-model="searchDialog"
+			persistent
+			width="500"
+			>
+			<v-card>
+				<v-toolbar dark color="orange accent-14">
+					<!-- Arrow -->
+					<v-btn icon tile style="border-right: 1px solid #fff" dark @click="searchDialog = false">
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Logo -->
+					<v-toolbar-title>
+						<v-img
+						@click="$router.push('/')"
+						src="/img/playworld-logo.png"
+						lazy-src="/img/playworld-logo.png"
+						max-width="100"
+						max-height="100"
+						>  
+						</v-img>
+					</v-toolbar-title>
+
+					<!-- Title -->
+					<div class="flex-grow-1"></div>
+					<strong class="subtitle-2">PENCARIAN</strong>
+				</v-toolbar>
+
+				<v-card-text>
+					<v-row class="mt-12">
+						<v-col cols="10">
+							<v-text-field
+								v-model="searchModel"
+								dense
+								label="Tulis Judul Artikel . . ."
+								autofocus
+							></v-text-field>
+						</v-col>
+						<v-col cols="2">
+							<v-btn @click="search()" icon>
+								<v-icon>mdi-arrow-right</v-icon>
+							</v-btn>
+						</v-col>
+					</v-row>
+				</v-card-text>
+			</v-card>
+			</v-dialog>
+		</div>
 	</div>
   </v-app>
 </template>
@@ -387,8 +440,10 @@ export default {
 		data () {
 			return {
 				drawer: null,
+				searchDialog: null,
 				isLoggedIn: false,
 				hidden: true,
+				hiddenmain: true,
 				dialog: false,
 				searchModel: null,
 				overlay: false,
