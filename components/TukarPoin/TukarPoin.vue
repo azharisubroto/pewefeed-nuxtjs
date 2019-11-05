@@ -4,8 +4,8 @@
       <flickity ref="flashPoin" :options="flickityOptions">
         <div
         v-for="article in flashpoints"
-        :key="article.id"
-        @click="$router.push('/toko/redeem/'+article.id)"
+        :key="article.redeem.id"
+        @click="$router.push('/toko/redeem/'+article.redeem.id)"
         class="featured-item-2">
           <v-btn color="deep-orange poinbutuh" dark rounded fixed small depressed>
             {{ article.redeem.point ? article.redeem.point : 'Closed' }}
