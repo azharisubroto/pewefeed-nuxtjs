@@ -372,6 +372,8 @@ export default {
               alert('Mohon tulis komentar minimal 50 karakter')
             } else if( error.response.status == 500 ) {
               alert('an error occured')
+            } else if( error.response.status == 401 ) {
+              alert('Mohon Maaf :(, Anda harus login')
             } else {
               alert('error! ' + error.message)
             }
