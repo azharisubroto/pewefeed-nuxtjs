@@ -130,7 +130,7 @@ export default {
                     link: slug,
                     title: element.title,
                     type: element.type,
-                    published_at: element.publish_at
+                    published_at: element.published_at
                   }
                   this.topviews.push(obj)
                 });
