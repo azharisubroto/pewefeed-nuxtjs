@@ -53,7 +53,7 @@
 		<v-card tile>
 			<v-app-bar
 				absolute
-				color="#9F7712"
+				color="orange accent-14"
 				elevation="0"
 				dark
 			>
@@ -80,13 +80,23 @@
 		<v-row>
 			<v-col cols="12">
 				<v-expand-transition>
-					<v-card tile dark color="#9F7712" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
+					<v-card tile dark color="orange accent-14" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
 						<v-card-text>
-							<v-autocomplete
-							label="Cari Artikel"
-							:items="articles"
-							autofocus
-							></v-autocomplete>
+							<v-row>
+								<v-col cols="10">
+									<v-text-field
+										v-model="searchModel"
+										dense
+										label="Tulis Judul Artikel . . ."
+										autofocus
+									></v-text-field>
+								</v-col>
+								<v-col cols="2">
+									<v-btn @click="search()" icon>
+										<v-icon>mdi-arrow-right</v-icon>
+									</v-btn>
+								</v-col>
+							</v-row>
 						</v-card-text>
 					</v-card>
 				</v-expand-transition>
@@ -120,7 +130,7 @@
 									<v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
 								</v-col>
 							</v-row>
-							<v-divider></v-divider>
+							<hr>
 							<v-row>
 								<v-col cols="9">
 									<v-avatar color="orange" size="20">
@@ -142,7 +152,7 @@
 			</v-row>
 		</v-container>
 		<v-container style="margin-bottom: -20px">
-			<v-divider color="grey"></v-divider>
+			<hr>
 		</v-container>
 		<v-container>
 			<!--
@@ -181,7 +191,7 @@
 						</v-list-item-group>
 					</v-list>
 					<v-container>
-						<v-divider ></v-divider>
+						<hr>
 					</v-container>
 					<v-list>
 						<v-subheader class="black--text">PROGRAM</v-subheader>
@@ -199,7 +209,9 @@
 					</v-list>
 				</v-col>
 			</v-row>
-			<v-divider></v-divider>
+			<v-container>
+				<hr>
+			</v-container>
 			<!--
 				CONTACT
 			 -->
@@ -238,7 +250,9 @@
 					</v-list>
 				</v-col>
 			</v-row>
-			<v-divider></v-divider>
+			<v-container>
+				<hr>
+			</v-container>
 			<!--
 				SOCIAL MEDIA
 			 -->
@@ -251,84 +265,138 @@
 					</v-container>
 				</v-col>
 			</v-row>
-			<v-divider></v-divider>
+			<v-container>
+				<hr>
+			</v-container>
 			<!--
 				ABOUT
 			 -->
 			<v-row>
 				<v-col cols="6">
 					<v-list>
-						<v-subheader class="black--text">Tentang Playworld ID</v-subheader>
-						<v-list-item-group>
-							<v-list-item @click="$router.push('/bantuan')">
-								<v-list-item-content class="menu">
-									<v-list-item-title>Dewan Pers</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-							<v-list-item @click="$router.push('/bantuan')">
-								<v-list-item-content class="menu">
-									<v-list-item-title>Tim Redaksi</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-							<v-list-item>
-								<v-list-item-content class="menu" @click="$router.push('/bantuan')">
-									<v-list-item-title>Bantuan</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
+						<v-subheader class="black--text">Tentang Playworld</v-subheader>
+						<v-subheader class="black--text">Dewan Pers</v-subheader>
+						<v-subheader class="black--text">Tim Redaksi</v-subheader>
+						<v-subheader class="black--text">Bantuan</v-subheader>
 					</v-list>
 				</v-col>
 				<v-col cols="6">
 					<v-list>
-						<v-subheader class="black--text">Kebijakan & Privasi</v-subheader>
-						<v-list-item-group>
-							<v-list-item @click="$router.push('/bantuan')">
-								<v-list-item-content class="menu">
-									<v-list-item-title>Keamanan Transaksi</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-							<v-list-item @click="$router.push('/bantuan')">
-								<v-list-item-content class="menu">
-									<v-list-item-title>Metode Pembayaran</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-							<v-list-item @click="$router.push('/bantuan')">
-								<v-list-item-content class="menu">
-									<v-list-item-title>Jasa Pengiriman</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
+						<v-subheader class="black--text">Kebiajakan & Privasi</v-subheader>
+						<v-subheader class="black--text">Keamanan Transaksi</v-subheader>
+						<v-subheader class="black--text">Metode Pembayaran</v-subheader>
+						<v-subheader class="black--text">Jasa Pengiriman</v-subheader>
 					</v-list>
 				</v-col>
 			</v-row>
+			<v-container>
+				<hr>
+			</v-container>
+			<v-container>
+				<strong>{{years}} &copy; PT Jayadata Indonesia</strong>
+			</v-container>
 		</v-container>
       </v-navigation-drawer>
       <!-- END DRAWER -->
     </v-sheet>
+
+	<v-overlay :value="overlay">
+		<v-progress-circular indeterminate size="64"></v-progress-circular>
+	</v-overlay>
+
+	<div class="text-center">
+		<v-dialog
+		v-model="dialog"
+		fullscreen
+		hide-overlay
+		transition="dialog-bottom-transition"
+		>
+			<v-card>
+				<!-- Header -->
+				<v-toolbar dark color="orange accent-14">
+					<!-- Arrow -->
+					<v-btn icon tile style="border-right: 1px solid #fff" dark @click="dialog = false">
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Logo -->
+					<v-toolbar-title>
+						<v-img
+						@click="$router.push('/')"
+						src="/img/playworld-logo.png"
+						lazy-src="/img/playworld-logo.png"
+						max-width="110"
+						max-height="100"
+						>  
+						</v-img>
+					</v-toolbar-title>
+
+					<!-- Title -->
+					<div class="flex-grow-1"></div>
+					<strong class="subtitle-2">PENCARIAN</strong>
+				</v-toolbar>
+				<v-card-text>
+					<v-skeleton-loader v-if="articles.length==0"
+						class="mx-auto mt-5"
+						type="list-item-avatar-three-line"
+					></v-skeleton-loader>
+					<v-container>
+						<strong class="title">{{totalArticles}} Artikel Ditemukan</strong>
+					</v-container>
+					<v-container>
+						<v-divider></v-divider>
+					</v-container>
+					<div v-if="articles">
+						<div>
+							<v-container>
+								<Terbaru :items="articles"/> 
+								<v-row>
+									<v-col cols="12">
+									<v-btn
+									tile
+									block
+									depressed
+									dark
+									color="deep-orange"
+									@click="loadMore(next)">
+										Load More
+									</v-btn>
+									</v-col>
+								</v-row>
+							</v-container>
+						</div>
+					</div>
+				</v-card-text>
+			</v-card>
+		</v-dialog>
+	</div>
   </v-app>
 </template>
 
 <script>
 import UserService from '@/services/UserService'
 import Login from '@/components/Login'
+import Terbaru from '@/components/article/Terbaru'
+import ArticleService from '../services/ArticleService';
 export default {
 	name: 'App',
 	components: {
-		Login
+		Login,
+		Terbaru
 	},
 		data () {
 			return {
 				drawer: null,
 				isLoggedIn: false,
 				hidden: true,
-				articles: [
-					'Testing Article 1',
-					'Testing Article 2',
-					'Testing Article 3',
-					'Testing Article 4',
-					'Testing Article 5',
-				],
+				dialog: false,
+				searchModel: null,
+				overlay: false,
+				articles: [],
+				totalArticles: 0,
 				userdata:[],
+				next: 2,
+				years: null,
 				menus: [
 					{
 						id: 1,
@@ -460,11 +528,61 @@ export default {
 				this.isLogin();
 				window.location.reload
 			}
-		}
+		},
+		async search() {
+			if (!this.searchModel) {
+				this.overlay = false
+				this.dialog = false
+			}
+
+			this.overlay = true
+			console.log('searching . . .')
+			const data = {
+				key : this.searchModel
+			}
+			try {
+				const res = await ArticleService.searchArticle(data)
+				this.overlay = false
+				this.dialog = true
+				const items = res.data.data
+				items.forEach(article => {
+                    var slug = article.link
+                        slug = slug.replace('https://playworld.id/', '')
+                    var obj = {
+                        image: article.image,
+                        link: slug,
+                        title: article.title,
+                        type: article.type,
+                        published_at: article.publish_at
+                    }
+					this.articles.push(obj)
+				});
+				this.totalArticles = res.data.pagination.total
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		async loadMore(n) {
+			const data = {
+				key : this.searchModel
+			}
+          	try {
+                const res = await ArticleService.searchArticleMore(data, n)
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var newData = res.data.data
+                newData.forEach(element => {
+                  this.articles.push(element)
+                });
+                this.next += 1
+            } catch (error) {
+                console.log(error)
+            }
+        },
 	},
 	mounted() {
-		this.isLogin();
+		this.isLogin()
 		this.fetchUser()
+		this.years = new Date().getFullYear()
 	}
 }
 </script>
