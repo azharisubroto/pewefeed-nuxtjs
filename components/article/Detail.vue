@@ -223,6 +223,7 @@ export default {
             title: '',
             article: '',
             writer: '',
+            next: 2,
             isArticle: true,
             isComment: false,
             isQuiz: false,
@@ -317,6 +318,19 @@ export default {
                     this.latests.push(obj)
                   }
                 });
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMore(n) {
+          try {
+                const res = await ArticleService.getRelatedMore(this.$route.params.articleslug, n)
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var newData = res.data.data.article
+                newData.forEach(element => {
+                  this.latests.push(element)
+                });
+                this.next += 1
             } catch (error) {
                 console.log(error)
             }
