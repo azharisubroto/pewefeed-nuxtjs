@@ -10,6 +10,9 @@ export default {
     getRelated(slug) {
       return Api().get('/article/latest/'+slug)
     },
+    getRelatedMore(slug, page) {
+      return Api().get('/article/latest/' + slug + '?page=' + page)
+    },
     getTopPoin() {
         return Api().get('/poin/top-poin/')
     },
