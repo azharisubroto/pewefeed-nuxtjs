@@ -142,8 +142,8 @@
 															<span class="white--text caption font-italic">V</span>
 														</v-avatar>
 													</v-col>
-													<v-col cols="10">
-														<strong class="body-2 green--text mr-2 font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+													<v-col cols="10" class="pl-1">
+														<strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
 														<strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
 													</v-col>
 												</v-row>

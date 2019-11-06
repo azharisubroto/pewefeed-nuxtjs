@@ -17,5 +17,8 @@ export default {
      */
     tukarPoin(params) {
       return AuthApi().post('/member/change-point', params)
+    },
+    getHistoryVip() {
+      return AuthApi().get('/member/vip-history')
     }
 }
