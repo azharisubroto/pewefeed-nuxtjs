@@ -5,7 +5,7 @@
       type="image"
     ></v-skeleton-loader>
 
-    <template v-if="sixty">
+    <div v-if="sixty">
       <!-- LATEST -->
       <flickity ref="flickity" :options="flickityOptions">
         <div
@@ -26,13 +26,13 @@
           </div>
         </div>
       </flickity>
-    </template>
+    </div>
 
     <v-skeleton-loader v-if="sixtybottom.length==0"
       class="mx-auto mt-5"
       type="list-item-avatar-three-line"
     ></v-skeleton-loader>
-    <template v-if="sixtybottom">
+    <div v-if="sixtybottom">
       <!-- TOP VIEWS -->
       <div class="mt-5">
         <v-container>
@@ -52,7 +52,7 @@
           </v-row>
         </v-container>
       </div>
-    </template>
+    </div>
 </div>
 </template>
 
@@ -170,11 +170,11 @@ export default {
                   this.sixtybottom.push(obj)
                 });
                 var vm = this
-                if( res.data.data.length > 0 ) {
+                // if( res.data.data.length > 0 ) {
                   this.$nextTick(function() {
                     vm.getRandomVideo()
                   });
-                }
+                // }
                 console.log('sixty bottom:')
                 console.log(JSON.parse(JSON.stringify(res)))
             } catch (error) {

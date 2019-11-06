@@ -78,6 +78,7 @@
                 <Terbaru :items="latests"/>
                 <v-btn
                 tile
+                v-if="isMore"
                 block
                 depressed
                 dark
@@ -224,6 +225,7 @@ export default {
             article: '',
             writer: '',
             next: 2,
+            isMore: true,
             isArticle: true,
             isComment: false,
             isQuiz: false,
@@ -331,6 +333,9 @@ export default {
                   this.latests.push(element)
                 });
                 this.next += 1
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                  this.isMore = false;
+                }
             } catch (error) {
                 console.log(error)
             }
