@@ -111,43 +111,62 @@
 				<v-col class="mt-6" v-if="!isLogin()" cols="10">
 					<Login />
 				</v-col>
-				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="10">
-					<v-row>
-						<v-col cols="3">
-							<v-avatar
-								size="50"
-								color="grey"
-							>
-								<img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
-							</v-avatar>
-						</v-col>
-						<v-col cols="9" style="margin-top: -10px">
-							<v-row>
-								<v-col cols="6">
-									<strong class="subheading">{{ userdata.first_name }}</strong>
-								</v-col>
-								<v-col cols="6" class="text-right">
-									<v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
-								</v-col>
-							</v-row>
-							<hr>
-							<v-row>
-								<v-col cols="9">
-									<v-avatar color="orange" size="20">
-										<span class="white--text caption font-italic">V</span>
-									</v-avatar>
-									<strong class="body-2 green--text mr-2 font-weight-bold">(ACTIVE)</strong>
-									<v-avatar color="orange" size="20">
-										<span class="white--text caption font-italic">P</span>
-									</v-avatar>
-									<strong class="body-2 green--text font-weight-bold">500</strong>
-								</v-col>
-								<v-col cols="3" class="text-right">
-									<v-icon @click="$router.push('/member')">mdi mdi-arrow-right</v-icon>
-								</v-col>
-							</v-row>
-						</v-col>
-					</v-row>
+				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
+					<v-container>
+						<v-row>
+							<v-col cols="3">
+								<v-avatar
+									size="50"
+									color="grey"
+								>
+									<img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
+								</v-avatar>
+							</v-col>
+							<v-col cols="9" style="margin-top: -10px">
+								<v-row>
+									<v-col cols="6">
+										<strong class="subheading">{{ userdata.first_name }}</strong>
+									</v-col>
+									<v-col cols="6" class="text-right">
+										<v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
+									</v-col>
+								</v-row>
+								<hr>
+								<v-row>
+									<v-col cols="12">
+										<v-row no-gutters>
+											<v-col cols="7">
+												<v-row no-gutters>
+													<v-col cols="2">
+														<v-avatar color="orange" size="20">
+															<span class="white--text caption font-italic">V</span>
+														</v-avatar>
+													</v-col>
+													<v-col cols="10">
+														<strong class="body-2 green--text mr-2 font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+														<strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
+													</v-col>
+												</v-row>
+											</v-col>
+											<v-col cols="5" class="text-right">
+												<v-avatar color="orange" size="20">
+													<span class="white--text caption font-italic">P</span>
+												</v-avatar>
+												<strong class="body-2 green--text font-weight-bold">{{mypoint}}</strong>
+											</v-col>
+										</v-row>
+									</v-col>
+								</v-row>
+							</v-col>
+						</v-row>
+						<v-row>
+							<v-col cols="12">
+								<v-btn @click="$router.push('/member')" block color="orange accent-14" dark>
+									<v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
+								</v-btn>
+							</v-col>
+						</v-row>
+					</v-container>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -453,6 +472,7 @@ export default {
 				articles: [],
 				totalArticles: 0,
 				userdata:[],
+				mypoint: null,
 				next: 2,
 				years: null,
 				menus: [
@@ -575,6 +595,7 @@ export default {
 				try {
 					const res = await UserService.getSingleUser()
 					this.userdata = res.data.data;
+					this.mypoint = res.data.point_total;
 				} catch (err) {
 					this.isLoggedIn = false;
 					localStorage.removeItem('loggedin');
