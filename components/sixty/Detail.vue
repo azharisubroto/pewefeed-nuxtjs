@@ -74,8 +74,8 @@
               <div class="text-center">
                 VIDEO TERBARU LAINNYA
               </div>
-              <Terbaru :items="latests" class="mb-5 pb-5"/>
-              <!-- <v-row class="mb-5">
+              <Terbaru :items="latests" class="pb-5"/>
+              <v-row class="mb-5" v-if="isMore">
                 <v-col cols="12">
                   <v-btn
                   tile
@@ -87,7 +87,7 @@
                     Load More
                   </v-btn>
                 </v-col>
-              </v-row> -->
+              </v-row>
 
             </template>
 
@@ -212,6 +212,8 @@ export default {
             article: '',
             selengkapnya: '',
             writer: '',
+            isMore: true,
+            next: null,
             isArticle: true,
             isComment: false,
             isQuiz: false,
@@ -290,7 +292,8 @@ export default {
         async fetchLatest() {
             try {
                 const res = await ArticleService.getSixty('bottom')
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                console.log(JSON.parse(JSON.stringify(res.data)))
+                console.log('bottom')
                 var articles = res.data.data
                 var i = 1
                 articles.forEach(element => {
@@ -311,6 +314,22 @@ export default {
                     i++
                   }
                 });
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMore(n) {
+          try {
+                const res = await ArticleService.getSixty('bottom', n)
+                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                var newData = res.data.data
+                newData.forEach(element => {
+                  this.latests.push(element)
+                });
+                this.next += 1
+                if (res.data.meta.current_page == res.data.meta.last_page) {
+                  this.isMore = false;
+                }
             } catch (error) {
                 console.log(error)
             }
