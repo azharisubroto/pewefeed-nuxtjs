@@ -37,7 +37,7 @@
           <div class="mt-5">
             <v-container>
               <Terbaru :items="topviews"/>
-              <v-row>
+              <v-row v-if="isMore">
                 <v-col cols="12">
                   <v-btn
                   tile
@@ -91,6 +91,7 @@ export default {
             articles: [],
             topviews: [],
             next: 2,
+            isMore: true,
             toppoinbanner: 'http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg',
             garfik: '',
             mainCategories: {
@@ -147,6 +148,9 @@ export default {
                   this.topviews.push(element)
                 });
                 this.next += 1
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                  this.isMore = false;
+                }
             } catch (error) {
                 console.log(error)
             }

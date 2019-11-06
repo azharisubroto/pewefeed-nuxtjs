@@ -304,6 +304,9 @@
 		<v-progress-circular indeterminate size="64"></v-progress-circular>
 	</v-overlay>
 
+	<!-- 
+		Modal Search
+	 -->
 	<div class="text-center">
 		<v-dialog
 		v-model="dialog"
@@ -600,6 +603,7 @@ export default {
 				this.overlay = false
 				this.dialog = true
 				const items = res.data.data
+				this.articles = []
 				items.forEach(article => {
                     var slug = article.link
                         slug = slug.replace('https://playworld.id/', '')
@@ -614,6 +618,7 @@ export default {
 				});
 				this.totalArticles = res.data.pagination.total
 			} catch (error) {
+				this.articles = []
 				console.log(error)
 			}
 		},
