@@ -202,6 +202,8 @@
             <span>Quiz<br>(+20 Poin)</span>
           </v-btn>
         </v-bottom-navigation>
+
+        <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
     </section>
 </template>
 
@@ -211,15 +213,18 @@ import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
 import QuizModal from '@/components/common/QuizModal'
 import CommentList from '@/components/common/CommentList'
+import NotVip from '@/components/modal/NotVip'
 
 export default {
     components: {
       Terbaru,
       QuizModal,
-      CommentList
+      CommentList,
+      NotVip
     },
     data() {
         return {
+            profile:null,
             id: '',
             title: '',
             article: '',
@@ -241,6 +246,8 @@ export default {
             answerResult: null,
             already: false,
             user_id:null,
+            pleaseLoginDialogVisible: false,
+            notVipDialogVisible: false,
             items: [
                 {
                     text: this.$route.params.cat,
@@ -328,9 +335,22 @@ export default {
           try {
                 const res = await ArticleService.getRelatedMore(this.$route.params.articleslug, n)
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var newData = res.data.data.article
-                newData.forEach(element => {
-                  this.latests.push(element)
+                var articles = res.data.data.article
+                articles.forEach(element => {
+                  var link = element.link
+                      link = link.replace('https://playworld.id/', '')
+                  var obj = {
+                    image: {
+                      small: element.image.small
+                    },
+                    link: '/'+link,
+                    title: element.title,
+                    type: element.type,
+                    published_at: element.publish_at
+                  }
+                  if( element.id != this.id ) {
+                    this.latests.push(obj)
+                  }
                 });
                 this.next += 1
                 if (res.data.pagination.current_page == res.data.pagination.last_page) {
@@ -344,6 +364,8 @@ export default {
           try {
             const res = await UserService.getSingleUser()
             this.user_id = res.data.data.id
+            this.profile = res.data.data
+            console.log(JSON.parse(JSON.stringify(res.data.data)))
           } catch (error) {
             console.log(error)
           }
@@ -386,31 +408,39 @@ export default {
           }
         },
         async submitAnswer() {
-          const params = {
-            jawaban: this.jawabanQuiz,
-            quiz_id: this.quiz_id
-          }
-          try {
-            const res = await UserService.answerQuiz(params)
-            console.log(res)
-            this.dialog = true
-            if( res.status == 200 ) {
-              //alert(res.data.data.message)
-              if( res.data.data.status == 'benar' ) {
-                this.answerResult = true
-              } else if( res.data.data.status == 'salah' ) {
-                this.answerResult = false
-              } else {
-                this.already = true
-              }
-              //this.answered = true
+          console.log(this.profile.vip)
+          if( this.profile.vip != false ) {
+            const params = {
+              jawaban: this.jawabanQuiz,
+              quiz_id: this.quiz_id
             }
-          } catch (error) {
-            console.log(error)
+            try {
+              const res = await UserService.answerQuiz(params)
+              console.log(res)
+              this.dialog = true
+              if( res.status == 200 ) {
+                //alert(res.data.data.message)
+                if( res.data.data.status == 'benar' ) {
+                  this.answerResult = true
+                } else if( res.data.data.status == 'salah' ) {
+                  this.answerResult = false
+                } else {
+                  this.already = true
+                }
+                //this.answered = true
+              }
+            } catch (error) {
+              console.log(error)
+            }
+          } else {
+            this.notVipDialogVisible = true
           }
         },
         myDialogClose () {
             this.dialog = false
+            this.buyVipDialogVisible = false
+            this.pleaseLoginDialogVisible = false
+            this.notVipDialogVisible = false
             // other code
         },
     },

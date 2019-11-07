@@ -20,5 +20,5 @@ export default {
     },
     getHistoryVip() {
       return AuthApi().get('/member/vip-history')
-    }
+    },
 }
