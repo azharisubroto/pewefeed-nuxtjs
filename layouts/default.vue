@@ -24,7 +24,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-tabs grow color="deep-orange" class="pw-tab">
+      <v-tabs grow color="deep-orange" center-active class="pw-tab">
         <v-tab to="/">Trending</v-tab>
         <v-tab to="/video">Video</v-tab>
         <v-tab to="/toko">Tukar Poin</v-tab>
@@ -733,7 +733,8 @@ export default {
   .pw-tab {
     position: fixed;
     top: 55px;
-    z-index:10
+    z-index:10;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .v-slide-group__prev {

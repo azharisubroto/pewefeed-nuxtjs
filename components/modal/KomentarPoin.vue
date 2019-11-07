@@ -35,44 +35,25 @@
       <v-card-text>
         <div class="text-center pt-5">
           <div class="whitebox">
-            <template v-if="already==true">
-              <br>
-              <br>
-              <img src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/icon_infoBlue.png" width="120" alt="">
-              <br>
-              <br>
-              <strong class="blue--text">Anda Telah mengikuti QUIZ ini</strong>
-            </template>
 
-            <template v-else>
-              <div
-              v-if="jawaban==true"
+            <div
+            >
+              <img src="/img/poinextra.png" width="80" class="mt-5"/>
+              <br>
+              <br>
+              <h3 class="green--text">Extra POIN +2</h3>
+              <v-alert
+                outlined
+                type="info"
+                text
+                icon="mdi-information-outline"
+                align
+                class="text-left caption mt-3"
+                dense
               >
-                <img src="/img/poinextra.png" width="80" class="mt-5"/>
-                <br>
-                <br>
-                <h3 class="green--text">Extra POIN +20</h3>
-                <v-alert
-                  outlined
-                  type="info"
-                  text
-                  icon="mdi-information-outline"
-                  align
-                  class="text-left caption mt-3"
-                  dense
-                >
-                  Kamu mendapat tambahan POIN karena telah menjawab QUIZ
-                </v-alert>
-              </div>
-              <div
-              v-if="jawaban==false"
-              >
-                <img src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/icon-tiban.png" width="150" class="mt-5"/>
-                <br>
-                <br>
-                <strong class="red--text">JAWABAN SALAH!</strong><br>
-              </div>
-            </template>
+                Kamu mendapat tambahan POIN karena telah memberikan KOMENTAR
+              </v-alert>
+            </div>
           </div>
         </div>
         <v-row>
@@ -96,7 +77,7 @@
 
 <script>
 export default {
-  name: "QuizModal",
+  name: "KomentarPoin",
   props: {
     dialogVisible: Boolean,
     jawaban: Boolean,
