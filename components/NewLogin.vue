@@ -8,7 +8,7 @@
             @logout="onLogout"
         ></facebook-login>
         <GoogleLogin
-            @click="loading()"
+            @click="loadingGoogle()"
             :params="params"
             :onSuccess="onSuccess"
             :onFailure="onFailure"
@@ -97,7 +97,7 @@ export default {
             this.loading = false
             console.log('error')
         },
-        loading() {
+        loadingGoogle() {
             this.loading = true
         }
     }
