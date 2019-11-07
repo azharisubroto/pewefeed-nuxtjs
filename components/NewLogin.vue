@@ -71,11 +71,11 @@ export default {
                 localStorage.setItem('access-token', token);
                 localStorage.setItem('loggedin', true);
                 this.loading = false
-                if (window.location.pathname == '/member/login') {
-                    window.location.href = '/'
-                } else {
-                    window.location.href = window.location.pathname
-                }
+                // if (window.location.pathname == '/member/login') {
+                //     window.location.href = '/'
+                // } else {
+                //     window.location.href = window.location.pathname
+                // }
                 // } else {
                 //     vm.notloading();
                 // }
