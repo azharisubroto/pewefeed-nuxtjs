@@ -14,7 +14,7 @@
         >
             <v-card>
                 <v-card-title class="headline justify-center"><div id="gagal-login" style="color: red">Gagal Login!</div></v-card-title>
-                
+
                 <v-card-text align="center">
                     <v-img
                         src="@/assets/img/sad.svg"
@@ -47,6 +47,11 @@ export default {
     name: "Login",
     components: {
       OAuth
+    },
+    head () {
+      return {
+        title: 'Member Login',
+      }
     },
     data(){
         return {
