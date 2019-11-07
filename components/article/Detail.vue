@@ -127,6 +127,7 @@
               <!-- KOMEN LIST -->
               <CommentList :items="reverseComment"/>
               <div class="mb-5"></div>
+              <KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
             </template>
 
             <!-- QUIZ -->
@@ -170,6 +171,7 @@
                   color="green"
                   @click="submitAnswer()"
                 >KIRIM JAWABAN</v-btn>
+
               </div>
 
               <div v-else class="mt-5">
@@ -212,6 +214,7 @@ import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
 import QuizModal from '@/components/common/QuizModal'
+import KomentarPoin from '@/components/modal/KomentarPoin'
 import CommentList from '@/components/common/CommentList'
 import NotVip from '@/components/modal/NotVip'
 
@@ -220,7 +223,8 @@ export default {
       Terbaru,
       QuizModal,
       CommentList,
-      NotVip
+      NotVip,
+      KomentarPoin
     },
     data() {
         return {
@@ -248,6 +252,7 @@ export default {
             user_id:null,
             pleaseLoginDialogVisible: false,
             notVipDialogVisible: false,
+            KomentarPoinVisible: false,
             items: [
                 {
                     text: this.$route.params.cat,
@@ -390,6 +395,7 @@ export default {
             const res = await UserService.postComment(params)
             console.log(res)
             this.fetchComment()
+            this.KomentarPoinVisible = true
             this.commentIsPosting = false;
             this.comment_message = null;
           } catch (error) {
@@ -441,6 +447,7 @@ export default {
             this.buyVipDialogVisible = false
             this.pleaseLoginDialogVisible = false
             this.notVipDialogVisible = false
+            this.KomentarPoinVisible = false
             // other code
         },
     },
