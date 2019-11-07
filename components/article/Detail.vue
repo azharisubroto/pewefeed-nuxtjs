@@ -105,72 +105,119 @@
 
             <!-- COMMENT -->
             <template v-if="isComment">
-              <h4 class="mb-4 mt-5">{{comments.length}} Comments</h4>
+              <v-tabs color="deep-orange" v-model="tabCom">
+                <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
+                <v-tab href="#ketentuankom">Ketentuan</v-tab>
+              </v-tabs>
 
-              <!-- TEXT AREA -->
-              <v-textarea
-                outlined
-                color="deep-orange"
-                label="Komentar"
-                value=""
-                counter
-                rows="3"
-                auto-grow
-                v-model="comment_message"
-              ></v-textarea>
+              <v-tabs-items v-model="tabCom">
+                  <v-tab-item
+                    value="kasihkomen"
+                  >
+                    <h4 class="mb-4 mt-5">{{comments.length}} Comments</h4>
 
-              <v-btn block dark depressed color="deep-orange" @click="postComment()">
-                <template v-if="!commentIsPosting">Kirim Komentar</template>
-                <template v-else>Mengirim Komentar...</template>
-              </v-btn>
+                    <!-- TEXT AREA -->
+                    <v-textarea
+                      outlined
+                      color="deep-orange"
+                      label="Komentar"
+                      value=""
+                      counter
+                      rows="3"
+                      auto-grow
+                      v-model="comment_message"
+                    ></v-textarea>
 
-              <!-- KOMEN LIST -->
-              <CommentList :items="reverseComment"/>
-              <div class="mb-5"></div>
+                    <v-btn block dark depressed color="deep-orange" @click="postComment()">
+                      <template v-if="!commentIsPosting">Kirim Komentar</template>
+                      <template v-else>Mengirim Komentar...</template>
+                    </v-btn>
+
+                    <!-- KOMEN LIST -->
+                    <CommentList :items="reverseComment"/>
+                    <div class="mb-5"></div>
+                  </v-tab-item>
+
+                  <v-tab-item
+                    value="ketentuankom"
+                  >
+                    <h4 class="mt-5 mb-3">KETENTUAN KOMENTAR </h4>
+                    <ol class="mb-5 pb-5">
+                      <li>Pastikan sudah login</li>
+                      <li>Tulis komentar dengan minimal terdiri dari 50 kata</li>
+                      <li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
+                      <li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
+                      <li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
+                    </ol>
+                  </v-tab-item>
+                </v-tabs-items>
+
               <KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
             </template>
 
             <!-- QUIZ -->
             <template v-if="isQuiz">
-              <div v-if="quiz" class="mt-5">
-                <h4>{{ quiz.question }}</h4>
-                <v-radio-group v-model="jawabanQuiz">
-                  <v-row>
-                    <v-col cols="6">
-                      <v-radio
-                      :label="`${quiz.option_a}`"
-                      value="A"
-                    ></v-radio>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-radio
-                      :label="`${quiz.option_b}`"
-                      value="B"
-                    ></v-radio>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-radio
-                      :label="`${quiz.option_c}`"
-                      value="C"
-                    ></v-radio>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-radio
-                      :label="`${quiz.option_d}`"
-                      value="D"
-                    ></v-radio>
-                    </v-col>
-                  </v-row>
-                </v-radio-group>
+              <div v-if="quiz">
 
-                <v-btn
-                  block
-                  large
-                  dark
-                  depressed
-                  color="green"
-                  @click="submitAnswer()"
-                >KIRIM JAWABAN</v-btn>
+                <v-tabs color="deep-orange" v-model="tab">
+                  <v-tab href="#jawab">Jawab Quiz</v-tab>
+                  <v-tab href="#ketentuan">Ketentuan</v-tab>
+                </v-tabs>
+
+                <v-tabs-items v-model="tab">
+                  <v-tab-item
+                    value="jawab"
+                  >
+                    <h4 class="mt-5">{{ quiz.question }}</h4>
+                    <v-radio-group v-model="jawabanQuiz">
+                      <v-row>
+                        <v-col cols="6">
+                          <v-radio
+                          :label="`${quiz.option_a}`"
+                          value="A"
+                        ></v-radio>
+                        </v-col>
+                        <v-col cols="6">
+                          <v-radio
+                          :label="`${quiz.option_b}`"
+                          value="B"
+                        ></v-radio>
+                        </v-col>
+                        <v-col cols="6">
+                          <v-radio
+                          :label="`${quiz.option_c}`"
+                          value="C"
+                        ></v-radio>
+                        </v-col>
+                        <v-col cols="6">
+                          <v-radio
+                          :label="`${quiz.option_d}`"
+                          value="D"
+                        ></v-radio>
+                        </v-col>
+                      </v-row>
+                    </v-radio-group>
+
+                    <v-btn
+                      block
+                      large
+                      dark
+                      depressed
+                      color="deep-orange"
+                      @click="submitAnswer()"
+                    >KIRIM JAWABAN</v-btn>
+                  </v-tab-item>
+                  <v-tab-item
+                    value="ketentuan"
+                  >
+                    <h4 class="mt-5 mb-4">KETENTUAN QUIZ </h4>
+                    <ol class="pb-5 mb-5">
+                      <li>Pastikan sudah login</li>
+                      <li>Tulis hanya bisa di jawab 1 kali per 1 user</li>
+                      <li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
+                    </ol>
+                  </v-tab-item>
+                </v-tabs-items>
 
               </div>
 
@@ -228,6 +275,8 @@ export default {
     },
     data() {
         return {
+            tab: null,
+            tabCom: null,
             profile:null,
             id: '',
             title: '',
