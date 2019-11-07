@@ -138,9 +138,7 @@
                           <v-col cols="7">
                             <v-row no-gutters>
                               <v-col cols="2">
-                                <v-avatar color="orange" size="20">
-                                  <span class="white--text caption font-italic">V</span>
-                                </v-avatar>
+                                <img width="20" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
                               </v-col>
                               <v-col cols="10" class="pl-1">
                                 <strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
@@ -149,9 +147,7 @@
                             </v-row>
                           </v-col>
                           <v-col cols="5" class="text-right">
-                            <v-avatar color="orange" size="20">
-                              <span class="white--text caption font-italic">P</span>
-                            </v-avatar>
+                            <img width="20" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
                             <strong class="body-2 green--text font-weight-bold">{{mypoint}}</strong>
                           </v-col>
                         </v-row>
