@@ -20,5 +20,8 @@ export default {
     },
     getHistoryVip() {
       return AuthApi().get('/member/vip-history')
+    },
+    updateProfile(data) {
+      return AuthApi().put('member/profile', data)
     }
 }
