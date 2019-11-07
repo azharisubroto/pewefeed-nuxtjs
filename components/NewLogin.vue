@@ -68,7 +68,9 @@ export default {
             }
         },
 		sdkLoaded(payload) {
-			this.FB = payload.FB
+            payload.isConnected = false
+            this.isConnected = false
+            this.FB = payload.FB
 		},
 		onLogin() {
             this.FB.api('/me', 'GET', { fields: 'id,name,email' },
