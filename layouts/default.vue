@@ -108,10 +108,10 @@
 		 -->
 		<v-container>
 			<v-row>
-				<v-col class="mt-6" v-if="!isLogin()" cols="10">
+				<v-col class="mt-6" cols="10">
 					<NewLogin />
 				</v-col>
-				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
+				<v-col style="margin-bottom: -20px" class="mt-6" v-if="isLogin()" cols="12">
 					<v-container>
 						<v-row>
 							<v-col cols="3">
