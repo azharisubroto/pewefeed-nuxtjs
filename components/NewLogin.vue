@@ -69,9 +69,9 @@ export default {
         },
 		sdkLoaded(payload) {
             this.FB = payload.FB
-            if (localStorage.getItem('loggedin') == false) {
-                this.FB.logout(function(response) {});
-            }
+            this.FB.logout(function(response) {
+                console.log('logout')
+            });
 		},
 		onLogin() {
             this.FB.api('/me', 'GET', { fields: 'id,name,email' },
