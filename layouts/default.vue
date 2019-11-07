@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet
     >
       <v-app-bar
@@ -46,405 +46,408 @@
       <!-- DRAWER -->
       <v-navigation-drawer
         v-model="drawer"
-        fixed
-		width="100%"
         app
+        fixed
+		    width="100%"
       >
-		<v-card tile>
-			<v-app-bar
-				absolute
-				color="orange accent-14"
-				elevation="0"
-				dark
-			>
-				<v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
+        <v-card tile>
+          <v-app-bar
+            absolute
+            color="orange accent-14"
+            elevation="0"
+            dark
+          >
+            <v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
 
-				<v-toolbar-title @click="$router.push('/')">
-					<v-img
-					src="/img/playworld-logo.png"
-					width="130"
-					></v-img>
-				</v-toolbar-title>
+            <v-toolbar-title @click="$router.push('/')">
+              <v-img
+              src="/img/playworld-logo.png"
+              width="130"
+              ></v-img>
+            </v-toolbar-title>
 
-				<v-spacer></v-spacer>
+            <v-spacer></v-spacer>
 
-				<v-btn icon @click="hidden = !hidden">
-					<v-icon>mdi-magnify</v-icon>
-				</v-btn>
-			</v-app-bar>
-		</v-card>
+            <v-btn icon @click="hidden = !hidden">
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-app-bar>
+        </v-card>
 
-		<!--
-			SEARCH
-		 -->
-		<v-row>
-			<v-col cols="12">
-				<v-expand-transition>
-					<v-card tile dark color="orange accent-14" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
-						<v-card-text>
-							<v-row>
-								<v-col cols="10">
-									<v-text-field
-										v-model="searchModel"
-										dense
-										label="Tulis Judul Artikel . . ."
-										autofocus
-									></v-text-field>
-								</v-col>
-								<v-col cols="2">
-									<v-btn @click="search()" icon>
-										<v-icon>mdi-arrow-right</v-icon>
-									</v-btn>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-expand-transition>
-			</v-col>
-		</v-row>
+        <!--
+          SEARCH
+        -->
+        <v-row>
+          <v-col cols="12">
+            <v-expand-transition>
+              <v-card tile dark color="orange accent-14" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="10">
+                      <v-text-field
+                        v-model="searchModel"
+                        dense
+                        label="Tulis Judul Artikel . . ."
+                        autofocus
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-btn @click="search()" icon>
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-expand-transition>
+          </v-col>
+        </v-row>
 
-		<!--
-			LOGIN / ACCOUNT
-		 -->
-		<v-container>
-			<v-row>
-				<v-col class="mt-6" v-if="!isLogin()" cols="12">
-					<Login />
-				</v-col>
-				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
-					<v-container>
-						<v-row>
-							<v-col cols="3">
-								<v-avatar
-									size="50"
-									color="grey"
-								>
-									<img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
-								</v-avatar>
-							</v-col>
-							<v-col cols="9" style="margin-top: -10px">
-								<v-row>
-									<v-col cols="6">
-										<strong class="subheading">{{ userdata.first_name }}</strong>
-									</v-col>
-									<v-col cols="6" class="text-right">
-										<v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
-									</v-col>
-								</v-row>
-								<hr>
-								<v-row>
-									<v-col cols="12">
-										<v-row no-gutters>
-											<v-col cols="7">
-												<v-row no-gutters>
-													<v-col cols="2">
-														<v-avatar color="orange" size="20">
-															<span class="white--text caption font-italic">V</span>
-														</v-avatar>
-													</v-col>
-													<v-col cols="10" class="pl-1">
-														<strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
-														<strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
-													</v-col>
-												</v-row>
-											</v-col>
-											<v-col cols="5" class="text-right">
-												<v-avatar color="orange" size="20">
-													<span class="white--text caption font-italic">P</span>
-												</v-avatar>
-												<strong class="body-2 green--text font-weight-bold">{{mypoint}}</strong>
-											</v-col>
-										</v-row>
-									</v-col>
-								</v-row>
-							</v-col>
-						</v-row>
-						<v-row>
-							<v-col cols="12">
-								<v-btn @click="$router.push('/member')" block color="orange accent-14" dark>
-									<v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
-								</v-btn>
-							</v-col>
-						</v-row>
-					</v-container>
-				</v-col>
-			</v-row>
-		</v-container>
-		<v-container style="margin-bottom: -20px">
-			<hr>
-		</v-container>
-		<v-container>
-			<!--
-				MENU
-			-->
-			<v-row>
-				<v-col cols="6">
-					<v-list>
-						<v-subheader class="black--text">CATEGORY</v-subheader>
-						<v-list-item-group v-model="category">
-							<v-list-item
-								v-for="(cat, i) in categories"
-								:key="i"
-								@click="$router.push(cat.link)"
-							>
-								<v-list-item-content class="menu">
-									<v-list-item-title v-html="cat.title"></v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
-					</v-list>
-				</v-col>
-				<v-col cols="6">
-					<v-list>
-						<v-subheader class="black--text">PREMIUM</v-subheader>
-						<v-list-item-group v-model="premium">
-							<v-list-item
-								v-for="(prem, i) in premiums"
-								:key="i"
-								@click="$router.push(rem.link)"
-							>
-								<v-list-item-content class="menu">
-									<v-list-item-title v-html="prem.title"></v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
-					</v-list>
-					<v-container>
-						<hr>
-					</v-container>
-					<v-list>
-						<v-subheader class="black--text">PROGRAM</v-subheader>
-						<v-list-item-group v-model="program">
-							<v-list-item
-								v-for="(prog, i) in programs"
-								:key="i"
-								@click="$router.push(prog.link)"
-							>
-								<v-list-item-content class="menu">
-									<v-list-item-title v-html="prog.title"></v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
-					</v-list>
-				</v-col>
-			</v-row>
-			<v-container>
-				<hr>
-			</v-container>
-			<!--
-				CONTACT
-			 -->
-			<v-row>
-				<v-col cols="12" style="margin-bottom: -30px !important">
-					<v-subheader class="black--text">CONTACT</v-subheader>
-				</v-col>
-				<v-col cols="6">
-					<v-list two-line>
-						<v-list-item-group v-model="contact">
-							<v-list-item
-								v-for="(con, i) in contacts"
-								:key="i"
-							>
-								<v-list-item-content class="menu">
-									<v-list-item-title v-html="con.title"></v-list-item-title>
-									<v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
-					</v-list>
-				</v-col>
-				<v-col cols="6">
-					<v-list two-line>
-						<v-list-item-group v-model="contacttwo">
-							<v-list-item
-								v-for="(con, i) in contactstwo"
-								:key="i"
-							>
-								<v-list-item-content class="menu">
-									<v-list-item-title v-html="con.title"></v-list-item-title>
-									<v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list-item-group>
-					</v-list>
-				</v-col>
-			</v-row>
-			<v-container>
-				<hr>
-			</v-container>
-			<!--
-				SOCIAL MEDIA
-			 -->
-			<v-row>
-				<v-col cols="12">
-					<v-container>
-						<div class="addthis_inline_follow_toolbox">
-							<AddThis publicId="ra-56726fb53e3222fa" />
-						</div>
-					</v-container>
-				</v-col>
-			</v-row>
-			<v-container>
-				<hr>
-			</v-container>
-			<!--
-				ABOUT
-			 -->
-			<v-row>
-				<v-col cols="6">
-					<v-list>
-						<v-subheader class="black--text">Tentang Playworld</v-subheader>
-						<v-subheader class="black--text">Dewan Pers</v-subheader>
-						<v-subheader class="black--text">Tim Redaksi</v-subheader>
-						<v-subheader class="black--text">Bantuan</v-subheader>
-					</v-list>
-				</v-col>
-				<v-col cols="6">
-					<v-list>
-						<v-subheader class="black--text">Kebiajakan & Privasi</v-subheader>
-						<v-subheader class="black--text">Keamanan Transaksi</v-subheader>
-						<v-subheader class="black--text">Metode Pembayaran</v-subheader>
-						<v-subheader class="black--text">Jasa Pengiriman</v-subheader>
-					</v-list>
-				</v-col>
-			</v-row>
-			<v-container>
-				<hr>
-			</v-container>
-			<v-container>
-				<strong>{{years}} &copy; PT Jayadata Indonesia</strong>
-			</v-container>
-		</v-container>
+        <!--
+          LOGIN / ACCOUNT
+        -->
+        <v-container>
+          <v-row>
+            <v-col class="mt-6" v-if="!isLogin()" cols="12">
+              <Login />
+            </v-col>
+            <v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
+              <v-container>
+                <v-row>
+                  <v-col cols="3">
+                    <v-avatar
+                      size="50"
+                      color="grey"
+                    >
+                      <img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
+                    </v-avatar>
+                  </v-col>
+                  <v-col cols="9" style="margin-top: -10px">
+                    <v-row>
+                      <v-col cols="6">
+                        <strong class="subheading">{{ userdata.first_name }}</strong>
+                      </v-col>
+                      <v-col cols="6" class="text-right">
+                        <v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
+                      </v-col>
+                    </v-row>
+                    <hr>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-row no-gutters>
+                          <v-col cols="7">
+                            <v-row no-gutters>
+                              <v-col cols="2">
+                                <v-avatar color="orange" size="20">
+                                  <span class="white--text caption font-italic">V</span>
+                                </v-avatar>
+                              </v-col>
+                              <v-col cols="10" class="pl-1">
+                                <strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+                                <strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
+                              </v-col>
+                            </v-row>
+                          </v-col>
+                          <v-col cols="5" class="text-right">
+                            <v-avatar color="orange" size="20">
+                              <span class="white--text caption font-italic">P</span>
+                            </v-avatar>
+                            <strong class="body-2 green--text font-weight-bold">{{mypoint}}</strong>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-btn @click="$router.push('/member')" block color="orange accent-14" dark>
+                      <v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container style="margin-bottom: -20px">
+          <hr>
+        </v-container>
+
+        <!-- DRAWER CONTENT -->
+        <v-container>
+          <!--
+            CATEGORY MENU
+          -->
+          <v-row>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text">CATEGORY</v-subheader>
+                <v-list-item-group v-model="category">
+                  <v-list-item
+                    v-for="(cat, i) in categories"
+                    :key="i"
+                    :to="cat.link"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="cat.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text">PREMIUM</v-subheader>
+                <v-list-item-group v-model="premium">
+                  <v-list-item
+                    v-for="(prem, i) in premiums"
+                    :key="i"
+                    @click="$router.push(rem.link)"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="prem.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+              <v-container>
+                <hr>
+              </v-container>
+              <v-list>
+                <v-subheader class="black--text">PROGRAM</v-subheader>
+                <v-list-item-group v-model="program">
+                  <v-list-item
+                    v-for="(prog, i) in programs"
+                    :key="i"
+                    @click="$router.push(prog.link)"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="prog.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <hr>
+          </v-container>
+          <!--
+            CONTACT
+          -->
+          <v-row>
+            <v-col cols="12" style="margin-bottom: -30px !important">
+              <v-subheader class="black--text">CONTACT</v-subheader>
+            </v-col>
+            <v-col cols="6">
+              <v-list two-line>
+                <v-list-item-group v-model="contact">
+                  <v-list-item
+                    v-for="(con, i) in contacts"
+                    :key="i"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="con.title"></v-list-item-title>
+                      <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list two-line>
+                <v-list-item-group v-model="contacttwo">
+                  <v-list-item
+                    v-for="(con, i) in contactstwo"
+                    :key="i"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="con.title"></v-list-item-title>
+                      <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <hr>
+          </v-container>
+          <!--
+            SOCIAL MEDIA
+          -->
+          <v-row>
+            <v-col cols="12">
+              <v-container>
+                <div class="addthis_inline_follow_toolbox">
+                  <AddThis publicId="ra-56726fb53e3222fa" />
+                </div>
+              </v-container>
+            </v-col>
+          </v-row>
+          <v-container>
+            <hr>
+          </v-container>
+          <!--
+            ABOUT
+          -->
+          <v-row>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text">Tentang Playworld</v-subheader>
+                <v-subheader class="black--text">Dewan Pers</v-subheader>
+                <v-subheader class="black--text">Tim Redaksi</v-subheader>
+                <v-subheader class="black--text">Bantuan</v-subheader>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text">Kebiajakan & Privasi</v-subheader>
+                <v-subheader class="black--text">Keamanan Transaksi</v-subheader>
+                <v-subheader class="black--text">Metode Pembayaran</v-subheader>
+                <v-subheader class="black--text">Jasa Pengiriman</v-subheader>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <hr>
+          </v-container>
+          <v-container>
+            <strong>{{years}} &copy; PT Jayadata Indonesia</strong>
+          </v-container>
+		    </v-container>
+        <!-- END DRAWER CONTENT -->
       </v-navigation-drawer>
       <!-- END DRAWER -->
     </v-sheet>
 
-	<v-overlay :value="overlay">
-		<v-progress-circular indeterminate size="64"></v-progress-circular>
-	</v-overlay>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
 
-	<!--
-		Modal Search
-	 -->
-	<div class="text-center">
-		<v-dialog
-		v-model="dialog"
-		fullscreen
-		hide-overlay
-		transition="dialog-bottom-transition"
-		>
-			<v-card>
-				<!-- Header -->
-				<v-toolbar dark color="orange accent-14">
-					<!-- Arrow -->
-					<v-btn icon tile style="border-right: 1px solid #fff" dark @click="dialog = false">
-						<v-icon>mdi-close</v-icon>
-					</v-btn>
+    <!--
+      Modal Search
+    -->
+    <div class="text-center">
+      <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      >
+        <v-card>
+          <!-- Header -->
+          <v-toolbar dark color="orange accent-14">
+            <!-- Arrow -->
+            <v-btn icon tile style="border-right: 1px solid #fff" dark @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
 
-					<!-- Logo -->
-					<v-toolbar-title>
-						<v-img
-						@click="$router.push('/')"
-						src="/img/playworld-logo.png"
-						lazy-src="/img/playworld-logo.png"
-						max-width="110"
-						max-height="100"
-						>
-						</v-img>
-					</v-toolbar-title>
+            <!-- Logo -->
+            <v-toolbar-title>
+              <v-img
+              @click="$router.push('/')"
+              src="/img/playworld-logo.png"
+              lazy-src="/img/playworld-logo.png"
+              max-width="110"
+              max-height="100"
+              >
+              </v-img>
+            </v-toolbar-title>
 
-					<!-- Title -->
-					<div class="flex-grow-1"></div>
-					<strong class="subtitle-2">PENCARIAN</strong>
-				</v-toolbar>
-				<v-card-text>
-					<v-skeleton-loader v-if="articles.length==0"
-						class="mx-auto mt-5"
-						type="list-item-avatar-three-line"
-					></v-skeleton-loader>
-					<v-container>
-						<strong class="title">{{totalArticles}} Artikel Ditemukan</strong>
-					</v-container>
-					<v-container>
-						<v-divider></v-divider>
-					</v-container>
-					<div v-if="articles">
-						<div>
-							<v-container>
-								<Terbaru :items="articles"/>
-								<v-row>
-									<v-col cols="12">
-									<v-btn
-									tile
-									block
-									depressed
-									dark
-									color="deep-orange"
-									@click="loadMore(next)">
-										Load More
-									</v-btn>
-									</v-col>
-								</v-row>
-							</v-container>
-						</div>
-					</div>
-				</v-card-text>
-			</v-card>
-		</v-dialog>
-		<!--
-		SEARCH
-		-->
-		<div class="text-center">
-			<v-dialog
-			v-model="searchDialog"
-			persistent
-			width="500"
-			>
-			<v-card>
-				<v-toolbar dark color="orange accent-14">
-					<!-- Arrow -->
-					<v-btn icon tile style="border-right: 1px solid #fff" dark @click="searchDialog = false">
-						<v-icon>mdi-close</v-icon>
-					</v-btn>
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <strong class="subtitle-2">PENCARIAN</strong>
+          </v-toolbar>
+          <v-card-text>
+            <v-skeleton-loader v-if="articles.length==0"
+              class="mx-auto mt-5"
+              type="list-item-avatar-three-line"
+            ></v-skeleton-loader>
+            <v-container>
+              <strong class="title">{{totalArticles}} Artikel Ditemukan</strong>
+            </v-container>
+            <v-container>
+              <v-divider></v-divider>
+            </v-container>
+            <div v-if="articles">
+              <div>
+                <v-container>
+                  <Terbaru :items="articles"/>
+                  <v-row>
+                    <v-col cols="12">
+                    <v-btn
+                    tile
+                    block
+                    depressed
+                    dark
+                    color="deep-orange"
+                    @click="loadMore(next)">
+                      Load More
+                    </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      <!--
+      SEARCH
+      -->
+      <div class="text-center">
+        <v-dialog
+        v-model="searchDialog"
+        persistent
+        width="500"
+        >
+        <v-card>
+          <v-toolbar dark color="orange accent-14">
+            <!-- Arrow -->
+            <v-btn icon tile style="border-right: 1px solid #fff" dark @click="searchDialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
 
-					<!-- Logo -->
-					<v-toolbar-title>
-						<v-img
-						@click="$router.push('/')"
-						src="/img/playworld-logo.png"
-						lazy-src="/img/playworld-logo.png"
-						max-width="100"
-						max-height="100"
-						>
-						</v-img>
-					</v-toolbar-title>
+            <!-- Logo -->
+            <v-toolbar-title>
+              <v-img
+              @click="$router.push('/')"
+              src="/img/playworld-logo.png"
+              lazy-src="/img/playworld-logo.png"
+              max-width="100"
+              max-height="100"
+              >
+              </v-img>
+            </v-toolbar-title>
 
-					<!-- Title -->
-					<div class="flex-grow-1"></div>
-					<strong class="subtitle-2">PENCARIAN</strong>
-				</v-toolbar>
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <strong class="subtitle-2">PENCARIAN</strong>
+          </v-toolbar>
 
-				<v-card-text>
-					<v-row class="mt-12">
-						<v-col cols="10">
-							<v-text-field
-								v-model="searchModel"
-								dense
-								label="Tulis Judul Artikel . . ."
-								autofocus
-							></v-text-field>
-						</v-col>
-						<v-col cols="2">
-							<v-btn @click="search()" icon>
-								<v-icon>mdi-arrow-right</v-icon>
-							</v-btn>
-						</v-col>
-					</v-row>
-				</v-card-text>
-			</v-card>
-			</v-dialog>
-		</div>
-	</div>
+          <v-card-text>
+            <v-row class="mt-12">
+              <v-col cols="10">
+                <v-text-field
+                  v-model="searchModel"
+                  dense
+                  label="Tulis Judul Artikel . . ."
+                  autofocus
+                ></v-text-field>
+              </v-col>
+              <v-col cols="2">
+                <v-btn @click="search()" icon>
+                  <v-icon>mdi-arrow-right</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+        </v-dialog>
+      </div>
+    </div>
   </v-app>
 </template>
 
@@ -521,7 +524,7 @@ export default {
 					},
 					{
 						title: 'SIXTY',
-						link: '/sixty'
+						link: '/video'
 					},
 				],
 				premium: 2,
@@ -677,6 +680,12 @@ export default {
     --LAGU: #d54444;
     --NONTON: #000;
     --TEKNO: #8d8988
+  }
+  .v-application {
+    &.open {
+      overflow-y: hidden;
+      height: 100vh;
+    }
   }
   .theme--light.v-application{
     background: #fff;
