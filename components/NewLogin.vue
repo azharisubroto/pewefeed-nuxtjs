@@ -91,7 +91,7 @@ export default {
 			if (this.isConnected) this.getUserData()
 		},
 		onLogin() {
-			this.isConnected = true
+			this.isConnected = false
 			this.getUserData()
 		},
 		onLogout() {
