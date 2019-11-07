@@ -546,5 +546,7 @@ export default {
         line-height:0
         opacity:.5
     iframe
-      width: 100%
+      width: calc(100% + 40px)
+      margin-left: -20px
+      margin-right: -20px
 </style>
