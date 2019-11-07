@@ -6,6 +6,7 @@
             appId="107188393464738"
             @login="onLogin"
             @logout="onLogout"
+            @sdk-loaded="sdkLoaded">
         ></facebook-login>
         <GoogleLogin
             @click="loadingGoogle()"
