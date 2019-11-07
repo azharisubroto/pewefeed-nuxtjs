@@ -35,24 +35,6 @@ export default {
         },
     }),
     methods: {
-        // getUserData() {
-        //     if (localStorage.getItem('loggedin') == false) {
-        //         this.FB.api('/me', 'GET', { fields: 'id,name,email' },
-        //             userInformation => {
-        //                 console.warn("data api",userInformation)
-        //                 this.personalID = userInformation.id;
-        //                 this.email = userInformation.email;
-        //                 this.name = userInformation.name;
-        //                 this.provider = 'facebook';
-
-        //                 if (userInformation.error) {
-        //                     this.loading = false
-        //                 }
-        //                 this.loginProcess()
-        //             }
-        //         )
-        //     }
-        // },
         async loginProcess() {
             try {
                 const response = await axios.post('https://s1.playworld.id/api/auth/signin', {
@@ -70,7 +52,6 @@ export default {
                 //console.log(userdata);
                 localStorage.setItem('access-token', token);
                 localStorage.setItem('loggedin', true);
-                this.loading = false
                 if (window.location.pathname == '/member/login') {
                     window.location.href = '/'
                 } else {
@@ -85,11 +66,9 @@ export default {
                 localStorage.setItem('loggedin', false);
             }
         },
-		// sdkLoaded(payload) {
-		// 	this.isConnected = payload.isConnected
-		// 	this.FB = payload.FB
-		// 	if (this.isConnected) this.getUserData()
-		// },
+		sdkLoaded(payload) {
+			this.FB = payload.FB
+		},
 		onLogin() {
             this.FB.api('/me', 'GET', { fields: 'id,name,email' },
                 userInformation => {
@@ -98,10 +77,6 @@ export default {
                     this.email = userInformation.email;
                     this.name = userInformation.name;
                     this.provider = 'facebook';
-
-                    if (userInformation.error) {
-                        this.loading = false
-                    }
                     this.loginProcess()
                 }
             )
