@@ -68,9 +68,10 @@ export default {
             }
         },
 		sdkLoaded(payload) {
-            payload.isConnected = false
-            this.isConnected = false
             this.FB = payload.FB
+            if (localStorage.getItem('loggedin') == false) {
+                this.FB.logout(function(response) {});
+            }
 		},
 		onLogin() {
             this.FB.api('/me', 'GET', { fields: 'id,name,email' },
