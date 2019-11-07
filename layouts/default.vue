@@ -727,7 +727,8 @@ export default {
   .pw-tab {
     position: fixed;
     top: 55px;
-    z-index:10
+    z-index:10;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .v-slide-group__prev {
