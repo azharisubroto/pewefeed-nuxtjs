@@ -378,7 +378,8 @@ export default {
             } else if( error.response.status == 500 ) {
               alert('an error occured')
             } else if( error.response.status == 401 ) {
-              alert('Mohon Maaf :(, Anda harus login')
+              //alert('Mohon Maaf :(, Anda harus login')
+              this.$router.push('/member/login')
             } else {
               alert('error! ' + error.message)
             }
