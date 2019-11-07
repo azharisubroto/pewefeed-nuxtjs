@@ -108,7 +108,7 @@
 		 -->
 		<v-container>
 			<v-row>
-				<v-col class="mt-6" v-if="!isLogin()" cols="10">
+				<v-col class="mt-6" v-if="!isLogin()" cols="12">
 					<Login />
 				</v-col>
 				<v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
@@ -323,7 +323,7 @@
 		<v-progress-circular indeterminate size="64"></v-progress-circular>
 	</v-overlay>
 
-	<!-- 
+	<!--
 		Modal Search
 	 -->
 	<div class="text-center">
@@ -349,7 +349,7 @@
 						lazy-src="/img/playworld-logo.png"
 						max-width="110"
 						max-height="100"
-						>  
+						>
 						</v-img>
 					</v-toolbar-title>
 
@@ -371,7 +371,7 @@
 					<div v-if="articles">
 						<div>
 							<v-container>
-								<Terbaru :items="articles"/> 
+								<Terbaru :items="articles"/>
 								<v-row>
 									<v-col cols="12">
 									<v-btn
@@ -415,7 +415,7 @@
 						lazy-src="/img/playworld-logo.png"
 						max-width="100"
 						max-height="100"
-						>  
+						>
 						</v-img>
 					</v-toolbar-title>
 
