@@ -34,6 +34,8 @@ export default {
     { src: '~/plugins/oauthio-web', ssr: false },
     { src: '~/plugins/vue2-dropzone', ssr: false },
     { src: '~/plugins/addthis', ssr: false },
+    { src: '~/plugins/facebook-login', ssr: false },
+    { src: '~/plugins/google-login', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules

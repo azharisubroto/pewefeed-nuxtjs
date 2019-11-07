@@ -109,7 +109,7 @@
         <v-container>
           <v-row>
             <v-col class="mt-6" v-if="!isLogin()" cols="12">
-              <Login />
+              <NewLogin />
             </v-col>
             <v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
               <v-container>
@@ -455,128 +455,130 @@
 import UserService from '@/services/UserService'
 import Login from '@/components/Login'
 import Terbaru from '@/components/article/Terbaru'
+import NewLogin from '@/components//NewLogin'
 import ArticleService from '../services/ArticleService';
 export default {
 	name: 'App',
 	components: {
 		Login,
-		Terbaru
+		Terbaru,
+		NewLogin
 	},
-		data () {
-			return {
-				drawer: null,
-				searchDialog: null,
-				isLoggedIn: false,
-				hidden: true,
-				hiddenmain: true,
-				dialog: false,
-				searchModel: null,
-				overlay: false,
-				articles: [],
-				totalArticles: 0,
-				userdata:[],
-				mypoint: null,
-				next: 2,
-				years: null,
-				menus: [
-					{
-						id: 1,
-						label: 'Home',
-						path: '/',
-						icon: 'mdi-home'
-					},
-					{
-						id: 2,
-						label: 'Starx',
-						path: '/starx',
-						icon: 'mdi-account-star'
-					},
-				],
-				category: 5,
-				categories: [
-					{
-						title: 'TRENDING',
-						link: '/'
-					},
-					{
-						title: 'VIRAL',
-						link: '/viral'
-					},
-					{
-						title: 'LAGU',
-						link: '/lagu'
-					},
-					{
-						title: 'NONTON',
-						link: '/nonton'
-					},
-					{
-						title: 'PIKNIK',
-						link: '/piknik'
-					},
-					{
-						title: 'TEKNO',
-						link: '/tekno'
-					},
-					{
-						title: 'SPORT',
-						link: '/sport'
-					},
-					{
-						title: 'SIXTY',
-						link: '/video'
-					},
-				],
-				premium: 2,
-				premiums: [
-					{
-						title: 'FAKTA',
-						link: '/fakta'
-					},
-					{
-						title: 'KOMIK',
-						link: '/kontenreceh'
-					}
-				],
-				program: 3,
-				programs: [
-					{
-						title: 'TUKAR POIN',
-						link: '/toko'
-					},
-					{
-						title: 'TOP POIN',
-						link: '/toppoin'
-					},
-					{
-						title: 'KOMPETISI',
-						link: '/kompetisi'
-					}
-				],
-				contact: 2,
-				contacts: [
-					{
-						title: '(021) 293 85 381',
-						subtitle: '(Business Hour)'
-					},
-					{
-						title: '0815 1906 0929',
-						subtitle: '(24 Hour)'
-					}
-				],
-				contacttwo: 2,
-				contactstwo: [
-					{
-						title: '0817 1717 3029',
-						subtitle: '(24 Hour)'
-					},
-					{
-						title: 'halo@playworld.id',
-						subtitle: '(Official Email Address)'
-					}
-				]
-		  }
-	  },
+	data () {
+		return {
+			drawer: null,
+			searchDialog: null,
+			isLoggedIn: false,
+			hidden: true,
+			hiddenmain: true,
+			dialog: false,
+			searchModel: null,
+			overlay: false,
+			articles: [],
+			totalArticles: 0,
+			userdata:[],
+			mypoint: null,
+			next: 2,
+			years: null,
+			menus: [
+				{
+					id: 1,
+					label: 'Home',
+					path: '/',
+					icon: 'mdi-home'
+				},
+				{
+					id: 2,
+					label: 'Starx',
+					path: '/starx',
+					icon: 'mdi-account-star'
+				},
+			],
+			category: 5,
+			categories: [
+				{
+					title: 'TRENDING',
+					link: '/'
+				},
+				{
+					title: 'VIRAL',
+					link: '/viral'
+				},
+				{
+					title: 'LAGU',
+					link: '/lagu'
+				},
+				{
+					title: 'NONTON',
+					link: '/nonton'
+				},
+				{
+					title: 'PIKNIK',
+					link: '/piknik'
+				},
+				{
+					title: 'TEKNO',
+					link: '/tekno'
+				},
+				{
+					title: 'SPORT',
+					link: '/sport'
+				},
+				{
+					title: 'SIXTY',
+					link: '/video'
+				},
+			],
+			premium: 2,
+			premiums: [
+				{
+					title: 'FAKTA',
+					link: '/fakta'
+				},
+				{
+					title: 'KOMIK',
+					link: '/kontenreceh'
+				}
+			],
+			program: 3,
+			programs: [
+				{
+					title: 'TUKAR POIN',
+					link: '/toko'
+				},
+				{
+					title: 'TOP POIN',
+					link: '/toppoin'
+				},
+				{
+					title: 'KOMPETISI',
+					link: '/kompetisi'
+				}
+			],
+			contact: 2,
+			contacts: [
+				{
+					title: '(021) 293 85 381',
+					subtitle: '(Business Hour)'
+				},
+				{
+					title: '0815 1906 0929',
+					subtitle: '(24 Hour)'
+				}
+			],
+			contacttwo: 2,
+			contactstwo: [
+				{
+					title: '0817 1717 3029',
+					subtitle: '(24 Hour)'
+				},
+				{
+					title: 'halo@playworld.id',
+					subtitle: '(Official Email Address)'
+				}
+			]
+		}
+	},
 	methods: {
 		logout() {
 			let vm = this;
@@ -584,7 +586,11 @@ export default {
 			localStorage.removeItem('access-token');
 			this.isLoggedIn = false;
 			this.isLogin();
-			vm.$router.push("/");
+			if (window.location.pathname == '/member/login') {
+				window.location.href = '/'
+			} else {
+				window.location.href = window.location.pathname
+			}
 		},
 		isLogin() {
 			return this.isLoggedIn
@@ -661,7 +667,7 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-        },
+		},
 	},
 	mounted() {
 		this.isLogin()
