@@ -53,6 +53,7 @@ export default {
                 //console.log(userdata);
                 localStorage.setItem('access-token', token);
                 localStorage.setItem('loggedin', true);
+                this.loading = false
                 if (window.location.pathname == '/member/login') {
                     window.location.href = '/'
                 } else {
@@ -71,9 +72,16 @@ export default {
             this.FB = payload.FB
             this.FB.logout(function(response) {
                 console.log('logout')
+                this.isConnected = false
+                if (window.location.pathname == '/member/login') {
+                    window.location.href = '/'
+                } else {
+                    window.location.href = window.location.pathname
+                }
             });
 		},
 		onLogin() {
+            this.loading = true
             this.FB.api('/me', 'GET', { fields: 'id,name,email' },
                 userInformation => {
                     console.warn("data api",userInformation)

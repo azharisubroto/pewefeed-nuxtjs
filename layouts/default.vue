@@ -579,7 +579,11 @@ export default {
 			localStorage.removeItem('access-token');
 			this.isLoggedIn = false;
 			this.isLogin();
-			vm.$router.push("/");
+			if (window.location.pathname == '/member/login') {
+				window.location.href = '/'
+			} else {
+				window.location.href = window.location.pathname
+			}
 		},
 		isLogin() {
 			return this.isLoggedIn
