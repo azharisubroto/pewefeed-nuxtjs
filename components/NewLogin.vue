@@ -8,12 +8,12 @@
             @logout="onLogout"
             @sdk-loaded="sdkLoaded">
         ></facebook-login>
-        <GoogleLogin
+        <!-- <GoogleLogin
             @click="loadingGoogle()"
             :params="params"
             :onSuccess="onSuccess"
             :onFailure="onFailure"
-        >Login</GoogleLogin>
+        >Login</GoogleLogin> -->
 
         <v-overlay :value="loading">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
