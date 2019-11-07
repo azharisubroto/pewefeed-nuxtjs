@@ -48,11 +48,6 @@ export default {
     components: {
       OAuth
     },
-    head () {
-      return {
-        title: 'Member Login',
-      }
-    },
     data(){
         return {
             overlay: false,

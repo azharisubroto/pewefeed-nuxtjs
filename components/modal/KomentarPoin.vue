@@ -16,7 +16,6 @@
       <v-toolbar-title>
         <v-img
           :src="logo"
-          :lazy-src="lazy"
           max-width="40"
           max-height="40"
         >

@@ -24,7 +24,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-tabs grow color="deep-orange" class="pw-tab">
+      <v-tabs grow color="deep-orange" center-active class="pw-tab">
         <v-tab to="/">Trending</v-tab>
         <v-tab to="/video">Video</v-tab>
         <v-tab to="/toko">Tukar Poin</v-tab>
