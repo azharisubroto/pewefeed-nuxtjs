@@ -37,21 +37,22 @@ export default {
     }),
     methods: {
         getUserData() {
-            this.loading = true
-			this.FB.api('/me', 'GET', { fields: 'id,name,email' },
-				userInformation => {
-					console.warn("data api",userInformation)
-					this.personalID = userInformation.id;
-					this.email = userInformation.email;
-                    this.name = userInformation.name;
-                    this.provider = 'facebook';
+            if (localStorage.getItem('loggedin') == false) {
+                this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+                    userInformation => {
+                        console.warn("data api",userInformation)
+                        this.personalID = userInformation.id;
+                        this.email = userInformation.email;
+                        this.name = userInformation.name;
+                        this.provider = 'facebook';
 
-                    if (userInformation.error) {
-                        this.loading = false
+                        if (userInformation.error) {
+                            this.loading = false
+                        }
+                        this.loginProcess()
                     }
-                    this.loginProcess()
-				}
-			)
+                )
+            }
         },
         async loginProcess() {
             try {
@@ -71,11 +72,11 @@ export default {
                 localStorage.setItem('access-token', token);
                 localStorage.setItem('loggedin', true);
                 this.loading = false
-                // if (window.location.pathname == '/member/login') {
-                //     window.location.href = '/'
-                // } else {
-                //     window.location.href = window.location.pathname
-                // }
+                if (window.location.pathname == '/member/login') {
+                    window.location.href = '/'
+                } else {
+                    window.location.href = window.location.pathname
+                }
                 // } else {
                 //     vm.notloading();
                 // }
@@ -91,7 +92,7 @@ export default {
 			if (this.isConnected) this.getUserData()
 		},
 		onLogin() {
-			this.isConnected = false
+			this.isConnected = true
 			this.getUserData()
 		},
 		onLogout() {
