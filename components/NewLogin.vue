@@ -6,7 +6,6 @@
             appId="107188393464738"
             @login="onLogin"
             @logout="onLogout"
-            @sdk-loaded="sdkLoaded">
         ></facebook-login>
         <GoogleLogin
             @click="loading()"
@@ -36,24 +35,24 @@ export default {
         },
     }),
     methods: {
-        getUserData() {
-            if (localStorage.getItem('loggedin') == false) {
-                this.FB.api('/me', 'GET', { fields: 'id,name,email' },
-                    userInformation => {
-                        console.warn("data api",userInformation)
-                        this.personalID = userInformation.id;
-                        this.email = userInformation.email;
-                        this.name = userInformation.name;
-                        this.provider = 'facebook';
+        // getUserData() {
+        //     if (localStorage.getItem('loggedin') == false) {
+        //         this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+        //             userInformation => {
+        //                 console.warn("data api",userInformation)
+        //                 this.personalID = userInformation.id;
+        //                 this.email = userInformation.email;
+        //                 this.name = userInformation.name;
+        //                 this.provider = 'facebook';
 
-                        if (userInformation.error) {
-                            this.loading = false
-                        }
-                        this.loginProcess()
-                    }
-                )
-            }
-        },
+        //                 if (userInformation.error) {
+        //                     this.loading = false
+        //                 }
+        //                 this.loginProcess()
+        //             }
+        //         )
+        //     }
+        // },
         async loginProcess() {
             try {
                 const response = await axios.post('https://s1.playworld.id/api/auth/signin', {
@@ -86,14 +85,26 @@ export default {
                 localStorage.setItem('loggedin', false);
             }
         },
-		sdkLoaded(payload) {
-			this.isConnected = payload.isConnected
-			this.FB = payload.FB
-			if (this.isConnected) this.getUserData()
-		},
+		// sdkLoaded(payload) {
+		// 	this.isConnected = payload.isConnected
+		// 	this.FB = payload.FB
+		// 	if (this.isConnected) this.getUserData()
+		// },
 		onLogin() {
-			this.isConnected = true
-			this.getUserData()
+            this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+                userInformation => {
+                    console.warn("data api",userInformation)
+                    this.personalID = userInformation.id;
+                    this.email = userInformation.email;
+                    this.name = userInformation.name;
+                    this.provider = 'facebook';
+
+                    if (userInformation.error) {
+                        this.loading = false
+                    }
+                    this.loginProcess()
+                }
+            )
 		},
 		onLogout() {
 			this.isConnected = false;
