@@ -218,9 +218,15 @@ export default {
         console.log(res)
         this.overlay = false
       } catch (error) {
-        console.log(error)
+        console.log(error.response.status)
         this.overlay = false
-        alert('an error occured')
+        if (error.response.status == 401) {
+          this.$router.push('/member/login')
+        } else if (error.response.status == 404) {
+          alert('Poin Anda Tidak Cukup')
+        } else {
+          alert('An Error Ocured')
+        }
       }
     },
     getTanggal(detail) {
