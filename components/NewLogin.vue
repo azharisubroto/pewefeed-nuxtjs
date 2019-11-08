@@ -8,12 +8,12 @@
             @logout="onLogout"
             @sdk-loaded="sdkLoaded">
         ></facebook-login>
-        <!-- <GoogleLogin
+        <GoogleLogin
             @click="loadingGoogle()"
             :params="params"
             :onSuccess="onSuccess"
             :onFailure="onFailure"
-        >Login</GoogleLogin> -->
+        >Login</GoogleLogin>
 
         <v-overlay :value="loading">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -32,7 +32,7 @@ export default {
         name: null,
         loading: false,
         params: {
-            client_id: "324736293217-t2renso347n54180el43385p3bkj2c5b.apps.googleusercontent.com"
+            client_id: "590886654309-f0ljqk5trshnliro3k2b143r8crskagp.apps.googleusercontent.com"
         },
     }),
     methods: {
