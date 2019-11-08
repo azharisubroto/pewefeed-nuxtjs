@@ -1,23 +1,29 @@
 <template>
     <div class="grey lighten-5 container">
         <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
-        <facebook-login
-            class="button"
-            appId="107188393464738"
-            @login="onLogin"
-            @logout="onLogout"
-            @sdk-loaded="sdkLoaded">
-        ></facebook-login>
-        <GoogleLogin
-            @click="loadingGoogle()"
-            :params="params"
-            :onSuccess="onSuccess"
-            :onFailure="onFailure"
-        >
-            <v-btn color="red" icon>
-                <v-icon>mdi-google</v-icon> Sing In With Google
-            </v-btn>
-        </GoogleLogin>
+        <v-row>
+            <v-col cols="12">
+                <facebook-login
+                    class="button"
+                    appId="107188393464738"
+                    @login="onLogin"
+                    @logout="onLogout"
+                    @sdk-loaded="sdkLoaded">
+                ></facebook-login>
+            </v-col>
+            <v-col cols="12">
+                <GoogleLogin
+                    @click="loadingGoogle()"
+                    :params="params"
+                    :onSuccess="onSuccess"
+                    :onFailure="onFailure"
+                >
+                    <v-btn dark background-color="red">
+                        <v-icon>mdi-google</v-icon> Sing In With Google
+                    </v-btn>
+                </GoogleLogin>
+            </v-col>
+        </v-row>
 
         <v-overlay :value="loading">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
