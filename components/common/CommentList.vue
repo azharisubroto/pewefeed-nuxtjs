@@ -21,7 +21,7 @@
             <div v-html="comment.message"></div>
           </div>
           <div class="mt-2 caption text--gray">
-            {{comment.commented_at}} - Balas
+            <v-icon size="15">mdi-clock-outline</v-icon> {{comment.commented_at}}
           </div>
         </v-col>
       </v-row>

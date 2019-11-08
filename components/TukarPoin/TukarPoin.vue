@@ -7,8 +7,8 @@
         :key="article.redeem.id"
         @click="$router.push('/toko/redeem/'+article.redeem.id)"
         class="featured-item-2">
-          <v-btn color="deep-orange poinbutuh" dark rounded fixed small depressed>
-            {{ article.redeem.point ? article.redeem.point : 'Closed' }}
+          <v-btn outlined rounded small class="gray poinbutuh">
+            <img src="/img/poin.png" alt="" width="16" class="mr-1"> <strong>{{ article.redeem.point ? article.redeem.point : 'Closed' }}</strong>
           </v-btn>
           <v-img
             :contain="true"
@@ -18,7 +18,7 @@
         </div>
       </flickity>
 
-      <hr>
+      <div class="devider-small"></div>
 
       <v-container class="mt-5 pt-5 mb-5 pb-5">
         <template v-if="tukarpointab">

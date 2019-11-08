@@ -232,6 +232,7 @@
 
             </template>
         </v-container>
+        <br><br><br>
 
         <v-bottom-navigation
           fixed
