@@ -441,6 +441,10 @@
 </template>
 
 <script>
+if (process.browser) {
+  // import AddThis from 'vue-simple-addthis-share'
+  require('vue-simple-addthis-share')
+}
 import UserService from '@/services/UserService'
 import Login from '@/components/Login'
 import Terbaru from '@/components/article/Terbaru'
@@ -451,7 +455,7 @@ export default {
 	components: {
 		Login,
 		Terbaru,
-		NewLogin
+    NewLogin
 	},
 	data () {
 		return {
