@@ -49,10 +49,17 @@
             <hr>
             <v-row>
               <v-col cols="12">
-                <strong>Deskripsi</strong>
+                <v-expansion-panels class="nocard">
+                  <v-expansion-panel
+                  >
+                    <v-expansion-panel-header><div class="text-16 font-weight-bold">Deskripsi</div></v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <div v-html="detail.description"></div>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
               </v-col>
               <v-col>
-                <div v-html="detail.description"></div>
                 <v-btn block dark depressed color="deep-orange" tile @click="tukarPoin()">
                   Tukarkan Poin
                 </v-btn>
@@ -192,3 +199,23 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .nocard {
+    &.v-expansion-panels {
+      background: transparent;
+      box-shadow: none;
+      .v-expansion-panel {
+        &:before {
+          display: none;
+        }
+      }
+      button {
+        padding: 0;
+      }
+      .v-expansion-panel-content__wrap {
+        padding: 0;
+      }
+    }
+  }
+</style>
