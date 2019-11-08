@@ -131,22 +131,30 @@
                   <v-btn @click="logout()" rounded color="error" depressed small>SIGN OUT</v-btn>
                 </v-col>
               </v-row>
-              <div class="devider-small"></div>
+              <div class="devider-small full"></div>
               <v-row no-gutters class="mt-5">
                 <v-col cols="7">
                   <v-row no-gutters>
                     <v-col cols="2">
                       <img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
                     </v-col>
-                    <v-col cols="10" class="pl-1">
-                      <strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
-                      <strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
+                    <v-col cols="10" :class="['pl-1', (userdata.status_expired == 1) ? 'green--text' : 'red--text']">
+                      <strong class="body-2 font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+                      <strong class="body-2 mr-2 font-weight-bold">({{userdata.expire}})</strong>
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="5">
+                <v-col cols="3">
                   <img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
                   <strong class="font-weight-bold" style="position:relative;top:-5px">{{ mypoint ? mypoint : '0'}}</strong>
+                </v-col>
+                <v-col cols="1">
+                  <v-btn
+                  text
+                  @click="$router.push('/member/pengaturan')"
+                  >
+                    <v-icon>mdi-arrow-right</v-icon>
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-col>
@@ -200,7 +208,7 @@
                 </v-list-item-group>
               </v-list>
               <v-container>
-                <div class="devider-small"></div>
+                <div class="devider-small full"></div>
               </v-container>
               <v-list>
                 <v-subheader class="black--text text-16 font-weight-bold">PROGRAM</v-subheader>
@@ -219,7 +227,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="devider-small"></div>
+            <div class="devider-small full"></div>
           </v-container>
           <!--
             CONTACT
@@ -260,7 +268,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="devider-small"></div>
+            <div class="devider-small full"></div>
           </v-container>
           <!--
             SOCIAL MEDIA
@@ -275,7 +283,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="devider-small"></div>
+            <div class="devider-small full"></div>
           </v-container>
           <!--
             ABOUT
@@ -299,10 +307,13 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="devider-small"></div>
+            <div class="devider-small full"></div>
           </v-container>
           <v-container class="mb-5 pb-5">
             <strong class="caption">{{years}} &copy; PT Jayadata Indonesia</strong>
+            <br>
+            <br>
+            <br>
             <br>
           </v-container>
 		    </v-container>
@@ -827,9 +838,13 @@ export default {
       background: #d1d1d1
     }
     .devider-small {
-      width: 100%;
       height: 1px;
       border-bottom: 1px solid #d1d1d1;
+
+      &.full {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
     }
     .cta-links {
       .v-list-item {
