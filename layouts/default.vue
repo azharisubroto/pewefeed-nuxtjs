@@ -109,7 +109,7 @@
         <v-container>
           <v-row>
             <v-col class="mt-6" v-if="!isLogin()" cols="12">
-              <NewLogin />
+              <Login />
             </v-col>
             <v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
               <v-container>
@@ -582,11 +582,12 @@ export default {
 			localStorage.removeItem('access-token');
 			this.isLoggedIn = false;
 			this.isLogin();
-			if (window.location.pathname == '/member/login') {
-				window.location.href = '/'
-			} else {
-				window.location.href = window.location.pathname
-			}
+			// if (window.location.pathname == '/member/login') {
+			// 	window.location.href = '/'
+			// } else {
+			// 	window.location.href = window.location.pathname
+      // }
+      this.$router.push('/')
 		},
 		isLogin() {
 			return this.isLoggedIn
