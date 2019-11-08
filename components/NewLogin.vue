@@ -1,7 +1,7 @@
 <template>
     <div class="grey lighten-5 container">
         <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
-        <v-row>
+        <v-row no-gutters>
             <v-col cols="12">
                 <facebook-login
                     class="button"
@@ -18,8 +18,8 @@
                     :onSuccess="onSuccess"
                     :onFailure="onFailure"
                 >
-                    <v-btn dark background-color="red">
-                        <v-icon>mdi-google</v-icon> Sing In With Google
+                    <v-btn style="margin-left: 12px; background-color: red !important; color: white !important" >
+                        <v-icon class="mr-2">mdi-google</v-icon> Sign In With Google
                     </v-btn>
                 </GoogleLogin>
             </v-col>
