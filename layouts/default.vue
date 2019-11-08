@@ -107,13 +107,13 @@
           LOGIN / ACCOUNT
         -->
         <v-container>
-          <v-row>
-            <v-col class="mt-6" v-if="!isLogin()" cols="12">
+          <v-row v-if="!isLogin()">
+            <v-col class="mt-6" cols="12">
               <Login />
             </v-col>
           </v-row>
 
-          <v-row class="mt-6">
+          <v-row class="mt-6" v-else>
             <v-col cols="3">
               <v-avatar
                 size="60"
