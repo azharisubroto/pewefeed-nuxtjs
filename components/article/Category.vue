@@ -29,7 +29,9 @@
         </div>
 
         <!-- SHARE BUTTON -->
-        <ShareButton />
+        <ShareButton
+          :dataUrl="shareUrl"
+        />
 
         <v-skeleton-loader v-if="articleList.length==0"
           class="mx-auto mt-5"
@@ -93,7 +95,8 @@ export default {
               prevNextButtons: false,
               pageDots: true,
               wrapAround: true
-            }
+            },
+            shareUrl: "https://ssr.playworld.id/" + this.$route.params.cat,
 
         }
     },

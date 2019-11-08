@@ -37,6 +37,12 @@
 
                 <!-- TITLE -->
                 <h2 class="mb-0">{{article.title}}</h2>
+                <div>
+                  <ShareButton
+                    style="text-align: left !important"
+                    :dataUrl="shareUrl"
+                  />
+                </div>
               </v-col>
             </v-row>
             <!-- ARTICLE -->
@@ -263,6 +269,7 @@ import Terbaru from '@/components/article/Terbaru'
 import QuizModal from '@/components/common/QuizModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import CommentList from '@/components/common/CommentList'
+import ShareButton from '@/components/common/ShareButton'
 import NotVip from '@/components/modal/NotVip'
 
 export default {
@@ -271,7 +278,8 @@ export default {
       QuizModal,
       CommentList,
       NotVip,
-      KomentarPoin
+      KomentarPoin,
+      ShareButton
     },
     data() {
         return {
@@ -318,7 +326,8 @@ export default {
                     disabled: true,
                     href: this.$route.params.subcat
                 }
-            ]
+            ],
+            shareUrl: "https://ssr.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug
         }
     },
     head () {
