@@ -10,7 +10,8 @@ export default {
   getRedeemDetail(slug) {
     return Api().get('/store/detail/' + slug)
   },
-  getRedeemHistory(redeem_id) {
-    return Api().get('/store/history/' + redeem_id)
+  getRedeemHistory(redeem_id, n) {
+    var n = n ? n : 1
+    return Api().get('/store/history/' + redeem_id + '?page='+n)
   }
 }
