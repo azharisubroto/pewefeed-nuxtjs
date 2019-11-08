@@ -3,7 +3,12 @@
     <v-overlay :value="overlay">
         <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
-    <v-container class="mb-5 pb-5">
+
+    <v-skeleton-loader v-if="detail==''"
+      class="mx-auto mt-5"
+      type="list-item-avatar-three-line, image, article"
+    ></v-skeleton-loader>
+    <v-container v-else class="mb-5 pb-5">
       <!-- TITLE -->
       <h2 class="mb-0">{{detail.title}}</h2>
       <hr class="my-4">
@@ -26,7 +31,7 @@
                 <v-btn small outlined color="red" v-else>Closed</v-btn>
               </v-col>
             </v-row>
-            <hr>
+            <div class="devider-small"></div>
             <v-row>
               <v-col cols="6">
                 <strong>Poin Diperlukan</strong>
@@ -37,7 +42,7 @@
                 </v-btn>
               </v-col>
             </v-row>
-            <hr>
+            <div class="devider-small"></div>
             <v-row>
               <v-col cols="6">
                 <strong>Sisa Hadiah</strong>
@@ -46,15 +51,16 @@
                 <v-btn small text color="deep-orange">{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-btn>
               </v-col>
             </v-row>
-            <hr>
-            <v-row>
+            <div class="devider-small"></div>
+            <v-row class="mt-2">
               <v-col cols="12">
-                <v-expansion-panels class="nocard">
+                <v-expansion-panels v-model="panel" class="nocard">
                   <v-expansion-panel
                   >
-                    <v-expansion-panel-header><div class="text-16 font-weight-bold">Deskripsi</div></v-expansion-panel-header>
+                    <v-expansion-panel-header>
+                      <div class="text-16 font-weight-bold">Deskripsi</div></v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <div v-html="detail.description"></div>
+                      <div v-html="detail.description" class="py-3"></div>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -74,8 +80,8 @@
         <h4>Penukar Poin</h4>
         <div
           class="comment-item mb-2"
-          v-for="history in histories"
-          :key="history.id"
+          v-for="(history, i) in histories"
+          :key="history.id+'-'+i"
           :id="'history'+history.redeem_id"
         >
           <v-row>
@@ -90,11 +96,22 @@
             <v-col cols="10">
               <strong>{{ history.customer.name }}</strong><br>
               <div class="mt-2 caption text--gray">
-                {{history.date}} - Balas
+                {{history.date}}
               </div>
             </v-col>
           </v-row>
         </div>
+        <v-btn
+        block
+        dark
+        depressed
+        :loading="moreLoading"
+        color="deep-orange"
+        @click="moreHistory(historyNext)"
+        >
+          Load More
+        </v-btn>
+        <br>
         <br>
       </template>
 
@@ -147,7 +164,10 @@ export default {
       detailtab: true,
       hitoritab: false,
       syarattab: false,
-      histories: []
+      histories: [],
+      moreLoading: false,
+      historyNext: 2,
+      panel: 0
     }
   },
   methods: {
@@ -163,8 +183,24 @@ export default {
     },
     async fetchHistory() {
       try {
-        let res = await TukarPoinService.getRedeemHistory(this.$route.params.detail)
+        let res = await TukarPoinService.getRedeemHistory(this.$route.params.detail, 1)
         this.histories = res.data.data
+        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async moreHistory(n) {
+      this.moreLoading = true
+      try {
+        let res = await TukarPoinService.getRedeemHistory(this.$route.params.detail, 2)
+        var history = res.data.data
+        history.forEach(element => {
+          this.histories.push(element)
+        });
+
+        this.historyNext += 1
+        this.moreLoading = false
         console.log(JSON.parse(JSON.stringify(res.data.data)))
       } catch (error) {
         console.log(error)
@@ -212,6 +248,7 @@ export default {
       }
       button {
         padding: 0;
+        min-height: inherit;
       }
       .v-expansion-panel-content__wrap {
         padding: 0;
