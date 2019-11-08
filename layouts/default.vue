@@ -59,7 +59,7 @@
           >
             <v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
 
-            <v-toolbar-title @click="$router.push('/')">
+            <v-toolbar-title class="pl-5" @click="$router.push('/')">
               <v-img
               src="/img/playworld-logo.png"
               width="130"
@@ -111,64 +111,56 @@
             <v-col class="mt-6" v-if="!isLogin()" cols="12">
               <Login />
             </v-col>
-            <v-col style="margin-bottom: -20px" class="mt-6" v-else cols="12">
-              <v-container>
-                <v-row>
-                  <v-col cols="3">
-                    <v-avatar
-                      size="50"
-                      color="grey"
-                    >
-                      <img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
-                    </v-avatar>
-                  </v-col>
-                  <v-col cols="9" style="margin-top: -10px">
-                    <v-row>
-                      <v-col cols="6">
-                        <strong class="subheading">{{ userdata.first_name }}</strong>
-                      </v-col>
-                      <v-col cols="6" class="text-right">
-                        <v-btn @click="logout()" rounded color="error" small>SIGN OUT</v-btn>
-                      </v-col>
-                    </v-row>
-                    <hr>
-                    <v-row>
-                      <v-col cols="12">
-                        <v-row no-gutters>
-                          <v-col cols="7">
-                            <v-row no-gutters>
-                              <v-col cols="2">
-                                <img width="20" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
-                              </v-col>
-                              <v-col cols="10" class="pl-1">
-                                <strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
-                                <strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
-                              </v-col>
-                            </v-row>
-                          </v-col>
-                          <v-col cols="5" class="text-right">
-                            <img width="20" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
-                            <strong class="body-2 green--text font-weight-bold">{{mypoint}}</strong>
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <v-btn @click="$router.push('/member')" block color="orange accent-14" dark>
-                      <v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
+          </v-row>
+
+          <v-row class="mt-6">
+            <v-col cols="3">
+              <v-avatar
+                size="60"
+                color="grey"
+              >
+                <img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
+              </v-avatar>
+            </v-col>
+            <v-col cols="9" style="margin-top: -10px">
+              <v-row>
+                <v-col cols="6">
+                  <strong class="subheading">{{ userdata.first_name }}</strong>
+                </v-col>
+                <v-col cols="6" class="text-right">
+                  <v-btn @click="logout()" rounded color="error" depressed small>SIGN OUT</v-btn>
+                </v-col>
+              </v-row>
+              <div class="devider-small"></div>
+              <v-row no-gutters class="mt-5">
+                <v-col cols="7">
+                  <v-row no-gutters>
+                    <v-col cols="2">
+                      <img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
+                    </v-col>
+                    <v-col cols="10" class="pl-1">
+                      <strong class="body-2 green--text font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+                      <strong v-if="userdata.status_expired == 1" class="body-2 green--text mr-2 font-weight-bold">({{userdata.expire}})</strong>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="5">
+                  <img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
+                  <strong class="font-weight-bold" style="position:relative;top:-5px">{{ mypoint ? mypoint : '0'}}</strong>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+          <v-row class="d-none">
+            <v-col cols="12">
+              <v-btn @click="$router.push('/member')" block color="orange accent-14" depressed dark>
+                <v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
+              </v-btn>
             </v-col>
           </v-row>
         </v-container>
-        <v-container style="margin-bottom: -20px">
-          <hr>
-        </v-container>
+
+        <div class="devider-big"></div>
 
         <!-- DRAWER CONTENT -->
         <v-container>
@@ -178,8 +170,8 @@
           <v-row>
             <v-col cols="6">
               <v-list>
-                <v-subheader class="black--text">CATEGORY</v-subheader>
-                <v-list-item-group v-model="category">
+                <v-subheader class="black--text text-16 font-weight-bold">CATEGORY</v-subheader>
+                <v-list-item-group color="dark" v-model="category">
                   <v-list-item
                     v-for="(cat, i) in categories"
                     :key="i"
@@ -194,7 +186,7 @@
             </v-col>
             <v-col cols="6">
               <v-list>
-                <v-subheader class="black--text">PREMIUM</v-subheader>
+                <v-subheader class="black--text text-16 font-weight-bold">PREMIUM</v-subheader>
                 <v-list-item-group v-model="premium">
                   <v-list-item
                     v-for="(prem, i) in premiums"
@@ -208,10 +200,10 @@
                 </v-list-item-group>
               </v-list>
               <v-container>
-                <hr>
+                <div class="devider-small"></div>
               </v-container>
               <v-list>
-                <v-subheader class="black--text">PROGRAM</v-subheader>
+                <v-subheader class="black--text text-16 font-weight-bold">PROGRAM</v-subheader>
                 <v-list-item-group v-model="program">
                   <v-list-item
                     v-for="(prog, i) in programs"
@@ -227,14 +219,14 @@
             </v-col>
           </v-row>
           <v-container>
-            <hr>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             CONTACT
           -->
           <v-row>
             <v-col cols="12" style="margin-bottom: -30px !important">
-              <v-subheader class="black--text">CONTACT</v-subheader>
+              <v-subheader class="black--text text-16 font-weight-bold">CONTACT</v-subheader>
             </v-col>
             <v-col cols="6">
               <v-list two-line>
@@ -245,7 +237,7 @@
                   >
                     <v-list-item-content class="menu">
                       <v-list-item-title v-html="con.title"></v-list-item-title>
-                      <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
@@ -260,7 +252,7 @@
                   >
                     <v-list-item-content class="menu">
                       <v-list-item-title v-html="con.title"></v-list-item-title>
-                      <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
+                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
@@ -268,7 +260,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <hr>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             SOCIAL MEDIA
@@ -283,34 +275,35 @@
             </v-col>
           </v-row>
           <v-container>
-            <hr>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             ABOUT
           -->
-          <v-row>
+          <v-row class="caption cta-links">
             <v-col cols="6">
               <v-list>
-                <v-subheader class="black--text">Tentang Playworld</v-subheader>
-                <v-subheader class="black--text">Dewan Pers</v-subheader>
-                <v-subheader class="black--text">Tim Redaksi</v-subheader>
-                <v-subheader class="black--text">Bantuan</v-subheader>
+                <v-list-item>Tentang Playworld</v-list-item>
+                <v-list-item>Dewan Pers</v-list-item>
+                <v-list-item>Tim Redaksi</v-list-item>
+                <v-list-item>Bantuan</v-list-item>
               </v-list>
             </v-col>
             <v-col cols="6">
               <v-list>
-                <v-subheader class="black--text">Kebiajakan & Privasi</v-subheader>
-                <v-subheader class="black--text">Keamanan Transaksi</v-subheader>
-                <v-subheader class="black--text">Metode Pembayaran</v-subheader>
-                <v-subheader class="black--text">Jasa Pengiriman</v-subheader>
+                <v-list-item>Kebiajakan & Privasi</v-list-item>
+                <v-list-item>Keamanan Transaksi</v-list-item>
+                <v-list-item>Metode Pembayaran</v-list-item>
+                <v-list-item>Jasa Pengiriman</v-list-item>
               </v-list>
             </v-col>
           </v-row>
           <v-container>
-            <hr>
+            <div class="devider-small"></div>
           </v-container>
-          <v-container>
-            <strong>{{years}} &copy; PT Jayadata Indonesia</strong>
+          <v-container class="mb-5 pb-5">
+            <strong class="caption">{{years}} &copy; PT Jayadata Indonesia</strong>
+            <br>
           </v-container>
 		    </v-container>
         <!-- END DRAWER CONTENT -->
@@ -684,6 +677,13 @@ export default {
     --NONTON: #000;
     --TEKNO: #8d8988
   }
+  /* font-size by number */
+  @for $i from 5 through 90 {
+      .text-#{$i},
+      *.text-#{$i} {
+          font-size: #{$i}px!important;
+      }
+  }
   .v-application {
     &.open {
       overflow-y: hidden;
@@ -761,7 +761,7 @@ export default {
   }
 
   .menu {
-	  color: #757575;
+	  color: #000;
   }
   // INDEX ARTICLE
   .v-slide-group.v-item-group > .v-slide-group__next, .v-slide-group.v-item-group > .v-slide-group__prev {
@@ -816,6 +816,21 @@ export default {
           background-color: var(--primary)!important;
           opacity:1!important;
         }
+      }
+    }
+    .devider-big {
+      height:8px;
+      background: #d1d1d1
+    }
+    .devider-small {
+      width: 100%;
+      height: 1px;
+      border-bottom: 1px solid #d1d1d1;
+    }
+    .cta-links {
+      .v-list-item {
+        line-height: 1;
+        min-height: 30px;
       }
     }
 

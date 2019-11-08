@@ -18,6 +18,12 @@
                       </v-icon>
                       {{article.detail.publish_at}}
                   </div>
+                  <div class="d-inline-block mr-3 grey--text text--small">
+                      <v-icon small size="12">
+                          mdi-eye-outline
+                      </v-icon>
+                      {{article.detail.total_views}}
+                  </div>
                 </div>
             </div>
 
@@ -49,9 +55,6 @@
                           </div>
                         </v-col>
                       </v-row>
-
-                      <hr>
-
                       <!-- WRITER -->
                       <!-- <div class="mt-4">
                           <span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
@@ -70,8 +73,10 @@
                   </v-col>
               </v-row>
 
+              <div class="devider-big mb-5" style="margin-left: -20px;margin-right:-20px"></div>
+
               <!-- TERBARU -->
-              <div class="text-center">
+              <div class="text-center mb-3">
                 VIDEO TERBARU LAINNYA
               </div>
               <Terbaru :items="latests" class="pb-5"/>

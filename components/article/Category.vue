@@ -35,7 +35,7 @@
         <div v-if="articleList">
           <div class="mt-5">
             <v-container>
-              <Terbaru :items="articleList"/> 
+              <Terbaru :items="articleList"/>
               <v-row v-if="isMore">
                 <v-col cols="12">
                   <v-btn
@@ -64,6 +64,11 @@ export default {
     components: {
         TopViews,
         Terbaru
+    },
+    head() {
+      return {
+        title: 'Baca berita '+this.$route.params.cat+' bisa dapet hadiah'
+      }
     },
     data() {
         return {

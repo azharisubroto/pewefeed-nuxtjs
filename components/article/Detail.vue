@@ -69,9 +69,10 @@
                       </div>
                   </v-col>
               </v-row>
-              <hr>
+              <div class="devider-big mb-5" style="margin-left: -20px;margin-right:-20px"></div>
               <!-- TERBARU -->
               <section class="py-4 mb-5 pb-5">
+                <!-- TERBARU -->
                 <div class="text-center mb-3">
                   ARTIKEL TERBARU LAINNYA
                 </div>
