@@ -1,5 +1,5 @@
 <template>
-    <div class="grey lighten-5 container">
+    <div class="container">
         <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
         <OAuth provider="facebook" btnclass="indigo darken-1 " @makeloading="setloading" @notloading="notloading"/>
         <OAuth provider="google" btnclass="red darken-1" @makeloading="setloading" @notloading="notloading"/>
