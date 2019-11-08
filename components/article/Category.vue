@@ -28,6 +28,9 @@
           </flickity>
         </div>
 
+        <!-- SHARE BUTTON -->
+        <ShareButton />
+
         <v-skeleton-loader v-if="articleList.length==0"
           class="mx-auto mt-5"
           type="list-item-avatar-three-line"
@@ -59,11 +62,13 @@
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
 import Terbaru from '@/components/article/Terbaru'
+import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"HomePage",
     components: {
         TopViews,
-        Terbaru
+        Terbaru,
+        ShareButton
     },
     data() {
         return {

@@ -28,13 +28,16 @@
       </flickity>
     </div>
 
+    <!-- SHARE BUTTON -->
+    <ShareButton />
+
     <v-skeleton-loader v-if="sixtybottom.length==0"
-      class="mx-auto mt-5"
+      class="mx-auto"
       type="list-item-avatar-three-line"
     ></v-skeleton-loader>
     <div v-if="sixtybottom">
       <!-- TOP VIEWS -->
-      <div class="mt-5">
+      <div class="">
         <v-container>
           <Terbaru :items="sixtybottom"/>
           <v-row>
@@ -60,11 +63,13 @@
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
 import Terbaru from '@/components/article/Terbaru'
+import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"VideoHome",
     components: {
         TopViews,
-        Terbaru
+        Terbaru,
+        ShareButton
     },
     head () {
       return {
