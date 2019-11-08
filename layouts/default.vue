@@ -131,7 +131,7 @@
                   <v-btn @click="logout()" rounded color="error" depressed small>SIGN OUT</v-btn>
                 </v-col>
               </v-row>
-              <div class="small-devider"></div>
+              <div class="devider-small"></div>
               <v-row no-gutters class="mt-5">
                 <v-col cols="7">
                   <v-row no-gutters>
@@ -160,7 +160,7 @@
           </v-row>
         </v-container>
 
-        <div class="bigdevider"></div>
+        <div class="devider-big"></div>
 
         <!-- DRAWER CONTENT -->
         <v-container>
@@ -200,7 +200,7 @@
                 </v-list-item-group>
               </v-list>
               <v-container>
-                <div class="small-devider"></div>
+                <div class="devider-small"></div>
               </v-container>
               <v-list>
                 <v-subheader class="black--text text-16 font-weight-bold">PROGRAM</v-subheader>
@@ -219,7 +219,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="small-devider"></div>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             CONTACT
@@ -260,7 +260,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="small-devider"></div>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             SOCIAL MEDIA
@@ -275,7 +275,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="small-devider"></div>
+            <div class="devider-small"></div>
           </v-container>
           <!--
             ABOUT
@@ -299,7 +299,7 @@
             </v-col>
           </v-row>
           <v-container>
-            <div class="small-devider"></div>
+            <div class="devider-small"></div>
           </v-container>
           <v-container class="mb-5 pb-5">
             <strong class="caption">{{years}} &copy; PT Jayadata Indonesia</strong>
@@ -818,11 +818,11 @@ export default {
         }
       }
     }
-    .bigdevider {
+    .devider-big {
       height:8px;
       background: #d1d1d1
     }
-    .small-devider {
+    .devider-small {
       width: 100%;
       height: 1px;
       border-bottom: 1px solid #d1d1d1;

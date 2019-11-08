@@ -15,10 +15,13 @@
             <v-img :src="detail.image"></v-img>
 
             <v-row>
-              <v-col cols="6">
+              <v-col cols="7">
                 <strong>Status</strong>
+                <div class="caption">
+                  Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
+                </div>
               </v-col>
-              <v-col cols="6" class="text-right">
+              <v-col cols="5" class="text-right">
                 <v-btn small outlined color="deep-orange" v-if="detail.active">Open Batch</v-btn>
                 <v-btn small outlined color="red" v-else>Closed</v-btn>
               </v-col>
@@ -43,7 +46,11 @@
                 <v-btn small text color="deep-orange">{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-btn>
               </v-col>
             </v-row>
+            <hr>
             <v-row>
+              <v-col cols="12">
+                <strong>Deskripsi</strong>
+              </v-col>
               <v-col>
                 <div v-html="detail.description"></div>
                 <v-btn block dark depressed color="deep-orange" tile @click="tukarPoin()">
@@ -113,6 +120,7 @@
 <script>
 import TukarPoinService from '@/services/TukarPoinService'
 import UserService from '@/services/UserService'
+
 export default {
   name:"RedeemDetail",
   head () {
@@ -171,6 +179,12 @@ export default {
         this.overlay = false
         alert('an error occured')
       }
+    },
+    getTanggal(detail) {
+      var detailtanggal = detail.periode ? detail.periode.end_at : ''
+      var tanggal = detailtanggal.replace('00:00:00', '');
+          tanggal = tanggal.replace(' ', '');
+      return tanggal
     }
   },
   created() {

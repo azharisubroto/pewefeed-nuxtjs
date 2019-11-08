@@ -36,6 +36,7 @@ export default {
     { src: '~/plugins/addthis', ssr: false },
     { src: '~/plugins/facebook-login', ssr: false },
     { src: '~/plugins/google-login', ssr: false },
+    { src: '~/plugins/moment', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
