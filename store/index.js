@@ -19,3 +19,27 @@ export const getters = {
   }
 }
 
+const createStore = () => {
+  return new Vuex.Store({
+    state: {
+      item: {}
+    },
+    mutations: {
+      SET_ITEM(state, item) {
+        state.item = item
+      },
+      SET_HOST(state, host) {
+        state.host = host
+      }
+    },
+    actions: {
+      nuxtServerInit({ commit }, { req }) {
+        if (req.headers.host) {
+          commit('SET_HOST', req.headers.host)
+        }
+      }
+    }
+  })
+}
+
+export default createStore

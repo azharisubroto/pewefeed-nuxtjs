@@ -322,11 +322,6 @@ export default {
             ]
         }
     },
-    head () {
-      return {
-        title: this.title,
-      }
-    },
     computed: {
       reverseComment: function(){
         var commentArr = this.comments

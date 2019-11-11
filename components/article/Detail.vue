@@ -287,6 +287,7 @@ export default {
       ShareButton,
       LoginModal
     },
+    props: ['respon'],
     data() {
         return {
             tab: null,
@@ -337,15 +338,6 @@ export default {
             shareUrl: "https://ssr.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug
         }
     },
-    head () {
-      return {
-        title: this.title,
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'description', name: 'description', content: 'My custom description' }
-        ]
-      }
-    },
     computed: {
       reverseComment: function(){
         var commentArr = this.comments
@@ -356,25 +348,18 @@ export default {
     methods: {
         async fetchContent() {
             //console.log(this.$route.params.articleslug)
-            try {
-                let res = await ArticleService.getDetail(this.$route.params.articleslug)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
-                this.id = res.data.data.article.id
-                this.article = res.data.data.article
-                this.title = res.data.data.article.title
-                this.writer = res.data.data.article.writer
-                this.items[2].href = res.data.data.article.title
-                this.comments = res.data.data.article.comments
-                if( res.data.data.quiz && res.data.data.quiz.id ) {
-                  this.quiz = res.data.data.quiz
-                  this.quiz_id = res.data.data.quiz.id
-                  this.answered = res.data.data.quiz.answered
-                }
-
-                this.fetchLatest(res.data.data.article.slug)
-            } catch (error) {
-                console.log(error)
+            this.id = this.respon.article.id
+            this.article = this.respon.article
+            this.title = this.respon.article.title
+            this.writer = this.respon.article.writer
+            this.items[2].href = this.respon.article.title
+            this.comments = this.respon.article.comments
+            if( this.respon.quiz && this.respon.quiz.id ) {
+              this.quiz = this.respon.quiz
+              this.quiz_id = this.respon.quiz.id
+              this.answered = this.respon.quiz.answered
             }
+            this.fetchLatest(this.respon.article.slug)
         },
         async fetchLatest(slug) {
             try {
@@ -458,19 +443,21 @@ export default {
 
           try {
             const res = await UserService.postComment(params)
-            console.log(res)
+            console.log(res.data.poin)
             this.fetchComment()
-            this.KomentarPoinVisible = true
             this.commentIsPosting = false;
             this.comment_message = null;
+            if( res.data.poin > 0 ) {
+              this.KomentarPoinVisible = true
+            }
           } catch (error) {
-            console.log(error.response.status)
+            //console.log(error.response.status)
             this.commentIsPosting = false;
-            if( error.response.status == 422 ) {
+            if( error.response && error.response.status == 422 ) {
               alert('Mohon tulis komentar minimal 50 karakter')
-            } else if( error.response.status == 500 ) {
+            } else if( error.response && error.response.status == 500 ) {
               alert('an error occured')
-            } else if( error.response.status == 401 ) {
+            } else if( error.response && error.response.status == 401 ) {
               //alert('Mohon Maaf :(, Anda harus login')
               this.openModalLogin();
             } else {
