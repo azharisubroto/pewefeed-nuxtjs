@@ -105,7 +105,7 @@
               <v-card
                 class="mx-auto mb-3"
               >
-                <v-card-title class="subtitle-1">XL & Exist Berlangganan</v-card-title>
+                <v-card-title class="subtitle-1">XL & Axis Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <v-btn @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')" block color="success" dark>Beli</v-btn>
@@ -114,7 +114,7 @@
               <v-card
                 class="mx-auto mb-3"
               >
-                <v-card-title class="subtitle-1">XL & Exist non Berlangganan</v-card-title>
+                <v-card-title class="subtitle-1">XL & Axis non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')" v-for="vip in vipItems" :key="vip.id">
                   <v-row>

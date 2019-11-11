@@ -375,7 +375,7 @@
               <div>
                 <v-container>
                   <Terbaru :items="articles"/>
-                  <v-row>
+                  <v-row v-if="isMore">
                     <v-col cols="12">
                     <v-btn
                     tile
@@ -482,7 +482,8 @@ export default {
 			totalArticles: 0,
 			userdata:[],
 			mypoint: null,
-			next: 2,
+      next: 2,
+      isMore: true,
 			years: null,
 			menus: [
 				{
@@ -669,6 +670,9 @@ export default {
                   this.articles.push(element)
                 });
                 this.next += 1
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                  this.isMore = false;
+                }
             } catch (error) {
                 console.log(error)
             }
