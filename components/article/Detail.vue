@@ -480,7 +480,7 @@ export default {
         },
         async submitAnswer() {
           if (!localStorage.getItem('loggedin')) {
-            this.loginModalVisible = true
+            this.openModalLogin()
           } else {
             if( this.profile.vip != false ) {
               const params = {

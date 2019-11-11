@@ -472,32 +472,35 @@ export default {
           }
         },
          async submitAnswer() {
-          console.log(this.profile.vip)
-          if( this.profile.vip != false ) {
-            const params = {
-              jawaban: this.jawabanQuiz,
-              quiz_id: this.quiz_id
-            }
-            try {
-              const res = await UserService.answerQuiz(params)
-              console.log(res)
-              this.dialog = true
-              if( res.status == 200 ) {
-                //alert(res.data.data.message)
-                if( res.data.data.status == 'benar' ) {
-                  this.answerResult = true
-                } else if( res.data.data.status == 'salah' ) {
-                  this.answerResult = false
-                } else {
-                  this.already = true
-                }
-                //this.answered = true
-              }
-            } catch (error) {
-              console.log(error)
-            }
+          if (!localStorage.getItem('loggedin')) {
+            this.openModalLogin()
           } else {
-            this.notVipDialogVisible = true
+            if( this.profile.vip != false ) {
+              const params = {
+                jawaban: this.jawabanQuiz,
+                quiz_id: this.quiz_id
+              }
+              try {
+                const res = await UserService.answerQuiz(params)
+                console.log(res)
+                this.dialog = true
+                if( res.status == 200 ) {
+                  //alert(res.data.data.message)
+                  if( res.data.data.status == 'benar' ) {
+                    this.answerResult = true
+                  } else if( res.data.data.status == 'salah' ) {
+                    this.answerResult = false
+                  } else {
+                    this.already = true
+                  }
+                  //this.answered = true
+                }
+              } catch (error) {
+                console.log(error)
+              }
+            } else {
+              this.notVipDialogVisible = true
+            }
           }
         },
         openModalLogin() {
