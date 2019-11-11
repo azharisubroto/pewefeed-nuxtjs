@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       item: this.$store.state.item,
+      origin: this.$store.state.host,
     }
   },
   async fetch ({ store, params }) {
@@ -26,6 +27,8 @@ export default {
     console.log(JSON.parse(JSON.stringify(item)))
   },
   head () {
+    let host = this.origin
+    var url = 'https://' + host + '/' + this.item.article.type.toLowerCase() + '/' + this.item.article.reaction.toLowerCase() + '/' + this.item.article.slug
     return {
       title: this.item.article.title,
       meta: [
@@ -33,7 +36,7 @@ export default {
         {hid: 'og:title', name: 'og:title', content: this.item.article.title},
         {hid: 'og:description', name: 'og:description', content: this.item.article.title},
         {hid: 'og:type', name: 'og:type', content: 'website'},
-        {hid: 'og:url', name: 'og:url', content: this.item.article.slug},
+        {hid: 'og:url', name: 'og:url', content: url},
         {hid: 'og:description', name: 'og:description', content: this.item.title},
         {hid: 'og:image', name: 'og:image', content: this.item.article.image.medium},
         {hid: 'og:locale', name: 'og:locale', content: 'id_ID'},
@@ -48,6 +51,6 @@ export default {
         {hid: 'twitter:image', name: 'twitter:image', content: this.item.article.image.medium},
       ]
     }
-  },
+  }
 };
 </script>

@@ -27,6 +27,16 @@ const createStore = () => {
     mutations: {
       SET_ITEM(state, item) {
         state.item = item
+      },
+      SET_HOST(state, host) {
+        state.host = host
+      }
+    },
+    actions: {
+      nuxtServerInit({ commit }, { req }) {
+        if (req.headers.host) {
+          commit('SET_HOST', req.headers.host)
+        }
       }
     }
   })
