@@ -226,6 +226,8 @@
         </v-container>
         <br><br><br>
 
+        <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
+
         <v-bottom-navigation
           fixed
           dark
@@ -256,6 +258,7 @@ import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
 import CommentList from '@/components/common/CommentList'
+import LoginModal from '@/components/modal/LoginModal'
 import QuizModal from '@/components/common/QuizModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import NotVip from '@/components/modal/NotVip'
@@ -266,6 +269,7 @@ export default {
       QuizModal,
       CommentList,
       KomentarPoin,
+      LoginModal,
       NotVip
     },
     data() {
@@ -296,6 +300,7 @@ export default {
             already: false,
             profile:null,
             pleaseLoginDialogVisible: false,
+            loginModalVisible: false,
             notVipDialogVisible: false,
             KomentarPoinVisible: false,
             items: [
@@ -460,7 +465,7 @@ export default {
               alert('an error occured')
             } else if( error.response.status == 401 ) {
               //alert('Mohon Maaf :(, Anda harus login')
-              this.$router.push('/member/login')
+              this.openModalLogin()
             } else {
               alert('error! ' + error.message)
             }
@@ -495,9 +500,13 @@ export default {
             this.notVipDialogVisible = true
           }
         },
+        openModalLogin() {
+          this.loginModalVisible = true
+        },
         myDialogClose () {
             this.dialog = false
             this.buyVipDialogVisible = false
+            this.loginModalVisible = false
             this.pleaseLoginDialogVisible = false
             this.notVipDialogVisible = false
             this.KomentarPoinVisible = false

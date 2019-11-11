@@ -240,6 +240,8 @@
         </v-container>
         <br><br><br>
 
+        <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
+
         <v-bottom-navigation
           fixed
           dark
@@ -268,6 +270,7 @@
 import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
 import Terbaru from '@/components/article/Terbaru'
+import LoginModal from '@/components/modal/LoginModal'
 import QuizModal from '@/components/common/QuizModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import CommentList from '@/components/common/CommentList'
@@ -281,7 +284,8 @@ export default {
       CommentList,
       NotVip,
       KomentarPoin,
-      ShareButton
+      ShareButton,
+      LoginModal
     },
     data() {
         return {
@@ -310,6 +314,7 @@ export default {
             already: false,
             user_id:null,
             pleaseLoginDialogVisible: false,
+            loginModalVisible: false,
             notVipDialogVisible: false,
             KomentarPoinVisible: false,
             items: [
@@ -467,43 +472,50 @@ export default {
               alert('an error occured')
             } else if( error.response.status == 401 ) {
               //alert('Mohon Maaf :(, Anda harus login')
-              this.$router.push('/member/login')
+              this.openModalLogin();
             } else {
               alert('error! ' + error.message)
             }
           }
         },
         async submitAnswer() {
-          console.log(this.profile.vip)
-          if( this.profile.vip != false ) {
-            const params = {
-              jawaban: this.jawabanQuiz,
-              quiz_id: this.quiz_id
-            }
-            try {
-              const res = await UserService.answerQuiz(params)
-              console.log(res)
-              this.dialog = true
-              if( res.status == 200 ) {
-                //alert(res.data.data.message)
-                if( res.data.data.status == 'benar' ) {
-                  this.answerResult = true
-                } else if( res.data.data.status == 'salah' ) {
-                  this.answerResult = false
-                } else {
-                  this.already = true
-                }
-                //this.answered = true
-              }
-            } catch (error) {
-              console.log(error)
-            }
+          if (!localStorage.getItem('loggedin')) {
+            this.loginModalVisible = true
           } else {
-            this.notVipDialogVisible = true
+            if( this.profile.vip != false ) {
+              const params = {
+                jawaban: this.jawabanQuiz,
+                quiz_id: this.quiz_id
+              }
+              try {
+                const res = await UserService.answerQuiz(params)
+                console.log(res)
+                this.dialog = true
+                if( res.status == 200 ) {
+                  //alert(res.data.data.message)
+                  if( res.data.data.status == 'benar' ) {
+                    this.answerResult = true
+                  } else if( res.data.data.status == 'salah' ) {
+                    this.answerResult = false
+                  } else {
+                    this.already = true
+                  }
+                  //this.answered = true
+                }
+              } catch (error) {
+                console.log(error)
+              }
+            } else {
+              this.notVipDialogVisible = true
+            }
           }
+        },
+        openModalLogin() {
+          this.loginModalVisible = true
         },
         myDialogClose () {
             this.dialog = false
+            this.loginModalVisible = false
             this.buyVipDialogVisible = false
             this.pleaseLoginDialogVisible = false
             this.notVipDialogVisible = false
