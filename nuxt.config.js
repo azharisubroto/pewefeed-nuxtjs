@@ -34,6 +34,7 @@ export default {
     { src: '~/plugins/oauthio-web', ssr: false },
     { src: '~/plugins/vue2-dropzone', ssr: false },
     { src: '~/plugins/facebook-login', ssr: false },
+    { src: '~/plugins/recaptcha', ssr: false },
     { src: '~/plugins/google-login', ssr: false },
     { src: '~/plugins/moment', ssr: false },
   ],
@@ -50,7 +51,19 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/recaptcha',
   ],
+
+  /**
+   * Recaptcha Configuration
+   */
+  recaptcha: {
+    hideBadge: true, // Hide badge element
+    version: 2,     // Version
+    siteKey: '6Ld8FDgUAAAAADGSSZayN8W2cTlJTmIGcv0NEPln' // Site key for requests
+  },
+
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

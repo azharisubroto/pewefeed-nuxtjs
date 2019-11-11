@@ -360,13 +360,11 @@
                               <v-icon>mdi-check-circle</v-icon>
                             </v-btn>
                             <strong class="caption">Cetang kotak dibawah ini untuk melanjutkan proses</strong>
-                            <vue-recaptcha
-                              class="mt-2"
-                              sitekey="6Ld8FDgUAAAAADGSSZayN8W2cTlJTmIGcv0NEPln"
-                              ref="recaptcha"
-                              @verify="onCaptchaVerified"
-                              @expired="onCaptchaExpired"
-                            ></vue-recaptcha>
+                            <recaptcha
+                              @error="onError()"
+                              @success="onSuccess()"
+                              @expired="onExpired()"
+                            />
                             <v-btn
                               @click="validate(itemvoucher)"
                               color="green"
@@ -473,7 +471,7 @@
               >
                 <div>
                   <v-btn
-                    @click="intDialogVisible = false"
+                    @click="closeDialog()"
                     dark
                     color="deep-orange"
                     class="text-capitalize"
@@ -495,14 +493,10 @@
 <script>
   import PurchaseService from '@/services/PurchaseService';
   import UserService from '@/services/UserService';
-  import VueRecaptcha from "vue-recaptcha";
   export default {
     name:"BuyVip",
     props: {
       dialogVisible: Boolean,
-    },
-    components: {
-        VueRecaptcha
     },
     data () {
       return {
@@ -645,6 +639,27 @@
     },
     methods: {
 
+      async onSubmit() {
+        try {
+          const token = await this.$recaptcha.getResponse()
+          console.log('ReCaptcha token:', token)
+          await this.$recaptcha.reset()
+        } catch (error) {
+          console.log('Login error:', error)
+        }
+      },
+      onError (error) {
+        console.log('Error happened:', error)
+        this.recaptchaToken = null
+      },
+      onSuccess (token) {
+        this.recaptchaToken = 'success'
+      },
+      onExpired () {
+        console.log('Expired')
+        this.recaptchaToken = null
+      },
+
       /* Change Icon Arrow Prev Step */
       prev() {
         if (this.e1 != 0) {
@@ -766,6 +781,11 @@
         } catch (error) {
           console.log(error)
         }
+      },
+
+      closeDialog() {
+        this.e1 = 1
+        this.intDialogVisible = false
       }
     },
     mounted() {
@@ -774,6 +794,10 @@
 			if( this.isLoggedIn == 'true') {
         this.fetchUser()
       }
+      this.onError()
+      this.onExpired()
+      this.onSubmit()
+      
     }
   }
 </script>
