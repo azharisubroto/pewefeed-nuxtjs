@@ -26,7 +26,7 @@
                                 :rules="pwIdRules"
                             ></v-text-field>
                         </v-col>
-                        <v-col v-if="formsignin" cols="12">
+                        <v-col v-if="formsignin" cols="12" class="my-5">
                             <v-card>
                                 <v-card-text>
                                     <strong class="subtitle-1">Jika belum memiliki PW ID, silahkan login.</strong>
@@ -45,14 +45,12 @@
                                 :rules="pwCodeRules"
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="12">
-                            <vue-recaptcha
-                                class="mt-2 mb-2"
-                                sitekey="6Ld8FDgUAAAAADGSSZayN8W2cTlJTmIGcv0NEPln"
-                                ref="recaptcha"
-                                @verify="onCaptchaVerified"
-                                @expired="onCaptchaExpired"
-                            ></vue-recaptcha>
+                        <v-col cols="12" class="my-5">
+                            <recaptcha
+                              @error="onError()"
+                              @success="onSuccess()"
+                              @expired="onExpired()"
+                            />
                         </v-col>
                         <v-col cols="12">
                             <v-btn @click="validate()" color="success" width="100%" >SUBMIT</v-btn>
@@ -154,13 +152,11 @@
 
 <script>
 import VoucherService from '@/services/VoucherService';
-import VueRecaptcha from "vue-recaptcha";
 import Login from "@/components/Login";
 import UserService from "@/services/UserService";
 export default {
     name: 'CodePWComponent',
     components: {
-        VueRecaptcha,
         Login
     },
     data: () => ({
@@ -193,8 +189,7 @@ export default {
         /* Fetch Content */
         async fetchContent()  {
             /* Init Data User to Customer Detail */
-            this.isLoggedIn = this.$store.getters.isLoggedIn
-            if (this.isLoggedIn) {
+            if (localStorage.getItem('loggedin')) {
                 try {
                     const res = await UserService.getSingleUser()
                     console.log(res.data.status);
@@ -206,6 +201,19 @@ export default {
                 this.formsignin = true
             }
             this.getCode();
+        },
+
+        /* Recaptcha */
+        onError (error) {
+            console.log('Error happened:', error)
+            this.recaptchaToken = null
+        },
+        onSuccess (token) {
+            this.recaptchaToken = 'success'
+        },
+        onExpired () {
+            console.log('Expired')
+            this.recaptchaToken = null
         },
 
         /* Loader */
@@ -257,15 +265,6 @@ export default {
         },
         resetValidation () {
             this.$refs.form.resetValidation()
-        },
-
-        /* Recapctcha */
-        onCaptchaVerified: function (res) {
-            this.recaptchaToken = res;
-        },
-        onCaptchaExpired: function () {
-            this.$refs.recaptcha.reset();
-            this.recaptchaToken = null;
         },
 
         /* Submit Form */
