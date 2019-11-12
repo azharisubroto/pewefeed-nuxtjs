@@ -1,5 +1,5 @@
-// import Api from '@/services/Api'
-import Api from '@/services/ApiLocal'
+import Api from '@/services/Api'
+// import Api from '@/services/ApiLocal'
 
 export default {
     /**
