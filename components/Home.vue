@@ -41,7 +41,7 @@
           <!-- TOP VIEWS -->
           <div class="">
             <v-container>
-              <Terbaru :items="topviews"/>
+              <NewsLoop :items="topviews"/>
               <v-row v-if="isMore">
                 <v-col cols="12">
                   <v-btn
@@ -83,13 +83,13 @@
 <script>
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"HomePage",
     components: {
         TopViews,
-        Terbaru,
+        NewsLoop,
         ShareButton
     },
     data() {

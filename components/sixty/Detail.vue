@@ -79,7 +79,7 @@
               <div class="text-center mb-3">
                 VIDEO TERBARU LAINNYA
               </div>
-              <Terbaru :items="latests" class="pb-5"/>
+              <NewsLoop :items="latests" class="pb-5"/>
               <v-row class="mb-5" v-if="isMore">
                 <v-col cols="12">
                   <v-btn
@@ -256,7 +256,7 @@
 <script>
 import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import CommentList from '@/components/common/CommentList'
 import LoginModal from '@/components/modal/LoginModal'
 import QuizModal from '@/components/common/QuizModal'
@@ -265,7 +265,7 @@ import NotVip from '@/components/modal/NotVip'
 
 export default {
     components: {
-      Terbaru,
+      NewsLoop,
       QuizModal,
       CommentList,
       KomentarPoin,

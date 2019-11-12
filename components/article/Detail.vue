@@ -82,7 +82,7 @@
                 <div class="text-center mb-3">
                   ARTIKEL TERBARU LAINNYA
                 </div>
-                <Terbaru :items="latests"/>
+                <NewsLoop :items="latests"/>
                 <v-btn
                 tile
                 v-if="isMore"
@@ -269,7 +269,7 @@
 <script>
 import ArticleService from '@/services/ArticleService'
 import UserService from '@/services/UserService'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import LoginModal from '@/components/modal/LoginModal'
 import QuizModal from '@/components/common/QuizModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
@@ -279,7 +279,7 @@ import NotVip from '@/components/modal/NotVip'
 
 export default {
     components: {
-      Terbaru,
+      NewsLoop,
       QuizModal,
       CommentList,
       NotVip,
@@ -335,7 +335,7 @@ export default {
                     href: this.$route.params.subcat
                 }
             ],
-            shareUrl: "https://ssr.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug
+            shareUrl: "https://m.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug
         }
     },
     computed: {

@@ -40,7 +40,7 @@
         <div v-if="articleList">
           <div class="mt-5">
             <v-container>
-              <Terbaru :items="articleList"/>
+              <NewsLoop :items="articleList"/>
               <v-row v-if="isMore">
                 <v-col cols="12">
                   <v-btn
@@ -63,13 +63,13 @@
 <script>
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"HomePage",
     components: {
         TopViews,
-        Terbaru,
+        NewsLoop,
         ShareButton
     },
     head() {
@@ -101,7 +101,7 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            shareUrl: "https://ssr.playworld.id/" + this.$route.params.cat,
+            shareUrl: "https://m.playworld.id/" + this.$route.params.cat,
 
         }
     },

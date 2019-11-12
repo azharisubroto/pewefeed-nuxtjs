@@ -25,15 +25,13 @@
       </v-app-bar>
 
       <v-tabs grow color="deep-orange" center-active class="pw-tab">
-        <v-tab to="/">Trending</v-tab>
-        <v-tab to="/video">Video</v-tab>
-        <v-tab to="/toko">Tukar Poin</v-tab>
-        <v-tab to="/viral">Viral</v-tab>
-        <v-tab to="/lagu">Lagu</v-tab>
-        <v-tab to="/nonton">Nonton</v-tab>
-        <v-tab to="/piknik">Piknik</v-tab>
-        <v-tab to="/tekno">Tekno</v-tab>
-        <v-tab to="/sport">Sport</v-tab>
+        <v-tab
+          v-for="menu in toolbarMenu"
+          :key="menu.loc"
+          :to="menu.loc"
+        >
+          {{menu.name}}
+        </v-tab>
       </v-tabs>
 
       <!-- CONTENT -->
@@ -374,7 +372,7 @@
             <div v-if="articles">
               <div>
                 <v-container>
-                  <Terbaru :items="articles"/>
+                  <NewsLoop :items="articles"/>
                   <v-row v-if="isMore">
                     <v-col cols="12">
                     <v-btn
@@ -458,14 +456,14 @@ if (process.browser) {
 }
 import UserService from '@/services/UserService'
 import Login from '@/components/Login'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import NewLogin from '@/components//NewLogin'
 import ArticleService from '../services/ArticleService';
 export default {
 	name: 'App',
 	components: {
 		Login,
-		Terbaru,
+		NewsLoop,
     NewLogin
 	},
 	data () {
@@ -498,7 +496,19 @@ export default {
 					path: '/starx',
 					icon: 'mdi-account-star'
 				},
-			],
+      ],
+      toolbarMenu: [
+        {name: 'Trending', loc: '/'},
+        {name: 'Fakta', loc: '/fakta'},
+        {name: 'Video', loc: '/video'},
+        {name: 'Tukar Poin', loc: '/toko'},
+        {name: 'Viral', loc: '/viral'},
+        {name: 'Lagu', loc: '/lagu'},
+        {name: 'Nonton', loc: '/nonton'},
+        {name: 'Piknik', loc: '/piknik'},
+        {name: 'Tekno', loc: '/tekno'},
+        {name: 'Sport', loc: '/sport'},
+      ],
 			category: 5,
 			categories: [
 				{

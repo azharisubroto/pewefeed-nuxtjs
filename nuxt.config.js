@@ -37,6 +37,7 @@ export default {
     { src: '~/plugins/recaptcha', ssr: false },
     { src: '~/plugins/google-login', ssr: false },
     { src: '~/plugins/moment', ssr: false },
+    { src: '~/plugins/bus' },
   ],
   /*
   ** Nuxt.js dev-modules

@@ -17,6 +17,16 @@
         </v-col>
         <v-col cols="10">
           <strong>{{ comment.customer.name }}</strong><br>
+          <v-rating
+          v-if="comment.rate && comment.rate >= 0"
+          background-color="orange"
+          color="orange lighten-2"
+          readonly
+          size="20"
+          class="mb-3"
+          dense
+          :value="getrating(comment.rate)"></v-rating>
+
           <div style="font-size:12px;">
             <div v-html="comment.message"></div>
           </div>
@@ -34,6 +44,13 @@ export default {
   name: "CommentList",
   props: {
     items: Array
+  },
+  methods: {
+    getrating(num) {
+      var rating = num / 20;
+          rating = rating.toFixed(0);
+      return parseInt(rating)
+    },
   }
 }
 </script>
