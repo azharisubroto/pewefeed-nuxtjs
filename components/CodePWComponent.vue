@@ -227,14 +227,14 @@ export default {
         /* Get Code PW */
         async getCode() {
             this.setloading()
-            if (this.$route.params.code == 'fail') {
+            if (this.$route.params.codepw == 'fail') {
                 this.notloading();
                 this.status_code = true
                 this.message_code = 'Kode Tidak Valid'
             } else {
                 this.recaptchaToken = null
                 try {
-                    const res = await VoucherService.getCodePw( this.$route.params.code )
+                    const res = await VoucherService.getCodePw( this.$route.params.codepw )
                     console.log(res.data.code)
                     this.notloading()
                     this.status_code = true
