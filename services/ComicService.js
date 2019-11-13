@@ -14,6 +14,15 @@ export default {
     getDetail(slug) {
         return Api().get('/comic/' + slug)
     },
+    getRating(slug) {
+        return Api().get('/comic/review/' + slug)
+    },
+    getComment(slug) {
+        return Api().get('/comic/comment/' + slug)
+    },
+    getImages(slug) {
+        return Api().get('/comic/image/' + slug)
+    },
     makeRating(formData) {
         return AuthApi().post('/comic/review', formData)
     }

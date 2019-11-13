@@ -190,7 +190,7 @@ import ComicService from '../../services/ComicService';
             const sendform = {
                 comic_id: this.contentId,
                 review: this.formdata.review,
-                rating: this.formdata.rating
+                rating: this.formdata.rating * 20
             };
             this.setloading();
             try {
@@ -200,6 +200,11 @@ import ComicService from '../../services/ComicService';
                 console.log(res)
                 vm.snackbar = true
                 vm.responsemessage = 'Sukses memberikan rating'
+                this.$nextTick(function() {
+                    setTimeout(() => {
+                        this.ratingModal = false
+                    }, 3000);
+                });
             } catch (err) {
                 console.log(err)
                 this.notloading();

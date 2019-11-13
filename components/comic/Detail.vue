@@ -44,10 +44,15 @@
                         ></v-rating>
                     </v-col>
                     <v-col cols="2">
-                        <span class="caption ml-2">({{ comic.total_review }})</span>
+                        <span class="caption ml-2">({{ total_review }})</span>
                     </v-col>
                 </v-row>
             </div>
+            <!-- SHARE BUTTON -->
+            <ShareButton
+                style="text-align: left !important"
+                :dataUrl="shareUrl"
+            />
 
             <!-- ARTICLE -->
             <template v-if="isComic">
@@ -69,10 +74,10 @@
                                 class="mx-auto"
                             >
                                 <v-system-bar lights-out></v-system-bar>
-                                <flickity v-if="comic.image" ref="flickity">
+                                <flickity v-if="dataImage" ref="flickity">
                                     <div
-                                    v-for="content in comic.image"
-                                    :key="content.id"
+                                    v-for="content in dataImage"
+                                    :key="content.link"
                                     class="featured-item">
                                         <v-img
                                             :src="content.link"
@@ -82,14 +87,11 @@
                                     </div>
                                 </flickity>
                                 <v-row no-gutters>
-                                    <v-col class="text-center grey pt-4 pb-4 white--text" cols="4">
-                                        100 Kb
+                                    <v-col class="text-center grey pt-4 pb-4 white--text" cols="6">
+                                        {{images.total_size}}
                                     </v-col>
-                                    <v-col class="text-center blue pt-4 pb-4 white--text" cols="4">
-                                        Download
-                                    </v-col>
-                                    <v-col class="text-center success pt-4 pb-4 white--text" cols="4">
-                                        Download All
+                                    <v-col class="text-center success pt-4 pb-4 white--text" cols="6">
+                                        <a style="text-decoration: none" :href="images.zipUrl" download class="white--text">Download</a>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -145,7 +147,7 @@
                   <v-tab-item
                     value="kasihkomen"
                   >
-                    <h4 class="mb-4 mt-5">{{comments.length}} Comments</h4>
+                    <h4 class="mb-4 mt-5">{{total_comment}} Comments</h4>
 
                     <!-- TEXT AREA -->
                     <v-textarea
@@ -227,6 +229,9 @@ import KomentarPoin from '@/components/modal/KomentarPoin'
 import NotVip from '@/components/modal/NotVip'
 import BuyVip from '@/components/modal/BuyVip'
 import MakeRating from '@/components/common/MakeRating'
+import ShareButton from '@/components/common/ShareButton'
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver';
 
 export default {
     components: {
@@ -236,14 +241,18 @@ export default {
       LoginModal,
       NotVip,
       BuyVip,
-      MakeRating
+      MakeRating,
+      ShareButton,
     },
     data() {
         return {
             isVip: false,
             comic: '',
+            dataImage: '',
             totalRating: 0,
-            ratings: [],
+            total_review: 0,
+            total_comment: 0,
+            ratings: '',
             isComic: true,
             isComment: false,
             isRating: false,
@@ -252,6 +261,7 @@ export default {
             id: null,
             tabCom: null,
             comments: [],
+            images: '',
             KomentarPoinVisible: false,
             commentIsPosting: false,
             comment_message: null,
@@ -260,7 +270,8 @@ export default {
             loginModalVisible: false,
             pleaseLoginDialogVisible: false,
             notVipDialogVisible: false,
-            makeRatingVisible: false
+            makeRatingVisible: false,
+            shareUrl: 'https://m.playworld.id/komik/' + this.$route.params.category + '/' + this.$route.params.detail
         }
     },
     computed: {
@@ -275,13 +286,23 @@ export default {
             const hasil = rating / 20
             return hasil
         },
+        async fetchImage() {
+            try {
+                const res = await ComicService.getImages(this.$route.params.detail)
+                this.images = res.data.data
+                this.dataImage = this.images.image
+                console.log(this.images)
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async fetchUserdata() {
           try {
             const res = await UserService.getSingleUser()
             this.user_id = res.data.data.id
             this.profile = res.data.data
             this.isVip = this.profile.vip
-            console.log(JSON.parse(JSON.stringify(res.data.data)))
+            // console.log(JSON.parse(JSON.stringify(res.data.data)))
           } catch (error) {
             console.log(error)
           }
@@ -289,21 +310,31 @@ export default {
         async fetchContent() {
             try {
                 let res = await ComicService.getDetail(this.$route.params.detail)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.content.id
                 this.comic = res.data.data.content
                 this.title = res.data.data.content.title
-                this.ratings = res.data.data.content.reviewed.data
-                this.totalRating = this.comic.rate / 20
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async fetchRating() {
+            try {
+                let res = await ComicService.getRating(this.$route.params.detail)
+                this.ratings = res.data.data.review
+                this.total_review = res.data.data.total_review
+                this.totalRating = res.data.data.rate / 20
+                console.log(JSON.parse(JSON.stringify(res.data.data)))
             } catch (error) {
                 console.log(error)
             }
         },
         async fetchComment() {
           try {
-            let res = await ComicService.getDetail(this.$route.params.detail)
+            let res = await ComicService.getComment(this.$route.params.detail)
             console.log(res)
-            this.comments = res.data.data.content.comments
+            this.comments = res.data.data
+            this.total_comment = res.data.total_comment
           } catch (error) {
               console.log(error)
           }
@@ -318,13 +349,13 @@ export default {
 
           try {
             const res = await UserService.postComment(params)
-            console.log(res)
+            // console.log(res)
             this.fetchComment()
             this.KomentarPoinVisible = true
             this.commentIsPosting = false;
             this.comment_message = null;
           } catch (error) {
-            console.log(error.response.status)
+            // console.log(error.response.status)
             this.commentIsPosting = false;
             if( error.response.status == 422 ) {
               alert('Mohon tulis komentar minimal 50 karakter')
@@ -368,11 +399,13 @@ export default {
                 this.makeRatingVisible = true
                 console.log('not vip');
             }
-        }
+        },
     },
     created() {
+        this.fetchImage()
         this.fetchContent()
         this.fetchUserdata()
+        this.fetchRating()
         this.fetchComment()
         //this.fetchLatest()
     }
