@@ -11,7 +11,7 @@
             <div
             v-for="comic in comics"
             :key="comic.id"
-            @click="$router.push('/komik/' + comic.category + '/' + comic.slug)"
+            @click="$router.push('/komik/' + comic.category.toLowerCase() + '/' + comic.slug)"
             class="featured-item">
               <v-img
                 :src="comic.thumbnail"
@@ -176,7 +176,7 @@ export default {
                       image: element.thumbnail,
                       link: slug,
                       title: element.title,
-                      category: comic.category,
+                      category: element.category,
                       type: 'KOMIK/' + element.category,
                       created_at: element.created_at
                   }
