@@ -14,5 +14,27 @@ export default {
   },
   getDetail(slug) {
     return Api().get('/content/'+slug)
+  },
+  getReview(slug, page) {
+    var p = page ? page : 1
+    return AuthApi().get('/content/review/' + slug + '?page=' + p)
+  },
+  /**
+   * Add Review
+   * @param {'content_id', 'rating', 'review'}
+   */
+  addReview(param) {
+    return AuthApi().post('/content/review/', param)
+  },
+  getComment(slug, n) {
+    var p = n ? n : 1
+    return Api().get('/content/comment/' + slug + '?page=' + p)
+  },
+  /**
+   * Add Comment
+   * @param {id, msg, type} params
+   */
+  postComment(params) {
+    return AuthApi().post('/member/comment', params)
   }
 }

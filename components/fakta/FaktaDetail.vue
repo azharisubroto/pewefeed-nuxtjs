@@ -68,14 +68,21 @@
           color="deep-orange"
           dark
           depressed
+          @click="openReviewModal"
         >
           BERI RATING
         </v-btn>
         <div class="my-4"></div>
         <CommentList :items="reviews"/>
 
+        <v-btn v-if="reviews.length > 0" color="deep-orange" dark depressed block @click="moreReview()">
+          Load More
+        </v-btn>
+
+        <ReviewModal :dialogVisible="reviewModalVisible" :faktaID="this.article.id" @close="myDialogClose"/>
       </template>
 
+      <!-- COMMENT -->
       <template v-if="isComment">
         <v-tabs color="deep-orange" v-model="tabCom">
           <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
@@ -106,8 +113,7 @@
               </v-btn>
 
               <!-- KOMEN LIST -->
-              Komentar
-              <!-- <CommentList :items="reverseComment"/> -->
+              <CommentList :items="reverseComment"/>
               <div class="mb-5"></div>
             </v-tab-item>
 
@@ -125,6 +131,7 @@
             </v-tab-item>
           </v-tabs-items>
 
+        <KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
       </template>
 
 
@@ -160,18 +167,23 @@
 
 <script>
 import LoginModal from '@/components/modal/LoginModal'
+import ReviewModal from './ReviewModal'
 import CommentList from '@/components/common/CommentList'
 import NotVip from '@/components/modal/NotVip'
 import ShareButton from '@/components/common/ShareButton'
+import KomentarPoin from '@/components/modal/KomentarPoin'
+import FaktaService from '@/services/FaktaService'
 
 export default {
   name:"FaktaDetail",
   props: ['article'],
   components: {
     LoginModal,
+    ReviewModal,
     CommentList,
     NotVip,
-    ShareButton
+    ShareButton,
+    KomentarPoin
   },
   data() {
     return {
@@ -179,17 +191,27 @@ export default {
       isComment: false,
       isReview: false,
       tabCom: null,
-      comments: this.article.comments,
+      comments: [],
       reviews: [],
+      reviewPaging: 2,
       dialog: false,
       loginModalVisible: false,
+      reviewModalVisible: false,
       buyVipDialogVisible: false,
       pleaseLoginDialogVisible: false,
       notVipDialogVisible: false,
       KomentarPoinVisible: false,
       commentIsPosting: false,
       comment_message: '',
+      slug: this.$route.params.slug,
       shareUrl: "https://m.playworld.id/fakta/detail/" + this.$route.params.slug,
+    }
+  },
+  computed: {
+    reverseComment: function(){
+      var commentArr = this.comments
+      var finalArr = commentArr.reverse()
+      return finalArr
     }
   },
   methods: {
@@ -200,6 +222,7 @@ export default {
         this.pleaseLoginDialogVisible = false
         this.notVipDialogVisible = false
         this.KomentarPoinVisible = false
+        this.reviewModalVisible = false
         // other code
     },
     getrating(num) {
@@ -207,24 +230,129 @@ export default {
             rating = rating.toFixed(0);
         return parseInt(rating)
     },
-    setReviews() {
-      const items = this.article.reviewed.data
-      const reviewitems = []
-      items.forEach(el => {
-        var obj = {
-          id: el.id,
-          customer: el.customer,
-          message: el.comment,
-          commented_at: el.created_at,
-          rate: el.rate
+    async getReviews(page) {
+      var page = page ? page : 1
+      try {
+        const res = await FaktaService.getReview(this.$route.params.slug, page)
+        const items = res.data.data.review
+        //console.log(res)
+        const reviewitems = []
+        items.forEach(el => {
+          var obj = {
+            id: el.id,
+            customer: el.customer,
+            message: el.comment,
+            commented_at: el.created_at,
+            rate: el.rate
+          }
+          reviewitems.push(obj)
+        });
+        this.reviews = reviewitems
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async moreReview() {
+      console.log(this.reviewPaging)
+      try {
+        const res = await FaktaService.getReview(this.$route.params.slug, this.reviewPaging)
+        const items = res.data.data.review
+        //console.log(items);
+        //console.log(res)
+        const reviewitems = []
+        if( items.length > 0 ) {
+          this.reviewPaging++
+          items.forEach(el => {
+            var obj = {
+              id: el.id,
+              customer: el.customer,
+              message: el.comment,
+              commented_at: el.created_at,
+              rate: el.rate
+            }
+            this.reviews.push(obj)
+          });
+        } else {
+          alert('No more review items')
         }
-        reviewitems.push(obj)
-      });
-      this.reviews = reviewitems
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchComment() {
+      try {
+        const res = await FaktaService.getComment(this.$route.params.slug, 1)
+        const items = res.data.data
+        //console.log(items);
+        console.log(res)
+        const commentItems = []
+        if( items.length > 0 ) {
+          this.reviewPaging++
+          items.forEach(el => {
+            var obj = {
+              id: el.id,
+              customer: el.customer,
+              message: el.message,
+              commented_at: el.commented_at,
+              rate: el.rate
+            }
+            commentItems.push(obj)
+          });
+          this.comments = commentItems
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async postComment() {
+      this.commentIsPosting = true;
+      const params = {
+        id: this.article.id,
+        msg: this.comment_message,
+        type: 'fakta'
+      }
+
+      try {
+        const res = await FaktaService.postComment(params)
+        console.log(res.data.poin)
+        this.fetchComment()
+        this.commentIsPosting = false;
+        this.comment_message = null;
+        if( res.data.poin > 0 ) {
+          this.KomentarPoinVisible = true
+        }
+      } catch (error) {
+        //console.log(error.response.status)
+        this.commentIsPosting = false;
+        if( error.response && error.response.status == 422 ) {
+          alert('Mohon tulis komentar minimal 50 karakter')
+        } else if( error.response && error.response.status == 500 ) {
+          alert('an error occured')
+        } else if( error.response && error.response.status == 401 ) {
+          //alert('Mohon Maaf :(, Anda harus login')
+          this.openModalLogin();
+        } else {
+          alert('error! ' + error.message)
+        }
+      }
+    },
+    openModalLogin() {
+      this.loginModalVisible = true
+    },
+    openReviewModal() {
+      this.reviewModalVisible = true
+    },
+    eventListener() {
+      let vm = this
+      this.$bus.$on('reFetchReviews', () => {
+        vm.getReviews();
+      })
     }
   },
   mounted() {
-    this.setReviews()
+    this.getReviews()
+    this.fetchComment()
+    this.eventListener()
     console.log(JSON.parse(JSON.stringify(this.article)))
   }
 }

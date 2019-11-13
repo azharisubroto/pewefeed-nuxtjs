@@ -62,9 +62,9 @@ export default {
       return false
     },
     getrating(num) {
-        var rating = num / 20;
-            rating = rating.toFixed(0);
-        return parseInt(rating)
+      var rating = num / 20;
+          rating = rating.toFixed(0);
+      return parseInt(rating)
     },
   }
 }
