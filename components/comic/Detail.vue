@@ -75,7 +75,7 @@
                                     :key="content.id"
                                     class="featured-item">
                                         <v-img
-                                            :src="content"
+                                            :src="content.link"
                                             :aspect-ratio="1"
                                             class="grey lighten-2"
                                         ></v-img>
