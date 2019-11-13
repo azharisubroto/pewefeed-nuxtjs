@@ -1,9 +1,5 @@
 <template>
   <section>
-    <v-skeleton-loader v-if="!article || article==''"
-      class="mx-auto mt-5"
-      type="list-item-avatar-three-line, image, article"
-    ></v-skeleton-loader>
     <v-container v-if="article" class="mb-5 pb-5">
       <v-row>
         <v-col>
