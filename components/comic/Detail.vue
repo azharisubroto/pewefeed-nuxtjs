@@ -64,7 +64,7 @@
                                 :src="comic.thumbnail"
                                 class="blur"
                             >
-                                <v-btn @click="checkVip()" dark class="btn-vip" color="orange accent-4">DAPATKAN HAK AKSES VIP</v-btn>
+                                <v-btn depressed @click="checkVip()" dark class="btn-vip" color="orange accent-4">DAPATKAN HAK AKSES VIP</v-btn>
                             </v-img>
                       </div>
 
@@ -91,7 +91,7 @@
                                         {{images.total_size}}
                                     </v-col>
                                     <v-col class="text-center success pt-4 pb-4 white--text" cols="6">
-                                        <a style="text-decoration: none" :href="images.zipUrl" download class="white--text">Download</a>
+                                        <a style="text-decoration: none" :href="images.zip_url" download class="white--text">Download</a>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -105,7 +105,7 @@
 
             <!-- RATING -->
             <template v-if="isRating">
-                <v-btn @click="makeRating()" dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
+                <v-btn @click="makeRating()" depressed dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
                 <v-list three-line>
                   <template v-for="(rating, index) in ratings">
                       <v-list-item
