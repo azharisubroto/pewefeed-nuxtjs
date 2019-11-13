@@ -47,7 +47,7 @@
 <script>
   import Login from "@/components/Login";
   export default {
-    name:"NotVip",
+    name:"LoginModal",
     props: {
       dialogVisible: Boolean,
     },

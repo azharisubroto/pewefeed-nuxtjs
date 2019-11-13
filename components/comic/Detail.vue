@@ -52,11 +52,46 @@
             <template v-if="isComic">
               <v-row class="pb-5">
                   <v-col cols="12">
-                      <div class="cover">
+                      <div class="cover" v-if="!isVip">
                             <v-img
                                 width="100%"
                                 :src="comic.thumbnail"
-                            ></v-img>
+                                class="blur"
+                            >
+                                <v-btn @click="checkVip()" dark class="btn-vip" color="orange accent-4">DAPATKAN HAK AKSES VIP</v-btn>
+                            </v-img>
+                      </div>
+
+                      <div class="content" v-else>
+                            <v-card
+                                max-width="444"
+                                class="mx-auto"
+                            >
+                                <v-system-bar lights-out></v-system-bar>
+                                <flickity v-if="comic.image" ref="flickity">
+                                    <div
+                                    v-for="content in comic.image"
+                                    :key="content.id"
+                                    class="featured-item">
+                                        <v-img
+                                            :src="content"
+                                            :aspect-ratio="1"
+                                            class="grey lighten-2"
+                                        ></v-img>
+                                    </div>
+                                </flickity>
+                                <v-row no-gutters>
+                                    <v-col class="text-center grey pt-4 pb-4 white--text" cols="4">
+                                        100 Kb
+                                    </v-col>
+                                    <v-col class="text-center blue pt-4 pb-4 white--text" cols="4">
+                                        Download
+                                    </v-col>
+                                    <v-col class="text-center success pt-4 pb-4 white--text" cols="4">
+                                        Download All
+                                    </v-col>
+                                </v-row>
+                            </v-card>
                       </div>
 
                       <!-- CONTENT -->
@@ -67,7 +102,7 @@
 
             <!-- RATING -->
             <template v-if="isRating">
-                <v-btn dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
+                <v-btn @click="makeRating()" dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
                 <v-list three-line>
                     <template v-for="(rating, index) in ratings">
                         <v-list-item
@@ -122,13 +157,13 @@
                       v-model="comment_message"
                     ></v-textarea>
 
-                    <v-btn block dark depressed color="deep-orange" @click="postComment()">
+                    <v-btn block dark depressed class="mb-4" color="deep-orange" @click="postComment()">
                       <template v-if="!commentIsPosting">Kirim Komentar</template>
                       <template v-else>Mengirim Komentar...</template>
                     </v-btn>
 
                     <!-- KOMEN LIST -->
-                    <!-- <CommentList :items="reverseComment"/> -->
+                    <CommentList :items="reverseComment"/>
                     <div class="mb-5"></div>
                   </v-tab-item>
 
@@ -152,6 +187,8 @@
         <br><br><br>
 
         <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
+        <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+        <MakeRating :contentId="comic.id" :dialogVisible="makeRatingVisible" @close="myDialogClose"/>
 
         <v-bottom-navigation
           fixed
@@ -169,7 +206,7 @@
           </v-btn>
 
           <v-btn @click="isComic=false;isRating=false;isComment=true">
-            <span>Komentar<br>(+20 Poin)</span>
+            <span>Komentar<br>(+2 Poin)</span>
           </v-btn>
         </v-bottom-navigation>
 
@@ -186,6 +223,8 @@ import CommentList from '@/components/common/CommentList'
 import LoginModal from '@/components/modal/LoginModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import NotVip from '@/components/modal/NotVip'
+import BuyVip from '@/components/modal/BuyVip'
+import MakeRating from '@/components/common/MakeRating'
 
 export default {
     components: {
@@ -193,10 +232,13 @@ export default {
       CommentList,
       KomentarPoin,
       LoginModal,
-      NotVip
+      NotVip,
+      BuyVip,
+      MakeRating
     },
     data() {
         return {
+            isVip: false,
             comic: '',
             totalRating: 0,
             ratings: [],
@@ -216,6 +258,7 @@ export default {
             loginModalVisible: false,
             pleaseLoginDialogVisible: false,
             notVipDialogVisible: false,
+            makeRatingVisible: false
         }
     },
     computed: {
@@ -235,6 +278,7 @@ export default {
             const res = await UserService.getSingleUser()
             this.user_id = res.data.data.id
             this.profile = res.data.data
+            this.isVip = this.profile.vip
             console.log(JSON.parse(JSON.stringify(res.data.data)))
           } catch (error) {
             console.log(error)
@@ -253,21 +297,21 @@ export default {
                 console.log(error)
             }
         },
-        // async fetchComment() {
-        //   try {
-        //     let res = await ComicService.getSixtyDetail(this.$route.params.sixty)
-        //     console.log(res)
-        //     this.comments = res.data.data.detail.comments
-        //   } catch (error) {
-        //       console.log(error)
-        //   }
-        // },
+        async fetchComment() {
+          try {
+            let res = await ComicService.getDetail(this.$route.params.detail)
+            console.log(res)
+            this.comments = res.data.data.content.comments
+          } catch (error) {
+              console.log(error)
+          }
+        },
         async postComment() {
           this.commentIsPosting = true;
           const params = {
             id: this.id,
             msg: this.comment_message,
-            type: 'sixty'
+            type: 'comic'
           }
 
           try {
@@ -302,12 +346,32 @@ export default {
             this.pleaseLoginDialogVisible = false
             this.notVipDialogVisible = false
             this.KomentarPoinVisible = false
+            this.makeRatingVisible = false
             // other code
         },
+        checkVip() {
+            if (!localStorage.getItem('loggedin')) {
+                this.loginModalVisible = true
+                console.log('not login')
+            } else {
+                this.buyVipDialogVisible = true
+                console.log('not vip');
+            }
+        },
+        makeRating() {
+            if (!localStorage.getItem('loggedin')) {
+                this.loginModalVisible = true
+                console.log('not login')
+            } else {
+                this.makeRatingVisible = true
+                console.log('not vip');
+            }
+        }
     },
     created() {
         this.fetchContent()
         this.fetchUserdata()
+        this.fetchComment()
         //this.fetchLatest()
     }
 }
@@ -356,4 +420,14 @@ export default {
       width: calc(100% + 40px)
       margin-left: -20px
       margin-right: -20px
+
+    .btn-vip
+      position: absolute
+      left: 50%
+      top: 50%
+      transform: translateX(-50%) translateY(-50%)
+      background: rgba(0,0,0,.5)
+
+    .blur .v-image__image--cover
+        filter: blur(20px)
 </style>

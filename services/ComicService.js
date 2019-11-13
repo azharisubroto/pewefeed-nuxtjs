@@ -1,4 +1,5 @@
 import Api from './Api'
+import AuthApi from './AuthApi'
 
 export default {
     getAll(slug) {
@@ -13,4 +14,7 @@ export default {
     getDetail(slug) {
         return Api().get('/comic/' + slug)
     },
+    makeRating(formData) {
+        return AuthApi().post('/comic/review', formData)
+    }
 }
