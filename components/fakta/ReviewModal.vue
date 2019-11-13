@@ -123,7 +123,7 @@ import FaktaService from '@/services/FaktaService';
             review : '',
             rating : 5,
         },
-        recaptchaToken: 'success',
+        recaptchaToken: null,
         reviewRules: [
             v => !!v || 'Mohon isi kolom pesan'
         ],
