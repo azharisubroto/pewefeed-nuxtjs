@@ -222,7 +222,6 @@
 <script>
 import ComicService from '@/services/ComicService'
 import UserService from '@/services/UserService'
-import Terbaru from '@/components/article/Terbaru'
 import CommentList from '@/components/common/CommentList'
 import LoginModal from '@/components/modal/LoginModal'
 import KomentarPoin from '@/components/modal/KomentarPoin'
@@ -235,7 +234,6 @@ import { saveAs } from 'file-saver';
 
 export default {
     components: {
-      Terbaru,
       CommentList,
       KomentarPoin,
       LoginModal,
