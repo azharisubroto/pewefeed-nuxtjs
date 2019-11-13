@@ -120,7 +120,7 @@ import ComicService from '../../services/ComicService';
         logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
         formdata : {
             review : '',
-            rating : 4,
+            rating : 5,
         },
         recaptchaToken: null,
         reviewRules: [

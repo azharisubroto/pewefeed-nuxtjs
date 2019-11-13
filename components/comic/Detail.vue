@@ -40,6 +40,7 @@
                             half-increments
                             hover
                             size="23"
+                            readonly
                         ></v-rating>
                     </v-col>
                     <v-col cols="2">
@@ -123,6 +124,7 @@
                                         half-increments
                                         hover
                                         size="18"
+                                        readonly
                                     ></v-rating>
                                 </v-list-item-subtitle>
                                 <v-list-item-subtitle v-html="rating.comment"></v-list-item-subtitle>
