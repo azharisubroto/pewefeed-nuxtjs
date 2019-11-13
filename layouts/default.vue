@@ -197,7 +197,7 @@
                   <v-list-item
                     v-for="(prem, i) in premiums"
                     :key="i"
-                    @click="$router.push(rem.link)"
+                    @click="$router.push(prem.link)"
                   >
                     <v-list-item-content class="menu">
                       <v-list-item-title v-html="prem.title"></v-list-item-title>
