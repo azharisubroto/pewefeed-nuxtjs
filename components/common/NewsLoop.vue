@@ -16,13 +16,24 @@
           dark
           size="35"
           class="playbutton"
-          v-if="isSixty(article.title) || isFakta( article.class ? article.class : null )">
+          v-if="isSixty(article.title) || isFakta( article.class ? article.class : null ) || article.isVideo == true">
             mdi-play-circle-outline
           </v-icon>
         </v-img>
       </v-col>
       <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
           <h2>{{article.title}}</h2>
+
+          <v-rating
+          v-if="article.rating >= 0"
+          background-color="orange"
+          color="orange lighten-2"
+          readonly
+          size="20"
+          class="mb-3"
+          dense
+          :value="getrating(article.rating)"></v-rating>
+
           <div class="meta text--gray" style="font-size:12px;">
             <span :class="article.type">{{ isSixty(article.title) ? 'SIXTY/' : ''}}</span>
             <span :class="article.type">{{article.type}}</span> - {{article.published_at ? article.published_at : article.publish_at}}
@@ -49,7 +60,12 @@ export default {
         return true
       }
       return false
-    }
+    },
+    getrating(num) {
+      var rating = num / 20;
+          rating = rating.toFixed(0);
+      return parseInt(rating)
+    },
   }
 }
 </script>

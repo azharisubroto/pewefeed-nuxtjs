@@ -41,7 +41,7 @@
       <!-- TOP VIEWS -->
       <div class="">
         <v-container>
-          <Terbaru :items="sixtybottom"/>
+          <NewsLoop :items="sixtybottom"/>
           <v-row>
             <v-col cols="12">
               <v-btn
@@ -64,13 +64,13 @@
 <script>
 import ArticleService from '@/services/ArticleService.js'
 import TopViews from '@/components/article/TopViews'
-import Terbaru from '@/components/article/Terbaru'
+import NewsLoop from '@/components/common/NewsLoop'
 import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"VideoHome",
     components: {
         TopViews,
-        Terbaru,
+        NewsLoop,
         ShareButton
     },
     head () {
@@ -106,7 +106,7 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            shareUrl: "https://ssr.playworld.id/video",
+            shareUrl: "https://m.playworld.id/video",
         }
     },
     methods: {
