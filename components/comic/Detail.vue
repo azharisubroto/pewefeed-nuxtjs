@@ -107,33 +107,36 @@
             <template v-if="isRating">
                 <v-btn @click="makeRating()" dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
                 <v-list three-line>
-                    <template v-for="(rating, index) in ratings">
-                        <v-list-item
-                            :key="rating.customer.name+'-'+index"
-                        >
-                            <v-list-item-avatar>
-                                <v-img :src="rating.customer.avatar ? rating.customer.avatar : '/img/user.png'"></v-img>
-                            </v-list-item-avatar>
+                  <template v-for="(rating, index) in ratings">
+                      <v-list-item
+                          :key="rating.customer.name+'-'+index"
+                      >
+                          <v-list-item-avatar>
+                              <v-img :src="rating.customer.avatar ? rating.customer.avatar : '/img/user.png'"></v-img>
+                          </v-list-item-avatar>
 
-                            <v-list-item-content>
-                                <v-list-item-title v-html="rating.customer.name"></v-list-item-title>
-                                <v-list-item-subtitle>
-                                    <v-rating
-                                        background-color="orange"
-                                        color="orange"
-                                        dense
-                                        :value="rate(rating.rate)"
-                                        half-increments
-                                        hover
-                                        size="18"
-                                        readonly
-                                    ></v-rating>
-                                </v-list-item-subtitle>
-                                <v-list-item-subtitle v-html="rating.comment"></v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </template>
-                    </v-list>
+                          <v-list-item-content>
+                              <v-list-item-title v-html="rating.customer.name"></v-list-item-title>
+                              <v-list-item-subtitle>
+                                  <v-rating
+                                      background-color="orange"
+                                      color="orange"
+                                      dense
+                                      :value="rate(rating.rate)"
+                                      half-increments
+                                      hover
+                                      size="18"
+                                      readonly
+                                  ></v-rating>
+                              </v-list-item-subtitle>
+                              <v-list-item-subtitle v-html="rating.comment"></v-list-item-subtitle>
+                          </v-list-item-content>
+                      </v-list-item>
+                  </template>
+                </v-list>
+                <v-btn v-if="isMore" color="deep-orange" dark depressed block @click="loadMore(next)">
+                  Load More
+                </v-btn>
             </template>
 
             <!-- COMMENT -->
@@ -245,12 +248,14 @@ export default {
     data() {
         return {
             isVip: false,
+            isMore: true,
             comic: '',
             dataImage: '',
             totalRating: 0,
             total_review: 0,
             total_comment: 0,
             ratings: '',
+            next: 2,
             isComic: true,
             isComment: false,
             isRating: false,
@@ -322,7 +327,26 @@ export default {
                 this.ratings = res.data.data.review
                 this.total_review = res.data.data.total_review
                 this.totalRating = res.data.data.rate / 20
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // console.log(JSON.parse(JSON.stringify(res.data)))
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                    this.isMore = false;
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMore(n) {
+          try {
+                const res = await ComicService.getRating(this.$route.params.detail + '?page=' + n)
+                // console.log(JSON.parse(JSON.stringify(res.data)))
+                var newData = res.data.data.review
+                newData.forEach(element => {
+                  this.ratings.push(element)
+                });
+                this.next += 1
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                  this.isMore = false;
+                }
             } catch (error) {
                 console.log(error)
             }
