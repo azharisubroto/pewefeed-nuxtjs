@@ -37,7 +37,7 @@ export default {
         {hid: 'og:type', name: 'og:type', content: 'website'},
         // {hid: 'og:url', name: 'og:url', content: url},
         {hid: 'og:description', name: 'og:description', content: this.item.content.description},
-        {hid: 'og:image', name: 'og:image', content: this.item.content.image.medium},
+        {hid: 'og:image', name: 'og:image', content: this.item.content.thumbnail},
         {hid: 'og:locale', name: 'og:locale', content: 'id_ID'},
         {hid: 'og:site_name', name: 'og:site_name', content: 'Playworld'},
 
@@ -47,7 +47,7 @@ export default {
         {hid: 'twitter:site', name: 'twitter:site', content: '@playworld'},
         {hid: 'twitter:title', name: 'twitter:title', content: this.item.content.title},
         {hid: 'twitter:description', name: 'twitter:description', content: this.item.content.description},
-        {hid: 'twitter:image', name: 'twitter:image', content: this.item.content.image.medium},
+        {hid: 'twitter:image', name: 'twitter:image', content: this.item.content.thumbnail},
       ]
     }
   }
