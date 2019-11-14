@@ -41,10 +41,10 @@ export default {
     getListArticleByCategory(slug) {
       return Api().get('/article/category/list/' + slug)
     },
-    searchArticle(data) {
-      return Api().post('/article/search', data)
+    searchArticle(keywords) {
+      return Api().get('/article/search/' + keywords)
     },
-    searchArticleMore(data, page) {
-      return Api().post('/article/search?page=' + page, data)
+    searchArticleMore(keywords, page) {
+      return Api().get('/article/search/' + keywords + '?page=' + page)
     }
 }

@@ -124,6 +124,10 @@ export default {
                     this.articleList.push(obj)
                 });
 
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                  this.isMore = false;
+                }
+
             } catch (error) {
                 console.log(error)
             }
@@ -147,7 +151,7 @@ export default {
         async fetchTrending() {
             try {
                 const res = await ArticleService.getTrendingArticleByCategory(this.$route.params.cat)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.articles = res.data.data.article
                 // if (res.data.data.length > 0) {
                   this.$nextTick(function() {

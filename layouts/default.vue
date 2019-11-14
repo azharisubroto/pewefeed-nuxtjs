@@ -63,43 +63,8 @@
               width="130"
               ></v-img>
             </v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon @click="hidden = !hidden">
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
           </v-app-bar>
         </v-card>
-
-        <!--
-          SEARCH
-        -->
-        <v-row>
-          <v-col cols="12">
-            <v-expand-transition>
-              <v-card tile dark color="orange accent-14" depressed elevation="0" v-if="!hidden" style="padding-top: 50px; margin-bottom: -50px">
-                <v-card-text>
-                  <v-row>
-                    <v-col cols="10">
-                      <v-text-field
-                        v-model="searchModel"
-                        dense
-                        label="Tulis Judul Artikel . . ."
-                        autofocus
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="2">
-                      <v-btn @click="search()" icon>
-                        <v-icon>mdi-arrow-right</v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card>
-            </v-expand-transition>
-          </v-col>
-        </v-row>
 
         <!--
           LOGIN / ACCOUNT
@@ -328,70 +293,6 @@
       Modal Search
     -->
     <div class="text-center">
-      <v-dialog
-      v-model="dialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-      >
-        <v-card>
-          <!-- Header -->
-          <v-toolbar dark color="orange accent-14">
-            <!-- Arrow -->
-            <v-btn icon tile style="border-right: 1px solid #fff" dark @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-
-            <!-- Logo -->
-            <v-toolbar-title>
-              <v-img
-              @click="$router.push('/')"
-              src="/img/playworld-logo.png"
-              lazy-src="/img/playworld-logo.png"
-              max-width="110"
-              max-height="100"
-              >
-              </v-img>
-            </v-toolbar-title>
-
-            <!-- Title -->
-            <div class="flex-grow-1"></div>
-            <strong class="subtitle-2">PENCARIAN</strong>
-          </v-toolbar>
-          <v-card-text>
-            <v-skeleton-loader v-if="articles.length==0"
-              class="mx-auto mt-5"
-              type="list-item-avatar-three-line"
-            ></v-skeleton-loader>
-            <v-container>
-              <strong class="title">{{totalArticles}} Artikel Ditemukan</strong>
-            </v-container>
-            <v-container>
-              <v-divider></v-divider>
-            </v-container>
-            <div v-if="articles">
-              <div>
-                <v-container>
-                  <NewsLoop :items="articles"/>
-                  <v-row v-if="isMore">
-                    <v-col cols="12">
-                    <v-btn
-                    tile
-                    block
-                    depressed
-                    dark
-                    color="deep-orange"
-                    @click="loadMore(next)">
-                      Load More
-                    </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
       <!--
       SEARCH
       -->
@@ -404,7 +305,7 @@
         <v-card>
           <v-toolbar dark color="orange accent-14">
             <!-- Arrow -->
-            <v-btn icon tile style="border-right: 1px solid #fff" dark @click="searchDialog = false">
+            <v-btn icon tile style="border-right: 1px solid #fff" dark @click="closeSearch()">
               <v-icon>mdi-close</v-icon>
             </v-btn>
 
@@ -430,14 +331,15 @@
               <v-col cols="10">
                 <v-text-field
                   v-model="searchModel"
+                  :rules="searchRules"
                   dense
                   label="Tulis Judul Artikel . . ."
                   autofocus
                 ></v-text-field>
               </v-col>
               <v-col cols="2">
-                <v-btn @click="search()" icon>
-                  <v-icon>mdi-arrow-right</v-icon>
+                <v-btn @click="validate()" icon>
+                  <v-icon>mdi-magnify</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
@@ -446,6 +348,21 @@
         </v-dialog>
       </div>
     </div>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      top
+    >
+      {{ responsemessage }}
+      <v-btn
+          color="primary"
+          text
+          icon
+          @click="snackbar = false"
+      >
+      <v-icon color="white">mdi-close-circle-outline</v-icon>
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -471,8 +388,6 @@ export default {
 			drawer: null,
 			searchDialog: null,
 			isLoggedIn: false,
-			hidden: true,
-			hiddenmain: true,
 			dialog: false,
 			searchModel: null,
 			overlay: false,
@@ -481,6 +396,10 @@ export default {
 			userdata:[],
 			mypoint: null,
       next: 2,
+      valid: true,
+      snackbar: false,
+      timeout: 3000,
+      responsemessage: null,
       isMore: true,
 			years: null,
 			menus: [
@@ -592,7 +511,10 @@ export default {
 					title: 'halo@playworld.id',
 					subtitle: '(Official Email Address)'
 				}
-			]
+      ],
+      searchRules: [
+        v => !!v || 'Please Input keyword'
+      ],
 		}
 	},
 	methods: {
@@ -633,62 +555,35 @@ export default {
 				this.isLogin();
 				window.location.reload
 			}
-		},
-		async search() {
-			if (!this.searchModel) {
-				this.overlay = false
-				this.dialog = false
-			}
-
-			this.overlay = true
-			console.log('searching . . .')
-			const data = {
-				key : this.searchModel
-			}
-			try {
-				const res = await ArticleService.searchArticle(data)
-				this.overlay = false
-				this.dialog = true
-				const items = res.data.data
-				this.articles = []
-				items.forEach(article => {
-                    var slug = article.link
-                        slug = slug.replace('https://playworld.id/', '')
-                    var obj = {
-                        image: article.image,
-                        link: slug,
-                        title: article.title,
-                        type: article.type,
-                        published_at: article.publish_at
-                    }
-					this.articles.push(obj)
-				});
-				this.totalArticles = res.data.pagination.total
-			} catch (error) {
-				this.articles = []
-				console.log(error)
-			}
-		},
-		async loadMore(n) {
-			const data = {
-				key : this.searchModel
-			}
-          	try {
-                const res = await ArticleService.searchArticleMore(data, n)
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var newData = res.data.data
-                newData.forEach(element => {
-                  this.articles.push(element)
-                });
-                this.next += 1
-                if (res.data.pagination.current_page == res.data.pagination.last_page) {
-                  this.isMore = false;
-                }
-            } catch (error) {
-                console.log(error)
-            }
-		},
-	},
+    },
+    /* Validasi Form */
+    validate () {
+        if (this.searchModel) {
+          this.search();
+        } else {
+          this.snackbar = true;
+          this.responsemessage = 'Mohon Isi Kolom Pencarian';
+        }
+    },
+    search() {
+      const keywords = this.slugify(this.searchModel)
+      this.searchDialog = false
+      this.searchModel = null
+      this.$router.push('/search/' + keywords)
+    },
+    slugify(text){
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+    },
+    closeSearch() {
+      this.searchDialog = false
+      this.searchModel = null
+    }
+  },
 	mounted() {
 		this.isLogin()
 		this.fetchUser()
