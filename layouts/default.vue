@@ -331,7 +331,6 @@
               <v-col cols="10">
                 <v-text-field
                   v-model="searchModel"
-                  :rules="searchRules"
                   dense
                   label="Tulis Judul Artikel . . ."
                   autofocus
@@ -396,7 +395,6 @@ export default {
 			userdata:[],
 			mypoint: null,
       next: 2,
-      valid: true,
       snackbar: false,
       timeout: 3000,
       responsemessage: null,
@@ -511,9 +509,6 @@ export default {
 					title: 'halo@playworld.id',
 					subtitle: '(Official Email Address)'
 				}
-      ],
-      searchRules: [
-        v => !!v || 'Please Input keyword'
       ],
 		}
 	},
