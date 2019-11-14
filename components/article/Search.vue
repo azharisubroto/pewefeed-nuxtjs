@@ -24,8 +24,8 @@
                 </v-row>
             </v-container>
         </div>
-        <div v-else class="text-center">
-            <strong>Maaf Article yang anda cari tidak ditemukan.</strong>
+        <div v-else class="text-center mt-10">
+            <strong class="grey--text">Maaf Article yang anda cari tidak ditemukan.</strong>
         </div>
     </div>
 </template>
