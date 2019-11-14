@@ -205,11 +205,27 @@ import ComicService from '../../services/ComicService';
                         this.ratingModal = false
                     }, 3000);
                 });
+                this.fetchRating()
             } catch (err) {
                 console.log(err)
                 this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Maaf terjadi kesalahan, silahkan mencoba lagi nanti :('
+            }
+        },
+
+        async fetchRating() {
+            try {
+                let res = await ComicService.getRating(this.$route.params.detail)
+                this.ratings = res.data.data.review
+                this.total_review = res.data.data.total_review
+                this.totalRating = res.data.data.rate / 20
+                // console.log(JSON.parse(JSON.stringify(res.data)))
+                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                    this.isMore = false;
+                }
+            } catch (error) {
+                console.log(error)
             }
         },
 
