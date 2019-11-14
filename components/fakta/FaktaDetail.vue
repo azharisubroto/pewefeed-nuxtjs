@@ -63,23 +63,48 @@
         </v-row>
       </template>
 
+      <!-- RATING -->
       <template v-if="isReview">
-        <v-btn
-          color="deep-orange"
-          dark
-          depressed
-          @click="openReviewModal"
-        >
-          BERI RATING
-        </v-btn>
-        <div class="my-4"></div>
-        <CommentList :items="reviews"/>
+          <v-btn @click="makeRating()" depressed dark color="orange ancent-4" class="my-2">BERI RATING</v-btn>
+          <v-list three-line>
+            <template v-for="(rating, index) in reviews">
+                <v-list-item
+                    :key="rating.customer.name+'-'+index"
+                >
+                    <v-list-item-avatar>
+                        <v-img :src="rating.customer.avatar ? rating.customer.avatar : '/img/user.png'"></v-img>
+                    </v-list-item-avatar>
 
-        <v-btn v-if="reviews.length > 0" color="deep-orange" dark depressed block @click="moreReview()">
-          Load More
-        </v-btn>
-
-        <ReviewModal :dialogVisible="reviewModalVisible" :faktaID="this.article.id" @close="myDialogClose"/>
+                    <v-list-item-content>
+                        <v-list-item-title v-html="rating.customer.name"></v-list-item-title>
+                        <v-list-item-subtitle>
+                            <v-rating
+                                background-color="orange"
+                                color="orange"
+                                dense
+                                :value="rate(rating.rate)"
+                                half-increments
+                                hover
+                                size="18"
+                                readonly
+                            ></v-rating>
+                        </v-list-item-subtitle>
+                        <v-list-item-subtitle class="mt-1" v-html="rating.message"></v-list-item-subtitle>
+                        <v-list-item-subtitle class="mt-1">
+                          <div class="d-inline-block mr-3 grey--text text--small">
+                              <v-icon small size="12">
+                                  mdi-clock-outline
+                              </v-icon>
+                              {{rating.commented_at}}
+                          </div>
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+            </template>
+          </v-list>
+          <v-btn v-if="isMore" color="deep-orange" dark depressed block @click="loadMore(next)">
+            Load More
+          </v-btn>
       </template>
 
       <!-- COMMENT -->
@@ -191,6 +216,7 @@ export default {
       isComment: false,
       isReview: false,
       tabCom: null,
+      isMore: true,
       comments: [],
       reviews: [],
       reviewPaging: 2,
@@ -215,6 +241,10 @@ export default {
     }
   },
   methods: {
+    rate(rating) {
+        const hasil = rating / 20
+        return hasil
+    },
     myDialogClose () {
         this.dialog = false
         this.loginModalVisible = false
@@ -247,7 +277,11 @@ export default {
           }
           reviewitems.push(obj)
         });
+        if (res.data.pagination.current_page == res.data.pagination.last_page) {
+          this.isMore = false;
+        }
         this.reviews = reviewitems
+        console.log(JSON.parse(JSON.stringify(this.reviews)))
       } catch (error) {
         console.log(error)
       }
@@ -274,6 +308,9 @@ export default {
           });
         } else {
           alert('No more review items')
+        }
+        if (res.data.pagination.current_page == res.data.pagination.last_page) {
+          this.isMore = false;
         }
       } catch (error) {
         console.log(error)
@@ -347,7 +384,16 @@ export default {
       this.$bus.$on('reFetchReviews', () => {
         vm.getReviews();
       })
-    }
+    },
+    makeRating() {
+      if (!localStorage.getItem('loggedin')) {
+        this.loginModalVisible = true
+        console.log('not login')
+      } else {
+        this.reviewModalVisible = true
+        console.log('not vip');
+      }
+    },
   },
   mounted() {
     this.getReviews()

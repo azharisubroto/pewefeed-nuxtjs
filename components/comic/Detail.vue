@@ -129,7 +129,15 @@
                                       readonly
                                   ></v-rating>
                               </v-list-item-subtitle>
-                              <v-list-item-subtitle v-html="rating.comment"></v-list-item-subtitle>
+                              <v-list-item-subtitle class="mt-1" v-html="rating.comment"></v-list-item-subtitle>
+                              <v-list-item-subtitle class="mt-1">
+                                <div class="d-inline-block mr-3 grey--text text--small">
+                                    <v-icon small size="12">
+                                        mdi-clock-outline
+                                    </v-icon>
+                                    {{rating.created_at}}
+                                </div>
+                              </v-list-item-subtitle>
                           </v-list-item-content>
                       </v-list-item>
                   </template>

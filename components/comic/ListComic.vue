@@ -20,7 +20,7 @@
             </v-img>
       </v-col>
       <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
-          <h2 class="">{{comic.title}}</h2>
+          <h2 class="mr-10">{{comic.title}}</h2>
           <div class="meta text--gray" style="font-size:12px;">
             <span class="comic">{{comic.type}}</span> - {{comic.created_at}}
           </div>
