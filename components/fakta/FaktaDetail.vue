@@ -165,6 +165,8 @@
     <br><br><br>
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
+    <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+    <ReviewModal :contentId="article.id" :dialogVisible="reviewModalVisible" @close="myDialogClose"/>
 
     <v-bottom-navigation
       fixed
@@ -195,6 +197,7 @@ import LoginModal from '@/components/modal/LoginModal'
 import ReviewModal from './ReviewModal'
 import CommentList from '@/components/common/CommentList'
 import NotVip from '@/components/modal/NotVip'
+import BuyVip from '@/components/modal/BuyVip'
 import ShareButton from '@/components/common/ShareButton'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import FaktaService from '@/services/FaktaService'
@@ -207,6 +210,7 @@ export default {
     ReviewModal,
     CommentList,
     NotVip,
+    BuyVip,
     ShareButton,
     KomentarPoin
   },
@@ -221,6 +225,7 @@ export default {
       reviews: [],
       reviewPaging: 2,
       dialog: false,
+      isVip: false,
       loginModalVisible: false,
       reviewModalVisible: false,
       buyVipDialogVisible: false,
@@ -390,12 +395,28 @@ export default {
         this.loginModalVisible = true
         console.log('not login')
       } else {
-        this.reviewModalVisible = true
-        console.log('not vip');
+        if (!this.isVip) {
+          this.openReviewModal()
+        } else {
+          this.buyVipDialogVisible = true
+        }
+      }
+    },
+    async fetchUserdata() {
+      try {
+        const res = await UserService.getSingleUser()
+        this.user_id = res.data.data.id
+        this.profile = res.data.data
+        this.isVip = this.profile.vip
+        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+      } catch (error) {
+        console.log(error)
       }
     },
   },
+
   mounted() {
+    this.fetchUserdata()
     this.getReviews()
     this.fetchComment()
     this.eventListener()
