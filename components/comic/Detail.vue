@@ -426,7 +426,11 @@ export default {
                 this.loginModalVisible = true
                 console.log('not login')
             } else {
-                this.makeRatingVisible = true
+                if (this.isVip) {
+                  this.makeRatingVisible = true
+                } else {
+                  this.buyVipDialogVisible = true
+                }
                 console.log('not vip');
             }
         },

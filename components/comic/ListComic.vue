@@ -16,12 +16,25 @@
             dark
             src="/img/gallery-layout.png"
             width="35"
+            style="border-radius: 0px !important"
             class="playbutton"></v-img>
             </v-img>
       </v-col>
       <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
-          <h2 class="mr-10">{{comic.title}}</h2>
-          <div class="meta text--gray" style="font-size:12px;">
+          <div class="w-100">
+            <h2>{{comic.title}}</h2>
+            <v-rating
+                :value="rate(comic.rating)"
+                background-color="orange"
+                color="orange"
+                dense
+                half-increments
+                hover
+                size="18"
+                readonly
+            ></v-rating>
+          </div>
+          <div class="meta text--gray w-100" style="font-size:12px;">
             <span class="comic">{{comic.type}}</span> - {{comic.created_at}}
           </div>
       </v-col>
@@ -33,11 +46,19 @@
 export default {
   name:"ListComic",
   props: ['items'],
+  methods: {
+    rate(rating) {
+      return rating / 20
+    }
+  }
 }
 </script>
 
 <style lang="scss">
   .comic {
     color: #FF9800;
+  }
+  .w-100 {
+    width: 100%;
   }
 </style>

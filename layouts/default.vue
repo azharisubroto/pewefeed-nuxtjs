@@ -76,7 +76,7 @@
             </v-col>
           </v-row>
 
-          <v-row class="mt-6" v-else>
+          <v-row class="mt-12" v-else>
             <v-col cols="3">
               <v-avatar
                 size="60"

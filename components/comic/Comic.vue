@@ -147,6 +147,7 @@ export default {
                         link: slug,
                         title: comic.title,
                         category: comic.category,
+                        rating: comic.rating,
                         type: 'KOMIK/' + comic.category,
                         created_at: comic.created_at
                     }
@@ -170,15 +171,16 @@ export default {
                 const res = await ComicService.getAll(this.category + '?page=' + n)
                 // console.log(JSON.parse(JSON.stringify(res.data)))
                 var newData = res.data.data.content
-                newData.forEach(element => {
-                  var slug = element.slug
+                newData.forEach(comic => {
+                  var slug = comic.slug
                   var obj = {
-                      image: element.thumbnail,
+                      image: comic.thumbnail,
                       link: slug,
-                      title: element.title,
-                      category: element.category,
-                      type: 'KOMIK/' + element.category,
-                      created_at: element.created_at
+                      title: comic.title,
+                      category: comic.category,
+                      rating: comic.rating,
+                      type: 'KOMIK/' + comic.category,
+                      created_at: comic.created_at
                   }
                   this.comicList.push(obj)
                 });
