@@ -437,7 +437,7 @@ export default {
         {name: 'Sport', loc: '/sport'},
       ],
       memberMenu: [
-        {name: 'Profil Akun', loc: '/member/pengaturan'},
+        {name: 'Profil Akun', loc: '/member/pengaturan/profil'},
         {name: 'Daftar Alamat', loc: '/member/pengaturan/daftar-alamat'},
         {name: 'Daftar Nomor', loc: '/member/pengaturan/daftar-nomor'},
         //{name: 'Notifikasi', loc: '/member/pengaturan/notifikasi'},
