@@ -638,16 +638,6 @@
       },
     },
     methods: {
-
-      async onSubmit() {
-        try {
-          const token = await this.$recaptcha.getResponse()
-          console.log('ReCaptcha token:', token)
-          await this.$recaptcha.reset()
-        } catch (error) {
-          console.log('Login error:', error)
-        }
-      },
       onError (error) {
         console.log('Error happened:', error)
         this.recaptchaToken = null
@@ -693,7 +683,9 @@
           try {
             const res = await PurchaseService.midtrans(sendvoucher)
             if (res.status == 200) {
-              return console.log(res.status);
+              // console.log(res.data)
+              var url = res.data.snap_url
+              window.open(url, '_blank')
             }
           } catch (error) {
             console.log(error)
@@ -702,8 +694,8 @@
           this.itemname = label
           this.itemprice = price
           this.itemvoucher = voucherId
-          this.current = currentstep;
-          this.e1 = 4;
+          this.current = currentstep
+          this.e1 = 4
         }
       },
 
@@ -720,21 +712,6 @@
               this.responsemessage = 'Mohon Centang Recaptha';
             }
         }
-      },
-      reset () {
-          this.$refs.form.reset()
-      },
-      resetValidation () {
-          this.$refs.form.resetValidation()
-      },
-
-      /* Recapctcha */
-      onCaptchaVerified: function (res) {
-          this.recaptchaToken = res;
-      },
-      onCaptchaExpired: function () {
-          this.$refs.recaptcha.reset();
-          this.recaptchaToken = null;
       },
 
       /* Submit Form */
@@ -755,22 +732,6 @@
           }
 
           this.recaptchaToken = null;
-      },
-
-      /* Update Data */
-      fetchProgram() {
-        let vm = this
-        console.log(vm);
-        // StarxIzinService.checkIzin()
-        // .then( response => {
-        //     console.log(response.data.data);
-        //     var data = response.data.data;
-        //     vm.participant = data.participant;
-        //     localStorage.setItem('participant', JSON.stringify(data.participant));
-        // })
-        // .catch(error => {
-        //     console.log(error)
-        // });
       },
 
       async fetchUser() {
@@ -796,8 +757,7 @@
       }
       this.onError()
       this.onExpired()
-      this.onSubmit()
-      
+      this.onSuccess()
     }
   }
 </script>
