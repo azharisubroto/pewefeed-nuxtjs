@@ -7,7 +7,7 @@
             >
                 <h4>PROFIL BAND</h4>
                 <p class="caption">Lengkapi data profil band kamu di bawah ini, kamu juga bisa menambahkan data personel band.</p>
-                
+
                 <v-text-field
                 label="Nama Band"
                 color="deep-orange"
@@ -37,7 +37,7 @@
                 </div>
             </v-col>
 
-            
+
             <v-col
             cols="12"
             md="12"
@@ -53,8 +53,8 @@
                 <!-- <pre>{{$data.personels}}</pre> -->
                 <v-expansion-panels class="mb-3" focusable>
                     <v-expansion-panel
-                    v-for="(personel, i) in bandData.avatar" 
-                    :key="i" 
+                    v-for="(personel, i) in bandData.avatar"
+                    :key="i"
                     >
                     <v-expansion-panel-header>
                         <v-row no-gutters>
@@ -106,10 +106,10 @@
                             </vue-dropzone>
                         </div>
 
-                        <v-btn 
-                        @click="removePersonel(i)" 
-                        color="red" 
-                        dark 
+                        <v-btn
+                        @click="removePersonel(i)"
+                        color="red"
+                        dark
                         small
                         depressed
                         class="mt-2 float-right">

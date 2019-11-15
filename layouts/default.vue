@@ -23,10 +23,19 @@
           <v-icon> mdi-magnify</v-icon>
         </v-btn>
       </v-app-bar>
-
-      <v-tabs grow color="deep-orange" center-active class="pw-tab">
+      <v-tabs v-if="!$nuxt.$route.name.includes('member')" grow color="deep-orange" center-active class="pw-tab">
         <v-tab
           v-for="menu in toolbarMenu"
+          :key="menu.loc"
+          :to="menu.loc"
+        >
+          {{menu.name}}
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')" grow color="deep-orange" center-active class="pw-tab">
+        <v-tab
+          v-for="menu in memberMenu"
           :key="menu.loc"
           :to="menu.loc"
         >
@@ -426,6 +435,12 @@ export default {
         {name: 'Piknik', loc: '/piknik'},
         {name: 'Tekno', loc: '/tekno'},
         {name: 'Sport', loc: '/sport'},
+      ],
+      memberMenu: [
+        {name: 'Profil Akun', loc: '/member/pengaturan'},
+        {name: 'Daftar Alamat', loc: '/member/pengaturan/daftar-alamat'},
+        {name: 'Daftar Nomor', loc: '/member/pengaturan/daftar-nomor'},
+        //{name: 'Notifikasi', loc: '/member/pengaturan/notifikasi'},
       ],
 			category: 5,
 			categories: [
