@@ -174,8 +174,7 @@ export default {
         const res = await UserService.getSingleUser()
         this.user_id = res.data.data.id
         this.profile = res.data.data
-        console.log(JSON.parse(JSON.stringify(res.data.data)))
-        console.log(res.data.data.api_token)
+        // console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.dropOptions.headers.Authorization = 'Bearer '+res.data.data.api_token
         this.avatar_preview = res.data.data.avatar
         this.data.first_name = res.data.data.first_name
@@ -188,6 +187,9 @@ export default {
         this.data.expire = res.data.data.expire
       } catch (error) {
         console.log(error)
+        if (error.response.status == 401) {
+          this.$router.push('/')
+        }
       }
     },
     async save() {
