@@ -106,7 +106,7 @@
                         label="Phone"
                         placeholder="Phone"
                         outlined
-                        v-model="data.telp"
+                        v-model="data.no_telp"
                     ></v-text-field>
 
                     <v-btn depressed dark color="orange" @click="save">
@@ -143,7 +143,7 @@ export default {
         msisdn: '',
         expire: '',
         instagram: '',
-        no_telp: '',
+        no_no_: '',
       },
       snackbar: false,
       dropOptions: {

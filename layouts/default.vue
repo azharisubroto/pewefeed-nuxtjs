@@ -123,7 +123,7 @@
                 <v-col cols="1">
                   <v-btn
                   text
-                  @click="$router.push('/member/pengaturan')"
+                  to="/member/pengaturan/profil"
                   >
                     <v-icon>mdi-arrow-right</v-icon>
                   </v-btn>
