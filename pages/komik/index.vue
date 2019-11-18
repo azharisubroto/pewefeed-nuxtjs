@@ -31,19 +31,20 @@ export default {
   },
   head () {
     let host = this.origin
-    var url = 'https://' + host + '/comic'
+    var site_url = 'https://' + host + '/komik'
     return {
       title: 'Komik',
       meta: [
         // Facebok
-        {hid: 'og:title', name: 'og:title', content: 'Komik'},
-        {hid: 'og:description', name: 'og:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
-        {hid: 'og:type', name: 'og:type', content: 'website'},
-        {hid: 'og:url', name: 'og:url', content: url},
-        {hid: 'og:description', name: 'og:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
-        {hid: 'og:image', name: 'og:image', content: this.item.content.thumbnail},
-        {hid: 'og:locale', name: 'og:locale', content: 'id_ID'},
-        {hid: 'og:site_name', name: 'og:site_name', content: 'Playworld'},
+        {hid: 'og:title', property: 'og:title', content: 'Komik'},
+        {hid: 'og:description', property: 'og:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
+        {hid: 'og:type', property: 'og:type', content: 'website'},
+        {hid: 'og:url', property: 'og:url', content: site_url},
+        {hid: 'og:image', property: 'og:image', content: 'https://qomiqu.com/assets/frontend/logo.png'},
+        {hid: 'og:locale', property: 'og:locale', content: 'id_ID'},
+        {hid: 'og:site_name', property: 'og:site_name', content: 'Playworld'},
+        {hid: 'fb:admins', property: 'fb:admins', content: '100006462279538'},
+        {hid: 'fb:app_id', property: 'fb:app_id', content: '107188393464738'},
 
         // Twitter
         {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
@@ -51,7 +52,7 @@ export default {
         {hid: 'twitter:site', name: 'twitter:site', content: '@playworld'},
         {hid: 'twitter:title', name: 'twitter:title', content: 'Komik'},
         {hid: 'twitter:description', name: 'twitter:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
-        {hid: 'twitter:image', name: 'twitter:image', content: this.item.content.thumbnail},
+        {hid: 'twitter:image', name: 'twitter:image', content: 'https://qomiqu.com/assets/frontend/logo.png'},
       ]
     }
   }

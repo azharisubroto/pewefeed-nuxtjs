@@ -28,18 +28,20 @@ export default {
   },
   head () {
     let host = this.origin
+    var site_url = 'https://' + host + '/komik/' + this.$route.params.category + '/' + this.$route.params.detail
     return {
       title: this.item.content.title,
       meta: [
         // Facebok
-        {hid: 'og:title', name: 'og:title', content: this.item.content.title},
-        {hid: 'og:description', name: 'og:description', content: this.item.content.title},
-        {hid: 'og:type', name: 'og:type', content: 'website'},
-        // {hid: 'og:url', name: 'og:url', content: url},
-        {hid: 'og:description', name: 'og:description', content: this.item.content.description},
-        {hid: 'og:image', name: 'og:image', content: this.item.content.thumbnail},
-        {hid: 'og:locale', name: 'og:locale', content: 'id_ID'},
-        {hid: 'og:site_name', name: 'og:site_name', content: 'Playworld'},
+        {hid: 'og:title', property: 'og:title', content: this.item.content.title},
+        {hid: 'og:description', property: 'og:description', content: this.item.content.description},
+        {hid: 'og:type', property: 'og:type', content: 'website'},
+        {hid: 'og:url', property: 'og:url', content: site_url},
+        {hid: 'og:image', property: 'og:image', content: this.item.content.thumbnail},
+        {hid: 'og:locale', property: 'og:locale', content: 'id_ID'},
+        {hid: 'og:site_name', property: 'og:site_name', content: 'Playworld'},
+        {hid: 'fb:admins', property: 'fb:admins', content: '100006462279538'},
+        {hid: 'fb:app_id', property: 'fb:app_id', content: '107188393464738'},
 
         // Twitter
         {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
