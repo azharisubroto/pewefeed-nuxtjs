@@ -53,8 +53,30 @@
       <template v-if="isArticle">
         <v-row class="pb-5">
             <v-col cols="12">
-                <div class="article-thumb">
-                    <v-img :src="article.thumbnail" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
+                <div class="cover" v-if="!isVip">
+                      <v-img
+                          width="100%"
+                          :src="article.thumbnail"
+                          class="blur"
+                      >
+                          <v-btn depressed @click="checkVip()" dark class="btn-vip" color="orange accent-4">DAPATKAN HAK AKSES VIP</v-btn>
+                      </v-img>
+                </div>
+                <div v-else>
+                  <div v-html="article.embed"></div>
+                  <div class="my-4"></div>
+                  <v-btn
+                  dark
+                  depressed
+                  block
+                  :href="article.video"
+                  download
+                  large
+                  class="mb-4"
+                  color="deep-orange">
+                    <v-icon left dark>mdi-download</v-icon>
+                    Download video {{article.size}}
+                  </v-btn>
                 </div>
 
                 <!-- CONTENT -->
@@ -201,6 +223,7 @@ import BuyVip from '@/components/modal/BuyVip'
 import ShareButton from '@/components/common/ShareButton'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import FaktaService from '@/services/FaktaService'
+import UserService from '@/services/UserService'
 
 export default {
   name:"FaktaDetail",
@@ -259,6 +282,15 @@ export default {
         this.KomentarPoinVisible = false
         this.reviewModalVisible = false
         // other code
+    },
+    checkVip() {
+        if (!localStorage.getItem('loggedin')) {
+            this.loginModalVisible = true
+            console.log('not login')
+        } else {
+            this.buyVipDialogVisible = true
+            console.log('not vip');
+        }
     },
     getrating(num) {
         var rating = num / 20;
@@ -405,10 +437,11 @@ export default {
     async fetchUserdata() {
       try {
         const res = await UserService.getSingleUser()
+        // console.log('GET USER DATA')
+        // console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.user_id = res.data.data.id
         this.profile = res.data.data
-        this.isVip = this.profile.vip
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        this.isVip = res.data.data.vip
       } catch (error) {
         console.log(error)
       }
@@ -424,3 +457,14 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  .blur .v-image__image--cover
+    filter: blur(20px)
+  .btn-vip
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translateX(-50%) translateY(-50%)
+    background: rgba(0,0,0,.5)
+</style>
