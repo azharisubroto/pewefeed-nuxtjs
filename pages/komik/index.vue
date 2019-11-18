@@ -41,6 +41,8 @@ export default {
         {hid: 'og:type', property: 'og:type', content: 'website'},
         {hid: 'og:url', property: 'og:url', content: site_url},
         {hid: 'og:image', property: 'og:image', content: 'https://qomiqu.com/assets/frontend/logo.png'},
+        {hid: 'og:image:width', property: 'og:image:width', content: '640'},
+        {hid: 'og:image:height', property: 'og:image:height', content: '434'},
         {hid: 'og:locale', property: 'og:locale', content: 'id_ID'},
         {hid: 'og:site_name', property: 'og:site_name', content: 'Playworld'},
         {hid: 'fb:admins', property: 'fb:admins', content: '100006462279538'},
@@ -53,6 +55,8 @@ export default {
         {hid: 'twitter:title', name: 'twitter:title', content: 'Komik'},
         {hid: 'twitter:description', name: 'twitter:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
         {hid: 'twitter:image', name: 'twitter:image', content: 'https://qomiqu.com/assets/frontend/logo.png'},
+        {hid: 'og:image:width', property: 'og:image:width', content: '640'},
+        {hid: 'og:image:height', property: 'og:image:height', content: '434'},
       ]
     }
   }
