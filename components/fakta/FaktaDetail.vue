@@ -25,7 +25,7 @@
                     <v-icon small size="12">
                         mdi-message-reply
                     </v-icon>
-                    {{article.total_review}}
+                    {{comments.length}}
                 </div>
               </div>
           </div>
