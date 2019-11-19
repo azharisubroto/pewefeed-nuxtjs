@@ -581,7 +581,8 @@ export default {
 				try {
 					const res = await UserService.getSingleUser()
 					this.userdata = res.data.data;
-					this.mypoint = res.data.point_total;
+          this.mypoint = res.data.point_total;
+
 				} catch (err) {
 					this.isLoggedIn = false;
 					localStorage.removeItem('loggedin');
