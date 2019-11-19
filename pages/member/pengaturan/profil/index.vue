@@ -112,9 +112,6 @@
                     <v-btn depressed dark color="orange" @click="save">
                         Save
                     </v-btn>
-                    <v-btn depressed dark color="grey" class="ml-3" @click="$router.go(-1)">
-                        Cancel
-                    </v-btn>
                 </v-col>
             </v-row>
         </div>

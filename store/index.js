@@ -25,6 +25,9 @@ const createStore = () => {
       item: {}
     },
     mutations: {
+      SET_USER(state, item) {
+        state.item = item
+      },
       SET_ITEM(state, item) {
         state.item = item
       },
