@@ -85,6 +85,36 @@
       class="mb-6"
       type="list-item-three-line,list-item-three-line,list-item-three-line"
     ></v-skeleton-loader>
+
+
+    <!-- PROFIL MENU -->
+    <v-bottom-navigation
+      grow
+      dark
+      fixed
+      color="dark"
+    >
+      <v-btn
+      @click="fethMutasi(1, 'all')"
+      >
+        <span>All</span>
+      </v-btn>
+      <v-btn
+      @click="fethMutasi(1, 'dapat')"
+      >
+        <span>Dapat</span>
+      </v-btn>
+      <v-btn
+      @click="fethMutasi(1, 'tukar')"
+      >
+        <span>Tukar</span>
+      </v-btn>
+      <v-btn
+      @click="fethMutasi(1, 'fraud')"
+      >
+        <span>Fraud</span>
+      </v-btn>
+    </v-bottom-navigation>
   </section>
 </template>
 <script>
@@ -112,11 +142,12 @@ export default {
         // }
       }
     },
-    async fethMutasi(page) {
+    async fethMutasi(page, filter) {
       this.mutasi = []
       var n = page ? page : 1
+      var fil = filter ? filter : 'all'
       try {
-        const res = await UserService.mutasiPoin(n)
+        const res = await UserService.mutasiPoin(n, fil)
         const items = res.data.data
         this.last_page = res.data.paginations.last_page
         var arrays = []
@@ -144,7 +175,8 @@ export default {
 
         console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
-
+        console.log('error')
+        this.fethMutasi(1,'all')
       }
     },
     next(num) {

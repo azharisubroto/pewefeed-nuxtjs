@@ -68,8 +68,9 @@ export default {
   deleteNumber(id) {
     return AuthApi().delete('/member/contact', { data: { id: id } })
   },
-  mutasiPoin(page) {
+  mutasiPoin(page, filter) {
     var n = page ? page : 1
-    return AuthApi().get('/member/mutasi-poin/?page=' + n)
+    var fil = filter ? filter : 'all'
+    return AuthApi().get('/member/mutasi-poin/?page=' + n + '&filter_poin=' + fil)
   }
 }
