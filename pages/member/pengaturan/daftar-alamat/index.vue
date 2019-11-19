@@ -131,7 +131,7 @@
                 {{address.address}}, Kelurahan {{address.village}}, Kecamatan {{address.district}}, {{address.regency}}, {{address.province}} Kode Pos {{address.zip_code}}
                 <div class="mb-5"></div>
 
-                <strong>GANTI ALAMAT:</strong><br><br>
+                <strong>UBAH ALAMAT:</strong><br><br>
                 <v-text-field
                   label="Label Alamat"
                   placeholder="Label Alamat"
