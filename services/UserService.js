@@ -31,6 +31,9 @@ export default {
   addAddress(params) {
     return AuthApi().post('/member/address', params)
   },
+  editAddress(params) {
+    return AuthApi().put('/member/address', params)
+  },
   deleteAddress(id) {
     return AuthApi().delete('/member/address', { data: { id: id } })
   },
