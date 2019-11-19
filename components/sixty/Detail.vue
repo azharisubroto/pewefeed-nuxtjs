@@ -511,7 +511,7 @@ export default {
             // other code
         },
     },
-    created() {
+    mounted() {
         this.fetchContent()
         this.fetchUserdata()
         //this.fetchLatest()

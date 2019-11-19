@@ -294,7 +294,7 @@ export default {
             window.location.href = this.responselink
         }
     },
-    created() {
+    mounted() {
         this.fetchContent()
     }
 }

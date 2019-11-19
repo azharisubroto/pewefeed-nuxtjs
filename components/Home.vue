@@ -211,7 +211,7 @@ export default {
           return Math.random()
         }
     },
-    created() {
+    mounted() {
         this.fetchPromotedNews()
         this.fetchTopViews()
     }

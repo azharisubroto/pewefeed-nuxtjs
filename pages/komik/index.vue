@@ -35,6 +35,7 @@ export default {
     return {
       title: 'Komik',
       meta: [
+        {hid: 'description', property: 'og:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},
         // Facebok
         {hid: 'og:title', property: 'og:title', content: 'Komik'},
         {hid: 'og:description', property: 'og:description', content: 'Bikin Kamu Ketawa Adalah Tujuan Kami'},

@@ -177,7 +177,7 @@ export default {
           return Math.random()
         }
     },
-    created() {
+    mounted() {
         this.fetchArticle()
         this.fetchTrending()
     }

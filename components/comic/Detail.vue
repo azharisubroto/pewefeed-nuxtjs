@@ -633,7 +633,7 @@ export default {
             }
         },
     },
-    created() {
+    mounted() {
         this.fetchImage()
         this.fetchContent()
         this.fetchUserdata()

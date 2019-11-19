@@ -156,7 +156,7 @@ export default {
         });
       }
     },
-    created(){
+    mounted(){
       this.fetchRedeemItems()
       this.fetchFlashPoint()
     }

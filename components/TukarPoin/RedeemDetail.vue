@@ -236,7 +236,7 @@ export default {
       return tanggal
     }
   },
-  created() {
+  mounted() {
     this.fetchDetail()
   }
 }

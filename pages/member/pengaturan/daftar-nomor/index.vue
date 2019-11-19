@@ -240,7 +240,7 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     this.getNumbers()
     this.getVoucherType()
     this.getBank()

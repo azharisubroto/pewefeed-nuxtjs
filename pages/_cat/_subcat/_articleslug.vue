@@ -32,9 +32,10 @@ export default {
     return {
       title: this.item.article.title,
       meta: [
+        {hid: 'description', property: 'description', content: this.item.article.short_content},
         // Facebok
         {hid: 'og:title', property: 'og:title', content: this.item.article.title},
-        {hid: 'og:description', property: 'og:description', content: this.item.article.title},
+        {hid: 'og:description', property: 'og:description', content: this.item.article.short_content},
         {hid: 'og:type', property: 'og:type', content: 'website'},
         {hid: 'og:url', property: 'og:url', content: url},
         {hid: 'og:image', property: 'og:image', content: this.item.article.image.medium},

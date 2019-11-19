@@ -214,7 +214,7 @@ export default {
           }
         }
     },
-    created() {
+    mounted() {
         this.fetchComic(0)
         this.fetchTrending()
         this.fetchCategory()

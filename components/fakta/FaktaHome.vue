@@ -137,7 +137,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     this.getCategory()
     this.fetchSlide()
     this.fetchLatest()

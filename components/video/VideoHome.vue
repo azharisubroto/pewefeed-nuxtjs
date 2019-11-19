@@ -226,7 +226,7 @@ export default {
           return Math.random()
         }
     },
-    created() {
+    mounted() {
         this.fetchSixtyUp()
         this.fetchSixtyBottom();
     }

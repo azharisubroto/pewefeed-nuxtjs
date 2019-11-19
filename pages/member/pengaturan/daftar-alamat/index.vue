@@ -379,7 +379,7 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     this.getAddresses()
     this.provinsi()
   }
