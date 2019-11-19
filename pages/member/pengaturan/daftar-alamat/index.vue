@@ -128,8 +128,101 @@
                 </v-row>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="pt-3">
-                {{address.address}}, Kelurahan {{address.village}}, Kecamatan {{address.district}}, {{address.regency}}, Kode Pos {{address.zip_code}}
-                <div></div>
+                {{address.address}}, Kelurahan {{address.village}}, Kecamatan {{address.district}}, {{address.regency}}, {{address.province}} Kode Pos {{address.zip_code}}
+                <div class="mb-5"></div>
+
+                <strong>UBAH ALAMAT:</strong><br><br>
+                <v-text-field
+                  label="Label Alamat"
+                  placeholder="Label Alamat"
+                  outlined
+                  :value="address.title"
+                  :id="'title-'+address.id"
+                ></v-text-field>
+
+                <v-textarea
+                  label="Alamat"
+                  placeholder="Alamat"
+                  outlined
+                  :value="address.address"
+                  :id="'address-'+address.id"
+                ></v-textarea>
+
+                <v-autocomplete
+                  outlined
+                  :items="source.provinsi"
+                  hide-no-data
+                  hide-selected
+                  item-text="nama"
+                  item-value="id"
+                  label="Provinsi"
+                  placeholder="Ketik untuk mencari..."
+                  clearable
+                  :id="'province-'+address.id"
+                  v-model="dataAddress.province"
+                  @change="kota(dataAddress.province)"
+                >
+                </v-autocomplete>
+
+                <v-autocomplete
+                  outlined
+                  :items="source.kota"
+                  item-text="nama"
+                  item-value="id"
+                  hide-no-data
+                  hide-selected
+                  label="Kabupaten/Kota"
+                  placeholder="Ketik untuk mencari..."
+                  clearable
+                  :id="'regency-'+address.id"
+                  v-model="dataAddress.district"
+                  @change="kecamatan(dataAddress.district)"
+                >
+                </v-autocomplete>
+
+                <v-autocomplete
+                  outlined
+                  :items="source.kecamatan"
+                  item-text="nama"
+                  item-value="id"
+                  hide-no-data
+                  hide-selected
+                  label="Kecamatan"
+                  placeholder="Ketik untuk mencari..."
+                  clearable
+                  :id="'district-'+address.id"
+                  v-model="dataAddress.sub_district"
+                  @change="kelurahan(dataAddress.sub_district)"
+                >
+                </v-autocomplete>
+
+                <v-autocomplete
+                  outlined
+                  :items="source.kelurahan"
+                  item-text="nama"
+                  item-value="id"
+                  hide-no-data
+                  hide-selected
+                  label="Kelurahan/Desa"
+                  placeholder="Ketik untuk mencari..."
+                  clearable
+                  :id="'village-'+address.id"
+                  v-model="dataAddress.village"
+                >
+                </v-autocomplete>
+
+                <v-text-field
+                  label="Kode Pos"
+                  placeholder="Kode Pos"
+                  outlined
+                  :id="'zip_code-'+address.id"
+                ></v-text-field>
+
+                <v-btn
+                @click="editAddress(address.id)"
+                color="deep-orange"
+                dark
+                depressed>Save</v-btn>
 
                 <v-btn
                 @click="deleteAddress(address.id)"
@@ -141,6 +234,7 @@
                     <v-icon>mdi-trash-can-outline</v-icon>
                     Hapus
                 </v-btn>
+
             </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -220,6 +314,32 @@ export default {
         this.getAddresses()
       } catch (error) {
         alert('ada kesalahan')
+      }
+    },
+    async editAddress(id) {
+      var title = document.getElementById('title-'+id).value
+      var address = document.getElementById('address-'+id).value
+      var zip_code = document.getElementById('zip_code-'+id).value
+
+      var params = {
+        id: id,
+        title: title,
+        address: address,
+        province: this.dataAddress.province,
+        district: this.dataAddress.district,
+        sub_district: this.dataAddress.sub_district,
+        village: this.dataAddress.village,
+        zip_code: zip_code
+      }
+      console.log(JSON.parse(JSON.stringify(params)))
+
+      try {
+        const res = await UserService.editAddress(params)
+        console.log(res)
+        alert('success')
+        this.getAddresses()
+      } catch (error) {
+        alert('error')
       }
     },
     async provinsi() {

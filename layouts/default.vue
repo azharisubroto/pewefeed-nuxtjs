@@ -33,6 +33,7 @@
         </v-tab>
       </v-tabs>
 
+      <!-- MEMBER MENU -->
       <v-tabs v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')" grow color="deep-orange" center-active class="pw-tab">
         <v-tab
           v-for="menu in memberMenu"
@@ -43,9 +44,30 @@
         </v-tab>
       </v-tabs>
 
+      <!-- PROFIL MENU -->
+      <v-bottom-navigation
+        v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
+        grow
+        dark
+        fixed
+        color="dark"
+      >
+        <v-btn
+        v-for="menu in profileMenu"
+        :key="menu.loc"
+        :to="menu.loc"
+        >
+          <span>{{menu.name}}</span>
+        </v-btn>
+      </v-bottom-navigation>
+
       <!-- CONTENT -->
       <v-content class="maincontent">
         <nuxt />
+        <div
+        v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
+        class="mb-5 pb-5"
+        ></div>
       </v-content>
       <!-- CONTENT -->
 
@@ -437,6 +459,12 @@ export default {
         {name: 'Sport', loc: '/sport'},
       ],
       memberMenu: [
+        {name: 'Data Diri', loc: '/member/pengaturan/profil'},
+        {name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
+        {name: 'Rewards', loc: '/member/new_design/barang_yang_didapat'},
+        {name: 'VIP', loc: '/member/beli_dengan_pulsa'},
+      ],
+      profileMenu: [
         {name: 'Profil Akun', loc: '/member/pengaturan/profil'},
         {name: 'Daftar Alamat', loc: '/member/pengaturan/daftar-alamat'},
         {name: 'Daftar Nomor', loc: '/member/pengaturan/daftar-nomor'},

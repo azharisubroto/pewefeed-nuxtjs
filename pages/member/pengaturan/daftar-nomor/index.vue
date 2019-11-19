@@ -19,7 +19,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-            v-if="payload.type == 6"
+            v-if="payload.type == 'Bank'"
             outlined
             label="Pilih Bank"
             :items="banks"
@@ -90,6 +90,46 @@
                   <v-col>{{contact.number}}</v-col>
                 </v-row>
 
+                UBAH NOMOR<br><br>
+                <v-autocomplete
+                  outlined
+                  label="Type"
+                  :items="voucherTypes"
+                  item-text="name"
+                  item-value="name"
+                  v-model="payload.type"
+                ></v-autocomplete>
+
+                <v-autocomplete
+                  v-if="payload.type == 'Bank'"
+                  outlined
+                  label="Pilih Bank"
+                  :items="banks"
+                  item-text="name"
+                  item-value="name"
+                  v-model="payload.bank"
+                ></v-autocomplete>
+
+                <v-text-field
+                  label="Nama"
+                  placeholder="Nama"
+                  outlined
+                  v-model="payload.name"
+                ></v-text-field>
+
+                <v-text-field
+                  label="Nomor"
+                  placeholder="Nomor"
+                  outlined
+                  v-model="payload.number"
+                ></v-text-field>
+
+                <v-btn
+                @click="editNumber(contact.id)"
+                color="deep-orange"
+                dark
+                depressed>Save</v-btn>
+
                 <v-btn
                 @click="deleteNumber(contact.id)"
                 color="red"
@@ -110,7 +150,7 @@
 <script>
 import UserService from '@/services/UserService'
 export default {
-  name:"daftarAlamatPage",
+  name:"daftarNomorPage",
   data() {
     return  {
       numberForm: false,
@@ -179,7 +219,26 @@ export default {
       } catch (error) {
         alert("Terdapat Kesalahan :(")
       }
-    }
+    },
+    async editNumber(id) {
+      var params = {
+        id: id,
+        type: this.payload.type,
+        name: this.payload.name,
+        number: this.payload.number,
+        bank: this.payload.bank
+      }
+      console.log(JSON.parse(JSON.stringify(params)))
+
+      try {
+        const res = await UserService.editNumber(params)
+        console.log(res)
+        alert('success')
+        this.getNumbers()
+      } catch (error) {
+        //alert('error')
+      }
+    },
   },
   created() {
     this.getNumbers()
