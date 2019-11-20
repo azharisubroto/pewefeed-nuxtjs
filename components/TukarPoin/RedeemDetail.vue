@@ -138,15 +138,22 @@
         <span>Syarat &amp;<br>Ketentuan</span>
       </v-btn>
     </v-bottom-navigation>
+
+    <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
+
   </section>
 </template>
 
 <script>
 import TukarPoinService from '@/services/TukarPoinService'
 import UserService from '@/services/UserService'
+import LoginModal from '@/components/modal/LoginModal'
 
 export default {
   name:"RedeemDetail",
+  components: {
+    LoginModal
+  },
   head () {
     return {
       title: this.title,
@@ -167,7 +174,8 @@ export default {
       histories: [],
       moreLoading: false,
       historyNext: 2,
-      panel: 0
+      panel: 0,
+      loginModalVisible: false,
     }
   },
   methods: {
@@ -221,13 +229,26 @@ export default {
         console.log(error.response.status)
         this.overlay = false
         if (error.response.status == 401) {
-          this.$router.push('/member/login')
+          //this.$router.push('/member/login')
+          this.openModalLogin()
         } else if (error.response.status == 404) {
           alert('Poin Anda Tidak Cukup')
         } else {
           alert('An Error Ocured')
         }
       }
+    },
+    openModalLogin() {
+      this.loginModalVisible = true
+    },
+    myDialogClose () {
+        this.dialog = false
+        this.loginModalVisible = false
+        this.buyVipDialogVisible = false
+        this.pleaseLoginDialogVisible = false
+        this.notVipDialogVisible = false
+        this.KomentarPoinVisible = false
+        // other code
     },
     getTanggal(detail) {
       var detailtanggal = detail.periode ? detail.periode.end_at : ''

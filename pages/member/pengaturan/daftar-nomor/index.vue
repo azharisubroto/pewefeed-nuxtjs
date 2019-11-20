@@ -130,9 +130,8 @@
                 @click="deleteNumber(contact.id)"
                 color="red"
                 dark
-                small
                 depressed
-                class="mt-2 float-right">
+                class="float-right">
                     <v-icon>mdi-trash-can-outline</v-icon>
                     Hapus
                 </v-btn>
@@ -196,7 +195,7 @@ export default {
       var params = this.payload
       try {
         const res = await UserService.addNumber(params)
-        alert('Nomor telah ditambahkan')
+        alert('Data sukses ditambahkan')
         this.numberForm = false
         this.getNumbers()
         this.payload.type = ''
