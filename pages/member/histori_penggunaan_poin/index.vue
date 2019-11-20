@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-container class="highlight">
+    <v-container v-if="userdata" class="highlight">
       <v-row>
         <v-col>
           <div class="text-center">

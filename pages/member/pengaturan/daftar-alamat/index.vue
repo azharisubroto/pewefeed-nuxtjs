@@ -27,13 +27,12 @@
           <v-autocomplete
           outlined
           :items="source.provinsi"
-          hide-no-data
-          hide-selected
           item-text="nama"
           item-value="id"
           label="Provinsi"
           placeholder="Ketik untuk mencari..."
           clearable
+          :min-len="5"
           v-model="dataAddress.province"
           @change="kota(dataAddress.province)"
           >
@@ -135,6 +134,7 @@
                 <v-text-field
                   label="Label Alamat"
                   placeholder="Label Alamat"
+                  outlined
                   :value="address.title"
                   :id="'title-'+address.id"
                 ></v-text-field>
@@ -142,11 +142,13 @@
                 <v-textarea
                   label="Alamat"
                   placeholder="Alamat"
+                  outlined
                   :value="address.address"
                   :id="'address-'+address.id"
                 ></v-textarea>
 
                 <v-autocomplete
+                  outlined
                   :items="source.provinsi"
                   hide-no-data
                   hide-selected
@@ -162,6 +164,7 @@
                 </v-autocomplete>
 
                 <v-autocomplete
+                  outlined
                   :items="source.kota"
                   item-text="nama"
                   item-value="id"
@@ -177,6 +180,7 @@
                 </v-autocomplete>
 
                 <v-autocomplete
+                  outlined
                   :items="source.kecamatan"
                   item-text="nama"
                   item-value="id"
@@ -192,6 +196,7 @@
                 </v-autocomplete>
 
                 <v-autocomplete
+                  outlined
                   :items="source.kelurahan"
                   item-text="nama"
                   item-value="id"
@@ -208,6 +213,7 @@
                 <v-text-field
                   label="Kode Pos"
                   placeholder="Kode Pos"
+                  outlined
                   :id="'zip_code-'+address.id"
                 ></v-text-field>
 
@@ -221,9 +227,8 @@
                 @click="deleteAddress(address.id)"
                 color="red"
                 dark
-                small
                 depressed
-                class="mt-2 float-right">
+                class="float-right">
                     <v-icon>mdi-trash-can-outline</v-icon>
                     Hapus
                 </v-btn>
@@ -284,7 +289,7 @@ export default {
       var params = this.dataAddress
       try {
         const res = await UserService.addAddress(params)
-        alert('success')
+        alert('Data sukses ditambahkan')
         //console.log(res.data.data)
         this.addressForm = false
         this.getAddresses()
@@ -329,7 +334,7 @@ export default {
       try {
         const res = await UserService.editAddress(params)
         console.log(res)
-        alert('Data Sukses Ditambahkan ')
+        alert('success')
         this.getAddresses()
       } catch (error) {
         alert('error')
