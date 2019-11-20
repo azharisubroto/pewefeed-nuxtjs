@@ -137,9 +137,9 @@ export default {
         this.userdata = res.data
       } catch (error) {
         console.log(error)
-        // if (error.response.status == 401) {
-        //   this.$router.push('/')
-        // }
+        if (error.response.status == 401) {
+          this.$router.push('/')
+        }
       }
     },
     async fethMutasi(page, filter) {
