@@ -375,7 +375,7 @@ export default {
                     },
                     link: '/'+link,
                     title: element.title,
-                    type: element.type,
+                    type: element.reaction,
                     published_at: element.publish_at
                   }
                   if( element.id != this.id ) {
@@ -400,7 +400,7 @@ export default {
                     },
                     link: '/'+link,
                     title: element.title,
-                    type: element.type,
+                    type: element.reaction,
                     published_at: element.publish_at
                   }
                   if( element.id != this.id ) {

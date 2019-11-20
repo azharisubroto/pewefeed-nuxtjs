@@ -124,7 +124,6 @@ export default {
         async fetchTopViews() {
             try {
                 const res = await ArticleService.getTopViews(1)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
                 const items = res.data.data
                 items.forEach(element => {
                   var link = element.link
@@ -138,7 +137,7 @@ export default {
                     image: element.image,
                     link: slug,
                     title: element.title,
-                    type: element.type,
+                    type: element.reaction,
                     published_at: element.published_at
                   }
                   this.topviews.push(obj)
@@ -151,9 +150,23 @@ export default {
           try {
                 const res = await ArticleService.getTopViews(n)
                 //console.log(JSON.parse(JSON.stringify(res.data.data)))
-                var newData = res.data.data
-                newData.forEach(element => {
-                  this.topviews.push(element)
+                const items = res.data.data
+                items.forEach(element => {
+                  var link = element.link
+                  if( link.includes('sixty') ) {
+                    var slug = '/sixty'+element.link
+                  } else {
+                    var slug = element.link
+                  }
+                  var obj = {
+                    id: element.id,
+                    image: element.image,
+                    link: slug,
+                    title: element.title,
+                    type: element.reaction,
+                    published_at: element.published_at
+                  }
+                  this.topviews.push(obj)
                 });
                 this.next += 1
                 if (res.data.pagination.current_page == res.data.pagination.last_page) {
