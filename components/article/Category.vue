@@ -118,7 +118,7 @@ export default {
                         image: article.image,
                         link: slug,
                         title: article.title,
-                        type: article.type,
+                        type: article.reaction,
                         published_at: article.publish_at
                     }
                     this.articleList.push(obj)
@@ -136,9 +136,18 @@ export default {
           try {
                 const res = await ArticleService.getListArticleByCategory(this.$route.params.cat + '?page=' + n)
                 // console.log(JSON.parse(JSON.stringify(res.data)))
-                var newData = res.data.data.article
-                newData.forEach(element => {
-                  this.articleList.push(element)
+                const items = res.data.data.article
+                items.forEach(article => {
+                    var slug = article.link
+                        slug = slug.replace('https://playworld.id/', '')
+                    var obj = {
+                        image: article.image,
+                        link: slug,
+                        title: article.title,
+                        type: article.reaction,
+                        published_at: article.publish_at
+                    }
+                    this.articleList.push(obj)
                 });
                 this.next += 1
                 if (res.data.pagination.current_page == res.data.pagination.last_page) {
