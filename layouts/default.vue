@@ -801,5 +801,7 @@ export default {
         min-height: 30px;
       }
     }
-
+  .v-autocomplete__content {
+    z-index: 9999
+  }
 </style>

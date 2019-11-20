@@ -35,8 +35,11 @@
                           v-if="avatar_preview"
                           size="100"
                           color="grey"
+                          @click="avatar_preview=''"
                         >
-                          <v-img :src="avatar_preview" @click="avatar_preview='' && data.avatar" :aspect-ratio="1/1"></v-img>
+                          <v-img :src="avatar_preview" @click="avatar_preview='' && data.avatar" :aspect-ratio="1/1">
+                             <v-icon dark class="mt-10">mdi-pencil</v-icon>
+                          </v-img>
                         </v-avatar>
                       </div>
                       <vue-dropzone
@@ -46,10 +49,11 @@
                       :options="dropOptions"
                       @vdropzone-success="afterComplete"
                       ></vue-dropzone>
-                      <a v-if="!avatar_preview" @click="avatar_preview=false">Remove File</a>
-                      <v-btn v-if="avatar_preview" block class="mt-2" depressed color="grey darken-2" dark @click="avatar_preview=''">
-                        <v-icon dark left>mdi-pencil</v-icon> Edit
-                      </v-btn>
+                      <div class="text-center">
+                        <a v-if="avatar_preview" @click="avatar_preview=false">Remove File</a>
+                        <div></div><br>
+                        <v-btn v-if="!avatar_preview" @click="avatar_preview = profile.avatar">Cancel</v-btn>
+                      </div>
                     </v-col>
                   </v-row>
                 </v-col>

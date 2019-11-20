@@ -135,7 +135,6 @@
                 <v-text-field
                   label="Label Alamat"
                   placeholder="Label Alamat"
-                  outlined
                   :value="address.title"
                   :id="'title-'+address.id"
                 ></v-text-field>
@@ -143,13 +142,11 @@
                 <v-textarea
                   label="Alamat"
                   placeholder="Alamat"
-                  outlined
                   :value="address.address"
                   :id="'address-'+address.id"
                 ></v-textarea>
 
                 <v-autocomplete
-                  outlined
                   :items="source.provinsi"
                   hide-no-data
                   hide-selected
@@ -165,7 +162,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kota"
                   item-text="nama"
                   item-value="id"
@@ -181,7 +177,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kecamatan"
                   item-text="nama"
                   item-value="id"
@@ -197,7 +192,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kelurahan"
                   item-text="nama"
                   item-value="id"
@@ -214,7 +208,6 @@
                 <v-text-field
                   label="Kode Pos"
                   placeholder="Kode Pos"
-                  outlined
                   :id="'zip_code-'+address.id"
                 ></v-text-field>
 
@@ -336,7 +329,7 @@ export default {
       try {
         const res = await UserService.editAddress(params)
         console.log(res)
-        alert('success')
+        alert('Data Sukses Ditambahkan ')
         this.getAddresses()
       } catch (error) {
         alert('error')
