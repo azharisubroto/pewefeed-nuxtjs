@@ -92,7 +92,6 @@
 
                 UBAH NOMOR<br><br>
                 <v-autocomplete
-                  outlined
                   label="Type"
                   :items="voucherTypes"
                   item-text="name"
@@ -102,7 +101,6 @@
 
                 <v-autocomplete
                   v-if="payload.type == 'Bank'"
-                  outlined
                   label="Pilih Bank"
                   :items="banks"
                   item-text="name"
@@ -113,14 +111,12 @@
                 <v-text-field
                   label="Nama"
                   placeholder="Nama"
-                  outlined
                   v-model="payload.name"
                 ></v-text-field>
 
                 <v-text-field
                   label="Nomor"
                   placeholder="Nomor"
-                  outlined
                   v-model="payload.number"
                 ></v-text-field>
 
@@ -233,7 +229,7 @@ export default {
       try {
         const res = await UserService.editNumber(params)
         console.log(res)
-        alert('success')
+        alert('Data Sukses Ditambahkan ')
         this.getNumbers()
       } catch (error) {
         //alert('error')
