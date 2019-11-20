@@ -53,7 +53,22 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
+    '@nuxtjs/onesignal',
   ],
+
+  /**
+   * One Signal Notification
+   */
+  // Options
+  oneSignal: {
+    init: {
+      appId: 'e5475afb-743d-40c9-9d0a-f0fda91654c9',
+      allowLocalhostAsSecureOrigin: true,
+      welcomeNotification: {
+        disable: true
+      }
+    }
+  },
 
   /**
    * Recaptcha Configuration

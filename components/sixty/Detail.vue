@@ -472,6 +472,7 @@ export default {
           } else {
             if( this.profile.vip != false ) {
               const params = {
+                sixty_id: this.id,
                 jawaban: this.jawabanQuiz,
                 quiz_id: this.quiz_id
               }

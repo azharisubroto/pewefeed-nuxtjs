@@ -621,7 +621,7 @@ export default {
     closeSearch() {
       this.searchDialog = false
       this.searchModel = null
-    }
+    },
   },
 	mounted() {
 		this.isLogin()
