@@ -39,19 +39,19 @@
                                 >
                                     <div>
                                         <network network="facebook">
-                                            <v-icon size="40" color="primary">mdi-facebook-box</v-icon>
+                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook-box theme--light primary--text"></i>
                                         </network>
                                         <network network="twitter">
-                                            <v-icon size="40" color="blue">mdi-twitter-box</v-icon>
+                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter-box theme--light blue--text"></i>
                                         </network>
                                         <network network="whatsapp">
-                                            <v-icon size="40" color="green">mdi-whatsapp</v-icon>
+                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"></i>
                                         </network>
                                         <network network="telegram">
-                                            <v-icon size="40" color="blue">mdi-telegram</v-icon>
+                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-telegram theme--light blue--text"></i>
                                         </network>
                                         <network network="skype">
-                                            <v-icon size="40" color="blue">mdi-skype</v-icon>
+                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-skype theme--light blue--text"></i>
                                         </network>
                                     </div>
                                 </socialSharing>
