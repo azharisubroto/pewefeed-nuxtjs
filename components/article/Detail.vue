@@ -63,7 +63,7 @@
 
 						<!-- WRITER -->
 						<div class="mt-4">
-							<span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumberx</span><br>
+							<span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
 							<v-row justify="space-between" class="mt-3" v-if="team_content" no-gutters>
 								<v-col cols="6">
 									<v-row class="pa-0">
@@ -116,7 +116,7 @@
 				<!-- TERBARU -->
 				<section class="py-4 mb-5 pb-5">
 				<!-- TERBARU -->
-				<div class="text-center mb-3">
+				<div class="text-center mb-4 font-weight-bold">
 					ARTIKEL TERBARU LAINNYA
 				</div>
 				<NewsLoop :items="latests"/>
