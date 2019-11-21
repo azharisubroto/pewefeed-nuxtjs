@@ -30,7 +30,9 @@
 
         <!-- SHARE BUTTON -->
         <ShareButton
-          :dataUrl="shareUrl"
+          :sharingUrl="dataUrl"
+          :sharingTitle="dataTitle"
+          :sharingDescription="dataDescription"
         />
 
         <v-skeleton-loader v-if="topviews.length==0"
@@ -116,8 +118,9 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            shareUrl: "https://ssr.playworld.id"
-
+            dataUrl: "https://m.playworld.id",
+            dataTitle: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
+            dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
         }
     },
     methods: {

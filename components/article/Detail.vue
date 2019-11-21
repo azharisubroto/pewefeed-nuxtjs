@@ -40,7 +40,11 @@
                 <div>
                   <ShareButton
                     style="text-align: left !important"
-                    :dataUrl="shareUrl"
+                    :sharingUrl="dataUrl"
+                    :sharingTitle="article.title"
+                    :sharingDescription="article.short_content"
+                    :sharingImage="article.image.small"
+                    :sharingTime="article.published_at"
                   />
                 </div>
               </v-col>
@@ -335,7 +339,7 @@ export default {
                     href: this.$route.params.subcat
                 }
             ],
-            shareUrl: "https://m.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug
+            dataUrl: "https://m.playworld.id/" + this.$route.params.cat + "/" + this.$route.params.subcat + "/" + this.$route.params.articleslug,
         }
     },
     computed: {

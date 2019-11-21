@@ -267,18 +267,18 @@
           <!--
             SOCIAL MEDIA
           -->
-          <v-row>
+          <!-- <v-row>
             <v-col cols="12">
               <v-container>
-                <!-- <div class="addthis_inline_follow_toolbox">
+                <div class="addthis_inline_follow_toolbox">
                   <AddThis publicId="ra-56726fb53e3222fa" />
-                </div> -->
+                </div>
               </v-container>
             </v-col>
           </v-row>
           <v-container>
             <div class="devider-small full"></div>
-          </v-container>
+          </v-container> -->
           <!--
             ABOUT
           -->

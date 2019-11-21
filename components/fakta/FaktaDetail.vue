@@ -44,7 +44,11 @@
           <div>
             <ShareButton
               style="text-align: left !important"
-              :dataUrl="shareUrl"
+              :sharingUrl="dataUrl"
+              :sharingTitle="article.title"
+              :sharingDescription="article.description"
+              :sharingImage="article.thumbnail"
+              :sharingTime="article.created_at"
             />
           </div>
         </v-col>
@@ -382,7 +386,7 @@ export default {
       commentIsPosting: false,
       comment_message: '',
       slug: this.$route.params.slug,
-      shareUrl: "https://m.playworld.id/fakta/detail/" + this.$route.params.slug,
+      dataUrl: "https://m.playworld.id/fakta/detail/" + this.$route.params.slug,
     }
   },
   computed: {

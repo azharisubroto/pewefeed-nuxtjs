@@ -51,7 +51,11 @@
             <!-- SHARE BUTTON -->
             <ShareButton
                 style="text-align: left !important"
-                :dataUrl="shareUrl"
+                :sharingUrl="dataUrl"
+                :sharingTitle="comic.title"
+                :sharingDescription="comic.description"
+                :sharingImage="comic.thumbnail"
+                :sharingTime="comic.created_at"
             />
 
             <!-- ARTICLE -->
@@ -406,7 +410,7 @@ export default {
             pleaseLoginDialogVisible: false,
             notVipDialogVisible: false,
             ratingModal: false,
-            shareUrl: 'https://m.playworld.id/komik/' + this.$route.params.category + '/' + this.$route.params.detail
+            dataUrl: 'https://m.playworld.id/komik/' + this.$route.params.category + '/' + this.$route.params.detail,
         }
     },
     computed: {
