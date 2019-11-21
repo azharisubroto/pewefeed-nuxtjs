@@ -9,6 +9,25 @@
     <v-row>
       <v-col>
 
+        <!-- =====================================================================================
+        ALERT
+        ===================================================================================== -->
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="timeout"
+          top
+        >
+          {{ responseMessage }}
+          <v-btn
+              color="primary"
+              text
+              icon
+              @click="snackbar = false"
+          >
+          <v-icon color="white">mdi-close-circle-outline</v-icon>
+          </v-btn>
+        </v-snackbar>
+
         <template v-if="addressForm">
           <v-text-field
             label="Label Alamat"
@@ -134,7 +153,6 @@
                 <v-text-field
                   label="Label Alamat"
                   placeholder="Label Alamat"
-                  outlined
                   :value="address.title"
                   :id="'title-'+address.id"
                 ></v-text-field>
@@ -142,13 +160,11 @@
                 <v-textarea
                   label="Alamat"
                   placeholder="Alamat"
-                  outlined
                   :value="address.address"
                   :id="'address-'+address.id"
                 ></v-textarea>
 
                 <v-autocomplete
-                  outlined
                   :items="source.provinsi"
                   hide-no-data
                   hide-selected
@@ -164,7 +180,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kota"
                   item-text="nama"
                   item-value="id"
@@ -180,7 +195,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kecamatan"
                   item-text="nama"
                   item-value="id"
@@ -196,7 +210,6 @@
                 </v-autocomplete>
 
                 <v-autocomplete
-                  outlined
                   :items="source.kelurahan"
                   item-text="nama"
                   item-value="id"
@@ -213,7 +226,6 @@
                 <v-text-field
                   label="Kode Pos"
                   placeholder="Kode Pos"
-                  outlined
                   :id="'zip_code-'+address.id"
                 ></v-text-field>
 
@@ -252,6 +264,9 @@ export default {
       isLoading: true,
       addressForm: false,
       addresses: null,
+      snackbar: false,
+      timeout: 3000,
+      responseMessage: '',
       dataAddress: {
         title: '',
         address: '',
@@ -281,7 +296,7 @@ export default {
         }
         this.isLoading = false
       } catch (error) {
-        console.log(res)
+        console.log(error)
         this.isLoading = false
       }
     },
@@ -289,7 +304,8 @@ export default {
       var params = this.dataAddress
       try {
         const res = await UserService.addAddress(params)
-        alert('Data sukses ditambahkan')
+        this.snackbar = true
+        this.responseMessage = 'Data Sukses Ditambahkan'
         //console.log(res.data.data)
         this.addressForm = false
         this.getAddresses()
@@ -301,17 +317,22 @@ export default {
         this.dataAddress.village = ''
         this.dataAddress.zip_code = ''
       } catch (error) {
-        alert('error')
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
     async deleteAddress(id) {
       try {
         const res = await UserService.deleteAddress(id)
-        console.log(res)
-        alert('Alamat telah dihapus')
+        this.snackbar = true
+        this.responseMessage = 'Alamat Telah Dihapus'
+        this.addressForm = false
         this.getAddresses()
       } catch (error) {
-        alert('ada kesalahan')
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
     async editAddress(id) {
@@ -329,15 +350,18 @@ export default {
         village: this.dataAddress.village,
         zip_code: zip_code
       }
-      console.log(JSON.parse(JSON.stringify(params)))
+      // console.log(JSON.parse(JSON.stringify(params)))
 
       try {
         const res = await UserService.editAddress(params)
-        console.log(res)
-        alert('success')
+        // console.log(res)
+        this.snackbar = true
+        this.responseMessage = 'Data Sukses Ditambahkan'
         this.getAddresses()
       } catch (error) {
-        alert('error')
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
     async provinsi() {

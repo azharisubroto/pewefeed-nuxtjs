@@ -8,6 +8,26 @@
     </v-row>
     <v-row>
       <v-col>
+
+        <!-- =====================================================================================
+        ALERT
+        ===================================================================================== -->
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="timeout"
+          top
+        >
+          {{ responseMessage }}
+          <v-btn
+              color="primary"
+              text
+              icon
+              @click="snackbar = false"
+          >
+          <v-icon color="white">mdi-close-circle-outline</v-icon>
+          </v-btn>
+        </v-snackbar>
+
         <template v-if="numberForm">
           <v-autocomplete
             outlined
@@ -150,6 +170,9 @@ export default {
     return  {
       numberForm: false,
       banks: [],
+      snackbar: false,
+      timeout: 3000,
+      responseMessage: '',
       payload: {
         type: '',
         bank: '',
@@ -195,7 +218,8 @@ export default {
       var params = this.payload
       try {
         const res = await UserService.addNumber(params)
-        alert('Data sukses ditambahkan')
+        this.snackbar = true
+        this.responseMessage = 'Data Sukses Ditambahkan'
         this.numberForm = false
         this.getNumbers()
         this.payload.type = ''
@@ -203,16 +227,22 @@ export default {
         this.payload.name = ''
         this.payload.number = ''
       } catch (error) {
-        alert("Terdapat Kesalahan :(")
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
     async deleteNumber(id) {
       try {
         const res = await UserService.deleteNumber(id)
-        alert('Nomor telah dihapus')
+        this.snackbar = true
+        this.responseMessage = 'Nomor telah dihapus'
+        this.numberForm = false
         this.getNumbers()
       } catch (error) {
-        alert("Terdapat Kesalahan :(")
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
     async editNumber(id) {
@@ -223,15 +253,17 @@ export default {
         number: this.payload.number,
         bank: this.payload.bank
       }
-      console.log(JSON.parse(JSON.stringify(params)))
+      // console.log(JSON.parse(JSON.stringify(params)))
 
       try {
         const res = await UserService.editNumber(params)
-        console.log(res)
-        alert('Data Sukses Ditambahkan ')
+        this.snackbar = true
+        this.responseMessage = 'Data Sukses Ditambahkan'
         this.getNumbers()
       } catch (error) {
-        //alert('error')
+        console.log(error)
+        this.snackbar = true
+        this.responseMessage = 'Maaf Terdapat Kesalahan :('
       }
     },
   },

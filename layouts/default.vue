@@ -113,7 +113,7 @@
                 size="60"
                 color="grey"
               >
-                <img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" alt="alt">
+                <v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
               </v-avatar>
             </v-col>
             <v-col cols="9" style="margin-top: -10px">
