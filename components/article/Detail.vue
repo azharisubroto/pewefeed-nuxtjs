@@ -4,7 +4,6 @@
 			class="mx-auto mt-5"
 			type="list-item-avatar-three-line, image, article"
 		></v-skeleton-loader>
-
 		<v-container v-if="article" class="mb-5 pb-5">
 			<v-row>
 				<v-col>
@@ -64,24 +63,25 @@
 
 						<!-- WRITER -->
 						<div class="mt-4">
-							<span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
-							<v-row no-gutters class="mt-3">
-								<v-col cols="1">
-									<v-avatar size="30">
-										<v-img :src="writer.avatar"></v-img>
-									</v-avatar>
+							<span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumberx</span><br>
+							<v-row justify="space-between" class="mt-3" v-if="team_content" no-gutters>
+								<v-col cols="6">
+									<v-row class="pa-0">
+										<template v-for="(person, i) in team_content">
+											<v-col
+												:key="i"
+												cols="2"
+												class="py-0"
+												v-if="person.name != null"
+											>
+												<v-avatar size="30">
+													<v-img :src="person.avatar ? person.avatar : '/img/user.jpeg'"></v-img>
+												</v-avatar>
+											</v-col>
+										</template>
+									</v-row>
 								</v-col>
-								<v-col cols="1">
-									<v-avatar size="30">
-										<v-img :src="writer.avatar"></v-img>
-									</v-avatar>
-								</v-col>
-								<v-col cols="1">
-									<v-avatar size="30">
-										<v-img :src="writer.avatar"></v-img>
-									</v-avatar>
-								</v-col>
-								<v-col cols="9" class="text-right">
+								<v-col cols="6" class="text-right">
 									<v-btn
 										text
 										@click="[ expandTeam ? expandTeam = false : expandTeam = true]"
@@ -90,24 +90,22 @@
 										<template v-if="!expandTeam"><v-icon>mdi-menu-down</v-icon></template>
 										<template v-else><v-icon>mdi-menu-up</v-icon></template>
 									</v-btn>
-									<!-- <strong>{{writer.name}}</strong><br>
-									Writer -->
 								</v-col>
 							</v-row>
 
 							<div v-if="expandTeam" class="mt-4">
 								<v-row
-									v-for="i in 3"
+									v-for="(person, i) in team_content"
 									:key="i"
 								>
-									<v-col cols="2">
+									<v-col cols="2" v-if="person.name != null">
 										<v-avatar size="45">
-											<v-img :src="writer.avatar"></v-img>
+											<v-img :src="person.avatar ? person.avatar : '/img/user.jpeg'"></v-img>
 										</v-avatar>
 									</v-col>
-									<v-col cols="10">
-										<strong>{{writer.name}}</strong><br>
-										<div class="caption grey--text ">Writer</div>
+									<v-col cols="10" v-if="person.name != null">
+										<strong>{{person.name}}</strong><br>
+										<div class="caption grey--text ">{{person.profession}}</div>
 									</v-col>
 								</v-row>
 							</div>
@@ -287,17 +285,18 @@
 			grow
 			color="white"
 			background-color="black"
+			v-model="active_tab"
 		>
 			<v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-			<span>Artikel</span>
+				<span>Artikel</span>
 			</v-btn>
 
 			<v-btn @click="isArticle=false;isComment=true;isQuiz=false">
-			<span>Komentar<br>(+2 Poin)</span>
+				<span>Komentar<br>(+2 Poin)</span>
 			</v-btn>
 
 			<v-btn @click="isArticle=false;isComment=false;isQuiz=true">
-			<span>Quiz<br>(+20 Poin)</span>
+				<span>Quiz<br>(+20 Poin)</span>
 			</v-btn>
 		</v-bottom-navigation>
 
@@ -329,6 +328,7 @@ export default {
 	props: ['respon'],
 	data() {
 		return {
+			active_tab: 0,
 			tab: null,
 			tabCom: null,
 			profile:null,
@@ -336,6 +336,7 @@ export default {
 			title: '',
 			article: '',
 			writer: '',
+			team_content: '',
 			next: 2,
 			isMore: true,
 			isArticle: true,
@@ -382,7 +383,7 @@ export default {
 		reverseComment: function(){
 		var commentArr = this.comments
 		var finalArr = commentArr.reverse()
-		return finalArr
+			return finalArr
 		}
 	},
 	methods: {
@@ -394,6 +395,7 @@ export default {
 			this.writer = this.respon.article.writer
 			this.items[2].href = this.respon.article.title
 			this.comments = this.respon.article.comments
+			this.team_content = this.respon.article.team_content
 			if( this.respon.quiz && this.respon.quiz.id ) {
 				this.quiz = this.respon.quiz
 				this.quiz_id = this.respon.quiz.id
@@ -410,16 +412,16 @@ export default {
 					var link = element.link
 						link = link.replace('https://playworld.id/', '')
 					var obj = {
-					image: {
-						small: element.image.small
-					},
-					link: '/'+link,
-					title: element.title,
-					type: element.reaction,
-					published_at: element.publish_at
+						image: {
+							small: element.image.small
+						},
+						link: '/'+link,
+						title: element.title,
+						type: element.reaction,
+						published_at: element.publish_at
 					}
 					if( element.id != this.id ) {
-					this.latests.push(obj)
+						this.latests.push(obj)
 					}
 				});
 			} catch (error) {
@@ -457,18 +459,18 @@ export default {
 		},
 		async fetchUserdata() {
 			try {
-			const res = await UserService.getSingleUser()
-			this.user_id = res.data.data.id
-			this.profile = res.data.data
-			console.log(JSON.parse(JSON.stringify(res.data.data)))
+				const res = await UserService.getSingleUser()
+				this.user_id = res.data.data.id
+				this.profile = res.data.data
+				console.log(JSON.parse(JSON.stringify(res.data.data)))
 			} catch (error) {
-			console.log(error)
+				console.log(error)
 			}
 		},
 		async fetchComment() {
 			try {
-			let res = await ArticleService.getDetail(this.$route.params.articleslug)
-			this.comments = res.data.data.article.comments
+				let res = await ArticleService.getDetail(this.$route.params.articleslug)
+				this.comments = res.data.data.article.comments
 			} catch (error) {
 				console.log(error)
 			}
@@ -476,65 +478,65 @@ export default {
 		async postComment() {
 			this.commentIsPosting = true;
 			const params = {
-			id: this.id,
-			msg: this.comment_message,
-			type: 'news'
+				id: this.id,
+				msg: this.comment_message,
+				type: 'news'
 			}
 
 			try {
-			const res = await UserService.postComment(params)
-			console.log(res.data.poin)
-			this.fetchComment()
-			this.commentIsPosting = false;
-			this.comment_message = null;
-			if( res.data.poin > 0 ) {
-				this.KomentarPoinVisible = true
-			}
+				const res = await UserService.postComment(params)
+				console.log(res.data.poin)
+				this.fetchComment()
+				this.commentIsPosting = false;
+				this.comment_message = null;
+				if( res.data.poin > 0 ) {
+					this.KomentarPoinVisible = true
+				}
 			} catch (error) {
-			//console.log(error.response.status)
-			this.commentIsPosting = false;
-			if( error.response && error.response.status == 422 ) {
-				alert('Mohon tulis komentar minimal 50 karakter')
-			} else if( error.response && error.response.status == 500 ) {
-				alert('an error occured')
-			} else if( error.response && error.response.status == 401 ) {
-				//alert('Mohon Maaf :(, Anda harus login')
-				this.openModalLogin();
-			} else {
-				alert('error! ' + error.message)
-			}
+				//console.log(error.response.status)
+				this.commentIsPosting = false;
+				if( error.response && error.response.status == 422 ) {
+					alert('Mohon tulis komentar minimal 50 karakter')
+				} else if( error.response && error.response.status == 500 ) {
+					alert('an error occured')
+				} else if( error.response && error.response.status == 401 ) {
+					//alert('Mohon Maaf :(, Anda harus login')
+					this.openModalLogin();
+				} else {
+					alert('error! ' + error.message)
+				}
 			}
 		},
 		async submitAnswer() {
 			if (!localStorage.getItem('loggedin')) {
-			this.openModalLogin()
+				this.openModalLogin()
 			} else {
-			if( this.profile.vip != false ) {
-				const params = {
-				jawaban: this.jawabanQuiz,
-				quiz_id: this.quiz_id
-				}
-				try {
-				const res = await UserService.answerQuiz(params)
-				console.log(res)
-				this.dialog = true
-				if( res.status == 200 ) {
-					//alert(res.data.data.message)
-					if( res.data.data.status == 'benar' ) {
-					this.answerResult = true
-					} else if( res.data.data.status == 'salah' ) {
-					this.answerResult = false
-					} else {
-					this.already = true
+				if( this.profile.vip != false ) {
+					const params = {
+						jawaban: this.jawabanQuiz,
+						quiz_id: this.quiz_id
 					}
-					//this.answered = true
+					try {
+						const res = await UserService.answerQuiz(params)
+						console.log(res)
+						this.dialog = true
+						if( res.status == 200 ) {
+							//alert(res.data.data.message)
+							if( res.data.data.status == 'benar' ) {
+							this.answerResult = true
+							} else if( res.data.data.status == 'salah' ) {
+							this.answerResult = false
+							} else {
+							this.already = true
+							}
+							//this.answered = true
+						}
+					} catch (error) {
+						console.log(error)
+					}
+				} else {
+					this.notVipDialogVisible = true
 				}
-				} catch (error) {
-				console.log(error)
-				}
-			} else {
-				this.notVipDialogVisible = true
-			}
 			}
 		},
 		openModalLogin() {
@@ -601,4 +603,9 @@ export default {
 	.comment-item
 		padding: 10px 0
 		border-bottom: 1px solid #e5e5e5
+	.v-item-group.v-bottom-navigation .v-btn .v-btn__content
+		color: #fff
+		opacity: 1
+	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
+		color: var(--primary)!important
 </style>

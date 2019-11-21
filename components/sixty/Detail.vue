@@ -242,6 +242,7 @@
           grow
           color="white"
           background-color="black"
+		  v-model="active_tab"
         >
           <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
             <span>Artikel</span>
@@ -284,6 +285,7 @@ export default {
     },
     data() {
         return {
+			active_tab: 0,
             tab: null,
             tabCom: null,
             id: '',

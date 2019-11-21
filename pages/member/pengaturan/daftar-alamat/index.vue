@@ -1,12 +1,6 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12">
-        <div class="gray--text">Pengaturan Akun</div>
-        <h2>Daftar Alamat</h2>
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col>
 
         <!-- =====================================================================================
@@ -129,6 +123,7 @@
         @click="addressForm=true"
         color="deep-orange"
         dark
+		block
         depressed> <v-icon>mdi-plus</v-icon> Tambah Alamat Baru</v-btn>
       </v-col>
     </v-row>

@@ -47,10 +47,11 @@
 			<!-- PROFIL MENU -->
 			<v-bottom-navigation
 				v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
-				grow
-				dark
 				fixed
-				color="dark"
+				dark
+				grow
+				color="white"
+				background-color="black"
 			>
 				<v-btn
 				v-for="menu in profileMenu"
