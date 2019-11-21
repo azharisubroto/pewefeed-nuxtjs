@@ -403,6 +403,7 @@ if (process.browser) {
 	// require('vue-simple-addthis-share')
 }
 import UserService from '@/services/UserService'
+import * as mobile from 'is-mobile'
 import Login from '@/components/Login'
 import NewsLoop from '@/components/common/NewsLoop'
 import NewLogin from '@/components//NewLogin'
@@ -628,7 +629,19 @@ export default {
 		this.isLogin()
 		this.fetchUser()
 		this.years = new Date().getFullYear()
-	}
+		var isMobile = mobile()
+		if (!isMobile) {
+			var mobileUrl = window.location.href
+			var desktopUrl = mobileUrl.replace('://m', '://')
+			if (location.host == 'm.playworld.id') {
+				window.location.href = desktopUrl
+			} else {
+				console.log('desktop version')
+			}
+		} else {
+			console.log('mobile version')
+		}
+	},
 }
 </script>
 
