@@ -56,7 +56,7 @@
 						<!-- CONTENT -->
 						<div v-html="article.content"></div>
 
-						<hr>
+						<div class="devider-small my-4"></div>
 
 						<!-- WRITER -->
 						<div class="mt-4">
