@@ -164,6 +164,7 @@
 
 				<div class="devider-big"></div>
 
+<<<<<<< HEAD
 				<!-- DRAWER CONTENT -->
 				<v-container>
 					<!--
@@ -315,6 +316,159 @@
 			</v-navigation-drawer>
 			<!-- END DRAWER -->
 		</v-sheet>
+=======
+        <!-- DRAWER CONTENT -->
+        <v-container>
+          <!--
+            CATEGORY MENU
+          -->
+          <v-row>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text text-16 font-weight-bold">CATEGORY</v-subheader>
+                <v-list-item-group color="dark" v-model="category">
+                  <v-list-item
+                    v-for="(cat, i) in categories"
+                    :key="i"
+                    :to="cat.link"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="cat.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list>
+                <v-subheader class="black--text text-16 font-weight-bold">PREMIUM</v-subheader>
+                <v-list-item-group v-model="premium">
+                  <v-list-item
+                    v-for="(prem, i) in premiums"
+                    :key="i"
+                    @click="$router.push(prem.link)"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="prem.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+              <v-container>
+                <div class="devider-small full"></div>
+              </v-container>
+              <v-list>
+                <v-subheader class="black--text text-16 font-weight-bold">PROGRAM</v-subheader>
+                <v-list-item-group v-model="program">
+                  <v-list-item
+                    v-for="(prog, i) in programs"
+                    :key="i"
+                    @click="$router.push(prog.link)"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="prog.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <div class="devider-small full"></div>
+          </v-container>
+          <!--
+            CONTACT
+          -->
+          <v-row>
+            <v-col cols="12" style="margin-bottom: -30px !important">
+              <v-subheader class="black--text text-16 font-weight-bold">CONTACT</v-subheader>
+            </v-col>
+            <v-col cols="6">
+              <v-list two-line>
+                <v-list-item-group v-model="contact">
+                  <v-list-item
+                    v-for="(con, i) in contacts"
+                    :key="i"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="con.title"></v-list-item-title>
+                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list two-line>
+                <v-list-item-group v-model="contacttwo">
+                  <v-list-item
+                    v-for="(con, i) in contactstwo"
+                    :key="i"
+                  >
+                    <v-list-item-content class="menu">
+                      <v-list-item-title v-html="con.title"></v-list-item-title>
+                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <div class="devider-small full"></div>
+          </v-container>
+          <!--
+            SOCIAL MEDIA
+          -->
+          <!-- <v-row>
+            <v-col cols="12">
+              <v-container>
+                <div class="addthis_inline_follow_toolbox">
+                  <AddThis publicId="ra-56726fb53e3222fa" />
+                </div>
+              </v-container>
+            </v-col>
+          </v-row>
+          <v-container>
+            <div class="devider-small full"></div>
+          </v-container> -->
+          <!--
+            ABOUT
+          -->
+          <v-row class="caption cta-links">
+            <v-col cols="6">
+              <v-list>
+                <v-list-item>Tentang Playworld</v-list-item>
+                <v-list-item>Dewan Pers</v-list-item>
+                <v-list-item>Tim Redaksi</v-list-item>
+                <v-list-item>Bantuan</v-list-item>
+              </v-list>
+            </v-col>
+            <v-col cols="6">
+              <v-list>
+                <v-list-item>Kebiajakan & Privasi</v-list-item>
+                <v-list-item>Keamanan Transaksi</v-list-item>
+                <v-list-item>Metode Pembayaran</v-list-item>
+                <v-list-item>Jasa Pengiriman</v-list-item>
+              </v-list>
+            </v-col>
+          </v-row>
+          <v-container>
+            <div class="devider-small full"></div>
+          </v-container>
+          <v-container class="mb-5 pb-5">
+            <strong class="caption">{{years}} &copy; PT Jayadata Indonesia</strong>
+            <br>
+            <br>
+            <br>
+            <br>
+          </v-container>
+		    </v-container>
+        <!-- END DRAWER CONTENT -->
+      </v-navigation-drawer>
+      <!-- END DRAWER -->
+    </v-sheet>
+>>>>>>> social-sharing
 
 		<v-overlay :value="overlay">
 			<v-progress-circular indeterminate size="64"></v-progress-circular>

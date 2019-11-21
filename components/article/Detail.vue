@@ -39,9 +39,13 @@
 				<h2 class="mb-0">{{article.title}}</h2>
 				<div>
 					<ShareButton
-					style="text-align: left !important"
-					:dataUrl="shareUrl"
-					/>
+            style="text-align: left !important"
+            :sharingUrl="dataUrl"
+            :sharingTitle="article.title"
+            :sharingDescription="article.short_content"
+            :sharingImage="article.image.small"
+            :sharingTime="article.published_at"
+          />
 				</div>
 				</v-col>
 			</v-row>
@@ -370,7 +374,7 @@ export default {
 					href: this.$route.params.subcat
 				}
 			],
-			shareUrl: "https://m.playworld.id/" + this.$route.params.cat + this.$route.params.subcat + this.$route.params.articleslug,
+			dataUrl: "https://m.playworld.id/" + this.$route.params.cat + "/" + this.$route.params.subcat + "/" + this.$route.params.articleslug,
 			expandTeam: false
 		}
 	},

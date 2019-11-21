@@ -30,7 +30,9 @@
 
         <!-- SHARE BUTTON -->
         <ShareButton
-          :dataUrl="shareUrl"
+          :sharingUrl="dataUrl"
+          :sharingTitle="dataTitle"
+          :sharingDescription="dataDescription"
         />
 
         <v-skeleton-loader v-if="comicList.length==0"
@@ -125,7 +127,9 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            shareUrl: "https://ssr.playworld.id/komik",
+            dataUrl: "https://m.playworld.id/komik",
+            dataTitle: "Baca Komiknya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
+            dataDescription: "Bikin kamu ketawa adalah tujuan kami",
         }
     },
     methods: {

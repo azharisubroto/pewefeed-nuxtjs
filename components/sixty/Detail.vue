@@ -29,6 +29,14 @@
 
             <!-- TITLE -->
             <h2 class="mb-3">{{article.detail.title}}</h2>
+            <ShareButton
+              style="text-align: left !important"
+              :sharingUrl="dataUrl"
+              :sharingTitle="article.detail.title"
+              :sharingDescription="article.article.short_content"
+              :sharingImage="article.article.image"
+              :sharingTime="article.detail.publish_at"
+            />
 
             <!-- ARTICLE -->
             <template v-if="isArticle">
@@ -260,6 +268,7 @@ import NewsLoop from '@/components/common/NewsLoop'
 import CommentList from '@/components/common/CommentList'
 import LoginModal from '@/components/modal/LoginModal'
 import QuizModal from '@/components/common/QuizModal'
+import ShareButton from '@/components/common/ShareButton'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import NotVip from '@/components/modal/NotVip'
 
@@ -270,6 +279,7 @@ export default {
       CommentList,
       KomentarPoin,
       LoginModal,
+      ShareButton,
       NotVip
     },
     data() {
@@ -319,7 +329,9 @@ export default {
                     disabled: true,
                     href: this.$route.params.subcat
                 }
-            ]
+            ],
+            dataUrl: "https://m.playworld.id/sixty/" + this.$route.params.sixty,
+            
         }
     },
     computed: {
@@ -341,10 +353,10 @@ export default {
           }
         },
         async fetchContent() {
-            console.log(this.$route.params.sixty)
+            // console.log(this.$route.params.sixty)
             try {
                 let res = await ArticleService.getSixtyDetail(this.$route.params.sixty)
-                console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.id = res.data.data.detail.id
                 this.article = res.data.data
                 this.selengkapnya = res.data.data.article
