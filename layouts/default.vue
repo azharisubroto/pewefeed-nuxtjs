@@ -632,7 +632,7 @@ export default {
 		var isMobile = mobile()
 		if (!isMobile) {
 			var mobileUrl = window.location.href
-			var desktopUrl = mobileUrl.replace('://m', '://')
+			var desktopUrl = mobileUrl.replace('://m.', '://')
 			if (location.host == 'm.playworld.id') {
 				window.location.href = desktopUrl
 			} else {
