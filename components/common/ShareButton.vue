@@ -3,8 +3,8 @@
     <div class="text-center mt-5">
         <v-bottom-sheet v-model="sheet">
             <template v-slot:activator="{ on }">
-                <v-btn dark color="orange accent-4" depressed>
-                    <v-icon v-on="on" class="mr-1">mdi-share-variant</v-icon> <span class="regular">Bagikan</span>
+                <v-btn v-on="on" dark color="orange accent-4" depressed>
+                    <v-icon class="mr-1">mdi-share-variant</v-icon> Bagikan
                 </v-btn>
             </template>
             <v-sheet height="100%" color="transparent">
