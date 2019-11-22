@@ -68,8 +68,8 @@ export default {
       latests_is_loading: true,
       categories: [],
       catpick: 0,
-      dataUrl: "https://m.playworld.id/" + this.$route.params.cat,
-      dataTitle: "Tonton Videonya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
+      dataUrl: "https://m.playworld.id/fakta",
+      dataTitle: "Tonton Video FAKTA, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
       dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
     }
   },
