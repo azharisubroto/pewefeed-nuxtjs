@@ -38,13 +38,13 @@
 				<h2 class="mb-0">{{article.title}}</h2>
 				<div>
 					<ShareButton
-            style="text-align: left !important"
-            :sharingUrl="dataUrl"
-            :sharingTitle="article.title"
-            :sharingDescription="article.short_content"
-            :sharingImage="article.image.small"
-            :sharingTime="article.published_at"
-          />
+						style="text-align: left !important"
+						:sharingUrl="dataUrl"
+						:sharingTitle="article.title"
+						:sharingDescription="article.short_content"
+						:sharingImage="article.image.small"
+						:sharingTime="article.published_at"
+					/>
 				</div>
 				</v-col>
 			</v-row>
@@ -58,6 +58,17 @@
 
 						<!-- CONTENT -->
 						<div v-html="article.content"></div>
+
+						<div class="my-2">
+							<ShareButton
+								style="text-align: left !important"
+								:sharingUrl="dataUrl"
+								:sharingTitle="article.title"
+								:sharingDescription="article.short_content"
+								:sharingImage="article.image.small"
+								:sharingTime="article.published_at"
+							/>
+						</div>
 
 						<div class="devider-small my-4"></div>
 
