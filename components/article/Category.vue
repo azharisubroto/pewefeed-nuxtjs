@@ -20,7 +20,7 @@
               ></v-img>
               <div class="caption">
                 <div class="caption-inner">
-                  <strong>{{article.type}}</strong>
+                  <strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong>
                   <h2 class="mt-1">{{ article.title }}</h2>
                 </div>
               </div>
