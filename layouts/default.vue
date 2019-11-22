@@ -34,7 +34,9 @@
 			</v-tabs>
 
 			<!-- MEMBER MENU -->
-			<v-tabs v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')" grow color="deep-orange" center-active class="pw-tab">
+			<v-tabs
+			v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
+			grow color="deep-orange" center-active class="pw-tab">
 				<v-tab
 					v-for="menu in memberMenu"
 					:key="menu.loc"
@@ -46,7 +48,7 @@
 
 			<!-- PROFIL MENU -->
 			<v-bottom-navigation
-				v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
+				v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program') &&!$nuxt.$route.name.includes('barang_yang_didapat')"
 				fixed
 				dark
 				grow
@@ -469,8 +471,8 @@ export default {
 			memberMenu: [
 				{name: 'Data Diri', loc: '/member/pengaturan/profil'},
 				{name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
-				{name: 'Rewards', loc: '/member/new_design/barang_yang_didapat'},
-				{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
+				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
+				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
 			],
 			profileMenu: [
 				{name: 'Profil Akun', loc: '/member/pengaturan/profil'},
