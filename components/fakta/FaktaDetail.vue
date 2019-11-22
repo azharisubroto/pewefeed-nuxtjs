@@ -16,6 +16,12 @@
                     {{article.created_at}}
                 </div>
                 <div class="d-inline-block mr-3 grey--text text--small">
+                  <v-icon small size="12">
+                    mdi-calendar-blank
+                  </v-icon>
+                  {{article.date}}
+                </div>
+                <div class="d-inline-block mr-3 grey--text text--small">
                     <v-icon small size="12">
                         mdi-eye-outline
                     </v-icon>
@@ -23,7 +29,7 @@
                 </div>
                 <div class="d-inline-block mr-3 grey--text text--small">
                     <v-icon small size="12">
-                        mdi-message-reply
+                      mdi-message-text-outline
                     </v-icon>
                     {{comments.length}}
                 </div>

@@ -10,7 +10,7 @@
 				<!-- META 1 -->
 				<div class="mb-1">
 					<div class="d-inline-block mr-2" style="line-height:1;font-size:12px">
-						{{article.type}}
+						{{article.type == 'LAGU' ? 'MUSIK' : article.type}}
 					</div>
 					<div class="d-inline-block" style="font-size:12px">
 						<div class="d-inline-block mr-3 grey--text text--small">
@@ -21,15 +21,21 @@
 						</div>
 						<div class="d-inline-block mr-3 grey--text text--small">
 							<v-icon small size="12">
+								mdi-calendar-blank
+							</v-icon>
+							{{article.created_at}}
+						</div>
+						<div class="d-inline-block mr-3 grey--text text--small">
+							<v-icon small size="12">
 								mdi-eye-outline
 							</v-icon>
 							{{article.total_view}}
 						</div>
 						<div class="d-inline-block mr-3 grey--text text--small">
 							<v-icon small size="12">
-								mdi-message-reply
+								mdi-message-text-outline
 							</v-icon>
-							{{article.total_comment}}
+							{{article.total_comment ? article.total_comment : 0}}
 						</div>
 					</div>
 				</div>

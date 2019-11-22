@@ -19,10 +19,22 @@
                       {{article.detail.publish_at}}
                   </div>
                   <div class="d-inline-block mr-3 grey--text text--small">
+                    <v-icon small size="12">
+                      mdi-calendar-blank
+                    </v-icon>
+                    {{article.detail.date}}
+                  </div>
+                  <div class="d-inline-block mr-3 grey--text text--small">
                       <v-icon small size="12">
                           mdi-eye-outline
                       </v-icon>
                       {{article.detail.total_views}}
+                  </div>
+                  <div class="d-inline-block mr-3 grey--text text--small">
+                    <v-icon small size="12">
+                      mdi-message-text-outline
+                    </v-icon>
+                    {{article.detail.total_comment ? article.detail.total_comment : 0}}
                   </div>
                 </div>
             </div>

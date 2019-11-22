@@ -460,7 +460,7 @@ export default {
 				{name: 'Video', loc: '/video'},
 				{name: 'Tukar Poin', loc: '/toko'},
 				{name: 'Viral', loc: '/viral'},
-				{name: 'Lagu', loc: '/lagu'},
+				{name: 'Musik', loc: '/lagu'},
 				{name: 'Nonton', loc: '/nonton'},
 				{name: 'Piknik', loc: '/piknik'},
 				{name: 'Tekno', loc: '/tekno'},
@@ -489,7 +489,7 @@ export default {
 					link: '/viral'
 				},
 				{
-					title: 'LAGU',
+					title: 'MUSIK',
 					link: '/lagu'
 				},
 				{
