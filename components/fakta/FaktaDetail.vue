@@ -9,25 +9,25 @@
                   FAKTA / {{article.category}}
               </div>
               <div class="d-inline-block" style="font-size:12px">
-                <div class="d-inline-block mr-3 grey--text text--small">
+                <div class="d-inline-block mr-3 text--small">
                     <v-icon small size="12">
                         mdi-clock-outline
                     </v-icon>
                     {{article.created_at}}
                 </div>
-                <div class="d-inline-block mr-3 grey--text text--small">
+                <div class="d-inline-block mr-3 text--small">
                   <v-icon small size="12">
                     mdi-calendar-blank
                   </v-icon>
                   {{article.date}}
                 </div>
-                <div class="d-inline-block mr-3 grey--text text--small">
+                <div class="d-inline-block mr-3 text--small">
                     <v-icon small size="12">
                         mdi-eye-outline
                     </v-icon>
                     {{article.total_views}}
                 </div>
-                <div class="d-inline-block mr-3 grey--text text--small">
+                <div class="d-inline-block mr-3 text--small">
                     <v-icon small size="12">
                       mdi-message-text-outline
                     </v-icon>

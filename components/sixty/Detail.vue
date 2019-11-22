@@ -12,25 +12,25 @@
                     SIXTY {{ article.article.type }}
                 </div>
                 <div class="d-inline-block">
-                  <div class="d-inline-block mr-3 grey--text text--small">
+                  <div class="d-inline-block mr-3 text--small">
                       <v-icon small>
                         mdi-clock-outline
                       </v-icon>
                       {{article.detail.publish_at}}
                   </div>
-                  <div class="d-inline-block mr-3 grey--text text--small">
+                  <div class="d-inline-block mr-3 text--small">
                     <v-icon small size="12">
                       mdi-calendar-blank
                     </v-icon>
                     {{article.detail.date}}
                   </div>
-                  <div class="d-inline-block mr-3 grey--text text--small">
+                  <div class="d-inline-block mr-3 text--small">
                       <v-icon small size="12">
                           mdi-eye-outline
                       </v-icon>
                       {{article.detail.total_views}}
                   </div>
-                  <div class="d-inline-block mr-3 grey--text text--small">
+                  <div class="d-inline-block mr-3 text--small">
                     <v-icon small size="12">
                       mdi-message-text-outline
                     </v-icon>
