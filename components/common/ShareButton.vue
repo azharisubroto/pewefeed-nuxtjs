@@ -62,7 +62,7 @@
                     </v-container>
                 </div>
                 <div class="mx-2 py-3">
-                    <v-btn @click="sheet = !sheet" light depressed block style="background-color: #fff !important">Batal</v-btn>
+                    <v-btn @click="sheet = !sheet" tile light depressed block style="background-color: #fff !important">Batal</v-btn>
                 </div>
             </v-sheet>
         </v-bottom-sheet>
