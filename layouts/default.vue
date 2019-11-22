@@ -239,7 +239,10 @@
 										:key="i"
 									>
 										<v-list-item-content class="menu">
-											<v-list-item-title v-html="con.title"></v-list-item-title>
+											<v-list-item-title>
+												<a v-if="con.isWhatsapp" style="text-decoration: none; color: #000" target="blank" :href="'https://api.whatsapp.com/send?phone=' + con.phone">{{ con.title }}</a>
+												<a v-else style="text-decoration: none; color: #000" :href="'tel:' + con.phone">{{ con.title }}</a>
+											</v-list-item-title>
 											<v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
 										</v-list-item-content>
 									</v-list-item>
@@ -254,7 +257,10 @@
 										:key="i"
 									>
 										<v-list-item-content class="menu">
-											<v-list-item-title v-html="con.title"></v-list-item-title>
+											<v-list-item-title>
+												<a v-if="con.isPhone" style="text-decoration: none; color: #000" target="blank" :href="'https://api.whatsapp.com/send?phone=' + con.phone">{{ con.title }}</a>
+												<a v-else style="text-decoration: none; color: #000" :href="'mailto:' + con.mail">{{ con.title }}</a>
+											</v-list-item-title>
 											<v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
 										</v-list-item-content>
 									</v-list-item>
@@ -537,10 +543,14 @@ export default {
 			contacts: [
 				{
 					title: '(021) 293 85 381',
+					phone: '02129385381',
+					isWhatsapp: false,
 					subtitle: '(Business Hour)'
 				},
 				{
 					title: '0815 1906 0929',
+					phone: '6281519060929',
+					isWhatsapp: true,
 					subtitle: '(24 Hour)'
 				}
 			],
@@ -548,10 +558,14 @@ export default {
 			contactstwo: [
 				{
 					title: '0817 1717 3029',
+					phone: '6281717173029',
+					isPhone: true,
 					subtitle: '(24 Hour)'
 				},
 				{
 					title: 'halo@playworld.id',
+					mail: 'halo@playworld.id',
+					isPhone: false,
 					subtitle: '(Official Email Address)'
 				}
 			],
