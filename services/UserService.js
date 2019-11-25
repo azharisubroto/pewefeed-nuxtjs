@@ -71,7 +71,7 @@
 	mutasiPoin(page, filter) {
 		var n = page ? page : 1
 		var fil = filter ? filter : 'all'
-		return AuthApi().get('/member/mutasi-poin/?page=' + n + '&filter_poin=' + fil)
+		return AuthApi().get('/member/mutasi-poin/' + fil + '?page=' + n + '&filter_poin=' + fil)
 	},
 	rewardsWait(n) {
 		return AuthApi().get('/member/transaction/wait/?page='+n)

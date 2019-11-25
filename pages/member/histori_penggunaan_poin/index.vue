@@ -81,10 +81,18 @@
       </v-row>
     </v-container>
     <v-skeleton-loader
-      v-else-if="mutasi.length == 0"
+      v-else-if="mutasi.length == 0 && available == false"
       class="mb-6"
       type="list-item-three-line,list-item-three-line,list-item-three-line"
     ></v-skeleton-loader>
+
+    <div v-else>
+        <v-alert
+        prominent
+        text
+        type="info"
+        success>Tidak ada barang yang tersedia</v-alert>
+    </div>
 
 
     <!-- PROFIL MENU -->
@@ -126,7 +134,8 @@ export default {
       userdata: null,
       mutasi: [],
       page:1,
-      last_page: 1
+      last_page: 1,
+      available: false,
     }
   },
   methods: {
@@ -146,6 +155,7 @@ export default {
       this.mutasi = []
       var n = page ? page : 1
       var fil = filter ? filter : 'all'
+      this.available = false
       try {
         const res = await UserService.mutasiPoin(n, fil)
         const items = res.data.data
@@ -166,6 +176,8 @@ export default {
         });
 
         this.mutasi = arrays
+
+        this.available = true
 
         window.scrollTo({
           top: 0,
