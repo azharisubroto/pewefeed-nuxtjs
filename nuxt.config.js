@@ -38,6 +38,7 @@ export default {
     { src: '~/plugins/google-login', ssr: false },
     { src: '~/plugins/moment', ssr: false },
     { src: '~/plugins/bus' },
+    { src: '~/plugins/ga', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -54,7 +55,25 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
     '@nuxtjs/onesignal',
+    '@nuxtjs/google-adsense',
+    // [
+    //   '@nuxtjs/google-tag-manager', {
+    //     id: 'UA-75254826-3',
+    //     layer: 'dataLayer',
+    //     pageTracking: false,
+    //     pageViewEventName: 'nuxtRoute',
+    //     respectDoNotTrack: false,
+    //     dev: true, // set to false to disable in dev mode
+    //   }
+    // ]
   ],
+
+  /**
+   * Google Adsense
+   */
+  'google-adsense': {
+    id: 'ca-pub-6581994114503986'
+  },
 
   /**
    * One Signal Notification
