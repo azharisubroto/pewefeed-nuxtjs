@@ -6,16 +6,16 @@
 				:key="item"
 			>
 				<template v-if="item == 'Dikirim'">
-					<Dikirim/>
+					<Dikirim />
 				</template>
 				<template v-if="item == 'Diterima'">
-					<Diterima/>
+					<Diterima />
 				</template>
 				<template v-if="item == 'Menunggu'">
-					<Menunggu/>
+					<Menunggu :addresses="addresses" :contact="contact"/>
 				</template>
 				<template v-if="item == 'Selesai'">
-					<Selesai/>
+					<Selesai />
 				</template>
 			</v-tab-item>
 		</v-tabs-items>
@@ -43,6 +43,7 @@ import Dikirim from '@/components/member/rewards/Dikirim'
 import Diterima from '@/components/member/rewards/Diterima'
 import Menunggu from '@/components/member/rewards/Menunggu'
 import Selesai from '@/components/member/rewards/Selesai'
+import UserService from '@/services/UserService'
 export default {
 	components: {
 		Dikirim,
@@ -53,8 +54,43 @@ export default {
 	data() {
 		return {
 			tab:0,
+			addresses: null,
+			contact: null,
 			tabItems: ['Menunggu','Dikirim','Diterima','Selesai']
 		}
+	},
+	methods: {
+		async getAddresses() {
+			this.isLoading = true
+			try {
+				const res = await UserService.getAddresses()
+				var items = res.data.data
+				if( items && items.length > 0 ) {
+				//console.log(JSON.parse(JSON.stringify(items)))
+				this.addresses = items
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		async getNumbers() {
+			this.isLoading = true
+			try {
+				const res = await UserService.getContacts()
+				var items = res.data.data
+				if( items && items.length > 0 ) {
+					//console.log(JSON.parse(JSON.stringify(items)))
+					this.contact = items
+				}
+			} catch (error) {
+				console.log(res)
+
+			}
+		},
+	},
+	mounted() {
+		this.getAddresses()
+		this.getNumbers()
 	}
 }
 </script>

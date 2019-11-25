@@ -9,10 +9,21 @@
 			</v-row>
 			<v-row v-if="list">
 				<v-col>
-					<RewardCard :list="list"/>
+					<RewardCard :list="list" :sent="true"/>
+
+					<v-pagination
+					v-model="page"
+					:length="totalpage"
+					color="orange"
+					@input="next"
+					></v-pagination>
+					<br>
+					<br>
+					<br>
+					<br>
 				</v-col>
 			</v-row>
-			<v-row v-else>
+			<v-row v-else-if="!list && !loading">
 				<v-col>
 					<v-alert
 					prominent
@@ -21,6 +32,10 @@
 					success>Tidak ada barang yang tersedia</v-alert>
 				</v-col>
 			</v-row>
+			<v-skeleton-loader v-else
+			class="mx-auto mt-5"
+			type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
+			></v-skeleton-loader>
 		</v-container>
 	</section>
 </template>
@@ -34,7 +49,10 @@ export default {
 	},
 	data() {
 		return {
-			list: null
+			loading: true,
+			list: null,
+			page: 1,
+			totalpage: 0
 		}
 	},
 	methods: {
@@ -43,17 +61,32 @@ export default {
 			try {
 				const res = await UserService.rewardsReceived(page)
 				const items = res.data.data
+				this.totalpage = res.data.meta.last_page
 				if( items.length > 0 ){
 					this.list = res.data.data
 				}
 				console.log(JSON.parse(JSON.stringify(res.data.data)))
+				this.loading = false
 			} catch (error) {
 				console.log(error)
+				this.loading = false
 			}
+		},
+		next(num) {
+			this.fetchWait(num)
+			this.loading = true
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'smooth'
+			});
 		}
 	},
 	mounted() {
 		this.fetchWait()
+		this.$bus.$on('refetchDiterima', () => {
+			this.fetchWait()
+		})
 	}
 }
 </script>

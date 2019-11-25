@@ -84,5 +84,15 @@
 	},
 	rewardsFinished(n) {
 		return AuthApi().get('/member/transaction/finish?page='+n)
+	},
+
+	claimDigital(params) {
+		return AuthApi().post('/member/transaction/process/redeem-non-physical', params)
+	},
+	claimFisik(params) {
+		return AuthApi().post('/member/transaction/process/redeem-physical', params)
+	},
+	confirmReward(params) {
+		return AuthApi().post('/member/transaction/process/confirmation', params)
 	}
 }
