@@ -91,7 +91,7 @@
         prominent
         text
         type="info"
-        success>Tidak ada barang yang tersedia</v-alert>
+        success>Tidak ada data yang tersedia</v-alert>
     </div>
 
 
