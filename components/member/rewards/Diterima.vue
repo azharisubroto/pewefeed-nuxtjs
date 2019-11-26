@@ -1,13 +1,13 @@
 <template>
 	<section>
 		<v-container>
-			<v-row>
+			<v-row class="d-none">
 				<v-col cols="12">
 					<div class="caption">Barang Yang Didapatkan</div>
 					<h3>Diterima</h3>
 				</v-col>
 			</v-row>
-			<v-row v-if="list">
+			<v-row v-if="list.length > 0">
 				<v-col>
 					<RewardCard :list="list" :sent="true"/>
 
@@ -23,7 +23,7 @@
 					<br>
 				</v-col>
 			</v-row>
-			<v-row v-else-if="!list && !loading">
+			<v-row v-else-if="list.length == 0 && !loading">
 				<v-col>
 					<v-alert
 					prominent
@@ -50,21 +50,22 @@ export default {
 	data() {
 		return {
 			loading: true,
-			list: null,
+			list: [],
 			page: 1,
 			totalpage: 0
 		}
 	},
 	methods: {
 		async fetchWait(n) {
+			this.loading = true
 			var page = n ? n : 1
 			try {
 				const res = await UserService.rewardsReceived(page)
 				const items = res.data.data
 				this.totalpage = res.data.meta.last_page
-				if( items.length > 0 ){
+				//if( items.length > 0 ){
 					this.list = res.data.data
-				}
+				//}
 				console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.loading = false
 			} catch (error) {
@@ -83,9 +84,10 @@ export default {
 		}
 	},
 	mounted() {
+		let _self = this
 		this.fetchWait()
 		this.$bus.$on('refetchDiterima', () => {
-			this.fetchWait()
+			_self.fetchWait()
 		})
 	}
 }

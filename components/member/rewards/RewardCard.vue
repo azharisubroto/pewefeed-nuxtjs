@@ -19,7 +19,7 @@
 			<v-expansion-panels v-if="actionable">
 				<v-expansion-panel class="elevation-0"
 				>
-					<v-expansion-panel-header><span class="text--orange">Claim</span></v-expansion-panel-header>
+					<v-expansion-panel-header></v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
 						text
@@ -49,7 +49,7 @@
 							<v-btn
 							:loading="loading[i]"
 							dark depressed color="orange"
-							@click="prosesReward(item.id, item.customer_redeem.id, id_tujuan[i], item.type,i)">
+							@click="prosesReward(item.id, item.customer_redeem.id, id_tujuan[i], item.type, i)">
 							Proses
 							</v-btn>
 
@@ -78,7 +78,7 @@
 			<v-expansion-panels v-if="expandable">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-						Status
+
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -93,7 +93,7 @@
 			<v-expansion-panels v-if="sent">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-						Status
+
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -115,7 +115,7 @@
 			<v-expansion-panels v-if="finished">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-						Status
+
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -144,7 +144,7 @@ export default {
 	data() {
 		return {
 			id_tujuan: [],
-			loading: [false,false,false,false,false]
+			loading: []
 		}
 	},
 	methods: {
@@ -178,7 +178,7 @@ export default {
 			console.log(params)
 
 			try {
-				const res = await UserService.claimDigital(params)
+				const res = await UserService.claimFisik(params)
 				console.log(res)
 				if(res.status == 200) {
 					this.$bus.$emit('refetchRewards')
@@ -205,10 +205,11 @@ export default {
 		},
 		async confirm(id, customer_redeem_id){
 			var params = {
-				track_id: id,
+				id: id,
 				customer_redeem_id: customer_redeem_id,
 			}
 			console.log(params)
+
 			try {
 				const res = await UserService.confirmReward(params)
 				console.log(res)
@@ -235,4 +236,15 @@ export default {
 <style lang="sass">
 	.v-card, .v-application .elevation-2
 		box-shadow: 0 12px 14px rgba(0, 0, 0, 0.1) !important
+	v-expansion-panel-header__icon
+		margin-left: 0!important
+		.v-icon
+			color: var(--primary)!important
+	.theme--light.v-expansion-panels .v-expansion-panel-header .v-expansion-panel-header__icon .v-icon
+		color: var(--primary)!important
+</style>
+<style lang="scss">
+	.v-expansion-panel-header__icon {
+		margin-left:0!important;
+	}
 </style>
