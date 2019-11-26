@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<v-container>
-			<v-row>
+			<v-row class="d-none">
 				<v-col cols="12">
 					<div class="caption">Barang Yang Didapatkan</div>
 					<h3>Dikirim</h3>
