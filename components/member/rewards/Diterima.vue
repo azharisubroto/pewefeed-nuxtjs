@@ -1,5 +1,5 @@
 <template>
-	<section>
+	<section class="selesai-page">
 		<v-container>
 			<v-row class="d-none">
 				<v-col cols="12">
@@ -92,9 +92,7 @@ export default {
 	}
 }
 </script>
-<style lang="sass">
-	.maincontent, .v-content__wrap, .theme--light.v-application
-		background: #f9f9f9
-	.theme--light.v-tabs-items, .theme--light.v-application
+<style lang="sass" scoped>
+	.selesai-page .container
 		background: #f9f9f9
 </style>
