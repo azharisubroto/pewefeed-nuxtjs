@@ -10,8 +10,7 @@
     ></v-skeleton-loader>
     <v-container v-else class="mb-5 pb-5">
       <!-- TITLE -->
-      <h2 class="mb-0">{{detail.title}}</h2>
-      <hr class="my-4">
+      <h2 class="mb-0 mt-4">{{detail.title}}</h2>
       <!-- DETAIL REWWARD -->
       <template v-if="detailtab">
         <v-row>
@@ -224,7 +223,8 @@ export default {
       try {
         const res = await UserService.tukarPoin(params)
         console.log(res)
-        this.overlay = false
+		this.overlay = false
+		alert('Tukar POIN telah berhasil dilakukan')
       } catch (error) {
         console.log(error.response.status)
         this.overlay = false
