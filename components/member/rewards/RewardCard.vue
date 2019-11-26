@@ -123,13 +123,6 @@
 						type="info"
 						class="caption"
 						success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sudah dikirim secara {{ (item.type == 'Non Fisik') ? 'Online' : 'Offline' }} pada tanggal <strong>{{ item.history_transaction[1] ? item.history_transaction[1].created_at : item.history_transaction[0].created_at }}</strong> dan telah diterima pada tanggal <strong>{{ item.history_transaction ? item.history_transaction[0].created_at : '' }}</strong></v-alert>
-
-						<v-btn
-						dark
-						depressed
-						color="orange"
-						@click="confirm(item.id, item.customer_redeem.id)"
-						>REWARDS TELAH DITERIMA</v-btn>
 					</v-expansion-panel-content>
 				</v-expansion-panel>
 			</v-expansion-panels>
