@@ -276,7 +276,6 @@ export default {
             try {
                 const res = await VoucherService.submitVoucher(sendform)
                 this.notloading();
-                this.$refs.recaptcha.reset();
                 this.recaptchaToken = null;
                 console.log(res)
                 this.status_code = false
@@ -286,6 +285,7 @@ export default {
                 vm.responselink = res.data.link
             } catch (err) {
                 console.log(err)
+                this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Kode PW tidak ditemukan atau sudah expired'
             }
