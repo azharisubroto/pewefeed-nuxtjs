@@ -249,6 +249,24 @@ export default {
             }
         },
 
+        /* Validasi Form */
+        validate () {
+            if (this.$refs.form.validate()) {
+                if (this.recaptchaToken != null) {
+                    this.submit();
+                } else {
+                    this.snackbar = true;
+                    this.responsemessage = 'Mohon Centang Recaptha';
+                }
+            }
+        },
+        reset () {
+            this.$refs.form.reset()
+        },
+        resetValidation () {
+            this.$refs.form.resetValidation()
+        },
+
         /* Submit Form */
         async submit() {
             // send the form
@@ -271,7 +289,6 @@ export default {
                 this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Kode PW tidak ditemukan atau sudah expired'
-                this.notloading();
 
             }
         },
