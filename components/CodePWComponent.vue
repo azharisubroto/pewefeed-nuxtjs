@@ -232,11 +232,11 @@ export default {
                 this.status_code = true
                 this.message_code = 'Kode Tidak Valid'
             } else {
-                this.recaptchaToken = null
                 try {
                     const res = await VoucherService.getCodePw( this.$route.params.codepw )
                     console.log(res.data.code)
                     this.notloading()
+                    this.recaptchaToken = null
                     this.status_code = true
                     this.message_code = 'Ini Kode PW Anda ' + res.data.code.trx
                     this.formdata.code = res.data.code.trx
@@ -249,30 +249,13 @@ export default {
             }
         },
 
-        /* Validasi Form */
-        validate () {
-            if (this.$refs.form.validate()) {
-                if (this.recaptchaToken != null) {
-                    this.submit();
-                } else {
-                    this.snackbar = true;
-                    this.responsemessage = 'Mohon Centang Recaptha';
-                }
-            }
-        },
-        reset () {
-            this.$refs.form.reset()
-        },
-        resetValidation () {
-            this.$refs.form.resetValidation()
-        },
-
         /* Submit Form */
         async submit() {
             // send the form
             let vm = this;
             const sendform = this.formdata;
             this.setloading();
+            vm.responsemessage = '';
             try {
                 const res = await VoucherService.submitVoucher(sendform)
                 this.notloading();
@@ -288,6 +271,8 @@ export default {
                 this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Kode PW tidak ditemukan atau sudah expired'
+                this.notloading();
+
             }
         },
         lanjutkan() {
