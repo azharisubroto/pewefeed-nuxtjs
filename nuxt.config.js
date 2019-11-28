@@ -56,16 +56,7 @@ export default {
     '@nuxtjs/recaptcha',
     '@nuxtjs/onesignal',
     '@nuxtjs/google-adsense',
-    // [
-    //   '@nuxtjs/google-tag-manager', {
-    //     id: 'UA-75254826-3',
-    //     layer: 'dataLayer',
-    //     pageTracking: false,
-    //     pageViewEventName: 'nuxtRoute',
-    //     respectDoNotTrack: false,
-    //     dev: true, // set to false to disable in dev mode
-    //   }
-    // ]
+    '@nuxtjs/google-gtag',
   ],
 
   /**
@@ -73,6 +64,19 @@ export default {
    */
   'google-adsense': {
     id: 'ca-pub-6581994114503986'
+  },
+
+  /**
+   * Google Tag
+   */
+  'google-gtag': {
+    id: 'UA-75254826-3',
+    config: {
+      anonymize_ip: true, // anonymize IP 
+      send_page_view: false, // might be necessary to avoid duplicated page track on page reload
+    },
+    debug: true, // enable to track in dev mode
+    disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
   },
 
   /**
