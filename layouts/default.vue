@@ -276,18 +276,19 @@
 					<!--
 						SOCIAL MEDIA
 					-->
-					<!-- <v-row>
+					<v-row>
 						<v-col cols="12">
 							<v-container>
-								<div class="addthis_inline_follow_toolbox">
-									<AddThis publicId="ra-56726fb53e3222fa" />
-								</div>
+								<a target="blank" style="text-decoration: none;" href="https://www.facebook.com/PLAYWORLD.ID"><v-icon size="40" color="primary">mdi-facebook-box</v-icon></a>
+								<a target="blank" style="text-decoration: none;" href="https://twitter.com/PlayworldID"><v-icon size="40" color="blue">mdi-twitter-box</v-icon></a>
+								<a target="blank" style="text-decoration: none;" href="https://www.instagram.com/playworld.id"><v-icon size="38" color="pink">mdi-instagram</v-icon></a>
+								<a target="blank" style="text-decoration: none;" href="https://www.youtube.com/channel/UCWU4CyCb2GJrkP7lTtdlsdg"><v-icon size="40" color="red">mdi-youtube</v-icon></a>
 							</v-container>
 						</v-col>
 					</v-row>
 					<v-container>
 						<div class="devider-small full"></div>
-					</v-container> -->
+					</v-container>
 					<!--
 						ABOUT
 					-->
