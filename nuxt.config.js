@@ -73,7 +73,7 @@ export default {
     id: 'UA-75254826-3',
     config: {
       anonymize_ip: true, // anonymize IP 
-      send_page_view: false, // might be necessary to avoid duplicated page track on page reload
+      send_page_view: true, // might be necessary to avoid duplicated page track on page reload
     },
     debug: true, // enable to track in dev mode
     disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
