@@ -39,6 +39,7 @@ export default {
     { src: '~/plugins/moment', ssr: false },
     { src: '~/plugins/bus' },
     { src: '~/plugins/ga', mode: 'client' },
+    { src: '~/plugins/vue-google-adsense', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -55,16 +56,16 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
     '@nuxtjs/onesignal',
-    '@nuxtjs/google-adsense',
+    // '@nuxtjs/google-adsense',
     '@nuxtjs/google-gtag',
   ],
 
   /**
    * Google Adsense
    */
-  'google-adsense': {
-    id: 'ca-pub-6581994114503986'
-  },
+  // 'google-adsense': {
+  //   id: 'ca-pub-6581994114503986'
+  // },
 
   /**
    * Google Tag

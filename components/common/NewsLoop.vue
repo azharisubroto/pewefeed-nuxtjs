@@ -6,6 +6,14 @@
       :key="'topview-'+article.id+'-'+i"
       @click="$router.push(article.link)"
     >
+      <v-col cols="12" v-if="i%5 == 0">
+        <!-- ADSENSE -->
+        <InFeedAdsense
+          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-client="ca-pub-6581994114503986"
+          data-ad-slot="2653891769">
+        </InFeedAdsense>
+      </v-col>
       <v-col cols="4">
         <v-img
           :src="article.image.small"

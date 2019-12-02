@@ -35,6 +35,29 @@
           :sharingDescription="dataDescription"
         />
 
+        <!-- ADSENSE -->
+
+        <!-- Ini nuxt-adsense : ini error -->
+        <!-- <adsbygoogle
+          :ad-style="{
+            display: 'blok',
+          }"
+          ad-layout-key="-fb+5w+4e-db+86"
+          ad-format="auto"
+          ad-slot="2653891769"
+          width="100%"
+          height="100%"
+        /> -->
+
+        <!-- Ini vue-adsense : ini jalan -->
+        <!-- <v-container>
+          <InFeedAdsense
+            data-ad-layout-key="-fb+5w+4e-db+86"
+            data-ad-client="ca-pub-6581994114503986"
+            data-ad-slot="2653891769">
+          </InFeedAdsense>
+        </v-container> -->
+
         <v-skeleton-loader v-if="topviews.length==0"
           class="mx-auto"
           type="list-item-avatar-three-line"
