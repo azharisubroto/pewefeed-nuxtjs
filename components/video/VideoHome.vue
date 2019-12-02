@@ -35,6 +35,16 @@
       :sharingDescription="dataDescription"
     />
 
+    <!-- ADSENSE -->
+    <v-container>
+      <InFeedAdsense
+        data-ad-layout-key="-fb+5w+4e-db+86"
+        data-ad-client="ca-pub-6581994114503986"
+        data-ad-slot="3238508831">
+      </InFeedAdsense>
+    </v-container>
+    <!-- END ADSENSE -->
+
     <v-skeleton-loader v-if="sixtybottom.length==0"
       class="mx-auto"
       type="list-item-avatar-three-line"
@@ -43,7 +53,12 @@
       <!-- TOP VIEWS -->
       <div class="">
         <v-container>
-          <NewsLoop :items="sixtybottom"/>
+          <NewsLoop
+            :items="sixtybottom"
+            ADSlayoutKey="-fb+5w+4e-db+86"
+            ADSclient="ca-pub-6581994114503986"
+            ADSslot="3238508831"
+          />
           <v-row>
             <v-col cols="12">
               <v-btn

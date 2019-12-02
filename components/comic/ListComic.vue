@@ -6,6 +6,14 @@
       :key="'topview-'+comic.id+'-'+i"
       @click="$router.push('/komik/' + comic.category.toLowerCase() + '/' + comic.link)"
     >
+      <v-col cols="12" v-if="(i%5 == 0) && (i != 0)">
+        <!-- ADSENSE -->
+        <InFeedAdsense
+          :data-ad-layout-key="ADSlayoutKey"
+          :data-ad-client="ADSclient"
+          :data-ad-slot="ADSslot">
+        </InFeedAdsense>
+      </v-col>
       <v-col cols="4">
         <v-img
           :src="comic.image"
@@ -45,7 +53,7 @@
 <script>
 export default {
   name:"ListComic",
-  props: ['items'],
+  props: ['items','ADSlayoutKey','ADSclient','ADSslot'],
   methods: {
     rate(rating) {
       return rating / 20

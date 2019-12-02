@@ -35,12 +35,21 @@
           :sharingDescription="dataDescription"
         />
 
+        <!-- ADSENSE -->
+        <v-container>
+          <InFeedAdsense
+            data-ad-layout-key="-fb+5w+4e-db+86"
+            data-ad-client="ca-pub-6581994114503986"
+            data-ad-slot="6012011839">
+          </InFeedAdsense>
+        </v-container>
+
         <v-skeleton-loader v-if="comicList.length==0"
           class="mx-auto mt-5"
           type="list-item-avatar-three-line"
         ></v-skeleton-loader>
         <div>
-          <div class="mt-5">
+          <div class="">
             <v-container>
 
               <!-- KATEGORI KOMIK -->
@@ -62,7 +71,12 @@
 
               <!-- DAFTAR KOMIK -->
               <div v-if="total > 0">
-                <ListComic :items="comicList"/>
+                <ListComic
+                  :items="comicList"
+                  ADSlayoutKey="-fb+5w+4e-db+86"
+                  ADSclient="ca-pub-6581994114503986"
+                  ADSslot="6012011839"
+                />
 
                 <!-- LOAD MORE -->
                 <v-row v-if="isMore">

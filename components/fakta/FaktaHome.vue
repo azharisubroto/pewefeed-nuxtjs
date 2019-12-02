@@ -16,6 +16,16 @@
     />
     <!-- END SHARE BUTTON -->
 
+    <!-- ADSENSE -->
+    <v-container>
+      <InFeedAdsense
+        data-ad-layout-key="-fb+5w+4e-db+86"
+        data-ad-client="ca-pub-6581994114503986"
+        data-ad-slot="7571176524">
+      </InFeedAdsense>
+    </v-container>
+    <!-- END ADSENSE -->
+
     <!-- TERBARU -->
     <v-container class="pb-0">
       <v-row>
@@ -39,7 +49,12 @@
     <v-container>
       <v-row class="minheight">
         <v-col cols="12" v-if="latests.length > 0 && !latests_is_loading">
-          <NewsLoop :items="latests"/>
+          <NewsLoop
+            :items="latests"
+            ADSlayoutKey="-fb+5w+4e-db+86"
+            ADSclient="ca-pub-6581994114503986"
+            ADSslot="7571176524"
+          />
         </v-col>
       </v-row>
     </v-container>

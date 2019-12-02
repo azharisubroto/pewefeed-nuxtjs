@@ -28,6 +28,14 @@
             :key="'topview-'+article.id+'-'+i"
             @click="$router.push('/toko/redeem/'+article.id)"
           >
+          <v-col cols="12" v-if="i%5 == 0">
+            <!-- ADSENSE -->
+            <InFeedAdsense
+              data-ad-layout-key="-fb+5w+4e-db+86"
+              data-ad-client="ca-pub-6581994114503986"
+              data-ad-slot="7916120444">
+            </InFeedAdsense>
+          </v-col>
             <v-col cols="4">
               <v-img
                 :contain="true"

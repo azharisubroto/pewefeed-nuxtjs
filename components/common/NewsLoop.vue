@@ -6,12 +6,12 @@
       :key="'topview-'+article.id+'-'+i"
       @click="$router.push(article.link)"
     >
-      <v-col cols="12" v-if="i%5 == 0">
+      <v-col cols="12" v-if="(i%5 == 0) && (i != 0)">
         <!-- ADSENSE -->
         <InFeedAdsense
-          data-ad-layout-key="-fb+5w+4e-db+86"
-          data-ad-client="ca-pub-6581994114503986"
-          data-ad-slot="2653891769">
+          :data-ad-layout-key="ADSlayoutKey"
+          :data-ad-client="ADSclient"
+          :data-ad-slot="ADSslot">
         </InFeedAdsense>
       </v-col>
       <v-col cols="4">
@@ -54,7 +54,7 @@
 <script>
 export default {
   name:"Terbaru",
-  props: ['items'],
+  props: ['items','ADSlayoutKey','ADSclient','ADSslot'],
   methods: {
     isSixty(title) {
       if( title.indexOf('SIXTY') >= 0 ) {
