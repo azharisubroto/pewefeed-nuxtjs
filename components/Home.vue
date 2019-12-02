@@ -33,6 +33,7 @@
           :sharingUrl="dataUrl"
           :sharingTitle="dataTitle"
           :sharingDescription="dataDescription"
+          class="mb-3"
         />
 
         <!-- ADSENSE -->
@@ -51,11 +52,15 @@
 
         <!-- Ini vue-adsense : ini jalan -->
         <v-container>
-          <InFeedAdsense
-            data-ad-layout-key="-fb+5w+4e-db+86"
-            data-ad-client="ca-pub-6581994114503986"
-            data-ad-slot="2653891769">
-          </InFeedAdsense>
+          <v-row no-gutters>
+            <v-col cols="12">
+              <InFeedAdsense
+                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-client="ca-pub-6581994114503986"
+                data-ad-slot="2653891769">
+              </InFeedAdsense>
+            </v-col>
+          </v-row>
         </v-container>
 
         <v-skeleton-loader v-if="topviews.length==0"
