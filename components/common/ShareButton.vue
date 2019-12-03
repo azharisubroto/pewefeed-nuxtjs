@@ -38,6 +38,7 @@
                                     :description="sharingDescription"
                                     twitter-user="playworldID"
                                     inline-template
+                                    @close="close()"
                                 >
                                     <div>
                                         <network network="facebook">
@@ -79,6 +80,13 @@ export default {
     data: () => ({
         sheet: false
     }),
+    methods: {
+        close() {
+            this.$root.$on('social_shares_close', function (network, url) {
+                console.log('close')
+            })
+        }
+    },
     mounted() {
         console.log(this.sharingUrl)
     }
