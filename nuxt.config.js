@@ -2,6 +2,12 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
+  pwa: {
+	manifest: {
+		name: 'PLAYWORLD.ID',
+		lang: 'id'
+	}
+  },
   /*
   ** Headers of the page
   */
@@ -73,7 +79,7 @@ export default {
   'google-gtag': {
     id: 'UA-75254826-3',
     config: {
-      anonymize_ip: true, // anonymize IP 
+      anonymize_ip: true, // anonymize IP
       send_page_view: true, // might be necessary to avoid duplicated page track on page reload
     },
     debug: false, // enable to track in dev mode
