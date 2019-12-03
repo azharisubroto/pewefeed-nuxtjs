@@ -205,7 +205,8 @@ export default {
                   this.topviews.push(obj)
                 });
                 this.next += 1
-                if (res.data.pagination.current_page == res.data.pagination.last_page) {
+                // console.log(res.data.meta)
+                if (res.data.meta.current_page == res.data.meta.last_page) {
                   this.isMore = false;
                 }
             } catch (error) {
