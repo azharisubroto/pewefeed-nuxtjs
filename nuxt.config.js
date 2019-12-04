@@ -4,7 +4,8 @@ export default {
   mode: 'universal',
   pwa: {
 	manifest: {
-		name: 'PLAYWORLD.ID',
+    name: 'PLAYWORLD.ID',
+    short_name: 'PLAYWORLD.ID',
 		lang: 'id'
 	}
   },
