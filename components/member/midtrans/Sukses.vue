@@ -63,8 +63,17 @@
                                             </v-col>
                                         </v-row>
                                         <v-row v-else>
+                                            <v-col cols="2">
+                                                <v-icon color="green" size="40">mdi-check-circle</v-icon>
+                                            </v-col>
+                                            <v-col cols="10">
+                                                <strong>
+                                                    Pembayaran telah kami terima, VIP telah berhasil kami masukkan ke akun anda
+                                                </strong>
+                                            </v-col>
                                             <v-col cols="12">
-
+                                                <!-- <v-btn @click="download()" depressed dark small block color="orange accent-14">DOWNLOAD INVOICE</v-btn> -->
+                                                <a :href="downloadUrl(mid.order_id)" target="blank" style="text-decoration: none" class="v-btn v-btn--block v-btn--depressed v-btn--tile theme--dark v-size--default deep-orange">DOWNLOAD INVOICE</a>
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
@@ -119,6 +128,9 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+        downloadUrl(order_id) {
+            return 'https://payment.playworld.id/midtrans/print/' + order_id
         }
 	},
 	mounted() {
