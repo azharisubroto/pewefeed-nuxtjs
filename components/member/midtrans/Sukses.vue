@@ -52,7 +52,7 @@
                                 </v-simple-table>
                                 <v-card>
                                     <v-card-text>
-                                        <v-row v-if="mid.transaction_status != 'expire'">
+                                        <v-row v-if="mid.transaction_status == 'expire'">
                                             <v-col cols="2">
                                                 <v-icon color="red" size="40">mdi-close-circle</v-icon>
                                             </v-col>
