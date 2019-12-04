@@ -5,7 +5,7 @@ export default {
   pwa: {
 	manifest: {
     name: 'PLAYWORLD.ID',
-    short_name: 'PLAYWORLD.ID',
+    short_name: 'PLAYWORLD',
 		lang: 'id'
 	}
   },
