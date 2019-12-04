@@ -94,5 +94,8 @@
 	},
 	confirmReward(params) {
 		return AuthApi().post('/member/transaction/process/confirmation', params)
+	},
+	statusTransfer() {
+		return AuthApi().get('/member/status-transfer')
 	}
 }

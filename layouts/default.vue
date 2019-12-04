@@ -473,6 +473,7 @@ export default {
 				{name: 'Data Diri', loc: '/member/pengaturan/profil'},
 				{name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
 				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
+				{name: 'Status Transfer', loc: '/member/status_transfer'},
 				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
 			],
 			profileMenu: [

@@ -15,7 +15,7 @@ export default {
   },
   mounted() {
       console.log('redirect . . .')
-      this.$router.push('/')
+      this.$router.push('/member/status_transfer')
   }
 };
 </script>
