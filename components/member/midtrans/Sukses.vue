@@ -7,6 +7,7 @@
                         <v-expansion-panel
                         v-for="(mid, i) in datamidtrans"
                         :key="i"
+                        class="mb-3"
                         >
                             <v-expansion-panel-header>
                                 <v-row no-gutters>
