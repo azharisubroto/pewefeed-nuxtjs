@@ -130,7 +130,7 @@ export default {
             }
         },
         downloadUrl(order_id) {
-            return 'https://payment.playworld.id/midtrans/print/' + order_id
+            return 'https://payment.playworld.id/api/midtrans/print/' + order_id
         }
 	},
 	mounted() {
