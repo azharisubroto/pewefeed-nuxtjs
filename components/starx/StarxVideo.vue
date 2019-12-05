@@ -4,18 +4,19 @@
         <!-- =====================================================================================
         TAB MENU
         ===================================================================================== -->
-        <v-tabs 
+        <v-tabs
             v-model="tab"
-            background-color="deep-orange accent-6"
+            background-color="grey lighten-2"
             center-active
-            dark
+            light
             grow
+			color="dark"
             class="fixed-tabs-bar"
             >
             <v-tabs-slider></v-tabs-slider>
 
             <v-tab href="#tab-1">
-                VIDEOS
+                TIMELINE
             </v-tab>
 
             <v-tab href="#tab-2">
@@ -42,27 +43,103 @@
                     value="tab-1"
                 >
                     <template v-if="video_latest">
+						<!-- <pre>{{latest}}</pre> -->
+
+						<v-alert
+						border="left"
+						dense
+						colored-border
+						type="info"
+						elevation="2"
+						>
+						STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
+						</v-alert>
+
+						<ShareButton
+							v-if="latest"
+							class="myshare"
+							:sharingUrl="dataUrl"
+							:sharingTitle="latest.description"
+							:sharingDescription="latest.description+' by '+ (latest.band ? latest.band.name : '')"
+							:sharingTime="latest.created_at"
+							:sharingImage="vidimg(latest.video)"
+						/>
+						<br>
+
+						<v-card v-if="latest">
+							<v-card-text class="caption">
+								<v-icon size="18">mdi-calendar</v-icon>
+								{{latest.created_at}}
+
+								<v-icon size="18" class="ml-2">mdi-eye</v-icon>
+								{{randomNUm()}}
+
+								<v-icon size="18" class="ml-2">mdi-message-outline</v-icon>
+								{{randomNUm()}}
+
+								<h2 class="mt-3">{{ latest.description }}</h2>
+								<div class="devider-small my-2"></div>
+								<v-row class="sm">
+									<v-col cols="1">
+										<img src="/img/musicicon.png" alt="">
+									</v-col>
+									<v-col cols="11">
+										<strong>{{ latest.band ? latest.band.name : '' }}</strong>
+										<div>{{ latest.school }}</div>
+									</v-col>
+								</v-row>
+							</v-card-text>
+							<div v-html="latest.video"></div>
+
+							<v-row class="sm px-3" align="center">
+								<v-col cols="2" class="caption">
+									{{latest.star}}/<span style="color: blue">100</span>
+								</v-col>
+								<v-col cols="5">
+									<v-progress-linear
+									:value="latest.star"
+									color="light-blue"
+									height="30"
+									reactive
+									rounded
+									></v-progress-linear>
+								</v-col>
+								<v-col cols="5">
+									<v-btn
+										class="px-4"
+										dark
+										color="deep-orange"
+									>
+										<v-icon right dark>mdi-star</v-icon>
+										Kirim Star<br>
+										(+5 Poin)
+									</v-btn>
+								</v-col>
+							</v-row>
+						</v-card>
+
                         <div v-if="latest == null" class="grey lighten-5 p-7 text-center p-8">
-                            No Video available :( 
+                            No Video available :(
                         </div>
-                        <VideoLoop
+
+                        <!-- <VideoLoop
                         v-else
                         :latest="latest"
                         :activeBtn="1"
                         :hiddendetail="true"
-                        />
+                        /> -->
                     </template>
                     <template v-if="video_finalist">
                         <v-row>
                             <v-col class="text-center" v-if="finalist == null" cols='12' md='12'>
-                                No Video available :( 
+                                No Video available :(
                             </v-col>
                             <v-col v-else cols='12' md='12'>
                                 <v-row>
                                     <v-col cols="12" md="4">
                                         <h2 class="">Pilihan Juri</h2>
                                         <div>
-                                            <VideoLoop 
+                                            <VideoLoop
                                             v-if="finalist.finalist_detail.category_choice == 'pilihan-juri'"
                                             :latest="latest"
                                             :activeBtn="2"
@@ -75,7 +152,7 @@
                                     <v-col cols="12" md="4">
                                         <h2 class="">Calon Top Star</h2>
                                         <div>
-                                            <VideoLoop 
+                                            <VideoLoop
                                             v-if="finalist.finalist_detail.category_choice == 'top-star'"
                                             :latest="latest"
                                             activeBtn="2"
@@ -90,14 +167,14 @@
                     <template v-if="video_winners">
                         <v-row>
                             <v-col class="text-center" v-if="winner == null" cols='12' md='12'>
-                                No Video available :( 
+                                No Video available :(
                             </v-col>
                             <v-col v-else cols='12' md='12'>
                                 <v-row>
                                     <v-col cols="12" md="4">
                                         <div>
                                             <h2 class=" text-capitalize">{{ propername(winner.winners_detail.winner_name) }}</h2>
-                                            <VideoLoop 
+                                            <VideoLoop
                                             :latest="latest"
                                             :activeBtn="3"
                                             :hiddendetail="true"
@@ -107,7 +184,7 @@
                                 </v-row>
                             </v-col>
                         </v-row>
-                    </template>  
+                    </template>
                     <br> <br>
                     <!-- =====================================================================================
                     BOTTOM NAVIGATION
@@ -178,7 +255,7 @@
                                                 <div class="mb-2">
                                                     <div style="font-size:16px">
                                                         <strong>{{ prize.redeem.title }}</strong>
-                                                    </div> 
+                                                    </div>
                                                 </div>
                                                 <v-icon color="orange accent-3" small class="mr-2"> mdi-star</v-icon>{{ prize.minimun_star }} | Juara ke - {{ i }}
                                             </div>
@@ -204,7 +281,7 @@
                 </v-tab-item>
             </v-container>
         </v-tabs-items>
-        
+
     </v-container>
 </template>
 
@@ -212,6 +289,7 @@
 import StarxService from '@/services/StarxService'
 import VideoLoop from '@/components/starx/VideoLoop'
 import StarxDesc from '@/components/starx/StarxDesc'
+import ShareButton from '@/components/common/ShareButton'
 export default {
     name: "StarxBandVideo",
     data(){
@@ -221,19 +299,21 @@ export default {
             wholeResponse: [],
             program: '',
             band: [],
-            tab: null,            
+            tab: null,
             aws: 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/',
             video_latest: true,
             video_finalist: false,
             video_winners: false,
             latest: [],
             finalist: [],
-            winner: [],
+			winner: [],
+			dataUrl: "https://m.playworld.id/starx/band/video/" + this.$route.params.detail
         }
     },
     components: {
         VideoLoop,
-        StarxDesc
+		StarxDesc,
+		ShareButton
     },
     methods: {
         propername(name) {
@@ -258,7 +338,30 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-        }
+		},
+		randomNUm() {
+			return Math.floor(Math.random() * 200) + 5;
+		},
+		vidimg(iframe) {
+            if( typeof iframe == 'undefined' ) {
+                return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
+            } else {
+                if( iframe.includes('iframe') ) {
+                    var url = iframe,
+                        /* eslint-disable */
+                        regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/,
+                        videoId = url.match(regExp);
+
+                    if (videoId && videoId[1].length === 11) {
+                        //console.log(videoId[1]);
+                        //return videoId[1];
+                        return 'https://img.youtube.com/vi/'+ videoId[1] +'/mqdefault.jpg';
+                    }
+                } else {
+                    return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
+                }
+            }
+        },
     },
     mounted () {
         this.StarxVideo();

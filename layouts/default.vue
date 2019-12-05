@@ -23,9 +23,20 @@
 					<v-icon> mdi-magnify</v-icon>
 				</v-btn>
 			</v-app-bar>
-			<v-tabs v-if="!$nuxt.$route.name.includes('member')" grow color="deep-orange" center-active class="pw-tab">
+			<v-tabs v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx')" grow color="deep-orange" center-active class="pw-tab">
 				<v-tab
 					v-for="menu in toolbarMenu"
+					:key="menu.loc"
+					:to="menu.loc"
+				>
+					{{menu.name}}
+				</v-tab>
+			</v-tabs>
+
+			<!-- STAR X MENU -->
+			<v-tabs v-if="$nuxt.$route.name.includes('starx') || $nuxt.$route.name.includes('kompetisi')" grow color="deep-orange" center-active class="pw-tab">
+				<v-tab
+					v-for="menu in starxMenu"
 					:key="menu.loc"
 					:to="menu.loc"
 				>
@@ -475,6 +486,11 @@ export default {
 				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
 				{name: 'Status Transfer', loc: '/member/status_transfer'},
 				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
+			],
+			starxMenu: [
+				{name: 'Kompetisi', loc: '/kompetisi'},
+				{name: 'Starx Band', loc: '/starx/band'},
+				//{name: 'Notifikasi', loc: '/member/pengaturan/notifikasi'},
 			],
 			profileMenu: [
 				{name: 'Profil Akun', loc: '/member/pengaturan/profil'},
