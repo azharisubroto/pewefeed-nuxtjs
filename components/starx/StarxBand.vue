@@ -10,23 +10,24 @@
         </v-progress-circular>
         </div>
     </v-container>
-    
+
     <v-container v-else class="grey lighten-5 pb-5" ma-0 pa-0>
         <!-- =====================================================================================
         TAB MENU
         ===================================================================================== -->
-        <v-tabs 
+        <v-tabs
             v-model="tab"
-            background-color="deep-orange accent-6"
+            background-color="grey lighten-2"
             center-active
-            dark
+            light
             grow
+			color="dark"
             class="fixed-tabs-bar"
             >
             <v-tabs-slider></v-tabs-slider>
 
             <v-tab href="#tab-1">
-                VIDEOS
+                TIMELINE
             </v-tab>
 
             <v-tab href="#tab-2">
@@ -34,13 +35,66 @@
             </v-tab>
 
             <v-tab href="#tab-3">
-                REWARDS
+                REWARDS &amp; SYARAT
             </v-tab>
 
             <v-tab href="#tab-4">
                 SYARAT
             </v-tab>
         </v-tabs>
+
+		<v-container>
+			<v-alert
+			border="left"
+			dense
+			colored-border
+			type="info"
+			elevation="2"
+			>
+			Untuk bisa masuk ke tahap semifinal, peserta harus mendapatkan minimal 100 Star
+			</v-alert>
+
+			<v-row>
+				<v-col cols="6" class="py-0">
+					<ShareButton
+					:sharingUrl="dataUrl"
+					:sharingTitle="dataTitle"
+					:sharingDescription="dataDescription"
+					class="myshare"
+					/>
+				</v-col>
+				<v-col cols="6" class="py-0">
+					<!-- FILTER -->
+					<v-menu offset-y>
+						<template v-slot:activator="{ on }">
+							<v-btn
+								v-show="!hidden"
+								color="orange accent-4"
+								dark
+								block
+								depressed
+								v-on="on"
+							>
+								<v-icon>mdi-sort</v-icon>
+								Urutkan
+							</v-btn>
+						</template>
+						<v-list>
+							<v-list-item @click="sorter = 'new'">
+								<v-list-item-title>Terbaru</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="sorter = 'hilow'">
+								<v-list-item-title>Hi to Low Stars</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="sorter = 'lowhi'">
+								<v-list-item-title>Low to Hi Stars</v-list-item-title>
+							</v-list-item>
+						</v-list>
+					</v-menu>
+					<!-- / END FILTER -->
+				</v-col>
+			</v-row>
+		</v-container>
 
         <!-- =====================================================================================
         TAB ITEMS
@@ -52,39 +106,7 @@
             <v-tab-item
                 value="tab-1"
             >
-                <!-- FILTER -->
-                <v-menu offset-y>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-show="!hidden"
-                            color="deep-orange lighten-1"
-                            dark
-                            fixed
-                            top
-                            right
-                            fab
-                            small
-                            depressed
-                            v-on="on"
-                            style="z-index:100;top:9px"
-                        >
-                            <v-icon>mdi-sort</v-icon>
-                        </v-btn>
-                    </template>
-                    <v-list>
-                        <v-list-item @click="sorter = 'new'">
-                            <v-list-item-title>Terbaru</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item @click="sorter = 'hilow'">
-                            <v-list-item-title>Hi to Low Stars</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item @click="sorter = 'lowhi'">
-                            <v-list-item-title>Low to Hi Stars</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-                <!-- / END FILTER -->
-                
+
                 <template v-if="video_latest">
                     <v-container>
                         <v-row>
@@ -95,7 +117,7 @@
                                         small
                                         fill-dot
                                     >
-                                        No Video available :( 
+                                        No Video available :(
                                     </v-timeline-item>
                                 </v-timeline>
                             </v-col>
@@ -103,9 +125,9 @@
                                 <v-overlay :value="overlay">
                                     <v-progress-circular indeterminate size="64"></v-progress-circular>
                                 </v-overlay>
-                                <VideoLoop 
+                                <VideoLoop
                                 @makeloading="setloading" @notloading="notloading"
-                                v-for="latest in filtered" 
+                                v-for="latest in filtered"
                                 :latest="latest"
                                 :key="latest.id"
                                 activeBtn="1"
@@ -131,7 +153,7 @@
                                         small
                                         fill-dot
                                     >
-                                        No Video available :( 
+                                        No Video available :(
                                     </v-timeline-item>
                                 </v-timeline>
                             </v-col>
@@ -142,10 +164,10 @@
                             <v-col cols="12" md="4">
                                 <h2 class="">Pilihan Juri</h2>
                                 <div
-                                v-for="latest in finalists" 
+                                v-for="latest in finalists"
                                 :key="'finalist-'+latest.id"
                                 >
-                                    <VideoLoop 
+                                    <VideoLoop
                                     v-if="latest.finalist_detail.category_choice == 'pilihan-juri'"
                                     :latest="latest"
                                     activeBtn="2"
@@ -157,10 +179,10 @@
                             <v-col cols="12" md="4">
                                 <h2 class="">Calon Top Star</h2>
                                 <div
-                                v-for="latest in finalists" 
+                                v-for="latest in finalists"
                                 :key="'finalist-'+latest.id"
                                 >
-                                    <VideoLoop 
+                                    <VideoLoop
                                     v-if="latest.finalist_detail.category_choice == 'top-star'"
                                     :latest="latest"
                                     activeBtn="2"
@@ -180,7 +202,7 @@
                                         small
                                         fill-dot
                                     >
-                                        No Video available :( 
+                                        No Video available :(
                                     </v-timeline-item>
                                 </v-timeline>
                             </v-col>
@@ -190,18 +212,18 @@
                         <v-row>
                             <v-col cols="12" md="4">
                                 <div
-                                v-for="latest in juara.slice(0,3)" 
+                                v-for="latest in juara.slice(0,3)"
                                 :key="'winner-'+latest.id"
                                 >
                                     <h2 class=" text-capitalize">{{ propername(latest.winners_detail.winner_name) }}</h2>
-                                    <VideoLoop 
+                                    <VideoLoop
                                     :latest="latest"
                                     activeBtn="3"
                                     />
                                 </div>
 
                                 <div
-                                v-for="latest in juara.slice(4)" 
+                                v-for="latest in juara.slice(4)"
                                 class="my-4"
                                 :key="'winner-'+latest.id"
                                 >
@@ -231,7 +253,7 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                </template>  
+                </template>
                 <br> <br>
                 <!-- =====================================================================================
                 BOTTOM NAVIGATION
@@ -297,7 +319,7 @@
                                             <div class="mb-2">
                                                 <div style="font-size:16px">
                                                     <strong>{{ prize.redeem.title }}</strong>
-                                                </div> 
+                                                </div>
                                             </div>
                                             <v-icon color="orange accent-3" small class="mr-2"> mdi-star</v-icon>{{ prize.minimun_star }} | Juara ke - {{ i }}
                                         </div>
@@ -322,7 +344,7 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
-        
+
     </v-container>
 </template>
 
@@ -332,12 +354,14 @@ import StarxService from '@/services/StarxService'
 import StarxDesc from '@/components/starx/StarxDesc'
 import VideoLoop from '@/components/starx/VideoLoop'
 import _ from 'lodash';
+import ShareButton from '@/components/common/ShareButton'
 
 export default {
     name: "StarxBand",
     components: {
         StarxDesc,
-        VideoLoop
+		VideoLoop,
+		ShareButton
     },
     data(){
         return{
@@ -358,7 +382,10 @@ export default {
             sorter: '',
             video_latest: true,
             video_finalist: false,
-            video_winners: false
+			video_winners: false,
+			dataUrl: "https://m.playworld.id/starx/band",
+            dataTitle: "STARX BAND - Playworld",
+            dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
         }
     },
     computed: {
@@ -450,9 +477,19 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
     .v-application .primary {
         background-color: #FF5722 !important;
         border-color: #FF5722 !important;
     }
+	.myshare {
+		&.mt-5{
+			margin-top: 0!important;
+		}
+		.v-btn {
+			margin: 0;
+			display: block;
+			width: 100%;
+		}
+	}
 </style>

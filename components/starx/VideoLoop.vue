@@ -1,45 +1,65 @@
 <template>
     <v-card
-        class="mx-auto my-5"
+        class="mx-auto mb-3 py-2 px-2"
         elevation="1"
     >
-        <a target="blank" :href="'https://www.youtube.com/watch?v='+youtubelink(latest.video)">
-            <v-img :src="vidimg(latest.video)"></v-img>
-        </a>
-        <v-card-title @click="$router.push( '/starx/band/video/'+latest.slug )" class="align-end fill-height text-amll"><span style="font-size:16px"><strong>{{ latest.description }}</strong></span></v-card-title>
-        <v-card-text>
-            <span>{{ latest.created_at }}</span><br>
-            <span class="text--primary">
-                <span @click="$router.push('/starx/band/detail/'+latest.band.slug)">By: <strong>{{ latest.band ? latest.band.name : '-' }}</strong></span><br>
-                <span @click="$router.push('/starx/band_school/'+latest.school_slug)">{{ latest.school }}</span><br>
-                <span><v-icon color="yellow">mdi-star</v-icon></span>
-                <span class="starr ml-2" :id="'starcount-'+latest.id"><strong style="text-align: center; vertical-align: middle;">{{ latest.star }}</strong></span>
-            </span>
-        </v-card-text>
+		<v-row no-gutters>
+			<v-col cols="3" class="pr-2">
+				<v-img :src="vidimg(latest.video)" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )">
+					<v-row class="fill-height ma-0" align="center" justify="center">
+						<v-icon
+						dark
+						size="35"
+						class="playbutton">
+							mdi-play-circle-outline
+						</v-icon>
+					</v-row>
+				</v-img>
+			</v-col>
+			<v-col cols="9">
+				<span class="caption">{{ latest.created_at }}</span>
+				<h4 @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
 
-        <v-card-actions>
-            <v-list-item class="grow">
-                <v-list-item-content>
-                    <v-btn
-                        v-if="!hiddendetail"
-                        depressed
-                        dark
-                        small
-                        color="green lighten-2"
-                        @click="$router.push( '/starx/band/video/'+latest.slug )"
-                    >
-                        Detail
-                    </v-btn>
-                </v-list-item-content>
-                <v-row
-                    align="center"
-                    justify="end"
-                >
-                    <!-- <v-icon color="grey" class="mr-1">mdi-star</v-icon> -->
-                    <v-btn @click="checkVIP(latest.id, latest.band.id)" dark small color="deep-orange mr-3">Beri Star</v-btn>
-                </v-row>
-            </v-list-item>
-        </v-card-actions>
+				<v-row class="sm">
+					<v-col cols="1" class="py-0">
+						<img src="/img/musicicon.png" alt="">
+					</v-col>
+					<v-col cols="11" class="py-0">
+						<strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
+						<div class="caption">{{ latest.school }}</div>
+					</v-col>
+				</v-row>
+			</v-col>
+		</v-row>
+
+		<div class="devider-small my-2"></div>
+
+		<v-row class="sm" align="center">
+			<v-col cols="2" class="caption py-0 pr-0">
+				{{latest.star}}/<span style="color: blue">100</span>
+			</v-col>
+			<v-col cols="5" class="py-0">
+				<v-progress-linear
+				:value="latest.star"
+				color="light-blue"
+				height="10"
+				reactive
+				rounded
+				></v-progress-linear>
+			</v-col>
+			<v-col cols="5" class="py-0">
+				<v-btn
+					@click="checkVIP(latest.id, latest.band.id)"
+					class="px-4"
+					dark
+					small
+					color="deep-orange"
+				>
+					<v-icon right dark class="mr-2">mdi-star</v-icon>
+					Kirim Star<br>
+				</v-btn>
+			</v-col>
+		</v-row>
 
         <!-- =====================================================================================
         ALERT
