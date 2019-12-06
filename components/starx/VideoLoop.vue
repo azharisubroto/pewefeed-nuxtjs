@@ -1,6 +1,6 @@
 <template>
     <v-card
-        class="mx-auto mb-3 py-2 px-2"
+        class="StarxVideoLoop mx-auto mb-3 py-2 px-2"
         elevation="1"
     >
 		<v-row no-gutters>
@@ -52,11 +52,12 @@
 					@click="checkVIP(latest.id, latest.band.id)"
 					class="px-4"
 					dark
-					small
-					color="deep-orange"
+					depressed
+					color="orange accent-4"
 				>
-					<v-icon right dark class="mr-2">mdi-star</v-icon>
+					<v-icon left dark>mdi-star</v-icon>
 					Kirim Star<br>
+					(+5 Poin)
 				</v-btn>
 			</v-col>
 		</v-row>
@@ -221,3 +222,9 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+	.StarxVideoLoop .v-btn.v-size--default {
+		font-size:12px!important;
+	}
+</style>

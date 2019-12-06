@@ -1,6 +1,6 @@
 
 <template>
-    <v-container class="grey lighten-5" ma-0 pa-0>
+    <v-container class="StarxVideo grey lighten-5" ma-0 pa-0>
         <!-- =====================================================================================
         TAB MENU
         ===================================================================================== -->
@@ -42,53 +42,64 @@
                 <v-tab-item
                     value="tab-1"
                 >
+					<v-alert
+					border="left"
+					dense
+					colored-border
+					type="info"
+					elevation="2"
+					>
+					STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
+					</v-alert>
+
+					<ShareButton
+						v-if="latest"
+						class="myshare"
+						:sharingUrl="dataUrl"
+						:sharingTitle="latest.description"
+						:sharingDescription="latest.description+' by '+ (latest.band ? latest.band.name : '')"
+						:sharingTime="latest.created_at"
+						:sharingImage="vidimg(latest.video)"
+					/>
+					<br>
+
+					<v-card>
+						<v-card-text class="caption">
+							<v-icon small size="12" class="mr-1">
+								mdi-calendar-blank
+							</v-icon>
+							{{latest.created_at}}
+
+							<v-icon small size="12" class="mr-1 ml-2">
+								mdi-eye-outline
+							</v-icon>
+							{{randomNUm()}}
+
+							<v-icon small size="12" class="mr-1 ml-2">
+								mdi-message-text-outline
+							</v-icon>
+							{{randomNUm()}}
+
+							<h2 class="mt-3">{{ latest.description }}</h2>
+							<div class="devider-small my-2"></div>
+							<v-row class="sm">
+								<v-col cols="1">
+									<img src="/img/musicicon.png" alt="">
+								</v-col>
+								<v-col cols="11">
+									<strong>{{ latest.band ? latest.band.name : '' }}</strong>
+									<div>{{ latest.school }}</div>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+
                     <template v-if="video_latest">
 						<!-- <pre>{{latest}}</pre> -->
 
-						<v-alert
-						border="left"
-						dense
-						colored-border
-						type="info"
-						elevation="2"
-						>
-						STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
-						</v-alert>
 
-						<ShareButton
-							v-if="latest"
-							class="myshare"
-							:sharingUrl="dataUrl"
-							:sharingTitle="latest.description"
-							:sharingDescription="latest.description+' by '+ (latest.band ? latest.band.name : '')"
-							:sharingTime="latest.created_at"
-							:sharingImage="vidimg(latest.video)"
-						/>
-						<br>
 
 						<v-card v-if="latest">
-							<v-card-text class="caption">
-								<v-icon size="18">mdi-calendar</v-icon>
-								{{latest.created_at}}
-
-								<v-icon size="18" class="ml-2">mdi-eye</v-icon>
-								{{randomNUm()}}
-
-								<v-icon size="18" class="ml-2">mdi-message-outline</v-icon>
-								{{randomNUm()}}
-
-								<h2 class="mt-3">{{ latest.description }}</h2>
-								<div class="devider-small my-2"></div>
-								<v-row class="sm">
-									<v-col cols="1">
-										<img src="/img/musicicon.png" alt="">
-									</v-col>
-									<v-col cols="11">
-										<strong>{{ latest.band ? latest.band.name : '' }}</strong>
-										<div>{{ latest.school }}</div>
-									</v-col>
-								</v-row>
-							</v-card-text>
 							<div v-html="latest.video"></div>
 
 							<v-row class="sm px-3" align="center">
@@ -108,9 +119,10 @@
 									<v-btn
 										class="px-4"
 										dark
-										color="deep-orange"
+										depressed
+										color="orange accent-4"
 									>
-										<v-icon right dark>mdi-star</v-icon>
+										<v-icon left dark>mdi-star</v-icon>
 										Kirim Star<br>
 										(+5 Poin)
 									</v-btn>
@@ -164,26 +176,51 @@
                             </v-col>
                         </v-row>
                     </template>
-                    <template v-if="video_winners">
-                        <v-row>
-                            <v-col class="text-center" v-if="winner == null" cols='12' md='12'>
-                                No Video available :(
-                            </v-col>
-                            <v-col v-else cols='12' md='12'>
-                                <v-row>
-                                    <v-col cols="12" md="4">
-                                        <div>
-                                            <h2 class=" text-capitalize">{{ propername(winner.winners_detail.winner_name) }}</h2>
-                                            <VideoLoop
-                                            :latest="latest"
-                                            :activeBtn="3"
-                                            :hiddendetail="true"
-                                            />
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
+                    <template v-if="komentar">
+                        <v-tabs color="deep-orange" v-model="tabCom" class="mt-4">
+							<v-tab href="#kasihkomen">Berikan Komentar</v-tab>
+							<v-tab href="#ketentuankom">Ketentuan</v-tab>
+						</v-tabs>
+
+						<v-tabs-items v-model="tabCom">
+							<v-tab-item
+							value="kasihkomen"
+							>
+								<h4 class="mb-4 mt-5">0 Comments</h4>
+
+								<!-- TEXT AREA -->
+								<v-textarea
+									outlined
+									color="deep-orange"
+									label="Komentar"
+									value=""
+									counter
+									rows="3"
+									auto-grow
+								></v-textarea>
+
+								<v-btn block dark depressed color="deep-orange">
+									Kirim Komentar
+								</v-btn>
+
+								<!-- KOMEN LIST -->
+								<!-- <CommentList :items="reverseComment"/> -->
+								<div class="mb-5"></div>
+							</v-tab-item>
+
+							<v-tab-item
+							value="ketentuankom"
+							>
+								<h4 class="mt-5 mb-3">KETENTUAN KOMENTAR </h4>
+								<ol class="mb-5 pb-5">
+									<li>Pastikan sudah login</li>
+									<li>Tulis komentar dengan minimal terdiri dari 50 kata</li>
+									<li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
+									<li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
+									<li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
+								</ol>
+							</v-tab-item>
+						</v-tabs-items>
                     </template>
                     <br> <br>
                     <!-- =====================================================================================
@@ -192,25 +229,21 @@
                     <v-bottom-navigation
                     :value="activeBtn"
                     fixed
+					dark
+					grow
+					color="white"
+					background-color="black"
                     >
                         <v-btn text color="deep-orange accent-4" @click="$router.go(-1)">
                             <span>Kembali</span>
-                            <v-icon>mdi-arrow-left</v-icon>
                         </v-btn>
 
-                        <v-btn text color="deep-orange accent-4" @click="video_latest=true;video_finalist=false;video_winners=false">
-                            <span>Auditions</span>
-                            <v-icon>mdi-history</v-icon>
+                        <v-btn text color="deep-orange accent-4" @click="video_latest=true;komentar=false;video_winners=false">
+                            <span>Details</span>
                         </v-btn>
 
-                        <v-btn text color="deep-orange accent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
-                            <span>Finalist</span>
-                            <v-icon>mdi-star</v-icon>
-                        </v-btn>
-
-                        <v-btn text color="deep-orange accent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
-                            <span>Winners</span>
-                            <v-icon>mdi-trophy</v-icon>
+                        <v-btn text color="deep-orange accent-4" @click="komentar=true;video_latest=false;video_winners=false">
+                            <span>Komentar</span>
                         </v-btn>
                     </v-bottom-navigation>
                 </v-tab-item>
@@ -294,6 +327,7 @@ export default {
     name: "StarxBandVideo",
     data(){
         return{
+			tabCom: null,
             prizes: [],
             activeBtn: 1,
             wholeResponse: [],
@@ -368,3 +402,11 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+	.StarxVideo .v-btn.v-size--default {
+		font-size:12px!important;
+
+
+	}
+</style>
