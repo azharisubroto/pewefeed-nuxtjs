@@ -31,5 +31,8 @@ export default {
     },
     getBandByPage(page) {
         return Api().get('/program/starx/band/latests?page=' + page)
-    },
+	},
+	fetchComment(slug) {
+		return Api().get('/program/starx/band/comment/' + slug)
+	}
 }
