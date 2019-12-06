@@ -6,11 +6,6 @@
         ></v-skeleton-loader>
 
         <v-container v-if="comic" class="mb-5 pb-5">
-            <!-- ADSENSE -->
-            <InArticleAdsense
-              data-ad-client="ca-pub-6581994114503986"
-              data-ad-slot="6607263426">
-            </InArticleAdsense>
             <!-- META 1 -->
             <div class="mb-1 caption">
                 <div class="d-inline-block mr-2">

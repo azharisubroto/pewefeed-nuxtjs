@@ -2,14 +2,6 @@
   <section>
     <v-container v-if="article" class="mb-5 pb-5">
       <v-row>
-        <!-- ADSENSE -->
-        <v-col cols="12">
-          <InArticleAdsense
-            data-ad-client="ca-pub-6581994114503986"
-            data-ad-slot="8074573550">
-          </InArticleAdsense>
-        </v-col>
-        
         <v-col>
           <!-- META 1 -->
           <div class="mb-1">

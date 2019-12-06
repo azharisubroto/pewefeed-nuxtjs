@@ -6,39 +6,6 @@
 		></v-skeleton-loader>
 		<v-container v-if="article" class="mb-5 pb-5">
 			<v-row>
-				<v-col cols="12">
-					<!-- ADSENSE -->
-					<InArticleAdsense
-						v-if="this.$route.params.cat == 'viral'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="3849238140">
-					</InArticleAdsense>
-					<InArticleAdsense
-						v-else-if="this.$route.params.cat == 'lagu'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="3226900544">
-					</InArticleAdsense>
-					<InArticleAdsense
-						v-else-if="this.$route.params.cat == 'nonton'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="1418994856">
-					</InArticleAdsense>
-					<InArticleAdsense
-						v-else-if="this.$route.params.cat == 'piknik'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="9644490300">
-					</InArticleAdsense>
-					<InArticleAdsense
-						v-else-if="this.$route.params.cat == 'tekno'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="1153941983">
-					</InArticleAdsense>
-					<InArticleAdsense
-						v-else-if="this.$route.params.cat == 'sport'"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="9069775233">
-					</InArticleAdsense>
-				</v-col>
 				<v-col>
 				<!-- META 1 -->
 				<div class="mb-1">
