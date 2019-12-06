@@ -261,20 +261,21 @@
                 <v-bottom-navigation
                 :value="activeBtn"
                 fixed
+				dark
+				grow
+				color="white"
+				background-color="black"
                 >
                     <v-btn text color="deep-orange accent-4" @click="video_latest=true;video_finalist=false;video_winners=false">
                         <span>Auditions</span>
-                        <v-icon>mdi-history</v-icon>
                     </v-btn>
 
                     <v-btn text color="deep-orange accent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
                         <span>Finalist</span>
-                        <v-icon>mdi-star</v-icon>
                     </v-btn>
 
                     <v-btn text color="deep-orange accent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
                         <span>Winners</span>
-                        <v-icon>mdi-trophy</v-icon>
                     </v-btn>
                 </v-bottom-navigation>
             </v-tab-item>
