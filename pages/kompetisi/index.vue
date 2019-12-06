@@ -25,7 +25,7 @@
 									outlined
 									color="green"
 									class="mt-2"
-									v-if="program.active == true"
+									v-if="program.active == 'true'"
 								>
 									Active
 								</v-btn>
