@@ -78,7 +78,7 @@
 							<v-icon small size="12" class="mr-1 ml-2">
 								mdi-message-text-outline
 							</v-icon>
-							{{randomNUm()}}
+							{{comments.length}}
 
 							<h2 class="mt-3">{{ latest.description }}</h2>
 							<div class="devider-small my-2"></div>
@@ -141,41 +141,6 @@
                         :hiddendetail="true"
                         /> -->
                     </template>
-                    <template v-if="video_finalist">
-                        <v-row>
-                            <v-col class="text-center" v-if="finalist == null" cols='12' md='12'>
-                                No Video available :(
-                            </v-col>
-                            <v-col v-else cols='12' md='12'>
-                                <v-row>
-                                    <v-col cols="12" md="4">
-                                        <h2 class="">Pilihan Juri</h2>
-                                        <div>
-                                            <VideoLoop
-                                            v-if="finalist.finalist_detail.category_choice == 'pilihan-juri'"
-                                            :latest="latest"
-                                            :activeBtn="2"
-                                            :hiddendetail="true"
-                                            />
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                                <v-row class="mt-4">
-                                    <v-col cols="12" md="4">
-                                        <h2 class="">Calon Top Star</h2>
-                                        <div>
-                                            <VideoLoop
-                                            v-if="finalist.finalist_detail.category_choice == 'top-star'"
-                                            :latest="latest"
-                                            activeBtn="2"
-                                            :hiddendetail="true"
-                                            />
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                    </template>
                     <template v-if="komentar">
                         <v-tabs color="deep-orange" v-model="tabCom" class="mt-4">
 							<v-tab href="#kasihkomen">Berikan Komentar</v-tab>
@@ -184,9 +149,9 @@
 
 						<v-tabs-items v-model="tabCom">
 							<v-tab-item
-							value="kasihkomen"
-							>
-								<h4 class="mb-4 mt-5">0 Comments</h4>
+								value="kasihkomen"
+								>
+								<h4 class="mb-4 mt-5">{{comments.length}} Comments</h4>
 
 								<!-- TEXT AREA -->
 								<v-textarea
@@ -197,14 +162,17 @@
 									counter
 									rows="3"
 									auto-grow
+									v-model="comment_message"
 								></v-textarea>
 
-								<v-btn block dark depressed color="deep-orange">
-									Kirim Komentar
+								<v-btn block dark depressed color="deep-orange" @click="postComment()">
+									<template v-if="!commentIsPosting">Kirim Komentar</template>
+									<template v-else>Mengirim Komentar...</template>
 								</v-btn>
 
 								<!-- KOMEN LIST -->
-								<!-- <CommentList :items="reverseComment"/> -->
+								<CommentList :items="reverseComment"/>
+
 								<div class="mb-5"></div>
 							</v-tab-item>
 
@@ -315,6 +283,8 @@
             </v-container>
         </v-tabs-items>
 
+		<KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
+		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
     </v-container>
 </template>
 
@@ -323,10 +293,17 @@ import StarxService from '@/services/StarxService'
 import VideoLoop from '@/components/starx/VideoLoop'
 import StarxDesc from '@/components/starx/StarxDesc'
 import ShareButton from '@/components/common/ShareButton'
+import KomentarPoin from '@/components/modal/KomentarPoin'
+import CommentList from '@/components/common/CommentList'
+import NotVip from '@/components/modal/NotVip'
+import LoginModal from '@/components/modal/LoginModal'
+import UserService from '@/services/UserService'
+
 export default {
     name: "StarxBandVideo",
     data(){
         return{
+			id: '',
 			tabCom: null,
             prizes: [],
             activeBtn: 1,
@@ -335,20 +312,38 @@ export default {
             band: [],
             tab: null,
             aws: 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/',
-            video_latest: true,
-            video_finalist: false,
-            video_winners: false,
+			video_latest: true,
+			komentar: false,
             latest: [],
             finalist: [],
 			winner: [],
-			dataUrl: "https://m.playworld.id/starx/band/video/" + this.$route.params.detail
+			dataUrl: "https://m.playworld.id/starx/band/video/" + this.$route.params.detail,
+			commentIsPosting: false,
+			comments: [],
+			comment_message: null,
+			user_id:null,
+			pleaseLoginDialogVisible: false,
+			loginModalVisible: false,
+			notVipDialogVisible: false,
+			KomentarPoinVisible: false,
         }
     },
     components: {
         VideoLoop,
 		StarxDesc,
-		ShareButton
-    },
+		ShareButton,
+		CommentList,
+		NotVip,
+		KomentarPoin,
+		LoginModal
+	},
+	computed: {
+		reverseComment: function(){
+		var commentArr = this.comments
+		var finalArr = commentArr.reverse()
+			return finalArr
+		}
+	},
     methods: {
         propername(name) {
             var propername = name.replace("-", " ")
@@ -362,7 +357,8 @@ export default {
             try {
                 const response = await StarxService.VideoDetail( this.$route.params.detail )
                 this.wholeResponse = response.data.data;
-                this.latest = this.wholeResponse.latests;
+				this.latest = this.wholeResponse.latests;
+				this.id = this.latest.id;
                 this.finalist = this.wholeResponse.finalist;
                 console.log(this.finalist)
                 this.winner = this.wholeResponse.winners;
@@ -395,10 +391,74 @@ export default {
                     return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
                 }
             }
-        },
+		},
+		async fetchUserdata() {
+			try {
+				const res = await UserService.getSingleUser()
+				this.user_id = res.data.data.id
+				this.profile = res.data.data
+				console.log(JSON.parse(JSON.stringify(res.data.data)))
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		async fetchComment() {
+			try {
+				let res = await await StarxService.fetchComment( this.$route.params.detail )
+				this.comments = res.data.data
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		async postComment() {
+			this.commentIsPosting = true;
+			const params = {
+				id: this.id,
+				msg: this.comment_message,
+				type: 'program'
+			}
+
+			try {
+				const res = await UserService.postComment(params)
+				console.log(res.data.poin)
+				this.fetchComment()
+				this.commentIsPosting = false;
+				this.comment_message = null;
+				if( res.data.poin > 0 ) {
+					this.KomentarPoinVisible = true
+				}
+			} catch (error) {
+				//console.log(error.response.status)
+				this.commentIsPosting = false;
+				if( error.response && error.response.status == 422 ) {
+					alert('Mohon tulis komentar minimal 50 karakter')
+				} else if( error.response && error.response.status == 500 ) {
+					alert('an error occured')
+				} else if( error.response && error.response.status == 401 ) {
+					//alert('Mohon Maaf :(, Anda harus login')
+					this.openModalLogin();
+				} else {
+					alert('error! ' + error.message)
+				}
+			}
+		},
+		openModalLogin() {
+			this.loginModalVisible = true
+		},
+		myDialogClose () {
+			this.dialog = false
+			this.loginModalVisible = false
+			this.buyVipDialogVisible = false
+			this.pleaseLoginDialogVisible = false
+			this.notVipDialogVisible = false
+			this.KomentarPoinVisible = false
+			// other code
+		},
     },
     mounted () {
-        this.StarxVideo();
+		this.StarxVideo();
+		this.fetchUserdata();
+		this.fetchComment();
     }
 }
 </script>
