@@ -43,7 +43,7 @@
             </v-tab>
         </v-tabs>
 
-		<v-container>
+		<v-container style="margin-top: 50px">
 			<v-alert
 			border="left"
 			dense
@@ -492,5 +492,10 @@ export default {
 			display: block;
 			width: 100%;
 		}
+	}
+    .fixed-tabs-bar {
+		position: fixed;
+		margin-top: 45px;
+		z-index: 2;
 	}
 </style>

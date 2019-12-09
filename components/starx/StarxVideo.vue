@@ -35,7 +35,7 @@
         TAB ITEMS
         ===================================================================================== -->
         <v-tabs-items v-model="tab" class="grey lighten-5 adjusted-tab-items pb-5">
-            <v-container>
+            <v-container style="margin-top: 50px">
                 <!-- oooooooooooooooooooooooooooooooooooooo
                 VIDEO
                 oooooooooooooooooooooooooooooooooooooo -->
@@ -551,7 +551,10 @@ export default {
 <style lang="scss" scoped>
 	.StarxVideo .v-btn.v-size--default {
 		font-size:12px!important;
-
-
+	}
+    .fixed-tabs-bar {
+		position: fixed;
+		margin-top: 45px;
+		z-index: 2;
 	}
 </style>
