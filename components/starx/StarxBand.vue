@@ -81,7 +81,10 @@
 						</template>
 						<v-list>
 							<v-list-item @click="sorter = 'new'">
-								<v-list-item-title>Terbaru</v-list-item-title>
+								<v-list-item-title>New to Old Post</v-list-item-title>
+							</v-list-item>
+                            <v-list-item @click="sorter = 'old'">
+								<v-list-item-title>Old to New Post</v-list-item-title>
 							</v-list-item>
 							<v-list-item @click="sorter = 'hilow'">
 								<v-list-item-title>Hi to Low Stars</v-list-item-title>
@@ -393,10 +396,12 @@ export default {
         filtered: function () {
             if( this.sorter == 'hilow' ) {
                 return _.orderBy(this.latests, 'star', 'desc')
-            } else if( this.sorter == 'hilow' ) {
+            } else if( this.sorter == 'lowhi' ) {
                 return _.orderBy(this.latests, 'star', 'asc')
-            } else {
+            } else if( this.sorter == 'new' ) {
                 return _.orderBy(this.latests, 'created_at', 'desc')
+            } else {
+                return _.orderBy(this.latests, 'created_at', 'asc')
             }
         },
         topstar: function() {
