@@ -28,7 +28,7 @@
           :value="getrating(comment.rate)"></v-rating>
 
           <div style="font-size:12px;">
-            <div v-html="comment.message"></div>
+            <div style="overflow: hidden" v-html="comment.message"></div>
           </div>
           <div class="mt-2 caption text--gray">
             <v-icon size="15">mdi-clock-outline</v-icon> {{comment.commented_at}}

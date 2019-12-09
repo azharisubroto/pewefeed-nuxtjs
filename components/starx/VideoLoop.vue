@@ -36,7 +36,7 @@
 
 		<v-row class="sm" align="center">
 			<v-col cols="2" class="caption py-0 pr-0">
-				{{latest.star}}/<span style="color: blue">100</span>
+				<span :id="'starcount-' + latest.id">{{latest.star}}</span>/<span style="color: blue">100</span>
 			</v-col>
 			<v-col cols="5" class="py-0">
 				<v-progress-linear

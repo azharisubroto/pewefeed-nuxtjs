@@ -97,14 +97,12 @@
                     <template v-if="video_latest">
 						<!-- <pre>{{latest}}</pre> -->
 
-
-
 						<v-card v-if="latest">
 							<div v-html="latest.video"></div>
 
 							<v-row class="sm px-3" align="center">
 								<v-col cols="2" class="caption">
-									{{latest.star}}/<span style="color: blue">100</span>
+									<span :id="'starcount-' + latest.id">{{latest.star}}</span>/<span style="color: blue">100</span>
 								</v-col>
 								<v-col cols="5">
 									<v-progress-linear
@@ -117,6 +115,7 @@
 								</v-col>
 								<v-col cols="5">
 									<v-btn
+                                        @click="checkVIP(latest.id, latest.band.id)"
 										class="px-4"
 										dark
 										depressed
@@ -128,6 +127,33 @@
 									</v-btn>
 								</v-col>
 							</v-row>
+
+                            <!-- =====================================================================================
+                            ALERT
+                            ===================================================================================== -->
+                            <v-snackbar
+                                v-model="snackbar"
+                                :timeout="timeout"
+                                top
+                            >
+                                <img width="30" class="mr-2" :src="snacksrc" alt="">
+                                {{ responsemessage }}
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    icon
+                                    @click="snackbar = false"
+                                >
+                                <v-icon color="white">mdi-close-circle-outline</v-icon>
+                                </v-btn>
+                            </v-snackbar>
+
+                            <!-- =====================================================================================
+                            MODAL
+                            ===================================================================================== -->
+                            <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+                            <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
+                            <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
 						</v-card>
 
                         <div v-if="latest == null" class="grey lighten-5 p-7 text-center p-8">
@@ -296,6 +322,8 @@ import ShareButton from '@/components/common/ShareButton'
 import KomentarPoin from '@/components/modal/KomentarPoin'
 import CommentList from '@/components/common/CommentList'
 import NotVip from '@/components/modal/NotVip'
+import BuyVip from '@/components/modal/BuyVip'
+import PleaseLogin from '@/components/modal/PleaseLogin'
 import LoginModal from '@/components/modal/LoginModal'
 import UserService from '@/services/UserService'
 
@@ -325,7 +353,15 @@ export default {
 			pleaseLoginDialogVisible: false,
 			loginModalVisible: false,
 			notVipDialogVisible: false,
-			KomentarPoinVisible: false,
+            KomentarPoinVisible: false,
+            buyVipDialogVisible: false,
+            is_star: 'grey',
+            userdata: [],
+            snackbar: false,
+            snacksrc : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png',
+            timeout: 3000,
+            responsemessage: '',
+            isLoggedIn: false
         }
     },
     components: {
@@ -335,7 +371,9 @@ export default {
 		CommentList,
 		NotVip,
 		KomentarPoin,
-		LoginModal
+        LoginModal,
+        BuyVip,
+        PleaseLogin,
 	},
 	computed: {
 		reverseComment: function(){
@@ -451,9 +489,56 @@ export default {
 			this.buyVipDialogVisible = false
 			this.pleaseLoginDialogVisible = false
 			this.notVipDialogVisible = false
-			this.KomentarPoinVisible = false
+            this.KomentarPoinVisible = false
 			// other code
-		},
+        },
+        async makeStar(id, bandid) {
+            this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+                const sendstar = {
+                    participant_id : id,
+                    band_id : bandid,
+                    phase : this.activeBtn
+                };
+
+                try {
+                    const res = await StarxService.makeStar(sendstar)
+                    if (res.data.status == 200) {
+                        this.snackbar = true;
+                        
+                        this.responsemessage = 'Selamat! anda mendapat extra poin 20 poin';
+                        var current = document.getElementById('starcount-'+id).textContent;
+                        var total = parseInt(current) + 1;
+                        document.getElementById('starcount-'+id).innerHTML = total;
+                    } else {
+                        this.snackbar = true;
+                        this.snacksrc = '';
+                        this.responsemessage = 'Anda sudah memberi star video ini';
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        },
+        async checkVIP(id, bandid) {
+            this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+                try {
+                    const res = await UserService.getSingleUser()
+                    // console.log(res.data.status);
+                    if (new Date(res.data.data.expire) > new Date() ) {
+                        this.makeStar(id, bandid);
+                    } else {
+                        // if not vip, show dialog
+                        this.notVipDialogVisible = true
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                this.pleaseLoginDialogVisible = true
+            }
+        }
     },
     mounted () {
 		this.StarxVideo();
