@@ -21,8 +21,19 @@
 				<h4 @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
 
 				<v-row class="sm">
-					<v-col cols="1" class="py-0">
-						<img src="/img/musicicon.png" alt="">
+					<v-col v-if="latest.band.image != ''" cols="1" class="py-0">
+                        <v-avatar
+                            size="25"
+                        >
+                            <img :src="latest.band.image" alt="alt">
+                        </v-avatar>
+					</v-col>
+                    <v-col v-else cols="1" class="py-0">
+                        <v-avatar
+                            size="25"
+                        >
+                            <img src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
+                        </v-avatar>
 					</v-col>
 					<v-col cols="11" class="py-0">
 						<strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
@@ -227,4 +238,12 @@ export default {
 	.StarxVideoLoop .v-btn.v-size--default {
 		font-size:12px!important;
 	}
+    .playbutton {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        background: rgba(0,0,0,.5);
+        border-radius: 90px;
+    }
 </style>

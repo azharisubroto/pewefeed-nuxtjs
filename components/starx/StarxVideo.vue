@@ -84,26 +84,23 @@
 
                                 <h2 class="mt-3">{{ latest.description }}</h2>
                                 <div class="devider-small my-2"></div>
-                                <v-row class="sm" v-if="bandImage != ''">
-                                    <v-col cols="3" class="pr-2">
-                                        <v-img :src="bandImage" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )"></v-img>
+                                <v-row class="sm">
+                                    <v-col cols="1" class="pr-1 mr-1">
+                                        <v-avatar
+                                            size="25"
+                                            @click="$router.push( '/starx/band/video/'+latest.slug )"
+                                        >
+                                            <img v-if="bandImage != ''" :src="bandImage" alt="alt">
+                                            <img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
+                                        </v-avatar>
                                     </v-col>
-                                    <v-col cols="9" style="margin-top: -10px">
+                                    <v-col cols="10" style="margin-top: -14px">
                                         <v-row>
                                             <v-col cols="12">
                                                 <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
                                                 <div>{{ latest.school }}</div>
                                             </v-col>
                                         </v-row>
-                                    </v-col>
-                                </v-row>
-                                <v-row v-else>
-                                    <v-col cols="1">
-                                        <img src="/img/musicicon.png" alt="">
-                                    </v-col>
-                                    <v-col cols="11">
-                                        <strong style="font-size:16px;">{{ latest.band ? latest.band.name : '' }}</strong>
-                                        <div style="font-size:14px;">{{ latest.school }}</div>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
@@ -170,6 +167,66 @@
                         /> -->
                     </template>
                     <template v-if="komentar">
+                        <v-card v-if="latest" :elevation="0" style="border: 1px solid #757575">
+                            <v-card-text class="caption">
+                                <v-icon small size="12" class="mr-1">
+                                    mdi-calendar-blank
+                                </v-icon>
+                                {{latest.created_at}}
+
+                                <v-icon small size="12" class="mr-1 ml-2">
+                                    mdi-eye-outline
+                                </v-icon>
+                                {{randomNUm()}}
+
+                                <v-icon small size="12" class="mr-1 ml-2">
+                                    mdi-message-text-outline
+                                </v-icon>
+                                {{comments.length}}
+
+                                <h2 class="mt-3">{{ latest.description }}</h2>
+                                <div class="devider-small my-2"></div>
+                                <v-row class="sm">
+                                    <v-col cols="1" class="pr-1 mr-1">
+                                        <v-avatar
+                                            size="25"
+                                            @click="$router.push( '/starx/band/video/'+latest.slug )"
+                                        >
+                                            <img v-if="bandImage != ''" :src="bandImage" alt="alt">
+                                            <img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
+                                        </v-avatar>
+                                    </v-col>
+                                    <v-col cols="10" style="margin-top: -14px">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
+                                                <div>{{ latest.school }}</div>
+                                            </v-col>
+                                        </v-row>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+
+                            <!-- =====================================================================================
+                            ALERT
+                            ===================================================================================== -->
+                            <v-snackbar
+                                v-model="snackbar"
+                                :timeout="timeout"
+                                top
+                            >
+                                <img width="30" class="mr-2" :src="snacksrc" alt="">
+                                {{ responsemessage }}
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    icon
+                                    @click="snackbar = false"
+                                >
+                                <v-icon color="white">mdi-close-circle-outline</v-icon>
+                                </v-btn>
+                            </v-snackbar>
+						</v-card>
                         <v-tabs color="deep-orange" v-model="tabCom" class="mt-4">
 							<v-tab href="#kasihkomen">Berikan Komentar</v-tab>
 							<v-tab href="#ketentuankom">Ketentuan</v-tab>
