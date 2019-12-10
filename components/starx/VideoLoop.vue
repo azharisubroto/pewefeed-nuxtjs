@@ -4,7 +4,7 @@
         elevation="1"
     >
 		<v-row no-gutters>
-			<v-col cols="3" class="pr-2">
+			<v-col cols="3" class="pr-2 mt-2">
 				<v-img :src="vidimg(latest.video)" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )">
 					<v-row class="fill-height ma-0" align="center" justify="center">
 						<v-icon
