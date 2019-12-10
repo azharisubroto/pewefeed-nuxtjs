@@ -1,6 +1,6 @@
 
 <template class="pb-5">
-    <v-container v-if="loading" class="grey lighten-5">
+    <v-container v-if="loading">
         <div class="text-xs-center" align="center">
         <v-progress-circular
             indeterminate
@@ -11,7 +11,7 @@
         </div>
     </v-container>
 
-    <v-container v-else class="grey lighten-5 pb-5" ma-0 pa-0>
+    <v-container v-else class="pb-5" ma-0 pa-0>
         <!-- =====================================================================================
         TAB MENU
         ===================================================================================== -->
@@ -49,7 +49,7 @@
 			dense
 			colored-border
 			type="info"
-			elevation="2"
+            style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 			>
 			Untuk bisa masuk ke tahap semifinal, peserta harus mendapatkan minimal 100 Star
 			</v-alert>
@@ -102,7 +102,7 @@
         <!-- =====================================================================================
         TAB ITEMS
         ===================================================================================== -->
-        <v-tabs-items v-model="tab" class="grey lighten-5 adjusted-tab-items pb-5">
+        <v-tabs-items v-model="tab" class="djusted-tab-items pb-5">
             <!-- oooooooooooooooooooooooooooooooooooooo
             VIDEO
             oooooooooooooooooooooooooooooooooooooo -->
@@ -269,15 +269,15 @@
 				color="white"
 				background-color="black"
                 >
-                    <v-btn text color="deep-orange accent-4" @click="video_latest=true;video_finalist=false;video_winners=false">
+                    <v-btn text color="orange ancent-4" @click="video_latest=true;video_finalist=false;video_winners=false">
                         <span>Auditions</span>
                     </v-btn>
 
-                    <v-btn text color="deep-orange accent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
+                    <v-btn text color="orange ancent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
                         <span>Finalist</span>
                     </v-btn>
 
-                    <v-btn text color="deep-orange accent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
+                    <v-btn text color="orange ancent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
                         <span>Winners</span>
                     </v-btn>
                 </v-bottom-navigation>

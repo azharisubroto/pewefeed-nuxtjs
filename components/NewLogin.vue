@@ -1,5 +1,5 @@
 <template>
-    <div class="grey lighten-5 container">
+    <div class="container">
         <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
         <v-row no-gutters>
             <v-col cols="12">

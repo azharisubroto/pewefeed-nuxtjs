@@ -1,6 +1,6 @@
 
 <template>
-    <v-container class="StarxVideo grey lighten-5" ma-0 pa-0>
+    <v-container class="StarxVideo" ma-0 pa-0>
         <!-- =====================================================================================
         TAB MENU
         ===================================================================================== -->
@@ -34,7 +34,7 @@
         <!-- =====================================================================================
         TAB ITEMS
         ===================================================================================== -->
-        <v-tabs-items v-model="tab" class="grey lighten-5 adjusted-tab-items pb-5">
+        <v-tabs-items v-model="tab" class="adjusted-tab-items pb-5">
             <v-container style="margin-top: 50px">
                 <!-- oooooooooooooooooooooooooooooooooooooo
                 VIDEO
@@ -44,10 +44,9 @@
                 >
 					<v-alert
 					border="left"
-					dense
 					colored-border
 					type="info"
-					elevation="2"
+                    style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 					>
 					STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
 					</v-alert>
@@ -63,41 +62,51 @@
 					/>
 					<br>
 
-					<v-card>
-						<v-card-text class="caption">
-							<v-icon small size="12" class="mr-1">
-								mdi-calendar-blank
-							</v-icon>
-							{{latest.created_at}}
-
-							<v-icon small size="12" class="mr-1 ml-2">
-								mdi-eye-outline
-							</v-icon>
-							{{randomNUm()}}
-
-							<v-icon small size="12" class="mr-1 ml-2">
-								mdi-message-text-outline
-							</v-icon>
-							{{comments.length}}
-
-							<h2 class="mt-3">{{ latest.description }}</h2>
-							<div class="devider-small my-2"></div>
-							<v-row class="sm">
-								<v-col cols="1">
-									<img src="/img/musicicon.png" alt="">
-								</v-col>
-								<v-col cols="11">
-									<strong>{{ latest.band ? latest.band.name : '' }}</strong>
-									<div>{{ latest.school }}</div>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-
                     <template v-if="video_latest">
 						<!-- <pre>{{latest}}</pre> -->
 
-						<v-card v-if="latest">
+						<v-card v-if="latest" :elevation="0" style="border: 1px solid #757575">
+                            <v-card-text class="caption">
+                                <v-icon small size="12" class="mr-1">
+                                    mdi-calendar-blank
+                                </v-icon>
+                                {{latest.created_at}}
+
+                                <v-icon small size="12" class="mr-1 ml-2">
+                                    mdi-eye-outline
+                                </v-icon>
+                                {{randomNUm()}}
+
+                                <v-icon small size="12" class="mr-1 ml-2">
+                                    mdi-message-text-outline
+                                </v-icon>
+                                {{comments.length}}
+
+                                <h2 class="mt-3">{{ latest.description }}</h2>
+                                <div class="devider-small my-2"></div>
+                                <v-row class="sm" v-if="bandImage != ''">
+                                    <v-col cols="3" class="pr-2">
+                                        <v-img :src="bandImage" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )"></v-img>
+                                    </v-col>
+                                    <v-col cols="9" style="margin-top: -10px">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
+                                                <div>{{ latest.school }}</div>
+                                            </v-col>
+                                        </v-row>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-else>
+                                    <v-col cols="1">
+                                        <img src="/img/musicicon.png" alt="">
+                                    </v-col>
+                                    <v-col cols="11">
+                                        <strong style="font-size:16px;">{{ latest.band ? latest.band.name : '' }}</strong>
+                                        <div style="font-size:14px;">{{ latest.school }}</div>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
 							<div v-html="latest.video"></div>
 
 							<v-row class="sm px-3" align="center">
@@ -108,7 +117,7 @@
 									<v-progress-linear
 									:value="latest.star"
 									color="light-blue"
-									height="30"
+									height="10"
 									reactive
 									rounded
 									></v-progress-linear>
@@ -147,16 +156,9 @@
                                 <v-icon color="white">mdi-close-circle-outline</v-icon>
                                 </v-btn>
                             </v-snackbar>
-
-                            <!-- =====================================================================================
-                            MODAL
-                            ===================================================================================== -->
-                            <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
-                            <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
-                            <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
 						</v-card>
 
-                        <div v-if="latest == null" class="grey lighten-5 p-7 text-center p-8">
+                        <div v-if="latest == null" class="p-7 text-center p-8">
                             No Video available :(
                         </div>
 
@@ -228,16 +230,16 @@
 					color="white"
 					background-color="black"
                     >
-                        <v-btn text color="deep-orange accent-4" @click="$router.go(-1)">
+                        <v-btn text color="orange ancent-4" @click="$router.go(-1)">
                             <span>Kembali</span>
                         </v-btn>
 
-                        <v-btn text color="deep-orange accent-4" @click="video_latest=true;komentar=false;video_winners=false">
+                        <v-btn text color="orange ancent-4" @click="video_latest=true;komentar=false;video_winners=false">
                             <span>Details</span>
                         </v-btn>
 
-                        <v-btn text color="deep-orange accent-4" @click="komentar=true;video_latest=false;video_winners=false">
-                            <span>Komentar</span>
+                        <v-btn text color="orange ancent-4" @click="komentar=true;video_latest=false;video_winners=false">
+                            <span>Komentar <br>(+2 Poin)</span>
                         </v-btn>
                     </v-bottom-navigation>
                 </v-tab-item>
@@ -309,6 +311,12 @@
             </v-container>
         </v-tabs-items>
 
+        <!-- =====================================================================================
+        MODAL
+        ===================================================================================== -->
+        <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+        <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
+        <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
 		<KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
     </v-container>
@@ -361,7 +369,8 @@ export default {
             snacksrc : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png',
             timeout: 3000,
             responsemessage: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            bandImage: ''
         }
     },
     components: {
@@ -395,10 +404,11 @@ export default {
             try {
                 const response = await StarxService.VideoDetail( this.$route.params.detail )
                 this.wholeResponse = response.data.data;
-				this.latest = this.wholeResponse.latests;
+                this.latest = this.wholeResponse.latests;
+                this.bandImage = this.latest.band.image
 				this.id = this.latest.id;
                 this.finalist = this.wholeResponse.finalist;
-                console.log(this.finalist)
+                console.log(this.latest)
                 this.winner = this.wholeResponse.winners;
                 this.program = this.wholeResponse.program.term;
                 this.band = this.latest.band;
@@ -449,36 +459,41 @@ export default {
 			}
 		},
 		async postComment() {
-			this.commentIsPosting = true;
-			const params = {
-				id: this.id,
-				msg: this.comment_message,
-				type: 'program'
-			}
+            this.isLoggedIn = localStorage.getItem('loggedin');
+			if( this.isLoggedIn == 'true') {
+                this.commentIsPosting = true;
+                const params = {
+                    id: this.id,
+                    msg: this.comment_message,
+                    type: 'program'
+                }
 
-			try {
-				const res = await UserService.postComment(params)
-				console.log(res.data.poin)
-				this.fetchComment()
-				this.commentIsPosting = false;
-				this.comment_message = null;
-				if( res.data.poin > 0 ) {
-					this.KomentarPoinVisible = true
-				}
-			} catch (error) {
-				//console.log(error.response.status)
-				this.commentIsPosting = false;
-				if( error.response && error.response.status == 422 ) {
-					alert('Mohon tulis komentar minimal 50 karakter')
-				} else if( error.response && error.response.status == 500 ) {
-					alert('an error occured')
-				} else if( error.response && error.response.status == 401 ) {
-					//alert('Mohon Maaf :(, Anda harus login')
-					this.openModalLogin();
-				} else {
-					alert('error! ' + error.message)
-				}
-			}
+                try {
+                    const res = await UserService.postComment(params)
+                    console.log(res.data.poin)
+                    this.fetchComment()
+                    this.commentIsPosting = false;
+                    this.comment_message = null;
+                    if( res.data.poin > 0 ) {
+                        this.KomentarPoinVisible = true
+                    }
+                } catch (error) {
+                    //console.log(error.response.status)
+                    this.commentIsPosting = false;
+                    if( error.response && error.response.status == 422 ) {
+                        alert('Mohon tulis komentar minimal 50 karakter')
+                    } else if( error.response && error.response.status == 500 ) {
+                        alert('an error occured')
+                    } else if( error.response && error.response.status == 401 ) {
+                        //alert('Mohon Maaf :(, Anda harus login')
+                        this.openModalLogin();
+                    } else {
+                        alert('error! ' + error.message)
+                    }
+                }
+            } else {
+                this.pleaseLoginDialogVisible = true
+            }
 		},
 		openModalLogin() {
 			this.loginModalVisible = true

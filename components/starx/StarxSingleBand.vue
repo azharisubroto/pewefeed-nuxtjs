@@ -32,7 +32,7 @@
         <!-- =====================================================================================
         TAB ITEMS
         ===================================================================================== -->
-        <v-tabs-items v-model="tab" class="grey lighten-5 adjusted-tab-items pb-5">
+        <v-tabs-items v-model="tab" class="adjusted-tab-items pb-5">
             <v-container>
                 <!-- oooooooooooooooooooooooooooooooooooooo
                 VIDEO
