@@ -274,7 +274,7 @@
                     </v-btn>
 
                     <v-btn text color="orange ancent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
-                        <span>Finalist</span>
+                        <span>Final</span>
                     </v-btn>
 
                     <v-btn text color="orange ancent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
@@ -430,16 +430,20 @@ export default {
             var propername = name.replace("@", "")
             return propername;
         },
-        async StarxBandHome () {
+        async StarxBandHome (code, sortype) {
+			var params = {
+				phase: code,
+				key: 'newest'
+			}
             try {
                 const response = await StarxService.getBand()
                 this.wholeResponse = response.data.data;
-                this.latests = this.wholeResponse.latests;
+                this.latests = response.data.data.latests;
                 this.prizes = this.wholeResponse.prizes;
                 this.loading = false;
                 this.length = response.data.last_page;
                 this.page = response.data.current_page;
-                // console.log(JSON.parse(JSON.stringify(this.latests)));
+                console.log(JSON.parse(JSON.stringify(this.latests)));
             } catch (error) {
                 console.log(error)
             }
@@ -480,7 +484,7 @@ export default {
         }
     },
     mounted () {
-        this.StarxBandHome();
+        this.StarxBandHome(1, 'newest');
     }
 }
 </script>
