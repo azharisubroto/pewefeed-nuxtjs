@@ -578,7 +578,7 @@ export default {
                     if (res.data.status == 200) {
                         this.snackbar = true;
                         
-                        this.responsemessage = 'Selamat! anda mendapat extra poin 20 poin';
+                        this.responsemessage = 'Selamat! anda mendapat extra poin ' + res.data.static_point + ' poin';
                         var current = document.getElementById('starcount-'+id).textContent;
                         var total = parseInt(current) + 1;
                         document.getElementById('starcount-'+id).innerHTML = total;
