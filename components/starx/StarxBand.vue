@@ -86,10 +86,10 @@
                             <v-list-item @click="filter = 'old'; StarxBandHome(1, 'oldest')">
 								<v-list-item-title>Old to New Post</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="filter = 'hilow'; StarxBandHome(1, 'hi-lo')">
+							<v-list-item @click="filter = 'hi-lo'; StarxBandHome(1, 'hi-lo')">
 								<v-list-item-title>Hi to Low Stars</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="filter = 'lowhi'; StarxBandHome(1, 'lo-hi')">
+							<v-list-item @click="filter = 'lo-hi'; StarxBandHome(1, 'lo-hi')">
 								<v-list-item-title>Low to Hi Stars</v-list-item-title>
 							</v-list-item>
 						</v-list>
@@ -130,7 +130,7 @@
                                 </v-overlay>
                                 <VideoLoop
                                 @makeloading="setloading" @notloading="notloading"
-                                v-for="latest in filtered"
+                                v-for="latest in latests"
                                 :latest="latest"
                                 :key="latest.id"
                                 activeBtn="1"
