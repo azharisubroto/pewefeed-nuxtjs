@@ -122,6 +122,7 @@ import NewsLoop from '@/components/common/NewsLoop'
 import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"HomePage",
+    props: ["items"],
     components: {
         TopViews,
         NewsLoop,

@@ -1,4 +1,5 @@
 import Api from './Api'
+// import ApiLocal from './ApiLocal'
 
 export default {
     getPromotedNews(){
@@ -46,5 +47,8 @@ export default {
     },
     searchArticleMore(keywords, page) {
       return Api().get('/article/search/' + keywords + '?page=' + page)
+    },
+    getDetailMeta(slug) {
+      return Api().get('/meta/detail/' + slug)
     }
 }
