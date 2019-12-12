@@ -80,16 +80,16 @@
 							</v-btn>
 						</template>
 						<v-list>
-							<v-list-item @click="sorter = 'new'">
+							<v-list-item @click="filter = 'new'; StarxBandHome(1, 'newest')">
 								<v-list-item-title>New to Old Post</v-list-item-title>
 							</v-list-item>
-                            <v-list-item @click="sorter = 'old'">
+                            <v-list-item @click="filter = 'old'; StarxBandHome(1, 'oldest')">
 								<v-list-item-title>Old to New Post</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="sorter = 'hilow'">
+							<v-list-item @click="filter = 'hilow'; StarxBandHome(1, 'hi-lo')">
 								<v-list-item-title>Hi to Low Stars</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="sorter = 'lowhi'">
+							<v-list-item @click="filter = 'lowhi'; StarxBandHome(1, 'lo-hi')">
 								<v-list-item-title>Low to Hi Stars</v-list-item-title>
 							</v-list-item>
 						</v-list>
@@ -138,7 +138,7 @@
                                 <div class="text-center">
                                     <v-pagination
                                     v-model="page"
-                                    :length="length"
+                                    :length="total"
                                     @input="next"
                                     ></v-pagination>
                                 </div>
@@ -274,7 +274,7 @@
                     </v-btn>
 
                     <v-btn text color="orange ancent-4" @click="video_finalist=true;video_latest=false;video_winners=false">
-                        <span>Finalist</span>
+                        <span>Final</span>
                     </v-btn>
 
                     <v-btn text color="orange ancent-4" @click="video_finalist=false;video_latest=false;video_winners=true">
@@ -369,10 +369,11 @@ export default {
     },
     data(){
         return{
-            page: 1,
+			page: 1,
+			filter: 'newest',
             overlay: false,
             timeout: 3000,
-            length: null,
+            total: null,
             activeBtn: 0,
             wholeResponse: [],
             latests: [],
@@ -430,18 +431,24 @@ export default {
             var propername = name.replace("@", "")
             return propername;
         },
-        async StarxBandHome () {
+        async StarxBandHome(code, sortype) {
+			this.loading = true
+			var params = {
+				phase: code,
+				key: sortype
+			}
             try {
-                const response = await StarxService.getBand()
+                const response = await StarxService.getBand(1, params)
                 this.wholeResponse = response.data.data;
-                this.latests = this.wholeResponse.latests;
+                this.latests = response.data.data.latests.data;
                 this.prizes = this.wholeResponse.prizes;
                 this.loading = false;
-                this.length = response.data.last_page;
-                this.page = response.data.current_page;
-                // console.log(JSON.parse(JSON.stringify(this.latests)));
+                this.total = response.data.data.latests.last_page;
+                this.page = response.data.data.latests.current_page;
+                console.log(JSON.parse(JSON.stringify(response.data)));
             } catch (error) {
-                console.log(error)
+				console.log(error)
+				this.loading = false
             }
 
             try {
@@ -461,26 +468,30 @@ export default {
                 console.log(error)
             }
         },
-        async next (page) {
+        async next(page) {
             this.setloading()
-
+			var params = {
+				phase: 1,
+				key: this.filter
+			}
             try {
-                const response = await StarxService.getBandByPage(page)
-                this.notloading()
+                const response = await StarxService.getBand(page, params)
                 this.wholeResponse = response.data.data;
-                this.latests = this.wholeResponse.latests;
+                this.latests = response.data.data.latests.data;
                 this.prizes = this.wholeResponse.prizes;
                 this.loading = false;
-                this.length = response.data.last_page;
-                this.page = response.data.current_page;
-                // console.log(JSON.parse(JSON.stringify(this.latests)));
+                this.total = response.data.data.latests.last_page;
+                this.page = response.data.data.latests.current_page;
+				console.log(JSON.parse(JSON.stringify(response.data)));
+				this.notloading()
             } catch (error) {
-                console.log(error)
+				console.log(error)
+				this.loading = false
             }
         }
     },
     mounted () {
-        this.StarxBandHome();
+        this.StarxBandHome(1, 'newest');
     }
 }
 </script>

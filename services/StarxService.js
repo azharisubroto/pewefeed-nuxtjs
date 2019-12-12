@@ -5,8 +5,8 @@ export default {
     getStarx() {
         return Api().get('/program/starx')
     },
-    getBand() {
-        return Api().get('/program/starx/band/latests')
+    getBand(page, params) {
+		return Api().post('/program/filter/band?page='+page, params)
     },
     finalist() {
         return Api().get('/program/starx/band/finalist')
