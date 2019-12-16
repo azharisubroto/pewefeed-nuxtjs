@@ -20,7 +20,7 @@
 				<span class="caption">{{ latest.created_at }}</span>
 				<h4 @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
 
-				<v-row class="sm">
+				<v-row v-if="latest.band" class="sm">
 					<v-col v-if="latest.band.image != ''" cols="2" class="py-0">
                         <v-avatar
                             size="25"
@@ -37,7 +37,7 @@
 					</v-col>
 					<v-col cols="10" class="py-0">
 						<strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
-						<div class="caption">{{ latest.school }}</div>
+						<div class="caption" v-if="latest.school">{{ latest.school }}</div>
 					</v-col>
 				</v-row>
 			</v-col>

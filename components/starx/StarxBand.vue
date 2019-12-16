@@ -31,7 +31,7 @@
             </v-tab>
 
             <v-tab href="#tab-2">
-                UPLOAD
+                JOIN
             </v-tab>
 
             <v-tab href="#tab-3">
@@ -43,7 +43,7 @@
             </v-tab>
         </v-tabs>
 
-		<v-container style="margin-top: 50px">
+		<v-container v-if="tab != 'tab-2'" style="margin-top: 10px">
 			<v-alert
 			border="left"
 			dense
@@ -289,7 +289,7 @@
             <v-tab-item
                 value="tab-2"
             >
-                <StarxDesc/>
+                <StarxUpload/>
             </v-tab-item>
 
             <!-- oooooooooooooooooooooooooooooooooooooo
@@ -356,6 +356,7 @@
 <script>
 import StarxService from '@/services/StarxService'
 import StarxDesc from '@/components/starx/StarxDesc'
+import StarxUpload from '@/components/starx/StarxUpload'
 import VideoLoop from '@/components/starx/VideoLoop'
 import _ from 'lodash';
 import ShareButton from '@/components/common/ShareButton'
@@ -364,6 +365,7 @@ export default {
     name: "StarxBand",
     components: {
         StarxDesc,
+        StarxUpload,
 		VideoLoop,
 		ShareButton
     },
@@ -510,9 +512,9 @@ export default {
 			width: 100%;
 		}
 	}
-    .fixed-tabs-bar {
-		position: fixed;
-		margin-top: 45px;
-		z-index: 2;
-	}
+    // div:not(.v-bottom-navigation) .fixed-tabs-bar {
+	// 	// position: fixed;
+	// 	// margin-top: 45px;
+	// 	// z-index: 2;
+	// }
 </style>
