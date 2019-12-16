@@ -5,13 +5,45 @@
             cols="12"
             md="4"
             >
-                <h4>PROFIL BAND</h4>
-                <p class="caption">Lengkapi data profil band kamu di bawah ini, kamu juga bisa menambahkan data personel band.</p>
+				<v-alert
+				border="left"
+				dense
+				colored-border
+				type="info"
+				>
+					Lengkapi BAND PROFILE dan MEMBER PROFILE selengkap-lengkapnya
+				</v-alert>
+
+                <h4 class="mb-4">BAND PROFILE</h4>
 
                 <v-text-field
+				outlined
                 label="Nama Band"
                 color="deep-orange"
                 v-model="bandData.name_band"
+                ></v-text-field>
+
+				<v-autocomplete
+				outlined
+				:items="schools"
+				:search-input.sync="searchInput"
+				name="namasekolah"
+				v-model="bandData.asal_sekolah"
+				hide-no-data
+				hide-selected
+				item-text="name"
+				item-value="id"
+				label="Nama Sekolah"
+				placeholder="Ketik untuk mencari..."
+				clearable
+				>
+				</v-autocomplete>
+
+				<v-text-field
+				outlined
+                label="Instagram"
+                color="deep-orange"
+                v-model="bandData.band_ig"
                 ></v-text-field>
             </v-col>
 
@@ -157,10 +189,15 @@
 <script>
 import Vue from 'vue';
 import StarxIzinService from '@/services/StarxIzinService';
+import SchoolsService from '@/services/SchoolsService';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
     name: "StarxProfile",
     data(){
         return{
+			schools: '',
+			searchInput: '',
+			namasekolah: '',
             snackbar: false,
             timeout: 5000,
             dropOptions: {
@@ -209,6 +246,8 @@ export default {
                 personil_posisi: ''
             },
             bandData: {
+				asal_sekolah: '',
+				band_ig: '',
                 name_band: '',
                 avatarband: '',
                 nama_personil: [],
@@ -219,6 +258,15 @@ export default {
         }
     },
     methods: {
+		async getSchools () {
+            try {
+                const response = await SchoolsService.getSchools()
+                //console.log(response.data.data);
+                this.schools = response.data.data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
         removeAllFiles() {
             this.$refs.dropzone.removeAllFiles();
         },
@@ -261,13 +309,16 @@ export default {
             }
         },
         async checkIzin() {
+			let vm = this
             try {
                 const response = await StarxIzinService.checkIzin()
-                // console.log(response.data.data.band.band);
+                console.log(JSON.parse(JSON.stringify(response.data.data.band.band)));
                 var band = response.data.data.band.band;
                 if( band ) {
                     vm.bandData.name_band = band.band_name
-                    vm.bandData.avatarband = band.avatar
+                    vm.bandData.band_ig = band.band_ig
+					vm.bandData.avatarband = band.avatar
+					vm.bandData.asal_sekolah = band.school
                     var band_detail = band.band_detail
                     //console.log(band_detail);
                     for(var i = 0, j = band_detail.length; i < j; ++i) {
@@ -275,7 +326,7 @@ export default {
                         vm.bandData.instagram.push(Vue.util.extend(band_detail[i].instagram));
                         vm.bandData.avatar.push(Vue.util.extend(band_detail[i].avatar));
                         vm.bandData.personil_posisi.push(Vue.util.extend(band_detail[i].position.id));
-                    }
+					}
                 }
             } catch (error) {
                 console.log(error)
@@ -284,6 +335,7 @@ export default {
     },
     mounted() {
         this.checkIzin()
+        this.getSchools()
     }
 }
 </script>

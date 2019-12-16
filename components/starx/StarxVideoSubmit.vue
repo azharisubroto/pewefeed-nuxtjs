@@ -7,16 +7,16 @@
             >
                 <h4>SUBMIT VIDEO</h4>
                 <p class="caption">BACA SYARAT &amp; KETENTUAN. SETIAP BAND BISA MENGIRIM MAKSIMAL 3 VIDEO.</p>
-                
-                <v-form 
+
+                <v-form
                 ref="form"
                 v-model="valid"
                 lazy-validation
                 >
                     <v-text-field
+						outlined
                         label="Judul Lagu"
                         color="deep-orange"
-                        prepend-inner-icon="mdi-music-note-eighth"
                         counter
                         maxlength="100"
                         v-model="formdata.description"
@@ -25,14 +25,14 @@
                     ></v-text-field>
 
                     <v-text-field
+						outlined
                         label="Youtube URL"
                         color="deep-orange"
-                        prepend-inner-icon="mdi-youtube"
                         v-model="formdata.url"
                         required
                         :rules="urlRules"
                     ></v-text-field>
-                    
+
                     <v-btn
                         :disabled="!valid"
                         color="green accent-6"
@@ -45,7 +45,7 @@
                         <span class="text--white" style="color:#fff">KIRIM VIDEO</span>
                     </v-btn>
                 </v-form>
-                
+
                 <v-snackbar
                     v-model="snackbar"
                     :timeout="timeout"
@@ -72,6 +72,14 @@
                 <hr class="my-6 grey lighten-5">
                 <h4>LIST VIDEO KAMU</h4>
                 <p class="caption">Ini adalah daftar video yang telah kamu kirim</p>
+
+				<!-- <VideoLoop
+				@makeloading="setloading" @notloading="notloading"
+				v-for="latest in orderedParticipants"
+				:latest="latest"
+				:key="latest.id"
+				activeBtn="1"
+				/> -->
 
                 <v-card
                     v-for="latest in orderedParticipants" :key="latest.id"
@@ -108,12 +116,15 @@
 
 <script>
 import StarxIzinService from '@/services/StarxIzinService';
+import VideoLoop from '@/components/starx/VideoLoop'
 import UserService from '@/services/UserService';
 import _ from 'lodash';
 
 export default {
     name: "StarxVideoSubmit",
-    components:{},
+    components:{
+		VideoLoop
+	},
     data(){
         return{
             valid: false,
@@ -133,7 +144,7 @@ export default {
             timeout: 5000,
             responsemessage: '',
             participant: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     },
     computed: {
@@ -142,6 +153,13 @@ export default {
         }
     },
     methods: {
+		/* Loader */
+        setloading () {
+            this.overlay = true
+        },
+        notloading() {
+            this.overlay = false
+        },
         vidimg(iframe) {
             if( iframe.includes('iframe') ) {
                 var url = iframe,
@@ -157,7 +175,7 @@ export default {
             } else {
                 return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
             }
-            
+
         },
         youtubelink(iframe) {
             if( iframe.includes('iframe') ) {
@@ -206,34 +224,46 @@ export default {
             }
         },
         async fetchProgram() {
+			console.log('fetchProgram')
             let vm = this
             try {
                 const response = await StarxIzinService.checkIzin()
-                // console.log(response.data.data);
-                var data = response.data.data;
-                vm.participant = data.participant;
-                localStorage.setItem('participant', JSON.stringify(data.participant));
+				//console.log(JSON.parse(JSON.stringify(response)))
+				vm.participant = response.data.data.participant
+                // participantarr.forEach(el => {
+                //     var obj = {
+				// 		id: el.id,
+                //         video: el.video,
+                //         slug: el.slug,
+                //         created_at: el.created_at,
+                //         band: el.band ? el.band : 'No data',
+				// 		school: el.band ? el.band : 'No data',
+				// 		star: el.total_like ? el.total_like : 0
+				// 	}
+				// 	vm.participant.push(obj)
+				// });
+
             } catch (error) {
                 console.log(error)
             }
         },
         async fetchUser() {
-            this.isLoggedIn = localStorage.getIt
-			if( this.isLoggedIn == 'true') {
-                try {
-                    const res = await UserService.getSingleUser()
-                    vm.formdata.customer_id = res.data.data.id
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-            var participant = JSON.parse(localStorage.getItem('participant'));
-            console.log(participant);
-            vm.participant = participant;
+			let vm = this
+			try {
+				const res = await UserService.getSingleUser()
+				vm.formdata.customer_id = res.data.data.id
+				//console.log(vm.formdata.customer_id)
+			} catch (error) {
+				console.log(error)
+			}
+            //var participant = JSON.parse(localStorage.getItem('participant'));
+            //console.log(participant);
+            //vm.participant = participant;
         }
     },
     mounted() {
-        this.fetchUser()
+		this.fetchUser();
+		this.fetchProgram();
     }
 }
 </script>
