@@ -59,7 +59,7 @@
 
 			<!-- PROFIL MENU -->
 			<v-bottom-navigation
-				v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program') &&!$nuxt.$route.name.includes('barang_yang_didapat')"
+				v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program') &&!$nuxt.$route.name.includes('barang_yang_didapat') && !$nuxt.$route.name.includes('kode-pw')"
 				fixed
 				dark
 				grow
@@ -485,6 +485,7 @@ export default {
 				{name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
 				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
 				{name: 'Status Transfer', loc: '/member/status_transfer'},
+				{name: 'Kode PW', loc: '/member/redeem/kode-pw'},
 				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
 			],
 			starxMenu: [

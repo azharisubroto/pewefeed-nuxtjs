@@ -97,5 +97,8 @@
 	},
 	statusTransfer() {
 		return AuthApi().get('/member/status-transfer')
+	},
+	getCodePW(page) {
+		return AuthApi().get('/master/voucher/kode-pw?page=' + page)
 	}
 }
