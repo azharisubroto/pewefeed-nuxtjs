@@ -65,6 +65,8 @@ export default {
     '@nuxtjs/onesignal',
     // '@nuxtjs/google-adsense',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
   ],
 
   /**
@@ -73,6 +75,30 @@ export default {
   // 'google-adsense': {
   //   id: 'ca-pub-6581994114503986'
   // },
+
+  /**
+   * Robots.txt
+   */
+  robots: {
+    UserAgent: '*',
+    Disallow: ''
+  },
+
+  /**
+   * Sitemap
+   */
+  sitemap: {
+    // custom configuration
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+      lastmodrealtime: true
+    },
+    xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    path: '/sitemap.xml',
+    hostname: 'https://m.playworld.id'
+  },
 
   /**
    * Google Tag
