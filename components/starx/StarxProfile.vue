@@ -10,63 +10,71 @@
 				dense
 				colored-border
 				type="info"
+				class="caption"
 				>
 					Lengkapi BAND PROFILE dan MEMBER PROFILE selengkap-lengkapnya
 				</v-alert>
 
-                <h4 class="mb-4">BAND PROFILE</h4>
+				<h4 class="pwhead"><span>BAND PROFILE</span></h4>
 
-                <v-text-field
-				outlined
-                label="Nama Band"
-                color="deep-orange"
-                v-model="bandData.name_band"
-                ></v-text-field>
+				<v-expansion-panels class="mb-3" focusable>
+					<v-expansion-panel
+                    >
+						<v-expansion-panel-header>
+							<v-row no-gutters>
+								<v-col cols="12">{{ bandData.name_band ? bandData.name_band : 'NONE'}}</v-col>
+							</v-row>
+						</v-expansion-panel-header>
+						<v-expansion-panel-content class="pt-3">
+							<v-text-field
+							outlined
+							label="Nama Band"
+							color="deep-orange"
+							v-model="bandData.name_band"
+							></v-text-field>
 
-				<v-autocomplete
-				outlined
-				:items="schools"
-				:search-input.sync="searchInput"
-				name="namasekolah"
-				v-model="bandData.asal_sekolah"
-				hide-no-data
-				hide-selected
-				item-text="name"
-				item-value="id"
-				label="Nama Sekolah"
-				placeholder="Ketik untuk mencari..."
-				clearable
-				>
-				</v-autocomplete>
+							<v-autocomplete
+							outlined
+							:items="schools"
+							:search-input.sync="searchInput"
+							name="namasekolah"
+							v-model="bandData.asal_sekolah"
+							hide-no-data
+							hide-selected
+							item-text="name"
+							item-value="id"
+							label="Nama Sekolah"
+							placeholder="Ketik untuk mencari..."
+							clearable
+							>
+							</v-autocomplete>
 
-				<v-text-field
-				outlined
-                label="Instagram"
-                color="deep-orange"
-                v-model="bandData.band_ig"
-                ></v-text-field>
-            </v-col>
+							<v-text-field
+							outlined
+							label="Instagram"
+							color="deep-orange"
+							v-model="bandData.band_ig"
+							></v-text-field>
 
-            <v-col
-            cols="12"
-            md=12
-            >
-                <p class="mt-0">Photo Band</p>
-                <div v-if="bandData.avatarband">
-                    <v-img :aspect-ratio="16/9" :src="bandData.avatarband"></v-img>
-                    <v-btn @click="bandData.avatarband=null" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
-                </div>
+							<p class="mt-0">Photo Band</p>
+							<div v-if="bandData.avatarband">
+								<v-img :aspect-ratio="16/9" :src="bandData.avatarband"></v-img>
+								<v-btn @click="bandData.avatarband=null" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
+							</div>
 
-                <div v-if="!bandData.avatarband">
-                    <vue-dropzone
-                    ref="dropzone"
-                    id="drop1"
-                    :options="dropOptions"
-                    @vdropzone-success="afterComplete"
-                    ></vue-dropzone>
-                    <br>
-                    <a @click="bandData.avatarband=false">Remove File</a>
-                </div>
+							<div v-if="!bandData.avatarband">
+								<vue-dropzone
+								ref="dropzone"
+								id="drop1"
+								:options="dropOptions"
+								@vdropzone-success="afterComplete"
+								></vue-dropzone>
+								<br>
+								<a @click="bandData.avatarband=false">Remove File</a>
+							</div>
+						</v-expansion-panel-content>
+					</v-expansion-panel>
+				</v-expansion-panels>
             </v-col>
 
 
@@ -75,13 +83,7 @@
             md="12"
             class="mt-3"
             >
-                <v-input
-                messages="Tambahkan data personel band kamu"
-                prepend-icon="mdi mdi-account"
-                >
-                Daftar Personil
-                </v-input>
-                <br>
+                <h4 class="pwhead"><span>Member Profile</span></h4>
                 <!-- <pre>{{$data.personels}}</pre> -->
                 <v-expansion-panels class="mb-3" focusable>
                     <v-expansion-panel
@@ -152,7 +154,7 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
 
-                <v-btn @click="addPersonel()" depressed block medium dark color="blue-grey lighten-2">Tambah Personel +</v-btn>
+                <v-btn @click="addPersonel()" depressed block x-large dark color="blue lighten-2">Tambah Data Personel</v-btn>
                 <!-- <pre>{{$data.bandData}}</pre> -->
                 <v-divider class="my-2"></v-divider>
                 <v-btn
