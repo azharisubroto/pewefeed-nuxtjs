@@ -485,7 +485,7 @@ export default {
 				{name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
 				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
 				{name: 'Status Transfer', loc: '/member/status_transfer'},
-				{name: 'Kode PW', loc: '/member/redeem/kode-pw'},
+				{name: 'Kode PW', loc: '/member/kode-pw'},
 				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
 			],
 			starxMenu: [
