@@ -871,7 +871,7 @@ export default {
 				content:"";
 				width: 2000px;
 				height: 1px;
-				background: #d1d1d1;
+				background: #111;
 				position: absolute;
 				right: 0;
 				left: 100%;

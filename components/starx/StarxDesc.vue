@@ -52,9 +52,9 @@
                     <hr class="my-3 my-md-2">
                     <v-btn
                         @click="$router.push( '/member/program/starx' )"
-                        block 
-                        large 
-                        depressed 
+                        block
+                        large
+                        depressed
                         dark
                         class="orange accent-4"
                         id="upload-text"

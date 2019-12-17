@@ -39,11 +39,11 @@
             </v-tab>
 
             <v-tab href="#tab-4">
-                SYARAT
+                INFO
             </v-tab>
         </v-tabs>
 
-		<v-container v-if="tab != 'tab-2'" style="margin-top: 10px">
+		<v-container v-if="tab != 'tab-2' && tab != 'tab-4'" style="margin-top: 10px">
 			<v-alert
 			border="left"
 			dense
@@ -333,6 +333,43 @@
                         </v-card-actions>
                     </v-carousel-item>
                 </v-carousel>
+
+				<v-container>
+					<h4 class="pwhead"><span>PENJURIAN &amp; PEMENANG</span></h4>
+					<v-card class="mb-4">
+						<v-card-text>
+							STAGE: AUDITION
+							<br>
+							<ul>
+								<li>Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+								<li>Lengkapi data band dan personilnya agar voters mudah</li>
+							</ul>
+						</v-card-text>
+					</v-card>
+
+					<h4 class="pwhead"><span>SYARAT DAN KETENTUAN PESERTA</span></h4>
+					<v-card class="mb-4">
+						<v-card-text>
+							<p class="caption">Syarat utama untuk bisa menjadi finalis atau menerima hadiah harus memiliki minimal 100 STAR dan terpampang stiker audisi yang sudah di print pada Video</p>
+							<p class="caption">(&gt;=30 BAND) Total Hadiah tetap 20 Juta Rupiah dan dipilih 10 Finalis jika jumlah peserta audisi online lebih atau sama dengan 30 Band</p>
+							<p class="caption">(&gt; 10 dan 30 BAND) Total Hadiah menjadi 10 Juta Rupiah dan dipilih 5 Finalis jika jumlah peserta audisi online kurang dari 30 Band</p>
+							<p class="caption">(&lt;=10 BAND) Total Hadiah berkurang menjadi hanya 15% jika jumlah peserta audisi online kurang atau sama dengan 10 peserta, maka masing-masing Band akan menerima hadiah senilai Rp. 300.000</p>
+						</v-card-text>
+					</v-card>
+
+					<h4 class="pwhead"><span>SYARAT DAN KETENTUAN VOTER</span></h4>
+					<v-card class="mb-5">
+						<v-card-text>
+							STAGE: AUDITION
+							<br>
+							<ul>
+								<li>Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+								<li>Lengkapi data band dan personilnya agar voters mudah</li>
+							</ul>
+						</v-card-text>
+					</v-card>
+
+				</v-container>
             </v-tab-item>
 
             <!-- oooooooooooooooooooooooooooooooooooooo
@@ -341,11 +378,264 @@
             <v-tab-item
                 value="tab-4"
             >
-                <v-card flat>
-                <v-card-text>
-                    <div v-html="wholeResponse.program.term"></div>
-                </v-card-text>
-                </v-card>
+				<v-tabs-items v-model="syartab">
+					<v-tab-item
+						v-for="item in tabItems"
+						:key="item"
+					>
+						<template v-if="item == 'STARX by REGINA PACIS'">
+							<v-img src="/img/starxbanner.png"></v-img>
+							<v-container>
+								<h4 class="pwhead"><span>PENDAHULUAN</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										TUJUAN
+										<br>
+
+										<p>Acara “STAR X” ini dilaksanakan dengan tujuan sebagai berikut:</p>
+
+										<ul>
+											<li>Meningkatkan minat dan bakat siswa dalam bidang olahraga dan seni.</li>
+											<li>Mengembangkan rasa persatuan, persahabatan, dan kerja sama antar siswa SMA Regina Pacis dengan siswa sekolah se-Jabodetabek.</li>
+											<li>Merealisasikan semboyan Regina Pacis yaitu “Ad veritatem Per caritatem”, yang memiliki arti mencapai kebenaran melalui cinta kasih yang terwujudkan dalam persaudaraan antar sekolah melalui bidang olahraga dan seni.</li>
+											<li>Mempromosikan SMA Regina Pacis sebagai sekolah yang bukan hanya berprestasi dalam bidang akademis, namun juga dalam bidang non- akademis seperti olahraga dan seni.</li>
+										</ul>
+									</v-card-text>
+								</v-card>
+
+								<h4 class="pwhead"><span>TENTANG STARX</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										<p class="caption">“STAR X” merupakan acara pengembangan bakat olahraga dan seni yang akan dilaksanakan di SMA Regina Pacis Jakarta. Acara ini sudah berlangsung lama dan pada tahun ini sudah menjadi acara STAR ke-10. Acara ini diadakan setiap dua tahun sekali dan terus berkembang seiring waktu. Acara STAR pertama dimulai pada tahun 2001 dengan nama STAR yang merupakan singkatan dari Sport at Recis. Tujuan berlangsungnya acara ini untuk memperkenalkan nama Regina Pacis, meningkatkan prestasi siswa dalam bidang non akademis, serta menjalin hubungan persahabatan antar sekolah. Berdasarkan kesuksesan STAR pertama maka STAR diadakan kembali pada tahun 2003 dan 2005.</p>
+										<p class="caption">Pada tahun 2007, STAR ditambah dengan lomba di bidang kesenian, sehingga nama STAR memiliki arti menjadi Sport and Art at Recis dengan tema “Playful Carnaval”. Pada tahun 2009, diadakan STAR dengan tema “Pantai”, dan lahir maskot STAR berbentuk bintang berwarna kuning, yaitu Twinky. Selanjutnya, pada tahun 2011, STAR yang bernama STARWARS, menjadi salah satu STAR terbesar yang pernah diselenggarakan. Kemudian pada tahun 2013, STAR kembali diadakan dengan nama STARLIGHT. Pada tahun 2015, kembali diadakan STAR dengan nama STARGAZE. Terakhir, pada tahun 2017, STAR dilaksanakan dengan nama STARDUST, yang merupakan kesuksesan STAR lainnya. Melihat antusiasme dari warga SMA Regina Pacis Jakarta, dan mengikuti jejak kesuksesan alumni dalam mengadakan STAR, maka OSIS SMA Regina Pacis Jakarta kembali mengadakan STAR dengan nama “STAR X”, yang berarti STAR ke-10. Dengan dasar yang sama, acara STAR X merupakan kegiatan para X-Crews (panitia), didukung oleh sponsor, peserta dan pengunjung. Adanya kegiatan STAR X diharapkan dapat menjadi sarana pengembang bagi peserta untuk menyalurkan bakat dan minat sekaligus menunjukkan kualitas diri serta relasi yang baik antar peserta.</p>
+										<p class="caption">STAR X menggabungkan lomba-lomba di bidang seni, olahraga, serta e- sports. Mulai dari majalah dinding, fotografi, modern dance, band, basket, futsal, voli, bahkan PUBG dan Mobile Legends. Kedua permainan e-sports tersebutlah yang membedakan STAR X dengan kegiatan STAR sebelumnya. Dengan tingginya antusiasme siswa sekolah secara umum terhadap game PUBG dan Mobile Legends, maka X-Crew memutuskan untuk mengadakan lomba e-sports PUBG dan Mobile Legends. Berdasarkan hal tersebut, diharapkan kegiatan STAR X dapat menarik banyak peserta, sehingga acara STAR X menjadi acara yang diminati siswa.</p>
+										<p class="caption">STAR X diharapkan mampu menjadi tempat penyaluran semangat dan bakat siswa SMA, SMP, dan masyarakat umum se-Jabodetabek, agar dapat berkembang di bidang non akademis. Kegiatan ini juga diharapkan mampu membangun semangat kerja sama antar panitia dan peserta agar tercipta kompetisi yang sehat. Oleh karena itu, STAR X juga dapat membuat siswa bersosialisasi dan berkembang, serta menjalin hubungan yang erat antar sekolah, yang tentunya akan sangat berguna bagi kehidupan mereka kelak.</p>
+									</v-card-text>
+								</v-card>
+
+								<h4 class="pwhead"><span>TUJUAN VISI DAN MISI</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										<p>Acara “STAR X” ini dilaksanakan dengan tujuan sebagai berikut:</p>
+
+										<ul>
+											<li>Meningkatkan minat dan bakat siswa dalam bidang olahraga dan seni.</li>
+											<li>Mengembangkan rasa persatuan, persahabatan, dan kerja sama antar siswa SMA Regina Pacis dengan siswa sekolah se-Jabodetabek.</li>
+											<li>Merealisasikan semboyan Regina Pacis yaitu “Ad veritatem Per caritatem”, yang memiliki arti mencapai kebenaran melalui cinta kasih yang terwujudkan dalam persaudaraan antar sekolah melalui bidang olahraga dan seni.</li>
+											<li>Mempromosikan SMA Regina Pacis sebagai sekolah yang bukan hanya berprestasi dalam bidang akademis, namun juga dalam bidang non- akademis seperti olahraga dan seni.</li>
+										</ul>
+									</v-card-text>
+								</v-card>
+
+								<h4 class="pwhead"><span>FILOSOFI</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										STAGE: AUDITION
+										<br>
+										<p class="caption">STAR X adalah acara yang diadakan oleh SMA Regina Pacis yang ke-10. Kepanjangan dari STAR adalah Sport and Art at Recis, yaitu acara yang menjadikan olahraga dan seni sebagai perhelatan antar sekolah. Nama STAR X diambil berdasarkan angka 10 dalam kalender romawi, yang menunjukkan bahwa ini adalah STAR yang diadakan untuk kesepuluh kalinya setelah STAR 2001, STAR 2003, STAR 2005, STAR 2007, STAR 2009, STARWARS, STARLIGHT, STARGAZE, dan terakhir STARDUST.</p>
+										<p class="caption">Slogan “An Arcade in a Decade” menunjukkan bahwa STAR X adalah suatu permainan yang ditujukan untuk suatu sportivitas, solidaritas, bukan hanya kemenangan belaka. Selain itu, acara yang akan diselenggarakan ke-10 kalinya ini diharapkan menjadi ajang permainan yang menyenangkan, dapat mempererat tali persaudaraan, dan membawa pengaruh positif kepada banyak pihak. Pelaksana dari kegiatan ini adalah beberapa siswa SMA Regina Pacis Jakarta yang mendaftar sebagai panitia. Dalam hal ini panitia disebut sebagai X Crew. Tugas dari X Crew yaitu bertanggung jawab terhadap jalannya kegiatan STAR X dan menjadi pelayan yang baik atas acara yang diselenggarakan.</p>
+										<p class="caption">Puncak acara STAR X adalah Concordia. Concordia berasal dari Bahasa Latin yang memiliki arti unity atau kesatuan. Concordia bertujuan untuk mempersatukan seluruh peserta yang telah berpartisipasi dalam STAR X. Selama tujuh hari para peserta dari berbagai sekolah akan bersaing bersama untuk membawa nama baik sekolah masing-masing. Acara ini juga dapat menjalin relasi sehingga meningkatkan rasa persaudaraan. Rasa persaudaraan ini diharapkan mampu menjaga kesatuan antar partisipan.</p>
+									</v-card-text>
+								</v-card>
+
+								<h4 class="pwhead"><span>PANITIA</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Pelindung</strong> : Sr. Linda Mulyati, FMM</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Penanggungjawab</strong> : Tarcicius Suhirman, S.Pd., MM.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Ketua Umum : Prima Abim, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Indra Jaya Salim (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Sekretaris</strong> : Wina Carlina Ginting, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Caecilia Surantilah</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Celine Budhi Santoso (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Gabriella Angelia (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Bendahara</strong> : Irene Danica Arlyn Saputri, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Luciana Wiwik Susiati</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Gabriella Monica (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">Antonius Filbert (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Ketua Divisi I</strong> : Veronica Srisupeni, S. Pd.
+										<br style="box-sizing: inherit;">Steffany Chrisanta (XI IPS 2)
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Ketua Divisi II</strong> : Agustinus Totowijayadi S.Pd., M.M. Michael Gery Wicaksono (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Ketua Divisi III&nbsp;</strong>: Thomas Wahyu, S.Pd.
+										<br style="box-sizing: inherit;">Christopher William Aryono (XI IPS 2)
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 17.5px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Ketua Divisi IV</strong> : Margareta Erika Ismayanti, S.Pd.
+										<br style="box-sizing: inherit;">Steven (XI IPA 2)
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><span style="box-sizing: inherit; font-size: 20px;"><em style="box-sizing: inherit;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Divisi I</strong></em></span></p>
+										<blockquote style="box-sizing: inherit; padding: 10px 20px; margin: 0px 0px 20px; font-size: 17.5px; border-left: 5px solid rgb(235, 237, 239); color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">1. Dana&nbsp;</strong>: Veronica Srisupeni, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Theresa Winona Wijaya (XI IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Madilyn Louisa (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">2. Ticketing&nbsp;</strong>: Lesty Anna Donda, S.Pd.
+											<br style="box-sizing: inherit;">Samarasanti (XI IPS 2) Albertus Ferdinand (X IPA 1)
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">3. Sekretariat&nbsp;</strong>: Margaretha Nureni, S.Pd.
+											<br style="box-sizing: inherit;">Delicia Karen Gunawan (XI IPA 1) Rachel Angelique Pramono (X IPA 1)
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">4. Konsumsi&nbsp;</strong>: Theresia Lies Setyowati, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Timothy Gracie Hasudungan W. (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px;">Darren Owen Cornelius (X IPS)</p>
+										</blockquote>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><span style="box-sizing: inherit; font-size: 20px;"><em style="box-sizing: inherit;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Divisi II</strong></em></span></p>
+										<blockquote style="box-sizing: inherit; padding: 10px 20px; margin: 0px 0px 20px; font-size: 17.5px; border-left: 5px solid rgb(235, 237, 239); color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">1. Perkap</strong> : Billy Amacora S., S.Pd.
+											<br style="box-sizing: inherit;">Pardianto
+										</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Usmah</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Supriyanto</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Arnoldus Telu</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Mario Lukman (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Imanuel Randy (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">2. P3K</strong> : Maria Satriya R.T.C.B., S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Agustinus Totowijayadi S.Pd., M.M</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Nathasya Immanuella Putri Oni (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Callystha Josephine Gunawan (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">3. Keamanan</strong> : Andrias Purwanto, S.Pd., MM.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Alapinus Siang, S.Pd., MM.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Thimoti Wijaya (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Vinsensius Ivank Sebastian (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">4. Kebersihan</strong> : Drs. Heri Purnomo</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Elvin Dalisaputra (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px;">Derian Ardenichson (X IPA 1)</p>
+										</blockquote>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><span style="box-sizing: inherit; font-size: 20px;"><em style="box-sizing: inherit;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Divisi III</strong></em></span></p>
+										<blockquote style="box-sizing: inherit; padding: 10px 20px; margin: 0px 0px 20px; font-size: 17.5px; border-left: 5px solid rgb(235, 237, 239); color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Cabang Olahraga</strong> : Thomas Wahyu, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">1. Basket</strong> : Kennen Josef (XI IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Melissa Gunawan (X IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">2. Futsal</strong> : Cornelius Rosavino Dwiputranto (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Yosua Wijaya (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">3. Voli</strong> : Isabela Elrica (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Reagen Purnama (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Cabang Non Olahraga : Dolorosa Sembiring, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">1. Modern Dance</strong> : Dolorosa Sembiring, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Dewi Ayunning Tyas, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Priscilla Frisca Halim (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Faustina Tiur Angelique (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">2. Band</strong> : Dolorosa Sembiring, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Dewi Ayunning Tyas, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Christian Halim (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Eugenia Pramesti Simabrata (X IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">3. Mobile Legend</strong> : Agung Dwi Prakoso, S.Kom.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Steven Justin (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Owen Huang (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">4. Wall Magazine</strong> : Petrus Harsono, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Drs. Suroto Lusia Ely Rahmawati, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Richard Harris (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Frederica Hananda Setya Tirtasari (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">5. Fotografi</strong> : Agung Dwi Prakoso, S.Kom.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Dearista (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Angelina Christi Agung Nirmala (X IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">6. PUBG Mobile</strong> : Agung Dwi Prakoso, S.Kom.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Regina Quinn (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px;">Fernando Hosea (X IPA 2)</p>
+										</blockquote>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px; color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;"><span style="box-sizing: inherit; font-size: 20px;"><em style="box-sizing: inherit;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">Divisi IV</strong></em></span></p>
+										<blockquote style="box-sizing: inherit; padding: 10px 20px; margin: 0px 0px 20px; font-size: 17.5px; border-left: 5px solid rgb(235, 237, 239); color: rgb(0, 0, 0); font-family: ProximaNovaRegular, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(240, 240, 240); text-decoration-style: initial; text-decoration-color: initial;">
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">1. Humas</strong> : Bernadette Evy Anggraeny Dhewi, S.Si.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Jesline Amarya Putri Delima (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Vincent Revo Veodore (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">2. Publikasi</strong> : Petrus Harsono, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Yosep Kristian Adi Karen Audriel (XI IPS 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Bonifasius Mika Nirmolo (XI IPS 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">3. Dokum</strong> : Petrus Harsono, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Yosep Kristian Adi Indigo Rama Kalpataru (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Vindy Cordellia Massie (X IPS)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">4. Dekor</strong> : Dra. Rini Makinto</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Sri Parwati, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Syamsudin Grace Elkitov Pantan (XI IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Crescenzia Cinzia Chearasevi (X IPA 2)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;"><strong style="box-sizing: inherit; font-weight: bold; font-family: ProximaNovaSemibold, sans-serif;">5. Acara</strong> : M. Erika Ismayanti, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Aloysia Astri Cerellia, S.Pd.</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px 0px 18px;">Aurelia Prue (XI IPA 1)</p>
+										<p class="caption my-2" style="box-sizing: inherit; margin: 0px;">Naura Safinatunnajah (X IPS)</p>
+										</blockquote>
+									</v-card-text>
+								</v-card>
+
+								<h4 class="pwhead"><span>HUBUNGI STARX</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										<p class="my-2 caption">Sarana pendukung harus diserahkan ke pihak SMA Regina Pacis Jakarta yang terletak di:</p>
+										<p class="my-2 caption">Jalan Palmerah Utara I no. 1</p>
+										<p class="my-2 caption">Jakarta Barat 11480</p>
+										<p class="my-2 caption">Telepon : (021) 548-1662</p>
+										<p class="my-2 caption">Fax : (021) 548-2746</p>
+										<p class="my-2 caption">Contact Person : Veronica Srisupeni, S. Pd. (089634519820)</p>
+									</v-card-text>
+								</v-card>
+							</v-container>
+						</template>
+
+						<template v-if="item == 'Final Show'">
+							<v-img src="/img/flyer.png"></v-img>
+							<v-container>
+								<h4 class="pwhead"><span>FINAL SHOW</span></h4>
+								<v-card class="mb-5">
+									<v-card-text>
+										STAGE: AUDITION
+										<br>
+										<ul>
+											<li>Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+											<li>Lengkapi data band dan personilnya agar voters mudah</li>
+										</ul>
+									</v-card-text>
+								</v-card>
+							</v-container>
+						</template>
+
+						<template v-if="item == 'Other Competition'">
+							<div v-for="(eskul, i) in eskuls" :key="eskul.id">
+								<v-card
+									class="mx-auto my-5 px-3"
+									max-width="344"
+									outlined
+									:key="eskul.id"
+									v-if="i > 0"
+								>
+										<v-row>
+											<v-col cols="2">
+												<v-list-item-avatar
+													tile
+													size="45"
+													color="white"
+												>
+												<img
+													:src="icon"
+													:alt="eskul.eskul.name"
+												>
+												</v-list-item-avatar>
+											</v-col>
+											<v-col cols="10">
+												<v-list-item-content>
+													<v-list-item-title class="mb-1">{{ eskul.eskul.name }}</v-list-item-title>
+													<v-list-item-subtitle>Peserta: {{ eskul.participant }}</v-list-item-subtitle>
+												</v-list-item-content>
+											</v-col>
+										</v-row>
+								</v-card>
+							</div>
+						</template>
+					</v-tab-item>
+				</v-tabs-items>
+
+				<v-bottom-navigation
+				fixed
+				dark
+				grow
+				color="white"
+				background-color="black"
+				v-model="syartab"
+				>
+					<v-btn
+					v-for="item in tabItems"
+					:key="item"
+					>
+						<span>{{item}}</span>
+					</v-btn>
+				</v-bottom-navigation>
             </v-tab-item>
         </v-tabs-items>
 
@@ -354,13 +644,14 @@
 
 <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="VT-client-6SCMz_XPOiSANWuc"></script>
 <script>
+const $img = 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/program/starx.png';
+
 import StarxService from '@/services/StarxService'
 import StarxDesc from '@/components/starx/StarxDesc'
 import StarxUpload from '@/components/starx/StarxUpload'
 import VideoLoop from '@/components/starx/VideoLoop'
 import _ from 'lodash';
 import ShareButton from '@/components/common/ShareButton'
-
 export default {
     name: "StarxBand",
     components: {
@@ -393,7 +684,11 @@ export default {
 			dataUrl: "https://m.playworld.id/starx/band",
             dataTitle: "STARX BAND - Playworld",
             // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
-            dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
+			dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
+			syartab: 0,
+			tabItems: ['STARX by REGINA PACIS', 'Final Show', 'Other Competition'],
+			eskuls: [],
+            icon: $img
         }
     },
     computed: {
@@ -490,10 +785,21 @@ export default {
 				console.log(error)
 				this.loading = false
             }
+		},
+		async StarxHome () {
+            try {
+                const response = await StarxService.getStarx()
+                const results = response.data.data
+                this.eskuls = results.eskuls
+                // console.log(JSON.parse(JSON.stringify(this.eskuls)))
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted () {
-        this.StarxBandHome(1, 'newest');
+		this.StarxBandHome(1, 'newest');
+		this.StarxHome()
     }
 }
 </script>
