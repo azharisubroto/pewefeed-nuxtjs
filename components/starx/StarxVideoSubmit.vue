@@ -5,8 +5,7 @@
                 cols="12"
                 md="12"
             >
-                <h4>SUBMIT VIDEO</h4>
-                <p class="caption">BACA SYARAT &amp; KETENTUAN. SETIAP BAND BISA MENGIRIM MAKSIMAL 3 VIDEO.</p>
+                <h4 class="pwhead"><span>VIDEO UPLOAD</span></h4>
 
                 <v-form
                 ref="form"
@@ -70,8 +69,7 @@
                 md="3"
             >
                 <hr class="my-6 grey lighten-5">
-                <h4>LIST VIDEO KAMU</h4>
-                <p class="caption">Ini adalah daftar video yang telah kamu kirim</p>
+                <h4 class="pwhead"><span>STAGE: AUDITION</span></h4>
 
 				<!-- <VideoLoop
 				@makeloading="setloading" @notloading="notloading"
@@ -83,31 +81,41 @@
 
                 <v-card
                     v-for="latest in orderedParticipants" :key="latest.id"
-                    class="mx-auto my-5"
+                    class="mx-auto my-5 py-0"
                     outlined
                 >
-                    <a target="blank" :href="'https://www.youtube.com/watch?v='+youtubelink(latest.video)">
-                        <v-img :src="vidimg(latest.video)" ></v-img>
-                    </a>
-                    <v-card-title @click="$router.push( '/starx/band/video/'+latest.slug )" class="align-end fill-height">
-                        {{ latest.description }}
-                    </v-card-title>
-
-
-                    <v-card-text>
-                        <span>{{ latest.updated_at }}</span>
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn
-                            depressed
-                            dark
-                            color="green accent-5"
-                            @click="$router.push( '/starx/band/video/'+latest.slug )"
-                        >
-                            Lihat Detail
-                        </v-btn>
-                    </v-card-actions>
+					<v-row>
+						<v-col cols="4" class="py-0">
+							<a target="blank" :href="'https://www.youtube.com/watch?v='+youtubelink(latest.video)">
+								<v-img :src="vidimg(latest.video)" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )">
+									<v-row class="fill-height ma-0" align="center" justify="center">
+										<v-icon
+										dark
+										size="35"
+										class="playbutton">
+											mdi-play-circle-outline
+										</v-icon>
+									</v-row>
+								</v-img>
+							</a>
+						</v-col>
+						<v-col cols="8" class="py-3">
+							<div @click="$router.push( '/starx/band/video/'+latest.slug )">
+								<span class="caption">{{ latest.updated_at }}</span>
+								<div></div>
+								<strong>{{ latest.description }}</strong>
+							</div>
+							<v-btn
+								depressed
+								dark
+								small
+								color="green accent-5"
+								@click="$router.push( '/starx/band/video/'+latest.slug )"
+							>
+								Lihat Detail
+							</v-btn>
+						</v-col>
+					</v-row>
                 </v-card>
             </v-col>
         </v-row>

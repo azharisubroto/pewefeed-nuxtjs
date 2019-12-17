@@ -858,4 +858,29 @@ export default {
 	.v-autocomplete__content {
 		z-index: 9999!important;
 	}
+	.pwhead {
+		position:relative;
+		z-index: 0;
+		margin-bottom: 20px;
+		overflow: hidden;
+		span {
+			line-height: 1;
+			display: inline-block;
+			padding: 0 10px 0 0;
+			position:relative;
+			&:before {
+				content:"";
+				width: 2000px;
+				height: 1px;
+				background: #d1d1d1;
+				position: absolute;
+				right: 0;
+				left: 100%;
+				top: 0;
+				bottom: 0;
+				margin: auto 0;
+				z-index: -1;
+			}
+		}
+	}
 </style>
