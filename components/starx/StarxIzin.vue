@@ -1,6 +1,6 @@
 <template>
     <section>
-        <v-container class="grey lighten-5" v-if="izinexists">
+        <v-container v-if="izinexists">
             <!-- <pre>{{ $data }}</pre> -->
             <v-row>
                 <v-col cols="12" md="12">
@@ -20,7 +20,7 @@
                         <v-card-actions>
                             <v-btn
                                 small
-                                depressed 
+                                depressed
                                 dark
                                 color="deep-orange accent-2"
                                 @click="izinexists=false"
@@ -32,7 +32,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-form class="grey lighten-5" v-else id="izin-form" v-on:submit.prevent="onSubmit">
+        <v-form v-else id="izin-form" v-on:submit.prevent="onSubmit">
             <v-container>
                 <v-row>
                     <v-col
@@ -157,7 +157,7 @@ export default {
                 accept: function(file, done) {
                     switch (file.type) {
                     case 'application/pdf':
-                        this.emit("thumbnail", file, pdficon);            
+                        this.emit("thumbnail", file, pdficon);
                         break;
                     }
                     //file.previewTemplate.querySelector(".dz-image img").style.width="120px";
@@ -186,7 +186,7 @@ export default {
             // console.log(response.link.replace(' ', '-'));
             this.pdfdownload = encodeURI(response.link);
         },
-        async submitform () { 
+        async submitform () {
             let vm = this
             vm.loading = true // loading
             var formdata = {
