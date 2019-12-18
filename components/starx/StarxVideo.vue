@@ -12,6 +12,7 @@
             grow
 			color="dark"
             class="fixed-tabs-bar"
+			style="display:none"
             >
             <v-tabs-slider></v-tabs-slider>
 
@@ -20,7 +21,7 @@
             </v-tab>
 
             <v-tab href="#tab-2">
-                UPLOAD
+                JOIN
             </v-tab>
 
             <v-tab href="#tab-3">
@@ -35,7 +36,7 @@
         TAB ITEMS
         ===================================================================================== -->
         <v-tabs-items v-model="tab" class="adjusted-tab-items pb-5">
-            <v-container style="margin-top: 50px">
+            <v-container>
                 <!-- oooooooooooooooooooooooooooooooooooooo
                 VIDEO
                 oooooooooooooooooooooooooooooooooooooo -->
@@ -85,7 +86,7 @@
                                 <h2 class="mt-3">{{ latest.description }}</h2>
                                 <div class="devider-small my-2"></div>
                                 <v-row class="sm">
-                                    <v-col cols="1" class="pr-1 mr-1">
+                                    <v-col cols="1" class="pr-1 mr-1 pb-0">
                                         <v-avatar
                                             size="25"
                                             @click="$router.push( '/starx/band/video/'+latest.slug )"
@@ -94,17 +95,17 @@
                                             <img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
                                         </v-avatar>
                                     </v-col>
-                                    <v-col cols="10" style="margin-top: -14px">
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
-                                                <div>{{ latest.school }}</div>
-                                            </v-col>
-                                        </v-row>
+                                    <v-col cols="10" class="pb-0" style="margin-top: -14px">
+                                        <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
+                                        <div>{{ latest.school }}</div>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
-							<div v-html="latest.video"></div>
+
+							<div v-if="latest.video && latest.video.includes('iframe')" v-html="latest.video"></div>
+							<div v-else>
+								<div v-html="renderVideo(latest.video)"></div>
+							</div>
 
 							<v-row class="sm px-3" align="center">
 								<v-col cols="2" class="caption">
@@ -552,6 +553,9 @@ export default {
                 this.pleaseLoginDialogVisible = true
             }
 		},
+		renderVideo(code){
+			return '<iframe height="180" src="https://www.youtube.com/embed/'+code+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:180px" allowfullscreen></iframe>';
+		},
 		openModalLogin() {
 			this.loginModalVisible = true
 		},
@@ -577,7 +581,7 @@ export default {
                     const res = await StarxService.makeStar(sendstar)
                     if (res.data.status == 200) {
                         this.snackbar = true;
-                        
+
                         this.responsemessage = 'Selamat! anda mendapat extra poin ' + res.data.static_point + ' poin';
                         var current = document.getElementById('starcount-'+id).textContent;
                         var total = parseInt(current) + 1;

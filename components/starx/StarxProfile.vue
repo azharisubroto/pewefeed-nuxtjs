@@ -27,14 +27,14 @@
 						</v-expansion-panel-header>
 						<v-expansion-panel-content class="pt-3">
 							<v-text-field
-							outlined
+							solo
 							label="Nama Band"
 							color="deep-orange"
 							v-model="bandData.name_band"
 							></v-text-field>
 
 							<v-autocomplete
-							outlined
+							solo
 							:items="schools"
 							:search-input.sync="searchInput"
 							name="namasekolah"
@@ -50,7 +50,7 @@
 							</v-autocomplete>
 
 							<v-text-field
-							outlined
+							solo
 							label="Instagram"
 							color="deep-orange"
 							v-model="bandData.band_ig"
@@ -75,15 +75,27 @@
 						</v-expansion-panel-content>
 					</v-expansion-panel>
 				</v-expansion-panels>
+
+				<v-btn
+                    color="deep-orange accent-6"
+                    dark
+                	large
+                    block
+                    depressed
+                    class="mb-5"
+                    @click="saveForm()"
+                >
+                    SAVE BAND PROFILE
+                </v-btn>
             </v-col>
 
 
             <v-col
             cols="12"
             md="12"
-            class="mt-3"
+            class="mt-0"
             >
-                <h4 class="pwhead"><span>Member Profile</span></h4>
+                <h4 class="pwhead text-uppercase"><span>Member Profile</span></h4>
                 <!-- <pre>{{$data.personels}}</pre> -->
                 <v-expansion-panels class="mb-3" focusable>
                     <v-expansion-panel
@@ -92,12 +104,13 @@
                     >
                     <v-expansion-panel-header>
                         <v-row no-gutters>
-                            <v-col cols="4">{{ bandData.nama_personil[i] }}</v-col>
-                            <v-col cols="8 text--secondary">@{{ bandData.instagram[i] }}</v-col>
+                            <v-col cols="4">{{ bandData.nama_personil[i] ? bandData.nama_personil[i] : 'NONE' }}</v-col>
+                            <v-col cols="8 text--secondary">@{{ bandData.instagram[i] ? bandData.instagram[i] : 'NONE' }}</v-col>
                         </v-row>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content class="pt-3">
                         <v-text-field
+						solo
                         label="Nama"
                         placeholder="Nama Personel"
                         name="bandData.nama_personil[i]"
@@ -106,6 +119,7 @@
                         ></v-text-field>
 
                         <v-text-field
+						solo
                         label="Instagram"
                         placeholder="Tanpa '@'"
                         name="bandData.instagram[i]"
@@ -114,6 +128,7 @@
                         ></v-text-field>
 
                         <v-select
+						solo
                         :items="positions"
                         label="Position"
                         item-text="name"
@@ -121,7 +136,6 @@
                         name="bandData.personil_posisi[i]"
                         color="deep-orange"
                         v-model="bandData.personil_posisi[i]"
-                        solo
                         ></v-select>
 
                         <div v-if="bandData.avatar[i]">
@@ -154,19 +168,19 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
 
-                <v-btn @click="addPersonel()" depressed block x-large dark color="blue lighten-2">Tambah Data Personel</v-btn>
+                <v-btn @click="addPersonel()" depressed block large dark color="blue lighten-2">Add Personel</v-btn>
                 <!-- <pre>{{$data.bandData}}</pre> -->
                 <v-divider class="my-2"></v-divider>
                 <v-btn
-                    color="green accent-6"
+                    color="deep-orange accent-6"
                     dark
-                    x-large
+                    large
                     block
                     depressed
                     class="mb-12"
                     @click="saveForm()"
                 >
-                    SAVE DATA BAND
+                    SAVE BAND PROFILE
                 </v-btn>
             </v-col>
         </v-container>
@@ -341,3 +355,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+	.v-btn {
+		letter-spacing: 0!important;
+	}
+</style>

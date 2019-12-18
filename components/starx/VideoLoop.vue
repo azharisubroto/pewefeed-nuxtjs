@@ -43,9 +43,9 @@
 			</v-col>
 		</v-row>
 
-		<div class="devider-small my-2"></div>
+		<div v-if="action!='nope'" class="devider-small my-2"></div>
 
-		<v-row class="sm" align="center">
+		<v-row v-if="action!='nope'" class="sm" align="center">
 			<v-col cols="2" class="caption py-0 pr-0">
 				<span :id="'starcount-' + latest.id">{{latest.star}}</span>/<span style="color: blue">100</span>
 			</v-col>
@@ -120,7 +120,8 @@ export default {
         "latest",
         "filtering",
         "activeBtn",
-        "hiddendetail",
+		"hiddendetail",
+		"action"
     ],
     components: {
         BuyVip,
