@@ -1,6 +1,6 @@
 <template>
     <v-form id="profile-form" v-on:submit.prevent="onSubmit">
-        <v-container class="grey lighten-5">
+        <v-container>
             <v-col
             cols="12"
             md="4"
@@ -10,7 +10,7 @@
 				dense
 				colored-border
 				type="info"
-				class="caption"
+				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 				>
 					Lengkapi BAND PROFILE dan MEMBER PROFILE selengkap-lengkapnya
 				</v-alert>
