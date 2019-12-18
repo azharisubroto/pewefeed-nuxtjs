@@ -22,17 +22,13 @@
 		<template v-if="upload">
 			<v-container>
 				<v-alert
-				outlined
-				type="info"
-				prominent
 				border="left"
-				:icon="false"
+				dense
+				colored-border
+				type="info"
+				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 				>
-					<ul style="font-size:12px">
-						<li>Maksimal 3 video terpublish untuk tahapan audisi</li>
-						<li>Jumlah STAR pada STAGE: AUDITION akan ditransfer ke STAGE: FINAL</li>
-						<li>Video pada STAGE: FINAL adalah video yang sama pada STAGE: AUDITION jika jumlah STAR terpenuhi</li>
-					</ul>
+					Maksimal 3 video terpublish untuk tahapan audisi
 				</v-alert>
 			</v-container>
 			<StarxVideoSubmit/>
