@@ -22,7 +22,8 @@ export const getters = {
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      item: {}
+      item: {},
+      meta: {}
     },
     mutations: {
       SET_USER(state, item) {
@@ -30,6 +31,9 @@ const createStore = () => {
       },
       SET_ITEM(state, item) {
         state.item = item
+      },
+      SET_META(state, meta) {
+        state.meta = meta
       },
       SET_HOST(state, host) {
         state.host = host

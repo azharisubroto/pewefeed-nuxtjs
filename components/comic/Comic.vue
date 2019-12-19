@@ -120,15 +120,10 @@ import ListComic from '@/components/comic/ListComic'
 import ShareButton from '@/components/common/ShareButton'
 export default {
     name:"Comic",
-    props:["respon"],
+    props:["respon", "title", "description"],
     components: {
         ListComic,
         ShareButton
-    },
-    head() {
-      return {
-        title: 'Bikin Kamu Ketawa Adalah Tujuan Kami'
-      }
     },
     data() {
         return {
@@ -148,8 +143,8 @@ export default {
               wrapAround: true
             },
             dataUrl: "https://m.playworld.id/komik",
-            dataTitle: "Baca Komiknya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
-            dataDescription: "Bikin kamu ketawa adalah tujuan kami",
+            dataTitle: this.title,
+            dataDescription: this.description,
         }
     },
     methods: {
