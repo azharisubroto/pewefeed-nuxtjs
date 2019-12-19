@@ -21,7 +21,7 @@
               :lazy-src="lazy"
               max-width="40"
               max-height="40"
-            >  
+            >
             </v-img>
           </v-toolbar-title>
 
@@ -32,7 +32,7 @@
           </v-toolbar-items>
         </v-toolbar>
 
-        <v-row
+        <!-- <v-row
           align="center"
           justify="center"
         >
@@ -43,23 +43,33 @@
           justify="center"
         >
           <p class="title mt-4">ANDA BUKAN ANGGOTA VIP</p>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-          class="mx-4"
-        >
-          <div>
-            <v-btn
+        </v-row> -->
+
+		<v-container>
+			<v-alert
+			border="left"
+			dense
+			colored-border
+			type="info"
+			style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+			>
+			Fitur ini diperuntukkan hanya untuk user dengan keanggotaan VIP yang masih aktif.
+			<br>
+			<br>
+			Untuk mengaktifkan keanggotaan VIP anda, tekan tombol di bawah ini
+			</v-alert>
+
+			<v-btn
               @click="buyVip()"
               dark
+			  block
+			  large
               color="deep-orange"
               class="text-capitalize"
             >
-              Beli Keanggotan VIP
+              Perpanjang Keanggotaan VIP
             </v-btn>
-          </div>
-        </v-row>
+		</v-container>
       </v-card>
     </v-dialog>
 
