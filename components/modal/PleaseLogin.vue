@@ -21,7 +21,7 @@
               :lazy-src="lazy"
               max-width="40"
               max-height="40"
-            >  
+            >
             </v-img>
           </v-toolbar-title>
 
@@ -32,40 +32,31 @@
           </v-toolbar-items>
         </v-toolbar>
 
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-icon color="black" class="display-3" style="margin-top: 60px">mdi-information-outline</v-icon>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <p class="title mt-4">ANDA BELUM LOGIN</p>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-          class="mx-4"
-        >
-          <p class="subtitle-1 text-center">Silahkan klik tombol LOGIN dibawah ini untuk bisa mengikuti program ini</p>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-          class="mx-4"
-        >
-          <div>
-            <v-btn
-              @click="login()"
-              dark
-              color="deep-orange"
-            >
-              Login
-            </v-btn>
-          </div>
-        </v-row>
+		<v-container>
+			<v-alert
+			border="left"
+			dense
+			colored-border
+			type="info"
+			style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+			>
+			Untuk dapat menggunakan fitur ini, anda diharuskan untuk Login atau Registrasi terlebih dahulu.
+			<br>
+			<br>
+			Klik tombol di bawah ini untuk melanjutkan
+			</v-alert>
+
+			<v-btn
+				@click="login()"
+				dark
+				block
+				large
+				color="deep-orange"
+				class="text-capitalize"
+			>
+				Login / Registrasi
+			</v-btn>
+		</v-container>
       </v-card>
     </v-dialog>
     <LoginModal :dialogVisible="loginDialogVisible" @close="myDialogClose"/>

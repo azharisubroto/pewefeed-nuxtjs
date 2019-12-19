@@ -883,4 +883,8 @@ export default {
 			}
 		}
 	}
+	.v-dialog__content .v-dialog > .v-card:not(.v-sheet--tile):not(.v-card--shaped){
+		border-radius:0!important;
+		margin: 0!important
+	}
 </style>
