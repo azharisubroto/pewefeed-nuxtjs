@@ -1,232 +1,257 @@
 <template>
   <v-row justify="center">
-	<v-dialog
-	  v-model="intDialogVisible"
-	  fullscreen
-	  hide-overlay
-	  transition="dialog-bottom-transition"
-	>
-	  <v-card>
-		<!-- Header -->
-		<v-toolbar light color="white">
-		  <!-- Arrow -->
-		  <v-btn
-			v-if="e1 == 1 || e1 == 8"
-			icon
-			tile
-			style="border-right: 1px solid #e1e1e1"
-			light
-			@click="intDialogVisible = false"
-		  >
-			<v-icon>mdi-close</v-icon>
-		  </v-btn>
+    <v-dialog
+      v-model="intDialogVisible"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <!-- Header -->
+        <v-toolbar light color="white">
+          <!-- Arrow -->
+          <v-btn
+            v-if="e1 == 1 || e1 == 8"
+            icon
+            tile
+            style="border-right: 1px solid #e1e1e1"
+            light
+            @click="intDialogVisible = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
 
-		  <v-btn
-			v-if="e1 > 1 && e1 < 8"
-			icon
-			tile
-			style="border-right: 1px solid #e1e1e1"
-			light
-			@click="prev()"
-		  >
-			<v-icon>mdi-arrow-left</v-icon>
-		  </v-btn>
+          <v-btn
+            v-if="e1 > 1 && e1 < 8"
+            icon
+            tile
+            style="border-right: 1px solid #e1e1e1"
+            light
+            @click="prev()"
+          >
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
 
-		  <!-- Logo -->
-		  <v-toolbar-title>
-			<v-img :src="logo" :lazy-src="lazy" max-width="40" max-height="40"></v-img>
-		  </v-toolbar-title>
+          <!-- Logo -->
+          <v-toolbar-title>
+            <v-img :src="logo" :lazy-src="lazy" max-width="40" max-height="40"></v-img>
+          </v-toolbar-title>
 
-		  <!-- Title -->
-		  <div class="flex-grow-1"></div>
-		  <v-toolbar-items>
-			<v-btn light text>Payment Option</v-btn>
-		  </v-toolbar-items>
-		</v-toolbar>
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn light text>Payment Option</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
 
-		<!-- Step -->
-		<v-stepper v-model="e1" style="background: transparent;">
-		  <v-stepper-header style="display: none !important">
-			<v-stepper-step :complete="e1 > 1" step="1"></v-stepper-step>
+        <!-- Step -->
+        <v-stepper v-model="e1">
+          <v-stepper-header style="display: none !important">
+            <v-stepper-step :complete="e1 > 1" step="1"></v-stepper-step>
 
-			<v-divider></v-divider>
+            <v-divider></v-divider>
 
-			<v-stepper-step :complete="e1 > 2" step="2"></v-stepper-step>
+            <v-stepper-step :complete="e1 > 2" step="2"></v-stepper-step>
 
-			<v-divider></v-divider>
+            <v-divider></v-divider>
 
-			<v-stepper-step step="3"></v-stepper-step>
-		  </v-stepper-header>
+            <v-stepper-step step="3"></v-stepper-step>
+          </v-stepper-header>
 
-		  <v-stepper-items>
-			<!-- Step 1 -->
-			<v-stepper-content step="1" class="px-0">
-			  <v-container>
-				<v-card class="mx-auto">
-				  <v-card-title class="subtitle-1">Dengan Pulsa</v-card-title>
-				  <v-divider></v-divider>
-				  <v-row>
-					<v-col class="text-center col-md-12">
-					  <v-btn @click="e1 = 2" color="green" width="300" class="white--text">XL & Axis</v-btn>
-					</v-col>
-					<v-col class="text-center col-md-12 mb-3">
-					  <v-btn @click="e1 = 3" color="green" width="300" class="white--text">Indosat</v-btn>
-					</v-col>
-				  </v-row>
-				</v-card>
+          <v-stepper-items>
+            <!-- Step 1 -->
+            <v-stepper-content step="1" class="px-0">
+              <v-container>
+                <v-card class="mx-auto">
+                  <v-card-title class="subtitle-1">Dengan Pulsa</v-card-title>
+                  <v-divider></v-divider>
 
-				<!-- Content -->
-				<v-card class="mx-auto mt-4 mb-2">
-				  <v-card-title class="subtitle-1">Tanpa Pulsa</v-card-title>
-				  <v-divider></v-divider>
-				  <v-row>
-					<v-col class="text-center col-md-12">
-					  <v-btn
-						@click="e1 = 5"
-						color="green"
-						width="300"
-						class="white--text"
-					  >Transfer ke Bank BCA</v-btn>
-					</v-col>
-				  </v-row>
-				</v-card>
-			  </v-container>
-			</v-stepper-content>
-			<!-- END OF STEP 1 -->
-
-			<!-- Step 2 XL -->
-			<v-stepper-content step="2" class="mb-3 px-0">
-			  <v-container>
-				<v-card class="mx-auto mb-3">
-				  <v-card-title class="subtitle-1">XL & Axis Berlangganan</v-card-title>
-				  <v-divider></v-divider>
-				  <v-card-text>
-					<v-btn
-					  @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')"
-					  block
-					  color="success"
-					  dark
-					>Beli</v-btn>
-				  </v-card-text>
-				</v-card>
-				<v-card class="mx-auto mb-3">
-				  <v-card-title class="subtitle-1">XL & Axis non Berlangganan</v-card-title>
-				  <v-divider></v-divider>
-				  <div
-					@click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
-					v-for="vip in vipItems"
-					:key="vip.id"
-				  >
-					<v-row>
-					  <v-col cols="9">
-						<v-row>
-						  <v-col cols="3">
-							<img class="ml-2" width="50" :src="vip.image" :alt="vip.label" />
+				  <div class="px-4 py-1" @click="e1 = 2">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/xl.png" width="40" alt="">
 						  </v-col>
-						  <v-col cols="9">
-							<strong>{{ vip.label }}</strong>
-							<br />
-							<strong>{{ vip.price }}</strong>
+						  <v-col cols="8" class="py-0">
+							  XL & AXIS
 						  </v-col>
-						</v-row>
-					  </v-col>
-					  <v-col cols="3" class="mt-4">
-						<v-btn
-						  icon
-						  tile
-						  light
-						  @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
-						>
-						  <v-icon>mdi-arrow-right</v-icon>
-						</v-btn>
-					  </v-col>
-					</v-row>
-					<v-divider></v-divider>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
+					  </v-row>
+				  </div><v-divider></v-divider>
+				  <div class="pa-4" @click="e1 = 3">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/indosat.png" width="40" alt="">
+						  </v-col>
+						  <v-col cols="8" class="py-0">
+							  Indosat
+						  </v-col>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
+					  </v-row>
 				  </div>
-				</v-card>
-			  </v-container>
-			</v-stepper-content>
-			<!-- END OF STEP 2 : XL -->
+                </v-card>
 
-			<!-- Step 3 : Indosat -->
-			<v-stepper-content step="3" class="px-0">
-			  <v-container>
-				<v-card class="mx-auto">
-				  <v-card-title color="grey" class="subtitle-2">INDOSAT</v-card-title>
-				  <v-divider></v-divider>
-				  <v-row
-					@click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
-				  >
-					<v-col cols="2" class="ml-2 mr-3 mt-3">
-					  <img width="60" :src="indosatviplogo" alt />
-					</v-col>
-					<v-col cols="9" class="mr-2">
-					  <v-row>
-						<v-col cols="1" class="mt-1 mr-1">
-						  <v-icon color="green">mdi-check-circle</v-icon>
-						</v-col>
-						<v-col cols="10">
-						  <p class="heding">
-							Setiap SMS akan dikenakan Rp.2200
-							<br />(incl. PPN 10%).
-						  </p>
-						</v-col>
+                <!-- Content -->
+                <v-card class="mx-auto mt-4 mb-2">
+                  <v-card-title class="subtitle-1">Tanpa Pulsa</v-card-title>
+                  <v-divider></v-divider>
+				  <div class="px-4 py-3" @click="e1 = 5">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/bca.png" class="pt-2" width="40" alt="">
+						  </v-col>
+						  <v-col cols="8" class="py-0">
+							  BCA
+						  </v-col>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
 					  </v-row>
-					  <v-row style="margin-top: -30px">
-						<v-col cols="1" class="mt-1 mr-1">
-						  <v-icon color="green">mdi-check-circle</v-icon>
-						</v-col>
-						<v-col cols="10">
-						  <p class="heding">Dikirimkan 1 SMS per 3 hari selama 120 hari.</p>
-						</v-col>
-					  </v-row>
-					  <v-row style="margin-top: -30px">
-						<v-col cols="1" class="mt-1 mr-1">
-						  <v-icon color="green">mdi-check-circle</v-icon>
-						</v-col>
-						<v-col cols="10">
-						  <p class="heding">3 Hari keanggotaan VIP per SMS.</p>
-						</v-col>
-					  </v-row>
-					  <v-row style="margin-top: -30px">
-						<v-col cols="12">
-						  <v-btn
-							@click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
-							style="width: 100%"
-							tile
-							dark
-							color="deep-orange"
-						  >Beli</v-btn>
-						</v-col>
-					  </v-row>
-					</v-col>
-				  </v-row>
-				</v-card>
-			  </v-container>
-			</v-stepper-content>
-			<!-- END OF STEP 3 : Indosat -->
+				  </div>
+                </v-card>
+              </v-container>
+            </v-stepper-content>
+            <!-- END OF STEP 1 -->
 
-			<!-- Step 4 : Order Detail -->
-			<v-stepper-content step="4" class="px-0">
-			  <v-container>
-				<v-row style="margin-top: -10px">
-				  <v-col cols="12">
-					<v-card class="mx-auto mb-2 grey lighten-3">
-					  <v-container>
-						<v-row>
-						  <v-col cols="4" style="margin-top: -10px;">
-							<strong>Amount</strong>
-						  </v-col>
-						  <v-col cols="8" class="text-right">
-							<strong class="headline deep-orange--text">{{itemprice}}</strong>
-						  </v-col>
-						</v-row>
-					  </v-container>
-					</v-card>
-				  </v-col>
-				  <v-col cols="12" style="margin-top: -20px;">
-					<v-card>
-					  <v-tabs grow v-model="tab" background-color="#eee" color="deep-orange">
+            <!-- Step 2 XL -->
+            <v-stepper-content step="2" class="mb-3 px-0">
+              <v-container>
+                <v-card class="mx-auto mb-3">
+                  <v-card-title class="subtitle-1"><img src="/img/xl.png" width="30" class="mr-2" alt="">  XL & Axis Berlangganan</v-card-title>
+                  <v-divider></v-divider>
+                  <v-card-text>
+                    <v-btn
+                      @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')"
+                      block
+                      color="success"
+                      dark
+                    >Beli</v-btn>
+                  </v-card-text>
+                </v-card>
+                <v-card class="mx-auto mb-3">
+                  <v-card-title class="subtitle-1">XL & Axis non Berlangganan</v-card-title>
+                  <v-divider></v-divider>
+                  <div
+                    @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                    v-for="vip in vipItems"
+                    :key="vip.id"
+                  >
+                    <v-row>
+                      <v-col cols="9">
+                        <v-row>
+                          <v-col cols="3">
+                            <img class="ml-2" width="50" :src="vip.image" :alt="vip.label" />
+                          </v-col>
+                          <v-col cols="9">
+                            <strong>{{ vip.label }}</strong>
+                            <br />
+                            <strong>{{ vip.price }}</strong>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="3" class="mt-4">
+                        <v-btn
+                          icon
+                          tile
+                          light
+                          @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                        >
+                          <v-icon>mdi-arrow-right</v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                  </div>
+                </v-card>
+              </v-container>
+            </v-stepper-content>
+            <!-- END OF STEP 2 : XL -->
+
+            <!-- Step 3 : Indosat -->
+            <v-stepper-content step="3" class="px-0">
+              <v-container>
+                <v-card class="mx-auto">
+                  <v-card-title color="grey" class="subtitle-2"><img src="/img/indosat.png" width="30" class="mr-2" alt=""> INDOSAT</v-card-title>
+                  <v-divider></v-divider>
+                  <v-row
+                    @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
+                  >
+                    <v-col cols="2" class="ml-2 mr-3 mt-3">
+                      <img width="60" :src="indosatviplogo" alt />
+                    </v-col>
+                    <v-col cols="9" class="mr-2">
+                      <v-row>
+                        <v-col cols="1" class="mt-1 mr-1">
+                          <v-icon color="green">mdi-check-circle</v-icon>
+                        </v-col>
+                        <v-col cols="10">
+                          <p class="heding">
+                            Setiap SMS akan dikenakan Rp.2200
+                            <br />(incl. PPN 10%).
+                          </p>
+                        </v-col>
+                      </v-row>
+                      <v-row style="margin-top: -30px">
+                        <v-col cols="1" class="mt-1 mr-1">
+                          <v-icon color="green">mdi-check-circle</v-icon>
+                        </v-col>
+                        <v-col cols="10">
+                          <p class="heding">Dikirimkan 1 SMS per 3 hari selama 120 hari.</p>
+                        </v-col>
+                      </v-row>
+                      <v-row style="margin-top: -30px">
+                        <v-col cols="1" class="mt-1 mr-1">
+                          <v-icon color="green">mdi-check-circle</v-icon>
+                        </v-col>
+                        <v-col cols="10">
+                          <p class="heding">3 Hari keanggotaan VIP per SMS.</p>
+                        </v-col>
+                      </v-row>
+                      <v-row style="margin-top: -30px">
+                        <v-col cols="12">
+                          <v-btn
+                            @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
+                            style="width: 100%"
+                            tile
+                            dark
+                            color="deep-orange"
+                          >Beli</v-btn>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-container>
+            </v-stepper-content>
+            <!-- END OF STEP 3 : Indosat -->
+
+            <!-- Step 4 : Order Detail -->
+            <v-stepper-content step="4" class="px-0">
+              <v-container>
+                <v-row style="margin-top: -10px">
+                  <v-col cols="12">
+                    <v-card class="mx-auto mb-2 grey lighten-3">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="4" style="margin-top: -10px;">
+                            <strong>Amount</strong>
+                          </v-col>
+                          <v-col
+                            cols="8"
+                            class="text-right"
+                          >
+                            <strong class="headline deep-orange--text">{{itemprice}}</strong>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="12" style="margin-top: -20px;">
+                    <v-card>
+						<v-tabs grow v-model="tab" background-color="#eee" color="deep-orange">
 						<v-tab href="#order">Order Details</v-tab>
 						<v-tab href="#info">Info</v-tab>
 						<v-tab href="#customer">Customer</v-tab>
@@ -349,90 +374,146 @@
 						</v-tab-item>
 					  </v-tabs-items>
 					</v-card>
-				  </v-col>
-				</v-row>
+                  </v-col>
+                  <v-col cols="12">
+					  <strong class="caption">Choose one of Payment Method</strong>
+					  <br><br>
+                    <v-card class="mx-auto mb-2">
+						<v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
+							<v-tab href="#sms">SMS</v-tab>
+							<v-tab href="#ussd">USSD</v-tab>
+							<v-tab href="#instant">Instant</v-tab>
+						</v-tabs>
 
-				<recaptcha
-				@error="onError()"
-				@success="onSuccess()"
-				@expired="onExpired()"
-				/>
-				<v-btn
-				@click="validate(itemvoucher)"
-				color="deep-orange"
-				width="300"
-				class="white--text mt-2"
-				block
-				>PROCESS</v-btn>
-			  </v-container>
-			</v-stepper-content>
-			<!-- END OF STEP 4 : Order Detail -->
+                      <v-tabs-items v-model="buymethod">
+                        <v-tab-item value="sms">
+                          <v-form ref="form" v-model="valid" lazy-validation>
+                            <v-container>
+                              <v-btn style="margin-left: -10px" icon tile color="green">
+                                <v-icon>mdi-check-circle</v-icon>
+                              </v-btn>
+                              <strong class="caption">Masukkan nomor handphone kamu</strong>
+                              <v-text-field
+                                label="+62"
+                                prepend-inner-icon
+                                counter
+                                maxlength="12"
+                                v-model="formdata.nomorhandphone"
+                                type="number"
+                                required
+                                :rules="numberRules"
+                              ></v-text-field>
 
-			<!-- Step 5 : Midtrans-->
-			<v-stepper-content step="5" class="mb-3">
-			  <v-card class="mx-auto">
-				<v-card-title class="subtitle-1">Transfer ke Bank BCA</v-card-title>
-				<v-divider></v-divider>
-				<div v-for="trans in vipTrans" :key="trans.id">
-				  <v-row
-					@click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
-				  >
-					<v-col cols="9">
-					  <v-row>
-						<v-col cols="3">
-						  <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-						</v-col>
-						<v-col cols="9">
-						  <strong>{{ trans.label }}</strong>
-						  <br />
-						  <strong>{{ trans.price }}</strong>
-						</v-col>
-					  </v-row>
-					</v-col>
-					<v-col cols="3" class="mt-4">
-					  <v-btn
-						icon
-						tile
-						light
-						@click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
-					  >
-						<v-icon>mdi-arrow-right</v-icon>
-					  </v-btn>
-					</v-col>
-				  </v-row>
-				  <v-divider></v-divider>
-				</div>
-			  </v-card>
-			</v-stepper-content>
-			<!-- END OF STEP 5 : Midtrans -->
+                              <v-btn style="margin-left: -10px" icon tile color="green">
+                                <v-icon>mdi-check-circle</v-icon>
+                              </v-btn>
+                              <strong
+                                class="caption"
+                              >Cetang kotak dibawah ini untuk melanjutkan proses</strong>
+                              <recaptcha
+                                @error="onError()"
+                                @success="onSuccess()"
+                                @expired="onExpired()"
+                              />
+                              <v-btn
+                                @click="validate(itemvoucher)"
+                                color="deep-orange"
+                                width="300"
+                                class="white--text mt-2"
+                              >PROCESS</v-btn>
+                            </v-container>
+                          </v-form>
 
-			<!-- Step 8 : Transaction Success -->
-			<v-stepper-content step="8">
-			  <v-row align="center" justify="center">
-				<v-icon color="green" class="display-3" style="margin-top: 60px">mdi-check-circle</v-icon>
-			  </v-row>
-			  <v-row align="center" justify="center">
-				<p class="heading mt-4 text-center">
-				  PERIKSA HANDPHONE ANDA
-				  <br />UNTUK PROSES SELANJUTNYA
-				</p>
-			  </v-row>
-			  <v-row align="center" justify="center" class="mx-4">
-				<div>
-				  <v-btn
-					@click="closeDialog()"
-					dark
-					color="deep-orange"
-					class="text-capitalize"
-				  >CLOSE</v-btn>
-				</div>
-			  </v-row>
-			</v-stepper-content>
-			<!-- END OF STEP 8 : Transaction Success -->
-		  </v-stepper-items>
-		</v-stepper>
-	  </v-card>
-	</v-dialog>
+                          <v-snackbar v-model="snackbar" :timeout="timeout" top>
+                            {{ responsemessage }}
+                            <v-btn color="primary" text icon @click="snackbar = false">
+                              <v-icon color="white">mdi-close-circle-outline</v-icon>
+                            </v-btn>
+                          </v-snackbar>
+                        </v-tab-item>
+                        <v-tab-item value="ussd">
+                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                            <strong class="body-2">Pilihan Tidak Tersedia</strong>
+                          </v-container>
+                        </v-tab-item>
+                        <v-tab-item value="instant">
+                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                            <strong class="body-2">Pilihan Tidak Tersedia</strong>
+                          </v-container>
+                        </v-tab-item>
+                      </v-tabs-items>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-stepper-content>
+            <!-- END OF STEP 4 : Order Detail -->
+
+            <!-- Step 5 : Midtrans-->
+            <v-stepper-content step="5" class="mb-3">
+              <v-card class="mx-auto">
+                <v-card-title class="subtitle-1"><img src="/img/bca.png" class="mr-2" width="30" alt=""> BCA</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row
+                    @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
+                  >
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col cols="3">
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
+                        </v-col>
+                        <v-col cols="9">
+                          <strong>{{ trans.label }}</strong>
+                          <br />
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3" class="mt-4">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
+                      >
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF STEP 5 : Midtrans -->
+
+            <!-- Step 8 : Transaction Success -->
+            <v-stepper-content step="8">
+              <v-row align="center" justify="center">
+                <v-icon color="green" class="display-3" style="margin-top: 60px">mdi-check-circle</v-icon>
+              </v-row>
+              <v-row align="center" justify="center">
+                <p class="heading mt-4 text-center">
+                  PERIKSA HANDPHONE ANDA
+                  <br />UNTUK PROSES SELANJUTNYA
+                </p>
+              </v-row>
+              <v-row align="center" justify="center" class="mx-4">
+                <div>
+                  <v-btn
+                    @click="closeDialog()"
+                    dark
+                    color="deep-orange"
+                    class="text-capitalize"
+                  >CLOSE</v-btn>
+                </div>
+              </v-row>
+            </v-stepper-content>
+            <!-- END OF STEP 8 : Transaction Success -->
+          </v-stepper-items>
+        </v-stepper>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 

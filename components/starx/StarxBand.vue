@@ -24,6 +24,7 @@
 				grow
 				color="dark"
 				class="fixed-tabs-bar"
+				style="position:relative!important;top:0"
 				>
 				<v-tabs-slider></v-tabs-slider>
 
@@ -216,10 +217,10 @@
 							<v-row>
 								<v-col cols="12" md="4">
 									<div
-									v-for="(latest, index) in juara.slice(0,3)"
+									v-for="(latest, index) in winners.slice(0,4)"
 									:key="'winner-'+latest.id"
 									>
-										<h2 class=" text-capitalize text-20">
+										<h2 class=" text-capitalize text-20 mb-3">
 											<img :src="'/img/BADGE-PW-WINNER-0'+ (index+1) +'.png'" width="35" alt="" style="vertical-align:middle" class="mr-3">
 											{{ propername(latest.winners_detail.winner_name) }}
 										</h2>
@@ -231,12 +232,12 @@
 									</div>
 
 									<div
-									v-for="(latest, index) in juara.slice(4)"
+									v-for="(latest, index) in winners.slice(4)"
 									class="my-4"
 									:key="'winnerz-'+latest.id"
 									>
 										<h2 class=" text-capitalize text-20 mb-2">
-											<img :src="'/img/BADGE-PW-WINNER-0'+ (index+4) +'.png'" width="35" alt="" style="vertical-align:middle" class="mr-3">
+											<img :src="'/img/BADGE-PW-WINNER-0'+ (index+3) +'.png'" width="35" alt="" style="vertical-align:middle" class="mr-3">
 											{{ propername(latest.winners_detail.winner_name) }}
 										</h2>
 										<v-card
@@ -336,11 +337,11 @@
 						<v-alert
 						border="left"
 						dense
+						colored-border
 						type="info"
-						:icon="false"
+						style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 						>
-						<img src="/img/rupiah.png" width="16" style="position:relative;top:4px" class="mr-2" alt="">
-						<span style="color: #000">Total Hadiah: 20 Juta Rupiah</span>
+						Total Hadiah: 10 Juta Rupiah
 						</v-alert>
 					</v-container>
 					<v-carousel
@@ -379,7 +380,10 @@
 						</v-carousel-item>
 					</v-carousel>
 
+					<div class="devider-big my-4"></div>
+
 					<v-container>
+						<h3 class="pwhead"><span>TERMS &amp; CONDITIONS</span></h3>
 						<v-expansion-panels
 						multiple
 						>
@@ -652,17 +656,17 @@
 									<!-- <h4 class="pwhead"><span>FINAL SHOW</span></h4> -->
 
 									<v-expansion-panels>
-									<v-expansion-panel class='mb-6'>
-									<v-expansion-panel-header>FINAL SHOW</v-expansion-panel-header>
-									<v-expansion-panel-content class='caption'>
-										STAGE: AUDITION
-										<br>
-										<ul>
-											<li class="caption">Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
-											<li class="caption">Lengkapi data band dan personilnya agar voters mudah</li>
-										</ul>
-									</v-expansion-panel-content>
-									</v-expansion-panel>
+										<v-expansion-panel class='mb-6'>
+											<v-expansion-panel-header>FINAL SHOW</v-expansion-panel-header>
+											<v-expansion-panel-content class='caption'>
+												STAGE: AUDITION
+												<br>
+												<ul>
+													<li class="caption">Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+													<li class="caption">Lengkapi data band dan personilnya agar voters mudah</li>
+												</ul>
+											</v-expansion-panel-content>
+										</v-expansion-panel>
 									</v-expansion-panels>
 								</v-container>
 							</template>
@@ -677,7 +681,7 @@
 										v-if="i > 0"
 										:to="'/search/'+eskul.eskul.name"
 									>
-											<v-row>
+											<v-row align="center">
 												<v-col cols="2">
 													<v-list-item-avatar
 														tile
@@ -690,11 +694,14 @@
 													>
 													</v-list-item-avatar>
 												</v-col>
-												<v-col cols="10">
+												<v-col cols="8">
 													<v-list-item-content>
 														<v-list-item-title class="mb-1 text--uppercase" style="text-transform:uppercase">STARX-{{ eskul.eskul.name }}</v-list-item-title>
 														<v-list-item-subtitle>Peserta: {{ eskul.participant }}</v-list-item-subtitle>
 													</v-list-item-content>
+												</v-col>
+												<v-col cols="2">
+													<v-icon>mdi-chevron-right</v-icon>
 												</v-col>
 											</v-row>
 									</v-card>
@@ -918,7 +925,6 @@ export default {
 	}
 	.v-application .StarxBandHome p, .v-application .StarxBandHome li, .v-application .StarxBandHome {
 		font-size: 14px!important;
-		margin: 10px 0!important;
 		color: #000!important;
 		&.caption{
 			font-size: 14px!important;
