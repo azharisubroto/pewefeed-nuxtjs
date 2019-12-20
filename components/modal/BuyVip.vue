@@ -65,30 +65,52 @@
                 <v-card class="mx-auto">
                   <v-card-title class="subtitle-1">Dengan Pulsa</v-card-title>
                   <v-divider></v-divider>
-                  <v-row>
-                    <v-col class="text-center col-md-12">
-                      <v-btn @click="e1 = 2" color="green" width="300" class="white--text">XL & Axis</v-btn>
-                    </v-col>
-                    <v-col class="text-center col-md-12 mb-3">
-                      <v-btn @click="e1 = 3" color="green" width="300" class="white--text">Indosat</v-btn>
-                    </v-col>
-                  </v-row>
+
+				  <div class="px-4 py-1" @click="e1 = 2">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/xl.png" width="40" alt="">
+						  </v-col>
+						  <v-col cols="8" class="py-0">
+							  XL & AXIS
+						  </v-col>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
+					  </v-row>
+				  </div><v-divider></v-divider>
+				  <div class="pa-4" @click="e1 = 3">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/indosat.png" width="40" alt="">
+						  </v-col>
+						  <v-col cols="8" class="py-0">
+							  Indosat
+						  </v-col>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
+					  </v-row>
+				  </div>
                 </v-card>
 
                 <!-- Content -->
                 <v-card class="mx-auto mt-4 mb-2">
                   <v-card-title class="subtitle-1">Tanpa Pulsa</v-card-title>
                   <v-divider></v-divider>
-                  <v-row>
-                    <v-col class="text-center col-md-12">
-                      <v-btn
-                        @click="e1 = 5"
-                        color="green"
-                        width="300"
-                        class="white--text"
-                      >Transfer ke Bank BCA</v-btn>
-                    </v-col>
-                  </v-row>
+				  <div class="px-4 py-3" @click="e1 = 5">
+					  <v-row align="center">
+						  <v-col cols="2" class="py-0">
+							  <img src="/img/bca.png" class="pt-2" width="40" alt="">
+						  </v-col>
+						  <v-col cols="8" class="py-0">
+							  BCA
+						  </v-col>
+						  <v-col cols="2">
+							  <v-icon>mdi-chevron-right</v-icon>
+						  </v-col>
+					  </v-row>
+				  </div>
                 </v-card>
               </v-container>
             </v-stepper-content>
@@ -98,7 +120,7 @@
             <v-stepper-content step="2" class="mb-3 px-0">
               <v-container>
                 <v-card class="mx-auto mb-3">
-                  <v-card-title class="subtitle-1">XL & Axis Berlangganan</v-card-title>
+                  <v-card-title class="subtitle-1"><img src="/img/xl.png" width="30" class="mr-2" alt="">  XL & Axis Berlangganan</v-card-title>
                   <v-divider></v-divider>
                   <v-card-text>
                     <v-btn
@@ -152,7 +174,7 @@
             <v-stepper-content step="3" class="px-0">
               <v-container>
                 <v-card class="mx-auto">
-                  <v-card-title color="grey" class="subtitle-2">INDOSAT</v-card-title>
+                  <v-card-title color="grey" class="subtitle-2"><img src="/img/indosat.png" width="30" class="mr-2" alt=""> INDOSAT</v-card-title>
                   <v-divider></v-divider>
                   <v-row
                     @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
@@ -357,7 +379,7 @@
             <!-- Step 5 : Midtrans-->
             <v-stepper-content step="5" class="mb-3">
               <v-card class="mx-auto">
-                <v-card-title class="subtitle-1">Transfer ke Bank BCA</v-card-title>
+                <v-card-title class="subtitle-1"><img src="/img/bca.png" class="mr-2" width="30" alt=""> BCA</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row

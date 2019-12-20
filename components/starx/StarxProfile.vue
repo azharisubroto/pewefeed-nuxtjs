@@ -1,188 +1,190 @@
 <template>
     <v-form id="profile-form" v-on:submit.prevent="onSubmit">
         <v-container>
-            <v-col
-            cols="12"
-            md="4"
-            >
-				<v-alert
-				border="left"
-				dense
-				colored-border
-				type="info"
-				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+            <v-row>
+				<v-col
+				cols="12"
+				md="4"
 				>
-					Lengkapi BAND PROFILE dan MEMBER PROFILE selengkap-lengkapnya
-				</v-alert>
+					<v-alert
+					border="left"
+					dense
+					colored-border
+					type="info"
+					style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+					>
+						Lengkapi BAND PROFILE dan MEMBER PROFILE selengkap-lengkapnya
+					</v-alert>
 
-				<h4 class="pwhead"><span>BAND PROFILE</span></h4>
+					<h4 class="pwhead"><span>BAND PROFILE</span></h4>
 
-				<v-expansion-panels class="mb-3" focusable>
-					<v-expansion-panel
-                    >
+					<v-expansion-panels class="mb-3" focusable>
+						<v-expansion-panel
+						>
+							<v-expansion-panel-header>
+								<v-row no-gutters>
+									<v-col cols="12">{{ bandData.name_band ? bandData.name_band : 'NONE'}}</v-col>
+								</v-row>
+							</v-expansion-panel-header>
+							<v-expansion-panel-content class="pt-3">
+								<v-text-field
+								solo
+								label="Nama Band"
+								color="deep-orange"
+								v-model="bandData.name_band"
+								></v-text-field>
+
+								<v-autocomplete
+								solo
+								:items="schools"
+								:search-input.sync="searchInput"
+								name="namasekolah"
+								v-model="bandData.asal_sekolah"
+								hide-no-data
+								hide-selected
+								item-text="name"
+								item-value="id"
+								label="Nama Sekolah"
+								placeholder="Ketik untuk mencari..."
+								clearable
+								>
+								</v-autocomplete>
+
+								<v-text-field
+								solo
+								label="Instagram"
+								color="deep-orange"
+								v-model="bandData.band_ig"
+								></v-text-field>
+
+								<p class="mt-0">Photo Band</p>
+								<div v-if="bandData.avatarband">
+									<v-img :aspect-ratio="16/9" :src="bandData.avatarband"></v-img>
+									<v-btn @click="bandData.avatarband=null" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
+								</div>
+
+								<div v-if="!bandData.avatarband">
+									<vue-dropzone
+									ref="dropzone"
+									id="drop1"
+									:options="dropOptions"
+									@vdropzone-success="afterComplete"
+									></vue-dropzone>
+									<br>
+									<a @click="bandData.avatarband=false">Remove File</a>
+								</div>
+							</v-expansion-panel-content>
+						</v-expansion-panel>
+					</v-expansion-panels>
+
+					<v-btn
+						color="deep-orange accent-6"
+						dark
+						large
+						block
+						depressed
+						class="mb-5"
+						@click="saveForm()"
+					>
+						SAVE BAND PROFILE
+					</v-btn>
+				</v-col>
+
+
+				<v-col
+				cols="12"
+				md="12"
+				class="mt-0"
+				>
+					<h4 class="pwhead text-uppercase"><span>Member Profile</span></h4>
+					<!-- <pre>{{$data.personels}}</pre> -->
+					<v-expansion-panels class="mb-3" focusable>
+						<v-expansion-panel
+						v-for="(personel, i) in bandData.avatar"
+						:key="i"
+						>
 						<v-expansion-panel-header>
 							<v-row no-gutters>
-								<v-col cols="12">{{ bandData.name_band ? bandData.name_band : 'NONE'}}</v-col>
+								<v-col cols="4">{{ bandData.nama_personil[i] ? bandData.nama_personil[i] : 'NONE' }}</v-col>
+								<v-col cols="8 text--secondary">{{ bandData.personil_posisi[i] ? getPosisi(bandData.personil_posisi[i]) : 'NONE' }}</v-col>
 							</v-row>
 						</v-expansion-panel-header>
 						<v-expansion-panel-content class="pt-3">
 							<v-text-field
 							solo
-							label="Nama Band"
+							label="Nama"
+							placeholder="Nama Personel"
+							name="bandData.nama_personil[i]"
 							color="deep-orange"
-							v-model="bandData.name_band"
+							v-model="bandData.nama_personil[i]"
 							></v-text-field>
-
-							<v-autocomplete
-							solo
-							:items="schools"
-							:search-input.sync="searchInput"
-							name="namasekolah"
-							v-model="bandData.asal_sekolah"
-							hide-no-data
-							hide-selected
-							item-text="name"
-							item-value="id"
-							label="Nama Sekolah"
-							placeholder="Ketik untuk mencari..."
-							clearable
-							>
-							</v-autocomplete>
 
 							<v-text-field
 							solo
 							label="Instagram"
+							placeholder="Tanpa '@'"
+							name="bandData.instagram[i]"
 							color="deep-orange"
-							v-model="bandData.band_ig"
+							v-model="bandData.instagram[i]"
 							></v-text-field>
 
-							<p class="mt-0">Photo Band</p>
-							<div v-if="bandData.avatarband">
-								<v-img :aspect-ratio="16/9" :src="bandData.avatarband"></v-img>
-								<v-btn @click="bandData.avatarband=null" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
+							<v-select
+							solo
+							:items="positions"
+							label="Position"
+							item-text="name"
+							item-value="id"
+							name="bandData.personil_posisi[i]"
+							color="deep-orange"
+							v-model="bandData.personil_posisi[i]"
+							></v-select>
+
+							<div v-if="bandData.avatar[i]">
+								<v-img :aspect-ratio="16/9" :src="bandData.avatar[i]"></v-img>
+								<v-btn @click="gantiGambar(i)" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
 							</div>
 
-							<div v-if="!bandData.avatarband">
+							<div v-if="!bandData.avatar[i]">
 								<vue-dropzone
-								ref="dropzone"
-								id="drop1"
+								:ref="i"
+								:id="'dropz-'+i"
 								:options="dropOptions"
-								@vdropzone-success="afterComplete"
-								></vue-dropzone>
-								<br>
-								<a @click="bandData.avatarband=false">Remove File</a>
+								color="orange"
+								@vdropzone-success="(file, response) => selesai(file, response, i)"
+								>
+								</vue-dropzone>
 							</div>
+
+							<v-btn
+							@click="removePersonel(i)"
+							color="red"
+							dark
+							small
+							depressed
+							class="mt-2 float-right">
+								<v-icon>mdi-trash-can-outline</v-icon>
+								Hapus
+							</v-btn>
 						</v-expansion-panel-content>
-					</v-expansion-panel>
-				</v-expansion-panels>
+						</v-expansion-panel>
+					</v-expansion-panels>
 
-				<v-btn
-                    color="deep-orange accent-6"
-                    dark
-                	large
-                    block
-                    depressed
-                    class="mb-5"
-                    @click="saveForm()"
-                >
-                    SAVE BAND PROFILE
-                </v-btn>
-            </v-col>
-
-
-            <v-col
-            cols="12"
-            md="12"
-            class="mt-0"
-            >
-                <h4 class="pwhead text-uppercase"><span>Member Profile</span></h4>
-                <!-- <pre>{{$data.personels}}</pre> -->
-                <v-expansion-panels class="mb-3" focusable>
-                    <v-expansion-panel
-                    v-for="(personel, i) in bandData.avatar"
-                    :key="i"
-                    >
-                    <v-expansion-panel-header>
-                        <v-row no-gutters>
-                            <v-col cols="4">{{ bandData.nama_personil[i] ? bandData.nama_personil[i] : 'NONE' }}</v-col>
-                            <v-col cols="8 text--secondary">@{{ bandData.instagram[i] ? bandData.instagram[i] : 'NONE' }}</v-col>
-                        </v-row>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content class="pt-3">
-                        <v-text-field
-						solo
-                        label="Nama"
-                        placeholder="Nama Personel"
-                        name="bandData.nama_personil[i]"
-                        color="deep-orange"
-                        v-model="bandData.nama_personil[i]"
-                        ></v-text-field>
-
-                        <v-text-field
-						solo
-                        label="Instagram"
-                        placeholder="Tanpa '@'"
-                        name="bandData.instagram[i]"
-                        color="deep-orange"
-                        v-model="bandData.instagram[i]"
-                        ></v-text-field>
-
-                        <v-select
-						solo
-                        :items="positions"
-                        label="Position"
-                        item-text="name"
-                        item-value="id"
-                        name="bandData.personil_posisi[i]"
-                        color="deep-orange"
-                        v-model="bandData.personil_posisi[i]"
-                        ></v-select>
-
-                        <div v-if="bandData.avatar[i]">
-                            <v-img :aspect-ratio="16/9" :src="bandData.avatar[i]"></v-img>
-                            <v-btn @click="gantiGambar(i)" class="mt-2 grey lighten-1" depressed block dark color="grey">Ganti Gambar</v-btn>
-                        </div>
-
-                        <div v-if="!bandData.avatar[i]">
-                            <vue-dropzone
-                            :ref="i"
-                            :id="'dropz-'+i"
-                            :options="dropOptions"
-                            color="orange"
-                            @vdropzone-success="(file, response) => selesai(file, response, i)"
-                            >
-                            </vue-dropzone>
-                        </div>
-
-                        <v-btn
-                        @click="removePersonel(i)"
-                        color="red"
-                        dark
-                        small
-                        depressed
-                        class="mt-2 float-right">
-                            <v-icon>mdi-trash-can-outline</v-icon>
-                            Hapus
-                        </v-btn>
-                    </v-expansion-panel-content>
-                    </v-expansion-panel>
-                </v-expansion-panels>
-
-                <v-btn @click="addPersonel()" depressed block large dark color="blue lighten-2">Add Personel</v-btn>
-                <!-- <pre>{{$data.bandData}}</pre> -->
-                <v-divider class="my-2"></v-divider>
-                <v-btn
-                    color="deep-orange accent-6"
-                    dark
-                    large
-                    block
-                    depressed
-                    class="mb-12"
-                    @click="saveForm()"
-                >
-                    SAVE BAND PROFILE
-                </v-btn>
-            </v-col>
+					<v-btn @click="addPersonel()" depressed block large dark color="blue lighten-2">Add Personel</v-btn>
+					<!-- <pre>{{$data.bandData}}</pre> -->
+					<v-divider class="my-2"></v-divider>
+					<v-btn
+						color="deep-orange accent-6"
+						dark
+						large
+						block
+						depressed
+						class="mb-12"
+						@click="saveForm()"
+					>
+						SAVE BAND PROFILE
+					</v-btn>
+				</v-col>
+			</v-row>
         </v-container>
         <v-snackbar
             v-model="snackbar"
@@ -347,7 +349,24 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-        }
+		},
+		getPosisi(posisi) {
+			console.log('posisi: '+posisi)
+			if( posisi == 1 ) {
+				var position = 'Other';
+			} else if( posisi == 2 ) {
+				var position = 'Bassist';
+			} else if( posisi == 3 ) {
+				var position = 'Vocalist';
+			} else if( posisi == 4 ) {
+				var position = 'Keyboardist';
+			} else if( posisi == 5 ) {
+				var position = 'Drummer';
+			} else if( posisi == 6 ) {
+				var position = 'Guitarist';
+			}
+			return position;
+		}
     },
     mounted() {
         this.checkIzin()
