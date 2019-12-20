@@ -4,13 +4,14 @@
       v-model="loginModal"
       fullscreen
       hide-overlay
+	  class="LoginModal"
       transition="dialog-bottom-transition"
     >
-      <v-card class="grey lighten-3">
+      <v-card>
         <!-- Header -->
         <v-toolbar light color="white">
           <!-- Arrow -->
-          <v-btn icon tile style="border-right: 1px solid #717171" light @click="loginModal = false">
+          <v-btn icon tile style="border-right: 1px solid #d1d1d1" light @click="loginModal = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
@@ -21,7 +22,7 @@
               :lazy-src="lazy"
               max-width="40"
               max-height="40"
-            >  
+            >
             </v-img>
           </v-toolbar-title>
 
@@ -31,15 +32,33 @@
             <v-btn light text>Information</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-row
-          align="center"
-          justify="center"
-          class="mx-4"
-        >
-          <div>
-            <Login />
-          </div>
-        </v-row>
+
+		<v-container class="py-0">
+			<v-row
+			align="center"
+			justify="center"
+			>
+				<v-col cols="12" class="pb-0">
+					<v-alert
+					border="left"
+					dense
+					colored-border
+					type="info"
+					class="mb-0"
+					style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+					>
+					Untuk dapat menggunakan fitur ini, anda diharuskan untuk Login atau Registrasi terlebih dahulu.
+					<br>
+					<br>
+					Klik tombol di bawah ini untuk melanjutkan
+					</v-alert>
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<v-container class="pa-0 LoginModal">
+			<Login />
+		</v-container>
       </v-card>
     </v-dialog>
   </v-row>
@@ -88,3 +107,9 @@
     }
   }
 </script>
+
+<style lang="scss">
+	.LoginModal #loginhead {
+		display: none!important;
+	}
+</style>
