@@ -18,8 +18,8 @@
 				</v-img>
 			</v-col>
 			<v-col :cols="isWinner == 1 ? 7 : 9">
-				<span class="caption">{{ latest.created_at }}</span>
-				<h4 @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
+				<span class="caption" v-if="isWinner != 1">{{ latest.created_at }}</span>
+				<h4 :class="isWinner == 1 ? 'mb-2' : ''" @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
 
 				<v-row v-if="latest.band" class="sm">
 					<v-col v-if="latest.band.image != ''" cols="2" class="py-0">

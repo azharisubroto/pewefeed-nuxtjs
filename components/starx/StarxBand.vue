@@ -285,8 +285,7 @@
 												<v-col cols="8">
 													<v-list-item four-line>
 														<v-list-item-content>
-															<span class="caption"><v-icon class="pink--text" size="15">mdi-instagram</v-icon> @{{ removeat(latest.personnel_winner.instagram) }}</span>
-															<h4>{{latest.personnel_winner.personnel_name}}</h4>
+															<h4 class="mb-2">{{latest.personnel_winner.personnel_name}}</h4>
 
 															<v-row v-if="latest.band" class="sm">
 																<v-col v-if="latest.band.image != ''" cols="2" class="py-0">
@@ -308,11 +307,11 @@
 																	<div class="caption" v-if="latest.personnel_winner.asal_sekolah">{{latest.personnel_winner.asal_sekolah}}</div>
 																</v-col>
 															</v-row>
-																												</v-list-item-content>
+														</v-list-item-content>
 													</v-list-item>
 												</v-col>
 												<v-col style="margin-left: -7px" cols="1">
-													<v-icon>mdi-chevron-right</v-icon>
+													<a style="text-decoration: none" :href="'https://instagram.com/' + latest.personnel_winner.instagram.replace('@', '')" target="blank"><v-icon class="pink--text">mdi-instagram</v-icon></a>
 												</v-col>
 											</v-row>
 										</v-card>
