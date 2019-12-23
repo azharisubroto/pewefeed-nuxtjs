@@ -66,7 +66,7 @@
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Dengan Pulsa</v-card-title>
                   <v-divider></v-divider>
 
-                  <div class="px-4 py-1" @click="e1 = 2">
+                  <div class="px-4 py-2" @click="e1 = 2">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
                         <img src="/img/xl.png" width="40" alt />
@@ -78,7 +78,7 @@
                     </v-row>
                   </div>
                   <v-divider></v-divider>
-                  <div class="pa-4" @click="e1 = 3">
+                  <div class="px-4 py-3" @click="e1 = 3">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
                         <img src="/img/indosat.png" width="40" alt />
@@ -122,7 +122,7 @@
                   alt
                 /> <span class="font-weight-bold">XL &amp; AXIS</span>
                 <br />
-                <v-card class="mx-auto mb-3 mt-2">
+                <v-card class="mx-auto mb-3 mt-4">
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Berlangganan</v-card-title>
                   <div
                     @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')"
@@ -206,8 +206,8 @@
             <v-stepper-content step="3" class="px-0">
               <v-container>
 				  <img src="/img/indosat.png" width="30" style="position:relative;top:2px" class="mr-2" alt /> <span class="font-weight-bold">INDOSAT</span>
-				  <br><br>
-                <v-card class="mx-auto">
+				  <br>
+                <v-card class="mx-auto mt-4">
                   <v-card-title color="grey lighten-4 font-weight-bold" class="grey lighten-4 font-weight-bold subtitle-2">
 					Berlangganan
                   </v-card-title>
@@ -252,10 +252,10 @@
               <v-container>
                 <v-row style="margin-top: -10px">
                   <v-col cols="12">
-                    <v-card class="mx-auto mb-2">
+                    <v-card class="mx-auto mb-2 grey lighten-4">
                       <v-container>
-                        <v-row>
-                          <v-col cols="4" style="margin-top: -10px;">
+                        <v-row align="center">
+                          <v-col cols="4">
                             <strong>Amount</strong>
                           </v-col>
                           <v-col cols="8" class="text-right">
@@ -312,21 +312,21 @@
                         <v-tab-item value="customer">
                           <v-container>
                             <p>
-                              <strong class="caption">Name</strong>
+                              <span class="text-12">Name</span>
                               <br />
-                              <strong
-                                class="body-2"
-                              >{{userdata.first_name ? userdata.first_name : '-'}}</strong>
+                              <span
+                                class="text-16"
+                              >{{userdata.first_name ? userdata.first_name : '-'}}</span>
                             </p>
                             <p>
-                              <strong class="caption">Phone Number</strong>
+                              <span class="text-12">Phone Number</span>
                               <br />
-                              <strong class="body-2">{{userdata.no_tlp ? userdata.no_tlp : '-'}}</strong>
+                              <span class="text-16">{{userdata.no_tlp ? userdata.no_tlp : '-'}}</span>
                             </p>
                             <p>
-                              <strong class="caption">Email</strong>
+                              <span class="text-12">Email</span>
                               <br />
-                              <strong class="body-2">{{userdata.email ? userdata.email : '-'}}</strong>
+                              <span class="text-16">{{userdata.email ? userdata.email : '-'}}</span>
                             </p>
                           </v-container>
                         </v-tab-item>
@@ -334,9 +334,9 @@
                     </v-card>
                   </v-col>
                   <v-col cols="12">
-                    <strong class="caption">Choose one of Payment Method</strong>
+                    <span class="text-14">Choose one of Payment Method</span>
                     <br />
-                    <br />
+					<br>
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
@@ -390,93 +390,35 @@
                       </v-tabs-items>
                     </v-card>
                   </v-col>
-                  <v-col cols="12">
-                    <strong class="caption">Choose one of Payment Method</strong>
-                    <br />
-                    <br />
-                    <v-card class="mx-auto mb-2">
-                      <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
-                        <v-tab href="#sms">SMS</v-tab>
-                        <v-tab href="#ussd">USSD</v-tab>
-                        <v-tab href="#instant">Instant</v-tab>
-                      </v-tabs>
-
-                      <v-tabs-items v-model="buymethod">
-                        <v-tab-item value="sms">
-                          <v-form ref="form" v-model="valid" lazy-validation>
-                            <v-container>
-                              <v-btn style="margin-left: -10px" icon tile color="green">
-                                <v-icon>mdi-check-circle</v-icon>
-                              </v-btn>
-                              <strong class="caption">Masukkan nomor handphone kamu</strong>
-                              <v-text-field
-                                label="+62"
-                                prepend-inner-icon
-                                counter
-                                maxlength="12"
-                                v-model="formdata.nomorhandphone"
-                                type="number"
-                                required
-                                :rules="numberRules"
-                              ></v-text-field>
-
-                              <v-btn style="margin-left: -10px" icon tile color="green">
-                                <v-icon>mdi-check-circle</v-icon>
-                              </v-btn>
-                              <strong
-                                class="caption"
-                              >Cetang kotak dibawah ini untuk melanjutkan proses</strong>
-                              <recaptcha
-                                @error="onError()"
-                                @success="onSuccess()"
-                                @expired="onExpired()"
-                              />
-                              <v-btn
-                                @click="validate(itemvoucher)"
-                                color="deep-orange"
-                                width="300"
-                                class="white--text mt-2"
-                              >PROCESS</v-btn>
-                            </v-container>
-                          </v-form>
-
-                          <v-snackbar v-model="snackbar" :timeout="timeout" top>
-                            {{ responsemessage }}
-                            <v-btn color="primary" text icon @click="snackbar = false">
-                              <v-icon color="white">mdi-close-circle-outline</v-icon>
-                            </v-btn>
-                          </v-snackbar>
-                        </v-tab-item>
-                        <v-tab-item value="ussd">
-                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
-                            <strong class="body-2">Pilihan Tidak Tersedia</strong>
-                          </v-container>
-                        </v-tab-item>
-                        <v-tab-item value="instant">
-                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
-                            <strong class="body-2">Pilihan Tidak Tersedia</strong>
-                          </v-container>
-                        </v-tab-item>
-                      </v-tabs-items>
-                    </v-card>
-                  </v-col>
                 </v-row>
+
+				<recaptcha
+				@error="onError()"
+				@success="onSuccess()"
+				@expired="onExpired()"
+				/>
+				<v-btn
+				@click="validate(itemvoucher)"
+				color="deep-orange"
+				block
+				class="white--text mt-2"
+				>PROCESS</v-btn>
               </v-container>
             </v-stepper-content>
             <!-- END OF STEP 4 : Order Detail -->
 
             <!-- Step 5 : Midtrans-->
             <v-stepper-content step="5" class="mb-3 px-0">
-              <v-container>
+              <v-container class="py-0">
                 <img
                   src="/img/bca.png"
                   class="mr-2"
-                  width="35"
-                  style="position:relative;top: 5px"
+                  width="45"
+                  style="position:relative;top: 10px"
                   alt
                 /> <span class="font-weight-bold">BCA</span>
               </v-container>
-              <v-card class="mx-4">
+              <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
