@@ -1,10 +1,11 @@
 <template>
     <v-card
         class="StarxVideoLoop mx-auto mb-3 py-2 px-2"
-        elevation="1"
+        :elevation="isWinner == 1 ? 0 : 1"
+        :class="isWinner == 1 ? 'manual-border' : ''"
     >
-		<v-row no-gutters>
-			<v-col cols="3" class="pr-2 mt-2">
+		<v-row no-gutters align="center">
+			<v-col cols="3" :class="isWinner == 1 ? 'pr-2 mr-5' : 'pr-2'">
 				<v-img :src="vidimg(latest.video)" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )">
 					<v-row class="fill-height ma-0" align="center" justify="center">
 						<v-icon
@@ -16,7 +17,7 @@
 					</v-row>
 				</v-img>
 			</v-col>
-			<v-col cols="9">
+			<v-col :cols="isWinner == 1 ? 7 : 9">
 				<span class="caption">{{ latest.created_at }}</span>
 				<h4 @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
 
@@ -41,6 +42,9 @@
 					</v-col>
 				</v-row>
 			</v-col>
+            <v-col class="text-center" v-if="isWinner == 1" cols="1">
+                <v-icon>mdi-chevron-right</v-icon>
+            </v-col>
 		</v-row>
 
 		<div v-if="action!='nope'" class="devider-small my-2"></div>
@@ -121,7 +125,8 @@ export default {
         "filtering",
         "activeBtn",
 		"hiddendetail",
-		"action"
+        "action",
+        "isWinner"
     ],
     components: {
         BuyVip,
@@ -247,4 +252,10 @@ export default {
         background: rgba(0,0,0,.5);
         border-radius: 90px;
     }
+    .manual-border {
+		border-top: 1px #C5C5C5 solid;
+		border-right : 1px #C5C5C5 solid;
+		border-left : 1px #C5C5C5 solid;
+		border-bottom : 1px #C5C5C5 solid;
+	}
 </style>

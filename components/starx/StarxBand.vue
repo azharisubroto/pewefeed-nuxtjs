@@ -221,13 +221,27 @@
 									:key="'winner-'+latest.id"
 									>
 										<h2 class=" text-capitalize text-20 mb-3">
-											<img :src="'/img/BADGE-PW-WINNER-0'+ (index+1) +'.png'" width="35" alt="" style="vertical-align:middle" class="mr-3">
-											{{ propername(latest.winners_detail.winner_name) }}
+											<v-row no-gutters>
+												<v-col cols="2" class="mt-1">
+													<img :src="'/img/BADGE-PW-WINNER-0'+ (index+1) +'.png'" width="50" alt="" style="vertical-align:middle" class="mr-3">
+												</v-col>
+												<v-col cols="10">
+													<v-row no-gutters>
+														<v-col cols="12" class="mt-1">
+															{{ propername(latest.winners_detail.winner_name) }}<br>
+														</v-col>
+														<v-col cols="12" style="margin-top: -8px">
+															<strong class="caption">Rewards : {{latest.prize ? latest.prize.redeem.title : '-'}}</strong>
+														</v-col>
+													</v-row>
+												</v-col>
+											</v-row>
 										</h2>
 										<VideoLoop
 										action="nope"
 										:latest="latest"
 										activeBtn="3"
+										:isWinner="1"
 										/>
 									</div>
 
@@ -237,15 +251,28 @@
 									:key="'winnerz-'+latest.id"
 									>
 										<h2 class=" text-capitalize text-20 mb-2">
-											<img :src="'/img/BADGE-PW-WINNER-0'+ (index+3) +'.png'" width="35" alt="" style="vertical-align:middle" class="mr-3">
-											{{ propername(latest.winners_detail.winner_name) }}
+											<v-row no-gutters>
+												<v-col cols="2" class="mt-1">
+													<img :src="'/img/BADGE-PW-WINNER-0'+ (index+5) +'.png'" width="50" alt="" style="vertical-align:middle" class="mr-3">
+												</v-col>
+												<v-col cols="10">
+													<v-row no-gutters>
+														<v-col cols="12" class="mt-1">
+															{{ propername(latest.winners_detail.winner_name) }}<br>
+														</v-col>
+														<v-col cols="12" style="margin-top: -8px">
+															<strong class="caption">Rewards : {{latest.prize.redeem.title}}</strong>
+														</v-col>
+													</v-row>
+												</v-col>
+											</v-row>
 										</h2>
 										<v-card
-											class="StarxVideoLoop mx-auto mb-3 py-2 px-2"
-											elevation="1"
+											class="StarxVideoLoop mx-auto mb-3 py-2 px-2 manual-border"
+											elevation="0"
 										>
 
-											<v-row no-gutters>
+											<v-row no-gutters align="center">
 												<v-col cols="3" class="pr-2">
 													<v-list-item-avatar
 														tile
@@ -255,10 +282,10 @@
 														<v-img :src="latest.personnel_winner.avatar"></v-img>
 													</v-list-item-avatar>
 												</v-col>
-												<v-col cols="9">
+												<v-col cols="8">
 													<v-list-item four-line>
 														<v-list-item-content>
-															<span class="caption">@{{ removeat(latest.personnel_winner.instagram) }}</span>
+															<span class="caption"><v-icon class="pink--text" size="15">mdi-instagram</v-icon> @{{ removeat(latest.personnel_winner.instagram) }}</span>
 															<h4>{{latest.personnel_winner.personnel_name}}</h4>
 
 															<v-row v-if="latest.band" class="sm">
@@ -283,6 +310,9 @@
 															</v-row>
 																												</v-list-item-content>
 													</v-list-item>
+												</v-col>
+												<v-col style="margin-left: -7px" cols="1">
+													<v-icon>mdi-chevron-right</v-icon>
 												</v-col>
 											</v-row>
 										</v-card>
@@ -931,5 +961,11 @@ export default {
 			margin: 10px 0!important;
 			color: #000!important;
 		}
+	}
+	.manual-border {
+		border-top: 1px #C5C5C5 solid !important;
+		border-right : 1px #C5C5C5 solid !important;
+		border-left : 1px #C5C5C5 solid !important;
+		border-bottom : 1px #C5C5C5 solid !important;
 	}
 </style>
