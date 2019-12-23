@@ -6,11 +6,11 @@
       hide-overlay
       transition="dialog-bottom-transition"
     >
-      <v-card class="grey lighten-3">
+      <v-card>
         <!-- Header -->
         <v-toolbar light color="white">
           <!-- Arrow -->
-          <v-btn icon tile style="border-right: 1px solid #717171" light @click="notVipVisible = false">
+          <v-btn icon tile style="border-right: 1px solid #e5e5e5" light @click="notVipVisible = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
