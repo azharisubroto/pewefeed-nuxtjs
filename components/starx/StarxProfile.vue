@@ -71,7 +71,7 @@
 									@vdropzone-success="afterComplete"
 									></vue-dropzone>
 									<br>
-									<a @click="bandData.avatarband=false">Remove File</a>
+									<!-- <a @click="bandData.avatarband=false">Remove File</a> -->
 								</div>
 							</v-expansion-panel-content>
 						</v-expansion-panel>
@@ -352,18 +352,20 @@ export default {
 		},
 		getPosisi(posisi) {
 			console.log('posisi: '+posisi)
-			if( posisi == 1 ) {
+			if( posisi == 15 ) {
 				var position = 'Other';
-			} else if( posisi == 2 ) {
+			} else if( posisi == 13 ) {
 				var position = 'Bassist';
 			} else if( posisi == 3 ) {
-				var position = 'Vocalist';
-			} else if( posisi == 4 ) {
+				var position = 'Guitarist';
+			} else if( posisi == 7 ) {
 				var position = 'Keyboardist';
 			} else if( posisi == 5 ) {
 				var position = 'Drummer';
 			} else if( posisi == 6 ) {
 				var position = 'Guitarist';
+			} else if( posisi = 11 ) {
+				var position = 'Vocalist'
 			}
 			return position;
 		}
