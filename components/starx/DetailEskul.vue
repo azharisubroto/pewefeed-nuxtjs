@@ -59,7 +59,7 @@
                 <v-row class="pb-5">
                     <v-col cols="12">
                         <div class="article-thumb">
-							<v-img :src="article.img" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
+							<v-img :src="article.img" :aspect-ratio="4/2" class="thumbnailmain mb-4"></v-img>
 						</div>
 
 						<!-- CONTENT -->
