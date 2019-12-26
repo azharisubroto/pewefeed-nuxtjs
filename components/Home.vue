@@ -175,7 +175,7 @@ export default {
                     image: element.image,
                     link: slug,
                     title: element.title,
-                    type: element.reaction,
+                    type: element.type,
                     published_at: element.published_at
                   }
                   this.topviews.push(obj)
@@ -201,7 +201,7 @@ export default {
                     image: element.image,
                     link: slug,
                     title: element.title,
-                    type: element.reaction,
+                    type: element.type,
                     published_at: element.published_at
                   }
                   this.topviews.push(obj)
