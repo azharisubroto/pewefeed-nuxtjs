@@ -69,6 +69,20 @@
                     </v-col>
                 </v-row>
 			</template>
+
+            <v-bottom-navigation
+            fixed
+            dark
+            grow
+            color="white"
+            background-color="black"
+            >
+                <v-btn
+                    @click="$router.push('/starx/band')"
+                >
+                    <span>Kembali</span>
+                </v-btn>
+            </v-bottom-navigation>
         </v-container>
     </section>
 </template>
