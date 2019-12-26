@@ -52,26 +52,29 @@
 					STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
 					</v-alert>
 
-					<ShareButton
-						v-if="latest"
-						class="myshare"
-						:sharingUrl="dataUrl"
-						:sharingTitle="latest.description"
-						:sharingDescription="latest.description+' by '+ (latest.band ? latest.band.name : '')"
-						:sharingTime="latest.created_at"
-						:sharingImage="vidimg(latest.video)"
-					/>
-					<br>
+					<v-row align="center" class="sm" v-if="band" @click="$router.push('/starx/band/detail/'+band.slug)">
+						<v-col cols="2">
+							<v-avatar
+								size="50"
+							>
+								<img v-if="band.avatar != ''" :src="band.avatar" alt="alt">
+								<img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
+							</v-avatar>
+						</v-col>
+						<v-col cols="10" class="pb-0" style="margin-top: -14px">
+							<strong style="font-size:14px;">{{ band ? band.band_name : '' }}</strong>
+							<div>{{ band.school ? band.school.name : '' }}</div>
+						</v-col>
+					</v-row>
 
                     <template v-if="video_latest">
-						<!-- <pre>{{latest}}</pre> -->
-
-						<v-card v-if="latest" :elevation="0" style="border: 1px solid #757575">
+						<h4 class="pwhead mt-4"><span>AUDITION</span></h4>
+						<v-card v-if="latests" :elevation="0" style="border: 1px solid #757575">
                             <v-card-text class="caption">
                                 <v-icon small size="12" class="mr-1">
                                     mdi-calendar-blank
                                 </v-icon>
-                                {{latest.created_at}}
+                                {{latests.created_at}}
 
                                 <v-icon small size="12" class="mr-1 ml-2">
                                     mdi-eye-outline
@@ -83,37 +86,37 @@
                                 </v-icon>
                                 {{comments.length}}
 
-                                <h2 class="mt-3">{{ latest.description }}</h2>
+                                <h2 class="mt-3">{{ latests.description }}</h2>
                                 <div class="devider-small my-2"></div>
                                 <v-row class="sm">
                                     <v-col cols="1" class="pr-1 mr-1 pb-0">
                                         <v-avatar
                                             size="25"
-                                            @click="$router.push( '/starx/band/video/'+latest.slug )"
+                                            @click="$router.push( '/starx/band/video/'+latests.slug )"
                                         >
                                             <img v-if="bandImage != ''" :src="bandImage" alt="alt">
                                             <img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
                                         </v-avatar>
                                     </v-col>
                                     <v-col cols="10" class="pb-0" style="margin-top: -14px">
-                                        <strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
-                                        <div>{{ latest.school }}</div>
+                                        <strong style="font-size:14px;">{{ latests.band ? latests.band.name : '' }}</strong>
+                                        <div>{{ latests.school }}</div>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
 
-							<div v-if="latest.video && latest.video.includes('iframe')" v-html="latest.video"></div>
+							<div v-if="latests.video && latests.video.includes('iframe')" v-html="latests.video"></div>
 							<div v-else>
-								<div v-html="renderVideo(latest.video)"></div>
+								<div v-html="renderVideo(latests.video)"></div>
 							</div>
 
 							<v-row class="sm px-3" align="center">
 								<v-col cols="2" class="caption">
-									<span :id="'starcount-' + latest.id">{{latest.star}}</span>/<span style="color: blue">100</span>
+									<span :id="'starcount-' + latests.id">{{latests.star}}</span>/<span style="color: blue">100</span>
 								</v-col>
 								<v-col cols="5">
 									<v-progress-linear
-									:value="latest.star"
+									:value="latests.star"
 									color="light-blue"
 									height="10"
 									reactive
@@ -122,7 +125,7 @@
 								</v-col>
 								<v-col cols="5">
 									<v-btn
-                                        @click="checkVIP(latest.id, latest.band.id)"
+                                        @click="checkVIP(latests.id, latests.band.id)"
 										class="px-4"
 										dark
 										depressed
@@ -156,16 +159,98 @@
                             </v-snackbar>
 						</v-card>
 
-                        <div v-if="latest == null" class="p-7 text-center p-8">
-                            No Video available :(
-                        </div>
+                        <div v-if="latests.length == 0" class="py-3 caption">No Video</div>
 
-                        <!-- <VideoLoop
-                        v-else
-                        :latest="latest"
-                        :activeBtn="1"
-                        :hiddendetail="true"
-                        /> -->
+						<h4 class="pwhead mt-4"><span>FINAL</span></h4>
+
+						<div
+							v-for="latest in finalists"
+							:key="'finalist-'+latest.id"
+						>
+							<!-- <pre>{{latest}}</pre> -->
+							<VideoLoopBig :obj="latest" :band="band" class="mb-3"/>
+						</div>
+						<div v-if="finalists.length == 0" class="py-3 caption">No Video</div>
+
+						<h4 class="pwhead mt-4"><span>WINNER</span></h4>
+
+						<div v-if="winners.length > 0">
+							<div
+								v-for="latest in winners.slice(0,1)"
+								:key="'winner-'+latest.id"
+							>
+								<!-- <pre>{{latest}}</pre> -->
+								<VideoLoopBig :obj="latest" :band="band" class="mb-3"/>
+							</div>
+						</div>
+						<div v-if="winners.length == 0" class="py-3 caption">No Video</div>
+
+						<template v-if="band">
+							<h4 class="pwhead"><span>BAND PROFILE</span></h4>
+							<v-img v-if="band.avatar" :src="band.avatar" :alt="band.band_name" :aspect-ratio="16/9"></v-img>
+
+							<!-- TEAM -->
+							<v-container>
+								<div class="mt-4">
+									<v-row justify="space-between" class="mt-3" v-if="band" no-gutters>
+										<v-col cols="6">
+											<v-row class="pa-0">
+												<template v-for="(person, i) in band.band_detail">
+													<v-col
+														:key="i"
+														cols="1"
+														class="py-0"
+														v-if="person.personnel_name != null"
+													>
+														<v-avatar size="30">
+															<v-img :src="person.avatar ? person.avatar : '/img/user.jpeg'"></v-img>
+														</v-avatar>
+													</v-col>
+												</template>
+											</v-row>
+										</v-col>
+										<v-col cols="6" class="text-right">
+											<v-btn
+												text
+												@click="[ expandTeam ? expandTeam = false : expandTeam = true]"
+											>
+												Personnel
+												<template v-if="!expandTeam"><v-icon>mdi-menu-down</v-icon></template>
+												<template v-else><v-icon>mdi-menu-up</v-icon></template>
+											</v-btn>
+										</v-col>
+									</v-row>
+
+									<div v-if="expandTeam" class="mt-4">
+										<v-row
+											align="center"
+											v-for="(person, i) in band.band_detail"
+											:key="i"
+										>
+											<v-col cols="2" v-if="person.personnel_name != null">
+												<v-avatar size="45">
+													<v-img :src="person.avatar ? person.avatar : '/img/user.jpeg'"></v-img>
+												</v-avatar>
+											</v-col>
+											<v-col cols="8" v-if="person.personnel_name != null">
+												<strong>{{person.personnel_name}}</strong><br>
+												<div class="caption grey--text ">{{person.position ? person.position.name : '...'}}</div>
+											</v-col>
+											<v-col cols="2" class="text-right">
+												<v-btn
+												v-if="person.instagram"
+												:href="'https://instagram.com/'+person.instagram"
+												icon>
+													<v-icon>
+														mdi-instagram
+													</v-icon>
+												</v-btn>
+											</v-col>
+										</v-row>
+									</div>
+								</div>
+							</v-container>
+						</template>
                     </template>
                     <template v-if="komentar">
                         <v-card v-if="latest" :elevation="0" style="border: 1px solid #757575">
@@ -392,6 +477,8 @@ import BuyVip from '@/components/modal/BuyVip'
 import PleaseLogin from '@/components/modal/PleaseLogin'
 import LoginModal from '@/components/modal/LoginModal'
 import UserService from '@/services/UserService'
+import VideoLoopBig from '@/components/starx/VideoLoopBig'
+
 
 export default {
     name: "StarxBandVideo",
@@ -408,9 +495,9 @@ export default {
             aws: 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/',
 			video_latest: true,
 			komentar: false,
-            latest: [],
-            finalist: [],
-			winner: [],
+            latests: [],
+            finalists: [],
+			winners: [],
 			dataUrl: "https://m.playworld.id/starx/band/video/" + this.$route.params.detail,
 			commentIsPosting: false,
 			comments: [],
@@ -428,7 +515,8 @@ export default {
             timeout: 3000,
             responsemessage: '',
             isLoggedIn: false,
-            bandImage: ''
+			bandImage: '',
+			expandTeam: false
         }
     },
     components: {
@@ -440,7 +528,8 @@ export default {
 		KomentarPoin,
         LoginModal,
         BuyVip,
-        PleaseLogin,
+		PleaseLogin,
+		VideoLoopBig
 	},
 	computed: {
 		reverseComment: function(){
@@ -460,17 +549,20 @@ export default {
         },
         async StarxVideo () {
             try {
-                const response = await StarxService.VideoDetail( this.$route.params.detail )
+				const response = await StarxService.VideoDetail( this.$route.params.detail )
+				console.log('RESPON');
+                console.log(JSON.parse(JSON.stringify(response.data.data)))
                 this.wholeResponse = response.data.data;
-                this.latest = this.wholeResponse.latests;
-                this.bandImage = this.latest.band.image
-				this.id = this.latest.id;
-                this.finalist = this.wholeResponse.finalist;
-                console.log(this.latest)
-                this.winner = this.wholeResponse.winners;
-                this.program = this.wholeResponse.program.term;
-                this.band = this.latest.band;
-                this.prizes = this.wholeResponse.prizes;
+				var res = response.data.data;
+				console.log('BAND');
+				console.log(JSON.parse(JSON.stringify(res.band)))
+				this.band = res.band;
+				this.latests = res.latests;
+				this.id = res.latests ? res.latests.id : '';
+				this.finalist = res.finalist;
+                this.winners = res.winners ? res.winners : [];
+                this.program = res.program.term;
+                this.prizes = res.prizes;
             } catch (error) {
                 console.log(error)
             }
@@ -553,9 +645,6 @@ export default {
                 this.pleaseLoginDialogVisible = true
             }
 		},
-		renderVideo(code){
-			return '<iframe height="180" src="https://www.youtube.com/embed/'+code+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:180px" allowfullscreen></iframe>';
-		},
 		openModalLogin() {
 			this.loginModalVisible = true
 		},
@@ -614,7 +703,10 @@ export default {
             } else {
                 this.pleaseLoginDialogVisible = true
             }
-        }
+		},
+		renderVideo(code){
+			return '<iframe height="180" src="https://www.youtube.com/embed/'+code+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:180px" allowfullscreen></iframe>';
+		},
     },
     mounted () {
 		this.StarxVideo();
