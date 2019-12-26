@@ -34,5 +34,8 @@ export default {
 	},
 	fetchComment(slug) {
 		return Api().get('/program/starx/band/comment/' + slug)
-	}
+    },
+    getDetailEskul(slug) {
+        return Api().get('/program/starx/detail/' + slug)
+    }
 }

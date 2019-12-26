@@ -708,7 +708,7 @@
 										outlined
 										:key="eskul.id"
 										v-if="i > 0"
-										:to="'/search/'+eskul.eskul.name"
+										:to="'/starx/eskul/' + eskul.eskul.slug + '/' + slugify(eskul.school.name)"
 									>
 											<v-row align="center">
 												<v-col cols="2">
@@ -915,11 +915,19 @@ export default {
                 const response = await StarxService.getStarx()
                 const results = response.data.data
                 this.eskuls = results.eskuls
-                // console.log(JSON.parse(JSON.stringify(this.eskuls)))
+                console.log(JSON.parse(JSON.stringify(this.eskuls)))
             } catch (error) {
                 console.log(error)
             }
-        }
+		},
+		slugify(text){
+			return text.toString().toLowerCase()
+				.replace(/\s+/g, '-')           // Replace spaces with -
+				.replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+				.replace(/\-\-+/g, '-')         // Replace multiple - with single -
+				.replace(/^-+/, '')             // Trim - from start of text
+				.replace(/-+$/, '');            // Trim - from end of text
+		},
     },
     mounted () {
 		this.StarxBandHome(1, 'newest');
