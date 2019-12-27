@@ -311,7 +311,7 @@
 													</v-list-item>
 												</v-col>
 												<v-col style="margin-left: -7px" cols="1">
-													<a style="text-decoration: none" :href="'https://instagram.com/' + latest.personnel_winner.instagram.replace('@', '')" target="blank"><v-icon class="pink--text">mdi-instagram</v-icon></a>
+													<a style="text-decoration: none" :href="'https://instagram.com/' + latest.personnel_winner.instagram.replace('@', '')" target="blank"><v-icon class="grey--text">mdi-instagram</v-icon></a>
 												</v-col>
 											</v-row>
 										</v-card>
