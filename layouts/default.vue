@@ -10,7 +10,7 @@
 			>
 				<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-				<v-toolbar-title @click="$router.push('/')">
+				<v-toolbar-title @click="$router.push('/'); drawer = false">
 					<v-img
 					src="/img/playworld-logo.png"
 					width="130"
@@ -92,6 +92,7 @@
 				app
 				fixed
 				width="100%"
+				@click="drawer = false"
 			>
 				<v-card tile>
 					<v-app-bar
@@ -122,9 +123,9 @@
 					</v-row>
 
 					<v-row class="mt-12" v-else>
-						<v-col cols="3">
+						<v-col cols="3" @click="$router.push('/member/pengaturan/profil');drawer = false">
 							<v-avatar
-								@click="$router.push('/member/pengaturan/profil')"
+								@click="$router.push('/member/pengaturan/profil');drawer = false"
 								size="60"
 								color="grey"
 							>
@@ -133,22 +134,22 @@
 						</v-col>
 						<v-col cols="9" style="margin-top: -10px">
 							<v-row>
-								<v-col cols="6" @click="$router.push('/member/pengaturan/profil')">
+								<v-col cols="6" @click="$router.push('/member/pengaturan/profil'); drawer = false">
 									<strong class="subheading">{{ userdata.first_name }}</strong>
 								</v-col>
 								<v-col cols="6" class="text-right">
-									<v-btn @click="logout()" rounded color="error" depressed small>SIGN OUT</v-btn>
+									<v-btn @click="logout(); drawer = false" rounded color="error" depressed small>SIGN OUT</v-btn>
 								</v-col>
 							</v-row>
 							<div class="devider-small full"></div>
-							<v-row no-gutters class="mt-5" @click="$router.push('/member/pengaturan/profil')">
+							<v-row no-gutters class="mt-5" @click="$router.push('/member/pengaturan/profil'); drawer = false">
 								<v-col cols="7">
 									<v-row no-gutters>
 										<v-col cols="2">
 											<img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
 										</v-col>
 										<v-col cols="10" :class="['pl-1', (userdata.status_expired == 1) ? 'green--text' : 'red--text']">
-											<strong class="body-2 font-weight-bold">({{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}})</strong><br>
+											<strong class="body-2 font-weight-bold">{{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}}</strong><br>
 											<strong class="body-2 mr-2 font-weight-bold">({{userdata.expire}})</strong>
 										</v-col>
 									</v-row>
@@ -160,7 +161,7 @@
 								<v-col cols="1">
 									<v-btn
 									text
-									to="/member/pengaturan/profil"
+									@click="$router.push('/member/pengaturan/profil'); drawer = false"
 									>
 										<v-icon>mdi-arrow-right</v-icon>
 									</v-btn>
@@ -170,7 +171,7 @@
 					</v-row>
 					<v-row class="d-none">
 						<v-col cols="12">
-							<v-btn @click="$router.push('/member')" block color="orange accent-14" depressed dark>
+							<v-btn @click="$router.push('/member'); drawer = false" block color="orange accent-14" depressed dark>
 								<v-icon class="mr-2">mdi-settings</v-icon> SETTINGS
 							</v-btn>
 						</v-col>
@@ -192,7 +193,7 @@
 									<v-list-item
 										v-for="(cat, i) in categories"
 										:key="i"
-										:to="cat.link"
+										@click="$router.push(cat.link); drawer = false"
 									>
 										<v-list-item-content class="menu">
 											<v-list-item-title v-html="cat.title"></v-list-item-title>
@@ -208,7 +209,7 @@
 									<v-list-item
 										v-for="(prem, i) in premiums"
 										:key="i"
-										@click="$router.push(prem.link)"
+										@click="$router.push(prem.link); drawer = false"
 									>
 										<v-list-item-content class="menu">
 											<v-list-item-title v-html="prem.title"></v-list-item-title>
@@ -225,7 +226,7 @@
 									<v-list-item
 										v-for="(prog, i) in programs"
 										:key="i"
-										@click="$router.push(prog.link)"
+										@click="$router.push(prog.link); drawer = false"
 									>
 										<v-list-item-content class="menu">
 											<v-list-item-title v-html="prog.title"></v-list-item-title>
@@ -291,10 +292,18 @@
 					<v-row>
 						<v-col cols="12">
 							<v-container>
-								<a target="blank" style="text-decoration: none;" href="https://www.facebook.com/PLAYWORLD.ID"><v-icon size="40" color="primary">mdi-facebook-box</v-icon></a>
-								<a target="blank" style="text-decoration: none;" href="https://twitter.com/PlayworldID"><v-icon size="40" color="blue">mdi-twitter-box</v-icon></a>
-								<a target="blank" style="text-decoration: none;" href="https://www.instagram.com/playworld.id"><v-icon size="38" color="pink">mdi-instagram</v-icon></a>
-								<a target="blank" style="text-decoration: none;" href="https://www.youtube.com/channel/UCWU4CyCb2GJrkP7lTtdlsdg"><v-icon size="40" color="red">mdi-youtube</v-icon></a>
+								<a target="blank" style="text-decoration: none;" href="https://www.facebook.com/PLAYWORLD.ID">
+									<img src="/img/001-facebook.png" width="40" alt="">
+								</a>
+								<a target="blank" style="text-decoration: none;" href="https://twitter.com/PlayworldID">
+									<img src="/img/003-twitter.png" width="40" alt="">
+								</a>
+								<a target="blank" style="text-decoration: none;" href="https://www.instagram.com/playworld.id">
+									<img src="/img/002-instagram.png" width="40" alt="">
+								</a>
+								<a target="blank" style="text-decoration: none;" href="https://www.youtube.com/channel/UCWU4CyCb2GJrkP7lTtdlsdg">
+									<img src="/img/004-youtube.png" width="40" alt="">
+								</a>
 							</v-container>
 						</v-col>
 					</v-row>
@@ -365,7 +374,7 @@
 						<!-- Logo -->
 						<v-toolbar-title>
 							<v-img
-							@click="$router.push('/')"
+							@click="$router.push('/'); drawer = false"
 							src="/img/playworld-logo.png"
 							lazy-src="/img/playworld-logo.png"
 							max-width="100"
@@ -900,5 +909,8 @@ export default {
 
 	.v-item-group.v-bottom-navigation--fixed {
 		height: 68px!important;
+		.v-btn__content {
+			font-size: 0.875rem!important;
+		}
 	}
 </style>
