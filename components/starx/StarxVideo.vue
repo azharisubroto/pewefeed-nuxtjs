@@ -52,18 +52,22 @@
 					STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
 					</v-alert>
 
-					<v-row align="center" class="sm" v-if="band" @click="$router.push('/starx/band/detail/'+band.slug)">
+					<v-row v-if="band" align="center" class="sm">
 						<v-col cols="2">
 							<v-avatar
+								v-if="band"
 								size="50"
 							>
-								<img v-if="band.avatar != ''" :src="band.avatar" alt="alt">
+								<img v-if="band.avatar != ''" :src="band.avatar">
 								<img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
 							</v-avatar>
 						</v-col>
-						<v-col cols="10" class="pb-0" style="margin-top: -14px">
+						<v-col cols="7" class="pb-0" style="margin-top: -14px">
 							<strong style="font-size:14px;">{{ band ? band.band_name : '' }}</strong>
 							<div>{{ band.school ? band.school.name : '' }}</div>
+						</v-col>
+						<v-col cols="3">
+							<v-img v-if="winners" :src="'/img/BADGE-PW-WINNER-0'+ winners.winners_detail.winner_name.replace('juara-', '') +'.png'"></v-img>
 						</v-col>
 					</v-row>
 
@@ -88,21 +92,6 @@
 
                                 <h2 class="mt-3">{{ latests.description }}</h2>
                                 <div class="devider-small my-2"></div>
-                                <v-row class="sm">
-                                    <v-col cols="1" class="pr-1 mr-1 pb-0">
-                                        <v-avatar
-                                            size="25"
-                                            @click="$router.push( '/starx/band/video/'+latests.slug )"
-                                        >
-                                            <img v-if="bandImage != ''" :src="bandImage" alt="alt">
-                                            <img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
-                                        </v-avatar>
-                                    </v-col>
-                                    <v-col cols="10" class="pb-0" style="margin-top: -14px">
-                                        <strong style="font-size:14px;">{{ latests.band ? latests.band.name : '' }}</strong>
-                                        <div>{{ latests.school }}</div>
-                                    </v-col>
-                                </v-row>
                             </v-card-text>
 
 							<div v-if="latests.video && latests.video.includes('iframe')" v-html="latests.video"></div>
@@ -159,35 +148,31 @@
                             </v-snackbar>
 						</v-card>
 
-                        <div v-if="latests.length == 0" class="py-3 caption">No Video</div>
+                        <div v-if="latests.length == 0" class="py-3 caption">
+							<div class="no-content">No content to load</div>
+						</div>
 
 						<h4 class="pwhead mt-4"><span>FINAL</span></h4>
 
-						<div
-							v-for="latest in finalists"
-							:key="'finalist-'+latest.id"
-						>
-							<!-- <pre>{{latest}}</pre> -->
-							<VideoLoopBig :obj="latest" :band="band" class="mb-3"/>
+						<!-- <pre>{{latest}}</pre> -->
+						<VideoLoopBig :obj="finalist" :band="band" class="mb-3"/>
+
+						<div v-if="!finalist" class="py-3 caption">
+							<div class="no-content">No content to load</div>
 						</div>
-						<div v-if="finalists.length == 0" class="py-3 caption">No Video</div>
 
 						<h4 class="pwhead mt-4"><span>WINNER</span></h4>
 
-						<div v-if="winners.length > 0">
-							<div
-								v-for="latest in winners.slice(0,1)"
-								:key="'winner-'+latest.id"
-							>
-								<!-- <pre>{{latest}}</pre> -->
-								<VideoLoopBig :obj="latest" :band="band" class="mb-3"/>
-							</div>
+						<!-- <pre>{{latest}}</pre> -->
+						<VideoLoopBig :obj="winners" :band="band" class="mb-3"/>
+						<div v-if="!winners" class="py-3 caption">
+							<div class="no-content">No content to load</div>
 						</div>
-						<div v-if="winners.length == 0" class="py-3 caption">No Video</div>
 
 						<template v-if="band">
 							<h4 class="pwhead"><span>BAND PROFILE</span></h4>
-							<v-img v-if="band.avatar" :src="band.avatar" :alt="band.band_name" :aspect-ratio="16/9"></v-img>
+							<v-img v-if="band.avatar" :src="band.avatar ? band.avatar : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/program/placeholder-big.jpg'" :alt="band.band_name" :aspect-ratio="16/9"></v-img>
+							<v-img v-else src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/program/placeholder-big.jpg"></v-img>
 
 							<!-- TEAM -->
 							<v-container>
@@ -496,8 +481,8 @@ export default {
 			video_latest: true,
 			komentar: false,
             latests: [],
-            finalists: [],
-			winners: [],
+            finalist: null,
+			winners: null,
 			dataUrl: "https://m.playworld.id/starx/band/video/" + this.$route.params.detail,
 			commentIsPosting: false,
 			comments: [],
@@ -555,12 +540,12 @@ export default {
                 this.wholeResponse = response.data.data;
 				var res = response.data.data;
 				console.log('BAND');
-				console.log(JSON.parse(JSON.stringify(res.band)))
+				console.log(JSON.parse(JSON.stringify(res.finalist)))
 				this.band = res.band;
 				this.latests = res.latests;
 				this.id = res.latests ? res.latests.id : '';
 				this.finalist = res.finalist;
-                this.winners = res.winners ? res.winners : [];
+                this.winners = res.winners;
                 this.program = res.program.term;
                 this.prizes = res.prizes;
             } catch (error) {

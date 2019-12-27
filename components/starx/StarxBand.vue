@@ -18,13 +18,13 @@
 			===================================================================================== -->
 			<v-tabs
 				v-model="tab"
-				background-color="grey lighten-2"
+				background-color="light"
 				center-active
 				light
 				grow
-				color="dark"
+				color="orange"
 				class="fixed-tabs-bar"
-				style="position:relative!important;top:0"
+				style="position:relative!important;top:0;border-bottom: 1px solid #d1d1d1"
 				>
 				<v-tabs-slider></v-tabs-slider>
 
@@ -974,5 +974,8 @@ export default {
 		border-right : 1px #C5C5C5 solid !important;
 		border-left : 1px #C5C5C5 solid !important;
 		border-bottom : 1px #C5C5C5 solid !important;
+	}
+	.v-content__wrap {
+		padding-top: 55px;
 	}
 </style>

@@ -94,3 +94,8 @@ export default {
 	}
 }
 </script>
+<style lang="scss">
+	.v-content__wrap {
+		padding-top: 55px;
+	}
+</style>
