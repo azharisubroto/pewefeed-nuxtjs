@@ -392,11 +392,15 @@
                   </v-col>
                 </v-row>
 
-				<recaptcha
-				@error="onError()"
-				@success="onSuccess()"
-				@expired="onExpired()"
-				/>
+				<div style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px">
+					<recaptcha
+					style="display:inline-block"
+					@error="onError()"
+					@success="onSuccess()"
+					@expired="onExpired()"
+					/>
+				</div>
+
 				<v-btn
 				@click="validate(itemvoucher)"
 				color="deep-orange"

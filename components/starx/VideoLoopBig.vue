@@ -18,7 +18,7 @@
 
 			<h2 class="mt-3">{{ obj.description }}</h2>
 			<div class="devider-small my-2"></div>
-			<v-row align="center" class="sm" v-if="obj.band" @click="$router.push('/starx/band/detail/'+obj.band.slug)">
+			<!-- <v-row align="center" class="sm" v-if="obj.band" @click="$router.push('/starx/band/detail/'+obj.band.slug)">
 				<v-col cols="1">
 					<v-avatar
 						size="25"
@@ -32,7 +32,7 @@
 					<strong style="font-size:14px;">{{ obj.band ? obj.band.name : '' }}</strong>
 					<div>{{ obj.school }}</div>
 				</v-col>
-			</v-row>
+			</v-row> -->
 		</v-card-text>
 
 		<div v-if="obj.video && obj.video.includes('iframe')" v-html="obj.video"></div>

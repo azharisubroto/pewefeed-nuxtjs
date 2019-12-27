@@ -34,7 +34,7 @@
 			</v-tabs>
 
 			<!-- STAR X MENU -->
-			<v-tabs v-if="$nuxt.$route.name.includes('starx') || $nuxt.$route.name.includes('kompetisi')" grow color="deep-orange" center-active class="pw-tab">
+			<!-- <v-tabs v-if="$nuxt.$route.name.includes('starx') || $nuxt.$route.name.includes('kompetisi')" grow color="deep-orange" center-active class="pw-tab">
 				<v-tab
 					v-for="menu in starxMenu"
 					:key="menu.loc"
@@ -42,7 +42,7 @@
 				>
 					{{menu.name}}
 				</v-tab>
-			</v-tabs>
+			</v-tabs> -->
 
 			<!-- MEMBER MENU -->
 			<v-tabs
@@ -124,6 +124,7 @@
 					<v-row class="mt-12" v-else>
 						<v-col cols="3">
 							<v-avatar
+								@click="$router.push('/member/pengaturan/profil')"
 								size="60"
 								color="grey"
 							>
@@ -132,7 +133,7 @@
 						</v-col>
 						<v-col cols="9" style="margin-top: -10px">
 							<v-row>
-								<v-col cols="6">
+								<v-col cols="6" @click="$router.push('/member/pengaturan/profil')">
 									<strong class="subheading">{{ userdata.first_name }}</strong>
 								</v-col>
 								<v-col cols="6" class="text-right">
@@ -140,7 +141,7 @@
 								</v-col>
 							</v-row>
 							<div class="devider-small full"></div>
-							<v-row no-gutters class="mt-5">
+							<v-row no-gutters class="mt-5" @click="$router.push('/member/pengaturan/profil')">
 								<v-col cols="7">
 									<v-row no-gutters>
 										<v-col cols="2">
@@ -886,5 +887,18 @@ export default {
 	.v-dialog__content .v-dialog > .v-card:not(.v-sheet--tile):not(.v-card--shaped){
 		border-radius:0!important;
 		margin: 0!important
+	}
+
+	.no-content {
+		background: #f0f0f0;
+		height: 250px;
+		line-height: 250px;
+		width: 100%;
+		border: #d1d1d1;
+		text-align: center;
+	}
+
+	.v-item-group.v-bottom-navigation--fixed {
+		height: 68px!important;
 	}
 </style>
