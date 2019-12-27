@@ -37,7 +37,7 @@
 					<v-list-item
 					v-for="submenu in item.submenu"
 					:key="submenu.id"
-					@click=""
+					@click="showDetail(submenu, item)"
 					>
 						<v-list-item-content>
 							{{submenu.title}}
@@ -50,19 +50,52 @@
 
 			</v-tab-item>
 		</v-tabs-items>
+
+		<!-- MODAL DETAIL -->
+		<v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+			<v-card v-if="submenucontent">
+				<v-toolbar dark color="orange">
+					<v-btn icon dark @click="dialog = false">
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+					<v-toolbar-title>Bantuan</v-toolbar-title>
+					<v-spacer></v-spacer>
+				</v-toolbar>
+
+				<v-container class="bantuancontent pt-4">
+					<div class="caption mb-3">Bantuan / {{parent.title ? parent.title : ''}}</div>
+					<h2>{{submenucontent.title ? submenucontent.title : ""}}</h2>
+					<div class="devider-small my-4"></div>
+					<div v-html="submenucontent.content ? submenucontent.content : ''"></div>
+				</v-container>
+
+			</v-card>
+		</v-dialog>
 	</div>
 </template>
 <script>
+import BantuanDetail from '@/components/bantuan/BantuanDetail'
 import ArticleService from '@/services/ArticleService'
 export default {
 	name:"BantuanPage",
+	components: {
+		BantuanDetail
+	},
 	data() {
 		return {
 			menu: null,
-			tab: null
+			tab: null,
+			dialog: false,
+			submenucontent: null,
+			parent: null
 		}
 	},
 	methods: {
+		showDetail(submenu, parent) {
+			this.dialog = true
+			this.submenucontent = submenu
+			this.parent = parent
+		},
 		async fetchBantuan() {
 			try {
 				const res = await ArticleService.getBantuan()
@@ -91,5 +124,11 @@ export default {
 <style lang="scss">
 .bantuan .v-list-item {
 	border-bottom: 1px solid #d1d1d1
+}
+.bantuancontent {
+	img {
+		width: 100%!important;
+		height: auto!important;
+	}
 }
 </style>
