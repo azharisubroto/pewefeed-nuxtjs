@@ -310,13 +310,23 @@
 					<v-container>
 						<div class="devider-small full"></div>
 					</v-container>
+
+					<v-container class="pb-0">
+						<v-row align="center" @click="$router.push('/bantuan'); drawer = false">
+							<v-col cols="9" class="text-16 py-0">
+								<strong>BANTUAN</strong>
+							</v-col>
+							<v-col cols="3" class="text-right py-0">
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-col>
+						</v-row>
+					</v-container>
 					<!--
 						ABOUT
 					-->
 					<v-row class="caption cta-links">
 						<v-col cols="6">
 							<v-list>
-								<v-list-item @click="$router.push('/bantuan/'); drawer = false">Bantuan</v-list-item>
 								<v-list-item>Tentang Playworld</v-list-item>
 								<v-list-item>Dewan Pers</v-list-item>
 								<v-list-item>Tim Redaksi</v-list-item>
@@ -480,7 +490,7 @@ export default {
 			],
 			toolbarMenu: [
 				{name: 'Trending', loc: '/'},
-				{name: 'Fakta', loc: '/fakta'},
+				// {name: 'Fakta', loc: '/fakta'},
 				{name: 'Komik', loc: '/komik'},
 				{name: 'Video', loc: '/video'},
 				{name: 'Tukar Poin', loc: '/toko'},
