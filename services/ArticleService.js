@@ -50,5 +50,8 @@ export default {
     },
     getDetailMeta(slug) {
       return Api().get('/meta/detail/' + slug)
-    }
+	},
+	getBantuan() {
+		return Api().get('/help/how-to')
+	}
 }

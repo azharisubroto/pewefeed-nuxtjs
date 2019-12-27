@@ -23,7 +23,7 @@
 					<v-icon> mdi-magnify</v-icon>
 				</v-btn>
 			</v-app-bar>
-			<v-tabs v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx')" grow color="deep-orange" center-active class="pw-tab">
+			<v-tabs v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx') && !$nuxt.$route.name.includes('kompetisi') && !$nuxt.$route.name.includes('bantuan')" grow color="deep-orange" center-active class="pw-tab">
 				<v-tab
 					v-for="menu in toolbarMenu"
 					:key="menu.loc"
@@ -316,6 +316,7 @@
 					<v-row class="caption cta-links">
 						<v-col cols="6">
 							<v-list>
+								<v-list-item @click="$router.push('/bantuan/'); drawer = false">Bantuan</v-list-item>
 								<v-list-item>Tentang Playworld</v-list-item>
 								<v-list-item>Dewan Pers</v-list-item>
 								<v-list-item>Tim Redaksi</v-list-item>
