@@ -30,23 +30,28 @@
 				<span>{{item}}</span>
 			</v-btn>
 		</v-bottom-navigation>
+
+		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
 	</section>
 </template>
 <script>
 import Pending from '@/components/member/midtrans/Pending'
 import Sukses from '@/components/member/midtrans/Sukses'
 import UserService from '@/services/UserService'
+import LoginModal from '@/components/modal/LoginModal'
 export default {
 	components: {
 		Pending,
-		Sukses
+		Sukses,
+		LoginModal
 	},
 	data() {
 		return {
 			tab:0,
 			addresses: null,
 			contact: null,
-			tabItems: ['Pending','Sukses']
+			tabItems: ['Pending','Sukses'],
+			loginModalVisible: false,
 		}
 	},
 	methods: {
@@ -77,10 +82,20 @@ export default {
 
 			}
 		},
+		openModalLogin() {
+			this.loginModalVisible = true
+		},
+		myDialogClose () {
+			this.loginModalVisible = false
+		},
 	},
 	mounted() {
-		this.getAddresses()
-		this.getNumbers()
+		if (!localStorage.getItem('loggedin')) {
+			this.openModalLogin()
+		} else {
+			this.getAddresses()
+			this.getNumbers()
+		}
 	}
 }
 </script>
