@@ -52,7 +52,7 @@
 		</v-tabs-items>
 
 		<!-- MODAL DETAIL -->
-		<v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+		<v-dialog class="bantuan-modal" v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
 			<v-card v-if="submenucontent">
 				<v-toolbar dark color="orange">
 					<v-btn icon dark @click="dialog = false">
@@ -68,7 +68,26 @@
 					<div class="devider-small my-4"></div>
 					<div v-html="submenucontent.content ? submenucontent.content : ''"></div>
 				</v-container>
-
+				<div class="action-help">
+					<v-container>
+						<v-row>
+							<v-col cols="6">
+								<v-btn block dark class="dark" dark @click="dialog = false">
+									<v-icon>mdi-arrow-left</v-icon>
+									Back
+								</v-btn>
+							</v-col>
+							<v-col cols="6">
+								<ShareButton
+								:sharingUrl="'https://m.playworld.id/bantuan/'"
+								:sharingTitle="'Bantuan Playworld'"
+								:sharingDescription="dataDescription"
+								class="my-0"
+								/>
+							</v-col>
+						</v-row>
+					</v-container>
+				</div>
 			</v-card>
 		</v-dialog>
 	</div>
@@ -76,10 +95,13 @@
 <script>
 import BantuanDetail from '@/components/bantuan/BantuanDetail'
 import ArticleService from '@/services/ArticleService'
+import ShareButton from '@/components/common/ShareButton'
+
 export default {
 	name:"BantuanPage",
 	components: {
-		BantuanDetail
+		BantuanDetail,
+		ShareButton
 	},
 	data() {
 		return {
@@ -130,5 +152,31 @@ export default {
 		width: 100%!important;
 		height: auto!important;
 	}
+}
+.action-help {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #fff;
+	border-top: 1px solid #d1d1d1;
+}
+.bantuan-modal .v-dialog {
+	.mt-5 {
+		margin: 0!important;
+	}
+}
+.bantuancontent {
+	padding-bottom: 105px;
+}
+.v-application .bantuancontent .action-help,
+.bantuancontent .action-help {
+	.mt-5 {
+		margin-top:0!important;
+	}
+}
+.v-application .action-help .mt-5 {
+	margin-top:0!important;
 }
 </style>
