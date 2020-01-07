@@ -156,8 +156,8 @@ export default {
 	button.orange {
 		display: block;
 		width: 100%;
-		background-color: #212121!important;
-		border-color: #212121!important;
+		background-color: #000!important;
+		border-color: #000!important;
 		border-radius: 0;
 		height: 50px;
 		span {
