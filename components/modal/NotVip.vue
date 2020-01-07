@@ -16,13 +16,11 @@
 
           <!-- Logo -->
           <v-toolbar-title>
-            <v-img
+            <img
               :src="logo"
-              :lazy-src="lazy"
-              max-width="40"
-              max-height="40"
-            >
-            </v-img>
+			  width="130"
+			  class="d-inline-block mt-3"
+            />
           </v-toolbar-title>
 
           <!-- Title -->
@@ -88,7 +86,7 @@
         dialog: false,
         buyVipDialogVisible: false,
         lazy: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
-        logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
+        logo: '/img/Playworld-Logo-Dark_resize2.png',
       }
     },
     components: {

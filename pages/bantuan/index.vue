@@ -1,56 +1,67 @@
 <template>
 	<div class="bantuan">
-		<v-tabs
-		v-model="tab"
-		v-if="menu"
-		grow
-		color="deep-orange"
-		center-active
-		class="pw-tab"
-		>
-			<!-- <v-tab
-				href="#test"
+		<div v-if="menu && !loading">
+			<v-tabs
+			v-model="tab"
+			v-if="menu"
+			grow
+			color="deep-orange"
+			center-active
+			class="pw-tab"
 			>
-				Test
-			</v-tab> -->
-			<v-tab
+				<!-- <v-tab
+					href="#test"
+				>
+					Test
+				</v-tab> -->
+				<v-tab
+					v-for="item in menu"
+					:key="item.id"
+					:href="'#tab-'+item.id"
+				>
+					{{item.title}}
+				</v-tab>
+			</v-tabs>
+
+			<v-tabs-items
+			v-model="tab"
+			class="djusted-tab-items pb-5"
+			>
+				<!-- <v-tab-item value="test">
+					TEST
+				</v-tab-item> -->
+				<v-tab-item
 				v-for="item in menu"
-				:key="item.id"
-				:href="'#tab-'+item.id"
-			>
-				{{item.title}}
-			</v-tab>
-		</v-tabs>
+				:key="'tabitem-'+item.id"
+				:value="'tab-'+item.id">
+					<v-list v-if="item.submenu">
+						<v-list-item
+						v-for="submenu in item.submenu"
+						:key="submenu.id"
+						:to="'/bantuan/'+submenu.slug"
+						>
+							<v-list-item-content>
+								{{submenu.title}}
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
+					</v-list>
 
-		<v-tabs-items
-		v-model="tab"
-		class="djusted-tab-items pb-5"
-		>
-			<!-- <v-tab-item value="test">
-				TEST
-			</v-tab-item> -->
-			<v-tab-item
-			v-for="item in menu"
-			:key="'tabitem-'+item.id"
-			:value="'tab-'+item.id">
-				<v-list v-if="item.submenu">
-					<v-list-item
-					v-for="submenu in item.submenu"
-					:key="submenu.id"
-					:to="'/bantuan/'+submenu.slug"
-					>
-						<v-list-item-content>
-							{{submenu.title}}
-						</v-list-item-content>
-						<v-list-item-icon>
-							<v-icon>mdi-chevron-right</v-icon>
-						</v-list-item-icon>
-					</v-list-item>
-				</v-list>
+				</v-tab-item>
+			</v-tabs-items>
+			<br><br>
+		</div>
 
-			</v-tab-item>
-		</v-tabs-items>
-		<br><br>
+		<div v-else class="text-xs-center" align="center">
+			<v-progress-circular
+				indeterminate
+				:size="80"
+				:width="8"
+				color="deep-orange">
+			</v-progress-circular>
+		</div>
 
 		<ShareButton
 		:sharingUrl="'https://m.playworld.id/bantuan/'"
@@ -77,7 +88,8 @@ export default {
 			tab: null,
 			dialog: false,
 			submenucontent: null,
-			parent: null
+			parent: null,
+			loading: true
 		}
 	},
 	methods: {
@@ -100,6 +112,7 @@ export default {
 				// 	arr.push(obj)
 				// });
 				this.menu = data;
+				this.loading = false
 			} catch (error) {
 				console.log(error)
 			}
