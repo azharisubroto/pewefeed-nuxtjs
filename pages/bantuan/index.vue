@@ -66,7 +66,6 @@
 		<ShareButton
 		:sharingUrl="'https://m.playworld.id/bantuan/'"
 		:sharingTitle="'Bantuan Playworld'"
-		:sharingDescription="dataDescription"
 		class="my-0 bantuanfixed"
 		/>
 	</div>

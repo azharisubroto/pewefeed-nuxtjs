@@ -13,11 +13,13 @@
 		</v-container>
 
 		<!-- LOADING -->
-		<v-container v-else>
-			<v-skeleton-loader
-			class="mx-auto"
-			type="card"
-			></v-skeleton-loader>
+		<v-container v-else class="text-center" align="center">
+			<v-progress-circular
+				indeterminate
+				:size="80"
+				:width="8"
+				color="deep-orange">
+			</v-progress-circular>
 		</v-container>
 
 		<div class="devider-big my-4"></div>
