@@ -2,7 +2,7 @@
 	<section class="BantuanDetail">
 		<v-container v-if="content && !loading">
 			<div class="mb-3 caption">
-				<span to="/bantuan/">Bantuan</span> / {{content.slug}}
+				<span to="/bantuan/">Bantuan</span> / {{activemenu.title}}
 			</div>
 
 			<h3 style="font-weight: normal">{{content.title}}</h3>
@@ -10,14 +10,25 @@
 
 			<div class="text-14 bantuancontent pb-5" v-html="content.content"></div>
 
-			<div class="devider-big my-4"></div>
+		</v-container>
 
-			<div class="text-center text-18">
-				TOPIK BANTUAN LAINNYA
-			</div>
+		<!-- LOADING -->
+		<v-container v-else>
+			<v-skeleton-loader
+			class="mx-auto"
+			type="card"
+			></v-skeleton-loader>
+		</v-container>
 
-			<!-- <pre>{{others}}</pre> -->
+		<div class="devider-big my-4"></div>
 
+		<div class="text-center font-weight-bold">
+			TOPIK BANTUAN LAINNYA
+		</div>
+
+		<!-- <pre>{{others}}</pre> -->
+
+		<v-container>
 			<v-list v-if="others">
 				<v-list-item
 				v-for="submenu in others"
@@ -32,15 +43,6 @@
 					</v-list-item-icon>
 				</v-list-item>
 			</v-list>
-
-		</v-container>
-
-		<!-- LOADING -->
-		<v-container v-else>
-			<v-skeleton-loader
-			class="mx-auto"
-			type="card"
-			></v-skeleton-loader>
 		</v-container>
 		<br><br><br>
 
@@ -49,7 +51,7 @@
 			<v-container class="pa-0">
 				<v-row class="pa-0">
 					<v-col cols="6" class="pa-0">
-						<v-btn tile depressed block dark class="dark makebig" to="/bantuan/">
+						<v-btn tile depressed block class="makebig dark darken-5" to="/bantuan/">
 							<v-icon>mdi-arrow-left</v-icon>
 							Back
 						</v-btn>
@@ -59,7 +61,6 @@
 						v-if="content"
 						:sharingUrl="'https://m.playworld.id/bantuan/'+content.slug"
 						:sharingTitle="'Bantuan Playworld'"
-						:sharingDescription="dataDescription"
 						class="my-0"
 						/>
 					</v-col>
@@ -82,7 +83,8 @@ export default {
 			loading: true,
 			content: null,
 			others: null,
-			slug: null
+			slug: null,
+			activemenu: null
 		}
 	},
 	methods: {
@@ -93,6 +95,7 @@ export default {
 
 				this.content = res.data.data
 				this.others = res.data.other
+				this.activemenu = res.data.active_menu
 				this.loading = false
 			} catch (error) {
 				console.log(error)
@@ -155,18 +158,20 @@ export default {
 			background-color: #212121!important;
 			border-color: #212121!important;
 			border-radius: 0;
-			height: 50px;
+			height: 68px!important;
 			span {
-				height: 50px;
+				height: 68px!important;
 			}
 		}
 	}
 	.makebig {
-		height: 50px!important;
-		line-height: 50px!important;
+		height: 68px!important;
+		line-height: 68px!important;
+		background: #000!important;
 		span {
-			height: 50px;
-			line-height: 50px;
+			height: 68px;
+			line-height: 68px;
+			color: #fff!important;
 		}
 	}
 	.v-application .action-help .mt-5 {
@@ -174,13 +179,16 @@ export default {
 		button.orange {
 			display: block;
 			width: 100%;
-			background-color: #212121!important;
-			border-color: #212121!important;
+			background-color: #000!important;
+			border-color: #000!important;
 			border-radius: 0;
-			height: 50px;
+			height: 68px;
 			span {
-				height: 50px;
+				height: 68px;
 			}
 		}
+	}
+	.v-btn {
+		text-transform: initial!important;
 	}
 </style>
