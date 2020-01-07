@@ -32,32 +32,40 @@
                                 <img width="100%" src="/img/playworld-logo-only.png" alt="">
                             </v-col>
                             <v-col cols="12">
-                                <socialSharing 
-                                    :url="sharingUrl"
-                                    :title="sharingTitle"
-                                    :description="sharingDescription"
-                                    twitter-user="playworldID"
-                                    inline-template
-                                    @close="close()"
-                                >
-                                    <div>
-                                        <network network="facebook">
-                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook-box theme--light primary--text"></i>
-                                        </network>
-                                        <network network="twitter">
-                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter-box theme--light blue--text"></i>
-                                        </network>
-                                        <network network="whatsapp">
-                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"></i>
-                                        </network>
-                                        <network network="telegram">
-                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-telegram theme--light blue--text"></i>
-                                        </network>
-                                        <network network="skype">
-                                            <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-skype theme--light blue--text"></i>
-                                        </network>
-                                    </div>
-                                </socialSharing>
+                                <v-row align="center" no-gutters>
+                                    <v-col cols="8">
+                                        <socialSharing 
+                                            :url="sharingUrl"
+                                            :title="sharingTitle"
+                                            :description="sharingDescription"
+                                            twitter-user="playworldID"
+                                            inline-template
+                                            @close="close()"
+                                        >
+                                            <div>
+                                                <network network="facebook">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook-box theme--light primary--text"></i>
+                                                </network>
+                                                <network network="twitter">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter-box theme--light blue--text"></i>
+                                                </network>
+                                                <network network="whatsapp">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"></i>
+                                                </network>
+                                                <network network="telegram">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-telegram theme--light blue--text"></i>
+                                                </network>
+                                                <network network="skype">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-skype theme--light blue--text"></i>
+                                                </network>
+                                            </div>
+                                        </socialSharing>
+                                    </v-col>
+                                    <v-col cols="4">
+                                        <v-icon @click="copyToClipBoard()" size="30" style="margin-left: 3px;">mdi-content-copy</v-icon>
+                                    </v-col>
+                                </v-row>
+                                
                             </v-col>
                         </v-row>
                     </v-container>
@@ -67,6 +75,21 @@
                 </div>
             </v-sheet>
         </v-bottom-sheet>
+        <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+            top
+        >
+            {{ responsemessage }}
+            <v-btn
+                color="primary"
+                text
+                icon
+                @click="snackbar = false"
+            >
+            <v-icon color="white">mdi-close-circle-outline</v-icon>
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 <script>
@@ -78,17 +101,22 @@ export default {
         socialSharing
     },
     data: () => ({
-        sheet: false
+        sheet: false,
+        timeout: 2000,
+        snackbar: false,
+        responsemessage: 'Copied to clipboard'
     }),
     methods: {
         close() {
             this.$root.$on('social_shares_close', function (network, url) {
                 console.log('close')
             })
+        },
+        copyToClipBoard() {
+            const copy = require('clipboard-copy')
+            copy(this.sharingUrl)
+            this.snackbar = true
         }
-    },
-    mounted() {
-        console.log(this.sharingUrl)
     }
 }
 </script>
