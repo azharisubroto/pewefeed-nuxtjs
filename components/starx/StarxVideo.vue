@@ -443,7 +443,7 @@
         MODAL
         ===================================================================================== -->
         <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
-        <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
+        <LoginModal :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
         <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
 		<KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose"/>
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
@@ -459,7 +459,6 @@ import KomentarPoin from '@/components/modal/KomentarPoin'
 import CommentList from '@/components/common/CommentList'
 import NotVip from '@/components/modal/NotVip'
 import BuyVip from '@/components/modal/BuyVip'
-import PleaseLogin from '@/components/modal/PleaseLogin'
 import LoginModal from '@/components/modal/LoginModal'
 import UserService from '@/services/UserService'
 import VideoLoopBig from '@/components/starx/VideoLoopBig'
@@ -513,7 +512,7 @@ export default {
 		KomentarPoin,
         LoginModal,
         BuyVip,
-		PleaseLogin,
+		LoginModal,
 		VideoLoopBig
 	},
 	computed: {

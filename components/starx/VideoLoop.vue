@@ -101,7 +101,7 @@
         MODAL
         ===================================================================================== -->
         <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
-        <PleaseLogin :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
+        <LoginModal :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
         <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
     </v-card>
 </template>
@@ -110,7 +110,7 @@
 import StarxService from '@/services/StarxService'
 import UserService from '@/services/UserService'
 import BuyVip from '@/components/modal/BuyVip'
-import PleaseLogin from '@/components/modal/PleaseLogin'
+import LoginModal from '@/components/modal/LoginModal'
 import NotVip from '@/components/modal/NotVip'
 export default {
     name:"VideoLoop",
@@ -130,7 +130,7 @@ export default {
     ],
     components: {
         BuyVip,
-        PleaseLogin,
+        LoginModal,
         NotVip,
     },
     data: () => ({
