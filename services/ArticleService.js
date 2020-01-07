@@ -53,5 +53,8 @@ export default {
 	},
 	getBantuan() {
 		return Api().get('/help/how-to')
+	},
+	bantuandetail(slug) {
+		return Api().get('/help/sub/'+slug)
 	}
 }
