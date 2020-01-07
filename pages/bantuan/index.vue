@@ -37,7 +37,7 @@
 					<v-list-item
 					v-for="submenu in item.submenu"
 					:key="submenu.id"
-					@click="showDetail(submenu, item)"
+					:to="'/bantuan/'+submenu.slug"
 					>
 						<v-list-item-content>
 							{{submenu.title}}
@@ -50,46 +50,14 @@
 
 			</v-tab-item>
 		</v-tabs-items>
+		<br><br>
 
-		<!-- MODAL DETAIL -->
-		<v-dialog class="bantuan-modal" v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-			<v-card v-if="submenucontent">
-				<v-toolbar dark color="orange">
-					<v-btn icon dark @click="dialog = false">
-						<v-icon>mdi-close</v-icon>
-					</v-btn>
-					<v-toolbar-title>Bantuan</v-toolbar-title>
-					<v-spacer></v-spacer>
-				</v-toolbar>
-
-				<v-container class="bantuancontent pt-4">
-					<div class="caption mb-3">Bantuan / {{parent.title ? parent.title : ''}}</div>
-					<h2>{{submenucontent.title ? submenucontent.title : ""}}</h2>
-					<div class="devider-small my-4"></div>
-					<div v-html="submenucontent.content ? submenucontent.content : ''"></div>
-				</v-container>
-				<div class="action-help">
-					<v-container>
-						<v-row>
-							<v-col cols="6">
-								<v-btn block dark class="dark" dark @click="dialog = false">
-									<v-icon>mdi-arrow-left</v-icon>
-									Back
-								</v-btn>
-							</v-col>
-							<v-col cols="6">
-								<ShareButton
-								:sharingUrl="'https://m.playworld.id/bantuan/'"
-								:sharingTitle="'Bantuan Playworld'"
-								:sharingDescription="dataDescription"
-								class="my-0"
-								/>
-							</v-col>
-						</v-row>
-					</v-container>
-				</div>
-			</v-card>
-		</v-dialog>
+		<ShareButton
+		:sharingUrl="'https://m.playworld.id/bantuan/'"
+		:sharingTitle="'Bantuan Playworld'"
+		:sharingDescription="dataDescription"
+		class="my-0 bantuanfixed"
+		/>
 	</div>
 </template>
 <script>
@@ -178,5 +146,23 @@ export default {
 }
 .v-application .action-help .mt-5 {
 	margin-top:0!important;
+}
+.v-application .bantuanfixed {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 11;
+	button.orange {
+		display: block;
+		width: 100%;
+		background-color: #212121!important;
+		border-color: #212121!important;
+		border-radius: 0;
+		height: 50px;
+		span {
+			height: 50px;
+		}
+	}
 }
 </style>
