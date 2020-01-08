@@ -9,96 +9,118 @@
 	<v-row class="pt-0 mt-0">
 	  <v-col cols="12">
 		<div>
-		  <v-row>
-			<v-col cols="12" sm="3" md="3" lg="3">
-			  <v-row>
-				<v-col cols="12">
-				  <div class="text-center">
-					<v-avatar
-					  v-if="avatar_preview"
-					  size="100"
-					  color="grey"
-					  @click="avatar_preview=''"
+			<v-row align="center" justify="center">
+				<v-col cols="12" class="pb-0">
+					<v-alert
+						border="left"
+						dense
+						colored-border
+						color="blue"
+						class="mb-0"
+						style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 					>
-					  <v-img
-						:src="avatar_preview"
-						@click="avatar_preview='' && data.avatar"
-						:aspect-ratio="1/1"
-					  >
-						<v-icon dark class="mt-10">mdi-pencil</v-icon>
-					  </v-img>
-					</v-avatar>
-				  </div>
-				  <vue-dropzone
-					v-if="!avatar_preview"
-					ref="dropzone"
-					id="drop1"
-					:options="dropOptions"
-					@vdropzone-success="afterComplete"
-				  ></vue-dropzone>
-				  <div class="text-center">
-					<a v-if="avatar_preview" @click="avatar_preview=false">Remove File</a>
-					<div></div>
-					<br />
-					<v-btn v-if="!avatar_preview" @click="avatar_preview = profile.avatar">Cancel</v-btn>
-				  </div>
+						<v-row no-gutters>
+							<v-col cols="1" class="mr-2">
+								<img width="25" class="mt-1" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
+							</v-col>
+							<v-col cols="10">
+								<strong :class="isActive ? 'subtitle-2 blue--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'" v-text="isActive ? 'ACTIVE' : 'INACTIVE'"></strong><br>
+								<strong class="body-2" v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"></strong>
+							</v-col>
+						</v-row>
+					</v-alert>
 				</v-col>
-			  </v-row>
-			</v-col>
-			<v-col cols="12" sm="9" md="9" lg="9">
-			  <v-text-field
-				label="First Name"
-				placeholder="First Name"
-				outlined
-				v-model="data.first_name"
-			  ></v-text-field>
-			  <v-text-field
-				label="Last Name"
-				placeholder="Last Name"
-				outlined
-				v-model="data.last_name"
-			  ></v-text-field>
-			  <v-text-field
-				label="Username"
-				placeholder="Username"
-				outlined
-				v-model="data.username"
-			  ></v-text-field>
-			  <v-text-field
-				label="Email"
-				placeholder="Email"
-				outlined
-				readonly
-				disabled
-				v-model="data.email"
-			  ></v-text-field>
-			  <v-text-field
-				label="msisdn"
-				placeholder="msisdn"
-				outlined
-				readonly
-				disabled
-				v-model="data.msisdn"
-			  ></v-text-field>
-			  <v-text-field
-				label="Expired"
-				placeholder="Expired"
-				outlined
-				readonly
-				disabled
-				v-model="data.expire"
-			  ></v-text-field>
-			  <v-text-field
-				label="Instagram"
-				placeholder="@username"
-				outlined
-				v-model="data.instagram"
-			  ></v-text-field>
-			  <v-text-field label="Phone" placeholder="Phone" outlined v-model="data.no_telp"></v-text-field>
+			</v-row>
+			<v-row>
+				<v-col cols="12" sm="3" md="3" lg="3">
+				<v-row>
+					<v-col cols="12">
+					<div class="text-center">
+						<v-avatar
+						v-if="avatar_preview"
+						size="100"
+						color="grey"
+						@click="avatar_preview=''"
+						>
+						<v-img
+							:src="avatar_preview"
+							@click="avatar_preview='' && data.avatar"
+							:aspect-ratio="1/1"
+						>
+							<v-icon dark class="mt-10">mdi-pencil</v-icon>
+						</v-img>
+						</v-avatar>
+					</div>
+					<vue-dropzone
+						v-if="!avatar_preview"
+						ref="dropzone"
+						id="drop1"
+						:options="dropOptions"
+						@vdropzone-success="afterComplete"
+					></vue-dropzone>
+					<div class="text-center">
+						<a v-if="avatar_preview" @click="avatar_preview=false">Remove File</a>
+						<div></div>
+						<br />
+						<v-btn v-if="!avatar_preview" @click="avatar_preview = profile.avatar">Cancel</v-btn>
+					</div>
+					</v-col>
+				</v-row>
+				</v-col>
+				<v-col cols="12" sm="9" md="9" lg="9">
+				<v-text-field
+					label="First Name"
+					placeholder="First Name"
+					outlined
+					v-model="data.first_name"
+				></v-text-field>
+				<v-text-field
+					label="Last Name"
+					placeholder="Last Name"
+					outlined
+					v-model="data.last_name"
+				></v-text-field>
+				<v-text-field
+					label="Username"
+					placeholder="Username"
+					outlined
+					v-model="data.username"
+				></v-text-field>
+				<v-text-field
+					label="Email"
+					placeholder="Email"
+					outlined
+					readonly
+					disabled
+					v-model="data.email"
+				></v-text-field>
+				<v-text-field
+					label="msisdn"
+					placeholder="msisdn"
+					outlined
+					readonly
+					disabled
+					v-model="data.msisdn"
+				></v-text-field>
+				<v-text-field
+					label="Expired"
+					placeholder="Expired"
+					outlined
+					readonly
+					disabled
+					v-model="data.expire"
+				></v-text-field>
+				<v-text-field
+					label="Instagram"
+					placeholder="@username"
+					outlined
+					v-model="data.instagram"
+				></v-text-field>
+				<v-text-field label="Phone" placeholder="Phone" outlined v-model="data.no_telp"></v-text-field>
 
-			  <v-btn depressed dark color="orange" @click="save">Save</v-btn>
-			</v-col>
-		  </v-row>
+				<v-btn depressed dark color="orange" @click="save">Save</v-btn>
+				</v-col>
+			</v-row>
 		</div>
 	  </v-col>
 	</v-row>
@@ -139,7 +161,9 @@ export default {
 		withCredentials: false,
 		thumbnailWidth: 100,
 		thumbnailHeight: 100
-	  }
+	  },
+	  isActive: false,
+	  expire_date: ''
 	};
   },
   methods: {
@@ -170,6 +194,10 @@ export default {
 		this.data.instagram = res.data.data.instagram;
 		this.data.email = res.data.data.email;
 		this.data.expire = res.data.data.expire;
+		this.expire_date = this.data.expire
+		if(this.data.data.status_expired == '0') {
+			this.isActive = true
+		}
 	  } catch (error) {
 		console.log(error);
 		if (error.response.status == 401) {

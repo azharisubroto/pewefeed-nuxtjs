@@ -26,6 +26,28 @@
     <v-row class="pt-0 mt-0">
       <v-col cols="12">
         <div>
+          <v-row align="center" justify="center">
+            <v-col cols="12" class="pb-0">
+              <v-alert
+                border="left"
+                dense
+                colored-border
+                color="blue"
+                class="mb-0"
+                style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+              >
+                <v-row no-gutters>
+                  <v-col cols="1" class="mr-2">
+                    <img width="25" class="mt-1" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
+                  </v-col>
+                  <v-col cols="10">
+                    <strong :class="isActive ? 'subtitle-2 blue--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'" v-text="isActive ? 'ACTIVE' : 'INACTIVE'"></strong><br>
+                    <strong class="body-2" v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"></strong>
+                  </v-col>
+                </v-row>
+              </v-alert>
+            </v-col>
+          </v-row>
             <v-row>
                 <v-col cols="12" sm="3" md="3" lg="3">
                   <v-row>
@@ -158,6 +180,8 @@ export default {
           thumbnailWidth: 100,
           thumbnailHeight: 100
       },
+      isActive: false,
+	    expire_date: ''
     }
   },
   methods: {
@@ -185,6 +209,9 @@ export default {
         this.data.instagram = res.data.data.instagram
         this.data.email = res.data.data.email
         this.data.expire = res.data.data.expire
+        if(this.data.data.status_expired == '0') {
+          this.isActive = true
+        }
       } catch (error) {
         if (error.response.status == 401) {
           this.$router.push('/')
