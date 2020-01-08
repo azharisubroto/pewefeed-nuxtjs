@@ -15,13 +15,6 @@
         </v-btn>
     </v-snackbar>
 
-    <v-row>
-      <v-col cols="12">
-        <div class="gray--text">Pengaturan Akun</div>
-        <h2>Profil Akun</h2>
-      </v-col>
-    </v-row>
-
     <!-- FORM -->
     <v-row class="pt-0 mt-0">
       <v-col cols="12">
