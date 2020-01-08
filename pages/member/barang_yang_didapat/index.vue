@@ -89,13 +89,18 @@ export default {
 		},
 	},
 	mounted() {
+		let _self = this
 		this.getAddresses()
 		this.getNumbers()
+		this.$bus.$on('claimed', () => {
+			_self.tab = 1
+		})
 	}
 }
 </script>
-<style lang="scss">
+<!-- <style lang="scss">
 	.v-content__wrap {
 		padding-top: 55px;
 	}
 </style>
+-->
