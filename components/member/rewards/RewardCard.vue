@@ -156,7 +156,8 @@ export default {
 				if(res.status == 200) {
 					this.$bus.$emit('refetchRewards')
 					this.loading[i] = false
-					alert('Anda telah berhasil mengirimkan request klaim')
+					alert('Anda telah berhasil mengirimkan request klaim');
+					this.$bus.$emit('claimed')
 				}
 			} catch (error) {
 				console.log(error)
