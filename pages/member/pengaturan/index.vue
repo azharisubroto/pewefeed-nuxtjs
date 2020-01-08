@@ -202,6 +202,7 @@ export default {
         this.data.instagram = res.data.data.instagram
         this.data.email = res.data.data.email
         this.data.expire = res.data.data.expire
+        this.expire_date = this.data.expire
         if(this.data.data.status_expired == '0') {
           this.isActive = true
         }
