@@ -6,7 +6,7 @@
           <div class="text-center">
             <div class="text-dark">Total Poin</div>
             <div class="text-40">
-              <strong>{{ userdata ? kFormatter(userdata.point_total, 1) : '0' }}</strong>
+              <strong>{{ userdata ? Number(userdata.point_total).toLocaleString() : '0' }}</strong>
             </div>
           </div>
         </v-col>
