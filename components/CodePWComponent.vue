@@ -4,76 +4,121 @@
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
-        <v-card @makeloading="setloading" @notloading="notloading">
-            <v-card-title class="title">
-                Masukkan Kode PW
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-                <v-alert v-if="status_code" type="info">
-                {{message_code}}
-                </v-alert>
-                <v-form
-                    ref="form"
-                    v-model="valid"
-                    lazy-validation
-                >
-                    <v-row no-gutters>
-                        <v-col cols="12">
-                            <v-text-field
-                                label="PW ID"
-                                v-model="formdata.msisdn"
-                                :rules="pwIdRules"
-                            ></v-text-field>
-                        </v-col>
-                        <v-col v-if="formsignin" cols="12" class="my-5">
-                            <v-card>
-                                <v-card-text>
-                                    <strong class="subtitle-1">Jika belum memiliki PW ID, silahkan login.</strong>
-                                </v-card-text>
-                                <v-divider></v-divider>
-                                <v-card-text>
-                                    <Login />
-                                </v-card-text>
-                            </v-card>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                                label="Kode PW"
-                                v-model="formdata.code"
-                                required
-                                :rules="pwCodeRules"
-                            ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" class="my-5">
-                            <recaptcha
-                              @error="onError()"
-                              @success="onSuccess()"
-                              @expired="onExpired()"
-                            />
-                        </v-col>
-                        <v-col cols="12">
-                            <v-btn @click="validate()" color="success" width="100%" >SUBMIT</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-form>
-                <v-snackbar
-                    v-model="snackbar"
-                    :timeout="timeout"
-                    top
-                >
-                    {{ responsemessage }}
-                    <v-btn
-                        color="primary"
-                        text
-                        icon
-                        @click="snackbar = false"
-                    >
-                    <v-icon color="white">mdi-close-circle-outline</v-icon>
-                    </v-btn>
-                </v-snackbar>
-            </v-card-text>
-        </v-card>
+		<div v-if="formsignin">
+			<v-alert
+			border="left"
+			dense
+			colored-border
+			type="info"
+			style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+			>
+				Segera Signin dengan Facebook atau Google untuk mengaktifkan Membership VIP kamu dan reward Pulsa gratis!
+				<br>
+				Klik Tombol di bawah ini untuk melanjutkan
+			</v-alert>
+			<Login />
+		</div>
+
+		<div v-else>
+			<div v-if="newuser">
+				<v-alert
+				v-if="reward"
+				border="left"
+				dense
+				colored-border
+				type="info"
+				icon="mdi-trophy"
+				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+				>
+					Selamat! ambil reward kamu dengan klik tombol Claim di bawah ini, gratis!
+				</v-alert>
+
+				<v-row v-if="reward">
+					<v-col cols="5">
+						<img :src="reward.image" style="width:100%" alt="">
+					</v-col>
+					<v-col cols="7">
+						<h4 class="text-20">{{ reward.title }}</h4>
+					</v-col>
+					<v-col cols="12">
+						<v-btn
+							color="orange"
+							dark
+							depressed
+							block
+							to="/member/barang_yang_didapat/"
+						>
+							CLAIM
+						</v-btn>
+					</v-col>
+				</v-row>
+			</div>
+
+
+			<v-card @makeloading="setloading" @notloading="notloading">
+				<v-card-text>
+					<v-alert
+					v-if="status_code"
+					border="left"
+					dense
+					colored-border
+					type="info"
+					style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+					>
+						{{message_code}}
+					</v-alert>
+					<v-form
+						ref="form"
+						v-model="valid"
+						lazy-validation
+					>
+						<v-row no-gutters>
+							<v-col cols="12">
+								<v-text-field
+									label="PW ID"
+									v-model="formdata.msisdn"
+									:rules="pwIdRules"
+								></v-text-field>
+							</v-col>
+							<v-col cols="12">
+								<v-text-field
+									label="Kode PW"
+									v-model="formdata.code"
+									required
+									:rules="pwCodeRules"
+								></v-text-field>
+							</v-col>
+							<v-col cols="12" class="my-5">
+								<recaptcha
+								@error="onError()"
+								@success="onSuccess()"
+								@expired="onExpired()"
+								/>
+							</v-col>
+							<v-col cols="12">
+								<v-btn @click="validate()" color="deep-orange" depressed dark width="100%" >SUBMIT</v-btn>
+							</v-col>
+						</v-row>
+					</v-form>
+					<v-snackbar
+						v-model="snackbar"
+						:timeout="timeout"
+						top
+					>
+						{{ responsemessage }}
+						<v-btn
+							color="primary"
+							text
+							icon
+							@click="snackbar = false"
+						>
+						<v-icon color="white">mdi-close-circle-outline</v-icon>
+						</v-btn>
+					</v-snackbar>
+				</v-card-text>
+			</v-card>
+		</div>
+
 
         <!-- Dialog Success -->
         <v-row justify="center">
@@ -98,7 +143,7 @@
                     :lazy-src="lazy"
                     max-width="40"
                     max-height="40"
-                    >  
+                    >
                     </v-img>
                 </v-toolbar-title>
 
@@ -160,6 +205,8 @@ export default {
         Login
     },
     data: () => ({
+		newuser: false,
+		reward: null,
         snackbar: false,
         overlay: false,
         timeout: 3000,
@@ -191,9 +238,28 @@ export default {
             /* Init Data User to Customer Detail */
             if (localStorage.getItem('loggedin')) {
                 try {
-                    const res = await UserService.getSingleUser()
-                    console.log(res.data.status);
-                    this.formdata.msisdn = res.data.data.msisdn
+					const res = await UserService.getSingleUser()
+					const user = await UserService.getReward()
+					console.log('User data')
+					console.log(user);
+
+					if( user.data.data != null ) {
+						this.reward = user.data.data
+						this.newuser = true
+					} else {
+						// this.reward = {
+						// 	"id": 333,
+						// 	"title": "Pulsa All Operator Rp 5000",
+						// 	"point": 399,
+						// 	"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
+						// }
+						// this.newuser = true
+					}
+
+					this.formdata.msisdn = res.data.data.msisdn;
+					if( res.data.data.email_confirmed == 1) {
+						this.newuser = true
+					}
                 } catch (err) {
                     console.log(err.response.data)
                 }
