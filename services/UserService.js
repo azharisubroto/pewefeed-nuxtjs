@@ -6,6 +6,9 @@
 	getSingleUser() {
 		return AuthApi().get('/member/get-single-member')
 	},
+	getReward() {
+		return AuthApi().get('/member/reward')
+	},
 	postComment(params) {
 		return AuthApi().post('/member/comment', params)
 	},

@@ -19,7 +19,7 @@
 			<v-expansion-panels v-if="actionable">
 				<v-expansion-panel class="elevation-0"
 				>
-					<v-expansion-panel-header></v-expansion-panel-header>
+					<v-expansion-panel-header>Lengkapi Data</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
 						text
