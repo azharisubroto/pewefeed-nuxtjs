@@ -30,7 +30,7 @@
 						<template>
 							<v-select
 							v-if="item.type == 'Non Fisik'"
-							:items="contact"
+							:items="contact ? contact : ['Belum ada nomor']"
 							placeholder="Pilih Nomor"
 							item-text="title"
 							item-value="id"
@@ -39,7 +39,7 @@
 
 							<v-select
 							v-else
-							:items="addresses"
+							:items="addresses ? addresses : ['Belum ada alamat']"
 							placeholder="Pilih Alamat"
 							item-text="title"
 							item-value="id"

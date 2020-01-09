@@ -9,7 +9,7 @@
 			</v-row>
 			<v-row v-if="list && !loading">
 				<v-col>
-					<RewardCard v-if="addresses && list && contact"
+					<RewardCard
 					:addresses="addresses"
 					:contact="contact"
 					:list="list"
