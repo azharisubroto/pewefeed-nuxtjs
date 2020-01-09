@@ -203,7 +203,8 @@ export default {
         this.data.email = res.data.data.email
         this.data.expire = res.data.data.expire
         this.expire_date = this.data.expire
-        if(this.data.data.status_expired == '0') {
+        // console.log(this.data)
+        if(res.data.data.status_expired == 1) {
           this.isActive = true
         }
       } catch (error) {
