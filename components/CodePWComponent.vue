@@ -248,13 +248,13 @@ export default {
 						this.reward = user.data.data
 						this.newuser = true
 					} else {
-						this.reward = {
-							"id": 333,
-							"title": "Pulsa All Operator Rp 5000",
-							"point": 399,
-							"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
-						}
-						this.newuser = true
+						// this.reward = {
+						// 	"id": 333,
+						// 	"title": "Pulsa All Operator Rp 5000",
+						// 	"point": 399,
+						// 	"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
+						// }
+						// this.newuser = true
 					}
 
 					this.formdata.msisdn = res.data.data.msisdn;
