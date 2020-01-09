@@ -23,7 +23,7 @@
 					<v-icon> mdi-magnify</v-icon>
 				</v-btn>
 			</v-app-bar>
-			<v-tabs v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx') && !$nuxt.$route.name.includes('kompetisi') && !$nuxt.$route.name.includes('bantuan')" grow color="deep-orange" center-active class="pw-tab">
+			<v-tabs v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx') && !$nuxt.$route.name.includes('kompetisi') && !$nuxt.$route.name.includes('bantuan') && !$nuxt.$route.name.includes('c')" grow color="deep-orange" center-active class="pw-tab">
 				<v-tab
 					v-for="menu in toolbarMenu"
 					:key="menu.loc"

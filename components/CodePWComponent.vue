@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="CodePW">
         <v-overlay :value="overlay">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
@@ -28,6 +28,7 @@
 				colored-border
 				type="info"
 				icon="mdi-trophy"
+				prominent
 				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 				>
 					Selamat! ambil reward kamu dengan klik tombol Claim di bawah ini, gratis!
@@ -367,3 +368,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+	.CodePW {
+		margin-top: -40px;
+	}
+</style>
