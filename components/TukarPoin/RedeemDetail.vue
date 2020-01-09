@@ -119,6 +119,7 @@
         <div v-html="detail.term"></div>
       </template>
     </v-container>
+	<br><br>
 
     <v-bottom-navigation
       fixed

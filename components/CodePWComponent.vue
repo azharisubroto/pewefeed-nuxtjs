@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="CodePW">
         <v-overlay :value="overlay">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
@@ -28,6 +28,7 @@
 				colored-border
 				type="info"
 				icon="mdi-trophy"
+				prominent
 				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 				>
 					Selamat! ambil reward kamu dengan klik tombol Claim di bawah ini, gratis!
@@ -247,13 +248,13 @@ export default {
 						this.reward = user.data.data
 						this.newuser = true
 					} else {
-						// this.reward = {
-						// 	"id": 333,
-						// 	"title": "Pulsa All Operator Rp 5000",
-						// 	"point": 399,
-						// 	"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
-						// }
-						// this.newuser = true
+						this.reward = {
+							"id": 333,
+							"title": "Pulsa All Operator Rp 5000",
+							"point": 399,
+							"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
+						}
+						this.newuser = true
 					}
 
 					this.formdata.msisdn = res.data.data.msisdn;
@@ -367,3 +368,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+	.CodePW {
+		margin-top: -40px;
+	}
+</style>
