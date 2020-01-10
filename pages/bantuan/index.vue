@@ -48,6 +48,9 @@
 							</v-list-item-icon>
 						</v-list-item>
 					</v-list>
+					<div v-if="item.submenu.length == 0">
+						<v-container>Belum ada konten</v-container>
+					</div>
 
 				</v-tab-item>
 			</v-tabs-items>
@@ -112,13 +115,19 @@ export default {
 				// });
 				this.menu = data;
 				this.loading = false
+
+				const urlParams = new URLSearchParams(window.location.search);
+				const paramValue = urlParams.get('tab');
+				if( paramValue ) {
+					this.tab = 'tab-'+paramValue
+				}
 			} catch (error) {
 				console.log(error)
 			}
 		}
 	},
 	mounted() {
-		this.fetchBantuan()
+		this.fetchBantuan();
 	}
 }
 </script>
