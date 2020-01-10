@@ -749,7 +749,7 @@ export default {
 	}
 
 	.v-content__wrap {
-		padding-top: 100px;
+		padding-top: 79px;
 	}
 
 	.scroller {

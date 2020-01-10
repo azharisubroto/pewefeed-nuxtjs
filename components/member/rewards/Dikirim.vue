@@ -9,7 +9,7 @@
 			</v-row>
 			<v-row v-if="list">
 				<v-col>
-					<RewardCard :list="list" :expandable="true"/>
+					<RewardCard type="dikirim" :list="list" :expandable="true"/>
 
 					<v-pagination
 					v-model="page"

@@ -47,7 +47,6 @@
 							></v-select>
 
 							<v-btn
-							:loading="loading[i]"
 							dark depressed color="orange"
 							@click="prosesReward(item.id, item.customer_redeem.id, id_tujuan[i], item.type, i)">
 							Proses
@@ -78,7 +77,7 @@
 			<v-expansion-panels v-if="expandable">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-
+						Lacak
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -93,7 +92,7 @@
 			<v-expansion-panels v-if="sent">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-
+						Lacak
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -115,7 +114,7 @@
 			<v-expansion-panels v-if="finished">
 				<v-expansion-panel class="elevation-0">
 					<v-expansion-panel-header>
-
+						Lacak
 					</v-expansion-panel-header>
 					<v-expansion-panel-content>
 						<v-alert
@@ -133,7 +132,7 @@
 import UserService from '@/services/UserService'
 export default {
 	name:"RewardCard",
-	props: ['list','addresses','contact', 'expandable', 'actionable', 'sent', 'finished'],
+	props: ['list','addresses','contact', 'expandable', 'actionable', 'sent', 'finished', 'type'],
 	data() {
 		return {
 			id_tujuan: [],

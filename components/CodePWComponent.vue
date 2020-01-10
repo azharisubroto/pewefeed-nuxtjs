@@ -55,6 +55,8 @@
 				</v-row>
 			</div>
 
+			<div v-if="newuser" class="devider-big stretchout my-5"></div>
+
 
 			<v-card @makeloading="setloading" @notloading="notloading">
 				<v-card-text>
@@ -369,8 +371,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.CodePW {
 		margin-top: -40px;
+
+		.stretchout {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
 	}
 </style>
