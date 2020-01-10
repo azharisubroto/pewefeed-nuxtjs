@@ -1,8 +1,17 @@
 <template>
     <v-container>
-        <v-skeleton-loader v-if="isLoader"
+        <!-- <v-skeleton-loader v-if="isLoader"
           type="table-tbody"
-        ></v-skeleton-loader>
+        ></v-skeleton-loader> -->
+		<div v-if="isLoader" class="text-xs-center" align="center">
+			<v-progress-circular
+				indeterminate
+				:size="80"
+				:width="8"
+				color="deep-orange"
+				class="mt-5">
+			</v-progress-circular>
+		</div>
         <v-card class="mb-4" v-else>
             <v-simple-table>
                 <template v-slot:default>
