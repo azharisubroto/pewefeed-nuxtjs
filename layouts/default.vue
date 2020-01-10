@@ -321,28 +321,31 @@
 								<v-icon>mdi-chevron-right</v-icon>
 							</v-col>
 						</v-row>
+						<v-row class="text-left mt-4">
+							<v-col
+							v-for="(bantuan, i) in bantuanMenu"
+							:key="i"
+							@click="$router.push('/bantuan/?tab='+bantuan.id);drawer = false"
+							cols="6">
+								<span class="text-uppercase">{{bantuan.title}}</span>
+							</v-col>
+						</v-row>
 					</v-container>
-					<!--
-						ABOUT
-					-->
-					<v-row class="caption cta-links">
-						<v-col cols="6">
-							<v-list>
-								<v-list-item>Tentang Playworld</v-list-item>
-								<v-list-item>Dewan Pers</v-list-item>
-								<v-list-item>Tim Redaksi</v-list-item>
-								<v-list-item>Bantuan</v-list-item>
-							</v-list>
-						</v-col>
-						<v-col cols="6">
-							<v-list>
-								<v-list-item>Kebiajakan & Privasi</v-list-item>
-								<v-list-item>Keamanan Transaksi</v-list-item>
-								<v-list-item>Metode Pembayaran</v-list-item>
-								<v-list-item>Jasa Pengiriman</v-list-item>
-							</v-list>
-						</v-col>
-					</v-row>
+					<!-- <pre>{{bantuanMenu}}</pre>
+					<v-list-item-group>
+						<v-list-item
+							v-for="(bantuan, i) in bantuanMenu"
+							:key="i"
+							@click="$router.push('/bantuan/#'+bantuan.id); drawer = false"
+						>
+							<v-list-item-content class="menu">
+								<v-list-item-title v-html="bantuan.title"></v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+
+					</v-list-item-group> -->
+
+
 					<v-container>
 						<div class="devider-small full"></div>
 					</v-container>
@@ -612,6 +615,7 @@ export default {
 					subtitle: '(Official Email Address)'
 				}
 			],
+			bantuanMenu: null
 		}
 	},
 	methods: {
@@ -681,10 +685,22 @@ export default {
 			this.searchDialog = false
 			this.searchModel = null
 		},
+		async fetchBantuan() {
+			try {
+				const res = await ArticleService.getBantuan()
+				const data = res.data.data
+				console.log(JSON.parse(JSON.stringify(data)));
+				this.bantuanMenu = data;
+				//this.loading = false
+			} catch (error) {
+				console.log(error)
+			}
+		}
 	},
 	mounted() {
 		this.isLogin()
 		this.fetchUser()
+		this.fetchBantuan()
 		this.years = new Date().getFullYear()
 		var isMobile = mobile()
 		if (!isMobile) {
