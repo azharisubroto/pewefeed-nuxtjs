@@ -106,6 +106,54 @@
                       </v-col>
                     </v-row>
                   </div>
+                  <v-divider></v-divider>
+                  <div class="px-4 py-3" @click="e1 = 6">
+                    <v-row align="center">
+                      <v-col cols="2" class="py-0">
+                        <img src="/img/bri.png" class="pt-2" width="40" alt />
+                      </v-col>
+                      <v-col cols="8" class="py-0">BRI</v-col>
+                      <v-col cols="2">
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-col>
+                    </v-row>
+                  </div>
+                  <v-divider></v-divider>
+                  <div class="px-4 py-3" @click="e1 = 7">
+                    <v-row align="center">
+                      <v-col cols="2" class="py-0">
+                        <img src="/img/bni.png" class="pt-2" width="40" alt />
+                      </v-col>
+                      <v-col cols="8" class="py-0">BNI</v-col>
+                      <v-col cols="2">
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-col>
+                    </v-row>
+                  </div>
+                  <v-divider></v-divider>
+                  <div class="px-4 py-3" @click="e1 = 9">
+                    <v-row align="center">
+                      <v-col cols="2" class="py-0">
+                        <img src="/img/mandiri.png" class="pt-2" width="40" alt />
+                      </v-col>
+                      <v-col cols="8" class="py-0">MANDIRI</v-col>
+                      <v-col cols="2">
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-col>
+                    </v-row>
+                  </div>
+                  <v-divider></v-divider>
+                  <div class="px-4 py-3" @click="e1 = 10">
+                    <v-row align="center">
+                      <v-col cols="2" class="py-0">
+                        <img src="/img/permata.png" class="pt-2" width="40" alt />
+                      </v-col>
+                      <v-col cols="8" class="py-0">PERMATA</v-col>
+                      <v-col cols="2">
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-col>
+                    </v-row>
+                  </div>
                 </v-card>
               </v-container>
             </v-stepper-content>
@@ -205,14 +253,14 @@
             <!-- Step 3 : Indosat -->
             <v-stepper-content step="3" class="px-0">
               <v-container>
-				  <img src="/img/indosat.png" width="30" style="position:relative;top:2px" class="mr-2" alt /> <span class="font-weight-bold">INDOSAT</span>
-				  <br>
+				        <img src="/img/indosat.png" width="30" style="position:relative;top:2px" class="mr-2" alt /> <span class="font-weight-bold">INDOSAT</span>
+				        <br>
                 <v-card class="mx-auto mt-4">
                   <v-card-title color="grey lighten-4 font-weight-bold" class="grey lighten-4 font-weight-bold subtitle-2">
-					Berlangganan
+					          Berlangganan
                   </v-card-title>
                   <v-divider></v-divider>
-				  <div
+				          <div
                      @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
@@ -336,7 +384,7 @@
                   <v-col cols="12">
                     <span class="text-14">Choose one of Payment Method</span>
                     <br />
-					<br>
+					          <br>
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
@@ -392,26 +440,26 @@
                   </v-col>
                 </v-row>
 
-				<div style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px">
-					<recaptcha
-					style="display:inline-block"
-					@error="onError()"
-					@success="onSuccess()"
-					@expired="onExpired()"
-					/>
-				</div>
+                <div style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px">
+                  <recaptcha
+                  style="display:inline-block"
+                  @error="onError()"
+                  @success="onSuccess()"
+                  @expired="onExpired()"
+                  />
+                </div>
 
-				<v-btn
-				@click="validate(itemvoucher)"
-				color="deep-orange"
-				block
-				class="white--text mt-2"
-				>PROCESS</v-btn>
+                <v-btn
+                @click="validate(itemvoucher)"
+                color="deep-orange"
+                block
+                class="white--text mt-2"
+                >PROCESS</v-btn>
               </v-container>
             </v-stepper-content>
             <!-- END OF STEP 4 : Order Detail -->
 
-            <!-- Step 5 : Midtrans-->
+            <!-- Step 5 : Midtrans : BCA-->
             <v-stepper-content step="5" class="mb-3 px-0">
               <v-container class="py-0">
                 <img
@@ -456,7 +504,101 @@
                 </div>
               </v-card>
             </v-stepper-content>
-            <!-- END OF STEP 5 : Midtrans -->
+            <!-- END OF Step 5 : Midtrans : BCA -->
+
+            <!-- Step 6 : Xendit : BRI -->
+            <v-stepper-content step="6" class="mb-3 px-0">
+              <v-container class="py-0">
+                <img
+                  src="/img/bri.png"
+                  class="mr-2"
+                  width="45"
+                  style="position:relative;top: 10px"
+                  alt
+                /> <span class="font-weight-bold">BRI</span>
+              </v-container>
+              <v-card class="mx-4 mt-4">
+                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row
+                    @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                  >
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col cols="3">
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
+                        </v-col>
+                        <v-col cols="9">
+                          <strong>{{ trans.label }}</strong>
+                          <br />
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3" class="mt-4">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                      >
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF Step 6 : Xendit BRI -->
+
+            <!-- Step 7 : Xendit : BNI -->
+            <v-stepper-content step="7" class="mb-3 px-0">
+              <v-container class="py-0">
+                <img
+                  src="/img/bni.png"
+                  class="mr-2"
+                  width="45"
+                  style="position:relative;top: 10px"
+                  alt
+                /> <span class="font-weight-bold">BNI</span>
+              </v-container>
+              <v-card class="mx-4 mt-4">
+                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row
+                    @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                  >
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col cols="3">
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
+                        </v-col>
+                        <v-col cols="9">
+                          <strong>{{ trans.label }}</strong>
+                          <br />
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3" class="mt-4">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                      >
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF Step 7 : Xendit BNI -->
 
             <!-- Step 8 : Transaction Success -->
             <v-stepper-content step="8">
@@ -481,16 +623,114 @@
               </v-row>
             </v-stepper-content>
             <!-- END OF STEP 8 : Transaction Success -->
+
+            <!-- Step 9 : Xendit : MANDIRI -->
+            <v-stepper-content step="9" class="mb-3 px-0">
+              <v-container class="py-0">
+                <img
+                  src="/img/mandiri.png"
+                  class="mr-2"
+                  width="45"
+                  style="position:relative;top: 10px"
+                  alt
+                /> <span class="font-weight-bold">MANDIRI</span>
+              </v-container>
+              <v-card class="mx-4 mt-4">
+                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row
+                    @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                  >
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col cols="3">
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
+                        </v-col>
+                        <v-col cols="9">
+                          <strong>{{ trans.label }}</strong>
+                          <br />
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3" class="mt-4">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                      >
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF Step 9 : Xendit MANDIRI -->
+
+            <!-- Step 10 : Xendit : PERMATA -->
+            <v-stepper-content step="10" class="mb-3 px-0">
+              <v-container class="py-0">
+                <img
+                  src="/img/permata.png"
+                  class="mr-2"
+                  width="45"
+                  style="position:relative;top: 10px"
+                  alt
+                /> <span class="font-weight-bold">PERMATA</span>
+              </v-container>
+              <v-card class="mx-4 mt-4">
+                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div v-for="trans in vipTrans" :key="trans.id">
+                  <v-row
+                    @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                  >
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col cols="3">
+                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
+                        </v-col>
+                        <v-col cols="9">
+                          <strong>{{ trans.label }}</strong>
+                          <br />
+                          <strong>{{ trans.price }}</strong>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3" class="mt-4">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
+                      >
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </div>
+              </v-card>
+            </v-stepper-content>
+            <!-- END OF Step 10 : Xendit PERMATA -->
+
           </v-stepper-items>
         </v-stepper>
       </v-card>
     </v-dialog>
+
+    <IframePreview :dialogVisible="iframeDialogVisible" :invoiceUrl="invoiceUrl" @close="iframeClose()"/>
   </v-row>
 </template>
 
 <script>
 import PurchaseService from "@/services/PurchaseService";
 import UserService from "@/services/UserService";
+import IframePreview from "@/components/modal/IframePreview";
 export default {
   name: "BuyVip",
   props: {
@@ -624,8 +864,13 @@ export default {
           price: "Rp 100.000",
           code: "PW"
         }
-      ]
+      ],
+      iframeDialogVisible: false,
+      invoiceUrl: ''
     };
+  },
+  components: {
+    IframePreview
   },
   computed: {
     /* Init Modal */
@@ -683,8 +928,24 @@ export default {
     },
 
     /* Set Data Order */
-    async setOrder(voucherId, label, price, currentstep) {
-      if (currentstep == "midtrans") {
+    async setOrder(voucherId, email, label, price, currentstep) {
+      if (currentstep == "xendit") {
+        const sendvoucher = {
+          voucher_id: voucherId,
+          email: email
+        };
+
+        try {
+          const res = await PurchaseService.xendit(sendvoucher);
+          if (res.status == 200) {
+            console.log(res.data)
+            this.invoiceUrl = res.data.invoice_url
+            this.iframeDialogVisible = true
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (currentstep == "midtrans") {
         const sendvoucher = {
           voucher_id: voucherId
         };
@@ -775,6 +1036,16 @@ export default {
     closeDialog() {
       this.e1 = 1;
       this.intDialogVisible = false;
+    },
+
+    iframeClose () {
+      this.iframeDialogVisible = false
+      this.$router.push('/member/status_transfer')
+        // other code
+    },
+    iframePreview() {
+        // if not vip, show dialog
+      this.iframeDialogVisible = true;
     }
   },
   mounted() {

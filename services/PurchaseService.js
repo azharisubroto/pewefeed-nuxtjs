@@ -17,4 +17,12 @@ export default {
     midtrans(params) {
         return AuthApi().post('/member/purchase/payment/buy', params)
     },
+
+    /**
+     * Xendit
+     * @params {voucher_id} 
+     */
+    xendit(params) {
+        return AuthApi().post('/xendit', params)
+    },
 }
