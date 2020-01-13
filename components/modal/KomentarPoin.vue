@@ -8,7 +8,7 @@
     <!-- Header -->
     <v-toolbar light color="white">
       <!-- Arrow -->
-      <v-btn icon tile style="border-right: 1px solid #717171" light @click="notVipVisible = false">
+      <v-btn icon tile style="border-right: 1px solid #d1d1d1" light @click="notVipVisible = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
 
@@ -30,7 +30,7 @@
     </v-toolbar>
 
 
-    <v-card class="gray--background">
+    <v-card>
 
       <v-card-text>
         <div class="text-center pt-5">

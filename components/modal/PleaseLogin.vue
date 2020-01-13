@@ -6,7 +6,7 @@
       hide-overlay
       transition="dialog-bottom-transition"
     >
-      <v-card class="grey lighten-3">
+      <v-card>
         <!-- Header -->
         <v-toolbar light color="white">
           <!-- Arrow -->
@@ -16,13 +16,11 @@
 
           <!-- Logo -->
           <v-toolbar-title>
-            <v-img
+            <img
               :src="logo"
-              :lazy-src="lazy"
-              max-width="40"
-              max-height="40"
-            >
-            </v-img>
+			  width="130"
+			  class="d-inline-block mt-3"
+            />
           </v-toolbar-title>
 
           <!-- Title -->

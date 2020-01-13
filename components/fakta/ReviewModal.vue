@@ -9,7 +9,7 @@
       <v-overlay :value="overlay">
         <v-progress-circular indeterminate size="64"></v-progress-circular>
       </v-overlay>
-      <v-card class="grey lighten-3" @makeloading="setloading" @notloading="notloading">
+      <v-card @makeloading="setloading" @notloading="notloading">
         <!-- Header -->
         <v-toolbar light color="white">
           <!-- Arrow -->
