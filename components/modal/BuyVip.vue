@@ -475,7 +475,7 @@
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
-                    @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
+                    @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'midtrans')"
                   >
                     <v-col cols="9">
                       <v-row>
@@ -494,7 +494,7 @@
                         icon
                         tile
                         light
-                        @click="setOrder(trans.voucher_id, trans.label, trans.price, current = 'midtrans')"
+                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'midtrans')"
                       >
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
