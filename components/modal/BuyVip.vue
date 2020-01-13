@@ -22,7 +22,7 @@
           </v-btn>
 
           <v-btn
-            v-if="e1 > 1 && e1 < 8"
+            v-if="e1 > 1 && e1 < 11"
             icon
             tile
             style="border-right: 1px solid #e1e1e1"
@@ -110,7 +110,7 @@
                   <div class="px-4 py-3" @click="e1 = 6">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
-                        <img src="/img/bri.png" class="pt-2" width="40" alt />
+                        <img src="/img/bri.png" class="pt-2" width="50" alt />
                       </v-col>
                       <v-col cols="8" class="py-0">BRI</v-col>
                       <v-col cols="2">
@@ -122,7 +122,7 @@
                   <div class="px-4 py-3" @click="e1 = 7">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
-                        <img src="/img/bni.png" class="pt-2" width="40" alt />
+                        <img src="/img/bni.png" class="pt-2" width="50" alt />
                       </v-col>
                       <v-col cols="8" class="py-0">BNI</v-col>
                       <v-col cols="2">
@@ -134,7 +134,7 @@
                   <div class="px-4 py-3" @click="e1 = 9">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
-                        <img src="/img/mandiri.png" class="pt-2" width="40" alt />
+                        <img src="/img/mandiri.png" class="pt-2" width="50" alt />
                       </v-col>
                       <v-col cols="8" class="py-0">MANDIRI</v-col>
                       <v-col cols="2">
@@ -146,7 +146,7 @@
                   <div class="px-4 py-3" @click="e1 = 10">
                     <v-row align="center">
                       <v-col cols="2" class="py-0">
-                        <img src="/img/permata.png" class="pt-2" width="40" alt />
+                        <img src="/img/permata.png" class="pt-2" width="50" alt />
                       </v-col>
                       <v-col cols="8" class="py-0">PERMATA</v-col>
                       <v-col cols="2">
@@ -512,10 +512,10 @@
                 <img
                   src="/img/bri.png"
                   class="mr-2"
-                  width="45"
+                  width="100"
                   style="position:relative;top: 10px"
                   alt
-                /> <span class="font-weight-bold">BRI</span>
+                />
               </v-container>
               <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
@@ -559,10 +559,10 @@
                 <img
                   src="/img/bni.png"
                   class="mr-2"
-                  width="45"
+                  width="60"
                   style="position:relative;top: 10px"
                   alt
-                /> <span class="font-weight-bold">BNI</span>
+                />
               </v-container>
               <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
@@ -630,10 +630,10 @@
                 <img
                   src="/img/mandiri.png"
                   class="mr-2"
-                  width="45"
+                  width="100"
                   style="position:relative;top: 10px"
                   alt
-                /> <span class="font-weight-bold">MANDIRI</span>
+                />
               </v-container>
               <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
@@ -677,10 +677,10 @@
                 <img
                   src="/img/permata.png"
                   class="mr-2"
-                  width="45"
+                  width="120"
                   style="position:relative;top: 10px"
                   alt
-                /> <span class="font-weight-bold">PERMATA</span>
+                />
               </v-container>
               <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
