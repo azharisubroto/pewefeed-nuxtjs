@@ -541,7 +541,6 @@
                         icon
                         tile
                         light
-                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                       >
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
@@ -588,7 +587,6 @@
                         icon
                         tile
                         light
-                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                       >
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
@@ -659,7 +657,6 @@
                         icon
                         tile
                         light
-                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                       >
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
@@ -706,7 +703,6 @@
                         icon
                         tile
                         light
-                        @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                       >
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
@@ -843,7 +839,7 @@ export default {
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
           label: "VIP 40 Hari",
-          price: "Rp 40.000",
+          price: "Rp 25.000",
           code: "PW"
         },
         {
