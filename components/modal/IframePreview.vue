@@ -44,7 +44,7 @@
         </v-row> -->
 
 		<v-card-text>
-            <iframe width="100%" height="1000" :src="invoiceUrl" frameborder="0"></iframe>
+            <iframe class="xendit" :src="invoiceUrl" frameborder="0"></iframe>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -84,3 +84,17 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+	.xendit {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 115px;
+		margin: auto;
+	}
+</style>
