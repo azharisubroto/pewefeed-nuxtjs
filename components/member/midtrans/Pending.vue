@@ -20,7 +20,9 @@
                             <v-expansion-panel-content class="pt-3" v-if="mid.xendit">
                                 <v-subheader>Detail Pembayaran</v-subheader>
                                 <v-divider></v-divider>
-                                <v-btn @click="openIframe(mid.invoice_url)" small block color="success">Lihat</v-btn>
+                                <v-container>
+                                    <v-btn @click="openIframe(mid.invoice_url)" small block color="success">Lihat</v-btn>
+                                </v-container>
                             </v-expansion-panel-content>
 
                             <!-- === if midtrans === -->

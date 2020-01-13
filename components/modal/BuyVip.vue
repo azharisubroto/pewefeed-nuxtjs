@@ -921,7 +921,8 @@ export default {
               this.current = 0;
             }
           } else {
-            this.e1 = this.e1 - 1;
+            this.e1 = 1
+            console.log(this.current)
           }
         }
       }
