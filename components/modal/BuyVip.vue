@@ -173,7 +173,7 @@
                 <v-card class="mx-auto mb-3 mt-4">
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Berlangganan</v-card-title>
                   <div
-                    @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')"
+                    @click="setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
                   >
@@ -195,7 +195,7 @@
                           icon
                           tile
                           light
-                          @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
                         >
                           <v-icon>mdi-arrow-right</v-icon>
                         </v-btn>
@@ -215,7 +215,7 @@
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
                   <v-divider></v-divider>
                   <div
-                    @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                    @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
                     v-for="vip in vipItems"
                     :key="vip.id"
                   >
@@ -237,7 +237,7 @@
                           icon
                           tile
                           light
-                          @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
                         >
                           <v-icon>mdi-arrow-right</v-icon>
                         </v-btn>
@@ -261,7 +261,7 @@
                   </v-card-title>
                   <v-divider></v-divider>
 				          <div
-                     @click="setOrder(indosatvoucherid, indosatlabel, indosatprice, current = 'indosat')"
+                     @click="setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
                   >
@@ -283,7 +283,7 @@
                           icon
                           tile
                           light
-                          @click="setOrder(vip.voucher_id,vip.label,vip.price, current = 'xl')"
+                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
                         >
                           <v-icon>mdi-arrow-right</v-icon>
                         </v-btn>
@@ -916,9 +916,12 @@ export default {
             if (this.current == "xl") {
               this.e1 = this.e1 - 2;
               this.current = 0;
+              console.log(this.e1)
             } else if (this.current == "indosat") {
               this.e1 = 3;
               this.current = 0;
+            } else {
+              console.log(this.current)
             }
           } else {
             this.e1 = 1
