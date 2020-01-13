@@ -1044,7 +1044,6 @@ export default {
         // other code
     },
     iframePreview() {
-        // if not vip, show dialog
       this.iframeDialogVisible = true;
     }
   },

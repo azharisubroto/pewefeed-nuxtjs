@@ -12,10 +12,19 @@
                             <v-expansion-panel-header>
                                 <v-row no-gutters>
                                     <v-col cols="5 text--secondary">{{ '#' + mid.order_id }}</v-col>
-                                    <v-col cols="" class="text-center">{{ mid.transaction_time }}</v-col>
+                                    <v-col cols="" class="text-center">{{ mid.created_at }}</v-col>
                                 </v-row>
                             </v-expansion-panel-header>
-                            <v-expansion-panel-content class="pt-3">
+
+                            <!-- === if xendit === -->
+                            <v-expansion-panel-content class="pt-3" v-if="mid.xendit">
+                                <v-subheader>Detail Pembayaran</v-subheader>
+                                <v-divider></v-divider>
+                                <v-btn @click="openIframe(mid.invoice_url)" small block color="success">Lihat</v-btn>
+                            </v-expansion-panel-content>
+
+                            <!-- === if midtrans === -->
+                            <v-expansion-panel-content class="pt-3" v-else>
                                 <v-subheader>Detail Pembayaran</v-subheader>
                                 <v-divider></v-divider>
                                 <v-simple-table>
@@ -71,6 +80,7 @@
                                     </v-card-text>
                                 </v-card>
                             </v-expansion-panel-content>
+
                         </v-expansion-panel>
                     </v-expansion-panels>
 					<br>
@@ -93,10 +103,13 @@
 			type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
 			></v-skeleton-loader>
 		</v-container>
+        
+        <IframePreview :dialogVisible="iframeDialogVisible" :invoiceUrl="invoiceUrl" @close="iframeClose()"/>
 	</section>
 </template>
 <script>
 import UserService from '@/services/UserService'
+import IframePreview from "@/components/modal/IframePreview";
 export default {
 	name:"Pending",
 	data() {
@@ -104,9 +117,14 @@ export default {
             midtranscallback: [],
             datamidtrans: [],
             list: false,
-            loading: true
+            loading: true,
+            iframeDialogVisible: false,
+            invoiceUrl: ''
 		}
-	},
+    },
+    components: {
+        IframePreview
+    },
 	methods: {
 		async fetchData() {
             try {
@@ -120,6 +138,13 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+        iframeClose () {
+            this.iframeDialogVisible = false
+        },
+        openIframe(url) {
+            this.invoiceUrl = url
+            this.iframeDialogVisible = true
         }
 	},
 	mounted() {
