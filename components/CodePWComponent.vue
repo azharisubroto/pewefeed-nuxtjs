@@ -219,7 +219,7 @@ export default {
         message_code : '',
         responsemessage: '',
         responselink: '',
-        dialog: true,
+        dialog: false,
         valid: true,
         lazy: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
         logo: '/img/Playworld-Logo-Dark_resize2.png',
@@ -227,7 +227,7 @@ export default {
             msisdn : null,
             code : null,
         },
-        recaptchaToken: 'success',
+        recaptchaToken: null,
         pwIdRules: [
             v => !!v || 'Input Valid Code'
         ],
