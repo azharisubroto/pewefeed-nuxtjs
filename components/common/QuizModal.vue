@@ -30,7 +30,7 @@
     </v-toolbar>
 
 
-    <v-card class="gray--background">
+    <v-card>
 
       <v-card-text>
         <div class="text-center pt-5">
