@@ -555,16 +555,16 @@ export default {
 					link: '/sport'
 				},
 				{
-					title: 'SIXTY',
+					title: 'VIDEO',
 					link: '/video'
 				},
 			],
 			premium: 2,
 			premiums: [
-				{
-					title: 'FAKTA',
-					link: '/fakta'
-				},
+				// {
+				// 	title: 'FAKTA',
+				// 	link: '/fakta'
+				// },
 				{
 					title: 'KOMIK',
 					link: '/komik'
@@ -576,10 +576,10 @@ export default {
 					title: 'TUKAR POIN',
 					link: '/toko'
 				},
-				{
-					title: 'TOP POIN',
-					link: '/toppoin'
-				},
+				// {
+				// 	title: 'TOP POIN',
+				// 	link: '/toppoin'
+				// },
 				{
 					title: 'KOMPETISI',
 					link: '/kompetisi'
