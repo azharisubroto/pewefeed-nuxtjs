@@ -205,6 +205,20 @@
 						</v-col>
 						<v-col cols="6">
 							<v-list>
+								<v-subheader class="black--text text-16 font-weight-bold">HIGHLIGHT</v-subheader>
+								<v-list-item-group v-model="premium">
+									<v-list-item
+										v-for="(highlight, i) in highlights"
+										:key="i"
+										@click="$router.push('/search/'+highlight.link); drawer = false"
+									>
+										<v-list-item-content class="menu">
+											<v-list-item-title v-html="highlight.title"></v-list-item-title>
+										</v-list-item-content>
+									</v-list-item>
+								</v-list-item-group>
+							</v-list>
+							<v-list>
 								<v-subheader class="black--text text-16 font-weight-bold">PREMIUM</v-subheader>
 								<v-list-item-group v-model="premium">
 									<v-list-item
@@ -560,6 +574,20 @@ export default {
 				},
 			],
 			premium: 2,
+			highlights: [
+				// {
+				// 	title: 'Highlight',
+				// 	link: 'highlights'
+				// },
+				{
+					title: 'IMLEK',
+					link: 'imlek'
+				},
+				{
+					title: 'VALENTINE',
+					link: 'valentine'
+				}
+			],
 			premiums: [
 				// {
 				// 	title: 'FAKTA',
