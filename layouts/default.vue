@@ -203,14 +203,14 @@
 								</v-list-item-group>
 							</v-list>
 						</v-col>
-						<v-col cols="6">
+						<v-col cols="6" v-if="highlights">
 							<v-list>
 								<v-subheader class="black--text text-16 font-weight-bold">HIGHLIGHT</v-subheader>
 								<v-list-item-group v-model="premium">
 									<v-list-item
 										v-for="(highlight, i) in highlights"
 										:key="i"
-										@click="$router.push('/search/'+highlight.link); drawer = false"
+										@click="$router.push('/search/'+highlight.title); drawer = false"
 									>
 										<v-list-item-content class="menu">
 											<v-list-item-title v-html="highlight.title"></v-list-item-title>
@@ -467,6 +467,7 @@ import Login from '@/components/Login'
 import NewsLoop from '@/components/common/NewsLoop'
 import NewLogin from '@/components//NewLogin'
 import ArticleService from '../services/ArticleService';
+import MenuService from '../services/MenuService';
 export default {
 	name: 'App',
 	components: {
@@ -574,20 +575,7 @@ export default {
 				},
 			],
 			premium: 2,
-			highlights: [
-				// {
-				// 	title: 'Highlight',
-				// 	link: 'highlights'
-				// },
-				{
-					title: 'IMLEK',
-					link: 'imlek'
-				},
-				{
-					title: 'VALENTINE',
-					link: 'valentine'
-				}
-			],
+			highlights: null,
 			premiums: [
 				// {
 				// 	title: 'FAKTA',
@@ -723,12 +711,23 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
+		},
+		async fetchHighlight() {
+			try {
+				const res = await MenuService.getHighlight()
+				const data = res.data.data
+				console.log('Highlights',JSON.parse(JSON.stringify(data)))
+				this.highlights = data
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	},
 	mounted() {
 		this.isLogin()
 		this.fetchUser()
 		this.fetchBantuan()
+		this.fetchHighlight()
 		this.years = new Date().getFullYear()
 		var isMobile = mobile()
 		if (!isMobile) {
