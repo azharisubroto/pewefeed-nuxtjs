@@ -59,5 +59,11 @@ export default {
 	},
 	bantuandetail(slug) {
 		return Api().get('/help/sub/' + slug)
+	},
+	searchHighlight(keywords) {
+		return Api().get('/article/highlight/' + keywords)
+	},
+	searchHighlightMore(keywords, page) {
+		return Api().get('/article/highlight/' + keywords + '?page=' + page)
 	}
 }

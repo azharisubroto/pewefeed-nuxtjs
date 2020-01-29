@@ -210,7 +210,7 @@
 									<v-list-item
 										v-for="(highlight, i) in highlights"
 										:key="i"
-										@click="$router.push('/search/'+highlight.title); drawer = false"
+										@click="$router.push('/highlight/'+highlight.title); drawer = false"
 									>
 										<v-list-item-content class="menu">
 											<v-list-item-title v-html="highlight.title"></v-list-item-title>
