@@ -104,8 +104,7 @@
 					<v-col>Nomor</v-col>
 					<v-col>{{contact.number}}</v-col>
 				</v-row>
-
-				UBAH NOMOR<br><br>
+				<v-divider class="my-5"></v-divider>
 				<v-autocomplete
 					label="Type"
 					:items="voucherTypes"

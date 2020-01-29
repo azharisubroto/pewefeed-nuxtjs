@@ -91,7 +91,6 @@
 					placeholder="Email"
 					outlined
 					readonly
-					disabled
 					v-model="data.email"
 				></v-text-field>
 				<v-text-field
@@ -99,7 +98,6 @@
 					placeholder="msisdn"
 					outlined
 					readonly
-					disabled
 					v-model="data.msisdn"
 				></v-text-field>
 				<v-text-field
@@ -107,7 +105,6 @@
 					placeholder="Expired"
 					outlined
 					readonly
-					disabled
 					v-model="data.expire"
 				></v-text-field>
 				<v-text-field
