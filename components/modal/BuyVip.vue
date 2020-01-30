@@ -1027,6 +1027,9 @@ export default {
       try {
         const res = await UserService.getSingleUser();
         // console.log(res.data.status);
+        if (res.status != 200) {
+          window.location.href = '/'
+        }
         this.userdata = res.data.data;
       } catch (error) {
         console.log(error);
@@ -1049,10 +1052,7 @@ export default {
   },
   mounted() {
     /* Init Data User to Customer Detail */
-    this.isLoggedIn = localStorage.getItem("loggedin");
-    if (this.isLoggedIn == "true") {
-      this.fetchUser();
-    }
+    this.fetchUser();
     this.onError();
     this.onExpired();
     this.onSuccess();

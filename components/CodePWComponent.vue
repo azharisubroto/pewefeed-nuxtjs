@@ -321,12 +321,12 @@ export default {
         /* Validasi Form */
         validate () {
             if (this.$refs.form.validate()) {
-                // if (this.recaptchaToken != null) {
+                if (this.recaptchaToken != null) {
                     this.submit();
-                // } else {
-                //     this.snackbar = true;
-                //     this.responsemessage = 'Mohon Centang Recaptha';
-                // }
+                } else {
+                    this.snackbar = true;
+                    this.responsemessage = 'Mohon Centang Recaptha';
+                }
             }
         },
         reset () {
