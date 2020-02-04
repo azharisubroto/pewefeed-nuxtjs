@@ -4,7 +4,7 @@
 			class="mx-auto mt-5"
 			type="list-item-avatar-three-line, image, article"
 		></v-skeleton-loader>
-		<v-container v-if="article" class="mb-5 pb-5">
+		<v-container v-if="article" class="mb-5 pb-5 articlewrapper">
 			<v-row>
 				<v-col>
 				<!-- META 1 -->
@@ -660,4 +660,14 @@ export default {
 		opacity: 1
 	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
 		color: var(--primary)!important
+</style>
+<style lang="scss">
+	.articlewrapper {
+		h3 {
+			font-size: 20px!important;
+			span {
+				font-size: 20px!important;
+			}
+		}
+	}
 </style>
