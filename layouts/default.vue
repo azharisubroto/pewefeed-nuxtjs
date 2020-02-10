@@ -521,11 +521,11 @@ export default {
 				{name: 'Sport', loc: '/sport'},
 			],
 			memberMenu: [
-				{name: 'Data Diri', loc: '/member/pengaturan/profil'},
-				{name: 'Histori Poin', loc: '/member/histori_penggunaan_poin'},
+				{name: 'Profile', loc: '/member/pengaturan/profil'},
+				{name: 'Poin History', loc: '/member/histori_penggunaan_poin'},
 				{name: 'Rewards', loc: '/member/barang_yang_didapat'},
-				{name: 'Status Transfer', loc: '/member/status_transfer'},
-				{name: 'Kode PW', loc: '/member/kode-pw'},
+				{name: 'Transfer Status', loc: '/member/status_transfer'},
+				{name: 'VIP Code', loc: '/member/kode-pw'},
 				//{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
 			],
 			starxMenu: [
