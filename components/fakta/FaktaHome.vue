@@ -8,15 +8,6 @@
     <HeroSlide v-if="hero_items.length > 0 && !hero_is_fetching" :items="hero_items"/>
     <!-- END SLIDER -->
 
-    <!-- SHARE BUTTON -->
-    <ShareButton
-      :sharingUrl="dataUrl"
-      :sharingTitle="dataTitle"
-      :sharingDescription="dataDescription"
-      class="mb-3"
-    />
-    <!-- END SHARE BUTTON -->
-
     <!-- ADSENSE -->
         <v-container>
           <v-row no-gutters>

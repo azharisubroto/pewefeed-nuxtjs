@@ -4,7 +4,7 @@ import Api from '@/services/Api'
 export default {
     /**
      * Code PW
-     * @params {msisdn & code} 
+     * @params {msisdn & code}
      */
     getCodePw(params) {
         return Api().get('/master/voucher/form/' + params)
@@ -12,7 +12,7 @@ export default {
 
     /**
      * Code PW
-     * @params {msisdn & code} 
+     * @params {msisdn & code}
      */
     submitVoucher(params) {
         return Api().post('/master/voucher/confirm', params)

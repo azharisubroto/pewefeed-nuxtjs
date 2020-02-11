@@ -1,0 +1,149 @@
+<template>
+	<div>
+		<v-bottom-sheet v-model="sheet">
+            <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon>
+                    <v-icon class="mr-1">mdi-share-variant</v-icon>
+                </v-btn>
+            </template>
+            <v-sheet height="100%" color="transparent">
+                <div class="mx-2" style="background-color: #fff !important">
+                    <div>
+                        <v-container>
+                            <strong class="subtitle-1">Bagikan Cerita</strong>
+                        </v-container>
+                    </div>
+                    <v-divider></v-divider>
+                    <v-container>
+                        <v-row>
+                            <v-col v-if="sharingImage" cols="8">
+                                <strong class="subtitle-1 font-weight-bold">{{ sharingTitle }}</strong><br>
+                                <strong class="caption grey--text">{{ sharingTime }}</strong>
+                            </v-col>
+                            <v-col v-else cols="8">
+                                <strong class="subtitle-1">{{ sharingTitle }}</strong><br>
+                                <strong class="caption grey--text">PlayworldID</strong>
+                            </v-col>
+                            <v-col v-if="sharingImage" cols="4">
+                                <img width="100%" :src="sharingImage" alt="">
+                            </v-col>
+                            <v-col v-else cols="4">
+                                <img width="100%" src="/img/playworld-logo-only.png" alt="">
+                            </v-col>
+                            <v-col cols="12">
+                                <v-row align="center" no-gutters>
+                                    <v-col cols="9">
+                                        <socialSharing
+                                            :url="sharingUrl"
+                                            :title="sharingTitle"
+                                            :description="sharingDescription"
+                                            twitter-user="playworldID"
+                                            inline-template
+                                            @close="close()"
+                                        >
+                                            <div>
+                                                <network network="facebook">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook-box theme--light primary--text"></i>
+                                                </network>
+                                                <network network="twitter">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter-box theme--light blue--text"></i>
+                                                </network>
+                                                <network network="whatsapp">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"></i>
+                                                </network>
+                                                <network network="telegram">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-telegram theme--light blue--text"></i>
+                                                </network>
+                                                <network network="skype">
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-skype theme--light blue--text"></i>
+                                                </network>
+                                            </div>
+                                        </socialSharing>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-icon @click="copyToClipBoard()" size="30" style="margin-left: 3px;">mdi-content-copy</v-icon>
+                                    </v-col>
+                                </v-row>
+
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </div>
+                <div class="mx-2 py-3">
+                    <v-btn @click="sheet = !sheet" tile light depressed block style="background-color: #fff !important">Batal</v-btn>
+                </div>
+            </v-sheet>
+        </v-bottom-sheet>
+        <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+            top
+        >
+            {{ responsemessage }}
+            <v-btn
+                color="primary"
+                text
+                icon
+                @click="snackbar = false"
+            >
+            <v-icon color="white">mdi-close-circle-outline</v-icon>
+            </v-btn>
+        </v-snackbar>
+	</div>
+</template>
+
+<script>
+import * as socialSharing from 'vue-social-sharing'
+
+export default {
+	name: "ShareButton2",
+	props: ['share'],
+	//props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
+	components: {
+        socialSharing
+    },
+    data: () => ({
+        sheet: false,
+        timeout: 2000,
+        snackbar: false,
+		responsemessage: 'Copied to clipboard',
+		sharingUrl:'',
+		sharingTitle: '',
+		sharingDescription: '',
+		sharingImage:'',
+		sharingTime:'',
+    }),
+    methods: {
+        close() {
+            this.$root.$on('social_shares_close', function (network, url) {
+                console.log('close')
+            })
+        },
+        copyToClipBoard() {
+            const copy = require('clipboard-copy')
+            copy(this.sharingUrl)
+            this.snackbar = true
+		},
+		refetchMeta(){
+			this.sharingUrl = window.location.href
+			let data = this.$store.state.item
+			if( data ) {
+				this.sharingTitle = (data && data.article) ? data.article.title : 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld'
+				this.sharingImage = (data && data.article && data.article.image) ? data.article.image.medium : null
+				this.dataDescription = (data && data.article && data.article.short_title) ? data.article.short_title : 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!'
+			}
+		}
+	},
+	mounted() {
+		this.refetchMeta()
+	},
+	updated() {
+		this.refetchMeta()
+	},
+	watch:{
+		$route (to, from){
+			this.refetchMeta()
+		}
+	}
+}
+</script>

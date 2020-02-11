@@ -9,8 +9,9 @@
                 <v-row no-gutters>
                   <v-col cols="4" class="text--secondary caption">{{ mid.created_at }}</v-col>
                   <v-col
-                    cols="8"
-                  >Pembayaran dengan No. {{ '#' + mid.expired_at }} akan berakhir pada {{ mid.expired_at }}</v-col>
+                    cols="7"
+                    class="caption"
+                  >Pembayaran dengan No. {{ '#' + mid.order_id }} akan berakhir pada {{ mid.expired_at }}</v-col>
                 </v-row>
               </v-expansion-panel-header>
 
@@ -86,7 +87,7 @@
       </v-row>
       <v-row v-else-if="!list && !loading">
         <v-col>
-          <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
+          <v-alert prominent text type="info">Tidak ada data yang tersedia</v-alert>
         </v-col>
       </v-row>
       <v-skeleton-loader

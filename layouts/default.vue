@@ -3,21 +3,24 @@
 		<v-sheet
 		>
 			<v-app-bar
-				color="orange accent-14"
-				dark
+				color="white"
 				flat
 				fixed
+				tile
+				class="main-app-bar"
 			>
 				<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-				<v-toolbar-title @click="$router.push('/'); drawer = false">
+				<v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
 					<v-img
-					src="/img/playworld-logo.png"
+					:src="mainlogo"
 					width="130"
 					></v-img>
 				</v-toolbar-title>
 
 				<div class="flex-grow-1"></div>
+
+				<ShareButton2/>
 
 				<v-btn icon @click="searchDialog = true">
 					<v-icon> mdi-magnify</v-icon>
@@ -98,15 +101,14 @@
 				<v-card tile>
 					<v-app-bar
 						absolute
-						color="orange accent-14"
-						elevation="0"
-						dark
+						color="white"
+						elevation="1"
 					>
 						<v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
 
-						<v-toolbar-title class="pl-5" @click="$router.push('/')">
+						<v-toolbar-title class="pl-0" @click="$router.push('/')">
 							<v-img
-							src="/img/playworld-logo.png"
+							:src="mainlogo"
 							width="130"
 							></v-img>
 						</v-toolbar-title>
@@ -394,9 +396,9 @@
 				width="500"
 				>
 				<v-card>
-					<v-toolbar dark color="orange accent-14">
+					<v-toolbar>
 						<!-- Arrow -->
-						<v-btn icon tile style="border-right: 1px solid #fff" dark @click="closeSearch()">
+						<v-btn icon tile style="border-right: 1px solid #d1d1d1" @click="closeSearch()">
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
 
@@ -404,8 +406,8 @@
 						<v-toolbar-title>
 							<v-img
 							@click="$router.push('/'); drawer = false"
-							src="/img/playworld-logo.png"
-							lazy-src="/img/playworld-logo.png"
+							:src="mainlogo"
+							lazy-:src="mainlogo"
 							max-width="100"
 							max-height="100"
 							>
@@ -422,6 +424,7 @@
 							<v-col cols="10">
 								<v-text-field
 									v-model="searchModel"
+									@keyup.enter="validate()"
 									dense
 									label="Tulis Judul Artikel . . ."
 									autofocus
@@ -468,15 +471,19 @@ import NewsLoop from '@/components/common/NewsLoop'
 import NewLogin from '@/components//NewLogin'
 import ArticleService from '../services/ArticleService';
 import MenuService from '../services/MenuService';
+import ShareButton2 from '@/components/common/ShareButton2'
+
 export default {
 	name: 'App',
 	components: {
 		Login,
 		NewsLoop,
-		NewLogin
+		NewLogin,
+		ShareButton2
 	},
 	data () {
 		return {
+			mainlogo: '/pl-logo.png',
 			drawer: null,
 			searchDialog: null,
 			isLoggedIn: false,
@@ -631,7 +638,13 @@ export default {
 					subtitle: '(Official Email Address)'
 				}
 			],
-			bantuanMenu: null
+			bantuanMenu: null,
+			share: {
+				dataUrl: '',
+				dataTitle: '',
+				dataDescription: ''
+			},
+			singularDetail: null
 		}
 	},
 	methods: {
@@ -754,6 +767,9 @@ export default {
 		--LAGU: #d54444;
 		--NONTON: #000;
 		--TEKNO: #8d8988
+	}
+	.v-application .white.main-app-bar {
+		border-bottom: 1px solid #d1d1d1!important;
 	}
 	/* font-size by number */
 	@for $i from 5 through 90 {

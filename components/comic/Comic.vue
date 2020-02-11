@@ -28,14 +28,6 @@
           </flickity>
         </div>
 
-        <!-- SHARE BUTTON -->
-        <ShareButton
-          :sharingUrl="dataUrl"
-          :sharingTitle="dataTitle"
-          :sharingDescription="dataDescription"
-          class="mb-3"
-        />
-        
         <!-- ADSENSE -->
         <v-container>
           <v-row no-gutters>
@@ -154,7 +146,7 @@ export default {
                   var res = await ComicService.getAll(id)
                   var items = res.data.data.content
                   this.total = res.data.pagination.total
-                  // console.log(JSON.parse(JSON.stringify(res.data.data)))  
+                  // console.log(JSON.parse(JSON.stringify(res.data.data)))
                 } else {
                   var items = this.respon.content
                   this.total = 25

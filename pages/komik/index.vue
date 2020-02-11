@@ -29,7 +29,12 @@ export default {
     .then(res => {
       return res.data.data
     })
-    store.commit('SET_ITEM', item)
+    store.commit('SET_ITEM', {
+		article:{
+			title: meta.og_title,
+			short_title: meta.description,
+		}
+	})
     store.commit('SET_META', meta)
     console.log(JSON.parse(JSON.stringify(item)))
   },

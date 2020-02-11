@@ -10,7 +10,7 @@
                   <v-col cols="4" class="text-secondary caption">{{ mid.transaction_time }}</v-col>
                   <v-col
                     cols="8"
-                    class="text-left"
+                    class="text-left caption"
                   >Pembayaran No. {{ '#' + mid.order_id }} senilai {{ mid.amount }} telah kami terima</v-col>
                 </v-row>
               </v-expansion-panel-header>
@@ -92,7 +92,7 @@
       </v-row>
       <v-row v-else-if="!list && !loading">
         <v-col>
-          <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
+          <v-alert prominent text type="info">Tidak ada data yang tersedia</v-alert>
         </v-col>
       </v-row>
       <v-skeleton-loader
@@ -143,7 +143,7 @@ export default {
 .finish-page .container {
   background: #f9f9f9;
 }
-.finish-page .v-icon {
+.finish-page .expansion-panels .v-icon {
   color: #ff5722 !important;
   position: absolute;
   top: 10px;
