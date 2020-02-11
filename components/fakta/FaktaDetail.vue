@@ -47,16 +47,7 @@
           class="mb-3"
           dense
           :value="getrating(article.rate)"></v-rating>
-          <div>
-            <ShareButton
-              style="text-align: left !important"
-              :sharingUrl="dataUrl"
-              :sharingTitle="article.title"
-              :sharingDescription="article.description"
-              :sharingImage="article.thumbnail"
-              :sharingTime="article.created_at"
-            />
-          </div>
+
         </v-col>
       </v-row>
       <!-- ARTICLE -->

@@ -60,15 +60,6 @@
                     </v-col>
                 </v-row>
             </div>
-            <!-- SHARE BUTTON -->
-            <ShareButton
-                style="text-align: left !important"
-                :sharingUrl="dataUrl"
-                :sharingTitle="comic.title"
-                :sharingDescription="comic.description"
-                :sharingImage="comic.thumbnail"
-                :sharingTime="comic.created_at"
-            />
 
             <!-- ARTICLE -->
             <template v-if="isComic">
@@ -246,7 +237,7 @@
                     :lazy-src="lazy"
                     max-width="40"
                     max-height="40"
-                  >  
+                  >
                   </v-img>
                 </v-toolbar-title>
 

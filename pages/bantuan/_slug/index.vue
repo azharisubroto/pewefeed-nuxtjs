@@ -58,14 +58,6 @@
 							Back
 						</v-btn>
 					</v-col>
-					<v-col cols="6" class="pa-0">
-						<ShareButton
-						v-if="content"
-						:sharingUrl="'https://m.playworld.id/bantuan/'+content.slug"
-						:sharingTitle="'Bantuan Playworld'"
-						class="my-0"
-						/>
-					</v-col>
 				</v-row>
 			</v-container>
 		</div>

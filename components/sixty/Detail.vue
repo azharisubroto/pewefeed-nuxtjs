@@ -41,14 +41,6 @@
 
             <!-- TITLE -->
             <h2 class="mb-3">{{article.detail.title}}</h2>
-            <ShareButton
-              style="text-align: left !important"
-              :sharingUrl="dataUrl"
-              :sharingTitle="article.detail.title"
-              :sharingDescription="article.article.short_content"
-              :sharingImage="article.article.image"
-              :sharingTime="article.detail.publish_at"
-            />
 
             <!-- ARTICLE -->
             <template v-if="isArticle">
@@ -345,7 +337,7 @@ export default {
                 }
             ],
             dataUrl: "https://m.playworld.id/sixty/" + this.$route.params.sixty,
-            
+
         }
     },
     computed: {

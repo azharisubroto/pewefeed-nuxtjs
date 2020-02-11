@@ -42,16 +42,7 @@
 
                     <!-- TITLE -->
                     <h2 class="mb-0">{{article.eskul_name}}</h2>
-                    <div>
-                        <ShareButton
-                            style="text-align: left !important"
-                            :sharingUrl="'https://m.playworld.id/starx/eskul/' + $route.params.eskul_slug + '/' + $route.params.school_name"
-                            :sharingTitle="article.eskul_name"
-                            :sharingDescription="'Starx : ' + article.eskul_name"
-                            :sharingImage="article.img"
-                            :sharingTime="article.created_at"
-                        />
-                    </div>
+
                 </v-col>
             </v-row>
             <!-- ARTICLE -->

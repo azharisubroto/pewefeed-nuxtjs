@@ -65,12 +65,6 @@
 				color="deep-orange">
 			</v-progress-circular>
 		</div>
-
-		<ShareButton
-		:sharingUrl="'https://m.playworld.id/bantuan/'"
-		:sharingTitle="'Bantuan Playworld'"
-		class="my-0 bantuanfixed"
-		/>
 	</div>
 </template>
 <script>

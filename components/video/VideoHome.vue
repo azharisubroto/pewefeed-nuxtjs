@@ -28,14 +28,6 @@
       </flickity>
     </div>
 
-    <!-- SHARE BUTTON -->
-    <ShareButton
-      :sharingUrl="dataUrl"
-      :sharingTitle="dataTitle"
-      :sharingDescription="dataDescription"
-      class="mb-3"
-    />
-
     <!-- ADSENSE -->
     <v-container>
       <v-row no-gutters>

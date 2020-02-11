@@ -1,8 +1,8 @@
-	import AuthApi from '@/services/AuthApi'
-	import Api from './Api'
-	// import AuthApiLocal from '@/services/AuthApiLocal'
+import AuthApi from '@/services/AuthApi'
+import Api from './Api'
+// import AuthApiLocal from '@/services/AuthApiLocal'
 
-	export default {
+export default {
 	getSingleUser() {
 		return AuthApi().get('/member/get-single-member')
 	},
@@ -77,16 +77,16 @@
 		return AuthApi().get('/member/mutasi-poin/' + fil + '?page=' + n + '&filter_poin=' + fil)
 	},
 	rewardsWait(n) {
-		return AuthApi().get('/member/transaction/wait/?page='+n)
+		return AuthApi().get('/member/transaction/wait/?page=' + n)
 	},
 	rewardsSent(n) {
 		return AuthApi().get('/member/transaction/process/?page=' + n)
 	},
 	rewardsReceived(n) {
-		return AuthApi().get('/member/transaction/confirmation/?page='+n)
+		return AuthApi().get('/member/transaction/confirmation/?page=' + n)
 	},
 	rewardsFinished(n) {
-		return AuthApi().get('/member/transaction/finish?page='+n)
+		return AuthApi().get('/member/transaction/finish?page=' + n)
 	},
 
 	claimDigital(params) {
@@ -102,6 +102,6 @@
 		return AuthApi().get('/member/status-transfer')
 	},
 	getCodePW(page) {
-		return AuthApi().get('/master/voucher/kode-pw?page=' + page)
+		return AuthApi().get('/member/history-payment?page=' + page)
 	}
 }

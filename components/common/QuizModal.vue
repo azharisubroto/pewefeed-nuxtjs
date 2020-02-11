@@ -3,23 +3,20 @@
     v-model="intDialogVisible"
     max-width="290"
     persistent
-    fullscreen hide-overlay transition="dialog-bottom-transition"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
   >
     <!-- Header -->
     <v-toolbar light color="white">
       <!-- Arrow -->
-      <v-btn icon tile style="border-right: 1px solid #717171" light @click="notVipVisible = false">
+      <v-btn icon tile style="border-right: 1px solid #d1d1d1" light @click="notVipVisible = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
 
       <!-- Logo -->
       <v-toolbar-title>
-        <v-img
-          :src="logo"
-          max-width="40"
-          max-height="40"
-        >
-        </v-img>
+        <v-img :src="logo" max-width="100" max-height="40"></v-img>
       </v-toolbar-title>
 
       <!-- Title -->
@@ -29,78 +26,54 @@
       </v-toolbar-items>
     </v-toolbar>
 
-
     <v-card>
-
       <v-card-text>
         <div class="text-center pt-5">
           <div class="whitebox">
-            <img src="/img/poinextra.png" width="80" class="mt-5"/>
-            <br>
-            <br>
+            <img src="/img/poinextra.png" width="80" class="mt-5" />
+            <br />
+            <br />
             <template v-if="already==true">
               <h3 class="red--text">No Extra POIN</h3>
-                <v-alert
-                  outlined
-                  type="info"
-                  text
-                  icon="mdi-information-outline"
-                  align
-                  class="text-left caption mt-3"
-                  dense
-                >
-                  Kamu tidak mendapat tambahan POIN karena telah menjawab QUIZ sebelumnya
-                </v-alert>
+              <v-alert
+                border="left"
+                dense
+                colored-border
+                type="info"
+                class="text-14 text-left mt-4"
+                style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+              >Kamu tidak mendapat tambahan POIN karena telah menjawab QUIZ sebelumnya</v-alert>
             </template>
 
             <template v-else>
-              <div
-              v-if="jawaban==true"
-              >
+              <div v-if="jawaban==true">
                 <h3 class="green--text">Extra POIN +20</h3>
                 <v-alert
-                  outlined
-                  type="info"
-                  text
-                  icon="mdi-information-outline"
-                  align
-                  class="text-left caption mt-3"
+                  border="left"
                   dense
-                >
-                  Kamu mendapat tambahan POIN karena telah menjawab QUIZ dengan benar
-                </v-alert>
+                  colored-border
+                  type="info"
+                  class="text-14 text-left mt-4"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >Kamu mendapat tambahan POIN karena telah menjawab QUIZ dengan benar</v-alert>
               </div>
-              <div
-              v-if="jawaban==false"
-              >
+              <div v-if="jawaban==false">
                 <h3 class="red--text">No Extra POIN</h3>
                 <v-alert
-                  outlined
-                  type="info"
-                  text
-                  icon="mdi-information-outline"
-                  align
-                  class="text-left caption mt-3"
+                  border="left"
                   dense
-                >
-                  Kamu tidak mendapat tambahan POIN karena salah menjawab QUIZ
-                </v-alert>
+                  colored-border
+                  type="info"
+                  class="text-14 text-left mt-4"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >Kamu tidak mendapat tambahan POIN karena salah menjawab QUIZ</v-alert>
               </div>
             </template>
           </div>
         </div>
         <v-row>
           <v-col cols="12">
-            <v-btn
-              color="deep-orange darken-1"
-              @click="closeIt()"
-              dark
-              block
-              depressed
-              large
-            >
-              Tutup
-            </v-btn>
+            <v-btn color="deep-orange darken-1" @click="closeIt()" dark block depressed large>Tutup</v-btn>
           </v-col>
         </v-row>
       </v-card-text>
@@ -117,63 +90,63 @@ export default {
     already: Boolean
   },
   data() {
-    return{
-        logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
-    }
+    return {
+      logo: "/pl-logo.png"
+    };
   },
   computed: {
     /* Init Modal */
     intDialogVisible: {
-      get: function () {
+      get: function() {
         if (this.dialogVisible) {
           // Some dialog initialization code could be placed here
           // because it is called only when this.dialogVisible changes
-          this.$emit('open');
+          this.$emit("open");
         }
 
-        return this.dialogVisible
+        return this.dialogVisible;
       },
-      set: function (value) {
+      set: function(value) {
         if (!value) {
-          this.$emit('close')
+          this.$emit("close");
         }
       }
     },
     notVipVisible: {
-      get: function () {
+      get: function() {
         if (this.dialogVisible) {
           // Some dialog initialization code could be placed here
           // because it is called only when this.dialogVisible changes
-          this.$emit('open');
+          this.$emit("open");
         }
 
-        return this.dialogVisible
+        return this.dialogVisible;
       },
-      set: function (value) {
+      set: function(value) {
         if (!value) {
-          this.$emit('close')
+          this.$emit("close");
         }
       }
     }
   },
   methods: {
     closeIt() {
-      this.$emit('close')
+      this.$emit("close");
     }
   }
-}
+};
 </script>
 
 
 <style lang="scss">
-  .gray--background {
-    background: #f5f5f5!important;
-  }
-  .whitebox {
-    background: #fff;
-    padding: 30px;
-  }
-  .v-dialog {
-    z-index:10000;
-  }
+.gray--background {
+  background: #f5f5f5 !important;
+}
+.whitebox {
+  background: #fff;
+  padding: 30px 30px 10px;
+}
+.v-dialog {
+  z-index: 10000;
+}
 </style>

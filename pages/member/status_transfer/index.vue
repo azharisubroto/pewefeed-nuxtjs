@@ -10,11 +10,12 @@
               colored-border
               color="blue"
               class="mb-0"
+              icon="mdi-information-outline"
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
             >
               <v-row no-gutters>
                 <v-col cols="12">
-                  <ul>
+                  <ul class="text-12 pl-2">
                     <li>Keanggotaan VIP secara otomatis masuk ke dalam akun anda jika pembayaran sukses, jika mengalami kesulitan hubungi customer service kami</li>
                     <li>Untuk membatalkan transaksi ini, cukup dengan tidak melakukan pembayaran</li>
                   </ul>
@@ -66,7 +67,7 @@ export default {
       tab: 0,
       addresses: null,
       contact: null,
-      tabItems: ["Pending", "Sukses"],
+      tabItems: ["PENDING", "SUCCESS"],
       loginModalVisible: false
     };
   },

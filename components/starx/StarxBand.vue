@@ -58,12 +58,7 @@
 
 				<v-row>
 					<v-col cols="6" class="py-0">
-						<ShareButton
-						:sharingUrl="dataUrl"
-						:sharingTitle="dataTitle"
-						:sharingDescription="dataDescription"
-						class="myshare"
-						/>
+
 					</v-col>
 					<v-col cols="6" class="py-0">
 						<!-- FILTER -->
