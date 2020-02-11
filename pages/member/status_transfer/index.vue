@@ -43,7 +43,7 @@
 
     <!-- PROFIL MENU -->
     <v-bottom-navigation fixed dark grow color="white" background-color="black" v-model="tab">
-      <v-btn v-for="item in tabItems" :key="item">
+      <v-btn v-for="item in tabItems" :key="item" class="text-uppercase">
         <span>{{item}}</span>
       </v-btn>
     </v-bottom-navigation>
@@ -67,7 +67,7 @@ export default {
       tab: 0,
       addresses: null,
       contact: null,
-      tabItems: ["PENDING", "SUCCESS"],
+      tabItems: ["Pending", "Sukses"],
       loginModalVisible: false
     };
   },
