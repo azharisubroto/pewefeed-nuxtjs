@@ -127,7 +127,7 @@
           </v-row>
           <div class="devider-small full"></div>
 
-          <v-row no-gutters class="mt-5 m-4">
+          <v-row v-if="isLogin()" no-gutters class="mt-5 m-4">
             <v-col cols="6">
               <v-row no-gutters>
                 <v-col cols="2" @click="$router.push('/member/pengaturan/profil'); drawer = false">
