@@ -14,18 +14,18 @@
 					<v-alert
 						border="left"
 						dense
-						colored-border
-						color="blue"
+						outlined
 						class="mb-0"
-						style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+						:type="isActive ? 'success' : 'error'"
+						:icon="!isActive ? null : false"
 					>
 						<v-row no-gutters>
 							<v-col cols="1" class="mr-2">
 								<img width="25" class="mt-1" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
 							</v-col>
 							<v-col cols="10">
-								<strong :class="isActive ? 'subtitle-2 blue--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'" v-text="isActive ? 'ACTIVE' : 'INACTIVE'"></strong><br>
-								<strong class="body-2" v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"></strong>
+								<strong :class="isActive ? 'subtitle-2 green--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'" v-text="isActive ? 'ACTIVE' : 'INACTIVE'"></strong><br>
+								<strong class="body-2 black--text" v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"></strong>
 							</v-col>
 						</v-row>
 					</v-alert>
