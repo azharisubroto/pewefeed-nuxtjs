@@ -126,48 +126,58 @@
 					</v-row>
 
 					<v-row class="mt-12" v-else>
-						<v-col cols="3" @click="$router.push('/member/pengaturan/profil');drawer = false">
+						<v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
 							<v-avatar
 								@click="$router.push('/member/pengaturan/profil');drawer = false"
-								size="60"
+								size="50"
 								color="grey"
 							>
 								<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
 							</v-avatar>
 						</v-col>
-						<v-col cols="9" style="margin-top: -10px">
+						<v-col cols="10" style="margin-top: -10px">
 							<v-row>
 								<v-col cols="6" @click="$router.push('/member/pengaturan/profil'); drawer = false">
 									<strong class="subheading">{{ userdata.first_name }}</strong>
 								</v-col>
 								<v-col cols="6" class="text-right">
-									<v-btn @click="logout(); drawer = false" rounded color="error" depressed small>SIGN OUT</v-btn>
+									<v-btn @click="logout(); drawer = false" color="deep-orange" dark depressed small>SIGN OUT</v-btn>
 								</v-col>
 							</v-row>
+
 							<div class="devider-small full"></div>
+
 							<v-row no-gutters class="mt-5" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-								<v-col cols="7">
+								<v-col cols="6">
 									<v-row no-gutters>
 										<v-col cols="2">
 											<img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
 										</v-col>
-										<v-col cols="10" :class="['pl-1', (userdata.status_expired == 1) ? 'green--text' : 'red--text']">
-											<strong class="body-2 font-weight-bold">{{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}}</strong><br>
-											<strong class="body-2 mr-2 font-weight-bold">({{userdata.expire}})</strong>
+										<v-col cols="10" class="pl-1">
+											<strong class="body-2 font-weight-bold orange--text">VIP Expiry Date</strong><br>
+											<strong class="mr-2 dark--text font-weight-bold text-10">
+												{{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}} ({{userdata.expire}})
+											</strong>
 										</v-col>
 									</v-row>
 								</v-col>
-								<v-col cols="3">
-									<img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
-									<strong class="font-weight-bold" style="position:relative;top:-5px">{{ mypoint ? mypoint : '0'}}</strong>
+								<v-col cols="5">
+									<v-row no-gutters>
+										<v-col cols="2">
+											<img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png" alt="">
+										</v-col>
+										<v-col cols="10" class="pl-2">
+											<strong class="font-weight-bold body-2 orange--text">Total Poin</strong><br>
+											<strong class="text-10 ont-weight-bold">{{ mypoint ? mypoint : '0'}}</strong>
+										</v-col>
+									</v-row>
 								</v-col>
 								<v-col cols="1">
-									<v-btn
-									text
+									<div
 									@click="$router.push('/member/pengaturan/profil'); drawer = false"
 									>
 										<v-icon>mdi-arrow-right</v-icon>
-									</v-btn>
+									</div>
 								</v-col>
 							</v-row>
 						</v-col>
