@@ -147,17 +147,21 @@
 
 							<div class="devider-small full"></div>
 
-							<v-row no-gutters class="mt-5" @click="$router.push('/member/pengaturan/profil'); drawer = false">
+							<v-row no-gutters class="mt-5">
 								<v-col cols="6">
 									<v-row no-gutters>
-										<v-col cols="2">
+										<v-col cols="2" @click="$router.push('/member/pengaturan/profil'); drawer = false">
 											<img width="22" src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png" alt="">
 										</v-col>
 										<v-col cols="10" class="pl-1">
 											<strong class="body-2 font-weight-bold orange--text">VIP Expiry Date</strong><br>
 											<strong class="mr-2 dark--text font-weight-bold text-10">
-												{{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}} ({{userdata.expire}})
+												{{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}}
+												({{userdata.expire}})
 											</strong>
+											<v-btn @click="buyVip()" v-if="userdata.status_expired == 1" small class="mt-3" color="deep-orange" dark depressed>
+												Purchase VIP
+											</v-btn>
 										</v-col>
 									</v-row>
 								</v-col>
@@ -466,6 +470,7 @@
 			<v-icon color="white">mdi-close-circle-outline</v-icon>
 			</v-btn>
 		</v-snackbar>
+		<BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
 	</v-app>
 </template>
 
@@ -482,6 +487,7 @@ import NewLogin from '@/components//NewLogin'
 import ArticleService from '../services/ArticleService';
 import MenuService from '../services/MenuService';
 import ShareButton2 from '@/components/common/ShareButton2'
+import BuyVip from "@/components/modal/BuyVip"
 
 export default {
 	name: 'App',
@@ -489,7 +495,8 @@ export default {
 		Login,
 		NewsLoop,
 		NewLogin,
-		ShareButton2
+		ShareButton2,
+		BuyVip
 	},
 	data () {
 		return {
@@ -654,9 +661,29 @@ export default {
 				dataTitle: '',
 				dataDescription: ''
 			},
-			singularDetail: null
+			singularDetail: null,
+			dialog: false,
+        	buyVipDialogVisible: false,
 		}
 	},
+	computed: {
+      notVipVisible: {
+        get: function () {
+          if (this.dialogVisible) {
+            // Some dialog initialization code could be placed here
+            // because it is called only when this.dialogVisible changes
+            this.$emit('open');
+          }
+
+          return this.dialogVisible
+        },
+        set: function (value) {
+          if (!value) {
+            this.$emit('close')
+          }
+        }
+      }
+    },
 	methods: {
 		logout() {
 			let vm = this;
@@ -744,7 +771,16 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
-		}
+		},
+		myDialogClose () {
+            this.buyVipDialogVisible = false
+            // other code
+        },
+        buyVip() {
+            // if not vip, show dialog
+            this.notVipVisible = false;
+            this.buyVipDialogVisible = true;
+        }
 	},
 	mounted() {
 		this.isLogin()
