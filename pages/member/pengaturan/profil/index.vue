@@ -17,10 +17,10 @@
                 outlined
                 class="mb-0"
                 :type="isActive ? 'success' : 'error'"
-                :icon="!isActive ? null : false"
+                :icon="false"
               >
                 <v-row no-gutters>
-                  <v-col v-if="isActive" cols="1" class="mr-2">
+                  <v-col cols="1" class="mr-2">
                     <img
                       width="25"
                       class="mt-1"
