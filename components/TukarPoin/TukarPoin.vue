@@ -17,26 +17,45 @@
     <!-- LATEST -->
     <flickity v-if="discounts" ref="flashPoin" :options="flickityOptions">
       <div v-for="item in discounts" :key="item.id" class="featured-item-2">
-        <div class="pa-3 orange lighten-2">
-          <v-row align="center">
+        <div class="py-5 px-7 orange lighten-2">
+          <v-row>
             <v-col cols="4">
               <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
             </v-col>
             <v-col cols="8">
-              <strong
-                style="text-decoration:line-through"
-                class="text-14 red--text"
-              >{{item.promoted_price}}</strong>
-              <div class="clear"></div>
-              <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
-              <strong class="text-14" style="line-height:1">{{item.price}}</strong>
-              <h1 class="mb-2">{{item.title}}</h1>
-              <v-btn
-                color="deep-orange"
-                depressed
-                dark
-                @click="$router.push('/toko/redeem/'+item.id)"
-              >Tukar Poin</v-btn>
+              <v-row no-gutters="">
+                <v-col cols="1">
+                  &nbsp;
+                </v-col>
+                <v-col cols="11">
+                  <strong
+                    style="text-decoration:line-through"
+                    class="text-14 red--text"
+                  >{{item.promoted_price}}</strong>
+                </v-col>
+              </v-row>
+			  <v-row no-gutters="">
+                <v-col cols="1">
+                  <img
+                    src="/img/poin.png"
+                    alt
+                    width="16"
+                    class="mr-1 mt-1"
+                    style="vertical-align:top"
+                  />
+                </v-col>
+                <v-col cols="11">
+                  <strong class="text-14" style="line-height:1">{{item.price}}</strong>
+                  <h1 class="mb-2">{{item.title}}</h1>
+                  <v-btn
+                    color="deep-orange"
+                    depressed
+                    dark
+                    small
+                    @click="$router.push('/toko/redeem/'+item.id)"
+                  >Tukar Poin</v-btn>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </div>
@@ -72,8 +91,8 @@
             </div>
           </v-col>
           <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
-            <div>
-              <h2 class="d-block mb-2" style="width:100%;">{{article.reward}}</h2>
+            <div class="d-block mb-2 w-100">
+              <h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
               <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
               <strong class="text-14" style="line-height:1">{{article.point}}</strong>
             </div>
@@ -237,5 +256,8 @@ export default {
 }
 .flip-clock__slot {
   font-size: 10px !important;
+}
+.w-100 {
+  width: 100%;
 }
 </style>
