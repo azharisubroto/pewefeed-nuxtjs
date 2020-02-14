@@ -1,23 +1,41 @@
 <template>
   <section class="pb-5">
+    <!-- PENAWARAN -->
+    <v-container>
+      <v-row align="center" v-if="discounts">
+        <v-col cols="6" class="py-0">
+          <strong class="text-14">PENAWARAN TERBATAS</strong>
+        </v-col>
+        <v-col cols="6" class="text-right py-0" v-if="expire">
+          <no-ssr>
+            <flip-countdown :deadline="expire"></flip-countdown>
+          </no-ssr>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <!-- LATEST -->
-    <flickity v-if="flashpoints" ref="flashPoin" :options="flickityOptions">
-      <div v-for="item in flashpoints" :key="item.redeem.id" class="featured-item-2">
+    <flickity v-if="discounts" ref="flashPoin" :options="flickityOptions">
+      <div v-for="item in discounts" :key="item.id" class="featured-item-2">
         <div class="pa-3 orange lighten-2">
           <v-row align="center">
             <v-col cols="4">
-              <v-img :contain="true" :src="item.redeem.image ? item.redeem.image : ''"></v-img>
+              <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
             </v-col>
             <v-col cols="8">
-              <div class></div>
+              <strong
+                style="text-decoration:line-through"
+                class="text-14 red--text"
+              >{{item.promoted_price}}</strong>
+              <div class="clear"></div>
               <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
-              <strong class="text-14" style="line-height:1">{{item.redeem.point}}</strong>
+              <strong class="text-14" style="line-height:1">{{item.price}}</strong>
               <h1 class="mb-2">{{item.title}}</h1>
               <v-btn
                 color="deep-orange"
                 depressed
                 dark
-                @click="$router.push('/toko/redeem/'+item.redeem.id)"
+                @click="$router.push('/toko/redeem/'+item.id)"
               >Tukar Poin</v-btn>
             </v-col>
           </v-row>
@@ -29,6 +47,11 @@
 
     <v-container class="mt-5 pt-5 mb-5 pb-5">
       <template v-if="tukarpointab">
+        <v-row>
+          <v-col cols="12" class="py-0">
+            <h4 class="text-uppercase">Rewards Lainnya</h4>
+          </v-col>
+        </v-row>
         <v-row
           class="topview-item"
           v-for="(article, i) in redeems"
@@ -110,8 +133,12 @@
 
 <script>
 import TukarPoinService from "@/services/TukarPoinService";
+import FlipCountdown from "vue2-flip-countdown";
 export default {
   name: "PwPoin",
+  components: {
+    FlipCountdown
+  },
   data() {
     return {
       tukarpointab: true,
@@ -120,11 +147,12 @@ export default {
         "http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg",
       model: null,
       redeems: null,
-      flashpoints: null,
+      discounts: null,
       garfik: "",
       tukarpoin: "",
       totalpage: 1,
       page: 1,
+      expire: null,
       flickityOptions: {
         groupCells: 1,
         prevNextButtons: false,
@@ -148,19 +176,15 @@ export default {
         console.log(error);
       }
     },
-    async fetchFlashPoint() {
+    async fetchDiscounts() {
       try {
-        const res = await TukarPoinService.getFlashPoint();
-        console.log(
-          "flash points:",
-          JSON.parse(JSON.stringify(res.data.flash_point))
-        );
-        this.flashpoints = res.data.flash_point;
-        // if (this.flashpoints.length > 0){
-        this.$nextTick(function() {
-          this.$refs.flashPoin.rerender();
-        });
-        // }
+        const res = await TukarPoinService.getDiscount();
+        const items = res.data.redeem_discount.item;
+        this.expire = res.data.redeem_discount.expire;
+        //console.log("kontol", JSON.parse(JSON.stringify(items)));
+        if (items) {
+          this.discounts = items;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -176,12 +200,12 @@ export default {
   },
   mounted() {
     this.fetchRedeemItems();
-    this.fetchFlashPoint();
+    this.fetchDiscounts();
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .featured-item-2 {
   width: 100%;
   height: 200px;
@@ -191,5 +215,27 @@ export default {
   z-index: 100;
   right: 10px;
   top: 10px;
+}
+.flip-clock.container {
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.flip-clock__piece,
+.flip-clock__card .flip-card,
+.flip-card {
+  text-align: center !important;
+}
+.flip-card__top {
+  color: #fba627;
+}
+.flip-card {
+  font-size: 16px !important;
+}
+.flip-clock__slot {
+  font-size: 10px !important;
 }
 </style>

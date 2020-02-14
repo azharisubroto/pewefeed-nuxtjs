@@ -39,7 +39,8 @@
     "vue-script2": "^2.1.0",
     "vue-simple-addthis-share": "^0.1.0",
     "vue-social-sharing": "^2.4.6",
-    "vue2-dropzone": "^3.6.0"
+    "vue2-dropzone": "^3.6.0",
+    "vue2-flip-countdown": "^0.9.3"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",

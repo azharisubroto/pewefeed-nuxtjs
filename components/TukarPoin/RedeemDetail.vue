@@ -12,7 +12,7 @@
         <v-col cols="6">
           <div class="pr-4">
             <!-- TITLE -->
-            <h2 class="mb-0 mt-4">{{detail.title}}</h2>
+            <h2 class="ma-0">{{detail.title}}</h2>
           </div>
         </v-col>
       </v-row>
@@ -97,37 +97,42 @@
 
       <!-- HISTORY -->
       <template v-if="hitoritab">
-        <h4>Penukar Poin</h4>
-        <div
-          class="comment-item mb-2"
-          v-for="(history, i) in histories"
-          :key="history.id+'-'+i"
-          :id="'history'+history.redeem_id"
-        >
-          <v-row>
-            <v-col cols="2">
-              <v-avatar size="30">
-                <img
-                  :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
-                  onerror="this.src='/img/user.jpeg';"
-                />
-              </v-avatar>
-            </v-col>
-            <v-col cols="10">
-              <strong>{{ history.customer.name }}</strong>
-              <br />
-              <div class="mt-2 caption text--gray">{{history.date}}</div>
-            </v-col>
-          </v-row>
-        </div>
-        <v-btn
-          block
-          dark
-          depressed
-          :loading="moreLoading"
-          color="deep-orange"
-          @click="moreHistory(historyNext)"
-        >Load More</v-btn>
+        <template v-if="histories && histories.length > 0">
+          <h4>Penukar Poin</h4>
+          <div
+            class="comment-item mb-2"
+            v-for="(history, i) in histories"
+            :key="history.id+'-'+i"
+            :id="'history'+history.redeem_id"
+          >
+            <v-row>
+              <v-col cols="2">
+                <v-avatar size="30">
+                  <img
+                    :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
+                    onerror="this.src='/img/user.jpeg';"
+                  />
+                </v-avatar>
+              </v-col>
+              <v-col cols="10">
+                <strong>{{ history.customer.name }}</strong>
+                <br />
+                <div class="mt-2 caption text--gray">{{history.date}}</div>
+              </v-col>
+            </v-row>
+          </div>
+          <v-btn
+            block
+            dark
+            depressed
+            :loading="moreLoading"
+            color="deep-orange"
+            @click="moreHistory(historyNext)"
+          >Load More</v-btn>
+        </template>
+        <template v-else>
+          <div class="py-10 caption grey--text text-center">No data</div>
+        </template>
         <br />
         <br />
       </template>
@@ -196,7 +201,7 @@ export default {
       detailtab: true,
       hitoritab: false,
       syarattab: false,
-      histories: [],
+      histories: null,
       moreLoading: false,
       historyNext: 2,
       panel: 0,
@@ -236,9 +241,13 @@ export default {
           2
         );
         var history = res.data.data;
-        history.forEach(element => {
-          this.histories.push(element);
-        });
+        if (history && history.length > 0) {
+          let arr = [];
+          history.forEach(element => {
+            arr.push(element);
+          });
+          this.histories = arr;
+        }
 
         this.historyNext += 1;
         this.moreLoading = false;
