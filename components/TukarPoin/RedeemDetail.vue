@@ -1,29 +1,40 @@
 <template>
   <section>
     <v-overlay :value="overlay">
-        <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-    <v-skeleton-loader v-if="detail==''"
+    <div v-if="detail" class="orange lighten-2 py-10">
+      <v-row align="center" no-gutters>
+        <v-col cols="6">
+          <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
+        </v-col>
+        <v-col cols="6">
+          <div class="pr-4">
+            <!-- TITLE -->
+            <h2 class="mb-0 mt-4">{{detail.title}}</h2>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+
+    <v-skeleton-loader
+      v-if="detail==''"
       class="mx-auto mt-5"
       type="list-item-avatar-three-line, image, article"
     ></v-skeleton-loader>
+
     <v-container v-else class="mb-5 pb-5">
-      <!-- TITLE -->
-      <h2 class="mb-0 mt-4">{{detail.title}}</h2>
       <!-- DETAIL REWWARD -->
       <template v-if="detailtab">
         <v-row>
           <v-col>
-
-            <v-img :src="detail.image"></v-img>
-
             <v-row>
               <v-col cols="7">
                 <strong>Status</strong>
-                <div class="caption">
-                  Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
-                </div>
+                <div
+                  class="caption"
+                >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</div>
               </v-col>
               <v-col cols="5" class="text-right">
                 <v-btn small outlined color="deep-orange" v-if="detail.active">Open Batch</v-btn>
@@ -37,7 +48,8 @@
               </v-col>
               <v-col cols="6" class="text-right">
                 <v-btn outlined rounded small color="deep-orange">
-                  <img src="/img/poin.png" alt="" width="16" class="mr-1"> <strong>{{detail.point}}</strong>
+                  <img src="/img/poin.png" alt width="16" class="mr-1" />
+                  <strong>{{detail.point}}</strong>
                 </v-btn>
               </v-col>
             </v-row>
@@ -47,17 +59,21 @@
                 <strong>Sisa Hadiah</strong>
               </v-col>
               <v-col cols="6" class="text-right">
-                <v-btn small text color="deep-orange">{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-btn>
+                <v-btn
+                  small
+                  text
+                  color="deep-orange"
+                >{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-btn>
               </v-col>
             </v-row>
             <div class="devider-small"></div>
             <v-row class="mt-2">
               <v-col cols="12">
                 <v-expansion-panels v-model="panel" class="nocard">
-                  <v-expansion-panel
-                  >
+                  <v-expansion-panel>
                     <v-expansion-panel-header>
-                      <div class="text-16 font-weight-bold">Deskripsi</div></v-expansion-panel-header>
+                      <div class="text-16 font-weight-bold">Deskripsi</div>
+                    </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <div v-html="detail.description" class="py-3"></div>
                     </v-expansion-panel-content>
@@ -65,9 +81,14 @@
                 </v-expansion-panels>
               </v-col>
               <v-col>
-                <v-btn block dark depressed color="deep-orange" tile @click="tukarPoin()">
-                  Tukarkan Poin
-                </v-btn>
+                <v-btn
+                  block
+                  dark
+                  depressed
+                  color="deep-orange"
+                  tile
+                  @click="tukarPoin()"
+                >Tukarkan Poin</v-btn>
               </v-col>
             </v-row>
           </v-col>
@@ -89,29 +110,26 @@
                 <img
                   :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
                   onerror="this.src='/img/user.jpeg';"
-                >
+                />
               </v-avatar>
             </v-col>
             <v-col cols="10">
-              <strong>{{ history.customer.name }}</strong><br>
-              <div class="mt-2 caption text--gray">
-                {{history.date}}
-              </div>
+              <strong>{{ history.customer.name }}</strong>
+              <br />
+              <div class="mt-2 caption text--gray">{{history.date}}</div>
             </v-col>
           </v-row>
         </div>
         <v-btn
-        block
-        dark
-        depressed
-        :loading="moreLoading"
-        color="deep-orange"
-        @click="moreHistory(historyNext)"
-        >
-          Load More
-        </v-btn>
-        <br>
-        <br>
+          block
+          dark
+          depressed
+          :loading="moreLoading"
+          color="deep-orange"
+          @click="moreHistory(historyNext)"
+        >Load More</v-btn>
+        <br />
+        <br />
       </template>
 
       <!-- SYARAT -->
@@ -119,55 +137,62 @@
         <div v-html="detail.term"></div>
       </template>
     </v-container>
-	<br><br>
+    <br />
+    <br />
 
-    <v-bottom-navigation
-      fixed
-      dark
-      grow
-      color="white"
-      background-color="black"
-    >
+    <v-bottom-navigation fixed dark grow color="white" background-color="black">
       <v-btn @click="detailtab=true;hitoritab=false;syarattab=false">
-        <span>Detail<br>Reward</span>
+        <span>
+          Detail
+          <br />Reward
+        </span>
       </v-btn>
       <v-btn @click="detailtab=false;hitoritab=true;syarattab=false;fetchHistory()">
-        <span>Histori<br>Penukaran</span>
+        <span>
+          Histori
+          <br />Penukaran
+        </span>
       </v-btn>
       <v-btn @click="detailtab=false;hitoritab=false;syarattab=true">
-        <span>Syarat &amp;<br>Ketentuan</span>
+        <span>
+          Syarat &amp;
+          <br />Ketentuan
+        </span>
       </v-btn>
     </v-bottom-navigation>
 
-    <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose"/>
-
+    <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
   </section>
 </template>
 
 <script>
-import TukarPoinService from '@/services/TukarPoinService'
-import UserService from '@/services/UserService'
-import LoginModal from '@/components/modal/LoginModal'
+import TukarPoinService from "@/services/TukarPoinService";
+import UserService from "@/services/UserService";
+import LoginModal from "@/components/modal/LoginModal";
 
 export default {
-  name:"RedeemDetail",
+  name: "RedeemDetail",
   components: {
     LoginModal
   },
-  head () {
+  head() {
     return {
       title: this.title,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        { hid: 'description', name: 'description', content: 'My custom description' }
+        {
+          hid: "description",
+          name: "description",
+          content: "My custom description"
+        }
       ]
-    }
+    };
   },
   data() {
     return {
       overlay: false,
-      title: '',
-      detail:'',
+      title: "",
+      detail: "",
       detailtab: true,
       hitoritab: false,
       syarattab: false,
@@ -175,112 +200,120 @@ export default {
       moreLoading: false,
       historyNext: 2,
       panel: 0,
-      loginModalVisible: false,
-    }
+      loginModalVisible: false
+    };
   },
   methods: {
     async fetchDetail() {
       try {
-        let res = await TukarPoinService.getRedeemDetail(this.$route.params.detail)
-        this.detail = res.data.data
-        this.title = res.data.data.title
-        console.log(JSON.parse(JSON.stringify(res.data.data)))
+        let res = await TukarPoinService.getRedeemDetail(
+          this.$route.params.detail
+        );
+        this.detail = res.data.data;
+        this.title = res.data.data.title;
+        console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     async fetchHistory() {
       try {
-        let res = await TukarPoinService.getRedeemHistory(this.$route.params.detail, 1)
-        this.histories = res.data.data
+        let res = await TukarPoinService.getRedeemHistory(
+          this.$route.params.detail,
+          1
+        );
+        this.histories = res.data.data;
         //console.log(JSON.parse(JSON.stringify(res.data.data)))
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     async moreHistory(n) {
-      this.moreLoading = true
+      this.moreLoading = true;
       try {
-        let res = await TukarPoinService.getRedeemHistory(this.$route.params.detail, 2)
-        var history = res.data.data
+        let res = await TukarPoinService.getRedeemHistory(
+          this.$route.params.detail,
+          2
+        );
+        var history = res.data.data;
         history.forEach(element => {
-          this.histories.push(element)
+          this.histories.push(element);
         });
 
-        this.historyNext += 1
-        this.moreLoading = false
-        console.log(JSON.parse(JSON.stringify(res.data.data)))
+        this.historyNext += 1;
+        this.moreLoading = false;
+        console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     async tukarPoin() {
       var params = {
         redeem_id: this.detail.id,
-        target_point: this.detail.point,
-      }
-      this.overlay = true
-      console.log(params)
+        target_point: this.detail.point
+      };
+      this.overlay = true;
+      console.log(params);
       try {
-        const res = await UserService.tukarPoin(params)
-        console.log(res)
-		this.overlay = false
-		alert('Tukar POIN telah berhasil dilakukan')
+        const res = await UserService.tukarPoin(params);
+        console.log(res);
+        this.overlay = false;
+        alert("Tukar POIN telah berhasil dilakukan");
       } catch (error) {
-        console.log(error.response.status)
-        this.overlay = false
+        console.log(error.response.status);
+        this.overlay = false;
         if (error.response.status == 401) {
           //this.$router.push('/member/login')
-          this.openModalLogin()
+          this.openModalLogin();
         } else if (error.response.status == 404) {
-          alert('Poin Anda Tidak Cukup')
+          alert("Poin Anda Tidak Cukup");
         } else {
-          alert('An Error Ocured')
+          alert("An Error Ocured");
         }
       }
     },
     openModalLogin() {
-      this.loginModalVisible = true
+      this.loginModalVisible = true;
     },
-    myDialogClose () {
-        this.dialog = false
-        this.loginModalVisible = false
-        this.buyVipDialogVisible = false
-        this.pleaseLoginDialogVisible = false
-        this.notVipDialogVisible = false
-        this.KomentarPoinVisible = false
-        // other code
+    myDialogClose() {
+      this.dialog = false;
+      this.loginModalVisible = false;
+      this.buyVipDialogVisible = false;
+      this.pleaseLoginDialogVisible = false;
+      this.notVipDialogVisible = false;
+      this.KomentarPoinVisible = false;
+      // other code
     },
     getTanggal(detail) {
-      var detailtanggal = detail.periode ? detail.periode.end_at : ''
-      var tanggal = detailtanggal.replace('00:00:00', '');
-          tanggal = tanggal.replace(' ', '');
-      return tanggal
+      var detailtanggal = detail.periode ? detail.periode.end_at : "";
+      var tanggal = detailtanggal.replace("00:00:00", "");
+      tanggal = tanggal.replace(" ", "");
+      return tanggal;
     }
   },
   mounted() {
-    this.fetchDetail()
+    this.fetchDetail();
   }
-}
+};
 </script>
 
 <style lang="scss">
-  .nocard {
-    &.v-expansion-panels {
-      background: transparent;
-      box-shadow: none;
-      .v-expansion-panel {
-        &:before {
-          display: none;
-        }
-      }
-      button {
-        padding: 0;
-        min-height: inherit;
-      }
-      .v-expansion-panel-content__wrap {
-        padding: 0;
+.nocard {
+  &.v-expansion-panels {
+    background: transparent;
+    box-shadow: none;
+    .v-expansion-panel {
+      &:before {
+        display: none;
       }
     }
+    button {
+      padding: 0;
+      min-height: inherit;
+    }
+    .v-expansion-panel-content__wrap {
+      padding: 0;
+    }
   }
+}
 </style>
