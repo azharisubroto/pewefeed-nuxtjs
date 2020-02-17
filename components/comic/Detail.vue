@@ -185,7 +185,7 @@
                     </v-btn>
 
                     <!-- KOMEN LIST -->
-                    <CommentList :items="reverseComment"/>
+                    <CommentList :items="comments"/>
                     <div class="mb-5"></div>
                   </v-tab-item>
 
@@ -416,13 +416,13 @@ export default {
             dataUrl: 'https://m.playworld.id/komik/' + this.$route.params.category + '/' + this.$route.params.detail,
         }
     },
-    computed: {
-      reverseComment: function(){
-        var commentArr = this.comments
-        var finalArr = commentArr.reverse()
-        return finalArr
-      }
-    },
+    // computed: {
+    //   reverseComment: function(){
+    //     var commentArr = this.comments
+    //     var finalArr = commentArr.reverse()
+    //     return finalArr
+    //   }
+    // },
     methods: {
 
         /* Get Data */
@@ -514,9 +514,11 @@ export default {
 
           try {
             const res = await UserService.postComment(params)
-            // console.log(res)
+            // console.log(res.data)
             this.fetchComment()
-            this.KomentarPoinVisible = true
+            if (res.data.poin > 0) {
+              this.KomentarPoinVisible = true
+            }
             this.commentIsPosting = false;
             this.comment_message = null;
           } catch (error) {
