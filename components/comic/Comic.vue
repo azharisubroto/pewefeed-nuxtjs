@@ -59,7 +59,7 @@
                     v-model="category"
                     item-text="name"
                     item-value="id"
-                    label="Pilih Kategori"
+                    label="ALL"
                     dense
                     outlined
                     @change="filter(category)"
@@ -141,16 +141,13 @@ export default {
     },
     methods: {
         async fetchComic(id) {
+          console.log('ini respon : ')
+          console.log(id)
             try {
-                if (id != 0) {
-                  var res = await ComicService.getAll(id)
-                  var items = res.data.data.content
-                  this.total = res.data.pagination.total
-                  // console.log(JSON.parse(JSON.stringify(res.data.data)))
-                } else {
-                  var items = this.respon.content
-                  this.total = 25
-                }
+                var res = await ComicService.getAll(id)
+                var items = res.data.data.content
+                this.total = res.data.pagination.total
+                // console.log(JSON.parse(JSON.stringify(res.data.data)))
                 items.forEach(comic => {
                     var slug = comic.slug
                     var obj = {
