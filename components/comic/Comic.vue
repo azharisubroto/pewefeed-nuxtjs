@@ -59,7 +59,7 @@
                     v-model="category"
                     item-text="name"
                     item-value="id"
-                    label="ALL"
+                    label="Kategori"
                     dense
                     outlined
                     @change="filter(category)"
@@ -141,8 +141,6 @@ export default {
     },
     methods: {
         async fetchComic(id) {
-          console.log('ini respon : ')
-          console.log(id)
             try {
                 var res = await ComicService.getAll(id)
                 var items = res.data.data.content
@@ -170,6 +168,15 @@ export default {
           try {
             const res = await ComicService.getAllCategory()
             this.categories = res.data.data.category
+            var obj = {
+              active: true,
+              id: 0,
+              name: "ALL",
+              created_at: "2019-05-02"
+            }
+            this.categories.push(obj)
+            console.log('ini respon : ')
+            console.log(this.categories)
           } catch (error) {
             console.log(error)
           }
