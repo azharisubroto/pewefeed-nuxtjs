@@ -8,7 +8,7 @@
         </v-col>
         <v-col cols="6" class="text-right py-0" v-if="expire">
           <no-ssr>
-            <flip-countdown :deadline="expire"></flip-countdown>
+            <flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
           </no-ssr>
         </v-col>
       </v-row>
@@ -17,16 +17,14 @@
     <!-- LATEST -->
     <flickity v-if="discounts" ref="flashPoin" :options="flickityOptions">
       <div v-for="item in discounts" :key="item.id" class="featured-item-2">
-        <div class="py-5 px-7 orange lighten-2">
+        <div class="py-5 px-7 jeruk">
           <v-row>
             <v-col cols="4">
               <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
             </v-col>
             <v-col cols="8">
-              <v-row no-gutters="">
-                <v-col cols="1">
-                  &nbsp;
-                </v-col>
+              <v-row no-gutters>
+                <v-col cols="1">&nbsp;</v-col>
                 <v-col cols="11">
                   <strong
                     style="text-decoration:line-through"
@@ -34,7 +32,7 @@
                   >{{item.promoted_price}}</strong>
                 </v-col>
               </v-row>
-			  <v-row no-gutters="">
+              <v-row no-gutters>
                 <v-col cols="1">
                   <img
                     src="/img/poin.png"
@@ -67,6 +65,14 @@
     <v-container class="mt-5 pt-5 mb-5 pb-5">
       <template v-if="tukarpointab">
         <v-row>
+          <v-col cols="12" v-if="i%5 == 0">
+            <!-- ADSENSE -->
+            <InFeedAdsense
+              data-ad-layout-key="-fb+5w+4e-db+86"
+              data-ad-client="ca-pub-6581994114503986"
+              data-ad-slot="7916120444"
+            ></InFeedAdsense>
+          </v-col>
           <v-col cols="12" class="py-0">
             <h4 class="text-uppercase">Rewards Lainnya</h4>
           </v-col>
@@ -77,17 +83,9 @@
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/toko/redeem/'+article.id)"
         >
-          <v-col cols="12" v-if="i%5 == 0">
-            <!-- ADSENSE -->
-            <InFeedAdsense
-              data-ad-layout-key="-fb+5w+4e-db+86"
-              data-ad-client="ca-pub-6581994114503986"
-              data-ad-slot="7916120444"
-            ></InFeedAdsense>
-          </v-col>
           <v-col cols="4">
-            <div class="orange lighten-2 pa-3">
-              <v-img contain :src="article.image" aspect-ratio="1" class="orange lighten-2"></v-img>
+            <div class="jeruk pa-3">
+              <v-img contain :src="article.image" aspect-ratio="1" class="jeruk"></v-img>
             </div>
           </v-col>
           <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
@@ -177,6 +175,12 @@ export default {
         prevNextButtons: false,
         pageDots: true,
         wrapAround: true
+      },
+      labels: {
+        days: "Days",
+        hours: "Hr",
+        minutes: "Min",
+        seconds: "Sec"
       }
     };
   },
@@ -252,12 +256,15 @@ export default {
   color: #fba627;
 }
 .flip-card {
-  font-size: 16px !important;
+  font-size: 20px !important;
 }
 .flip-clock__slot {
   font-size: 10px !important;
 }
 .w-100 {
   width: 100%;
+}
+.jeruk {
+	background: #ff9800
 }
 </style>
