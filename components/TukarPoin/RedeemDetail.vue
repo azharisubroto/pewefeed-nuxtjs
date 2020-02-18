@@ -1,10 +1,15 @@
 <template>
   <section>
+    <!-- SNACKBAR SUKSES ATAU FAIL -->
+    <v-snackbar v-model="snackbar" :multi-line="true" top>
+      {{ tukarmsg }}
+      <v-btn color="red" icon @click="snackbar = false"><v-icon>mdi-close</v-icon></v-btn>
+    </v-snackbar>
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-    <div v-if="detail" class="orange lighten-2 py-10">
+    <div v-if="detail" class="py-10" style="background: #ff9800">
       <v-row align="center" no-gutters>
         <v-col cols="6">
           <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
@@ -30,15 +35,16 @@
         <v-row>
           <v-col>
             <v-row>
-              <v-col cols="7">
+              <v-col cols="3">
                 <strong>Status</strong>
-                <div
-                  class="caption"
-                >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</div>
+                <div class="caption"></div>
               </v-col>
-              <v-col cols="5" class="text-right">
-                <v-btn small outlined color="deep-orange" v-if="detail.active">Open Batch</v-btn>
-                <v-btn small outlined color="red" v-else>Closed</v-btn>
+              <v-col cols="9" class="text-right caption pr-0">
+                <v-btn
+                  small
+                  text
+                  color="deep-orange"
+                >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-btn>
               </v-col>
             </v-row>
             <div class="devider-small"></div>
@@ -46,8 +52,8 @@
               <v-col cols="6">
                 <strong>Poin Diperlukan</strong>
               </v-col>
-              <v-col cols="6" class="text-right">
-                <v-btn outlined rounded small color="deep-orange">
+              <v-col cols="6" class="text-right pr-0">
+                <v-btn text small color="deep-orange">
                   <img src="/img/poin.png" alt width="16" class="mr-1" />
                   <strong>{{detail.point}}</strong>
                 </v-btn>
@@ -58,7 +64,7 @@
               <v-col cols="6">
                 <strong>Sisa Hadiah</strong>
               </v-col>
-              <v-col cols="6" class="text-right">
+              <v-col cols="6" class="text-right pr-0">
                 <v-btn
                   small
                   text
@@ -98,7 +104,6 @@
       <!-- HISTORY -->
       <template v-if="hitoritab">
         <template v-if="histories && histories.length > 0">
-          <h4>Penukar Poin</h4>
           <div
             class="comment-item mb-2"
             v-for="(history, i) in histories"
@@ -195,6 +200,8 @@ export default {
   },
   data() {
     return {
+      snackbar: false,
+      tukarmsg: "",
       overlay: false,
       title: "",
       detail: "",
@@ -276,6 +283,10 @@ export default {
           this.openModalLogin();
         } else if (error.response.status == 404) {
           alert("Poin Anda Tidak Cukup");
+        } else if (error.response.status == 422) {
+          this.tukarmsg =
+            "Transaksi tidak dapat diproses, karena sudah melebihi limit pembelian perhari";
+          this.snackbar = true;
         } else {
           alert("An Error Ocured");
         }
