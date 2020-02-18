@@ -274,7 +274,9 @@ export default {
         const res = await UserService.tukarPoin(params);
         console.log(res);
         this.overlay = false;
-        alert("Tukar POIN telah berhasil dilakukan");
+		this.tukarmsg =
+            "Tukar POIN telah berhasil dilakukan";
+          this.snackbar = true;
       } catch (error) {
         console.log(error.response.status);
         this.overlay = false;
@@ -285,7 +287,7 @@ export default {
           alert("Poin Anda Tidak Cukup");
         } else if (error.response.status == 422) {
           this.tukarmsg =
-            "Transaksi tidak dapat diproses, karena sudah melebihi limit pembelian perhari";
+            "Maaf, Reward ini hanya bisa ditukar dengan POIN satu kali per hari.";
           this.snackbar = true;
         } else {
           alert("An Error Ocured");
