@@ -7,7 +7,7 @@
             <v-expansion-panel v-for="(mid, i) in datamidtrans" :key="i" class="mb-3">
               <v-expansion-panel-header>
                 <v-row no-gutters>
-                  <v-col cols="4" class="text-secondary lh-a text-14">{{ mid.transaction_time }}</v-col>
+                  <v-col cols="4" class="lh-a text-14">{{ mid.transaction_time }}</v-col>
 				  <v-col cols="2">
 					  <v-icon class="green--text rel">mdi-check-circle</v-icon>
 				  </v-col>
@@ -18,64 +18,6 @@
                 </v-row>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="pt-3">
-                <v-simple-table>
-                  <template v-slot:default>
-                    <tbody>
-                      <tr>
-                        <td>Transfer Ke</td>
-                        <td>BCA</td>
-                      </tr>
-                      <tr v-if="mid.veritrans_callback.va_numbers && mid.veritrans_callback.va_numbers.length > 0">
-                        <td>No. Virtual Account</td>
-                        <td>
-                          <v-row
-                            no-gutters
-                            v-for="(va, i) in mid.veritrans_callback.va_numbers"
-                            :key="i"
-                          >
-                            <v-col cols="12">{{va.va_number}}</v-col>
-                          </v-row>
-                        </td>
-                      </tr>
-                      <tr v-else>
-                        <td>No. Virtual Account</td>
-                        <td>-</td>
-                      </tr>
-                      <tr>
-                        <td>Nama Perusahan</td>
-                        <td>PT. Jayadata Indonesia</td>
-                      </tr>
-                      <tr>
-                        <td>Jumlah Transfer</td>
-                        <td>{{'Rp.' + mid.amount + ',-'}}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-                <!-- <v-card>
-                  <v-card-text>
-                    <v-row v-if="mid.transaction_status == 'expire'">
-                      <v-col cols="2">
-                        <v-icon color="red" size="40">mdi-close-circle</v-icon>
-                      </v-col>
-                      <v-col cols="10">
-                        <strong>Kami telah membatalkan transaksi ini, karena pembayaran tidak kami terima hingga batas waktu yang ditentukan hingga {{mid.expired_at}}</strong>
-                      </v-col>
-                    </v-row>
-                    <v-row v-else>
-                      <v-col cols="2">
-                        <v-icon color="green" size="40">mdi-check-circle</v-icon>
-                      </v-col>
-                      <v-col cols="10">
-                        <strong>Pembayaran telah kami terima, VIP telah berhasil kami masukkan ke akun anda</strong>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-btn @click="download()" depressed dark small block color="orange accent-14">DOWNLOAD INVOICE</v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>-->
-                <div class="devider-small my-3"></div>
                 <a
                   :href="downloadUrl(mid.order_id)"
                   target="blank"

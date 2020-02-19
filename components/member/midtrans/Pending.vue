@@ -7,7 +7,7 @@
             <v-expansion-panel v-for="(mid, i) in datamidtrans" :key="i" class="mb-3">
               <v-expansion-panel-header>
                 <v-row no-gutters>
-                  <v-col cols="4" class="text--secondary lh-a text-14">{{ mid.created_at }}</v-col>
+                  <v-col cols="4" class="lh-a text-14">{{ mid.created_at }}</v-col>
                   <v-col
                     cols="7"
                     class="text-14 lh-a"
