@@ -25,7 +25,6 @@
       >
         <v-tab v-for="menu in toolbarMenu" :key="menu.loc" :to="menu.loc">{{menu.name}}</v-tab>
       </v-tabs>
-
       route name: {{$nuxt.$route.name}}
       <!-- STAR X MENU -->
       <!-- <v-tabs v-if="$nuxt.$route.name.includes('starx') || $nuxt.$route.name.includes('kompetisi')" grow color="deep-orange" center-active class="pw-tab">
@@ -1059,7 +1058,13 @@ body {
   }
 }
 
-.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content{
-	color: var(--primary)!important
+.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content {
+  color: var(--primary) !important;
+}
+.v-alert__border:not(.v-alert__border--has-color) {
+  opacity: 1 !important;
+}
+.lh-a {
+	line-height: 1.7;
 }
 </style>

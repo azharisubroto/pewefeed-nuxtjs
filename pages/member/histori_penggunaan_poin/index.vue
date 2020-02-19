@@ -100,7 +100,8 @@
       grow
       dark
       fixed
-      color="dark"
+      color="black"
+	  class="black"
     >
       <v-btn
       @click="fethMutasi(1, 'all')"

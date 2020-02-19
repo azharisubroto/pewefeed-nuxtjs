@@ -7,25 +7,21 @@
             <v-expansion-panel v-for="(mid, i) in datamidtrans" :key="i" class="mb-3">
               <v-expansion-panel-header>
                 <v-row no-gutters>
-                  <v-col cols="4" class="text--secondary caption">{{ mid.created_at }}</v-col>
+                  <v-col cols="4" class="text--secondary lh-a text-14">{{ mid.created_at }}</v-col>
                   <v-col
                     cols="7"
-                    class="caption"
+                    class="text-14 lh-a"
                   >Pembayaran dengan No. {{ '#' + mid.order_id }} akan berakhir pada {{ mid.expired_at }}</v-col>
                 </v-row>
               </v-expansion-panel-header>
 
               <!-- === if xendit === -->
               <v-expansion-panel-content class="pt-3" v-if="mid.xendit">
-                <v-subheader>Detail Pembayaran</v-subheader>
-                <v-divider></v-divider>
-                <v-btn @click="openIframe(mid.invoice_url)" block color="deep-orange" dark>Lihat</v-btn>
+                <v-btn @click="openIframe(mid.invoice_url)" block color="deep-orange" dark>Show</v-btn>
               </v-expansion-panel-content>
 
               <!-- === if midtrans === -->
               <v-expansion-panel-content class="pt-3" v-else>
-                <v-subheader>Detail Pembayaran</v-subheader>
-                <v-divider></v-divider>
                 <v-simple-table>
                   <template v-slot:default>
                     <tbody>
@@ -60,22 +56,6 @@
                     </tbody>
                   </template>
                 </v-simple-table>
-                <v-card>
-                  <v-card-text>
-                    <v-row>
-                      <v-col cols="12">
-                        <v-alert prominent text type="info" success>Informasi Penting</v-alert>
-                      </v-col>
-                      <v-col cols="12">
-                        <ul>
-                          <li>Order ini akan expired pada {{mid.expired_at}}</li>
-                          <li>Jika anda telah melakukan pembayaran, secara otomatis transaksi ini akan berubah menjadi "Selesai" tanpa perlu konfirmasi dari anda</li>
-                          <li>Untuk membatalkan transaksi ini cukup dengan tidak melakukan pembayaran</li>
-                        </ul>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -149,13 +129,9 @@ export default {
   }
 };
 </script>
-<style lang="sass" scoped>
-	.pending-page .container
-		background: #f9f9f9
-</style>
 <style lang="scss">
 .finish-page .container {
-  background: #f9f9f9;
+  background: #fff;
 }
 .pending-page .v-icon {
   color: #ff5722 !important;

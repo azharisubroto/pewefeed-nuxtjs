@@ -83,7 +83,6 @@
     </div>
 
     <!-- Dialog Success -->
-    <v-row justify="center">
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
           <!-- Header -->
@@ -121,7 +120,6 @@
           </v-row>
         </v-card>
       </v-dialog>
-    </v-row>
   </v-container>
 </template>
 

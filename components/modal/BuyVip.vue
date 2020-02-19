@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <div>
     <v-dialog
       v-model="intDialogVisible"
       fullscreen
@@ -168,7 +168,8 @@
                   class="mr-2"
                   style="vertical-align:middle;position:relative;top:-3px"
                   alt
-                /> <span class="font-weight-bold">XL &amp; AXIS</span>
+                />
+                <span class="font-weight-bold">XL &amp; AXIS</span>
                 <br />
                 <v-card class="mx-auto mb-3 mt-4">
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Berlangganan</v-card-title>
@@ -253,15 +254,23 @@
             <!-- Step 3 : Indosat -->
             <v-stepper-content step="3" class="px-0">
               <v-container>
-				        <img src="/img/indosat.png" width="30" style="position:relative;top:2px" class="mr-2" alt /> <span class="font-weight-bold">INDOSAT</span>
-				        <br>
+                <img
+                  src="/img/indosat.png"
+                  width="30"
+                  style="position:relative;top:2px"
+                  class="mr-2"
+                  alt
+                />
+                <span class="font-weight-bold">INDOSAT</span>
+                <br />
                 <v-card class="mx-auto mt-4">
-                  <v-card-title color="grey lighten-4 font-weight-bold" class="grey lighten-4 font-weight-bold subtitle-2">
-					          Berlangganan
-                  </v-card-title>
+                  <v-card-title
+                    color="grey lighten-4 font-weight-bold"
+                    class="grey lighten-4 font-weight-bold subtitle-2"
+                  >Berlangganan</v-card-title>
                   <v-divider></v-divider>
-				          <div
-                     @click="setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
+                  <div
+                    @click="setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
                   >
@@ -384,7 +393,7 @@
                   <v-col cols="12">
                     <span class="text-14">Choose one of Payment Method</span>
                     <br />
-					          <br>
+                    <br />
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
@@ -440,20 +449,22 @@
                   </v-col>
                 </v-row>
 
-                <div style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px">
+                <div
+                  style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px"
+                >
                   <recaptcha
-                  style="display:inline-block"
-                  @error="onError()"
-                  @success="onSuccess()"
-                  @expired="onExpired()"
+                    style="display:inline-block"
+                    @error="onError()"
+                    @success="onSuccess()"
+                    @expired="onExpired()"
                   />
                 </div>
 
                 <v-btn
-                @click="validate(itemvoucher)"
-                color="deep-orange"
-                block
-                class="white--text mt-2"
+                  @click="validate(itemvoucher)"
+                  color="deep-orange"
+                  block
+                  class="white--text mt-2"
                 >PROCESS</v-btn>
               </v-container>
             </v-stepper-content>
@@ -468,7 +479,8 @@
                   width="45"
                   style="position:relative;top: 10px"
                   alt
-                /> <span class="font-weight-bold">BCA</span>
+                />
+                <span class="font-weight-bold">BCA</span>
               </v-container>
               <v-card class="mx-4 mt-4">
                 <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
@@ -537,11 +549,7 @@
                       </v-row>
                     </v-col>
                     <v-col cols="3" class="mt-4">
-                      <v-btn
-                        icon
-                        tile
-                        light
-                      >
+                      <v-btn icon tile light>
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
                     </v-col>
@@ -583,11 +591,7 @@
                       </v-row>
                     </v-col>
                     <v-col cols="3" class="mt-4">
-                      <v-btn
-                        icon
-                        tile
-                        light
-                      >
+                      <v-btn icon tile light>
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
                     </v-col>
@@ -653,11 +657,7 @@
                       </v-row>
                     </v-col>
                     <v-col cols="3" class="mt-4">
-                      <v-btn
-                        icon
-                        tile
-                        light
-                      >
+                      <v-btn icon tile light>
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
                     </v-col>
@@ -699,11 +699,7 @@
                       </v-row>
                     </v-col>
                     <v-col cols="3" class="mt-4">
-                      <v-btn
-                        icon
-                        tile
-                        light
-                      >
+                      <v-btn icon tile light>
                         <v-icon>mdi-arrow-right</v-icon>
                       </v-btn>
                     </v-col>
@@ -713,14 +709,17 @@
               </v-card>
             </v-stepper-content>
             <!-- END OF Step 10 : Xendit PERMATA -->
-
           </v-stepper-items>
         </v-stepper>
       </v-card>
     </v-dialog>
 
-    <IframePreview :dialogVisible="iframeDialogVisible" :invoiceUrl="invoiceUrl" @close="iframeClose()"/>
-  </v-row>
+    <IframePreview
+      :dialogVisible="iframeDialogVisible"
+      :invoiceUrl="invoiceUrl"
+      @close="iframeClose()"
+    />
+  </div>
 </template>
 
 <script>
@@ -862,7 +861,7 @@ export default {
         }
       ],
       iframeDialogVisible: false,
-      invoiceUrl: ''
+      invoiceUrl: ""
     };
   },
   components: {
@@ -912,16 +911,16 @@ export default {
             if (this.current == "xl") {
               this.e1 = this.e1 - 2;
               this.current = 0;
-              console.log(this.e1)
+              console.log(this.e1);
             } else if (this.current == "indosat") {
               this.e1 = 3;
               this.current = 0;
             } else {
-              console.log(this.current)
+              console.log(this.current);
             }
           } else {
-            this.e1 = 1
-            console.log(this.current)
+            this.e1 = 1;
+            console.log(this.current);
           }
         }
       }
@@ -938,9 +937,9 @@ export default {
         try {
           const res = await PurchaseService.xendit(sendvoucher);
           if (res.status == 200) {
-            console.log(res.data)
-            this.invoiceUrl = res.data.invoice_url
-            this.iframeDialogVisible = true
+            console.log(res.data);
+            this.invoiceUrl = res.data.invoice_url;
+            this.iframeDialogVisible = true;
           }
         } catch (error) {
           console.log(error);
@@ -1028,7 +1027,7 @@ export default {
         const res = await UserService.getSingleUser();
         // console.log(res.data.status);
         if (res.status != 200) {
-          window.location.href = '/'
+          window.location.href = "/";
         }
         this.userdata = res.data.data;
       } catch (error) {
@@ -1041,10 +1040,10 @@ export default {
       this.intDialogVisible = false;
     },
 
-    iframeClose () {
-      this.iframeDialogVisible = false
-      this.$router.push('/member/status_transfer')
-        // other code
+    iframeClose() {
+      this.iframeDialogVisible = false;
+      this.$router.push("/member/status_transfer");
+      // other code
     },
     iframePreview() {
       this.iframeDialogVisible = true;

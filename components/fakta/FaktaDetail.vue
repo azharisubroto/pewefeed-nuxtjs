@@ -191,7 +191,6 @@
     <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
 
     <!-- Rating Modal -->
-    <v-row justify="center">
       <v-dialog
         v-model="ratingModal"
         fullscreen
@@ -294,7 +293,6 @@
           </v-container>
         </v-card>
       </v-dialog>
-    </v-row>
     <!-- End Of Rating Modal -->
 
     <v-bottom-navigation
@@ -626,7 +624,7 @@ export default {
             console.log(err)
             this.notloading();
             vm.snackbar = true;
-            vm.responsemessage = 'Maaf terjadi kesalahan, silahkan mencoba lagi nanti :('
+            vm.responsemessage = 'Maaf, Kamu hanya bisa memberi RATING hanya satu kali.'
         }
     },
 

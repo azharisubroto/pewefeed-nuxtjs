@@ -1,5 +1,4 @@
 <template>
-  <v-row justify="center">
     <v-dialog
       v-model="ratingModal"
       fullscreen
@@ -24,7 +23,7 @@
               :lazy-src="lazy"
               max-width="40"
               max-height="40"
-            >  
+            >
             </v-img>
           </v-toolbar-title>
 
@@ -102,7 +101,6 @@
         </v-container>
       </v-card>
     </v-dialog>
-  </v-row>
 </template>
 <script>
 import ComicService from '../../services/ComicService';
@@ -210,7 +208,7 @@ import ComicService from '../../services/ComicService';
                 console.log(err)
                 this.notloading();
                 vm.snackbar = true;
-                vm.responsemessage = 'Maaf terjadi kesalahan, silahkan mencoba lagi nanti :('
+                vm.responsemessage = 'Maaf, Kamu hanya bisa memberi RATING hanya satu kali.'
             }
         },
 

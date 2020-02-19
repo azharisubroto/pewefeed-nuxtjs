@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <div>
     <v-dialog
       v-model="notVipVisible"
       fullscreen
@@ -72,7 +72,7 @@
     </v-dialog>
 
     <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
-  </v-row>
+  </div>
 </template>
 <script>
   import BuyVip from "./BuyVip";
