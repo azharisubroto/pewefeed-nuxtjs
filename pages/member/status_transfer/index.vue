@@ -15,7 +15,7 @@
             >
               <v-row no-gutters>
                 <v-col cols="12">
-                  <ul class="text-12 pl-2">
+                  <ul class="text-12 pl-2 text-14">
                     <li>Keanggotaan VIP secara otomatis masuk ke dalam akun anda jika pembayaran sukses, jika mengalami kesulitan hubungi customer service kami</li>
                     <li>Untuk membatalkan transaksi ini, cukup dengan tidak melakukan pembayaran</li>
                   </ul>
@@ -33,6 +33,7 @@
               colored-border
               color="blue"
               class="mb-0"
+			  icon="mdi-information-outline"
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
             >Keanggotaan VIP secara otomatis masuk ke dalam akun anda jika pembayaran sukses, jika mengalami kesulitan hubungi customer service kami</v-alert>
           </v-container>

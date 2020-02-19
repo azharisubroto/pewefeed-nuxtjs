@@ -191,7 +191,6 @@
     <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
 
     <!-- Rating Modal -->
-    <v-row justify="center">
       <v-dialog
         v-model="ratingModal"
         fullscreen
@@ -294,7 +293,6 @@
           </v-container>
         </v-card>
       </v-dialog>
-    </v-row>
     <!-- End Of Rating Modal -->
 
     <v-bottom-navigation

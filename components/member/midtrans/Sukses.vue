@@ -7,16 +7,17 @@
             <v-expansion-panel v-for="(mid, i) in datamidtrans" :key="i" class="mb-3">
               <v-expansion-panel-header>
                 <v-row no-gutters>
-                  <v-col cols="4" class="text-secondary caption">{{ mid.transaction_time }}</v-col>
+                  <v-col cols="4" class="text-secondary lh-a text-14">{{ mid.transaction_time }}</v-col>
+				  <v-col cols="2">
+					  <v-icon class="green--text rel">mdi-check-circle</v-icon>
+				  </v-col>
                   <v-col
-                    cols="8"
-                    class="text-left caption"
+                    cols="6"
+                    class="text-left text-14 lh-a"
                   >Pembayaran No. {{ '#' + mid.order_id }} senilai {{ mid.amount }} telah kami terima</v-col>
                 </v-row>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="pt-3">
-                <v-subheader>Detail Pembayaran</v-subheader>
-                <v-divider></v-divider>
                 <v-simple-table>
                   <template v-slot:default>
                     <tbody>
@@ -24,7 +25,7 @@
                         <td>Transfer Ke</td>
                         <td>BCA</td>
                       </tr>
-                      <tr v-if="mid.veritrans_callback.va_numbers.length > 0">
+                      <tr v-if="mid.veritrans_callback.va_numbers && mid.veritrans_callback.va_numbers.length > 0">
                         <td>No. Virtual Account</td>
                         <td>
                           <v-row
@@ -141,9 +142,10 @@ export default {
 </script>
 <style lang="scss">
 .finish-page .container {
-  background: #f9f9f9;
+  background: #fff;
 }
-.finish-page .expansion-panels .v-icon {
+
+.finish-page .v-icon:not(.rel) {
   color: #ff5722 !important;
   position: absolute;
   top: 10px;
