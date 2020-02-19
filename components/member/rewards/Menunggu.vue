@@ -16,6 +16,7 @@
 					:actionable="true"/>
 
 					<v-pagination
+					v-if="list && list.length"
 					v-model="page"
 					:length="totalpage"
 					color="orange"
@@ -93,8 +94,3 @@ export default {
 	}
 }
 </script>
-<style lang="sass" scoped>
-	.selesai-page .container
-		background: #f9f9f9
-</style>
-

@@ -1,131 +1,138 @@
 <template>
 	<div>
-		<v-card v-for="(item, i) in list" :key="item.id" :elevation="2" class="mb-4">
-			<v-card-text>
-				<v-row>
-					<v-col cols="4">
-						<v-img :src="item.image ? item.image : '/img/user.jpeg'"></v-img>
-					</v-col>
-					<v-col cols="8">
-						<div class="caption">{{item.created_at}}</div>
-						<h4>{{item.title}}</h4>
-						<div class="caption">
-							on program - Tukar Poin
-						</div>
-					</v-col>
-				</v-row>
-			</v-card-text>
-			<!-- ACTION -->
-			<v-expansion-panels v-if="actionable">
-				<v-expansion-panel class="elevation-0"
-				>
-					<v-expansion-panel-header>Lengkapi Data</v-expansion-panel-header>
-					<v-expansion-panel-content>
-						<v-alert
-						text
-						type="info"
-						class="caption"
-						success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> memerlukan informasi berikut sebelum dikirimkan</v-alert>
+		<template v-if="list && list.length">
+			<v-card v-for="(item, i) in list" :key="item.id" :elevation="2" class="mb-4">
+				<v-card-text>
+					<v-row>
+						<v-col cols="4">
+							<v-img :src="item.image ? item.image : '/img/user.jpeg'"></v-img>
+						</v-col>
+						<v-col cols="8">
+							<div class="caption">{{item.created_at}}</div>
+							<h4>{{item.title}}</h4>
+							<div class="caption">
+								on program - Tukar Poin
+							</div>
+						</v-col>
+					</v-row>
+				</v-card-text>
+				<!-- ACTION -->
+				<v-expansion-panels v-if="actionable">
+					<v-expansion-panel class="elevation-0"
+					>
+						<v-expansion-panel-header>Lengkapi Data</v-expansion-panel-header>
+						<v-expansion-panel-content>
+							<v-alert
+							text
+							type="info"
+							class="caption"
+							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> memerlukan informasi berikut sebelum dikirimkan</v-alert>
 
-						<template>
-							<v-select
-							v-if="item.type == 'Non Fisik'"
-							:items="contact ? contact : ['Belum ada nomor']"
-							placeholder="Pilih Nomor"
-							item-text="title"
-							item-value="id"
-							v-model="id_tujuan[i]"
-							></v-select>
+							<template>
+								<v-select
+								v-if="item.type == 'Non Fisik'"
+								:items="contact ? contact : ['Belum ada nomor']"
+								placeholder="Pilih Nomor"
+								item-text="title"
+								item-value="id"
+								v-model="id_tujuan[i]"
+								></v-select>
 
-							<v-select
-							v-else
-							:items="addresses ? addresses : ['Belum ada alamat']"
-							placeholder="Pilih Alamat"
-							item-text="title"
-							item-value="id"
-							v-model="id_tujuan[i]"
-							></v-select>
+								<v-select
+								v-else
+								:items="addresses ? addresses : ['Belum ada alamat']"
+								placeholder="Pilih Alamat"
+								item-text="title"
+								item-value="id"
+								v-model="id_tujuan[i]"
+								></v-select>
+
+								<v-btn
+								dark depressed color="orange"
+								@click="prosesReward(item.id, item.customer_redeem.id, id_tujuan[i], item.type, i)">
+								Proses
+								</v-btn>
+
+								<v-btn
+								v-if="item.type == 'Non Fisik'" depressed to="/member/pengaturan/daftar-nomor">Input Data Baru</v-btn>
+								<v-btn v-else depressed to="/member/pengaturan/daftar-alamat">Input Data Baru</v-btn>
+							</template>
+
+							<!-- <template v-else>
+								<v-select
+
+								:items="contact"
+								placeholder="Pilih Nomor"
+								item-text="title"
+								item-value="id"
+								v-model="id_fisik[i]"
+								></v-select>
+
+								<v-btn @click="prosesFisik(item.id)">Proses</v-btn>
+							</template> -->
+						</v-expansion-panel-content>
+					</v-expansion-panel>
+				</v-expansion-panels>
+				<!-- END ACTION -->
+
+				<v-expansion-panels v-if="expandable">
+					<v-expansion-panel class="elevation-0">
+						<v-expansion-panel-header>
+							Lacak
+						</v-expansion-panel-header>
+						<v-expansion-panel-content>
+							<v-alert
+							text
+							type="info"
+							class="caption"
+							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sedang diproses oleh admin PLAYWORLD.ID</v-alert>
+						</v-expansion-panel-content>
+					</v-expansion-panel>
+				</v-expansion-panels>
+
+				<v-expansion-panels v-if="sent">
+					<v-expansion-panel class="elevation-0">
+						<v-expansion-panel-header>
+							Lacak
+						</v-expansion-panel-header>
+						<v-expansion-panel-content>
+							<v-alert
+							text
+							type="info"
+							class="caption"
+							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sudah dikirim secara {{ (item.type == 'Non Fisik') ? 'Online' : 'Offline' }} pada tanggal <strong>{{ item.history_transaction[0].created_at }}</strong> </v-alert>
 
 							<v-btn
-							dark depressed color="orange"
-							@click="prosesReward(item.id, item.customer_redeem.id, id_tujuan[i], item.type, i)">
-							Proses
-							</v-btn>
+							dark
+							depressed
+							color="orange"
+							@click="confirm(item.id, item.customer_redeem.id)"
+							>REWARDS TELAH DITERIMA</v-btn>
+						</v-expansion-panel-content>
+					</v-expansion-panel>
+				</v-expansion-panels>
 
-							<v-btn
-							v-if="item.type == 'Non Fisik'" depressed to="/member/pengaturan/daftar-nomor">Input Data Baru</v-btn>
-							<v-btn v-else depressed to="/member/pengaturan/daftar-alamat">Input Data Baru</v-btn>
-						</template>
-
-						<!-- <template v-else>
-							<v-select
-
-							:items="contact"
-							placeholder="Pilih Nomor"
-							item-text="title"
-							item-value="id"
-							v-model="id_fisik[i]"
-							></v-select>
-
-							<v-btn @click="prosesFisik(item.id)">Proses</v-btn>
-						</template> -->
-					</v-expansion-panel-content>
-				</v-expansion-panel>
-			</v-expansion-panels>
-			<!-- END ACTION -->
-
-			<v-expansion-panels v-if="expandable">
-				<v-expansion-panel class="elevation-0">
-					<v-expansion-panel-header>
-						Lacak
-					</v-expansion-panel-header>
-					<v-expansion-panel-content>
-						<v-alert
-						text
-						type="info"
-						class="caption"
-						success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sedang diproses oleh admin PLAYWORLD.ID</v-alert>
-					</v-expansion-panel-content>
-				</v-expansion-panel>
-			</v-expansion-panels>
-
-			<v-expansion-panels v-if="sent">
-				<v-expansion-panel class="elevation-0">
-					<v-expansion-panel-header>
-						Lacak
-					</v-expansion-panel-header>
-					<v-expansion-panel-content>
-						<v-alert
-						text
-						type="info"
-						class="caption"
-						success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sudah dikirim secara {{ (item.type == 'Non Fisik') ? 'Online' : 'Offline' }} pada tanggal <strong>{{ item.history_transaction[0].created_at }}</strong> </v-alert>
-
-						<v-btn
-						dark
-						depressed
-						color="orange"
-						@click="confirm(item.id, item.customer_redeem.id)"
-						>REWARDS TELAH DITERIMA</v-btn>
-					</v-expansion-panel-content>
-				</v-expansion-panel>
-			</v-expansion-panels>
-
-			<v-expansion-panels v-if="finished">
-				<v-expansion-panel class="elevation-0">
-					<v-expansion-panel-header>
-						Lacak
-					</v-expansion-panel-header>
-					<v-expansion-panel-content>
-						<v-alert
-						text
-						type="info"
-						class="caption"
-						success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sudah dikirim secara {{ (item.type == 'Non Fisik') ? 'Online' : 'Offline' }} pada tanggal <strong>{{ item.history_transaction[1] ? item.history_transaction[1].created_at : item.history_transaction[0].created_at }}</strong> dan telah diterima pada tanggal <strong>{{ item.history_transaction ? item.history_transaction[0].created_at : '' }}</strong></v-alert>
-					</v-expansion-panel-content>
-				</v-expansion-panel>
-			</v-expansion-panels>
-		</v-card>
+				<v-expansion-panels v-if="finished">
+					<v-expansion-panel class="elevation-0">
+						<v-expansion-panel-header>
+							Lacak
+						</v-expansion-panel-header>
+						<v-expansion-panel-content>
+							<v-alert
+							text
+							type="info"
+							class="caption"
+							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sudah dikirim secara {{ (item.type == 'Non Fisik') ? 'Online' : 'Offline' }} pada tanggal <strong>{{ item.history_transaction[1] ? item.history_transaction[1].created_at : item.history_transaction[0].created_at }}</strong> dan telah diterima pada tanggal <strong>{{ item.history_transaction ? item.history_transaction[0].created_at : '' }}</strong></v-alert>
+						</v-expansion-panel-content>
+					</v-expansion-panel>
+				</v-expansion-panels>
+			</v-card>
+		</template>
+		<template v-else>
+			<div class="text-center text-bold py-5">
+				<strong>No data</strong>
+			</div>
+		</template>
 	</div>
 </template>
 <script>

@@ -73,9 +73,9 @@
               <v-col cols="12">
                 <div v-if="kodepw">
                   <v-expansion-panels v-if="kodepw">
-                    <v-expansion-panel v-for="(item, i) in kodepw" :key="i">
+                    <v-expansion-panel v-for="(item, i) in kodepw" :key="i" class="mb-3">
                       <v-expansion-panel-header style="border-bottom: 1px solid #d1d1d1">
-                        <v-row class="caption" align="center">
+                        <v-row class="text-14 lh-a" align="center">
                           <v-col cols="4">{{item.created_at}}</v-col>
                           <v-col
                             cols="4"
@@ -109,6 +109,7 @@
                   v-if="!notFound"
                   v-model="page"
                   :length="totalPage"
+				  color="orange"
                   :total-visible="7"
                   @input="next"
                 ></v-pagination>
