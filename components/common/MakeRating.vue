@@ -208,7 +208,7 @@ import ComicService from '../../services/ComicService';
                 console.log(err)
                 this.notloading();
                 vm.snackbar = true;
-                vm.responsemessage = 'Maaf terjadi kesalahan, silahkan mencoba lagi nanti :('
+                vm.responsemessage = 'Maaf, Kamu hanya bisa memberi RATING hanya satu kali.'
             }
         },
 
