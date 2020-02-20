@@ -114,15 +114,17 @@ export default {
     methods: {
         close() {
             var vm = this
-            this.$root.$on('social_shares_close', function (network, url) {
-                let data = {
-                    provider: network,
-                    url: url
-                }
-                setTimeout(() => {
-                    vm.saveShare(data);
-                }, 200);
-            })
+            setTimeout(() => {
+                this.$root.$on('social_shares_close', function (network, url) {
+                    let data = {
+                        provider: network,
+                        url: url
+                    }
+                    setTimeout(() => {
+                        vm.saveShare(data);
+                    }, 200);
+                })
+            }, 200);
         },
         async saveShare(data) {
             try {
