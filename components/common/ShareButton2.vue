@@ -9,8 +9,8 @@
             <v-sheet height="100%" color="transparent">
                 <div class="mx-2" style="background-color: #fff !important">
                     <div>
-                        <v-container>
-                            <strong class="subtitle-1">Bagikan (+1 POIN)</strong>
+                        <v-container class="text-center deep-orange--text">
+                            <strong class="text-16">SHARE (+1 POIN)</strong>
                         </v-container>
                     </div>
                     <v-divider></v-divider>
@@ -28,7 +28,7 @@
                                 <img width="100%" :src="sharingImage" alt="">
                             </v-col>
                             <v-col v-else cols="4">
-                                <img width="100%" src="/img/playworld-logo-only.png" alt="">
+                                <img width="100%" src="/img/pw-icon.png" alt="">
                             </v-col>
                             <v-col cols="12">
                                 <v-row align="center" no-gutters>
