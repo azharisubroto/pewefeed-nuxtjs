@@ -8,8 +8,8 @@
         <v-container v-if="article" class="mb-5 pb-5">
             <!-- META 1 -->
             <div class="mb-1 caption">
-                <div class="d-inline-block mr-2">
-                    SIXTY {{ article.article.type }}
+                <div class="d-inline-block mr-2 mb-3">
+                    HOME / VIDEO / {{ article.article.type }}
                 </div>
                 <div class="d-inline-block">
                   <div class="d-inline-block mr-3 text--small">

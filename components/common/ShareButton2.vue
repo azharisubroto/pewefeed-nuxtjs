@@ -10,7 +10,7 @@
                 <div class="mx-2" style="background-color: #fff !important">
                     <div>
                         <v-container>
-                            <strong class="subtitle-1">Bagikan Cerita</strong>
+                            <strong class="subtitle-1">Bagikan (+1 POIN)</strong>
                         </v-container>
                     </div>
                     <v-divider></v-divider>

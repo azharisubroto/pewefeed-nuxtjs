@@ -11,7 +11,7 @@
                 <div class="mx-2" style="background-color: #fff !important">
                     <div>
                         <v-container>
-                            <strong class="subtitle-1">Bagikan Cerita</strong>
+                            <strong class="subtitle-1">Bagikan Cerita (+1 POIN)</strong>
                         </v-container>
                     </div>
                     <v-divider></v-divider>
@@ -34,7 +34,7 @@
                             <v-col cols="12">
                                 <v-row align="center" no-gutters>
                                     <v-col cols="8">
-                                        <socialSharing 
+                                        <socialSharing
                                             :url="sharingUrl"
                                             :title="sharingTitle"
                                             :description="sharingDescription"
@@ -65,7 +65,7 @@
                                         <v-icon @click="copyToClipBoard()" size="30" style="margin-left: 3px;">mdi-content-copy</v-icon>
                                     </v-col>
                                 </v-row>
-                                
+
                             </v-col>
                         </v-row>
                     </v-container>
