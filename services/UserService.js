@@ -103,5 +103,9 @@ export default {
 	},
 	getCodePW(page) {
 		return AuthApi().get('/member/history-payment?page=' + page)
+	},
+
+	share(data) {
+		return AuthApi().post('/member/share-social', data)
 	}
 }

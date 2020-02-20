@@ -90,15 +90,20 @@
             <v-icon color="white">mdi-close-circle-outline</v-icon>
             </v-btn>
         </v-snackbar>
+
+        <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose"/>
     </div>
 </template>
 <script>
 import * as socialSharing from 'vue-social-sharing'
+import UserService from '@/services/UserService'
+import SharePoin from '@/components/modal/SharePoin'
 export default {
     name: "ShareButton",
     props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
     components: {
-        socialSharing
+        socialSharing,
+        SharePoin
     },
     data: () => ({
         sheet: false,
@@ -108,9 +113,32 @@ export default {
     }),
     methods: {
         close() {
+            var vm = this
             this.$root.$on('social_shares_close', function (network, url) {
-                console.log(network)
+                let data = {
+                    provider: network,
+                    url: url
+                }
+                setTimeout(() => {
+                    vm.saveShare(data);
+                }, 200);
             })
+        },
+        async saveShare(data) {
+            try {
+                const res = await UserService.share(data)
+                // console.log(res)
+                if(res.data.point == 1) {
+                    console.log('dapat poin')
+                    this.SharePoinVisible = true
+                } else {
+                    console.log('tidak dapat poin')
+                    this.SharePoinVisible = false
+                }
+            } catch (error) {
+                console.log(error)
+                this.SharePoinVisible = false
+            }
         },
         copyToClipBoard() {
             const copy = require('clipboard-copy')
