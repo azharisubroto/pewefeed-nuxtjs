@@ -116,7 +116,7 @@ export default {
     methods: {
         close() {
             this.$root.$on('social_shares_close', function (network, url) {
-                console.log('close')
+                console.log(network)
             })
         },
         copyToClipBoard() {
