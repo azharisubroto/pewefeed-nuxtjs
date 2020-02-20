@@ -545,15 +545,15 @@ export default {
       toolbarMenu: [
         { name: "Trending", loc: "/" },
         // {name: 'Fakta', loc: '/fakta'},
-        { name: "Komik", loc: "/komik" },
-        { name: "Video", loc: "/video" },
+        // { name: "Komik", loc: "/komik" },
         { name: "Tukar Poin", loc: "/toko" },
         { name: "Viral", loc: "/viral" },
         { name: "Musik", loc: "/lagu" },
         { name: "Nonton", loc: "/nonton" },
         { name: "Piknik", loc: "/piknik" },
         { name: "Tekno", loc: "/tekno" },
-        { name: "Sport", loc: "/sport" }
+        { name: "Sport", loc: "/sport" },
+		{ name: "Video", loc: "/video" }
       ],
       memberMenu: [
         { name: "Profile", loc: "/member/pengaturan/profil" },

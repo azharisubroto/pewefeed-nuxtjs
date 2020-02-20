@@ -8,9 +8,9 @@
               <v-expansion-panel-header>
                 <v-row no-gutters>
                   <v-col cols="4" class="lh-a text-14">{{ mid.transaction_time }}</v-col>
-				  <v-col cols="2">
-					  <v-icon class="green--text rel">mdi-check-circle</v-icon>
-				  </v-col>
+                  <v-col cols="2">
+                    <v-icon class="green--text rel">mdi-check-circle</v-icon>
+                  </v-col>
                   <v-col
                     cols="6"
                     class="text-left text-14 lh-a"
