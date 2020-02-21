@@ -195,7 +195,7 @@ export default {
                         link: slug,
                         title: article.title,
                         type: article.reaction,
-                        published_at: article.publish_at
+                        published_at: article.published_at
                     }
                     this.articleList.push(obj)
                 });
