@@ -23,6 +23,12 @@
             <strong>{{ userdata ? userdata.point_by_month : '0' }}</strong>
           </div>
         </v-col>
+		<v-col>
+          <strong class="text-dark">Share</strong>
+          <div class="text-20">
+            <strong>{{ userdata ? userdata.point_share : '0' }}</strong>
+          </div>
+        </v-col>
         <v-col>
           <strong class="text-dark">Comment</strong>
           <div class="text-20">
