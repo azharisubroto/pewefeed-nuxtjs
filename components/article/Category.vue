@@ -194,7 +194,7 @@ export default {
                         image: article.image,
                         link: slug,
                         title: article.title,
-                        type: article.reaction,
+                        type: article.type,
                         published_at: article.published_at
                     }
                     this.articleList.push(obj)
