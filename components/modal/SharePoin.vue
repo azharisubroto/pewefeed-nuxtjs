@@ -15,9 +15,8 @@
       <!-- Logo -->
       <v-toolbar-title>
         <v-img
-          :src="logo"
-          max-width="40"
-          max-height="40"
+          src="/pl-logo.png"
+          max-width="100"
         >
         </v-img>
       </v-toolbar-title>
@@ -34,7 +33,7 @@
 
       <v-card-text>
         <div class="text-center pt-5">
-          <div class="whitebox">
+          <div class="whitebox pb-0">
 
             <div
             >
@@ -43,13 +42,12 @@
               <br>
               <h3 class="green--text">Extra POIN +1</h3>
               <v-alert
-                outlined
-                type="info"
-                text
-                icon="mdi-information-outline"
-                align
-                class="text-left caption mt-3"
-                dense
+                border="left"
+				dense
+				colored-border
+				type="info"
+				class="text-left mt-3"
+				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
               >
                 Kamu mendapat tambahan POIN karena telah melakukan SHARE
               </v-alert>
