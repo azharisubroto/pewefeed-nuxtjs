@@ -12,11 +12,45 @@
           <v-row align="center" justify="center">
             <v-col cols="12" class="pb-0">
               <v-alert
+			  	v-if="isActive"
                 border="left"
                 dense
                 outlined
                 class="mb-0"
-                :type="isActive ? 'success' : 'error'"
+                type="success"
+                :icon="false"
+              >
+                <v-row no-gutters>
+                  <v-col cols="1" class="mr-2">
+                    <img
+                      width="25"
+                      class="mt-1"
+                      src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png"
+                      alt
+                    />
+                  </v-col>
+                  <v-col cols="10">
+                    <strong
+                      :class="isActive ? 'subtitle-2 green--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'"
+                      v-text="isActive ? 'ACTIVE' : 'INACTIVE'"
+                    ></strong>
+                    <br />
+                    <strong
+                      class="body-2 black--text"
+                      v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"
+                    ></strong>
+                    <div class="my-3"></div>
+                    <v-btn @click="buyVip()" color="deep-orange" dark depressed small>PURCHASE VIP</v-btn>
+                  </v-col>
+                </v-row>
+              </v-alert>
+			  <v-alert
+			  	v-else
+                border="left"
+                dense
+                outlined
+                class="mb-0"
+                type="error"
                 :icon="false"
               >
                 <v-row no-gutters>

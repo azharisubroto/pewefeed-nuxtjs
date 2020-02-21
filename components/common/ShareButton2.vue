@@ -39,7 +39,6 @@
                                             :description="sharingDescription"
                                             twitter-user="playworldID"
                                             inline-template
-                                            @close="close()"
                                         >
                                             <div>
                                                 <network network="facebook">
@@ -117,37 +116,26 @@ export default {
 		sharingDescription: '',
 		sharingImage:'',
         sharingTime:'',
-        SharePoinVisible: false,
-    }),
+		SharePoinVisible: false,
+		isSaved: false
+	}),
     methods: {
         myDialogClose () {
 			this.SharePoinVisible = false
 		},
-        close() {
-            var vm = this
-            setTimeout(() => {
-                this.$root.$on('social_shares_close', function (network, url) {
-                    let data = {
-                        provider: network,
-                        url: url
-                    }
-                    setTimeout(() => {
-                        vm.saveShare(data);
-                    }, 200);
-                })
-            }, 200);
-        },
         async saveShare(data) {
+			if( this.isSaved == true ) return false;
             try {
                 const res = await UserService.share(data)
                 // console.log(res)
                 if(res.data.point == 1) {
                     console.log('dapat poin')
-                    this.SharePoinVisible = true
+					this.SharePoinVisible = true
                 } else {
                     console.log('tidak dapat poin')
                     this.SharePoinVisible = false
-                }
+				}
+				this.isSaved = true
             } catch (error) {
                 console.log(error)
                 this.SharePoinVisible = false
@@ -166,12 +154,22 @@ export default {
 				this.sharingImage = (data && data.article && data.article.image) ? data.article.image.medium : null
 				this.dataDescription = (data && data.article && data.article.short_title) ? data.article.short_title : 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!'
 			}
-		}
+		},
 	},
 	mounted() {
-        this.refetchMeta()
+		let vm = this
+		this.refetchMeta();
+
+		this.$root.$on('social_shares_close', function (network, url) {
+			if( vm.isSaved ) return false;
+			let data = {
+				provider: network,
+				url: url
+			}
+			vm.saveShare(data);
+		})
 	},
-	updated() {
+	updated(){
 		this.refetchMeta()
 	},
 	watch:{
