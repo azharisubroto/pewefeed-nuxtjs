@@ -65,14 +65,6 @@
     <v-container class="mt-5 pt-5 mb-5 pb-5">
       <template v-if="tukarpointab">
         <v-row>
-          <v-col cols="12" v-if="i%5 == 0">
-            <!-- ADSENSE -->
-            <InFeedAdsense
-              data-ad-layout-key="-fb+5w+4e-db+86"
-              data-ad-client="ca-pub-6581994114503986"
-              data-ad-slot="7916120444"
-            ></InFeedAdsense>
-          </v-col>
           <v-col cols="12" class="py-0">
             <h4 class="text-uppercase">Rewards Lainnya</h4>
           </v-col>
@@ -83,6 +75,14 @@
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/toko/redeem/'+article.id)"
         >
+			<v-col cols="12" v-if="i%5 == 0">
+				<!-- ADSENSE -->
+				<InFeedAdsense
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-6581994114503986"
+				data-ad-slot="7916120444"
+				></InFeedAdsense>
+			</v-col>
           <v-col cols="4">
             <div class="jeruk pa-3">
               <v-img contain :src="article.image" aspect-ratio="1" class="jeruk"></v-img>
