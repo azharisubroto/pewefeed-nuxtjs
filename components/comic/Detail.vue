@@ -69,7 +69,7 @@
             </div>
 
             <div class="content" v-else>
-              <v-card max-width="444" class="mx-auto" :elevation="0">
+              <v-card max-width="444" class="mx-auto grey lighten-4 pt-5" :elevation="0">
                 <flickity v-if="dataImage" :options="{adaptiveHeight: true,lazyLoad: true}">
                   <div v-for="content in dataImage" :key="content.link" style="width:100%">
                     <v-img :src="content.link" :aspect-ratio="1" width="300" height="300" class="mx-auto grey lighten-2"></v-img>

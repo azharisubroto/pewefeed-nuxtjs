@@ -5,7 +5,9 @@
 				<v-card-text>
 					<v-row>
 						<v-col cols="4">
-							<v-img :src="item.image ? item.image : '/img/user.jpeg'"></v-img>
+							<div class="orange jangan lighten-1 py-2">
+								<v-img contain :aspect-ratio="1" :src="item.image ? item.image : '/img/user.jpeg'"></v-img>
+							</div>
 						</v-col>
 						<v-col cols="8">
 							<div class="caption">{{item.created_at}}</div>
