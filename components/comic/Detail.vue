@@ -69,7 +69,7 @@
             </div>
 
             <div class="content" v-else>
-              <v-card max-width="444" class="mx-auto" :elevation="0">
+              <v-card max-width="444" class="mx-auto grey lighten-4 pt-5" :elevation="0">
                 <flickity v-if="dataImage" :options="{adaptiveHeight: true,lazyLoad: true}">
                   <div v-for="content in dataImage" :key="content.link" style="width:100%">
                     <v-img :src="content.link" :aspect-ratio="1" width="300" height="300" class="mx-auto grey lighten-2"></v-img>
@@ -232,21 +232,9 @@
         <!-- FORM -->
         <v-container>
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-row no-gutters class="mt-5">
-              <v-col cols="12">
-                <strong class="subtitle-2">Berikan rating untuk komik ini</strong>
-              </v-col>
-              <v-col cols="12">
-                <v-textarea
-                  outlined
-                  color="deep-orange"
-                  value
-                  counter
-                  rows="3"
-                  auto-grow
-                  v-model="formdata.review"
-                  :rules="reviewRules"
-                ></v-textarea>
+            <v-row no-gutters class="mt-5 text-center">
+              <v-col cols="12" class="mb-4">
+                <strong class="text-18">Berikan rating untuk komik ini</strong>
               </v-col>
               <v-col cols="12">
                 <v-rating
@@ -257,7 +245,7 @@
                   dense
                   half-increments
                   hover
-                  size="23"
+                  size="40"
                 ></v-rating>
               </v-col>
               <v-col cols="12">
@@ -336,7 +324,6 @@ export default {
       logo:
         "https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png",
       formdata: {
-        review: "",
         rating: 5
       },
       recaptchaToken: null,
@@ -509,7 +496,6 @@ export default {
       let vm = this;
       const sendform = {
         comic_id: this.comic.id,
-        review: this.formdata.review,
         rating: this.formdata.rating * 20
       };
       this.setloading();
