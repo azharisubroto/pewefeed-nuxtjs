@@ -44,10 +44,10 @@
                                         >
                                             <div>
                                                 <network network="facebook">
-                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook-box theme--light primary--text"></i>
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-facebook theme--light primary--text"></i>
                                                 </network>
                                                 <network network="twitter">
-                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter-box theme--light blue--text"></i>
+                                                    <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-twitter theme--light blue--text"></i>
                                                 </network>
                                                 <network network="whatsapp">
                                                     <i style="font-size:40px" aria-hidden="true" class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"></i>
