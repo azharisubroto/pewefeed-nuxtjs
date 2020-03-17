@@ -56,7 +56,7 @@ export default {
 			tab:0,
 			addresses: null,
 			contact: null,
-			tabItems: ['Menunggu','Dikirim','Diterima','Selesai']
+			tabItems: ['Menunggu','Diproses','Dikirim','Diterima']
 		}
 	},
 	methods: {
