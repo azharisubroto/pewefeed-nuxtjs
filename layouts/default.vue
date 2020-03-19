@@ -553,7 +553,7 @@ export default {
         { name: "Piknik", loc: "/piknik" },
         { name: "Tekno", loc: "/tekno" },
         { name: "Sport", loc: "/sport" },
-		{ name: "Video", loc: "/video" }
+        { name: "Video", loc: "/video" }
       ],
       memberMenu: [
         { name: "Profile", loc: "/member/pengaturan/profil" },
@@ -1065,6 +1065,13 @@ body {
   opacity: 1 !important;
 }
 .lh-a {
-	line-height: 1.7;
+  line-height: 1.7;
+}
+.v-dialog {
+  header {
+    position: sticky !important;
+    top: 0;
+    z-index: 11;
+  }
 }
 </style>
