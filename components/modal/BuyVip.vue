@@ -397,8 +397,8 @@
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
+                        <v-tab href="#instant">WAP</v-tab>
                         <v-tab href="#ussd">USSD</v-tab>
-                        <v-tab href="#instant">Instant</v-tab>
                       </v-tabs>
 
                       <v-tabs-items v-model="buymethod">
