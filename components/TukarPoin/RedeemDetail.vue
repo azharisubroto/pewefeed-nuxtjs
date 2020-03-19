@@ -3,7 +3,9 @@
     <!-- SNACKBAR SUKSES ATAU FAIL -->
     <v-snackbar v-model="snackbar" :multi-line="true" top>
       {{ tukarmsg }}
-      <v-btn color="red" icon @click="snackbar = false"><v-icon>mdi-close</v-icon></v-btn>
+      <v-btn color="red" icon @click="snackbar = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-snackbar>
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -93,13 +95,84 @@
                   depressed
                   color="deep-orange"
                   tile
-                  @click="tukarPoin()"
+                  @click="buyconfirm = !buyconfirm"
                 >Tukarkan Poin</v-btn>
               </v-col>
             </v-row>
           </v-col>
         </v-row>
       </template>
+
+      <!-- BUY CONFIRM -->
+      <v-dialog
+        v-model="buyconfirm"
+        fullscreen
+        hide-overlay
+        class="LoginModal"
+        transition="dialog-bottom-transition"
+      >
+        <v-card>
+          <!-- Header -->
+          <v-toolbar light color="white">
+            <!-- Arrow -->
+            <v-btn
+              icon
+              tile
+              style="border-right: 1px solid #d1d1d1"
+              light
+              @click="buyconfirm = !buyconfirm"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <!-- Logo -->
+            <v-toolbar-title>
+              <img src="/pl-logo.png" width="130" class="d-inline-block mt-3" />
+            </v-toolbar-title>
+
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+              <v-btn light text>Konfirmasi</v-btn>
+            </v-toolbar-items>
+          </v-toolbar>
+
+          <v-container class="py-0">
+            <v-row align="center" justify="center">
+              <v-col cols="12" class="pb-0">
+                <v-alert
+                  border="left"
+                  colored-border
+                  type="info"
+                  class="mb-0 mt-4"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >Anda akan menukarkan koin sebanyak</v-alert>
+
+                <div class="text-center px-5 py-10 text-30" style="line-height:1">
+                  <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
+                  <strong>{{detail.point}}</strong>
+                </div>
+
+                <v-btn
+                  :loading="pending"
+                  block
+                  dark
+                  depressed
+                  color="deep-orange"
+                  tile
+                  x-large
+                  class="tukaryuk"
+                  @click="tukarPoin()"
+                >LANJUTKAN</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+
+          <v-container class="pa-0 LoginModal">
+            <Login />
+          </v-container>
+        </v-card>
+      </v-dialog>
 
       <!-- HISTORY -->
       <template v-if="hitoritab">
@@ -212,7 +285,9 @@ export default {
       moreLoading: false,
       historyNext: 2,
       panel: 0,
-      loginModalVisible: false
+      loginModalVisible: false,
+      buyconfirm: false,
+      pending: false
     };
   },
   methods: {
@@ -269,14 +344,16 @@ export default {
         target_point: this.detail.point
       };
       this.overlay = true;
+      this.pending = true;
       console.log(params);
       try {
         const res = await UserService.tukarPoin(params);
         console.log(res);
         this.overlay = false;
-		this.tukarmsg =
-            "Tukar POIN telah berhasil dilakukan";
-          this.snackbar = true;
+        this.tukarmsg = "Tukar POIN telah berhasil dilakukan";
+        this.snackbar = true;
+        this.pending = false;
+        this.buyconfirm = false;
       } catch (error) {
         console.log(error.response.status);
         this.overlay = false;
@@ -292,6 +369,8 @@ export default {
         } else {
           alert("An Error Ocured");
         }
+        this.pending = false;
+        this.buyconfirm = false;
       }
     },
     openModalLogin() {
@@ -337,5 +416,11 @@ export default {
       padding: 0;
     }
   }
+}
+.tukaryuk {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>
