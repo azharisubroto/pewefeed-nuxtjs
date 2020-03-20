@@ -146,12 +146,13 @@
                   type="info"
                   class="mb-0 mt-4"
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                >Anda akan menukarkan koin sebanyak</v-alert>
-
-                <div class="text-center px-5 py-10 text-30" style="line-height:1">
-                  <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
-                  <strong>{{detail.point}}</strong>
-                </div>
+                >
+                  Anda akan menukarkan koin sebanyak
+                  <div class="py-5 text-30" style="line-height:1">
+                    <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
+                    <strong>{{detail.point}}</strong>
+                  </div>
+                </v-alert>
 
                 <v-btn
                   :loading="pending"

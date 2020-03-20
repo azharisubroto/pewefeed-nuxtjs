@@ -22,7 +22,7 @@
           </v-btn>
 
           <v-btn
-            v-if="e1 > 1 && e1 < 11"
+            v-if="e1 > 1 && e1 < 11 && e1 != 8"
             icon
             tile
             style="border-right: 1px solid #e1e1e1"
