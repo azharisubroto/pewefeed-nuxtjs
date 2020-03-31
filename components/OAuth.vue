@@ -89,7 +89,8 @@ export default {
                     email : email,
                     firstname : firstname,
                     lastname : lastname,
-                    id : id
+                    provider : provider,
+                    provider_id : id
                 }
 
                 const response = await axios.post('https://s1.playworld.id/api/auth/signin', datasend)
