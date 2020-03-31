@@ -8,7 +8,7 @@
     >
       <v-card>
         <!-- Header -->
-        <v-toolbar light color="white">
+        <v-toolbar light color="white" class="stickykit">
           <!-- Arrow -->
           <v-btn
             v-if="e1 == 1 || e1 == 8"
@@ -22,7 +22,7 @@
           </v-btn>
 
           <v-btn
-            v-if="e1 > 1 && e1 < 11"
+            v-if="e1 > 1 && e1 < 11 && e1 != 8"
             icon
             tile
             style="border-right: 1px solid #e1e1e1"
@@ -34,7 +34,7 @@
 
           <!-- Logo -->
           <v-toolbar-title>
-            <v-img :src="logo" :lazy-src="lazy" max-width="40" max-height="40"></v-img>
+            <v-img :src="logo" :lazy-src="logo" max-width="130" max-height="130"></v-img>
           </v-toolbar-title>
 
           <!-- Title -->
@@ -397,8 +397,8 @@
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
+                        <v-tab href="#instant">WAP</v-tab>
                         <v-tab href="#ussd">USSD</v-tab>
-                        <v-tab href="#instant">Instant</v-tab>
                       </v-tabs>
 
                       <v-tabs-items v-model="buymethod">
@@ -459,13 +459,18 @@
                     @expired="onExpired()"
                   />
                 </div>
+                <br />
+                <br />
+                <br />
 
-                <v-btn
-                  @click="validate(itemvoucher)"
-                  color="deep-orange"
-                  block
-                  class="white--text mt-2"
-                >PROCESS</v-btn>
+                <div class="processthis">
+                  <v-btn
+                    @click="validate(itemvoucher)"
+                    color="deep-orange"
+                    block
+                    class="white--text mt-2"
+                  >PROCESS</v-btn>
+                </div>
               </v-container>
             </v-stepper-content>
             <!-- END OF STEP 4 : Order Detail -->
@@ -762,8 +767,7 @@ export default {
       responsemessage: "",
       lazy:
         "https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png",
-      logo:
-        "https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png",
+      logo: "/pl-logo.png",
       indosatviplogo:
         "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-s.svg",
       vipItems: [
@@ -1069,5 +1073,19 @@ export default {
   &.v-stepper--is-booted {
     background: transparent !important;
   }
+}
+.stickykit {
+  position: sticky;
+  top: 0;
+}
+.processthis {
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background: #fff;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 </style>
