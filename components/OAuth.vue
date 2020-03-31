@@ -51,27 +51,51 @@ export default {
             OAuth.popup(this.provider)
             .done(res => {
                 res.me().done(function(data) {
-                    console.log(data);
+                    // console.log(data);
                     vm.PWLogin( data, provider );
                 });
             });
 
             setTimeout(() => {
                 vm.notloading();
-            }, 10000);
+            }, 60000);
         },
         async PWLogin( data, provider ) {
             let vm = this;
 
             try {
-                const response = await axios.post('https://s1.playworld.id/api/auth/signin', {
-                    email : data.email,
-                    provider : provider,
-                    provider_id : data.id
-                })
+                var photo = null,
+                    email = null,
+                    firstname = null,
+                    lastname = null,
+                    id = null;
+
+                if (provider == 'facebook') {
+                    photo = data.avatar
+                    email = data.email
+                    firstname = data.firstname
+                    lastname = data.lastname
+                    id = data.id
+                } else {
+                    photo = data.avatar
+                    email = data.email
+                    firstname = data.raw.names[0].givenName
+                    lastname = data.raw.names[0].familyName
+                    id = data.raw.resourceName.replace('people/', '')
+                }
+
+                var datasend = {
+                    avatar : photo,
+                    email : email,
+                    firstname : firstname,
+                    lastname : lastname,
+                    id : id
+                }
+
+                const response = await axios.post('https://s1.playworld.id/api/auth/signin', datasend)
                 //console.log(response.data);
                 var data = response.data.data;
-                console.log(data);
+                // console.log(data);
 
                 // if( data.username ) {
                 var token = response.data.access_token;
