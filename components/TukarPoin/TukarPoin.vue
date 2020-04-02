@@ -50,7 +50,7 @@
                     depressed
                     dark
                     small
-                    @click="$router.push('/toko/redeem/'+item.id)"
+                    @click="$router.push('/tukarpoin/redeem/'+item.id)"
                   >Tukar Poin</v-btn>
                 </v-col>
               </v-row>
@@ -73,7 +73,7 @@
           class="topview-item"
           v-for="(article, i) in redeems"
           :key="'topview-'+article.id+'-'+i"
-          @click="$router.push('/toko/redeem/'+article.id)"
+          @click="$router.push('/tukarpoin/redeem/'+article.id)"
         >
 			<v-col cols="12" v-if="i%5 == 0">
 				<!-- ADSENSE -->
@@ -100,7 +100,7 @@
                 depressed
                 dark
                 small
-                @click="$router.push('/toko/redeem/'+item.redeem.id)"
+                @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
               >Tukar Poin</v-btn>
             </div>
           </v-col>

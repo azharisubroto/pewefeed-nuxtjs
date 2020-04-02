@@ -546,7 +546,7 @@ export default {
         { name: "Trending", loc: "/" },
         // {name: 'Fakta', loc: '/fakta'},
         // { name: "Komik", loc: "/komik" },
-        { name: "Tukar Poin", loc: "/toko" },
+        { name: "Tukar Poin", loc: "/tukarpoin" },
         { name: "Viral", loc: "/viral" },
         { name: "Musik", loc: "/lagu" },
         { name: "Nonton", loc: "/nonton" },
@@ -625,7 +625,7 @@ export default {
       programs: [
         {
           title: "TUKAR POIN",
-          link: "/toko"
+          link: "/tukarpoin"
         },
         // {
         // 	title: 'TOP POIN',
