@@ -33,6 +33,9 @@ export default {
 	getDetail(slug) {
 		return Api().get('/article/' + slug)
 	},
+	getQuiz(slug) {
+		return Api().get('/article/quiz/multiple/' + slug)
+	},
 	getRand() {
 		return Api().get('/article/random')
 	},
