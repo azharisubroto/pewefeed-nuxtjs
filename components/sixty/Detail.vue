@@ -85,7 +85,7 @@
                   </v-col>
               </v-row>
 
-              <div class="devider-big mb-5" style="margin-left: -20px;margin-right:-20px"></div>
+              <div class="devider-big mb-5"></div>
 
               <!-- TERBARU -->
               <div class="text-center mb-3">
