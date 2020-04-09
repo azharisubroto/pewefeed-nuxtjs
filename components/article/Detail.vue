@@ -99,7 +99,7 @@
             </div>
           </v-col>
         </v-row>
-        <div class="devider-big mb-5" style="margin-left: -20px;margin-right:-20px"></div>
+        <div class="devider-big mb-5"></div>
         <!-- TERBARU -->
         <section class="py-4 mb-5 pb-5">
           <!-- TERBARU -->

@@ -7,6 +7,7 @@
 
         <div v-if="articles">
           <!-- LATEST -->
+		  <client-only>
           <flickity ref="flickity" :options="flickityOptions">
             <div
             v-for="article in articles"
@@ -26,6 +27,7 @@
               </div>
             </div>
           </flickity>
+		  </client-only>
         </div>
 
         <!-- ADSENSE -->
