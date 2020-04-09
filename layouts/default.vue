@@ -310,8 +310,21 @@
                           target="blank"
                           :href="'https://api.whatsapp.com/send?phone=' + con.phone"
                         >{{ con.title }}</a>
+                      </v-list-item-title>
+                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-col>
+            <v-col cols="12">
+              <v-list two-line>
+                <v-list-item-group v-model="contactmail">
+                  <v-list-item v-for="(con, i) in contactsmail" :key="i">
+                    <v-list-item-content class="menu">
+                      <v-list-item-title>
                         <a
-                          v-else
+                          v-if="!con.isPhone"
                           style="text-decoration: none; color: #000"
                           :href="'mailto:' + con.mail"
                         >{{ con.title }}</a>
@@ -335,28 +348,28 @@
                 <a
                   target="blank"
                   style="text-decoration: none;"
-                  href="https://www.facebook.com/PLAYWORLD.ID"
+                  :href="'https://www.facebook.com/' + facebook"
                 >
                   <img src="/img/001-facebook.png" width="40" alt />
                 </a>
                 <a
                   target="blank"
                   style="text-decoration: none;"
-                  href="https://twitter.com/PlayworldID"
+                  :href="'https://twitter.com/' + twitter"
                 >
                   <img src="/img/003-twitter.png" width="40" alt />
                 </a>
                 <a
                   target="blank"
                   style="text-decoration: none;"
-                  href="https://www.instagram.com/playworld.id"
+                  :href="'https://www.instagram.com/' + instagram"
                 >
                   <img src="/img/002-instagram.png" width="40" alt />
                 </a>
                 <a
                   target="blank"
                   style="text-decoration: none;"
-                  href="https://www.youtube.com/channel/UCWU4CyCb2GJrkP7lTtdlsdg"
+                  :href="youtubeUrl"
                 >
                   <img src="/img/004-youtube.png" width="40" alt />
                 </a>
@@ -511,6 +524,11 @@ export default {
   },
   data() {
     return {
+      facebook: process.env.facebook,
+      instagram: process.env.instagram,
+      twitter: process.env.twitter,
+      youtube: process.env.youtube,
+      youtubeUrl: process.env.youtubeUrl,
       mainlogo: "/pl-logo.png",
       drawer: null,
       searchDialog: null,
@@ -652,6 +670,7 @@ export default {
         }
       ],
       contacttwo: 2,
+      contactmail: 2,
       contactstwo: [
         {
           title: "0817 1717 3029",
@@ -659,10 +678,18 @@ export default {
           isPhone: true,
           subtitle: "(24 Hour)"
         },
+      ],
+      contactsmail: [
         {
           title: "halo@playworld.id",
           mail: "halo@playworld.id",
-          isPhone: false,
+          isSubtitle: false,
+          subtitle: "(Official Email Address)"
+        },
+        {
+          title: process.env.email,
+          mail: process.env.email,
+          isSubtitle: true,
           subtitle: "(Official Email Address)"
         }
       ],

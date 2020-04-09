@@ -37,7 +37,7 @@
                                             :url="sharingUrl"
                                             :title="sharingTitle"
                                             :description="sharingDescription"
-                                            twitter-user="playworldID"
+                                            :twitter-user="twitterEnv"
                                             inline-template
                                         >
                                             <div>
@@ -107,6 +107,7 @@ export default {
         SharePoin
     },
     data: () => ({
+        twitterEnv: process.env.twitter,
         sheet: false,
         timeout: 2000,
         snackbar: false,

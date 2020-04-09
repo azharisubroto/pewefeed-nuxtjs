@@ -6,6 +6,12 @@ export default {
     mobileUrl: process.env.MOBILE_URL || 'https://m.pewefeed.com/',
     domainTitle: process.env.DOMAIN_TITLE || 'PEWEFEED.COM',
     title: process.env.TITLE || 'PEWEFEED',
+    facebook: process.env.FACEBOOK || 'pewefeeds',
+    instagram: process.env.INSTAGRAM || 'pewefeed',
+    twitter: process.env.TWITTER || 'pewefeed',
+    youtube: process.env.YOUTUBE || 'pewefeed',
+    youtubeUrl: process.env.YOUTUBE_URL || 'https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw',
+    email: process.env.EMAIL || 'halo@lagipewe.com',
   },
   // server: {
   //   host: '0.0.0.0',
