@@ -58,7 +58,7 @@ export default {
 
             setTimeout(() => {
                 vm.notloading();
-            }, 15000);
+            }, 30000);
         },
         async PWLogin( data, provider ) {
             let vm = this;
