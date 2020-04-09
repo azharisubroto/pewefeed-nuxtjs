@@ -44,12 +44,12 @@ export default {
     methods: {
       link(article) {
         var url, cropped
-        if( article.link != 'https://m.pewefeed.com/sixty' ) {
+        if( article.link != process.env.baseUrl + 'sixty' ) {
             url = article.link
-            cropped = url.replace('https://pewefeed.com/', '')
+            cropped = url.replace(process.env.baseUrl, '')
         } else {
             url = article.link_detail
-            cropped = url.replace('https://m.pewefeed.com/', '')
+            cropped = url.replace(process.env.baseUrl, '')
         }
         return cropped
       }

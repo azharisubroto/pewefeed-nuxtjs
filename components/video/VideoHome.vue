@@ -98,6 +98,7 @@ export default {
     },
     data() {
         return {
+            domainTitle: process.env.domainTitle,
             model: null,
             articles: [],
             topviews: [],
@@ -120,9 +121,9 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            dataUrl: "https://m.pewefeed.com/video",
+            dataUrl: process.env.mobileUrl + "video",
             dataTitle: "Tonton Video SIXTY, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
-            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
+            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
             dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
         }
     },
@@ -230,12 +231,12 @@ export default {
         },
         link(article) {
             var url, cropped
-            if( article.link.includes('https://m.pewefeed.com/sixty') ) {
+            if( article.link != process.env.mobileUrl + 'sixty' ) {
                 url = article.link
-                cropped = url.replace('https://pewefeed.com/', '')
+                cropped = url.replace(process.env.mobileUrl, '')
             } else {
                 url = article.link_detail
-                cropped = url.replace('https://m.pewefeed.com/', '')
+                cropped = url.replace(process.env.mobileUrl, '')
             }
             return cropped
         },

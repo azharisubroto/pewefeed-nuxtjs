@@ -119,7 +119,7 @@
             <h2 class="mb-4">Syarat &amp; Ketentuan</h2>
             <p>Untuk mendapatkan barang cukup menukarkan POIN sesuai dengan jumlah POIN YANG DIPERLUKAN</p>
 
-            <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel PLAYWORLD.ID atau mainkan GAME nya.</p>
+            <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel {{ domainTitle }} atau mainkan GAME nya.</p>
 
             <p>Cek videonya disini :</p>
 
@@ -158,6 +158,7 @@ export default {
   },
   data() {
     return {
+      domainTitle: process.env.domainTitle,
       tukarpointab: true,
       syarattab: false,
       toppoinbanner:

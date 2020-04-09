@@ -17,7 +17,7 @@
                     colored-border
                     type="info"
                     style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                  >Masukkan 32 digit kode VIP yang anda terima dari SMS dengan sender "PLAYWORLD"</v-alert>
+                  >Masukkan 32 digit kode VIP yang anda terima dari SMS dengan sender "{{ titleEnv }}"</v-alert>
                   <v-text-field
                     label="VIP CODE"
                     placeholder
@@ -137,6 +137,7 @@ export default {
     CodePWList
   },
   data: () => ({
+    titleEnv: process.env.title,
     tab: null,
     tabItems: ["ADD CODE", "HISTORY"],
     mypoint: null,

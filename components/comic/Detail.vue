@@ -362,7 +362,7 @@ export default {
       notVipDialogVisible: false,
       ratingModal: false,
       dataUrl:
-        "https://m.pewefeed.com/komik/" +
+        process.env.mobileUrl + "komik/" +
         this.$route.params.category +
         "/" +
         this.$route.params.detail

@@ -134,7 +134,7 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            dataUrl: "https://m.pewefeed.com/komik",
+            dataUrl: process.env.mobileUrl + "komik",
             dataTitle: this.title,
             dataDescription: this.description,
         }

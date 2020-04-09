@@ -383,7 +383,7 @@ export default {
       commentIsPosting: false,
       comment_message: '',
       slug: this.$route.params.slug,
-      dataUrl: "https://m.pewefeed.com/fakta/detail/" + this.$route.params.slug,
+      dataUrl: process.env.mobileUrl + "fakta/detail/" + this.$route.params.slug,
     }
   },
   computed: {

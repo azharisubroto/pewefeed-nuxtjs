@@ -73,15 +73,16 @@ export default {
   },
   data() {
     return {
+      domainTitle: process.env.domainTitle,
       hero_items: [],
       hero_is_fetching: true,
       latests: [],
       latests_is_loading: true,
       categories: [],
       catpick: 0,
-      dataUrl: "https://m.pewefeed.com/fakta",
+      dataUrl: process.env.mobileUrl + "fakta",
       dataTitle: "Tonton Video FAKTA, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
-      // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
+      // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
       dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
     }
   },

@@ -1,6 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://pewefeed.com/',
+    mobileUrl: process.env.MOBILE_URL || 'https://m.pewefeed.com/',
+    domainTitle: process.env.DOMAIN_TITLE || 'PEWEFEED.COM',
+    title: process.env.TITLE || 'PEWEFEED',
+  },
   // server: {
   //   host: '0.0.0.0',
   //   port: 8000
@@ -8,8 +14,8 @@ export default {
   mode: 'universal',
   pwa: {
 	manifest: {
-    name: 'PLAYWORLD.ID',
-    short_name: 'PLAYWORLD',
+      name: 'PEWEFEED.COM',
+      short_name: 'PEWEFEED',
 		lang: 'id'
 	}
   },

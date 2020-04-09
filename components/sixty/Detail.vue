@@ -54,7 +54,7 @@
                       <h4>Lihat Selengkapnya</h4>
                       <v-row
                       class="topview-item"
-                      @click="$router.push('/'+selengkapnya.link.replace('https://pewefeed.com/', ''))">
+                      @click="$router.push('/'+selengkapnya.link.replace(process.env.baseUrl, ''))">
                         <v-col cols="4">
                           <v-img
                           :src="selengkapnya.image"
@@ -69,7 +69,7 @@
                       </v-row>
                       <!-- WRITER -->
                       <!-- <div class="mt-4">
-                          <span class="grey--text caption">Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span><br>
+                          <span class="grey--text caption">Tulisan ini dibuat oleh tim {{ domainTitle }} dari berbagai sumber</span><br>
                           <v-row>
                               <v-col cols="2">
                                   <v-avatar>
@@ -289,7 +289,8 @@ export default {
     },
     data() {
         return {
-			active_tab: 0,
+            domainTitle: process.env.domainTitle,
+			      active_tab: 0,
             tab: null,
             tabCom: null,
             id: '',
@@ -336,7 +337,7 @@ export default {
                     href: this.$route.params.subcat
                 }
             ],
-            dataUrl: "https://m.pewefeed.com/sixty/" + this.$route.params.sixty,
+            dataUrl: process.env.mobileUrl + "sixty/" + this.$route.params.sixty,
 
         }
     },

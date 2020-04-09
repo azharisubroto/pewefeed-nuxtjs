@@ -482,7 +482,7 @@ export default {
             latests: [],
             finalist: null,
 			winners: null,
-			dataUrl: "https://m.pewefeed.com/starx/band/video/" + this.$route.params.detail,
+			dataUrl: process.env.mobileUrl + "starx/band/video/" + this.$route.params.detail,
 			commentIsPosting: false,
 			comments: [],
 			comment_message: null,

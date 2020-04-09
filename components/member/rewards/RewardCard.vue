@@ -87,7 +87,7 @@
 							text
 							type="info"
 							class="caption"
-							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sedang diproses oleh admin PLAYWORLD.ID</v-alert>
+							success>Rewards No. <strong>{{ item.customer_redeem ? item.customer_redeem.redeem_code : '' }}</strong> sedang diproses oleh admin {{ domainTitle }}</v-alert>
 						</v-expansion-panel-content>
 					</v-expansion-panel>
 				</v-expansion-panels>
@@ -144,6 +144,7 @@ export default {
 	props: ['list','addresses','contact', 'expandable', 'actionable', 'sent', 'finished', 'type'],
 	data() {
 		return {
+			domainTitle: process.env.domainTitle,
 			id_tujuan: [],
 			loading: []
 		}

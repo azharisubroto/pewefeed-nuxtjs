@@ -417,7 +417,7 @@
 									STAGE: AUDITION
 									<br>
 									<ul>
-										<li class="caption">Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+										<li class="caption">Salah satu anggota band diharuskan membuat akun {{ domainTitle }} terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
 										<li class="caption">Lengkapi data band dan personilnya agar voters mudah</li>
 									</ul>
 								</v-expansion-panel-content>
@@ -443,7 +443,7 @@
 							STAGE: AUDITION
 							<br>
 							<ul>
-								<li class="caption">Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+								<li class="caption">Salah satu anggota band diharuskan membuat akun {{ domainTitle }} terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
 								<li class="caption">Lengkapi data band dan personilnya agar voters mudah</li>
 							</ul>
 						</v-expansion-panel-content>
@@ -686,7 +686,7 @@
 												STAGE: AUDITION
 												<br>
 												<ul>
-													<li class="caption">Salah satu anggota band diharuskan membuat akun PLAYWORLD.ID terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
+													<li class="caption">Salah satu anggota band diharuskan membuat akun {{ domainTitle }} terlebih dahulu sebelum dapat mengupload video, tidak ada pungutan alias gratis</li>
 													<li class="caption">Lengkapi data band dan personilnya agar voters mudah</li>
 												</ul>
 											</v-expansion-panel-content>
@@ -776,6 +776,7 @@ export default {
     },
     data(){
         return{
+			domainTitle: process.env.domainTitle,
 			page: 1,
 			filter: 'newest',
             overlay: false,
@@ -795,9 +796,9 @@ export default {
             video_latest: true,
             video_finalist: false,
 			video_winners: false,
-			dataUrl: "https://m.pewefeed.com/starx/band",
+			dataUrl: process.env.mobileUrl + "starx/band",
             dataTitle: "STARX BAND - Playworld",
-            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
+            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
 			dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
 			syartab: 0,
 			tabItems: ['STARX', 'Final Show', 'Other Competition'],

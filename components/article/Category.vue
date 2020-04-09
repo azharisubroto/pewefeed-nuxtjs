@@ -153,6 +153,7 @@ export default {
     },
     data() {
         return {
+            domainTitle: process.env.domainTitle,
             model: null,
             articles: [],
             articleList: [],
@@ -175,9 +176,9 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            dataUrl: "https://m.pewefeed.com/" + this.$route.params.cat,
+            dataUrl: process.env.mobileUrl + this.$route.params.cat,
             dataTitle: "Baca Artikel " + this.$route.params.cat.toUpperCase() + ", Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
-            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
+            // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
             dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
         }
     },
@@ -189,7 +190,7 @@ export default {
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
-                        slug = slug.replace('https://pewefeed.com/', '')
+                        slug = slug.replace(process.env.baseUrl, '')
                     var obj = {
                         image: article.image,
                         link: slug,
@@ -215,7 +216,7 @@ export default {
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
-                        slug = slug.replace('https://pewefeed.com/', '')
+                        slug = slug.replace(process.env.baseUrl, '')
                     var obj = {
                         image: article.image,
                         link: slug,
@@ -249,12 +250,12 @@ export default {
         },
         link(article) {
             var url, cropped
-            if( article.link != 'https://m.pewefeed.com/sixty' ) {
+            if( article.link != process.env.mobileUrl + 'sixty' ) {
                 url = article.link
-                cropped = url.replace('https://pewefeed.com/', '')
+                cropped = url.replace(process.env.baseUrl, '')
             } else {
                 url = article.link_detail
-                cropped = url.replace('https://m.pewefeed.com/', '')
+                cropped = url.replace(process.env.mobileUrl, '')
             }
             return cropped
         },

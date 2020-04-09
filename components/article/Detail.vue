@@ -55,7 +55,7 @@
             <div class="mt-4">
               <span
                 class="grey--text caption"
-              >Tulisan ini dibuat oleh tim PLAYWORLD.ID dari berbagai sumber</span>
+              >Tulisan ini dibuat oleh tim {{ domainTitle }} dari berbagai sumber</span>
               <br />
               <v-row justify="space-between" class="mt-3" v-if="team_content" no-gutters>
                 <v-col cols="6">
@@ -363,6 +363,7 @@ export default {
   props: ["respon"],
   data() {
     return {
+      domainTitle: process.env.domainTitle,
       active_tab: 0,
       tab: null,
       tabCom: null,
@@ -412,7 +413,7 @@ export default {
         }
       ],
       dataUrl:
-        "https://m.pewefeed.com/" +
+        process.env.mobileUrl +
         this.$route.params.cat +
         "/" +
         this.$route.params.subcat +

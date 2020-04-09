@@ -170,7 +170,7 @@ export default {
         var arrays = []
         items.forEach(el => {
           var link = el.link
-          var path = link.replace('https://pewefeed.com', '')
+          var path = link.replace(process.env.baseUrl, '')
           var obj = {
             status: el.status,
             created_at: el.created_at,
