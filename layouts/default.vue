@@ -804,7 +804,7 @@ export default {
     if (!isMobile) {
       var mobileUrl = window.location.href;
       var desktopUrl = mobileUrl.replace("://m.", "://");
-      if (location.host == "m.playworld.id") {
+      if (location.host == "m." + process.env.domainTitle.toLowerCase()) {
         window.location.href = desktopUrl;
       } else {
         console.log("desktop version");
