@@ -412,7 +412,7 @@ export default {
         }
       ],
       dataUrl:
-        "https://m.playworld.id/" +
+        "https://m.pewefeed.com/" +
         this.$route.params.cat +
         "/" +
         this.$route.params.subcat +
@@ -464,7 +464,7 @@ export default {
         var articles = res.data.data.article;
         articles.forEach(element => {
           var link = element.link;
-          link = link.replace("https://playworld.id/", "");
+          link = link.replace("https://pewefeed.com/", "");
           var obj = {
             image: {
               small: element.image.small
@@ -492,7 +492,7 @@ export default {
         var articles = res.data.data.article;
         articles.forEach(element => {
           var link = element.link;
-          link = link.replace("https://playworld.id/", "");
+          link = link.replace("https://pewefeed.com/", "");
           var obj = {
             image: {
               small: element.image.small

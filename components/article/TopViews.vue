@@ -44,12 +44,12 @@ export default {
     methods: {
       link(article) {
         var url, cropped
-        if( article.link != 'https://m.playworld.id/sixty' ) {
+        if( article.link != 'https://m.pewefeed.com/sixty' ) {
             url = article.link
-            cropped = url.replace('https://playworld.id/', '')
+            cropped = url.replace('https://pewefeed.com/', '')
         } else {
             url = article.link_detail
-            cropped = url.replace('https://m.playworld.id/', '')
+            cropped = url.replace('https://m.pewefeed.com/', '')
         }
         return cropped
       }

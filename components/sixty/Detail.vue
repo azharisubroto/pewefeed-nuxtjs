@@ -54,7 +54,7 @@
                       <h4>Lihat Selengkapnya</h4>
                       <v-row
                       class="topview-item"
-                      @click="$router.push('/'+selengkapnya.link.replace('https://playworld.id/', ''))">
+                      @click="$router.push('/'+selengkapnya.link.replace('https://pewefeed.com/', ''))">
                         <v-col cols="4">
                           <v-img
                           :src="selengkapnya.image"
@@ -336,7 +336,7 @@ export default {
                     href: this.$route.params.subcat
                 }
             ],
-            dataUrl: "https://m.playworld.id/sixty/" + this.$route.params.sixty,
+            dataUrl: "https://m.pewefeed.com/sixty/" + this.$route.params.sixty,
 
         }
     },

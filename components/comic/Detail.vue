@@ -362,7 +362,7 @@ export default {
       notVipDialogVisible: false,
       ratingModal: false,
       dataUrl:
-        "https://m.playworld.id/komik/" +
+        "https://m.pewefeed.com/komik/" +
         this.$route.params.category +
         "/" +
         this.$route.params.detail

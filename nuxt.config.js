@@ -69,7 +69,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
-    '@nuxtjs/onesignal',
+    // '@nuxtjs/onesignal',
     // '@nuxtjs/google-adsense',
     '@nuxtjs/google-gtag',
     '@nuxtjs/robots',
@@ -104,7 +104,7 @@ export default {
     },
     xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
     path: '/sitemap.xml',
-    hostname: 'https://m.playworld.id'
+    hostname: 'https://m.pewefeed.com'
   },
 
   /**
@@ -124,15 +124,15 @@ export default {
    * One Signal Notification
    */
   // Options
-  oneSignal: {
-    init: {
-      appId: 'e5475afb-743d-40c9-9d0a-f0fda91654c9',
-      allowLocalhostAsSecureOrigin: true,
-      welcomeNotification: {
-        disable: true
-      }
-    }
-  },
+  // oneSignal: {
+  //   init: {
+  //     appId: 'e5475afb-743d-40c9-9d0a-f0fda91654c9',
+  //     allowLocalhostAsSecureOrigin: true,
+  //     welcomeNotification: {
+  //       disable: true
+  //     }
+  //   }
+  // },
 
   /**
    * Recaptcha Configuration

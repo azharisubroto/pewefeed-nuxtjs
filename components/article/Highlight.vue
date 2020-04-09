@@ -69,7 +69,7 @@ export default {
 				this.articles = []
 				items.forEach(article => {
                     var slug = article.link
-                        slug = slug.replace('https://playworld.id/', '')
+                        slug = slug.replace('https://pewefeed.com/', '')
                     var obj = {
                         image: article.image,
                         link: '/'+slug,

@@ -134,7 +134,7 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            dataUrl: "https://m.playworld.id/komik",
+            dataUrl: "https://m.pewefeed.com/komik",
             dataTitle: this.title,
             dataDescription: this.description,
         }

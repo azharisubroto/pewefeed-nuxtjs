@@ -170,7 +170,7 @@ export default {
         var arrays = []
         items.forEach(el => {
           var link = el.link
-          var path = link.replace('https://playworld.id', '')
+          var path = link.replace('https://pewefeed.com', '')
           var obj = {
             status: el.status,
             created_at: el.created_at,

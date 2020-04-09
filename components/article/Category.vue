@@ -175,7 +175,7 @@ export default {
               pageDots: true,
               wrapAround: true
             },
-            dataUrl: "https://m.playworld.id/" + this.$route.params.cat,
+            dataUrl: "https://m.pewefeed.com/" + this.$route.params.cat,
             dataTitle: "Baca Artikel " + this.$route.params.cat.toUpperCase() + ", Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
             // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, PLAYWORLD.ID memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
             dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
@@ -189,7 +189,7 @@ export default {
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
-                        slug = slug.replace('https://playworld.id/', '')
+                        slug = slug.replace('https://pewefeed.com/', '')
                     var obj = {
                         image: article.image,
                         link: slug,
@@ -215,7 +215,7 @@ export default {
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
-                        slug = slug.replace('https://playworld.id/', '')
+                        slug = slug.replace('https://pewefeed.com/', '')
                     var obj = {
                         image: article.image,
                         link: slug,
@@ -249,12 +249,12 @@ export default {
         },
         link(article) {
             var url, cropped
-            if( article.link != 'https://m.playworld.id/sixty' ) {
+            if( article.link != 'https://m.pewefeed.com/sixty' ) {
                 url = article.link
-                cropped = url.replace('https://playworld.id/', '')
+                cropped = url.replace('https://pewefeed.com/', '')
             } else {
                 url = article.link_detail
-                cropped = url.replace('https://m.playworld.id/', '')
+                cropped = url.replace('https://m.pewefeed.com/', '')
             }
             return cropped
         },
