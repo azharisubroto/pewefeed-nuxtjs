@@ -117,7 +117,7 @@ export default {
    * Google Tag
    */
   'google-gtag': {
-    id: 'UA-75254826-2',
+    id: 'UA-163238276-1',
     config: {
       anonymize_ip: true, // anonymize IP
       send_page_view: true, // might be necessary to avoid duplicated page track on page reload
