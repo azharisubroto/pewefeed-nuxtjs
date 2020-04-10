@@ -79,7 +79,7 @@
 				<!-- ADSENSE -->
 				<InFeedAdsense
 				data-ad-layout-key="-fb+5w+4e-db+86"
-				data-ad-client="ca-pub-6581994114503986"
+				data-ad-client="ca-pub-2254958995437488"
 				data-ad-slot="7916120444"
 				></InFeedAdsense>
 			</v-col>

@@ -108,42 +108,42 @@
             v-if="this.$route.params.cat == 'viral'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="3272838865"
           />
           <NewsLoop
             v-else-if="this.$route.params.cat == 'lagu'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="2144919011"
           />
           <NewsLoop
             v-else-if="this.$route.params.cat == 'nonton'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="5389550524"
           />
           <NewsLoop
             v-else-if="this.$route.params.cat == 'piknik'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="1538414350"
           />
           <NewsLoop
             v-else-if="this.$route.params.cat == 'tekno'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="5006407143"
           />
           <NewsLoop
             v-else-if="this.$route.params.cat == 'sport'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
-            ADSclient="ca-pub-6581994114503986"
+            ADSclient="ca-pub-2254958995437488"
             ADSslot="4731074976"
           />
           <v-btn

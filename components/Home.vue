@@ -50,7 +50,7 @@
             <v-col cols="12">
               <InFeedAdsense
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-6581994114503986"
+                data-ad-client="ca-pub-2254958995437488"
                 data-ad-slot="2653891769">
               </InFeedAdsense>
             </v-col>
@@ -68,7 +68,7 @@
               <NewsLoop
                 :items="topviews"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-6581994114503986"
+                ADSclient="ca-pub-2254958995437488"
                 ADSslot="2653891769"
               />
               <v-row v-if="isMore">

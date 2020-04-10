@@ -92,7 +92,7 @@ export default {
    * Google Adsense
    */
   // 'google-adsense': {
-  //   id: 'ca-pub-6581994114503986'
+  //   id: 'ca-pub-2254958995437488'
   // },
 
   /**
