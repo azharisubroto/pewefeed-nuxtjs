@@ -174,7 +174,7 @@
                 <v-card class="mx-auto mb-3 mt-4">
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Berlangganan</v-card-title>
                   <div
-                    @click="setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
+                    @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
                   >
@@ -216,9 +216,9 @@
                   <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
                   <v-divider></v-divider>
                   <div
-                    @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                    v-for="vip in vipItems"
-                    :key="vip.id"
+                    v-for="(vip, i) in vipItems"
+                    @click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                    :key="vip.id+'-'+i"
                   >
                     <v-row>
                       <v-col cols="9">
@@ -270,7 +270,7 @@
                   >Berlangganan</v-card-title>
                   <v-divider></v-divider>
                   <div
-                    @click="setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
+                    @click="wap='indosatlangganan';setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
                     v-for="vip in vipItems.slice(0,1)"
                     :key="vip.id"
                   >
@@ -397,7 +397,7 @@
                     <v-card class="mx-auto mb-2">
                       <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
                         <v-tab href="#sms">SMS</v-tab>
-                        <v-tab href="#instant">WAP</v-tab>
+                        <v-tab href="#wap" @click="useWap=true">WAP</v-tab>
                         <v-tab href="#ussd">USSD</v-tab>
                       </v-tabs>
 
@@ -434,12 +434,14 @@
                             </v-btn>
                           </v-snackbar>
                         </v-tab-item>
-                        <v-tab-item value="ussd">
+                        <v-tab-item value="wap">
                           <v-container class="text-center mt-4" style="padding-bottom: 40px">
-                            <strong class="body-2">Pilihan Tidak Tersedia</strong>
+                            <strong
+                              class="body-2"
+                            >Setelah mencentang Google Recaptcha dan klik tombol "Process" di bawah, anda akan diarahkan ke halaman Pembayaran</strong>
                           </v-container>
                         </v-tab-item>
-                        <v-tab-item value="instant">
+                        <v-tab-item value="ussd">
                           <v-container class="text-center mt-4" style="padding-bottom: 40px">
                             <strong class="body-2">Pilihan Tidak Tersedia</strong>
                           </v-container>
@@ -765,6 +767,8 @@ export default {
       snackbar: false,
       timeout: 3000,
       responsemessage: "",
+      wap: null,
+      useWap: null,
       lazy:
         "https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png",
       logo: "/pl-logo.png",
@@ -995,9 +999,10 @@ export default {
     validate(voucher) {
       var vm = this;
       vm.formdata.voucher_id = voucher;
+      this.submit();
       if (this.$refs.form.validate()) {
         if (this.recaptchaToken != null) {
-          this.submit();
+          //this.submit();
           // console.log('nggak');
         } else {
           this.snackbar = true;
@@ -1010,20 +1015,44 @@ export default {
     async submit() {
       let vm = this;
 
-      // send the form
-      const sendform = vm.formdata;
-
-      try {
-        const res = await PurchaseService.BuyVip(sendform);
-        vm.responsemessage = res.data.message;
-        if (res.status == 200) {
-          this.e1 = 8;
+      if (this.useWap) {
+        if (this.wap == "xllangganan") {
+          //   window.open(
+          //     "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw"
+          //   );
+          window.location.href =
+            "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
+        } else if (this.wap == "indosatlangganan") {
+          //window.open("https://150.107.148.9/app/wap/playworld/jayadata/xl/pw");
+          window.location.href =
+            "https://150.107.148.9/app/wap/playworld/jayadata/xl/pw";
+        } else {
+          window.location.href =
+            "http://www.gudangapp.com/Wap_action.jsp?content=" +
+            this.wap +
+            "+WPW&dest=97789&&success=http://playworld.id/rand";
+          //   window.open(
+          //     "http://www.gudangapp.com/Wap_action.jsp?content=" +
+          //       this.wap +
+          //       "+WPW&dest=97789&&success=http://playworld.id/rand"
+          //   );
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } else {
+        // send the form
+        const sendform = vm.formdata;
 
-      this.recaptchaToken = null;
+        try {
+          const res = await PurchaseService.BuyVip(sendform);
+          vm.responsemessage = res.data.message;
+          if (res.status == 200) {
+            this.e1 = 8;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+        this.recaptchaToken = null;
+      }
     },
 
     async fetchUser() {
