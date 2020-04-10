@@ -101,7 +101,7 @@
                 <strong class="caption">Cetang kotak dibawah ini untuk melanjutkan proses</strong>
                 <vue-recaptcha
                   class="mt-2"
-                  sitekey="6Ld8FDgUAAAAADGSSZayN8W2cTlJTmIGcv0NEPln"
+                  sitekey="6Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q"
                   ref="recaptcha"
                   @verify="onCaptchaVerified"
                   @expired="onCaptchaExpired"
