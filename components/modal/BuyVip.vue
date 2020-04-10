@@ -1021,16 +1021,16 @@ export default {
           //     "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw"
           //   );
           window.location.href =
-            "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
+            "http://150.107.148.9/app/wap/playworld/jayadata/xl/pw";
         } else if (this.wap == "indosatlangganan") {
           //window.open("https://150.107.148.9/app/wap/playworld/jayadata/xl/pw");
           window.location.href =
-            "https://150.107.148.9/app/wap/playworld/jayadata/xl/pw";
+            "http://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
         } else {
           window.location.href =
             "http://www.gudangapp.com/Wap_action.jsp?content=" +
             this.wap +
-            "+WPW&dest=97789&&success=http://playworld.id/rand";
+            "+WPW&dest=97789&&success=http://pewefeed.com/rand";
           //   window.open(
           //     "http://www.gudangapp.com/Wap_action.jsp?content=" +
           //       this.wap +
