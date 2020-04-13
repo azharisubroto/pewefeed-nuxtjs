@@ -355,7 +355,7 @@ export default {
     async tukarPoin() {
       var params = {
         redeem_id: this.detail.id,
-        target_point: this.detail.point
+        // target_point: this.detail.point
       };
       this.overlay = true;
       this.pending = true;
