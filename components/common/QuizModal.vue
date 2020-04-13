@@ -68,6 +68,17 @@
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
                 >Kamu tidak mendapat tambahan POIN karena salah menjawab QUIZ</v-alert>
               </div>
+              <div v-if="nolimit==true">
+                <h3 class="red--text">No Extra POIN - VIP Limit</h3>
+                <v-alert
+                  border="left"
+                  dense
+                  colored-border
+                  type="info"
+                  class="text-14 text-left mt-4"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >Limit Poin harian untuk interaksi VIP sudah mencapai 200 Poin, namun interaksi Comment dan Share masih dapat kamu lakukan.</v-alert>
+              </div>
             </template>
           </div>
         </div>
@@ -87,7 +98,8 @@ export default {
   props: {
     dialogVisible: Boolean,
     jawaban: Boolean,
-    already: Boolean
+    already: Boolean,
+    nolimit: Boolean
   },
   data() {
     return {

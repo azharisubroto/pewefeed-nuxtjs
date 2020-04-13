@@ -298,6 +298,7 @@
           :dialogVisible="dialog"
           :jawaban="answerResult"
           :already="already"
+          :nolimit="nolimit"
           @close="myDialogClose"
         />
       </template>
@@ -390,6 +391,7 @@ export default {
       dialog: false,
       answerResult: null,
       already: false,
+      nolimit: false,
       user_id: null,
       pleaseLoginDialogVisible: false,
       loginModalVisible: false,
@@ -592,6 +594,9 @@ export default {
               //this.answered = true
             }
           } catch (error) {
+            if (error.response.status == 422) {
+              this.nolimit = true
+            }
             console.log(error);
           }
         } else {
