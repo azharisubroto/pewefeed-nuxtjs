@@ -90,10 +90,23 @@
               </v-col>
               <v-col>
                 <v-btn
+                  v-if="detail.stock"
                   block
                   dark
                   depressed
                   color="deep-orange"
+                  :disabled="detail.stock.remaining == 0"
+                  :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                  tile
+                  @click="buyconfirm = !buyconfirm"
+                >Tukarkan Poin</v-btn>
+                <v-btn
+                  v-else
+                  block
+                  dark
+                  depressed
+                  color="deep-orange"
+                  style="background-color: grey !important;"
                   tile
                   @click="buyconfirm = !buyconfirm"
                 >Tukarkan Poin</v-btn>
