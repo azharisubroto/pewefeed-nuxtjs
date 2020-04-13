@@ -35,37 +35,37 @@
               <InFeedAdsense
                 v-if="this.$route.params.cat == 'viral'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="3272838865">
               </InFeedAdsense>
               <InFeedAdsense
                 v-else-if="this.$route.params.cat == 'lagu'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="2144919011">
               </InFeedAdsense>
               <InFeedAdsense
                 v-else-if="this.$route.params.cat == 'nonton'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="5389550524">
               </InFeedAdsense>
               <InFeedAdsense
                 v-else-if="this.$route.params.cat == 'piknik'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="1538414350">
               </InFeedAdsense>
               <InFeedAdsense
                 v-else-if="this.$route.params.cat == 'tekno'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="5006407143">
               </InFeedAdsense>
               <InFeedAdsense
                 v-else-if="this.$route.params.cat == 'sport'"
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="4731074976">
               </InFeedAdsense>
             </v-col>
@@ -82,37 +82,37 @@
               <NewsLoop v-if="this.$route.params.cat == 'viral'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="3272838865"
               />
               <NewsLoop v-else-if="this.$route.params.cat == 'lagu'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="2144919011"
               />
               <NewsLoop v-else-if="this.$route.params.cat == 'nonton'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="5389550524"
               />
               <NewsLoop v-else-if="this.$route.params.cat == 'piknik'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="1538414350"
               />
               <NewsLoop v-else-if="this.$route.params.cat == 'tekno'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="5006407143"
               />
               <NewsLoop v-else-if="this.$route.params.cat == 'sport'"
                 :items="articleList"
                 ADSlayoutKey="-fb+5w+4e-db+86"
-                ADSclient="ca-pub-2254958995437488"
+                ADSclient="ca-pub-6581994114503986"
                 ADSslot="4731074976"
               />
               <v-row v-if="isMore">

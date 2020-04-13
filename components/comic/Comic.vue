@@ -34,7 +34,7 @@
             <v-col cols="12">
               <InFeedAdsense
                 data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-2254958995437488"
+                data-ad-client="ca-pub-6581994114503986"
                 data-ad-slot="6012011839">
               </InFeedAdsense>
             </v-col>
@@ -72,7 +72,7 @@
                 <ListComic
                   :items="comicList"
                   ADSlayoutKey="-fb+5w+4e-db+86"
-                  ADSclient="ca-pub-2254958995437488"
+                  ADSclient="ca-pub-6581994114503986"
                   ADSslot="6012011839"
                 />
 
