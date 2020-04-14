@@ -9,8 +9,8 @@ export default {
 	getReward() {
 		return AuthApi().get('/member/reward')
 	},
-	postComment(params) {
-		return AuthApi().post('/member/comment', params)
+	postComment(slug, params) {
+		return AuthApi().post('/member/comment/' + slug, params)
 	},
 	answerQuiz(params) {
 		return AuthApi().post('/member/post-quiz', params)
