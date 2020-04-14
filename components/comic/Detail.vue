@@ -520,8 +520,8 @@ export default {
 
       if (this.total_counter < 20) {
         var isUrl = this.urlify(this.comment_message)
-
-        console.log(isUrl)
+        
+        this.commentIsPosting = false
 
         if (isUrl) {
           return alert('Comments tidak boleh mengandung tautan')
