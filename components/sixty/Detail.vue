@@ -54,7 +54,7 @@
                       <h4>Lihat Selengkapnya</h4>
                       <v-row
                       class="topview-item"
-                      @click="$router.push('/'+selengkapnya.link.replace(process.env.baseUrl, ''))">
+                      @click="$router.push('/'+selengkapnya.link.replace(envMobileUrl, ''))">
                         <v-col cols="4">
                           <v-img
                           :src="selengkapnya.image"
@@ -174,78 +174,197 @@
 
             <!-- QUIZ -->
             <template v-if="isQuiz">
-              <div v-if="quiz">
-
+              <div v-if="quizzes!=null">
                 <v-tabs color="deep-orange" v-model="tab">
                   <v-tab href="#jawab">Jawab Quiz</v-tab>
                   <v-tab href="#ketentuan">Ketentuan</v-tab>
+                  <v-tab href="#statistik">Statistik</v-tab>
                 </v-tabs>
 
                 <v-tabs-items v-model="tab">
-                  <v-tab-item
-                    value="jawab"
-                  >
-                    <h4 class="mt-5">{{ quiz.question }}</h4>
-                    <v-radio-group v-model="jawabanQuiz">
-                      <v-row>
-                        <v-col cols="6">
-                          <v-radio
-                          :label="`${quiz.option_a}`"
-                          value="A"
-                        ></v-radio>
-                        </v-col>
-                        <v-col cols="6">
-                          <v-radio
-                          :label="`${quiz.option_b}`"
-                          value="B"
-                        ></v-radio>
-                        </v-col>
-                        <v-col cols="6">
-                          <v-radio
-                          :label="`${quiz.option_c}`"
-                          value="C"
-                        ></v-radio>
-                        </v-col>
-                        <v-col cols="6">
-                          <v-radio
-                          :label="`${quiz.option_d}`"
-                          value="D"
-                        ></v-radio>
-                        </v-col>
-                      </v-row>
-                    </v-radio-group>
+                  <v-tab-item value="jawab">
+                    <div v-if="quizzes!=null && !sudahpernah && !ispoin">
+                      <div v-for="(quiz, i) in quizzes" :key="'quiz-'+i">
+                        <h4 class="mt-5">{{ quiz.question }}</h4>
+                        <v-radio-group v-model="jawabanQuiz[i]">
+                          <v-row>
+                            <v-col cols="6">
+                              <v-radio :label="`${quiz.option_a}`" value="A"></v-radio>
+                            </v-col>
+                            <v-col cols="6">
+                              <v-radio :label="`${quiz.option_b}`" value="B"></v-radio>
+                            </v-col>
+                            <v-col cols="6">
+                              <v-radio :label="`${quiz.option_c}`" value="C"></v-radio>
+                            </v-col>
+                            <v-col cols="6">
+                              <v-radio :label="`${quiz.option_d}`" value="D"></v-radio>
+                            </v-col>
+                          </v-row>
+                        </v-radio-group>
+                      </div>
 
-                    <v-btn
-                      block
-                      large
-                      dark
-                      depressed
-                      color="deep-orange"
-                      @click="submitAnswer()"
-                    >KIRIM JAWABAN</v-btn>
+                      <v-btn
+                        block
+                        large
+                        dark
+                        depressed
+                        color="deep-orange"
+                        :loading="sending"
+                        @click="submitAnswer()"
+                      >KIRIM JAWABAN</v-btn>
+                    </div>
+                    <div v-else-if="!sudahpernah && quizzes == null" class="pa-8 text-center">Loading Quiz</div>
+
+                    <v-container v-if="ispoin">
+                      <v-alert
+                        border="left"
+                        dense
+                        colored-border
+                        color="primary"
+                        style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                      >
+                        <v-row>
+                          <v-col cols="2">
+                            <img width="30" src="/img/poinextra.png" alt />
+                          </v-col>
+                          <v-col cols="10">
+                            <template v-if="total_poin == 0">
+                              <strong class="orange--text text--deep body-1">No Extra Poin</strong>
+                              <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena salah menjawab QUIZ
+                            </template>
+                            <template v-else>
+                              <strong class="orange--text text--deep body-1">{{ total_poin }} Poin</strong>
+                              <br />Selamat! Kamu mendapatkan tambahan POIN karena telah menjawab QUIZ dengan benar
+                            </template>
+                          </v-col>
+                        </v-row>
+                      </v-alert>
+                      <v-btn
+                        @click="$router.push('/member/histori_penggunaan_poin')"
+                        block
+                        dark
+                        color="orange"
+                      >LIHAT TOTAL POIN</v-btn>
+                      <v-btn
+                        class="mt-2"
+                        @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                        block
+                        dark
+                        color="deep-orange"
+                      >TUTUP</v-btn>
+                    </v-container>
+
+                    <v-container v-if="sudahpernah">
+                      <v-alert
+                        border="left"
+                        dense
+                        colored-border
+                        color="primary"
+                        style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                      >
+                        <v-row>
+                          <v-col cols="2">
+                            <img width="30" src="/img/poinextra.png" alt />
+                          </v-col>
+                          <v-col cols="10">
+                            <strong class="orange--text text--deep body-1">No Extra Poin</strong>
+                            <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena telah menjawab QUIZ
+                          </v-col>
+                        </v-row>
+                      </v-alert>
+                      <v-btn
+                        @click="$router.push('/member/histori_penggunaan_poin')"
+                        block
+                        dark
+                        color="orange"
+                      >LIHAT TOTAL POIN</v-btn>
+                      <v-btn
+                        class="mt-2"
+                        @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                        block
+                        dark
+                        color="deep-orange"
+                      >TUTUP</v-btn>
+                    </v-container>
+
+                    <v-container v-if="noLimit">
+                      <v-alert
+                        border="left"
+                        dense
+                        colored-border
+                        color="primary"
+                        style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                      >
+                        <v-row>
+                          <v-col cols="2">
+                            <img width="30" src="/img/poinextra.png" alt />
+                          </v-col>
+                          <v-col cols="10">
+                            <strong class="orange--text text--deep body-1">No Extra Poin - VIP Limit</strong>
+                            <br />Limit Poin harian untuk interaksi VIP sudah mencapai 200 Poin, namun interaksi Comment dan Share masih dapat kamu lakukan.
+                          </v-col>
+                        </v-row>
+                      </v-alert>
+                      <v-btn
+                        @click="$router.push('/member/histori_penggunaan_poin')"
+                        block
+                        dark
+                        color="orange"
+                      >LIHAT TOTAL POIN</v-btn>
+                      <v-btn
+                        class="mt-2"
+                        @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                        block
+                        dark
+                        color="deep-orange"
+                      >TUTUP</v-btn>
+                    </v-container>
                   </v-tab-item>
-                  <v-tab-item
-                    value="ketentuan"
-                  >
-                    <h4 class="mt-5 mb-4">KETENTUAN QUIZ </h4>
+                  <v-tab-item value="ketentuan">
+                    <h4 class="mt-5 mb-4">KETENTUAN QUIZ</h4>
                     <ol class="pb-5 mb-5">
                       <li>Pastikan sudah login</li>
                       <li>Quiz hanya dapat di jawab 1 kali per 1 user</li>
                       <li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
                     </ol>
                   </v-tab-item>
-                </v-tabs-items>
+                  <v-tab-item value="statistik">
+                    <h4 class="mt-5 mb-3">Statistik</h4>
+                    <v-row>
+                      <v-col cols="6">Total Penjawab</v-col>
+                      <v-col
+                        cols="6"
+                        class="text-right"
+                      >{{quizstatistic ? quizstatistic.total_answer : 0}}</v-col>
 
+                      <v-col cols="6">Penjawab Benar</v-col>
+                      <v-col
+                        cols="6"
+                        class="text-right"
+                      >{{quizstatistic ? quizstatistic.total_answer_is_correct : 0}}</v-col>
+
+                      <v-col cols="6">Penjawab Salah</v-col>
+                      <v-col
+                        cols="6"
+                        class="text-right"
+                      >{{quizstatistic ? quizstatistic.total_answer_is_wrong : 0}}</v-col>
+                    </v-row>
+                  </v-tab-item>
+                </v-tabs-items>
               </div>
 
               <div v-else class="mt-5">
-                <div class="text-center">
-                  Quiz Tidak Tersedia
-                </div>
+                <div class="text-center">Quiz Tidak Tersedia</div>
               </div>
 
-              <QuizModal :dialogVisible="dialog" :jawaban="answerResult" :already="already" @close="myDialogClose"/>
-
+              <QuizModal
+                :dialogVisible="dialog"
+                :jawaban="answerResult"
+                :already="already"
+                :nolimit="noLimit"
+                @close="myDialogClose"
+              />
             </template>
         </v-container>
         <br><br><br>
@@ -258,7 +377,7 @@
           grow
           color="white"
           background-color="black"
-		  v-model="active_tab"
+		      v-model="active_tab"
         >
           <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
             <span>Artikel</span>
@@ -301,6 +420,7 @@ export default {
     },
     data() {
         return {
+            envMobileUrl: process.env.mobileUrl,
             domainTitle: process.env.domainTitle,
 			      active_tab: 0,
             tab: null,
@@ -322,7 +442,7 @@ export default {
             quiz: null,
             answered: false,
             quiz_id: null,
-            jawabanQuiz: null,
+            jawabanQuiz: [],
             user_id:null,
             dialog: false,
             answerResult: null,
@@ -354,7 +474,16 @@ export default {
             isMoreComment: true,
             nextComment: 2,
             moreLoadingComment: false,
-            total_counter: 0
+            total_counter: 0,
+            quizzes: null,
+            sudahpernah: false,
+            ispoin: false,
+            noLimit: false,
+            quizstatistic: null,
+            quiz_ids: [],
+            sending: false,
+            total_poin: null,
+            notLogin: null,
         }
     },
     // computed: {
@@ -375,6 +504,22 @@ export default {
             console.log(error)
           }
         },
+        async fetchQuiz() {
+          try {
+            const res = await ArticleService.getQuiz(
+              this.selengkapnya.slug
+            );
+            const data = await res.data.data;
+            // console.log("statistik", data[0].statistic);
+            this.quizstatistic = data[0].statistic;
+            this.quizzes = data;
+            data.forEach(el => {
+              this.quiz_ids.push(el.id);
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        },
         async fetchContent() {
             // console.log(this.$route.params.sixty)
             try {
@@ -383,6 +528,7 @@ export default {
                 this.id = res.data.data.detail.id
                 this.article = res.data.data
                 this.selengkapnya = res.data.data.article
+                this.fetchQuiz()
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
@@ -409,7 +555,7 @@ export default {
                 articles.forEach(element => {
                   if(i == 6) return false
                   var link = element.link
-                      link = link.replace('http://m.playworld.id/', '')
+                      link = link.replace(process.env.mobileUrl, '')
                   var obj = {
                     id: element.id,
                     image: {
@@ -438,7 +584,7 @@ export default {
                 articles.forEach(element => {
                   if(i == 6) return false
                   var link = element.link
-                      link = link.replace('http://m.playworld.id/', '')
+                      link = link.replace(process.env.mobileUrl, '')
                   var obj = {
                     id: element.id,
                     image: {
@@ -550,36 +696,42 @@ export default {
             }
           }
         },
-         async submitAnswer() {
+        async submitAnswer() {
+          this.sending = true
           if (!this.profile) {
-            this.openModalLogin()
+            this.sending = false
+            this.notLogin = true
+            this.loginModalVisible = true
           } else {
-            if( this.profile.vip != false ) {
-              const params = {
-                sixty_id: this.id,
-                jawaban: this.jawabanQuiz,
-                quiz_id: this.quiz_id
-              }
+            this.notLogin = false
+            if (this.profile.vip != false) {
+              var params = {
+                article_id: this.id,
+                quiz_id: this.quiz_ids,
+                jawaban: this.jawabanQuiz
+              };
+
               try {
-                const res = await UserService.answerQuiz(params)
-                console.log(res)
-                this.dialog = true
-                if( res.status == 200 ) {
-                  //alert(res.data.data.message)
-                  if( res.data.data.status == 'benar' ) {
-                    this.answerResult = true
-                  } else if( res.data.data.status == 'salah' ) {
-                    this.answerResult = false
-                  } else {
-                    this.already = true
-                  }
-                  //this.answered = true
-                }
+                const res = await UserService.answerMultiple(params);
+                const data = await res.data;
+                this.total_poin = data.total_point;
+                this.ispoin = true;
+                this.profile = false;
+                this.notLogin = true;
+                // console.log('Hasil', JSON.parse(JSON.stringify(data)))
               } catch (error) {
-                console.log(error)
+                console.log(error);
+                if (error.response.status == 410) {
+                  this.noLimit = true;
+                  this.sudahpernah = false;
+                } else {
+                  this.noLimit = false;
+                  this.sudahpernah = true;
+                }
               }
             } else {
-              this.notVipDialogVisible = true
+              this.sending = false
+              this.notVipDialogVisible = true;
             }
           }
         },
