@@ -551,7 +551,7 @@ export default {
           }
         },
          async submitAnswer() {
-          if (!localStorage.getItem('loggedin')) {
+          if (!this.profile) {
             this.openModalLogin()
           } else {
             if( this.profile.vip != false ) {

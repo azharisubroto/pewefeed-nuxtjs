@@ -432,7 +432,7 @@
           :dialogVisible="dialog"
           :jawaban="answerResult"
           :already="already"
-          :nolimit="nolimit"
+          :nolimit="noLimit"
           @close="myDialogClose"
         />
       </template>
@@ -807,11 +807,13 @@ export default {
       }
     },
     async submitAnswer() {
-      this.sending = true;
+      this.sending = true
       if (!this.profile) {
-        this.notLogin = true;
+        this.sending = false
+        this.notLogin = true
+        this.loginModalVisible = true
       } else {
-        this.notLogin = false;
+        this.notLogin = false
         if (this.profile.vip != false) {
           var params = {
             article_id: this.id,
