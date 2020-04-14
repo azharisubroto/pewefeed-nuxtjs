@@ -15,6 +15,9 @@ export default {
 	answerQuiz(params) {
 		return AuthApi().post('/member/post-quiz', params)
 	},
+	answerMultiple(params) {
+		return AuthApi().post('member/multiple-quiz', params)
+	},
 	/**
 	 * TUKAR POIN
 	 * @param {redeem_id,target_point} params

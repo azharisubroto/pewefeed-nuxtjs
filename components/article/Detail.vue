@@ -180,7 +180,6 @@
 
         <v-tabs-items v-model="tabCom">
           <v-tab-item value="kasihkomen">
-
             <!-- TEXT AREA -->
             <v-textarea
               class="mt-4"
@@ -192,7 +191,19 @@
               auto-grow
               v-model="comment_message"
             ></v-textarea>
-            <div class="counter mb-3" align="end" style="margin-top: -30px !important;">{{ total_counter }}</div>
+            <div
+              class="counter mb-3"
+              align="end"
+              style="margin-top: -30px !important;"
+            >{{ total_counter }}</div>
+
+            <recaptcha
+              :key="recaptchaKey"
+              class="mx-5 my-5"
+              @error="onError()"
+              @success="onSuccess()"
+              @expired="onExpired()"
+            />
 
             <v-btn block dark depressed color="deep-orange" @click="postComment()">
               <template v-if="!commentIsPosting">Kirim Komentar</template>
@@ -242,32 +253,143 @@
 
           <v-tabs-items v-model="tab">
             <v-tab-item value="jawab">
-              <h4 class="mt-5">{{ quiz.question }}</h4>
-              <v-radio-group v-model="jawabanQuiz">
-                <v-row>
-                  <v-col cols="6">
-                    <v-radio :label="`${quiz.option_a}`" value="A"></v-radio>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-radio :label="`${quiz.option_b}`" value="B"></v-radio>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-radio :label="`${quiz.option_c}`" value="C"></v-radio>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-radio :label="`${quiz.option_d}`" value="D"></v-radio>
-                  </v-col>
-                </v-row>
-              </v-radio-group>
+              <div v-if="quizzes!=null && !sudahpernah && !ispoin">
+                <div v-for="(quiz, i) in quizzes" :key="'quiz-'+i">
+                  <h4 class="mt-5">{{ quiz.question }}</h4>
+                  <v-radio-group v-model="jawabanQuiz[i]">
+                    <v-row>
+                      <v-col cols="6">
+                        <v-radio :label="`${quiz.option_a}`" value="A"></v-radio>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-radio :label="`${quiz.option_b}`" value="B"></v-radio>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-radio :label="`${quiz.option_c}`" value="C"></v-radio>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-radio :label="`${quiz.option_d}`" value="D"></v-radio>
+                      </v-col>
+                    </v-row>
+                  </v-radio-group>
+                </div>
 
-              <v-btn
-                block
-                large
-                dark
-                depressed
-                color="deep-orange"
-                @click="submitAnswer()"
-              >KIRIM JAWABAN</v-btn>
+                <v-btn
+                  block
+                  large
+                  dark
+                  depressed
+                  color="deep-orange"
+                  :loading="sending"
+                  @click="submitAnswer()"
+                >KIRIM JAWABAN</v-btn>
+              </div>
+              <div v-else-if="!sudahpernah && quizzes == null" class="pa-8 text-center">Loading Quiz</div>
+
+              <v-container v-if="ispoin">
+                <v-alert
+                  border="left"
+                  dense
+                  colored-border
+                  color="primary"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >
+                  <v-row>
+                    <v-col cols="2">
+                      <img width="30" src="/img/poinextra.png" alt />
+                    </v-col>
+                    <v-col cols="10">
+                      <template v-if="total_poin == 0">
+                        <strong class="orange--text text--deep body-1">No Extra Poin</strong>
+                        <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena salah menjawab QUIZ
+                      </template>
+                      <template v-else>
+                        <strong class="orange--text text--deep body-1">{{ total_poin }} Poin</strong>
+                        <br />Selamat! Kamu mendapatkan tambahan POIN karena telah menjawab QUIZ dengan benar
+                      </template>
+                    </v-col>
+                  </v-row>
+                </v-alert>
+                <v-btn
+                  @click="$router.push('/member/histori_penggunaan_poin')"
+                  block
+                  dark
+                  color="orange"
+                >LIHAT TOTAL POIN</v-btn>
+                <v-btn
+                  class="mt-2"
+                  @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                  block
+                  dark
+                  color="deep-orange"
+                >TUTUP</v-btn>
+              </v-container>
+
+              <v-container v-if="sudahpernah">
+                <v-alert
+                  border="left"
+                  dense
+                  colored-border
+                  color="primary"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >
+                  <v-row>
+                    <v-col cols="2">
+                      <img width="30" src="/img/poinextra.png" alt />
+                    </v-col>
+                    <v-col cols="10">
+                      <strong class="orange--text text--deep body-1">No Extra Poin</strong>
+                      <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena telah menjawab QUIZ
+                    </v-col>
+                  </v-row>
+                </v-alert>
+                <v-btn
+                  @click="$router.push('/member/histori_penggunaan_poin')"
+                  block
+                  dark
+                  color="orange"
+                >LIHAT TOTAL POIN</v-btn>
+                <v-btn
+                  class="mt-2"
+                  @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                  block
+                  dark
+                  color="deep-orange"
+                >TUTUP</v-btn>
+              </v-container>
+
+              <v-container v-if="noLimit">
+                <v-alert
+                  border="left"
+                  dense
+                  colored-border
+                  color="primary"
+                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+                >
+                  <v-row>
+                    <v-col cols="2">
+                      <img width="30" src="/img/poinextra.png" alt />
+                    </v-col>
+                    <v-col cols="10">
+                      <strong class="orange--text text--deep body-1">No Extra Poin - VIP Limit</strong>
+                      <br />Limit Poin harian untuk interaksi VIP sudah mencapai 200 Poin, namun interaksi Comment dan Share masih dapat kamu lakukan.
+                    </v-col>
+                  </v-row>
+                </v-alert>
+                <v-btn
+                  @click="$router.push('/member/histori_penggunaan_poin')"
+                  block
+                  dark
+                  color="orange"
+                >LIHAT TOTAL POIN</v-btn>
+                <v-btn
+                  class="mt-2"
+                  @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
+                  block
+                  dark
+                  color="deep-orange"
+                >TUTUP</v-btn>
+              </v-container>
             </v-tab-item>
             <v-tab-item value="ketentuan">
               <h4 class="mt-5 mb-4">KETENTUAN QUIZ</h4>
@@ -395,15 +517,22 @@ export default {
       commentIsPosting: false,
       comments: [],
       comment_message: null,
-      quiz: null,
+      quizzes: null,
+      quizstatistic: null,
+      jawabanQuiz: [],
+      quiz_ids: [],
+      quizs: "",
+      sudahpernah: false,
+      sending: false,
       quizstatistic: null,
       answered: false,
+      ispoin: false,
       quiz_id: null,
-      jawabanQuiz: null,
       dialog: false,
       answerResult: null,
       already: false,
       nolimit: false,
+      noLimit: false,
       user_id: null,
       pleaseLoginDialogVisible: false,
       loginModalVisible: false,
@@ -438,7 +567,11 @@ export default {
       isMoreComment: true,
       nextComment: 2,
       moreLoadingComment: false,
-      total_counter: 0
+      total_counter: 0,
+      total_poin: null,
+      notLogin: null,
+      recaptchaToken: null,
+      recaptchaKey: 1
     };
   },
   // computed: {
@@ -473,6 +606,10 @@ export default {
         const data = await res.data.data;
         // console.log("statistik", data[0].statistic);
         this.quizstatistic = data[0].statistic;
+        this.quizzes = data;
+        data.forEach(el => {
+          this.quiz_ids.push(el.id);
+        });
       } catch (error) {
         console.log(error);
       }
@@ -546,20 +683,28 @@ export default {
     },
     async fetchComment() {
       try {
-        const res = await ArticleService.getComments('news', this.$route.params.articleslug, 1)
+        const res = await ArticleService.getComments(
+          "news",
+          this.$route.params.articleslug,
+          1
+        );
         // console.log(res)
-        this.comments = res.data.data.comments
-        this.totalComment = res.data.pagination.total
+        this.comments = res.data.data.comments;
+        this.totalComment = res.data.pagination.total;
       } catch (error) {
-          console.log(error)
+        console.log(error);
       }
     },
     async loadMoreComment(n) {
       this.moreLoadingComment = true;
       try {
-        const res = await ArticleService.getComments('news', this.$route.params.articleslug, n)
+        const res = await ArticleService.getComments(
+          "news",
+          this.$route.params.articleslug,
+          n
+        );
 
-        var dataComments = res.data.data.comments
+        var dataComments = res.data.data.comments;
 
         dataComments.forEach(element => {
           this.comments.push(element);
@@ -568,7 +713,7 @@ export default {
         this.nextComment += 1;
 
         this.moreLoadingComment = false;
-        
+
         if (res.data.pagination.current_page == res.data.pagination.last_page) {
           this.isMoreComment = false;
         }
@@ -580,38 +725,65 @@ export default {
     urlify(text) {
       var urlRegex = /(https?:\/\/[^\s]+)/g;
       if (text) {
-        var isUrl = text.replace(urlRegex)
+        var isUrl = text.replace(urlRegex);
 
         if (isUrl != text) {
-          return true
+          return true;
         }
 
-        return false
+        return false;
       }
 
-      return false
+      return false;
+    },
+    /* Recaptcha */
+    onError(error) {
+      console.log("Error happened:", error);
+      this.recaptchaToken = null;
+    },
+    onSuccess(token) {
+      this.recaptchaToken = "success";
+    },
+    onExpired() {
+      console.log("Expired");
+      this.recaptchaToken = null;
+    },
+
+    /* Validasi Form Rating */
+    validate() {
+      if (this.$refs.form.validate()) {
+        if (this.recaptchaToken != null) {
+          this.postComment();
+        } else {
+          this.snackbar = true;
+          this.responsemessage = "Mohon Centang Recaptha";
+        }
+      }
     },
     async postComment() {
       this.commentIsPosting = true;
       const params = {
         msg: this.comment_message,
-        type: 'news'
-      }
+        type: "news"
+      };
 
       if (this.total_counter < 20) {
-        var isUrl = this.urlify(this.comment_message)
+        var isUrl = this.urlify(this.comment_message);
 
-        this.commentIsPosting = false
+        this.commentIsPosting = false;
 
         if (isUrl) {
-          return alert('Comments tidak boleh mengandung tautan')
+          return alert("Comments tidak boleh mengandung tautan");
         }
 
-        return alert('Comments harus mengandung minimal 20 kata')
+        return alert("Comments harus mengandung minimal 20 kata");
       }
 
       try {
-        const res = await UserService.postComment(this.$route.params.articleslug, params);
+        const res = await UserService.postComment(
+          this.$route.params.articleslug,
+          params
+        );
         // console.log(res.data.poin);
         this.fetchComment();
         this.commentIsPosting = false;
@@ -623,7 +795,7 @@ export default {
         //console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response && error.response.status == 422) {
-          alert(error.response.data.message)
+          alert(error.response.data.message);
         } else if (error.response && error.response.status == 500) {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
@@ -635,34 +807,35 @@ export default {
       }
     },
     async submitAnswer() {
-      if (!localStorage.getItem("loggedin")) {
-        this.openModalLogin();
+      this.sending = true;
+      if (!this.profile) {
+        this.notLogin = true;
       } else {
+        this.notLogin = false;
         if (this.profile.vip != false) {
-          const params = {
-            jawaban: this.jawabanQuiz,
-            quiz_id: this.quiz_id
+          var params = {
+            article_id: this.id,
+            quiz_id: this.quiz_ids,
+            jawaban: this.jawabanQuiz
           };
+
           try {
-            const res = await UserService.answerQuiz(params);
-            // console.log(res);
-            this.dialog = true;
-            if (res.status == 200) {
-              //alert(res.data.data.message)
-              if (res.data.data.status == "benar") {
-                this.answerResult = true;
-              } else if (res.data.data.status == "salah") {
-                this.answerResult = false;
-              } else {
-                this.already = true;
-              }
-              //this.answered = true
-            }
+            const res = await UserService.answerMultiple(params);
+            const data = await res.data;
+            this.total_poin = data.total_point;
+            this.ispoin = true;
+            this.profile = false;
+            this.notLogin = true;
+            // console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
-            if (error.response.status == 422) {
-              this.nolimit = true
-            }
             console.log(error);
+            if (error.response.status == 410) {
+              this.noLimit = true;
+              this.sudahpernah = false;
+            } else {
+              this.noLimit = false;
+              this.sudahpernah = true;
+            }
           }
         } else {
           this.notVipDialogVisible = true;
@@ -683,17 +856,19 @@ export default {
     }
   },
   watch: {
-    comment_message: function (value) {
-
+    comment_message: function(value) {
       if (value) {
         if (value.length == 0) {
-          return this.total_counter = 0
+          return (this.total_counter = 0);
         }
 
         var regex = /\s+/gi;
-        var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+        var wordCount = value
+          .trim()
+          .replace(regex, " ")
+          .split(" ").length;
 
-        return this.total_counter = wordCount
+        return (this.total_counter = wordCount);
       }
     }
   },
