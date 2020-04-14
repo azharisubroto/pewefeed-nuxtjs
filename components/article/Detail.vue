@@ -180,6 +180,7 @@
 
         <v-tabs-items v-model="tabCom">
           <v-tab-item value="kasihkomen">
+            <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel PEWEFEED.COM</p>
             <!-- TEXT AREA -->
             <v-textarea
               class="mt-4"
@@ -196,7 +197,7 @@
               align="end"
               style="margin-top: -30px !important;"
             >{{ total_counter }}</div>
-
+            <div class="d-block"></div>
             <recaptcha
               :key="recaptchaKey"
               class="mx-5 my-5"
