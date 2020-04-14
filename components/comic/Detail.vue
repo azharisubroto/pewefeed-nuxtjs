@@ -152,7 +152,6 @@
 
         <v-tabs-items v-model="tabCom">
           <v-tab-item value="kasihkomen">
-            <h4 class="mb-4 mt-5">{{total_comment}} Comments</h4>
 
             <!-- TEXT AREA -->
             <v-textarea
@@ -160,19 +159,32 @@
               color="deep-orange"
               label="Komentar"
               value
-              counter
               rows="3"
               auto-grow
               v-model="comment_message"
             ></v-textarea>
+            <div class="counter mb-3" align="end" style="margin-top: -30px !important;">{{ total_counter }}</div>
 
             <v-btn block dark depressed class="mb-4" color="deep-orange" @click="postComment()">
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
 
+            <h4 class="mb-4 mt-5">{{ totalComment }} Comments</h4>
+
             <!-- KOMEN LIST -->
             <CommentList :items="comments" />
+            <v-btn
+              v-if="isMoreComment && comments.length > 0"
+              :loading="moreLoadingComment"
+              class="mt-5"
+              block
+              depressed
+              small
+              dark
+              color="deep-orange"
+              @click="loadMoreComment(nextComment)"
+            >Load More</v-btn>
             <div class="mb-5"></div>
           </v-tab-item>
 
@@ -180,10 +192,9 @@
             <h4 class="mt-5 mb-3">KETENTUAN KOMENTAR</h4>
             <ol class="mb-5 pb-5">
               <li>Pastikan sudah login</li>
-              <li>Tulis komentar dengan minimal terdiri dari 50 kata</li>
+              <li>Tulis komentar dengan minimal terdiri dari 20 kata</li>
               <li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
               <li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
-              <li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
             </ol>
           </v-tab-item>
         </v-tabs-items>
@@ -365,7 +376,12 @@ export default {
         process.env.mobileUrl + "komik/" +
         this.$route.params.category +
         "/" +
-        this.$route.params.detail
+        this.$route.params.detail,
+      totalComment: 0,
+      isMoreComment: true,
+      nextComment: 2,
+      moreLoadingComment: false,
+      total_counter: 0
     };
   },
   // computed: {
@@ -386,7 +402,7 @@ export default {
         const res = await ComicService.getImages(this.$route.params.detail);
         this.images = res.data.data;
         this.dataImage = this.images.image;
-        console.log(this.images);
+        // console.log(this.images);
       } catch (error) {
         console.log(error);
       }
@@ -447,26 +463,72 @@ export default {
     },
     async fetchComment() {
       try {
-        let res = await ComicService.getComment(this.$route.params.detail);
-        console.log(res);
-        this.comments = res.data.data;
-        this.total_comment = res.data.total_comment;
+        const res = await ArticleService.getComments('comic', this.$route.params.detail, 1)
+        // console.log(res)
+        this.comments = res.data.data.comments
+        this.totalComment = res.data.pagination.total
+      } catch (error) {
+          console.log(error)
+      }
+    },
+    async loadMoreComment(n) {
+      this.moreLoadingComment = true;
+      try {
+        const res = await ArticleService.getComments('comic', this.$route.params.detail, n)
+
+        var dataComments = res.data.data.comments
+
+        dataComments.forEach(element => {
+          this.comments.push(element);
+        });
+
+        this.nextComment += 1;
+
+        this.moreLoadingComment = false;
+        
+        if (res.data.pagination.current_page == res.data.pagination.last_page) {
+          this.isMoreComment = false;
+        }
       } catch (error) {
         console.log(error);
+        this.moreLoadingComment = false;
       }
+    },
+    urlify(text) {
+      var urlRegex = /(https?:\/\/[^\s]+)/g;
+      if (text) {
+        return text.replace(urlRegex, function(url) {
+          if (url) {
+            return true
+          }
+
+          return false
+        })
+      }
+
+      return false
     },
 
     /* Submit Comment */
     async postComment() {
       this.commentIsPosting = true;
       const params = {
-        id: this.id,
         msg: this.comment_message,
         type: "comic"
       };
 
+      if (this.total_counter < 20) {
+        var isUrl = this.urlify(this.comment_message)
+
+        if (isUrl) {
+          return alert('Comments tidak boleh mengandung tautan')
+        }
+
+        return alert('Comments harus mengandung minimal 20 kata')
+      }
+
       try {
-        const res = await UserService.postComment(params);
+        const res = await UserService.postComment(this.$route.params.detail, params);
         // console.log(res.data)
         this.fetchComment();
         if (res.data.poin > 0) {
@@ -478,7 +540,7 @@ export default {
         // console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response.status == 422) {
-          alert("Mohon tulis komentar minimal 50 karakter");
+          alert(error.response.data.message)
         } else if (error.response.status == 500) {
           alert("an error occured");
         } else if (error.response.status == 401) {
@@ -503,7 +565,7 @@ export default {
         const res = await ComicService.makeRating(sendform);
         this.notloading();
         this.recaptchaToken = null;
-        console.log(res);
+        // console.log(res);
         vm.snackbar = true;
         vm.responsemessage = "Sukses memberikan rating";
         this.$nextTick(function() {
@@ -539,10 +601,10 @@ export default {
     checkVip() {
       if (!localStorage.getItem("loggedin")) {
         this.loginModalVisible = true;
-        console.log("not login");
+        // console.log("not login");
       } else {
         this.buyVipDialogVisible = true;
-        console.log("not vip");
+        // console.log("not vip");
       }
     },
 
@@ -550,14 +612,14 @@ export default {
     makeRating() {
       if (!localStorage.getItem("loggedin")) {
         this.loginModalVisible = true;
-        console.log("not login");
+        // console.log("not login");
       } else {
         if (this.isVip) {
           this.ratingModal = true;
         } else {
           this.buyVipDialogVisible = true;
         }
-        console.log("not vip");
+        // console.log("not vip");
       }
     },
 
@@ -571,14 +633,14 @@ export default {
 
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      // console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      console.log("Expired");
+      // console.log("Expired");
       this.recaptchaToken = null;
     },
 

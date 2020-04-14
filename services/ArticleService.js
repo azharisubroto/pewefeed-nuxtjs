@@ -68,5 +68,8 @@ export default {
 	},
 	searchHighlightMore(keywords, page) {
 		return Api().get('/article/highlight/' + keywords + '?page=' + page)
+	},
+	getComments(type, slug, page) {
+		return Api().get('/comment/' + type + '/' + slug + '?page=' + page)
 	}
 }
