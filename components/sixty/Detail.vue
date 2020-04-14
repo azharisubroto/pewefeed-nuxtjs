@@ -122,6 +122,7 @@
 
                     <!-- TEXT AREA -->
                     <v-textarea
+                      class="mt-4"
                       outlined
                       color="deep-orange"
                       label="Komentar"
@@ -497,13 +498,13 @@ export default {
         urlify(text) {
           var urlRegex = /(https?:\/\/[^\s]+)/g;
           if (text) {
-            return text.replace(urlRegex, function(url) {
-              if (url) {
-                return true
-              }
+            var isUrl = text.replace(urlRegex)
 
-              return false
-            })
+            if (isUrl != text) {
+              return true
+            }
+
+            return false
           }
 
           return false

@@ -155,6 +155,7 @@
 
             <!-- TEXT AREA -->
             <v-textarea
+              class="mt-4"
               outlined
               color="deep-orange"
               label="Komentar"
@@ -497,13 +498,13 @@ export default {
     urlify(text) {
       var urlRegex = /(https?:\/\/[^\s]+)/g;
       if (text) {
-        return text.replace(urlRegex, function(url) {
-          if (url) {
-            return true
-          }
+        var isUrl = text.replace(urlRegex)
 
-          return false
-        })
+        if (isUrl != text) {
+          return true
+        }
+
+        return false
       }
 
       return false
@@ -519,6 +520,8 @@ export default {
 
       if (this.total_counter < 20) {
         var isUrl = this.urlify(this.comment_message)
+
+        console.log(isUrl)
 
         if (isUrl) {
           return alert('Comments tidak boleh mengandung tautan')
@@ -653,6 +656,21 @@ export default {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";
         }
+      }
+    }
+  },
+  watch: {
+    comment_message: function (value) {
+
+      if (value) {
+        if (value.length == 0) {
+          return this.total_counter = 0
+        }
+
+        var regex = /\s+/gi;
+        var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+
+        return this.total_counter = wordCount
       }
     }
   },

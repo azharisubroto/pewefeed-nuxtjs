@@ -183,6 +183,7 @@
 
             <!-- TEXT AREA -->
             <v-textarea
+              class="mt-4"
               outlined
               color="deep-orange"
               label="Komentar"
@@ -579,13 +580,13 @@ export default {
     urlify(text) {
       var urlRegex = /(https?:\/\/[^\s]+)/g;
       if (text) {
-        return text.replace(urlRegex, function(url) {
-          if (url) {
-            return true
-          }
+        var isUrl = text.replace(urlRegex)
 
-          return false
-        })
+        if (isUrl != text) {
+          return true
+        }
+
+        return false
       }
 
       return false
@@ -677,6 +678,21 @@ export default {
       this.notVipDialogVisible = false;
       this.KomentarPoinVisible = false;
       // other code
+    }
+  },
+  watch: {
+    comment_message: function (value) {
+
+      if (value) {
+        if (value.length == 0) {
+          return this.total_counter = 0
+        }
+
+        var regex = /\s+/gi;
+        var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+
+        return this.total_counter = wordCount
+      }
     }
   },
   mounted() {
