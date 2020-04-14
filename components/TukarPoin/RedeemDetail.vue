@@ -378,7 +378,7 @@ export default {
           alert("Poin Anda Tidak Cukup");
         } else if (error.response.status == 422) {
           this.tukarmsg =
-            "Maaf, Reward ini hanya bisa ditukar dengan POIN satu kali per hari.";
+            "Maaf, Reward ini hanya dapat ditukar dengan POIN satu kali per hari.";
           this.snackbar = true;
         } else {
           alert("An Error Ocured");

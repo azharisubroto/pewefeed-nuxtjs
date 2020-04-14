@@ -578,7 +578,7 @@ export default {
         console.log(err);
         this.notloading();
         vm.snackbar = true;
-        vm.responsemessage = "Maaf, Kamu hanya bisa memberi RATING satu kali.";
+        vm.responsemessage = "Maaf, Kamu hanya dapat memberi RATING satu kali.";
       }
     },
 

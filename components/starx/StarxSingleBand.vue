@@ -48,7 +48,7 @@
 						type="info"
 						style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 						>
-						Star hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload peserta
+						Star hanya dapat dikirimkan 1 kali per hari pada masing-masing konten yang diupload peserta
 						</v-alert>
 
 						<v-row align="center" class="sm" v-if="band" @click="$router.push('/starx/band/detail/'+band.slug)">

@@ -49,7 +49,7 @@
 					type="info"
                     style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
 					>
-					STAR hanya bisa dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
+					STAR hanya dapat dikirimkan 1 kali per hari pada masing-masing konten yang diupload oleh peserta
 					</v-alert>
 
 					<v-row v-if="band" align="center" class="sm">
