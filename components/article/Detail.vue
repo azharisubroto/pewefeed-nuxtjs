@@ -273,7 +273,7 @@
               <h4 class="mt-5 mb-4">KETENTUAN QUIZ</h4>
               <ol class="pb-5 mb-5">
                 <li>Pastikan sudah login</li>
-                <li>Tulis hanya dapat di jawab 1 kali per 1 user</li>
+                <li>Quiz hanya dapat di jawab 1 kali per 1 user</li>
                 <li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
               </ol>
             </v-tab-item>

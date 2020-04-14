@@ -338,10 +338,9 @@
 								<h4 class="mt-5 mb-3">KETENTUAN KOMENTAR </h4>
 								<ol class="mb-5 pb-5">
 									<li>Pastikan sudah login</li>
-									<li>Tulis komentar dengan minimal terdiri dari 50 kata</li>
+									<li>Tulis komentar dengan minimal terdiri dari 20 kata</li>
 									<li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
 									<li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
-									<li>Hanya user dengan keanggotaan VIP yang bisa memberikan komentar.</li>
 								</ol>
 							</v-tab-item>
 						</v-tabs-items>
