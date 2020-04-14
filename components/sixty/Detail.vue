@@ -54,7 +54,7 @@
                       <h4>Lihat Selengkapnya</h4>
                       <v-row
                       class="topview-item"
-                      @click="$router.push('/'+selengkapnya.link.replace(envMobileUrl, ''))">
+                      @click="$router.push('/'+selengkapnya.link.replace(envUrl, ''))">
                         <v-col cols="4">
                           <v-img
                           :src="selengkapnya.image"
@@ -420,7 +420,7 @@ export default {
     },
     data() {
         return {
-            envMobileUrl: process.env.mobileUrl,
+            envUrl: process.env.baseUrl,
             domainTitle: process.env.domainTitle,
 			      active_tab: 0,
             tab: null,
@@ -507,7 +507,7 @@ export default {
         async fetchQuiz() {
           try {
             const res = await ArticleService.getQuiz(
-              this.selengkapnya.slug
+              this.$route.params.sixty
             );
             const data = await res.data.data;
             // console.log("statistik", data[0].statistic);
@@ -528,7 +528,6 @@ export default {
                 this.id = res.data.data.detail.id
                 this.article = res.data.data
                 this.selengkapnya = res.data.data.article
-                this.fetchQuiz()
                 this.title = res.data.data.article.title
                 this.writer = res.data.data.article.writer
                 this.items[2].href = res.data.data.article.title
@@ -555,13 +554,15 @@ export default {
                 articles.forEach(element => {
                   if(i == 6) return false
                   var link = element.link
-                      link = link.replace(process.env.mobileUrl, '')
+                      link = link.replace('http://m.playworld.id', '')
+
+                      // console.log(element)
                   var obj = {
                     id: element.id,
                     image: {
                       small: element.image
                     },
-                    link: '/'+link,
+                    link: '/sixty/'+element.slug,
                     title: element.title,
                     type: element.type,
                     published_at: element.publish_at
@@ -584,13 +585,13 @@ export default {
                 articles.forEach(element => {
                   if(i == 6) return false
                   var link = element.link
-                      link = link.replace(process.env.mobileUrl, '')
+                      link = link.replace('http://m.playworld.id', '')
                   var obj = {
                     id: element.id,
                     image: {
                       small: element.image
                     },
-                    link: '/'+link,
+                    link: '/sixty/'+element.slug,
                     title: element.title,
                     type: element.type,
                     published_at: element.publish_at
@@ -769,6 +770,7 @@ export default {
         this.fetchContent()
         this.fetchComment()
         this.fetchUserdata()
+        this.fetchQuiz()
         //this.fetchLatest()
     }
 }
