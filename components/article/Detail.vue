@@ -840,6 +840,7 @@ export default {
             }
           }
         } else {
+          this.sending = false
           this.notVipDialogVisible = true;
         }
       }
