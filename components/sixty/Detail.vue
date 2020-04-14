@@ -608,6 +608,8 @@ export default {
           var wordCount = value.trim().replace(regex, ' ').split(' ').length;
 
           return this.total_counter = wordCount
+        } else {
+          return (this.total_counter = 0)
         }
       }
     },
