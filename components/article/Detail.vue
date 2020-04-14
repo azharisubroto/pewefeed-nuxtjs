@@ -869,6 +869,8 @@ export default {
           .split(" ").length;
 
         return (this.total_counter = wordCount);
+      } else {
+        return (this.total_counter = 0)
       }
     }
   },
