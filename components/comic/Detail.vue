@@ -704,7 +704,7 @@ export default {
                 padding: 10px
                 font-size: 14px
                 border-bottom: 1px solid #e5e5e5
-                &:last-of-type
+                &
                     border: 0
                 a
                     display: block
