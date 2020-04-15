@@ -228,7 +228,6 @@
               class="mt-5"
               block
               depressed
-              small
               dark
               color="deep-orange"
               @click="loadMoreComment(nextComment)"
@@ -699,6 +698,11 @@ export default {
         // console.log(res)
         this.comments = res.data.data.comments;
         this.totalComment = res.data.pagination.total;
+
+        if (res.data.pagination.current_page == res.data.pagination.last_page) {
+          this.isMoreComment = false;
+        }
+
       } catch (error) {
         console.log(error);
       }
