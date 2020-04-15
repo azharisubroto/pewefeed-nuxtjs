@@ -187,7 +187,9 @@
               type="info"
               class="mt-4"
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-            >Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel PEWEFEED.COM</v-alert>
+            >
+              Dapatkan <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
+            </v-alert>
             <!-- TEXT AREA -->
             <v-textarea
               class="mt-4"
