@@ -685,6 +685,7 @@ export default {
             this.KomentarPoinVisible = true
             this.commentIsPosting = false;
             this.comment_message = null;
+            this.recaptchaToken = null;
           } catch (error) {
             // console.log(error.response.status)
             this.commentIsPosting = false;

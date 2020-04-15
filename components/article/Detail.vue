@@ -800,6 +800,7 @@ export default {
         this.fetchComment();
         this.commentIsPosting = false;
         this.comment_message = null;
+        this.recaptchaToken = null;
         if (res.data.poin > 0) {
           this.KomentarPoinVisible = true;
         }
