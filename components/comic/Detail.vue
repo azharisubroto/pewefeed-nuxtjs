@@ -166,7 +166,7 @@
             ></v-textarea>
             <div class="counter mb-3" align="end" style="margin-top: -30px !important;">{{ total_counter }}</div>
 
-            <v-btn block dark depressed class="mb-4" color="deep-orange" @click="postComment()">
+            <v-btn :disabled="recaptchaToken == null" :style="recaptchaToken == null ? 'background-color: grey !important' : ''" block dark depressed class="mb-4" color="deep-orange" @click="postComment()">
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
