@@ -34,7 +34,7 @@
                                 <v-row align="center" no-gutters>
                                     <v-col cols="9">
                                         <socialSharing
-                                            :url="sharingUrl"
+                                            :url="sharingTitle + ' ' + sharingUrl"
                                             :title="sharingTitle"
                                             :description="sharingDescription"
                                             :twitter-user="twitterEnv"
@@ -144,11 +144,12 @@ export default {
         },
         copyToClipBoard() {
             const copy = require('clipboard-copy')
-            copy(this.sharingUrl)
+            copy(this.sharingCopy)
             this.snackbar = true
 		},
 		refetchMeta(){
 			this.sharingUrl = window.location.href
+			this.sharingCopy = window.location.href
 			let data = this.$store.state.item
 			if( data ) {
 				this.sharingTitle = (data && data.article) ? data.article.title : 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld'
