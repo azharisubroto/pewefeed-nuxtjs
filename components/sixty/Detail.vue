@@ -34,7 +34,7 @@
                     <v-icon small size="12">
                       mdi-message-text-outline
                     </v-icon>
-                    {{article.detail.total_comment ? article.detail.total_comment : 0}}
+                    {{article.detail.total_comments ? article.detail.total_comments : 0}}
                   </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                   </v-col>
               </v-row>
 
-              <div class="devider-big mb-5"></div>
+              <div class="makefull devider-big mb-5" style="margin: 0 -10px"></div>
 
               <!-- TERBARU -->
               <div class="text-center mb-3">
@@ -486,7 +486,7 @@ export default {
             this.nextComment += 1;
 
             this.moreLoadingComment = false;
-            
+
             if (res.data.pagination.current_page == res.data.pagination.last_page) {
               this.isMoreComment = false;
             }

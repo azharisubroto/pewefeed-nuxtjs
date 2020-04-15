@@ -1101,4 +1101,17 @@ body {
     z-index: 11;
   }
 }
+.makefull {
+	position: relative;
+	&:before {
+		content: "";
+		width: calc(100% + 25px);
+		height: 100%;
+		position: absolute;
+		left: -15px;
+		right: -15px;
+		top: 0;
+		background: #d1d1d1;
+	}
+}
 </style>
