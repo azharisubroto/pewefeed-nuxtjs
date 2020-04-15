@@ -8,7 +8,7 @@
     >
       <v-row>
         <v-col cols="2">
-          <v-avatar size="30">
+          <v-avatar size="50">
             <img
               :src="comment.customer.avatar ? comment.customer.avatar : '/img/user.jpeg'"
               onerror="this.src='/img/user.jpeg';"

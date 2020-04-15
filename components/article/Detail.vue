@@ -99,7 +99,7 @@
             </div>
           </v-col>
         </v-row>
-        <div class="devider-big mb-5"></div>
+        <div class="makefull devider-big mb-5"></div>
         <!-- TERBARU -->
         <section class="py-4 mb-5 pb-5">
           <!-- TERBARU -->
@@ -180,7 +180,14 @@
 
         <v-tabs-items v-model="tabCom">
           <v-tab-item value="kasihkomen">
-            <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel PEWEFEED.COM</p>
+            <v-alert
+              border="left"
+              dense
+              colored-border
+              type="info"
+              class="mt-4"
+              style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+            >Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel PEWEFEED.COM</v-alert>
             <!-- TEXT AREA -->
             <v-textarea
               class="mt-4"
@@ -946,4 +953,9 @@ export default {
     }
   }
 }
+.container {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
 </style>
