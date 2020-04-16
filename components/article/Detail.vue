@@ -415,19 +415,19 @@
                 <v-col
                   cols="6"
                   class="text-right"
-                >{{quizstatistic ? quizstatistic.total_answer : 0}}</v-col>
+                >{{quizstatistic ? quizstatistic.answered : 0}}</v-col>
 
                 <v-col cols="6">Penjawab Benar</v-col>
                 <v-col
                   cols="6"
                   class="text-right"
-                >{{quizstatistic ? quizstatistic.total_answer_is_correct : 0}}</v-col>
+                >{{quizstatistic ? quizstatistic.correct : 0}}</v-col>
 
                 <v-col cols="6">Penjawab Salah</v-col>
                 <v-col
                   cols="6"
                   class="text-right"
-                >{{quizstatistic ? quizstatistic.total_answer_is_wrong : 0}}</v-col>
+                >{{quizstatistic ? quizstatistic.wrong : 0}}</v-col>
               </v-row>
             </v-tab-item>
           </v-tabs-items>
@@ -614,10 +614,13 @@ export default {
         );
         const data = await res.data.data;
         // console.log("statistik", data[0].statistic);
-        this.quizstatistic = data[0].statistic;
+        this.quizstatistic = res.data.statistic;
         this.quizzes = data;
         data.forEach(el => {
           this.quiz_ids.push(el.id);
+          if (el.answered) {
+            this.sudahpernah = true
+          }
         });
       } catch (error) {
         console.log(error);
@@ -843,9 +846,11 @@ export default {
             this.ispoin = true;
             this.profile = false;
             this.notLogin = true;
+            this.sending = false
             // console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
             console.log(error);
+            this.sending = false
             if (error.response.status == 410) {
               this.noLimit = true;
               this.sudahpernah = false;
