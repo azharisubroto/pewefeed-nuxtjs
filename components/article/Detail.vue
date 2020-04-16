@@ -343,12 +343,15 @@
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
                 >
                   <v-row>
-                    <v-col cols="2">
+                    <!-- <v-col cols="2">
                       <img width="30" src="/img/poinextra.png" alt />
                     </v-col>
                     <v-col cols="10">
                       <strong class="orange--text text--deep body-1">No Extra Poin</strong>
                       <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena telah menjawab QUIZ
+                    </v-col> -->
+                    <v-col cols="12">
+                      Kamu sudah menjawab QUIZ ini
                     </v-col>
                   </v-row>
                 </v-alert>
