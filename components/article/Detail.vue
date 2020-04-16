@@ -358,13 +358,13 @@
                   dark
                   color="orange"
                 >LIHAT TOTAL POIN</v-btn>
-                <v-btn
+                <!-- <v-btn
                   class="mt-2"
                   @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
                   block
                   dark
                   color="deep-orange"
-                >TUTUP</v-btn>
+                >TUTUP</v-btn> -->
               </v-container>
 
               <v-container v-if="noLimit">
