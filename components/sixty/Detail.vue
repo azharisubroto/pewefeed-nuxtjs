@@ -521,6 +521,7 @@ export default {
             // console.log("statistik", data[0].statistic);
             this.quizstatistic = res.data.statistic;
             this.quizzes = data;
+            this.checkAnswered()
             data.forEach(el => {
               this.quiz_ids.push(el.id);
               if (el.answered) {
@@ -529,6 +530,17 @@ export default {
             });
           } catch (error) {
             console.log(error);
+          }
+        },
+        async checkAnswered() {
+          try {
+            const res =  await UserService.checkAnsweredQuiz('sixty', this.$route.params.sixty)
+            const data = res.data.data
+            if (data.answered) {
+              this.sudahpernah = true
+            }
+          } catch (error) {
+            console.log(error)
           }
         },
         async fetchContent() {

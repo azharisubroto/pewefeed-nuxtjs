@@ -18,6 +18,9 @@ export default {
 	answerMultiple(params) {
 		return AuthApi().post('member/multiple-quiz', params)
 	},
+	checkAnsweredQuiz(type, slug) {
+		return AuthApi().get('/member/check-answered-multiple-quiz/' + type + '/' + slug)
+	},
 	/**
 	 * TUKAR POIN
 	 * @param {redeem_id,target_point} params
