@@ -854,6 +854,12 @@ body {
   --NONTON: #000;
   --TEKNO: #8d8988;
 }
+body, html {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .v-application .white.main-app-bar {
   border-bottom: 1px solid #d1d1d1 !important;
 }
