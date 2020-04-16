@@ -64,6 +64,7 @@
 
       <!-- CONTENT -->
       <v-content class="maincontent">
+        <a style="line-height:1;display:block;margin-bottom:-4px" href="https://pewefeed.com/viral/trending/dapatkan-pulsa-setiap-hari-untuk-3-komentar-terbaik-di-instagram-atpewefeed"><img src="/img/promo-banner.png" alt="promo banner"/></a>
         <nuxt />
         <div
           v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
@@ -1113,5 +1114,8 @@ body {
 		top: 0;
 		background: #d1d1d1;
 	}
+}
+img {
+  max-width: 100%;
 }
 </style>
