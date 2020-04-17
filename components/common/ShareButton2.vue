@@ -24,7 +24,7 @@
               <v-col v-else cols="8">
                 <strong class="subtitle-1">{{ sharingTitle }}</strong>
                 <br />
-                <strong class="caption grey--text">PlayworldID</strong>
+                <strong class="caption grey--text">{{ domainTitle }}</strong>
               </v-col>
               <v-col v-if="sharingImage" cols="4">
                 <img width="100%" :src="sharingImage" alt />
@@ -130,6 +130,7 @@ export default {
     SharePoin
   },
   data: () => ({
+    domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
     sheet: false,
     timeout: 2000,
