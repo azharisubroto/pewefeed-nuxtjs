@@ -39,12 +39,12 @@ export default {
         {hid: 'og:description', name: 'og:description', content: this.item.title},
         {hid: 'og:image', name: 'og:image', content: this.item.article.image.medium},
         {hid: 'og:locale', name: 'og:locale', content: 'id_ID'},
-        {hid: 'og:site_name', name: 'og:site_name', content: 'Playworld'},
+        {hid: 'og:site_name', name: 'og:site_name', content: process.env.domainTitle},
 
         // Twitter
         {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
-        {hid: 'twitter:creator', name: 'twitter:creator', content: '@playworld'},
-        {hid: 'twitter:site', name: 'twitter:site', content: '@playworld'},
+        {hid: 'twitter:creator', name: 'twitter:creator', content: '@' + process.env.twitter},
+        {hid: 'twitter:site', name: 'twitter:site', content: '@' + process.env.twitter},
         {hid: 'twitter:title', name: 'twitter:title', content: this.item.article.title},
         {hid: 'twitter:description', name: 'twitter:description', content: this.item.article.title},
         {hid: 'twitter:image', name: 'twitter:image', content: this.item.article.image.medium},

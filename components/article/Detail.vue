@@ -243,7 +243,7 @@
               <li>Pastikan sudah login</li>
               <li>Tulis komentar dengan minimal terdiri dari 20 kata</li>
               <li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
-              <li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
+              <li>Seluruh komentar dimoderasi oleh tim {{ domainTitle }} dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
             </ol>
           </v-tab-item>
         </v-tabs-items>

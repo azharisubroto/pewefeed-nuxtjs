@@ -1,6 +1,6 @@
 # pw-nuxt
 
-> Playworld with nuxt
+> Pewefeed with nuxt
 
 ## Build Setup
 

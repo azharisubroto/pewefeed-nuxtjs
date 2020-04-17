@@ -33,8 +33,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - Playworld',
-    title: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld',
+    titleTemplate: '%s - ' + 'PEWEFEED.COM',
+    title: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - PEWEFEED.COM',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
