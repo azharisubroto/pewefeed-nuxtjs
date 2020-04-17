@@ -4,7 +4,7 @@
       :class="['topview-item', custclass ? custclass : '']"
       @click="$router.push(article.link)"
     >
-      <v-col cols="12" v-if="(i%5 == 0) && (i != 0)">
+      <v-col cols="12">
         <!-- ADSENSE -->
         <InFeedAdsense
           :data-ad-layout-key="ADSlayoutKey"
