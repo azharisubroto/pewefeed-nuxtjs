@@ -66,16 +66,6 @@
               v-if="i < 6"
             />
           </template>
-          <v-row>
-            <v-col cols="12">
-              <!-- ADSENSE -->
-              <InFeedAdsense
-                data-ad-layout-key="-fb+5w+4e-db+86"
-                data-ad-client="ca-pub-6581994114503986"
-                data-ad-slot="2653891769"
-              ></InFeedAdsense>
-            </v-col>
-          </v-row>
 
           <!-- TOP VIEWS -->
           <client-only>
@@ -115,7 +105,7 @@
               ADSslot="2653891769"
               v-if="i > 6"
             />
-            <v-row v-if="(i%5 == 0) && (i != 0)" :key="'asdasd-'+i">
+            <v-row v-if="(i%5 == 0) && (i != 0) && (i > 7)" :key="'asdasd-'+i">
               <v-col cols="12">
                 <!-- ADSENSE -->
                 <InFeedAdsense
