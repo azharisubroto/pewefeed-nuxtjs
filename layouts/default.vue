@@ -10,7 +10,7 @@
 
         <div class="flex-grow-1"></div>
 
-        <ShareButton2 />
+        <ShareButton2 class="mr-4" />
 
         <v-btn icon @click="searchDialog = true">
           <v-icon>mdi-magnify</v-icon>
