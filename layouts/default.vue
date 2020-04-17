@@ -64,7 +64,12 @@
 
       <!-- CONTENT -->
       <v-content class="maincontent">
-        <a style="line-height:1;display:block;margin-bottom:-4px" href="https://pewefeed.com/viral/trending/dapatkan-pulsa-setiap-hari-untuk-3-komentar-terbaik-di-instagram-atpewefeed"><img src="/img/promo-banner.png" alt="promo banner"/></a>
+        <a
+          style="line-height:1;display:block;margin-bottom:-4px"
+          href="https://pewefeed.com/viral/trending/dapatkan-pulsa-setiap-hari-untuk-3-komentar-terbaik-di-instagram-atpewefeed"
+        >
+          <img src="/img/promo-banner.png" alt="promo banner" />
+        </a>
         <nuxt />
         <div
           v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
@@ -367,11 +372,7 @@
                 >
                   <img src="/img/002-instagram.png" width="40" alt />
                 </a>
-                <a
-                  target="blank"
-                  style="text-decoration: none;"
-                  :href="youtubeUrl"
-                >
+                <a target="blank" style="text-decoration: none;" :href="youtubeUrl">
                   <img src="/img/004-youtube.png" width="40" alt />
                 </a>
               </v-container>
@@ -678,7 +679,7 @@ export default {
           phone: "6281717173029",
           isPhone: true,
           subtitle: "(24 Hour)"
-        },
+        }
       ],
       contactsmail: [
         {
@@ -854,7 +855,8 @@ body {
   --NONTON: #000;
   --TEKNO: #8d8988;
 }
-body, html {
+body,
+html {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1109,17 +1111,17 @@ body, html {
   }
 }
 .makefull {
-	position: relative;
-	&:before {
-		content: "";
-		width: calc(100% + 25px);
-		height: 100%;
-		position: absolute;
-		left: -15px;
-		right: -15px;
-		top: 0;
-		background: #d1d1d1;
-	}
+  position: relative;
+  &:before {
+    content: "";
+    width: calc(100% + 25px);
+    height: 100%;
+    position: absolute;
+    left: -15px;
+    right: -15px;
+    top: 0;
+    background: #d1d1d1;
+  }
 }
 img {
   max-width: 100%;
