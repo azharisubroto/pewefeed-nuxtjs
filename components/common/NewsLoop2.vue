@@ -4,14 +4,6 @@
       :class="['topview-item', custclass ? custclass : '']"
       @click="$router.push(article.link)"
     >
-      <v-col cols="12">
-        <!-- ADSENSE -->
-        <InFeedAdsense
-          :data-ad-layout-key="ADSlayoutKey"
-          :data-ad-client="ADSclient"
-          :data-ad-slot="ADSslot"
-        ></InFeedAdsense>
-      </v-col>
       <v-col cols="4">
         <v-img :src="article.image.small" aspect-ratio="1" class="grey lighten-2">
           <v-icon

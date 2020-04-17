@@ -66,6 +66,16 @@
               v-if="i < 6"
             />
           </template>
+          <v-row>
+            <v-col cols="12">
+              <!-- ADSENSE -->
+              <InFeedAdsense
+                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-client="ca-pub-6581994114503986"
+                data-ad-slot="2653891769"
+              ></InFeedAdsense>
+            </v-col>
+          </v-row>
 
           <!-- TOP VIEWS -->
           <client-only>
@@ -105,6 +115,16 @@
               ADSslot="2653891769"
               v-if="i > 6"
             />
+            <v-row v-if="(i%5 == 0) && (i != 0)" :key="'asdasd-'+i">
+              <v-col cols="12">
+                <!-- ADSENSE -->
+                <InFeedAdsense
+                  data-ad-layout-key="-fb+5w+4e-db+86"
+                  data-ad-client="ca-pub-6581994114503986"
+                  data-ad-slot="2653891769"
+                ></InFeedAdsense>
+              </v-col>
+            </v-row>
           </template>
           <v-row v-if="isMore">
             <v-col cols="12">
@@ -182,7 +202,8 @@ export default {
       },
       dataUrl: process.env.mobileUrl,
       dataTitle:
-        "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld",
+        "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - " +
+        process.env.domainTitle,
       // dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
       dataDescription: "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!"
     };
