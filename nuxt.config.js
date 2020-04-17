@@ -41,6 +41,7 @@ export default {
       { name: 'theme-color', content: '#FF9800' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-status-bar-style', content: '#FF9800' },
+      { name: 'google-site-verification', content: 'GBGSbmO6dIV5P18M0oBdihBDH26dvWzYrvOulDlWVzw' },
       { hid: 'description', name: 'description', content: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!' }
     ],
     link: [
