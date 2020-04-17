@@ -68,18 +68,31 @@
           </template>
 
           <!-- TOP VIEWS -->
-
-          <template v-for="(article, i) in specials">
-            <NewsLoop2
-              :key="'article-top-'+i"
-              :article="article"
-              custclass="fakta"
-              ADSlayoutKey="-fb+5w+4e-db+86"
-              ADSclient="ca-pub-6581994114503986"
-              ADSslot="2653891769"
-              v-if="i < 6"
-            />
-          </template>
+          <client-only>
+            <v-row class="specuavg">
+              <div class="thebg" :style="'background-image:url('+ activebg +')'"></div>
+              <v-col cols="12">
+                <flickity
+                  class="pb-5 special"
+                  v-if="specials.length > 0"
+                  ref="flickity2"
+                  :options="flickityOptions"
+                >
+                  <div style="width:100%" v-for="(article, i) in specials" :key="article.id">
+                    <input type="hidden" :id="'bg-'+i" :value="article.image.small" />
+                    <a :href="link(article)">
+                      <v-img :src="article.image.small" :aspect-ratio="16/9" class="grey lighten-2"></v-img>
+                    </a>
+                    <div class="pt-3 dark" @click="$router.push(link(article))">
+                      <strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong>
+                      <h2 class="mt-1 text-18">{{ article.title }}</h2>
+                    </div>
+                  </div>
+                </flickity>
+                <div class="pa-5 text-center dark" v-else>Loading...</div>
+              </v-col>
+            </v-row>
+          </client-only>
 
           <!-- END TOP VIEWS -->
 
@@ -145,6 +158,7 @@ export default {
       articles: [],
       topviews: [],
       specials: [],
+      activebg: null,
       next: 2,
       isMore: true,
       toppoinbanner:
@@ -163,7 +177,8 @@ export default {
         groupCells: 1,
         prevNextButtons: false,
         pageDots: true,
-        wrapAround: true
+        wrapAround: true,
+        adaptiveHeight: true
       },
       dataUrl: process.env.mobileUrl,
       dataTitle:
@@ -306,6 +321,73 @@ export default {
     this.fetchPromotedNews();
     this.fetchTopViews();
     this.fetchSpecial();
+
+    let vm = this;
+    setTimeout(() => {
+      vm.activebg = document.getElementById("bg-0").value;
+      vm.$refs.flickity2.on("change", event => {
+        //console.log(vm.$refs.flickity2.selectedIndex());
+        let index = vm.$refs.flickity2.selectedIndex();
+        vm.activebg = document.getElementById("bg-" + index).value;
+        console.log(vm.activebg);
+      });
+    }, 2000);
   }
 };
 </script>
+
+<style lang="scss">
+.flickity-viewport {
+  transition: height 0.2s;
+}
+.special {
+  .flickity-page-dots {
+    bottom: -10px !important;
+  }
+}
+.dark {
+  color: #fff;
+}
+.specuavg {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  .thebg {
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: -1;
+    background-color: #000;
+    transform: skewY(-5deg);
+    overflow: hidden;
+    background-size: cover !important;
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      background: #000;
+      //backdrop-filter: blur(10px);
+      background-image: inherit;
+      background-size: cover !important;
+      filter: blur(20px);
+      transform: scale(1.2);
+    }
+    &:after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+</style>
