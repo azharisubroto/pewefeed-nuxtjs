@@ -3,7 +3,7 @@
     <v-bottom-sheet v-model="sheet">
       <template v-slot:activator="{ on }">
         <v-btn v-on="on" icon>
-          <v-icon class="mr-1">mdi-share-variant</v-icon>+1
+          <v-icon class="mr-1">mdi-share-variant</v-icon>+1 POIN
         </v-btn>
       </template>
       <v-sheet height="100%" color="transparent">
