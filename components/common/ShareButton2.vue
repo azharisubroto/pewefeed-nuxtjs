@@ -166,8 +166,8 @@ export default {
 			if( vm.isSaved ) return false;
 			let data = {
 				provider: network,
-				url: url
-			}
+				url: btoa(vm.sharingUrl)
+            }
 			vm.saveShare(data);
 		})
 	},
