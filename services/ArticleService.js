@@ -23,6 +23,9 @@ export default {
 	getTopViews(n) {
 		return Api().get('/article/top-views/?page=' + n)
 	},
+	getSpecials() {
+		return Api().get('/article/top-views-category')
+	},
 	getSixty(section, i) {
 		var increment = i ? i : 1
 		return Api().get('/sixty/' + section + '?page=' + increment)
