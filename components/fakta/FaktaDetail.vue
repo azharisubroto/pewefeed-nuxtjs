@@ -173,7 +173,7 @@
                 <li>Pastikan sudah login</li>
                 <li>Tulis komentar dengan minimal terdiri dari 20 kata</li>
                 <li>Poin hanya diberikan 1 kali untuk 1 User per 1 Artikel</li>
-                <li>Seluruh komentar dimoderasi oleh tim Playworld ID dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
+                <li>Seluruh komentar dimoderasi oleh tim {{ domainTitle }} dan bisa dihapus dan akan mengurangi total POIN jika komentar mengandung konten SARA, atau tidak sesuai dengan artikel yang dibaca</li>
               </ol>
             </v-tab-item>
           </v-tabs-items>
@@ -344,7 +344,8 @@ export default {
   },
   data() {
     return {
-		active_tab: 0,
+      domainTitle: process.env.domainTitle,
+		  active_tab: 0,
       lazy: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
       logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
       formdata : {
