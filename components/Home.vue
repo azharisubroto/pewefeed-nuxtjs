@@ -42,11 +42,7 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="12">
-          <InFeedAdsense
-            data-ad-layout-key="-fb+5w+4e-db+86"
-            data-ad-client="ca-pub-6581994114503986"
-            data-ad-slot="2653891769"
-          ></InFeedAdsense>
+          <RedeemCard />
         </v-col>
       </v-row>
     </v-container>
@@ -152,6 +148,7 @@ import TopViews from "@/components/article/TopViews";
 import NewsLoop from "@/components/common/NewsLoop";
 import NewsLoop2 from "@/components/common/NewsLoop2";
 import ShareButton from "@/components/common/ShareButton";
+import RedeemCard from "@/components/common/RedeemCard";
 export default {
   name: "HomePage",
   props: ["items"],
@@ -159,6 +156,7 @@ export default {
     TopViews,
     NewsLoop,
     NewsLoop2,
+    RedeemCard,
     ShareButton
   },
   data() {

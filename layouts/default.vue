@@ -796,7 +796,7 @@ export default {
       try {
         const res = await ArticleService.getBantuan();
         const data = res.data.data;
-        console.log(JSON.parse(JSON.stringify(data)));
+        // console.log(JSON.parse(JSON.stringify(data)));
         this.bantuanMenu = data;
         //this.loading = false
       } catch (error) {
@@ -807,7 +807,7 @@ export default {
       try {
         const res = await MenuService.getHighlight();
         const data = res.data.data;
-        console.log("Highlights", JSON.parse(JSON.stringify(data)));
+        // console.log("Highlights", JSON.parse(JSON.stringify(data)));
         this.highlights = data;
       } catch (error) {
         console.log(error);
