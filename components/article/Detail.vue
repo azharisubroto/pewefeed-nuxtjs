@@ -47,6 +47,9 @@
             </div>
 
             <!-- CONTENT -->
+            <div id="redeem-between">
+              <RedeemCard />
+            </div>
             <div v-html="article.content"></div>
 
             <div class="devider-small my-4"></div>
@@ -188,7 +191,8 @@
               class="mt-4"
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
             >
-              Dapatkan <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
+              Dapatkan
+              <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
             </v-alert>
             <!-- TEXT AREA -->
             <v-textarea
@@ -215,7 +219,15 @@
               @expired="onExpired()"
             />
 
-            <v-btn :disabled="recaptchaToken == null" :style="recaptchaToken == null ? 'background-color: grey !important' : ''" block dark depressed color="deep-orange" @click="postComment()">
+            <v-btn
+              :disabled="recaptchaToken == null"
+              :style="recaptchaToken == null ? 'background-color: grey !important' : ''"
+              block
+              dark
+              depressed
+              color="deep-orange"
+              @click="postComment()"
+            >
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
@@ -493,6 +505,7 @@ import KomentarPoin from "@/components/modal/KomentarPoin";
 import CommentList from "@/components/common/CommentList";
 import ShareButton from "@/components/common/ShareButton";
 import NotVip from "@/components/modal/NotVip";
+import RedeemCard from "@/components/common/RedeemCard";
 
 export default {
   components: {
@@ -502,7 +515,8 @@ export default {
     NotVip,
     KomentarPoin,
     ShareButton,
-    LoginModal
+    LoginModal,
+    RedeemCard
   },
   props: ["respon"],
   data() {
@@ -595,6 +609,7 @@ export default {
       //console.log(this.$route.params.articleslug)
       this.id = this.respon.article.id;
       this.article = this.respon.article;
+      this.moveRedeemBeforeRelated();
       this.title = this.respon.article.title;
       this.writer = this.respon.article.writer;
       this.items[2].href = this.respon.article.title;
@@ -704,7 +719,6 @@ export default {
         if (res.data.pagination.current_page == res.data.pagination.last_page) {
           this.isMoreComment = false;
         }
-
       } catch (error) {
         console.log(error);
       }
@@ -822,13 +836,13 @@ export default {
       }
     },
     async submitAnswer() {
-      this.sending = true
+      this.sending = true;
       if (!this.profile) {
-        this.sending = false
-        this.notLogin = true
-        this.loginModalVisible = true
+        this.sending = false;
+        this.notLogin = true;
+        this.loginModalVisible = true;
       } else {
-        this.notLogin = false
+        this.notLogin = false;
         if (this.profile.vip != false) {
           var params = {
             article_id: this.id,
@@ -855,7 +869,7 @@ export default {
             }
           }
         } else {
-          this.sending = false
+          this.sending = false;
           this.notVipDialogVisible = true;
         }
       }
@@ -871,6 +885,23 @@ export default {
       this.notVipDialogVisible = false;
       this.KomentarPoinVisible = false;
       // other code
+    },
+    moveRedeemBeforeRelated() {
+      //alert("move");
+      //   const redeembetween = document.getElementById("redeem-between");
+      //   const newsrelated = document.getElementsByClassName("news-related");
+      //while (redeembetween.length > 0) {
+      //newsrelated.appendChild(redeembetween.childNodes[0]);
+      //redeembetween.before(newsrelated);
+      //}
+      setTimeout(() => {
+        var newParent = document.getElementById("redeem-between");
+        var oldParent = document.getElementsByClassName("news-related")[0];
+
+        //while (oldParent.childNodes.length > 0) {
+        oldParent.prepend(newParent);
+        //}
+      }, 1000);
     }
   },
   watch: {
@@ -888,7 +919,7 @@ export default {
 
         return (this.total_counter = wordCount);
       } else {
-        return (this.total_counter = 0)
+        return (this.total_counter = 0);
       }
     }
   },
@@ -898,6 +929,9 @@ export default {
     this.fetchQuiz();
     this.fetchComment();
     //this.fetchLatest()
+  },
+  updated() {
+    this.moveRedeemBeforeRelated();
   }
 };
 </script>
@@ -961,8 +995,11 @@ export default {
   }
 }
 .container {
-	max-width: 100%;
-	overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
 }
-
+.article-thumb {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
 </style>

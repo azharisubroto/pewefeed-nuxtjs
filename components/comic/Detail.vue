@@ -498,7 +498,7 @@ export default {
         this.nextComment += 1;
 
         this.moreLoadingComment = false;
-        
+
         if (res.data.pagination.current_page == res.data.pagination.last_page) {
           this.isMoreComment = false;
         }
@@ -532,7 +532,7 @@ export default {
 
       if (this.total_counter < 20) {
         var isUrl = this.urlify(this.comment_message)
-        
+
         this.commentIsPosting = false
 
         if (isUrl) {
@@ -699,7 +699,12 @@ export default {
   }
 };
 </script>
-
+<style lang="scss">
+	.article-thumb {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+</style>
 <style lang="sass">
     .news-related
         ul
