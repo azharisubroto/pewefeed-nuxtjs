@@ -67,9 +67,9 @@
           <client-only>
             <v-row class="specuavg" justify="center">
               <div class="thebg" :style="'background-image:url('+ activebg +')'"></div>
-              <v-col cols="10">
+              <v-col cols="12" class="px-0">
                 <flickity
-                  class="pb-5 special"
+                  class="pb-3 special"
                   v-if="specials.length > 0"
                   ref="flickity2"
                   :options="flickityOptions2"
@@ -77,11 +77,11 @@
                   <div style="width:100%" v-for="(article, i) in specials" :key="article.id">
                     <input type="hidden" :id="'bg-'+i" :value="article.image.small" />
                     <a :href="link(article)">
-                      <v-img :src="article.image.small" height="200" position="center center" class="grey lighten-2"></v-img>
+                      <v-img :src="article.image.small" height="230" position="center top" class="grey lighten-2"></v-img>
                     </a>
-                    <div class="pt-3 dark" @click="$router.push(link(article))">
+                    <div class="pt-3 dark px-5" @click="$router.push(link(article))">
                       <strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong>
-                      <h2 class="mt-1 text-18">{{ article.title }}</h2>
+                      <h2 class="mt-1 mb-0 text-18">{{ article.title }}</h2>
                     </div>
                   </div>
                 </flickity>
@@ -193,7 +193,7 @@ export default {
         prevNextButtons: false,
         pageDots: true,
         wrapAround: false,
-        adaptiveHeight: false
+        adaptiveHeight: true
       },
       dataUrl: process.env.mobileUrl,
       dataTitle:
@@ -347,7 +347,7 @@ export default {
         vm.activebg = document.getElementById("bg-" + index).value;
         console.log(vm.activebg);
       });
-    }, 2000);
+    }, 3000);
   }
 };
 </script>
@@ -369,8 +369,8 @@ export default {
   z-index: 1;
   margin-top: 30px;
   margin-bottom: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   .thebg {
     content: "";
     width: 100%;
