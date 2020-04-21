@@ -67,17 +67,17 @@
           <client-only>
             <v-row class="specuavg" justify="center">
               <div class="thebg" :style="'background-image:url('+ activebg +')'"></div>
-              <v-col cols="9">
+              <v-col cols="10">
                 <flickity
                   class="pb-5 special"
                   v-if="specials.length > 0"
                   ref="flickity2"
-                  :options="flickityOptions"
+                  :options="flickityOptions2"
                 >
                   <div style="width:100%" v-for="(article, i) in specials" :key="article.id">
                     <input type="hidden" :id="'bg-'+i" :value="article.image.small" />
                     <a :href="link(article)">
-                      <v-img :src="article.image.small" position="center center" :aspect-ratio="16/9" class="grey lighten-2"></v-img>
+                      <v-img :src="article.image.small" height="200" position="center center" class="grey lighten-2"></v-img>
                     </a>
                     <div class="pt-3 dark" @click="$router.push(link(article))">
                       <strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong>
@@ -187,6 +187,13 @@ export default {
         pageDots: true,
         wrapAround: true,
         adaptiveHeight: true
+      },
+      flickityOptions2: {
+        groupCells: 1,
+        prevNextButtons: false,
+        pageDots: true,
+        wrapAround: false,
+        adaptiveHeight: false
       },
       dataUrl: process.env.mobileUrl,
       dataTitle:
