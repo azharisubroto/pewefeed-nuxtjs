@@ -48,7 +48,7 @@
 
             <!-- CONTENT -->
             <div id="redeem-between">
-              <RedeemCard />
+              <RedeemCard class="mb-5"/>
             </div>
             <div v-html="article.content"></div>
 
