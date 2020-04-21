@@ -191,6 +191,9 @@ export default {
       }
 
       let vm = this;
+      var bcrypt = require('bcryptjs');
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(window.location.href, salt);
       this.$root.$on("social_shares_close", function(network, url) {
         if (vm.isSaved) return false;
         let data = {
@@ -203,9 +206,6 @@ export default {
     }
   },
   mounted() {
-    var bcrypt = require('bcryptjs');
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(window.location.href, salt);
     let vm = this;
     this.refetchMeta();
   },
