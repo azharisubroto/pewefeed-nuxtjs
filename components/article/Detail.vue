@@ -993,6 +993,16 @@ export default {
       font-size: 20px !important;
     }
   }
+  p {
+	  img {
+		  margin-left: -15px;
+		  margin-right: -15px;
+		  max-width: 100%;
+		  max-width: calc(100% + 30px)!important;
+		  width: auto!important;
+		  height: auto!important;
+	  }
+  }
 }
 .container {
   max-width: 100%;
