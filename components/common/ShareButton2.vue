@@ -194,7 +194,7 @@ export default {
   mounted() {
     var bcrypt = require('bcryptjs');
     var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(this.sharingUrl, salt);
+    var hash = bcrypt.hashSync(window.location.href, salt);
     let vm = this;
     this.refetchMeta();
 
@@ -203,7 +203,7 @@ export default {
       let data = {
         provider: network,
         key: hash,
-        url: vm.sharingUrl
+        url: window.location.href
       };
       vm.saveShare(data);
     });
