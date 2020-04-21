@@ -36,7 +36,7 @@
                 <v-row align="center" no-gutters>
                   <v-col cols="9">
                     <socialSharing
-                      :url="sharingTitle + ' ' + sharingUrl"
+                      :url="sharingUrl"
                       :title="sharingTitle"
                       :description="sharingDescription"
                       :twitter-user="twitterEnv"
