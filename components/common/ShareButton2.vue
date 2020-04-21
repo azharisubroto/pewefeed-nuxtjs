@@ -189,6 +189,17 @@ export default {
             ? data.article.short_title
             : "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!";
       }
+
+      let vm = this;
+      this.$root.$on("social_shares_close", function(network, url) {
+        if (vm.isSaved) return false;
+        let data = {
+          provider: network,
+          key: hash,
+          url: window.location.href
+        };
+        vm.saveShare(data);
+      });
     }
   },
   mounted() {
@@ -197,16 +208,6 @@ export default {
     var hash = bcrypt.hashSync(window.location.href, salt);
     let vm = this;
     this.refetchMeta();
-
-    this.$root.$on("social_shares_close", function(network, url) {
-      if (vm.isSaved) return false;
-      let data = {
-        provider: network,
-        key: hash,
-        url: window.location.href
-      };
-      vm.saveShare(data);
-    });
   },
   updated() {
     this.refetchMeta();
