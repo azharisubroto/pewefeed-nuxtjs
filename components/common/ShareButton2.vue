@@ -149,21 +149,15 @@ export default {
       this.SharePoinVisible = false;
     },
     async saveShare(data) {
-      if (this.isSaved == true) return false;
       try {
         const res = await UserService.share(data);
         // console.log(res)
         if (res.data.point == 1) {
           console.log("dapat poin");
           this.SharePoinVisible = true;
-        } else {
-          console.log("tidak dapat poin");
-          this.SharePoinVisible = false;
         }
-        this.isSaved = true;
       } catch (error) {
         console.log(error);
-        this.SharePoinVisible = false;
       }
     },
     copyToClipBoard() {
@@ -193,13 +187,13 @@ export default {
       let vm = this;
       var bcrypt = require('bcryptjs');
       var salt = bcrypt.genSaltSync(10);
-      var hash = bcrypt.hashSync(window.location.href, salt);
+      var hash = bcrypt.hashSync(vm.sharingUrl, salt);
       this.$root.$on("social_shares_close", function(network, url) {
         if (vm.isSaved) return false;
         let data = {
           provider: network,
           key: hash,
-          url: window.location.href
+          url: vm.sharingUrl
         };
         vm.saveShare(data);
       });
