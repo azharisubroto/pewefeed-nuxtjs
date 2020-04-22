@@ -46,7 +46,7 @@
           </div>
         </v-col>
         <v-col>
-          <strong class="text-dark">Star</strong>
+          <strong class="text-dark">Revisit</strong>
           <div class="text-20">
             <strong>{{ userdata ? userdata.point_star : '0' }}</strong>
           </div>
