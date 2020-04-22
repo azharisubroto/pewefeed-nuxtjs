@@ -490,6 +490,10 @@
         </v-dialog>
       </div>
     </div>
+
+    <!-- === DAILY POINT MODAL === -->
+    <DrawerWelcome :dialogVisible="dailyPointModalVisible" @close="myDialogClose" />
+
     <v-snackbar v-model="snackbar" :timeout="timeout" top>
       {{ responsemessage }}
       <v-btn color="primary" text icon @click="snackbar = false">
@@ -514,6 +518,7 @@ import ArticleService from "../services/ArticleService";
 import MenuService from "../services/MenuService";
 import ShareButton2 from "@/components/common/ShareButton2";
 import BuyVip from "@/components/modal/BuyVip";
+import DrawerWelcome from "@/components/common/DrawerWelcome";
 
 export default {
   name: "App",
@@ -522,7 +527,8 @@ export default {
     NewsLoop,
     NewLogin,
     ShareButton2,
-    BuyVip
+    BuyVip,
+    DrawerWelcome
   },
   data() {
     return {
@@ -703,7 +709,8 @@ export default {
       },
       singularDetail: null,
       dialog: false,
-      buyVipDialogVisible: false
+      buyVipDialogVisible: false,
+      dailyPointModalVisible: false,
     };
   },
   computed: {
@@ -722,7 +729,7 @@ export default {
           this.$emit("close");
         }
       }
-    }
+    },
   },
   methods: {
     logout() {
@@ -751,6 +758,11 @@ export default {
           const res = await UserService.getSingleUser();
           this.userdata = res.data.data;
           this.mypoint = res.data.point_total;
+
+          if (res.data.daily_point) {
+            this.dailyPointModalVisible = true
+          }
+          console.log(res.data)
         } catch (err) {
           this.isLoggedIn = false;
           localStorage.removeItem("loggedin");
@@ -815,6 +827,7 @@ export default {
     },
     myDialogClose() {
       this.buyVipDialogVisible = false;
+      this.dailyPointModalVisible = false;
       // other code
     },
     buyVip() {

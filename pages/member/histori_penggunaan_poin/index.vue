@@ -1,12 +1,16 @@
 <template>
   <section>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
+
     <v-container v-if="userdata" class="highlight">
       <v-row>
         <v-col>
           <div class="text-center">
             <div class="text-dark">Total Poin</div>
             <div class="text-40">
-              <strong>{{ userdata ? Number(userdata.point_total).toLocaleString() : '0' }}</strong>
+              <strong>{{ userdata.point_total ? numberWithCommas(userdata.point_total) : '0' }}</strong>
             </div>
           </div>
         </v-col>
@@ -65,6 +69,11 @@
           <div>
             <a v-if="item.link" :href="item.link">{{item.description}}</a>
             <span v-else>{{item.description}}</span>
+          </div>
+          <div v-if="item.daily_point" class="mt-2">
+            <v-btn v-if="item.daily_point == 'claim'" @click="claim()" small color="success">KLAIM</v-btn>
+            <v-btn v-if="item.daily_point == 'success'" small disabled color="success">SUCCESS</v-btn>
+            <v-btn v-if="item.daily_point == 'expired'" small disabled color="success">EXPIRED</v-btn>
           </div>
         </v-col>
         <v-col class="text-20 text-right" cols="3">
@@ -143,6 +152,7 @@ export default {
       page:1,
       last_page: 1,
       available: false,
+      overlay: false,
     }
   },
   methods: {
@@ -177,7 +187,8 @@ export default {
             type: el.type,
             description: el.description,
             point: el.point,
-            link: path
+            link: path,
+            daily_point: el.daily_point,
           }
           arrays.push(obj)
         });
@@ -192,7 +203,7 @@ export default {
           behavior: 'smooth'
         });
 
-        console.log(JSON.parse(JSON.stringify(res)))
+        // console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
         console.log('error')
         this.fethMutasi(1,'all')
@@ -227,6 +238,24 @@ export default {
         return number;
         return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
     },
+    numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    async claim() {
+      this.overlay = true
+      try {
+        const res = await UserService.claimDailyPoint()
+        this.overlay = false
+        if (res.status == 201) {
+          this.fetchUserdata()
+          this.fethMutasi()
+          this.$router.push('/member/histori_penggunaan_poin')
+        }
+      } catch (error) {
+        this.overlay = false
+        console.log(error)
+      }
+    }
   },
   mounted() {
     this.fetchUserdata()

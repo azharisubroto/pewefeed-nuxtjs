@@ -110,5 +110,9 @@ export default {
 
 	share(data) {
 		return AuthApi().post('/member/share-social', data)
+	},
+
+	claimDailyPoint(data = null) {
+		return AuthApi().post('/member/daily-point', data)
 	}
 }
