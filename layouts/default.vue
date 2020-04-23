@@ -760,9 +760,11 @@ export default {
           this.mypoint = res.data.point_total;
 
           if (res.data.daily_point) {
-            this.dailyPointModalVisible = true
+            if (window.location.pathname != '/member/histori_penggunaan_poin') {
+              this.dailyPointModalVisible = true
+            }
           }
-          console.log(res.data)
+          // console.log(res.data)
         } catch (err) {
           this.isLoggedIn = false;
           localStorage.removeItem("loggedin");

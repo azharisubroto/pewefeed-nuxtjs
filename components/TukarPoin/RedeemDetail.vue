@@ -312,7 +312,7 @@ export default {
         );
         this.detail = res.data.data;
         this.title = res.data.data.title;
-        console.log(JSON.parse(JSON.stringify(res.data.data)));
+        // console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
         console.log(error);
       }
@@ -347,7 +347,7 @@ export default {
 
         this.historyNext += 1;
         this.moreLoading = false;
-        console.log(JSON.parse(JSON.stringify(res.data.data)));
+        // console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
         console.log(error);
       }
@@ -359,10 +359,10 @@ export default {
       };
       this.overlay = true;
       this.pending = true;
-      console.log(params);
+      // console.log(params);
       try {
         const res = await UserService.tukarPoin(params);
-        console.log(res);
+        // console.log(res);
         this.overlay = false;
         this.tukarmsg = "Tukar POIN telah berhasil dilakukan";
         this.snackbar = true;

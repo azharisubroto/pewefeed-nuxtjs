@@ -33,7 +33,7 @@
                 color="deep-orange"
                 class="font-weight-bold"
                 text
-                @click="claim()"
+                @click="$router.push('/member/histori_penggunaan_poin'); closeIt()"
                 >
                 Klaim Poin Sekarang
                 </v-btn>

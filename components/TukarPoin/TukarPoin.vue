@@ -193,7 +193,7 @@ export default {
       };
       try {
         const res = await TukarPoinService.getRedeemItems(n);
-        console.log(JSON.parse(JSON.stringify(res)));
+        // console.log(JSON.parse(JSON.stringify(res)));
         this.redeems = res.data.data;
         this.totalpage = res.data.pagination.last_page;
       } catch (error) {
