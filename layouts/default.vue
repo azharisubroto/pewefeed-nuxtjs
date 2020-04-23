@@ -854,6 +854,11 @@ export default {
     } else {
       console.log("mobile version");
     }
+  },
+  watch: {
+    $route(to, from) {
+      this.fetchUser();
+    }
   }
 };
 </script>
