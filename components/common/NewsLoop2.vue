@@ -1,8 +1,8 @@
 <template>
   <div>
+	  <a :href="article.link">
     <v-row
       :class="['topview-item', custclass ? custclass : '']"
-      @click="$router.push(article.link)"
     >
       <v-col cols="4">
         <v-img :src="article.image.small" aspect-ratio="1" class="grey lighten-2">
@@ -35,6 +35,7 @@
         </div>
       </v-col>
     </v-row>
+	</a>
   </div>
 </template>
 
