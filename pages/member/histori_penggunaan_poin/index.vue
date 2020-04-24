@@ -67,7 +67,7 @@
             <strong>{{item.type}}</strong>
           </div>
           <div>
-            <a v-if="item.link" :href="item.link">{{item.description}}</a>
+            <a class="blue--text" v-if="item.link" @click="$router.push(item.link)">{{item.description}}</a>
             <span v-else>{{item.description}}</span>
           </div>
           <div v-if="item.daily_point" class="mt-2">
@@ -177,10 +177,11 @@ export default {
         const res = await UserService.mutasiPoin(n, fil)
         const items = res.data.data
         this.last_page = res.data.paginations.last_page
+        // console.log(items)
         var arrays = []
         items.forEach(el => {
           var link = el.link
-          var path = link.replace(process.env.baseUrl, '')
+          var path = link.replace(process.env.baseUrl, '/')
           var obj = {
             status: el.status,
             created_at: el.created_at,
