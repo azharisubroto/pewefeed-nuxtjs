@@ -50,7 +50,10 @@
             <div id="redeem-between">
               <RedeemCard class="mb-5"/>
             </div>
-            <div v-html="article.content"></div>
+            <div class="article-readmore" :class="[ hidden == true ? '' : 'expanded' ]">
+				<div v-html="article.content"></div>
+				<v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
+			</div>
 
             <div class="devider-small my-4"></div>
 
@@ -103,6 +106,7 @@
           </v-col>
         </v-row>
         <div class="makefull devider-big mb-5"></div>
+
         <!-- TERBARU -->
         <section class="py-4 mb-5 pb-5">
           <!-- TERBARU -->
@@ -529,6 +533,7 @@ export default {
       id: "",
       title: "",
       article: "",
+	  hidden: true,
       writer: "",
       team_content: "",
       next: 2,
@@ -1008,7 +1013,43 @@ export default {
   overflow-x: hidden;
 }
 .article-thumb {
-		margin-left: -15px;
-		margin-right: -15px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+.article-readmore {
+	height: 350px;
+	overflow: hidden;
+	padding-bottom: 100px;
+	position: relative;
+	z-index: 0;
+
+	&.expanded {
+		height: auto;
+		&:before, & > button {
+			content: none;
+			display: none;
+		}
 	}
+
+	&:before {
+		content:"";
+		width: 100%;
+		height: 90%;
+		position:absolute;
+		bottom: 0;
+		background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+		background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+		background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+	}
+	& > button {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		width: 200px;
+		z-index: 1;
+	}
+}
 </style>

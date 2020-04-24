@@ -882,6 +882,15 @@ html {
   -ms-user-select: none;
   user-select: none;
 }
+
+img {
+  max-width: 100%;
+}
+a,.v-application a  {
+	text-decoration: none;
+	color: #000;
+}
+
 .v-application .white.main-app-bar {
   border-bottom: 1px solid #d1d1d1 !important;
 }
@@ -1142,8 +1151,5 @@ html {
     top: 0;
     background: #d1d1d1;
   }
-}
-img {
-  max-width: 100%;
 }
 </style>
