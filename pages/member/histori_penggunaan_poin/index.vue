@@ -73,11 +73,12 @@
           <div v-if="item.daily_point" class="mt-2">
             <v-btn v-if="item.daily_point == 'claim'" @click="claim()" small color="success">KLAIM</v-btn>
             <v-btn v-if="item.daily_point == 'success'" small disabled color="success">SUCCESS</v-btn>
-            <v-btn v-if="item.daily_point == 'expired'" small disabled color="success">EXPIRED</v-btn>
+            <v-btn v-if="item.daily_point == 'expire'" small disabled color="success">EXPIRED</v-btn>
           </div>
         </v-col>
         <v-col class="text-20 text-right" cols="3">
-          <strong>{{item.point}}</strong>
+          <strong v-if="item.daily_point == 'expire'">0</strong>
+          <strong v-else>{{item.point}}</strong>
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
@@ -177,7 +178,7 @@ export default {
         const res = await UserService.mutasiPoin(n, fil)
         const items = res.data.data
         this.last_page = res.data.paginations.last_page
-        // console.log(items)
+        console.log(items)
         var arrays = []
         items.forEach(el => {
           var link = el.link
