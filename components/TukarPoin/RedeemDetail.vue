@@ -223,7 +223,7 @@
           >Load More</v-btn>
         </template>
         <template v-else>
-          <div class="py-10 caption grey--text text-center">No data</div>
+          <div class="py-10 caption grey--text text-center">Loading...</div>
         </template>
         <br />
         <br />
@@ -340,9 +340,9 @@ export default {
         if (history && history.length > 0) {
           let arr = [];
           history.forEach(element => {
-            arr.push(element);
+            this.histories.push(element);
           });
-          this.histories = arr;
+          //this.histories.push(arr;
         }
 
         this.historyNext += 1;
@@ -354,7 +354,7 @@ export default {
     },
     async tukarPoin() {
       var params = {
-        redeem_id: this.detail.id,
+        redeem_id: this.detail.id
         // target_point: this.detail.point
       };
       this.overlay = true;
