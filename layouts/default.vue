@@ -659,7 +659,7 @@ export default {
         // },
         {
           title: "KOMPETISI",
-          link: "/kompetisi"
+          link: "/kompetisi",
         }
       ],
       contact: 2,

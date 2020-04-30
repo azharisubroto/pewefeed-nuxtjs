@@ -2,7 +2,7 @@
 	<section>
 		<v-container>
 			<v-row>
-				<v-col cols="12" v-if="isAvailable">
+				<!-- <v-col cols="12" v-if="isAvailable">
 					<v-card v-for="(program, i) in programs" :key="i" class="px-4 mb-3" to="/starx/band">
 						<v-row>
 							<v-col cols="3">
@@ -41,8 +41,9 @@
 							</v-col>
 						</v-row>
 					</v-card>
-				</v-col>
-				<v-col cols="12" v-else>
+				</v-col> -->
+				<!-- <v-col cols="12" v-else> -->
+				<v-col cols="12">
 					<v-alert
 						prominent
 						text
