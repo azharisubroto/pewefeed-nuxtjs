@@ -590,7 +590,6 @@ export default {
         //{name: 'VIP', loc: '/member/beli_dengan_pulsa'},
       ],
       starxMenu: [
-        { name: "Kompetisi", loc: "/kompetisi" },
         { name: "Starx Band", loc: "/starx/band" }
         //{name: 'Notifikasi', loc: '/member/pengaturan/notifikasi'},
       ],
@@ -652,15 +651,15 @@ export default {
         {
           title: "TUKAR POIN",
           link: "/tukarpoin"
-        },
+        }
         // {
         // 	title: 'TOP POIN',
         // 	link: '/toppoin'
         // },
-        {
-          title: "KOMPETISI",
-          link: "/kompetisi",
-        }
+        // {
+        //   title: "KOMPETISI",
+        //   link: "/kompetisi"
+        // }
       ],
       contact: 2,
       contacts: [
@@ -710,7 +709,7 @@ export default {
       singularDetail: null,
       dialog: false,
       buyVipDialogVisible: false,
-      dailyPointModalVisible: false,
+      dailyPointModalVisible: false
     };
   },
   computed: {
@@ -729,7 +728,7 @@ export default {
           this.$emit("close");
         }
       }
-    },
+    }
   },
   methods: {
     logout() {
@@ -760,8 +759,8 @@ export default {
           this.mypoint = res.data.point_total;
 
           if (res.data.daily_point) {
-            if (window.location.pathname != '/member/histori_penggunaan_poin') {
-              this.dailyPointModalVisible = true
+            if (window.location.pathname != "/member/histori_penggunaan_poin") {
+              this.dailyPointModalVisible = true;
             }
           }
           // console.log(res.data)
@@ -886,9 +885,10 @@ html {
 img {
   max-width: 100%;
 }
-a,.v-application a  {
-	text-decoration: none;
-	color: #000;
+a,
+.v-application a {
+  text-decoration: none;
+  color: #000;
 }
 
 .v-application .white.main-app-bar {
@@ -1074,6 +1074,13 @@ a,.v-application a  {
 }
 .v-autocomplete__content {
   z-index: 9999 !important;
+}
+.pw-tab a.v-tab {
+  color: #000 !important;
+  font-weight: bold !important;
+  &.v-tab--active {
+    color: var(--primary) !important;
+  }
 }
 .pwhead {
   position: relative;
