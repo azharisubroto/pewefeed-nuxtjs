@@ -66,9 +66,12 @@
       <v-content class="maincontent">
         <a
           style="line-height:1;display:block;margin-bottom:-4px"
-          href="https://pewefeed.com/viral/trending/dapatkan-pulsa-setiap-hari-untuk-3-komentar-terbaik-di-instagram-atpewefeed"
+          href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
-          <img src="/img/promo-banner.png" alt="promo banner" />
+          <img
+            src="http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/RB-WEB-MOBILE.png"
+            alt="promo banner"
+          />
         </a>
         <nuxt />
         <div
