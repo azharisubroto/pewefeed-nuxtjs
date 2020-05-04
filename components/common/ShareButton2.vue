@@ -1,11 +1,9 @@
 <template>
   <div>
+    <v-btn class="mr-2" @click="recaptchaDialogVisible = true" icon>
+      <v-icon class="mr-1">mdi-share-variant</v-icon>+1 POIN &nbsp;&nbsp;&nbsp;&nbsp;
+    </v-btn>
     <v-bottom-sheet v-model="sheet">
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" icon>
-          <v-icon class="mr-1">mdi-share-variant</v-icon>+1 POIN &nbsp;&nbsp;&nbsp;&nbsp;
-        </v-btn>
-      </template>
       <v-sheet height="100%" color="transparent">
         <div class="mx-2" style="background-color: #fff !important">
           <div>
@@ -95,7 +93,7 @@
         </div>
         <div class="mx-2 py-3">
           <v-btn
-            @click="sheet = !sheet"
+            @click="sheet = !sheet; $recaptcha.reset(); recaptchaToken = null"
             tile
             light
             depressed
@@ -113,6 +111,21 @@
     </v-snackbar>
 
     <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
+
+    <!-- Recaptcha -->
+    <v-dialog
+      v-model="recaptchaDialogVisible"
+      persistent
+      transition="dialog-bottom-transition"
+    >
+      <recaptcha
+        :key="recaptchaKey"
+        class="mx-5 my-5"
+        @error="onError()"
+        @success="onSuccess()"
+        @expired="onExpired()"
+      />
+    </v-dialog>
   </div>
 </template>
 
@@ -130,6 +143,9 @@ export default {
     SharePoin
   },
   data: () => ({
+    recaptchaDialogVisible: false,
+    recaptchaToken: null,
+    recaptchaKey: 1,
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
     sheet: false,
@@ -142,9 +158,32 @@ export default {
     sharingImage: "",
     sharingTime: "",
     SharePoinVisible: false,
-    isSaved: false
+    isSaved: false,
   }),
   methods: {
+    /* Recaptcha */
+    onError(error) {
+      console.log("Error happened:", error);
+      this.recaptchaToken = null;
+      this.recaptchaDialogVisible = true
+      this.sheet = false
+    },
+    onSuccess() {
+      this.$recaptcha.getResponse()
+      .then(token => {
+        // console.log(token)
+        this.recaptchaToken = token
+        this.recaptchaDialogVisible = false
+        this.sheet = true
+      })
+    },
+    onExpired() {
+      console.log("Expired");
+      this.recaptchaDialogVisible = true
+      this.recaptchaToken = null;
+      this.sheet = false
+    },
+    
     myDialogClose() {
       this.SharePoinVisible = false;
     },
@@ -156,8 +195,12 @@ export default {
           console.log("dapat poin");
           this.SharePoinVisible = true;
         }
+        this.recaptchaToken = null;
+        this.$recaptcha.reset()
       } catch (error) {
         console.log(error);
+        this.recaptchaToken = null;
+        this.$recaptcha.reset()
       }
     },
     copyToClipBoard() {
@@ -193,7 +236,8 @@ export default {
         let data = {
           provider: network,
           key: hash,
-          url: vm.sharingUrl
+          url: vm.sharingUrl,
+          token: vm.recaptchaToken
         };
         vm.saveShare(data);
       });
