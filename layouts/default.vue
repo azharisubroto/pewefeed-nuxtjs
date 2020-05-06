@@ -576,7 +576,7 @@ export default {
         // {name: 'Fakta', loc: '/fakta'},
         // { name: "Komik", loc: "/komik" },
         { name: "Tukar Poin", loc: "/tukarpoin" },
-        { name: "Viral", loc: "/viral" },
+        { name: "Entertaiment", loc: "/viral" },
         { name: "Musik", loc: "/lagu" },
         { name: "Nonton", loc: "/nonton" },
         { name: "Piknik", loc: "/piknik" },
@@ -609,7 +609,7 @@ export default {
           link: "/"
         },
         {
-          title: "VIRAL",
+          title: "Entertaiment",
           link: "/viral"
         },
         {
