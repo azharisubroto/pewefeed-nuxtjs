@@ -2,7 +2,7 @@
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
       <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
           <!-- <v-img :src="mainlogo" width="130"></v-img> -->
@@ -21,6 +21,9 @@
             hide-details
             prepend-inner-icon="mdi-magnify"
             background-color="#000"
+            v-model="searchModel"
+            @keyup.enter="validate()"
+            label="Tulis Judul Artikel . . ."
           ></v-text-field>
         </div>
       </v-app-bar>
@@ -53,7 +56,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent">
         <a
-          v-if="!$nuxt.$route.name.includes('categories')"
+          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase')"
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
@@ -76,6 +79,7 @@
           background-color="black"
           v-model="wowtab"
           class="pwmenubottom"
+          v-if="$route.name != 'purchase'"
         >
           <v-btn to="/">
             <span>Trending</span>
@@ -85,17 +89,8 @@
             <span>Categories</span>
             <img src="/img/icons/icon-category-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
-          <v-btn to="/share/">
-            <span>Share</span>
-            <img
-              src="/img/icons/icon-transfer-2.png"
-              style="transform: rotate(-90deg)"
-              class="mb-1 d-block"
-              width="20"
-              height="20"
-            />
-          </v-btn>
-          <v-btn to="/member/pengaturan/profil">
+          <ShareButton2 />
+          <v-btn to="/member/profil">
             <span>Me</span>
             <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
@@ -792,6 +787,7 @@ export default {
             if (res.data.data) {
               this.userdata = res.data.data;
               localStorage.setItem("userdata", JSON.stringify(res.data.data));
+              localStorage.setItem("useres", JSON.stringify(res));
             }
 
             if (res.data.point_total) {
@@ -945,8 +941,8 @@ a,
   color: #fff;
 }
 
-.v-application .white.main-app-bar {
-  border-bottom: 1px solid #d1d1d1 !important;
+.v-application .main-app-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 /* font-size by number */
 @for $i from 5 through 90 {

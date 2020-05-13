@@ -132,26 +132,26 @@
       </v-container>
 
       <!-- SOCIAL -->
-      <v-container class="text-center social">
+      <v-container class="text-center social d-flex justify-space-between">
         <a
           target="blank"
           style="text-decoration: none;"
           :href="'https://www.facebook.com/' + facebook"
         >
-          <img src="/img/icon-facebook.png" width="40" alt />
+          <img src="/img/icons/icon-facebook.png" width="40" alt />
         </a>
         <a target="blank" style="text-decoration: none;" :href="'https://twitter.com/' + twitter">
-          <img src="/img/icon-twitter.png" width="40" alt />
+          <img src="/img/icons/icon-twitter.png" width="40" alt />
         </a>
         <a
           target="blank"
           style="text-decoration: none;"
           :href="'https://www.instagram.com/' + instagram"
         >
-          <img src="/img/icon-instagram.png" width="40" alt />
+          <img src="/img/icons/icon-instagram.png" width="40" alt />
         </a>
         <a target="blank" style="text-decoration: none;" :href="youtubeUrl">
-          <img src="/img/icon-youtube.png" width="40" alt />
+          <img src="/img/icons/icon-youtube.png" width="40" alt />
         </a>
       </v-container>
     </client-only>
@@ -165,6 +165,11 @@ export default {
   data() {
     return {
       highlights: null,
+      facebook: process.env.facebook,
+      instagram: process.env.instagram,
+      twitter: process.env.twitter,
+      youtube: process.env.youtube,
+      youtubeUrl: process.env.youtubeUrl,
       categories: [
         {
           title: "TRENDING",

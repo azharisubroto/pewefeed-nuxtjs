@@ -77,7 +77,12 @@
                   <div style="width:100%" v-for="(article, i) in specials" :key="article.id">
                     <input type="hidden" :id="'bg-'+i" :value="article.image.small" />
                     <a :href="link(article)">
-                      <v-img :src="article.image.small" height="230" position="center top" class="grey lighten-2"></v-img>
+                      <v-img
+                        :src="article.image.small"
+                        height="230"
+                        position="center top"
+                        class="grey lighten-2"
+                      ></v-img>
                     </a>
                     <div class="pt-3 dark px-5" @click="$router.push(link(article))">
                       <strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong>
@@ -115,6 +120,7 @@
           <v-row v-if="isMore">
             <v-col cols="12">
               <v-btn tile block depressed dark color="deep-orange" @click="loadMore(next)">Load More</v-btn>
+              <br />
             </v-col>
           </v-row>
         </v-container>

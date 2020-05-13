@@ -12,7 +12,7 @@
           <v-row align="center" justify="center">
             <v-col cols="12" class="pb-0">
               <v-alert
-			  	v-if="isActive"
+                v-if="isActive"
                 border="left"
                 dense
                 outlined
@@ -44,15 +44,7 @@
                   </v-col>
                 </v-row>
               </v-alert>
-			  <v-alert
-			  	v-else
-                border="left"
-                dense
-                outlined
-                class="mb-0"
-                type="error"
-                :icon="false"
-              >
+              <v-alert v-else border="left" dense outlined class="mb-0" type="error" :icon="false">
                 <v-row no-gutters>
                   <v-col cols="1" class="mr-2">
                     <img
@@ -170,7 +162,7 @@
       </v-col>
     </v-row>
     <!-- /FORM -->
-	<BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
+    <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose" />
   </v-container>
 </template>
 <script>
@@ -215,8 +207,8 @@ export default {
       buyVipDialogVisible: false
     };
   },
-  components:{
-	  BuyVip
+  components: {
+    BuyVip
   },
   methods: {
     removeAllFiles() {
@@ -232,29 +224,33 @@ export default {
     async fetchUserdata() {
       try {
         const res = await UserService.getSingleUser();
-        this.user_id = res.data.data.id;
-        this.profile = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
-        this.dropOptions.headers.Authorization =
-          "Bearer " + res.data.data.api_token;
-        this.avatar_preview = res.data.data.avatar;
-        this.data.first_name = res.data.data.first_name;
-        this.data.last_name = res.data.data.last_name;
-        this.data.username = res.data.data.username;
-        this.data.msisdn = res.data.data.msisdn;
-        this.data.no_telp = res.data.data.no_telp;
-        this.data.instagram = res.data.data.instagram;
-        this.data.email = res.data.data.email;
-        this.data.expire = res.data.data.expire;
-        this.expire_date = this.data.expire;
-        if (res.data.data.status_expired == 1) {
-          this.isActive = true;
-        }
+        this.setProfile(res);
       } catch (error) {
         console.log(error);
         if (error.response.status == 401) {
           this.$router.push("/");
         }
+      }
+    },
+    setProfile(res) {
+      console.log("setprof", res);
+      this.user_id = res.data.data.id;
+      this.profile = res.data.data;
+      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+      this.dropOptions.headers.Authorization =
+        "Bearer " + res.data.data.api_token;
+      this.avatar_preview = res.data.data.avatar;
+      this.data.first_name = res.data.data.first_name;
+      this.data.last_name = res.data.data.last_name;
+      this.data.username = res.data.data.username;
+      this.data.msisdn = res.data.data.msisdn;
+      this.data.no_telp = res.data.data.no_telp;
+      this.data.instagram = res.data.data.instagram;
+      this.data.email = res.data.data.email;
+      this.data.expire = res.data.data.expire;
+      this.expire_date = this.data.expire;
+      if (res.data.data.status_expired == 1) {
+        this.isActive = true;
       }
     },
     async save() {
@@ -273,27 +269,34 @@ export default {
       } catch (error) {
         console.log(error);
       }
-	},
-	myDialogClose () {
-		this.buyVipDialogVisible = false
-		// other code
-	},
-	buyVip() {
-		// if not vip, show dialog
-		this.notVipVisible = false;
-		this.buyVipDialogVisible = true;
-	}
+    },
+    myDialogClose() {
+      this.buyVipDialogVisible = false;
+      // other code
+    },
+    buyVip() {
+      // if not vip, show dialog
+      this.notVipVisible = false;
+      this.buyVipDialogVisible = true;
+    }
   },
   mounted() {
-    this.fetchUserdata();
+    var useres = localStorage.getItem("useres");
+    console.log(JSON.parse(useres));
+    if (useres) {
+      console.log("set profile");
+      this.setProfile(JSON.parse(useres));
+    } else {
+      window.location.href = "/login";
+    }
   }
 };
 </script>
 
 <style lang="sass">
-	.v-item-group.v-bottom-navigation .v-btn .v-btn__content
-		color: #fff
-		opacity: 1
+.v-item-group.v-bottom-navigation .v-btn .v-btn__content
+	color: #fff
+	opacity: 1
 	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
 		color: var(--primary)!important
 </style>
