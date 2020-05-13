@@ -870,8 +870,6 @@ export default {
 
         res.data = this.$auth.user
         this.userdata = res.data.data;
-      } else {
-        this.$route.push('/')
       }
     },
 
