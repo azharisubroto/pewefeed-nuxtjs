@@ -85,6 +85,7 @@ export default {
 		// Doc: https://axios.nuxtjs.org/usage
 		'@nuxtjs/axios',
 		'@nuxtjs/pwa',
+		'@nuxtjs/auth',
 		'@nuxtjs/recaptcha',
 		// '@nuxtjs/onesignal',
 		// '@nuxtjs/google-adsense',
@@ -92,6 +93,26 @@ export default {
 		'@nuxtjs/robots',
 		'@nuxtjs/sitemap'
 	],
+
+	/* Auth */
+	auth: {
+		strategies: {
+			local: {
+				endpoints: {
+					login: { url: 'https://s1.playworld.id/api/auth/login', method: 'post', propertyName: 'token' },
+					logout: { url: 'https://s1.playworld.id/api/auth/logout', method: 'get' },
+					user: { url: 'https://s1.playworld.id/api/member/get-single-member', method: 'get', propertyName: 'users' }
+				},
+				// tokenRequired: true,
+				tokenType: 'Bearer'
+				// autoFetchUser: true
+			},
+			redirect: {
+				login: '/login',
+				home: '/'
+			}
+		},
+	},
 
 	/**
 	 * Google Adsense

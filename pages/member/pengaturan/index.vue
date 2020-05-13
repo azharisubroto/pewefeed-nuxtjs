@@ -143,6 +143,7 @@ import UserService from '@/services/UserService'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
+  middleware: 'auth',
   name:"pengaturanPage",
   data() {
     return {
@@ -186,31 +187,29 @@ export default {
         this.data.avatar = response.file_name;
         this.avatar_preview = 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/'+response.file_name;
     },
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser()
-        this.user_id = res.data.data.id
-        this.profile = res.data.data
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
-        this.dropOptions.headers.Authorization = 'Bearer '+res.data.data.api_token
-        this.avatar_preview = res.data.data.avatar
-        this.data.first_name = res.data.data.first_name
-        this.data.last_name = res.data.data.last_name
-        this.data.username = res.data.data.username
-        this.data.msisdn = res.data.data.msisdn
-        this.data.no_telp = res.data.data.no_telp
-        this.data.instagram = res.data.data.instagram
-        this.data.email = res.data.data.email
-        this.data.expire = res.data.data.expire
-        this.expire_date = this.data.expire
-        // console.log(this.data)
-        if(res.data.data.status_expired == 1) {
-          this.isActive = true
-        }
-      } catch (error) {
-        if (error.response.status == 401) {
-          this.$router.push('/')
-        }
+    fetchUserdata() {
+      this.$auth.fetchUser()
+
+      var res = []
+      res.data = this.$auth.user
+
+      this.user_id = res.data.data.id
+      this.profile = res.data.data
+      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+      this.dropOptions.headers.Authorization = 'Bearer '+res.data.token
+      this.avatar_preview = res.data.data.avatar
+      this.data.first_name = res.data.data.first_name
+      this.data.last_name = res.data.data.last_name
+      this.data.username = res.data.data.username
+      this.data.msisdn = res.data.data.msisdn
+      this.data.no_telp = res.data.data.no_telp
+      this.data.instagram = res.data.data.instagram
+      this.data.email = res.data.data.email
+      this.data.expire = res.data.data.expire
+      this.expire_date = this.data.expire
+      // console.log(this.data)
+      if(res.data.data.status_expired == 1) {
+        this.isActive = true
       }
     },
     async save() {
@@ -223,9 +222,11 @@ export default {
           instagram: this.data.instagram,
           avatar: this.data.avatar
         }
+
         try {
           const res = await UserService.updateProfile(params)
           vm.snackbar = true
+          this.fetchUserdata()
         } catch (error) {
           console.log(error)
         }

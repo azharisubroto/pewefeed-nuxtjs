@@ -681,8 +681,7 @@ export default {
 			// other code
         },
         async makeStar(id, bandid) {
-            this.isLoggedIn = localStorage.getItem('loggedin');
-			if( this.isLoggedIn == 'true') {
+			if( this.$auth.user) {
                 const sendstar = {
                     participant_id : id,
                     band_id : bandid,
@@ -708,21 +707,18 @@ export default {
                 }
             }
         },
-        async checkVIP(id, bandid) {
-            this.isLoggedIn = localStorage.getItem('loggedin');
-			if( this.isLoggedIn == 'true') {
-                try {
-                    const res = await UserService.getSingleUser()
-                    // console.log(res.data.status);
-                    if (new Date(res.data.data.expire) > new Date() ) {
-                        this.makeStar(id, bandid);
-                    } else {
-                        // if not vip, show dialog
-                        this.notVipDialogVisible = true
-                    }
-                } catch (error) {
-                    console.log(error)
-                }
+        checkVIP(id, bandid) {
+			this.$auth.fetchUser()
+			var res = []
+			if( this.$auth.user ) {
+				res.data = this.$auth.user
+
+				if (new Date(res.data.data.expire) > new Date() ) {
+					this.makeStar(id, bandid);
+				} else {
+					// if not vip, show dialog
+					this.notVipDialogVisible = true
+				}
             } else {
                 this.pleaseLoginDialogVisible = true
             }

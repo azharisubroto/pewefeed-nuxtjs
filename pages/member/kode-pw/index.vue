@@ -132,6 +132,7 @@ import UserService from "@/services/UserService";
 import VoucherService from "@/services/VoucherService";
 import CodePWList from "@/components/member/CodePWList";
 export default {
+  middleware: 'auth',
   name: "kode-pw",
   components: {
     CodePWList
@@ -179,24 +180,16 @@ export default {
     }
   },
   methods: {
-    async fetchUser() {
-      try {
-        const res = await UserService.getSingleUser();
-        if (res.status != 200) {
-          localStorage.removeItem("loggedin");
-          this.isLoggedIn = false;
-          window.location.href = "/";
-        }
-        this.userdetail = res.data;
-        this.userdata = res.data.data;
-        console.log(this.userdetail);
-        this.mypoint = res.data.point_total;
-        this.formData.msisdn = this.userdata.msisdn;
-      } catch (err) {
-        this.isLoggedIn = false;
-        localStorage.removeItem("loggedin");
-        window.location.href = "/";
-      }
+    fetchUser() {
+      this.$auth.fetchUser()
+      var res = []
+
+      res.data = this.$auth.user
+
+      this.userdetail = res.data;
+      this.userdata = res.data.data;
+      this.mypoint = res.data.point_total;
+      this.formData.msisdn = this.userdata.msisdn;
     },
     async fetchData(page) {
       this.overlay = true;

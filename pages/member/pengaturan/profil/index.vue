@@ -171,6 +171,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 
 export default {
+  middleware: 'auth',
   name: "pengaturanPage",
   data() {
     return {
@@ -221,24 +222,20 @@ export default {
         "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/" +
         response.file_name;
     },
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser();
-        this.setProfile(res);
-      } catch (error) {
-        console.log(error);
-        if (error.response.status == 401) {
-          this.$router.push("/");
-        }
-      }
+    fetchUserdata() {
+      this.$auth.fetchUser()
+
+      var res = []
+      res.data = this.$auth.user
+
+      this.setProfile(res);
     },
     setProfile(res) {
-      console.log("setprof", res);
       this.user_id = res.data.data.id;
       this.profile = res.data.data;
       // console.log(JSON.parse(JSON.stringify(res.data.data)))
       this.dropOptions.headers.Authorization =
-        "Bearer " + res.data.data.api_token;
+        "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
       this.data.first_name = res.data.data.first_name;
       this.data.last_name = res.data.data.last_name;
@@ -281,13 +278,10 @@ export default {
     }
   },
   mounted() {
-    var useres = localStorage.getItem("useres");
-    console.log(JSON.parse(useres));
-    if (useres) {
-      console.log("set profile");
+    if (this.$auth.user) {
       this.setProfile(JSON.parse(useres));
     } else {
-      window.location.href = "/login";
+      this.$router.push('/login')
     }
   }
 };

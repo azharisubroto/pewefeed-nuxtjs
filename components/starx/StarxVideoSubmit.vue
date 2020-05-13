@@ -255,18 +255,14 @@ export default {
                 console.log(error)
             }
         },
-        async fetchUser() {
-			let vm = this
-			try {
-				const res = await UserService.getSingleUser()
-				vm.formdata.customer_id = res.data.data.id
-				//console.log(vm.formdata.customer_id)
-			} catch (error) {
-				console.log(error)
-			}
-            //var participant = JSON.parse(localStorage.getItem('participant'));
-            //console.log(participant);
-            //vm.participant = participant;
+        fetchUser() {
+            this.$auth.fetchUser()
+            var res = []
+
+            if (this.$auth.user) {
+                res.data = this.$auth.user
+                this.formdata.customer_id = res.data.data.id
+            }
         }
     },
     mounted() {

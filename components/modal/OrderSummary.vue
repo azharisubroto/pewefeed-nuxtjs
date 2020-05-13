@@ -221,20 +221,19 @@ export default {
       // });
     },
 
-    async fetchUser() {
-      try {
-        const res = await UserService.getSingleUser();
-        // console.log(res.data.status);
+    fetchUser() {
+      this.$auth.fetchUser()
+
+      var res = []
+      if (this.$auth.user) {
+        res = this.$auth.user
         this.userdata = res.data.data;
-      } catch (error) {
-        console.log(error);
       }
     }
   },
   mounted() {
     /* Init Data User to Customer Detail */
-    this.isLoggedIn = localStorage.getItem("loggedin");
-    if (this.isLoggedIn == "true") {
+    if (this.$auth.user) {
       this.fetchUser();
     }
   }

@@ -545,6 +545,7 @@ import PurchaseService from "@/services/PurchaseService";
 import UserService from "@/services/UserService";
 import IframePreview from "@/components/modal/IframePreview";
 export default {
+  middleware: 'auth',
   name: "PurchasePage",
   props: {
     dialogVisible: Boolean
@@ -866,21 +867,13 @@ export default {
       }
     },
 
-    async fetchUser() {
-      let userdata = JSON.parse(localStorage.getItem("useres"));
-      if (userdata) {
-        this.userdata = userdata.data.data;
-      } else {
-        try {
-          const res = await UserService.getSingleUser();
-          // console.log(res.data.status);
-          if (res.status != 200) {
-            window.location.href = "/";
-          }
-          this.userdata = res.data.data;
-        } catch (error) {
-          console.log(error);
-        }
+    fetchUser() {
+      this.$auth.fetchUser()
+
+      var res = []
+      if (this.$auth.user) {
+        res.data = this.$auth.user
+        this.userdata = res.data.data;
       }
     },
 

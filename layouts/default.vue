@@ -755,8 +755,7 @@ export default {
   methods: {
     logout() {
       let vm = this;
-      localStorage.removeItem("loggedin");
-      localStorage.removeItem("access-token");
+      this.$auth.logout()
       this.isLoggedIn = false;
       this.isLogin();
       // if (window.location.pathname == '/member/login') {
@@ -770,56 +769,23 @@ export default {
       return this.isLoggedIn;
     },
     isUserdata() {
-      return localStorage.getItem("loggedin");
+      return this.$auth.user;
     },
-    async fetchUser() {
-      this.isLoggedIn = localStorage.getItem("loggedin");
-      if (this.isLoggedIn == "true") {
-        let userdata = localStorage.getItem("userdata");
-        let mypoint = localStorage.getItem("mypoint");
-        if (userdata || mypoint) {
-          this.userdata = JSON.parse(userdata);
-          this.mypoint = JSON.parse(mypoint);
-          console.log("source: ls");
-        } else {
-          try {
-            const res = await UserService.getSingleUser();
-            if (res.data.data) {
-              this.userdata = res.data.data;
-              localStorage.setItem("userdata", JSON.stringify(res.data.data));
-              localStorage.setItem("useres", JSON.stringify(res));
-            }
+    fetchUser() {
+      this.$auth.fetchUser()
+      
+      if (this.$auth.user) {
+        let userdata = this.$auth.user;
+        let mypoint = userdata.data.point_total
 
-            if (res.data.point_total) {
-              this.mypoint = res.data.point_total;
-              localStorage.setItem(
-                "mypoint",
-                JSON.stringify(res.data.point_total)
-              );
-            }
-
-            if (res.data.daily_point) {
-              if (
-                window.location.pathname != "/member/histori_penggunaan_poin"
-              ) {
-                let welback = localStorage.getItem("welcomeback");
-                if (welback != "closed") {
-                  this.dailyPointModalVisible = true;
-                }
-              }
-            }
-            // console.log(res.data)
-          } catch (err) {
-            this.isLoggedIn = false;
-            localStorage.removeItem("loggedin");
-            window.location.reload;
+        if (userdata.data.daily_point) {
+          if ( window.location.pathname != "/member/histori_penggunaan_poin" ) {
+            this.dailyPointModalVisible = true;
           }
         }
       } else {
-        localStorage.removeItem("loggedin");
-        this.isLoggedIn = false;
-        this.isLogin();
-        window.location.reload;
+        this.isLoggedIn = false
+        this.isLogin()
       }
     },
     /* Validasi Form */
@@ -875,7 +841,6 @@ export default {
     myDialogClose() {
       this.buyVipDialogVisible = false;
       this.dailyPointModalVisible = false;
-      localStorage.setItem("welcomeback", "closed");
       // other code
     },
     buyVip() {

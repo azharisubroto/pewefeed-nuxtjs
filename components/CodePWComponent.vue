@@ -128,6 +128,7 @@ import VoucherService from "@/services/VoucherService";
 import Login from "@/components/Login";
 import UserService from "@/services/UserService";
 export default {
+  middleware: 'auth',
   name: "CodePWComponent",
   components: {
     Login
@@ -161,9 +162,13 @@ export default {
     /* Fetch Content */
     async fetchContent() {
       /* Init Data User to Customer Detail */
-      if (localStorage.getItem("loggedin")) {
+
+      if (this.$auth.user) {
         try {
-          const res = await UserService.getSingleUser();
+          this.$auth.fetchUser()
+          var res = []
+          res.data = this.$auth.user
+          
           const user = await UserService.getReward();
           console.log("User data");
           console.log(user);

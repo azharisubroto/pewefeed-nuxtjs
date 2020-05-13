@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    if (!localStorage.getItem("loggedin")) {
+    if (!this.$auth.user) {
       this.openModalLogin();
     } else {
       this.getAddresses();

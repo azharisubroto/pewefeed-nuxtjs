@@ -573,15 +573,16 @@ export default {
                 }
             }
 		},
-		async fetchUserdata() {
-			try {
-				const res = await UserService.getSingleUser()
-				this.user_id = res.data.data.id
+		fetchUserdata() {
+            this.$auth.fetchUser()
+
+            var res = []
+            if (this.$auth.user) {
+                res.data = this.$auth.user
+
+                this.user_id = res.data.data.id
 				this.profile = res.data.data
-				console.log(JSON.parse(JSON.stringify(res.data.data)))
-			} catch (error) {
-				console.log(error)
-			}
+            }
 		},
 		async fetchComment() {
 			try {
@@ -592,8 +593,7 @@ export default {
 			}
 		},
 		async postComment() {
-            this.isLoggedIn = localStorage.getItem('loggedin');
-			if( this.isLoggedIn == 'true') {
+			if( this.$auth.user ) {
                 this.commentIsPosting = true;
                 const params = {
                     id: this.id,
@@ -641,8 +641,7 @@ export default {
 			// other code
         },
         async makeStar(id, bandid) {
-            this.isLoggedIn = localStorage.getItem('loggedin');
-			if( this.isLoggedIn == 'true') {
+			if( this.$auth.user) {
                 const sendstar = {
                     participant_id : id,
                     band_id : bandid,
@@ -668,20 +667,18 @@ export default {
                 }
             }
         },
-        async checkVIP(id, bandid) {
-            this.isLoggedIn = localStorage.getItem('loggedin');
-			if( this.isLoggedIn == 'true') {
-                try {
-                    const res = await UserService.getSingleUser()
-                    // console.log(res.data.status);
-                    if (new Date(res.data.data.expire) > new Date() ) {
-                        this.makeStar(id, bandid);
-                    } else {
-                        // if not vip, show dialog
-                        this.notVipDialogVisible = true
-                    }
-                } catch (error) {
-                    console.log(error)
+        checkVIP(id, bandid) {
+            this.$auth.fetchUser()
+            
+            var res = []
+			if( this.$auth.user ) {
+                res.data = this.$auth.user
+
+                if (new Date(res.data.data.expire) > new Date() ) {
+                    this.makeStar(id, bandid);
+                } else {
+                    // if not vip, show dialog
+                    this.notVipDialogVisible = true
                 }
             } else {
                 this.pleaseLoginDialogVisible = true

@@ -416,15 +416,18 @@ export default {
         console.log(error);
       }
     },
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser();
+    fetchUserdata() {
+      this.$auth.fetchUser()
+
+      var res = []
+
+      if (this.$auth.user) {
+        res.data = this.$auth.user
+        
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
         this.isVip = this.profile.vip;
         // console.log(JSON.parse(JSON.stringify(res.data.data)))
-      } catch (error) {
-        console.log(error);
       }
     },
     async fetchContent() {
@@ -615,7 +618,7 @@ export default {
 
     /* Check Vip */
     checkVip() {
-      if (!localStorage.getItem("loggedin")) {
+      if (!this.$auth.user) {
         this.loginModalVisible = true;
         // console.log("not login");
       } else {
@@ -626,7 +629,7 @@ export default {
 
     /* Make Rating Button Trigger */
     makeRating() {
-      if (!localStorage.getItem("loggedin")) {
+      if (!this.$auth.user) {
         this.loginModalVisible = true;
         // console.log("not login");
       } else {

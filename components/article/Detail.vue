@@ -690,14 +690,16 @@ export default {
         console.log(error);
       }
     },
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser();
+    fetchUserdata() {
+      this.$auth.fetchUser()
+
+      var res = []
+      if (this.$auth.user) {
+        res.data = this.$auth.user
+        
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)));
-      } catch (error) {
-        console.log(error);
+        // console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
     async fetchComment() {

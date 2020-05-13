@@ -408,7 +408,7 @@ export default {
         // other code
     },
     checkVip() {
-        if (!localStorage.getItem('loggedin')) {
+        if (!this.$auth.user) {
             this.loginModalVisible = true
             console.log('not login')
         } else {
@@ -547,7 +547,7 @@ export default {
       })
     },
     makeRating() {
-      if (!localStorage.getItem('loggedin')) {
+      if (!this.$auth.user) {
         this.loginModalVisible = true
         console.log('not login')
       } else {
@@ -558,16 +558,18 @@ export default {
         }
       }
     },
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser()
-        // console.log('GET USER DATA')
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+    fetchUserdata() {
+      this.$auth.fetchUser()
+
+      var res = []
+
+      if (this.$auth.user) {
+        res.data = this.$auth.user
+        
         this.user_id = res.data.data.id
         this.profile = res.data.data
         this.isVip = res.data.data.vip
-      } catch (error) {
-        console.log(error)
+        // console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
 

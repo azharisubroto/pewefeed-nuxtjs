@@ -210,6 +210,7 @@ import StarxIzinService from '@/services/StarxIzinService';
 import SchoolsService from '@/services/SchoolsService';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
+	middleware: 'auth',
     name: "StarxProfile",
     data(){
         return{
@@ -221,7 +222,7 @@ export default {
             dropOptions: {
                 url:"https://s1.playworld.id/api/member/program/starx/band/upload/photo",
                 headers:{
-                    "Authorization":"Bearer " + localStorage.getItem('access-token'),
+                    "Authorization":"Bearer " + this.$auth.user.data.token,
                     "Cache-Control": "",
                 },
                 method: "POST",

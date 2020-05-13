@@ -128,6 +128,7 @@ import SchoolsService from '@/services/SchoolsService';
 import StarxIzinService from '@/services/StarxIzinService';
 import pdficon from '@/assets/img/pdf.png';
 export default {
+    middleware: 'auth',
     name: "StarxIzin",
     data(){
         return{
@@ -146,7 +147,7 @@ export default {
             dropOptions: {
                 url:"https://s1.playworld.id/api/member/program/starx/band/upload/document",
                 headers:{
-                    "Authorization":"Bearer " + localStorage.getItem('access-token'),
+                    "Authorization":"Bearer " + this.$auth.user.data.token,
                     "Cache-Control": "",
                 },
                 method: "POST",
@@ -222,7 +223,7 @@ export default {
             }
 
             // check access token,
-            const usertoken = localStorage.getItem('access-token');
+            const usertoken = this.$auth.user.data.token;
             if( usertoken ) {
                 this.usertoken = usertoken;
                 // console.log(this.usertoken);

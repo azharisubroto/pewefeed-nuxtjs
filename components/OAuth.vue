@@ -47,18 +47,25 @@ export default {
       this.$emit("notloading", false);
     },
     Auth(provider) {
-      var vm = this;
-      vm.makeloading();
-      OAuth.popup(this.provider).done(res => {
-        res.me().done(function(data) {
-          // console.log(data);
-          vm.PWLogin(data, provider);
-        });
-      });
+      // var vm = this;
+      // vm.makeloading();
+      // OAuth.popup(this.provider).done(res => {
+      //   res.me().done(function(data) {
+      //     // console.log(data);
+      //     vm.PWLogin(data, provider);
+      //   });
+      // });
 
-      setTimeout(() => {
-        vm.notloading();
-      }, 30000);
+      // setTimeout(() => {
+      //   vm.notloading();
+      // }, 30000);
+      if (this.$route.path == '/') {
+        var route = 'home'
+      } else {
+        var route = this.$route.path
+      }
+
+      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route
     },
     async PWLogin(data, provider) {
       let vm = this;

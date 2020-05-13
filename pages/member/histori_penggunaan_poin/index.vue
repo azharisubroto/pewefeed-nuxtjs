@@ -83,6 +83,7 @@
 <script>
 import UserService from "@/services/UserService";
 export default {
+  middleware: 'auth',
   name: "historiPoinPage",
   data() {
     return {
@@ -95,17 +96,13 @@ export default {
     };
   },
   methods: {
-    async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser();
-        //console.log(res)
-        this.userdata = res.data;
-      } catch (error) {
-        console.log(error);
-        if (error.response.status == 401) {
-          this.$router.push("/");
-        }
-      }
+    fetchUserdata() {
+      this.fetchUser()
+
+      var res = []
+      res.data = this.$auth.user
+
+      this.userdata = res.data;
     },
     async fethMutasi(page, filter) {
       this.mutasi = [];
