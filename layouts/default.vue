@@ -1,41 +1,32 @@
 <template>
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
-      <v-app-bar color="white" flat fixed tile class="main-app-bar">
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+        <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
-          <v-img :src="mainlogo" width="130"></v-img>
+          <!-- <v-img :src="mainlogo" width="130"></v-img> -->
+          <strong class="text-white">PeweFeed</strong>
         </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
 
-        <ShareButton2 />
-
-        <v-btn icon @click="searchDialog = true">
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+        <div class="headsearch">
+          <v-text-field
+            flat
+            filled
+            rounded
+            single-line
+            dense
+            hide-details
+            prepend-inner-icon="mdi-magnify"
+            background-color="#000"
+            v-model="searchModel"
+            @keyup.enter="validate()"
+            label="Tulis Judul Artikel . . ."
+          ></v-text-field>
+        </div>
       </v-app-bar>
-      <v-tabs
-        v-if="!$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('starx') && !$nuxt.$route.name.includes('kompetisi') && !$nuxt.$route.name.includes('bantuan') && !$nuxt.$route.name.includes('c-codepw')"
-        grow
-        color="deep-orange"
-        center-active
-        class="pw-tab"
-      >
-        <v-tab v-for="menu in toolbarMenu" :key="menu.loc" :to="menu.loc">{{menu.name}}</v-tab>
-      </v-tabs>
-      route name: {{$nuxt.$route.name}}
-      <!-- STAR X MENU -->
-      <!-- <v-tabs v-if="$nuxt.$route.name.includes('starx') || $nuxt.$route.name.includes('kompetisi')" grow color="deep-orange" center-active class="pw-tab">
-				<v-tab
-					v-for="menu in starxMenu"
-					:key="menu.loc"
-					:to="menu.loc"
-				>
-					{{menu.name}}
-				</v-tab>
-      </v-tabs>-->
 
       <!-- MEMBER MENU -->
       <v-tabs
@@ -65,6 +56,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent">
         <a
+          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase')"
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
@@ -74,10 +66,35 @@
           />
         </a>
         <nuxt />
-        <div
-          v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
-          class="mb-5 pb-5"
-        ></div>
+        <div class="mb-5 pb-5"></div>
+
+        <!-- oooooooooooooooooooooooooooooooooooo
+		BOTTOM NAVIGATION
+        ooooooooooooooooooooooooooooooooooooo-->
+        <v-bottom-navigation
+          fixed
+          dark
+          grow
+          color="white"
+          background-color="black"
+          v-model="wowtab"
+          class="pwmenubottom"
+          v-if="$route.name != 'purchase'"
+        >
+          <v-btn to="/">
+            <span>Trending</span>
+            <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
+          </v-btn>
+          <v-btn to="/categories/">
+            <span>Categories</span>
+            <img src="/img/icons/icon-category-2.png" class="mb-1 d-block" width="20" height="20" />
+          </v-btn>
+          <ShareButton2 />
+          <v-btn to="/member/profil">
+            <span>Me</span>
+            <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
+          </v-btn>
+        </v-bottom-navigation>
       </v-content>
       <!-- CONTENT -->
 
@@ -435,6 +452,7 @@
       <!-- END DRAWER -->
     </v-sheet>
 
+    <!-- OVERLAY -->
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -535,6 +553,7 @@ export default {
   },
   data() {
     return {
+      wowtab: "/",
       facebook: process.env.facebook,
       instagram: process.env.instagram,
       twitter: process.env.twitter,
@@ -756,21 +775,45 @@ export default {
     async fetchUser() {
       this.isLoggedIn = localStorage.getItem("loggedin");
       if (this.isLoggedIn == "true") {
-        try {
-          const res = await UserService.getSingleUser();
-          this.userdata = res.data.data;
-          this.mypoint = res.data.point_total;
-
-          if (res.data.daily_point) {
-            if (window.location.pathname != "/member/histori_penggunaan_poin") {
-              this.dailyPointModalVisible = true;
+        let userdata = localStorage.getItem("userdata");
+        let mypoint = localStorage.getItem("mypoint");
+        if (userdata || mypoint) {
+          this.userdata = JSON.parse(userdata);
+          this.mypoint = JSON.parse(mypoint);
+          console.log("source: ls");
+        } else {
+          try {
+            const res = await UserService.getSingleUser();
+            if (res.data.data) {
+              this.userdata = res.data.data;
+              localStorage.setItem("userdata", JSON.stringify(res.data.data));
+              localStorage.setItem("useres", JSON.stringify(res));
             }
+
+            if (res.data.point_total) {
+              this.mypoint = res.data.point_total;
+              localStorage.setItem(
+                "mypoint",
+                JSON.stringify(res.data.point_total)
+              );
+            }
+
+            if (res.data.daily_point) {
+              if (
+                window.location.pathname != "/member/histori_penggunaan_poin"
+              ) {
+                let welback = localStorage.getItem("welcomeback");
+                if (welback != "closed") {
+                  this.dailyPointModalVisible = true;
+                }
+              }
+            }
+            // console.log(res.data)
+          } catch (err) {
+            this.isLoggedIn = false;
+            localStorage.removeItem("loggedin");
+            window.location.reload;
           }
-          // console.log(res.data)
-        } catch (err) {
-          this.isLoggedIn = false;
-          localStorage.removeItem("loggedin");
-          window.location.reload;
         }
       } else {
         localStorage.removeItem("loggedin");
@@ -832,6 +875,7 @@ export default {
     myDialogClose() {
       this.buyVipDialogVisible = false;
       this.dailyPointModalVisible = false;
+      localStorage.setItem("welcomeback", "closed");
       // other code
     },
     buyVip() {
@@ -844,7 +888,7 @@ export default {
     this.isLogin();
     this.fetchUser();
     this.fetchBantuan();
-    this.fetchHighlight();
+    //this.fetchHighlight();
     this.years = new Date().getFullYear();
     var isMobile = mobile();
     if (!isMobile) {
@@ -888,14 +932,17 @@ html {
 img {
   max-width: 100%;
 }
+.text-primary {
+  color: var(--primary);
+}
 a,
 .v-application a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
 }
 
-.v-application .white.main-app-bar {
-  border-bottom: 1px solid #d1d1d1 !important;
+.v-application .main-app-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 /* font-size by number */
 @for $i from 5 through 90 {
@@ -904,10 +951,13 @@ a,
     font-size: #{$i}px !important;
   }
 }
+.headsearch {
+  width: 200px;
+}
 .maincontent p {
   font-size: 18px;
   margin: 30px 0;
-  color: #525252;
+  color: #fff;
 }
 .v-application {
   &.open {
@@ -934,7 +984,7 @@ a,
 }
 
 .v-content__wrap {
-  padding-top: 79px;
+  padding-top: 56px;
 }
 
 .scroller {
@@ -1079,7 +1129,7 @@ a,
   z-index: 9999 !important;
 }
 .pw-tab a.v-tab {
-  color: #000 !important;
+  //   color: #000 !important;
   font-weight: bold !important;
   &.v-tab--active {
     color: var(--primary) !important;
@@ -1161,5 +1211,20 @@ a,
     top: 0;
     background: #d1d1d1;
   }
+}
+.pwmenubottom {
+  .v-btn {
+    img {
+      filter: brightness(0) invert(1);
+    }
+    &.v-btn--active {
+      img {
+        filter: none;
+      }
+    }
+  }
+}
+.bg-dark {
+  background: #232323;
 }
 </style>

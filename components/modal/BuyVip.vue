@@ -61,348 +61,210 @@
           <v-stepper-items>
             <!-- Step 1 -->
             <v-stepper-content step="1" class="px-0">
-              <v-container>
-                <v-card class="mx-auto">
-                  <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Dengan Pulsa</v-card-title>
-                  <v-divider></v-divider>
+              <v-card class="grey darken-2 mx-auto" tile>
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Dengan Pulsa</v-card-title>
+                <v-divider></v-divider>
 
-                  <div class="px-4 py-2" @click="e1 = 2">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/xl.png" width="40" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">XL & AXIS</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 3">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/indosat.png" width="40" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">Indosat</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                </v-card>
+                <div class="px-4 py-0" @click="e1 = 2">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">XL & AXIS</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 3">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">Indosat</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-card>
 
-                <!-- Content -->
-                <v-card class="mx-auto mt-4 mb-2">
-                  <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Tanpa Pulsa</v-card-title>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 5">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/bca.png" class="pt-2" width="40" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">BCA</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 6">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/bri.png" class="pt-2" width="50" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">BRI</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 7">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/bni.png" class="pt-2" width="50" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">BNI</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 9">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/mandiri.png" class="pt-2" width="50" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">MANDIRI</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <v-divider></v-divider>
-                  <div class="px-4 py-3" @click="e1 = 10">
-                    <v-row align="center">
-                      <v-col cols="2" class="py-0">
-                        <img src="/img/permata.png" class="pt-2" width="50" alt />
-                      </v-col>
-                      <v-col cols="8" class="py-0">PERMATA</v-col>
-                      <v-col cols="2">
-                        <v-icon>mdi-chevron-right</v-icon>
-                      </v-col>
-                    </v-row>
-                  </div>
-                </v-card>
-              </v-container>
+              <!-- Content -->
+              <v-card class="mx-auto grey darken-2 mt-4 mb-2">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Tanpa Pulsa</v-card-title>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 5">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">BCA</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 6">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">BRI</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 7">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">BNI</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 9">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">MANDIRI</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-divider></v-divider>
+                <div class="px-4 py-0" @click="e1 = 10">
+                  <v-row align="center">
+                    <v-col cols="10" class="py-0">PERMATA</v-col>
+                    <v-col cols="2">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-card>
             </v-stepper-content>
             <!-- END OF STEP 1 -->
 
             <!-- Step 2 XL -->
             <v-stepper-content step="2" class="mb-3 px-0">
-              <v-container>
-                <img
-                  src="/img/xl.png"
-                  width="25"
-                  class="mr-2"
-                  style="vertical-align:middle;position:relative;top:-3px"
-                  alt
-                />
-                <span class="font-weight-bold">XL &amp; AXIS</span>
-                <br />
-                <v-card class="mx-auto mb-3 mt-4">
-                  <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Berlangganan</v-card-title>
-                  <div
-                    @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
-                    v-for="vip in vipItems.slice(0,1)"
-                    :key="vip.id"
-                  >
-                    <v-row>
-                      <v-col cols="9">
-                        <v-row>
-                          <v-col cols="3" class="text-center">
-                            <img class="ml-3" width="30" :src="indosatviplogo" :alt="vip.label" />
-                          </v-col>
-                          <v-col cols="9">
-                            <strong>{{ vip.label }}</strong>
-                            <br />
-                            <strong>{{ vip.price }}</strong>
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                      <v-col cols="3" class="mt-4">
-                        <v-btn
-                          icon
-                          tile
-                          light
-                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                        >
-                          <v-icon>mdi-arrow-right</v-icon>
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-                  </div>
-                  <!-- <v-card-text>
-                    <v-btn
-                      @click="setOrder(xlregvoucher,xlreglabel,xlregprice, current = 'xl')"
-                      block
-                      color="success"
-                      dark
-                    >Beli</v-btn>
-                  </v-card-text>-->
-                </v-card>
-                <v-card class="mx-auto mb-3">
-                  <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="font-weight-bold text-center">XL &amp; AXIS</div>
+              <v-card class="grey darken-2 mb-3 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold text-16">Berlangganan</v-card-title>
+                <div
+                  @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
+                  v-for="vip in vipItems.slice(0,1)"
+                  :key="vip.id"
+                >
+                  <v-row class="py-0 mx-0" align="center">
+                    <v-col cols="9">
+                      <strong>{{ vip.label }}</strong>
+                      <br />
+                      <strong>{{ vip.price }}</strong>
+                    </v-col>
+                    <v-col cols="3" class="text-right">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        dark
+                        @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                      >
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-card>
+              <v-card class="grey darken-2 mx-auto mb-3">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div
+                  v-for="(vip, i) in vipItems"
+                  @click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                  :key="vip.id+'-'+i"
+                >
+                  <v-row class="py-0 mx-0" align="center">
+                    <v-col cols="9">
+                      <strong>{{ vip.label }}</strong>
+                      <br />
+                      <strong>{{ vip.price }}</strong>
+                    </v-col>
+                    <v-col cols="3" class="text-right">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        dark
+                        @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                      >
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
                   <v-divider></v-divider>
-                  <div
-                    v-for="(vip, i) in vipItems"
-                    @click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                    :key="vip.id+'-'+i"
-                  >
-                    <v-row>
-                      <v-col cols="9">
-                        <v-row>
-                          <v-col cols="3">
-                            <img class="ml-2" width="50" :src="vip.image" :alt="vip.label" />
-                          </v-col>
-                          <v-col cols="9">
-                            <strong>{{ vip.label }}</strong>
-                            <br />
-                            <strong>{{ vip.price }}</strong>
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                      <v-col cols="3" class="mt-4">
-                        <v-btn
-                          icon
-                          tile
-                          light
-                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                        >
-                          <v-icon>mdi-arrow-right</v-icon>
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-                    <v-divider></v-divider>
-                  </div>
-                </v-card>
-              </v-container>
+                </div>
+              </v-card>
             </v-stepper-content>
             <!-- END OF STEP 2 : XL -->
 
             <!-- Step 3 : Indosat -->
-            <v-stepper-content step="3" class="px-0">
-              <v-container>
-                <img
-                  src="/img/indosat.png"
-                  width="30"
-                  style="position:relative;top:2px"
-                  class="mr-2"
-                  alt
-                />
-                <span class="font-weight-bold">INDOSAT</span>
-                <br />
-                <v-card class="mx-auto mt-4">
-                  <v-card-title
-                    color="grey lighten-4 font-weight-bold"
-                    class="grey lighten-4 font-weight-bold subtitle-2"
-                  >Berlangganan</v-card-title>
-                  <v-divider></v-divider>
-                  <div
-                    @click="wap='indosatlangganan';setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
-                    v-for="vip in vipItems.slice(0,1)"
-                    :key="vip.id"
-                  >
-                    <v-row>
-                      <v-col cols="9">
-                        <v-row>
-                          <v-col cols="3" class="text-center">
-                            <img class="ml-4" width="30" :src="indosatviplogo" :alt="vip.label" />
-                          </v-col>
-                          <v-col cols="9">
-                            <strong>{{ vip.label }}</strong>
-                            <br />
-                            <strong>{{ vip.price }}</strong>
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                      <v-col cols="3" class="mt-4">
-                        <v-btn
-                          icon
-                          tile
-                          light
-                          @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                        >
-                          <v-icon>mdi-arrow-right</v-icon>
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-                  </div>
-                </v-card>
-              </v-container>
+            <v-stepper-content step="3" class="px-0 text-14">
+              <div class="font-weight-bold text-center">INDOSAT</div>
+              <v-card class="grey darken-2 mb-3 mt-4">
+                <v-card-title class="grey darken-3 font-weight-bold subtitle-2">Berlangganan</v-card-title>
+                <v-divider></v-divider>
+                <div
+                  @click="wap='indosatlangganan';setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
+                  v-for="vip in vipItems.slice(0,1)"
+                  :key="vip.id"
+                >
+                  <v-row class="py-0 mx-0" align="center">
+                    <v-col cols="9">
+                      <strong>{{ vip.label }}</strong>
+                      <br />
+                      <strong>{{ vip.price }}</strong>
+                    </v-col>
+                    <v-col cols="3" class="text-right">
+                      <v-btn
+                        icon
+                        text
+                        light
+                        dark
+                        @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                      >
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-card>
             </v-stepper-content>
             <!-- END OF STEP 3 : Indosat -->
 
             <!-- Step 4 : Order Detail -->
             <v-stepper-content step="4" class="px-0">
-              <v-container>
+              <div class="px-3">
+                <strong>Nilai Transaksi</strong>
+              </div>
+              <v-card class="grey darken-2 mb-3 mt-4">
+                <v-row class="px-4">
+                  <v-col cols="12">{{itemprice}}</v-col>
+                </v-row>
+              </v-card>
+
+              <div class="px-3 mt-10">
+                <strong>Rincian Transaksi</strong>
+              </div>
+              <v-card class="grey darken-2 mb-3 mt-4">
+                <v-row class="px-4">
+                  <v-col cols="12">{{itemname}}</v-col>
+                </v-row>
+              </v-card>
+
+              <v-container class="mt-4 card-trans">
                 <v-row style="margin-top: -10px">
                   <v-col cols="12">
-                    <v-card class="mx-auto mb-2 grey lighten-4">
-                      <v-container>
-                        <v-row align="center">
-                          <v-col cols="4">
-                            <strong>Amount</strong>
-                          </v-col>
-                          <v-col cols="8" class="text-right">
-                            <strong class="headline deep-orange--text">{{itemprice}}</strong>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="12" style="margin-top: -20px;">
-                    <v-card>
-                      <v-tabs grow v-model="tab" background-color="#eee" color="deep-orange">
-                        <v-tab href="#order">Order Details</v-tab>
-                        <v-tab href="#info">Info</v-tab>
-                        <v-tab href="#customer">Customer</v-tab>
-                      </v-tabs>
-
-                      <v-tabs-items v-model="tab">
-                        <v-tab-item value="order">
-                          <v-container>
-                            <v-row>
-                              <v-col cols="6" class="text-left bold">
-                                <strong class="caption">Item(s)</strong>
-                              </v-col>
-                              <v-col cols="6" class="text-right">
-                                <strong class="caption">Price (+ppn 10%)</strong>
-                              </v-col>
-                            </v-row>
-                            <v-divider></v-divider>
-                            <v-row>
-                              <v-col cols="6" class="text-left">
-                                <strong class="body-2">{{itemname}}</strong>
-                              </v-col>
-                              <v-col cols="6" class="text-right">
-                                <strong class="body-2">{{itemprice}}</strong>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-tab-item>
-                        <v-tab-item value="info">
-                          <v-container>
-                            <ul v-if="itemname && itemname.includes('BERLANGGANAN')">
-                              <li>Selanjutnya akan dikirimkan 1 SMS Per 3 hari</li>
-                              <li>SMS akan memotong pulsa senilai Rp. 2200 (harga sudah termasuk PPN10%)</li>
-                              <li>Keanggotaan VIP akan bertambah selama 3 hari sejak SMS diterima</li>
-                            </ul>
-
-                            <ul v-else>
-                              <li>Pulsa akan terpotong satu kali senilai {{itemprice}} (harga sudah termasuk PPN 10%)</li>
-                              <li>Keanggotaan VIP akan bertambah selama {{itemhari}} hari sejak SMS diterima atau Pulsa terpotong</li>
-                            </ul>
-                          </v-container>
-                        </v-tab-item>
-                        <v-tab-item value="customer">
-                          <v-container>
-                            <p>
-                              <span class="text-12">Name</span>
-                              <br />
-                              <span
-                                class="text-16"
-                              >{{userdata.first_name ? userdata.first_name : '-'}}</span>
-                            </p>
-                            <p>
-                              <span class="text-12">Phone Number</span>
-                              <br />
-                              <span class="text-16">{{userdata.no_tlp ? userdata.no_tlp : '-'}}</span>
-                            </p>
-                            <p>
-                              <span class="text-12">Email</span>
-                              <br />
-                              <span class="text-16">{{userdata.email ? userdata.email : '-'}}</span>
-                            </p>
-                          </v-container>
-                        </v-tab-item>
-                      </v-tabs-items>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="12">
-                    <span class="text-14">Choose one of Payment Method</span>
-                    <br />
-                    <br />
-                    <v-card class="mx-auto mb-2">
-                      <v-tabs grow v-model="buymethod" background-color="#eee" color="deep-orange">
-                        <v-tab href="#sms">SMS</v-tab>
-                        <v-tab href="#wap" @click="useWap=true">WAP</v-tab>
-                        <v-tab href="#ussd">USSD</v-tab>
+                    <div class="text-14 mb-2">Channel Pembayaran (Pilih Salah Satu)</div>
+                    <v-card class="grey darken-2 mx-auto mb-2">
+                      <v-tabs grow v-model="buymethod" color="deep-orange">
+                        <v-tab href="#sms" class="grey darken-2">SMS</v-tab>
+                        <v-tab href="#wap" class="grey darken-2" @click="useWap=true">WAP</v-tab>
+                        <!-- <v-tab href="#ussd" class="grey darken-2">USSD</v-tab> -->
                       </v-tabs>
 
                       <v-tabs-items v-model="buymethod">
-                        <v-tab-item value="sms">
+                        <v-tab-item value="sms" class="grey darken-2">
                           <v-form ref="form" v-model="valid" lazy-validation>
                             <v-container>
                               <v-row no-gutters>
@@ -434,15 +296,15 @@
                             </v-btn>
                           </v-snackbar>
                         </v-tab-item>
-                        <v-tab-item value="wap">
-                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                        <v-tab-item value="wap" class="grey darken-2">
+                          <v-container class="text-center pt-4" style="padding-bottom: 40px">
                             <strong
                               class="body-2"
                             >Setelah mencentang Google Recaptcha dan klik tombol "Process" di bawah, anda akan diarahkan ke halaman Pembayaran</strong>
                           </v-container>
                         </v-tab-item>
-                        <v-tab-item value="ussd">
-                          <v-container class="text-center mt-4" style="padding-bottom: 40px">
+                        <v-tab-item value="ussd" class="grey darken-2">
+                          <v-container class="text-center pt-4" style="padding-bottom: 40px">
                             <strong class="body-2">Pilihan Tidak Tersedia</strong>
                           </v-container>
                         </v-tab-item>
@@ -452,7 +314,8 @@
                 </v-row>
 
                 <div
-                  style="text-align:center;background:#fff;padding: 20px 10px 10px;border-radius:3px"
+                  class="grey darken-2"
+                  style="text-align:center;padding: 20px 10px 10px;border-radius:3px"
                 >
                   <recaptcha
                     style="display:inline-block"
@@ -480,42 +343,31 @@
             <!-- Step 5 : Midtrans : BCA-->
             <v-stepper-content step="5" class="mb-3 px-0">
               <v-container class="py-0">
-                <img
-                  src="/img/bca.png"
-                  class="mr-2"
-                  width="45"
-                  style="position:relative;top: 10px"
-                  alt
-                />
-                <span class="font-weight-bold">BCA</span>
+                <div class="font-weight-bold text-center">BCA</div>
               </v-container>
-              <v-card class="mx-4 mt-4">
-                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card class="grey darken-2 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
+                    class="mx-0"
+                    align="center"
                     @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'midtrans')"
                   >
                     <v-col cols="9">
-                      <v-row>
-                        <v-col cols="3">
-                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-                        </v-col>
-                        <v-col cols="9">
-                          <strong>{{ trans.label }}</strong>
-                          <br />
-                          <strong>{{ trans.price }}</strong>
-                        </v-col>
-                      </v-row>
+                      <strong>{{ trans.label }}</strong>
+                      <br />
+                      <strong>{{ trans.price }}</strong>
                     </v-col>
-                    <v-col cols="3" class="mt-4">
+                    <v-col cols="3" class="mt-4 text-right">
                       <v-btn
                         icon
                         tile
                         light
+                        dark
                         @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'midtrans')"
                       >
-                        <v-icon>mdi-arrow-right</v-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -528,36 +380,25 @@
             <!-- Step 6 : Xendit : BRI -->
             <v-stepper-content step="6" class="mb-3 px-0">
               <v-container class="py-0">
-                <img
-                  src="/img/bri.png"
-                  class="mr-2"
-                  width="100"
-                  style="position:relative;top: 10px"
-                  alt
-                />
+                <div class="text-center">BRI</div>
               </v-container>
-              <v-card class="mx-4 mt-4">
-                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card class="grey darken-2 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
+                    class="mx-0"
+                    align="center"
                     @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                   >
                     <v-col cols="9">
-                      <v-row>
-                        <v-col cols="3">
-                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-                        </v-col>
-                        <v-col cols="9">
-                          <strong>{{ trans.label }}</strong>
-                          <br />
-                          <strong>{{ trans.price }}</strong>
-                        </v-col>
-                      </v-row>
+                      <strong>{{ trans.label }}</strong>
+                      <br />
+                      <strong>{{ trans.price }}</strong>
                     </v-col>
-                    <v-col cols="3" class="mt-4">
-                      <v-btn icon tile light>
-                        <v-icon>mdi-arrow-right</v-icon>
+                    <v-col cols="3" class="text-right">
+                      <v-btn icon tile light dark>
+                        <v-icon>mdi-chevron-right</v-icon>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -570,36 +411,25 @@
             <!-- Step 7 : Xendit : BNI -->
             <v-stepper-content step="7" class="mb-3 px-0">
               <v-container class="py-0">
-                <img
-                  src="/img/bni.png"
-                  class="mr-2"
-                  width="60"
-                  style="position:relative;top: 10px"
-                  alt
-                />
+                <div class="text-center font-weight-bold">BNI</div>
               </v-container>
-              <v-card class="mx-4 mt-4">
-                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card class="grey darken-2 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
+                    class="mx-0"
+                    align="center"
                     @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                   >
                     <v-col cols="9">
-                      <v-row>
-                        <v-col cols="3">
-                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-                        </v-col>
-                        <v-col cols="9">
-                          <strong>{{ trans.label }}</strong>
-                          <br />
-                          <strong>{{ trans.price }}</strong>
-                        </v-col>
-                      </v-row>
+                      <strong>{{ trans.label }}</strong>
+                      <br />
+                      <strong>{{ trans.price }}</strong>
                     </v-col>
-                    <v-col cols="3" class="mt-4">
-                      <v-btn icon tile light>
-                        <v-icon>mdi-arrow-right</v-icon>
+                    <v-col cols="3" class="text-right">
+                      <v-btn icon tile light dark>
+                        <v-icon>mdi-chevron-right</v-icon>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -636,36 +466,25 @@
             <!-- Step 9 : Xendit : MANDIRI -->
             <v-stepper-content step="9" class="mb-3 px-0">
               <v-container class="py-0">
-                <img
-                  src="/img/mandiri.png"
-                  class="mr-2"
-                  width="100"
-                  style="position:relative;top: 10px"
-                  alt
-                />
+                <div class="text-center font-weight-bold">MANDIRI</div>
               </v-container>
-              <v-card class="mx-4 mt-4">
-                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card class="grey darken-2 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
+                    class="mx-0"
+                    align="center"
                     @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                   >
                     <v-col cols="9">
-                      <v-row>
-                        <v-col cols="3">
-                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-                        </v-col>
-                        <v-col cols="9">
-                          <strong>{{ trans.label }}</strong>
-                          <br />
-                          <strong>{{ trans.price }}</strong>
-                        </v-col>
-                      </v-row>
+                      <strong>{{ trans.label }}</strong>
+                      <br />
+                      <strong>{{ trans.price }}</strong>
                     </v-col>
-                    <v-col cols="3" class="mt-4">
-                      <v-btn icon tile light>
-                        <v-icon>mdi-arrow-right</v-icon>
+                    <v-col cols="3" class="text-right">
+                      <v-btn icon tile light dark>
+                        <v-icon>mdi-chevron-right</v-icon>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -678,36 +497,25 @@
             <!-- Step 10 : Xendit : PERMATA -->
             <v-stepper-content step="10" class="mb-3 px-0">
               <v-container class="py-0">
-                <img
-                  src="/img/permata.png"
-                  class="mr-2"
-                  width="120"
-                  style="position:relative;top: 10px"
-                  alt
-                />
+                <div class="text-center font-weight-bold">PERMATA</div>
               </v-container>
-              <v-card class="mx-4 mt-4">
-                <v-card-title class="subtitle-1 grey lighten-4 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card class="grey darken-2 mt-4">
+                <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
                 <v-divider></v-divider>
                 <div v-for="trans in vipTrans" :key="trans.id">
                   <v-row
+                    class="mx-0"
+                    align="center"
                     @click="setOrder(trans.voucher_id, userdata.email, trans.label, trans.price, current = 'xendit')"
                   >
                     <v-col cols="9">
-                      <v-row>
-                        <v-col cols="3">
-                          <img class="ml-2" width="50" :src="trans.image" :alt="trans.label" />
-                        </v-col>
-                        <v-col cols="9">
-                          <strong>{{ trans.label }}</strong>
-                          <br />
-                          <strong>{{ trans.price }}</strong>
-                        </v-col>
-                      </v-row>
+                      <strong>{{ trans.label }}</strong>
+                      <br />
+                      <strong>{{ trans.price }}</strong>
                     </v-col>
-                    <v-col cols="3" class="mt-4">
-                      <v-btn icon tile light>
-                        <v-icon>mdi-arrow-right</v-icon>
+                    <v-col cols="3" class="text-right">
+                      <v-btn icon tile light dark>
+                        <v-icon>mdi-chevron-right</v-icon>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -1056,15 +864,20 @@ export default {
     },
 
     async fetchUser() {
-      try {
-        const res = await UserService.getSingleUser();
-        // console.log(res.data.status);
-        if (res.status != 200) {
-          window.location.href = "/";
+      let userdata = JSON.parse(localStorage.getItem("useres"));
+      if (userdata) {
+        this.userdata = userdata.data.data;
+      } else {
+        try {
+          const res = await UserService.getSingleUser();
+          // console.log(res.data.status);
+          if (res.status != 200) {
+            window.location.href = "/";
+          }
+          this.userdata = res.data.data;
+        } catch (error) {
+          console.log(error);
         }
-        this.userdata = res.data.data;
-      } catch (error) {
-        console.log(error);
       }
     },
 
@@ -1116,5 +929,11 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+.card-trans {
+  *.theme--dark,
+  *.v-tab-items {
+    background-color: transparent !important;
+  }
 }
 </style>

@@ -48,12 +48,12 @@
 
             <!-- CONTENT -->
             <div id="redeem-between">
-              <RedeemCard class="mb-5"/>
+              <RedeemCard class="mb-5" />
             </div>
             <div class="article-readmore" :class="[ hidden == true ? '' : 'expanded' ]">
-				<div v-html="article.content"></div>
-				<v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
-			</div>
+              <div v-html="article.content"></div>
+              <v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
+            </div>
 
             <div class="devider-small my-4"></div>
 
@@ -428,22 +428,13 @@
               <h4 class="mt-5 mb-3">Statistik</h4>
               <v-row>
                 <v-col cols="6">Total Penjawab</v-col>
-                <v-col
-                  cols="6"
-                  class="text-right"
-                >{{quizstatistic ? quizstatistic.answered : 0}}</v-col>
+                <v-col cols="6" class="text-right">{{quizstatistic ? quizstatistic.answered : 0}}</v-col>
 
                 <v-col cols="6">Penjawab Benar</v-col>
-                <v-col
-                  cols="6"
-                  class="text-right"
-                >{{quizstatistic ? quizstatistic.correct : 0}}</v-col>
+                <v-col cols="6" class="text-right">{{quizstatistic ? quizstatistic.correct : 0}}</v-col>
 
                 <v-col cols="6">Penjawab Salah</v-col>
-                <v-col
-                  cols="6"
-                  class="text-right"
-                >{{quizstatistic ? quizstatistic.wrong : 0}}</v-col>
+                <v-col cols="6" class="text-right">{{quizstatistic ? quizstatistic.wrong : 0}}</v-col>
               </v-row>
             </v-tab-item>
           </v-tabs-items>
@@ -533,7 +524,7 @@ export default {
       id: "",
       title: "",
       article: "",
-	  hidden: true,
+      hidden: true,
       writer: "",
       team_content: "",
       next: 2,
@@ -998,14 +989,14 @@ export default {
     }
   }
   p {
-	  img {
-		  margin-left: -15px;
-		  margin-right: -15px;
-		  max-width: 100%;
-		  max-width: calc(100% + 30px)!important;
-		  width: auto!important;
-		  height: auto!important;
-	  }
+    img {
+      margin-left: -15px;
+      margin-right: -15px;
+      max-width: 100%;
+      max-width: calc(100% + 30px) !important;
+      width: auto !important;
+      height: auto !important;
+    }
   }
 }
 .container {
@@ -1013,43 +1004,56 @@ export default {
   overflow-x: hidden;
 }
 .article-thumb {
-	margin-left: -15px;
-	margin-right: -15px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .article-readmore {
-	height: 350px;
-	overflow: hidden;
-	padding-bottom: 100px;
-	position: relative;
-	z-index: 0;
+  height: 350px;
+  overflow: hidden;
+  padding-bottom: 100px;
+  position: relative;
+  z-index: 0;
 
-	&.expanded {
-		height: auto;
-		&:before, & > button {
-			content: none;
-			display: none;
-		}
-	}
+  &.expanded {
+    height: auto;
+    &:before,
+    & > button {
+      content: none;
+      display: none;
+    }
+  }
 
-	&:before {
-		content:"";
-		width: 100%;
-		height: 90%;
-		position:absolute;
-		bottom: 0;
-		background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-		background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-		background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
-	}
-	& > button {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
-		width: 200px;
-		z-index: 1;
-	}
+  &:before {
+    content: "";
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    background: -moz-linear-gradient(
+      top,
+      rgba(66, 66, 66, 0) 0%,
+      rgba(66, 66, 66, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      top,
+      rgba(66, 66, 66, 0) 0%,
+      rgba(66, 66, 66, 1) 100%
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba(66, 66, 66, 0) 0%,
+      rgba(66, 66, 66, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  }
+  & > button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 200px;
+    z-index: 1;
+  }
 }
 </style>

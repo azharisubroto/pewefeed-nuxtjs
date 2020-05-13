@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 class="my-3" id="loginhead">LOGIN / SIGNUP</h3>
+    <h3 class="my-3 text-center" id="loginhead">Join / Sign in</h3>
     <OAuth
       provider="facebook"
       btnclass="indigo darken-1 "

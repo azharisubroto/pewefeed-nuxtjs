@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <v-btn class="mr-2" @click="recaptchaDialogVisible = true" icon>
-      <v-icon class="mr-1">mdi-share-variant</v-icon>+1 POIN &nbsp;&nbsp;&nbsp;&nbsp;
+  <span class="d-block px-3 v-btn">
+    <v-btn @click="recaptchaDialogVisible = true">
+      <span>Share</span>
+      <img
+        src="/img/icons/icon-transfer-2.png"
+        style="transform: rotate(-90deg)"
+        class="mb-1 d-block"
+        width="20"
+        height="20"
+      />
     </v-btn>
     <v-bottom-sheet v-model="sheet">
       <v-sheet height="100%" color="transparent">
@@ -113,11 +120,7 @@
     <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
 
     <!-- Recaptcha -->
-    <v-dialog
-      v-model="recaptchaDialogVisible"
-      persistent
-      transition="dialog-bottom-transition"
-    >
+    <v-dialog v-model="recaptchaDialogVisible" transition="dialog-bottom-transition">
       <recaptcha
         :key="recaptchaKey"
         class="mx-5 my-5"
@@ -126,7 +129,7 @@
         @expired="onExpired()"
       />
     </v-dialog>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -158,32 +161,31 @@ export default {
     sharingImage: "",
     sharingTime: "",
     SharePoinVisible: false,
-    isSaved: false,
+    isSaved: false
   }),
   methods: {
     /* Recaptcha */
     onError(error) {
       console.log("Error happened:", error);
       this.recaptchaToken = null;
-      this.recaptchaDialogVisible = true
-      this.sheet = false
+      this.recaptchaDialogVisible = true;
+      this.sheet = false;
     },
     onSuccess() {
-      this.$recaptcha.getResponse()
-      .then(token => {
+      this.$recaptcha.getResponse().then(token => {
         // console.log(token)
-        this.recaptchaToken = token
-        this.recaptchaDialogVisible = false
-        this.sheet = true
-      })
+        this.recaptchaToken = token;
+        this.recaptchaDialogVisible = false;
+        this.sheet = true;
+      });
     },
     onExpired() {
       console.log("Expired");
-      this.recaptchaDialogVisible = true
+      this.recaptchaDialogVisible = true;
       this.recaptchaToken = null;
-      this.sheet = false
+      this.sheet = false;
     },
-    
+
     myDialogClose() {
       this.SharePoinVisible = false;
     },
@@ -196,11 +198,11 @@ export default {
           this.SharePoinVisible = true;
         }
         this.recaptchaToken = null;
-        this.$recaptcha.reset()
+        this.$recaptcha.reset();
       } catch (error) {
         console.log(error);
         this.recaptchaToken = null;
-        this.$recaptcha.reset()
+        this.$recaptcha.reset();
       }
     },
     copyToClipBoard() {
@@ -228,7 +230,7 @@ export default {
       }
 
       let vm = this;
-      var bcrypt = require('bcryptjs');
+      var bcrypt = require("bcryptjs");
       var salt = bcrypt.genSaltSync(10);
       var hash = bcrypt.hashSync(vm.sharingUrl, salt);
       this.$root.$on("social_shares_close", function(network, url) {
