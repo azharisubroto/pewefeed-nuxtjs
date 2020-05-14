@@ -464,26 +464,49 @@
       dark
       grow
       color="white"
+      class="pwmenubottom"
       background-color="black"
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span>Artikel</span>
+        <span>News</span>
+        <img
+          src="/img/icons/icon-article-orange-v2.png"
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
       </v-btn>
 
       <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
-        <span>
-          Komentar
+        <span style="font-size:10px;">
+          Comments
           <br />(+2 Poin)
         </span>
+        <img
+          src="/img/icons/icon-comment-orange-v3.png"
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
       </v-btn>
 
       <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
-        <span>
+        <span style="font-size:10px;">
           Quiz
           <br />(+20 Poin)
         </span>
+        <img
+          src="/img/icons/icon-quiz-orange-v3.png"
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
       </v-btn>
+      <ShareButton2 />
     </v-bottom-navigation>
 
     <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
@@ -501,6 +524,7 @@ import CommentList from "@/components/common/CommentList";
 import ShareButton from "@/components/common/ShareButton";
 import NotVip from "@/components/modal/NotVip";
 import RedeemCard from "@/components/common/RedeemCard";
+import ShareButton2 from "@/components/common/ShareButton2";
 
 export default {
   components: {
@@ -511,7 +535,8 @@ export default {
     KomentarPoin,
     ShareButton,
     LoginModal,
-    RedeemCard
+    RedeemCard,
+    ShareButton2
   },
   props: ["respon"],
   data() {
