@@ -10,9 +10,8 @@
           <div class="flex-grow-1"></div>
         </template>
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
-          <!-- <v-img :src="mainlogo" width="130"></v-img> -->
+          <v-img :src="mainlogo" width="130"></v-img>
           <!-- {{$route.name}} -->
-          <strong class="text-white">PeweFeed</strong>
         </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
@@ -86,7 +85,7 @@
           dark
           grow
           color="white"
-          background-color="black"
+          background-color="#2C2C2D"
           v-model="wowtab"
           class="pwmenubottom"
           v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug'"
@@ -876,7 +875,7 @@ body {
   --SPORT: #68a457;
   --PIKNIK: #803bdc;
   --LAGU: #d54444;
-  --NONTON: #000;
+  --NONTON: #fff;
   --TEKNO: #8d8988;
 }
 body,
@@ -889,6 +888,13 @@ html {
 
 img {
   max-width: 100%;
+}
+.theme--dark.v-application,
+.theme--dark.v-sheet {
+  background: #1c1c1d;
+}
+.main-app-bar.theme--dark {
+  background: #2c2c2d;
 }
 .text-primary {
   color: var(--primary);
@@ -1066,11 +1072,11 @@ a,
 }
 .devider-big {
   height: 8px;
-  background: #d1d1d1;
+  background: #2b2b2b;
 }
 .devider-small {
   height: 1px;
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid #2b2b2b;
 
   &.full {
     margin-left: -10px;
