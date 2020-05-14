@@ -112,7 +112,7 @@
           <!-- TERBARU -->
           <div class="text-center mb-4 font-weight-bold">ARTIKEL TERBARU LAINNYA</div>
           <NewsLoop
-            v-if="this.$route.params.cat == 'viral'"
+            v-if="this.$route.params.cat == 'entertainment'"
             :items="latests"
             ADSlayoutKey="-fb+5w+4e-db+86"
             ADSclient="ca-pub-6581994114503986"
@@ -465,7 +465,7 @@
       grow
       color="white"
       class="pwmenubottom"
-      background-color="black"
+      background-color="#2C2C2D"
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
@@ -640,6 +640,7 @@ export default {
         this.quiz_id = this.respon.quiz.id;
         this.answered = this.respon.quiz.answered;
       }
+      console.log("fetch latest..");
       this.fetchLatest(this.respon.article.slug);
     },
     async fetchQuiz() {
@@ -675,9 +676,10 @@ export default {
             type: element.reaction,
             published_at: element.publish_at
           };
-          if (element.id != this.id) {
-            this.latests.push(obj);
-          }
+          this.latests.push(obj);
+          //   if (element.id != this.id) {
+          //     this.latests.push(obj);
+          //   }
         });
       } catch (error) {
         console.log(error);
@@ -716,13 +718,19 @@ export default {
       }
     },
     async fetchUserdata() {
-      try {
-        const res = await UserService.getSingleUser();
+      let res = JSON.parse(localStorage.getItem("useres"));
+      if (res) {
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)));
-      } catch (error) {
-        console.log(error);
+      } else {
+        try {
+          const res = await UserService.getSingleUser();
+          // console.log(res.data.status);
+          this.user_id = res.data.data.id;
+          this.profile = res.data.data;
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
     async fetchComment() {
@@ -945,10 +953,10 @@ export default {
   },
   mounted() {
     this.fetchContent();
-    this.fetchUserdata();
     this.fetchQuiz();
     this.fetchComment();
-    //this.fetchLatest()
+    this.fetchUserdata();
+    //this.fetchLatest();
   },
   updated() {
     this.moveRedeemBeforeRelated();
@@ -1041,6 +1049,7 @@ export default {
 
   &.expanded {
     height: auto;
+    padding-bottom: 0;
     &:before,
     & > button {
       content: none;
@@ -1054,22 +1063,11 @@ export default {
     height: 90%;
     position: absolute;
     bottom: 0;
-    background: -moz-linear-gradient(
-      top,
-      rgba(66, 66, 66, 0) 0%,
-      rgba(66, 66, 66, 1) 100%
-    );
-    background: -webkit-linear-gradient(
-      top,
-      rgba(66, 66, 66, 0) 0%,
-      rgba(66, 66, 66, 1) 100%
-    );
     background: linear-gradient(
-      to bottom,
-      rgba(66, 66, 66, 0) 0%,
-      rgba(66, 66, 66, 1) 100%
+      180deg,
+      rgba(28, 28, 29, 0) 0%,
+      rgba(28, 28, 29, 1) 100%
     );
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
   }
   & > button {
     position: absolute;
