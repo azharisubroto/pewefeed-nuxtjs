@@ -214,9 +214,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchUser()
+    this.$auth.fetchUser()
     var useres = this.$auth.user
-    
+
     this.setProfile(useres);
     this.userdata = useres.data.data;
     this.mypoint = useres.data.point_total;
