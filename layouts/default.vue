@@ -3,15 +3,25 @@
     <v-sheet>
       <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-
+        <template v-if="$route.name != 'index'">
+          <v-btn @click="historyBack()" small icon>
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <div class="flex-grow-1"></div>
+        </template>
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
           <!-- <v-img :src="mainlogo" width="130"></v-img> -->
+          <!-- {{$route.name}} -->
           <strong class="text-white">PeweFeed</strong>
         </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
 
-        <div class="headsearch">
+        <v-btn to="/" small icon v-if="$route.name != 'index'">
+          <v-icon>mdi-home</v-icon>
+        </v-btn>
+
+        <div class="headsearch" v-if="$route.name == 'index'">
           <v-text-field
             flat
             filled
@@ -79,7 +89,7 @@
           background-color="black"
           v-model="wowtab"
           class="pwmenubottom"
-          v-if="$route.name != 'purchase'"
+          v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug'"
         >
           <v-btn to="/">
             <span>Trending</span>
@@ -99,7 +109,7 @@
       <!-- CONTENT -->
 
       <!-- DRAWER -->
-      <v-navigation-drawer v-model="drawer" app fixed width="100%" @click="drawer = false">
+      <!-- <v-navigation-drawer v-model="drawer" app fixed width="100%" @click="drawer = false">
         <v-card tile>
           <v-app-bar absolute color="white" elevation="1">
             <v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
@@ -110,9 +120,7 @@
           </v-app-bar>
         </v-card>
 
-        <!--
-					LOGIN / ACCOUNT
-        -->
+
         <v-container>
           <v-row v-if="!isLogin()">
             <v-col class="mt-6" cols="12">
@@ -220,11 +228,9 @@
 
         <div class="devider-big"></div>
 
-        <!-- DRAWER CONTENT -->
+
         <v-container>
-          <!--
-						CATEGORY MENU
-          -->
+
           <v-row>
             <v-col cols="6">
               <v-list>
@@ -293,9 +299,7 @@
           <v-container>
             <div class="devider-small full"></div>
           </v-container>
-          <!--
-						CONTACT
-          -->
+
           <v-row>
             <v-col cols="12" style="margin-bottom: -30px !important">
               <v-subheader class="black--text text-16 font-weight-bold">CONTACT</v-subheader>
@@ -365,9 +369,8 @@
           <v-container>
             <div class="devider-small full"></div>
           </v-container>
-          <!--
-						SOCIAL MEDIA
-          -->
+
+
           <v-row>
             <v-col cols="12">
               <v-container>
@@ -422,19 +425,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <!-- <pre>{{bantuanMenu}}</pre>
-					<v-list-item-group>
-						<v-list-item
-							v-for="(bantuan, i) in bantuanMenu"
-							:key="i"
-							@click="$router.push('/bantuan/#'+bantuan.id); drawer = false"
-						>
-							<v-list-item-content class="menu">
-								<v-list-item-title v-html="bantuan.title"></v-list-item-title>
-							</v-list-item-content>
-						</v-list-item>
 
-          </v-list-item-group>-->
 
           <v-container>
             <div class="devider-small full"></div>
@@ -447,8 +438,7 @@
             <br />
           </v-container>
         </v-container>
-        <!-- END DRAWER CONTENT -->
-      </v-navigation-drawer>
+      </v-navigation-drawer>-->
       <!-- END DRAWER -->
     </v-sheet>
 
@@ -753,6 +743,9 @@ export default {
     }
   },
   methods: {
+    historyBack() {
+      this.$router.back();
+    },
     logout() {
       let vm = this;
       localStorage.removeItem("loggedin");

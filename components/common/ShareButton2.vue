@@ -22,7 +22,7 @@
           <v-container>
             <v-row>
               <v-col v-if="sharingImage" cols="8">
-                <strong class="subtitle-1 font-weight-bold">{{ sharingTitle }}</strong>
+                <strong class="subtitle-1 font-weight-bold" style="color: #000">{{ sharingTitle }}</strong>
                 <br />
                 <strong class="caption grey--text">{{ sharingTime }}</strong>
               </v-col>
