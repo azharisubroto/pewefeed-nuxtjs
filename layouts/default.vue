@@ -764,9 +764,8 @@ export default {
       return this.$auth.user;
     },
     fetchUser() {
-      this.$auth.fetchUser()
-      
       if (this.$auth.user) {
+        this.$auth.fetchUser()
         let userdata = this.$auth.user;
         let mypoint = userdata.data.point_total
 

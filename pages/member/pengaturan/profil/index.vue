@@ -227,7 +227,7 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-      this.fetchUser()
+      this.$auth.fetchUser()
       var res = []
       res.data = this.$auth.user
       this.profile = res.data.data;

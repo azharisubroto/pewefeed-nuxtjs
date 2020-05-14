@@ -256,10 +256,10 @@ export default {
             }
         },
         fetchUser() {
-            this.$auth.fetchUser()
             var res = []
 
             if (this.$auth.user) {
+                this.$auth.fetchUser()
                 res.data = this.$auth.user
                 this.formdata.customer_id = res.data.data.id
             }

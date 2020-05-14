@@ -222,10 +222,10 @@ export default {
     },
 
     fetchUser() {
-      this.$auth.fetchUser()
-
+      
       var res = []
       if (this.$auth.user) {
+        this.$auth.fetchUser()
         res = this.$auth.user
         this.userdata = res.data.data;
       }

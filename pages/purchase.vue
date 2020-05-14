@@ -867,11 +867,10 @@ export default {
       }
     },
 
-    fetchUser() {
-      this.$auth.fetchUser()
-
+    fetchUser() {  
       var res = []
       if (this.$auth.user) {
+        this.$auth.fetchUser()
         res.data = this.$auth.user
         this.userdata = res.data.data;
       }

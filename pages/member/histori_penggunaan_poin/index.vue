@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     fetchUserdata() {
-      this.fetchUser()
+      this.$auth.fetchUser()
 
       var res = []
       res.data = this.$auth.user
