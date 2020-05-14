@@ -214,14 +214,13 @@ export default {
     }
   },
   mounted() {
-    if (this.$auth.user) {
-      this.setProfile(useres);
-      this.userdata = useres.data.data;
-      this.mypoint = useres.data.point_total;
-      this.isLoggedIn = true;
-    } else {
-      this.$router.push('/login')
-    }
+    this.fetchUser()
+    var useres = this.$auth.user
+    
+    this.setProfile(useres);
+    this.userdata = useres.data.data;
+    this.mypoint = useres.data.point_total;
+    this.isLoggedIn = true;
   }
 };
 </script>

@@ -278,11 +278,9 @@ export default {
     }
   },
   mounted() {
-    if (this.$auth.user) {
-      this.setProfile(JSON.parse(useres));
-    } else {
-      this.$router.push('/login')
-    }
+    this.$auth.fetchUser()
+    var useres = this.$auth.user
+    this.setProfile(JSON.parse(useres));
   }
 };
 </script>
