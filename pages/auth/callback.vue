@@ -17,6 +17,7 @@ export default {
     mounted() {
         this.$auth.setToken('local', 'Bearer ' + this.token)
         this.$auth.setStrategy('local')
+        localStorage.setItem('access-token', this.token)
 
         this.$auth.fetchUser().then(() => {
             return this.$router.push('/')
