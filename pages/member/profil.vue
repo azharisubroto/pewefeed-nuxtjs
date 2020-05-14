@@ -155,21 +155,18 @@ export default {
         response.file_name;
     },
     fetchUserdata() {
-      this.$auth.fetchUser()
-
+      this.setProfile();
+      this.isLoggedIn = true;
+    },
+    setProfile() {
+      this.fetchUser()
       var res = []
       res.data = this.$auth.user
-      this.setProfile(res);
-      this.isLoggedIn = true;
-      this.userdata = res.data.data;
+
       this.userdata = res.data.data;
       this.mypoint = res.data.point_total;
-    },
-    setProfile(res) {
-      // console.log("setprof", res);
-      this.user_id = res.data.data.id;
       this.profile = res.data.data;
-      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+
       this.dropOptions.headers.Authorization =
         "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
@@ -214,12 +211,7 @@ export default {
     }
   },
   mounted() {
-    this.$auth.fetchUser()
-    var useres = this.$auth.user
-
-    this.setProfile(useres);
-    this.userdata = useres.data.data;
-    this.mypoint = useres.data.point_total;
+    this.setProfile();
     this.isLoggedIn = true;
   }
 };

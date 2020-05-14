@@ -223,17 +223,15 @@ export default {
         response.file_name;
     },
     fetchUserdata() {
-      this.$auth.fetchUser()
-
+      this.setProfile();
+      this.isLoggedIn = true;
+    },
+    setProfile() {
+      this.fetchUser()
       var res = []
       res.data = this.$auth.user
-
-      this.setProfile(res);
-    },
-    setProfile(res) {
-      this.user_id = res.data.data.id;
       this.profile = res.data.data;
-      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+
       this.dropOptions.headers.Authorization =
         "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
@@ -278,9 +276,8 @@ export default {
     }
   },
   mounted() {
-    this.$auth.fetchUser()
-    var useres = this.$auth.user
-    this.setProfile(JSON.parse(useres));
+    this.setProfile();
+    this.isLoggedIn = true;
   }
 };
 </script>
