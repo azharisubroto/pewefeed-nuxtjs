@@ -769,12 +769,6 @@ export default {
         let userdata = this.$auth.user;
         let mypoint = userdata.data.point_total
 
-        var token = userdata.data.token
-        if (localStorage.getItem('access-token') != token) {
-          this.$auth.logout()
-          this.$router.push('/login')
-        }
-
         if (userdata.data.daily_point) {
           if ( window.location.pathname != "/member/histori_penggunaan_poin" ) {
             this.dailyPointModalVisible = true;
