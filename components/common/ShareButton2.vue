@@ -20,7 +20,7 @@
             tile
             style="border-right: 1px solid #717171"
             light
-            @click="recaptchaDialogVisible = false; sheet = false; $recaptcha.reset(); recaptchaToken = null"
+            @click="recaptchaDialogVisible = false;"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -47,7 +47,7 @@
           <v-container v-if="sheet">
             <v-row>
               <v-col v-if="sharingImage" cols="8">
-                <strong class="subtitle-1 font-weight-bold" style="color: #000">{{ sharingTitle }}</strong>
+                <strong class="subtitle-1 font-weight-bold" style="color: #fff">{{ sharingTitle }}</strong>
                 <br />
                 <strong class="caption grey--text">{{ sharingTime }}</strong>
               </v-col>
