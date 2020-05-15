@@ -10,16 +10,41 @@
         height="20"
       />
     </v-btn>
-    <v-bottom-sheet v-model="sheet">
-      <v-sheet height="100%" color="transparent">
-        <div class="mx-2" style="background-color: #fff !important">
-          <div>
-            <v-container class="text-center deep-orange--text">
-              <strong class="text-16">SHARE (+1 POIN)</strong>
-            </v-container>
+    <v-bottom-sheet v-model="recaptchaDialogVisible">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 1px solid #717171"
+            light
+            @click="recaptchaDialogVisible = false; sheet = false; $recaptcha.reset(); recaptchaToken = null"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text">SHARE (+1 POIN)</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+        <v-divider></v-divider>
+
+        <div class="mx-2">
+          <div class="py-10" v-if="recaptcha">
+            <recaptcha
+              :key="recaptchaKey"
+              class="mx-5 my-5"
+              @error="onError()"
+              @success="onSuccess()"
+              @expired="onExpired()"
+            />
           </div>
-          <v-divider></v-divider>
-          <v-container>
+          <v-container v-if="sheet">
             <v-row>
               <v-col v-if="sharingImage" cols="8">
                 <strong class="subtitle-1 font-weight-bold" style="color: #000">{{ sharingTitle }}</strong>
@@ -52,35 +77,35 @@
                           <i
                             style="font-size:40px"
                             aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-facebook theme--light primary--text"
+                            class="v-icon notranslate mdi mdi-facebook theme--light white--text"
                           ></i>
                         </network>
                         <network network="twitter">
                           <i
                             style="font-size:40px"
                             aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-twitter theme--light blue--text"
+                            class="v-icon notranslate mdi mdi-twitter theme--light white--text"
                           ></i>
                         </network>
                         <network network="whatsapp">
                           <i
                             style="font-size:40px"
                             aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-whatsapp theme--light green--text"
+                            class="v-icon notranslate mdi mdi-whatsapp theme--light white--text"
                           ></i>
                         </network>
                         <network network="telegram">
                           <i
                             style="font-size:40px"
                             aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-telegram theme--light blue--text"
+                            class="v-icon notranslate mdi mdi-telegram theme--light white--text"
                           ></i>
                         </network>
                         <network network="skype">
                           <i
                             style="font-size:40px"
                             aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-skype theme--light blue--text"
+                            class="v-icon notranslate mdi mdi-skype theme--light white--text"
                           ></i>
                         </network>
                       </div>
@@ -98,16 +123,6 @@
             </v-row>
           </v-container>
         </div>
-        <div class="mx-2 py-3">
-          <v-btn
-            @click="sheet = !sheet; $recaptcha.reset(); recaptchaToken = null"
-            tile
-            light
-            depressed
-            block
-            style="background-color: #fff !important"
-          >Batal</v-btn>
-        </div>
       </v-sheet>
     </v-bottom-sheet>
     <v-snackbar v-model="snackbar" :timeout="timeout" top>
@@ -118,17 +133,6 @@
     </v-snackbar>
 
     <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
-
-    <!-- Recaptcha -->
-    <v-dialog v-model="recaptchaDialogVisible" transition="dialog-bottom-transition">
-      <recaptcha
-        :key="recaptchaKey"
-        class="mx-5 my-5"
-        @error="onError()"
-        @success="onSuccess()"
-        @expired="onExpired()"
-      />
-    </v-dialog>
   </span>
 </template>
 
@@ -149,6 +153,7 @@ export default {
     recaptchaDialogVisible: false,
     recaptchaToken: null,
     recaptchaKey: 1,
+    recaptcha: true,
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
     sheet: false,
@@ -175,7 +180,8 @@ export default {
       this.$recaptcha.getResponse().then(token => {
         // console.log(token)
         this.recaptchaToken = token;
-        this.recaptchaDialogVisible = false;
+        this.recaptcha = false;
+        //this.recaptchaDialogVisible = false;
         this.sheet = true;
       });
     },
