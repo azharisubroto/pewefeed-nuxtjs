@@ -16,11 +16,15 @@
 
         <div class="flex-grow-1"></div>
 
-        <v-btn to="/" small icon v-if="$route.name != 'index'">
+        <!-- <v-btn to="/" small icon v-if="$route.name != 'index'">
           <v-icon>mdi-home</v-icon>
+        </v-btn>-->
+
+        <v-btn @click="opensearch = true" small icon>
+          <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
-        <div class="headsearch" v-if="$route.name == 'index'">
+        <!-- <div class="headsearch" v-if="$route.name == 'index'">
           <v-text-field
             flat
             filled
@@ -34,7 +38,7 @@
             @keyup.enter="validate()"
             label="Tulis Judul Artikel . . ."
           ></v-text-field>
-        </div>
+        </div>-->
       </v-app-bar>
 
       <!-- MEMBER MENU -->
@@ -98,7 +102,17 @@
             <span>Categories</span>
             <img src="/img/icons/icon-category-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
-          <ShareButton2 />
+          <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />
+
+          <v-btn to="/help/">
+            <span>Help</span>
+            <img
+              src="/img/icons/icon-contactus-orange.png"
+              class="mb-1 d-block"
+              width="20"
+              height="20"
+            />
+          </v-btn>
           <v-btn to="/member/profil">
             <span>Me</span>
             <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
@@ -446,61 +460,6 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-    <!--
-			Modal Search
-    -->
-    <div class="text-center">
-      <!--
-			SEARCH
-      -->
-      <div class="text-center">
-        <v-dialog v-model="searchDialog" persistent width="500">
-          <v-card>
-            <v-toolbar>
-              <!-- Arrow -->
-              <v-btn icon tile style="border-right: 1px solid #d1d1d1" @click="closeSearch()">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-
-              <!-- Logo -->
-              <v-toolbar-title>
-                <v-img
-                  @click="$router.push('/'); drawer = false"
-                  :src="mainlogo"
-                  lazy-:src="mainlogo"
-                  max-width="100"
-                  max-height="100"
-                ></v-img>
-              </v-toolbar-title>
-
-              <!-- Title -->
-              <div class="flex-grow-1"></div>
-              <strong class="subtitle-2">PENCARIAN</strong>
-            </v-toolbar>
-
-            <v-card-text>
-              <v-row class="mt-12">
-                <v-col cols="10">
-                  <v-text-field
-                    v-model="searchModel"
-                    @keyup.enter="validate()"
-                    dense
-                    label="Tulis Judul Artikel . . ."
-                    autofocus
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="2">
-                  <v-btn @click="validate()" icon>
-                    <v-icon>mdi-magnify</v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </div>
-    </div>
-
     <!-- === DAILY POINT MODAL === -->
     <DrawerWelcome :dialogVisible="dailyPointModalVisible" @close="myDialogClose" />
 
@@ -511,6 +470,48 @@
       </v-btn>
     </v-snackbar>
     <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose" />
+
+    <!-- ==== SEARCH BAR === -->
+    <v-bottom-sheet v-model="opensearch">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 1px solid #717171"
+            light
+            @click="opensearch = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text">Search</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+        <div class="devider-small" style="margin-top: 2px;"></div>
+
+        <div class="px-5 py-10">
+          <v-text-field
+            flat
+            filled
+            single-line
+            hide-details
+            prepend-inner-icon="mdi-magnify"
+            background-color="#000"
+            v-model="searchModel"
+            @keyup.enter="validate()"
+            label="Tulis Judul Artikel . . ."
+          ></v-text-field>
+          <v-btn @click="validate()" block large color="green" class="mt-3">Submit</v-btn>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </v-app>
 </template>
 
@@ -550,6 +551,7 @@ export default {
       youtubeUrl: process.env.youtubeUrl,
       mainlogo: "/pl-logo.png",
       drawer: null,
+      opensearch: false,
       searchDialog: null,
       isLoggedIn: false,
       dialog: false,
@@ -793,6 +795,7 @@ export default {
       this.searchDialog = false;
       this.searchModel = null;
       this.$router.push("/search/" + keywords);
+      this.opensearch = false;
     },
     slugify(text) {
       return text
@@ -843,7 +846,7 @@ export default {
   mounted() {
     this.isLogin();
     this.fetchUser();
-    this.fetchBantuan();
+    //this.fetchBantuan();
     //this.fetchHighlight();
     this.years = new Date().getFullYear();
     var isMobile = mobile();

@@ -1,75 +1,28 @@
 <template>
   <div class="bg-dark fill-height">
     <client-only>
-      <!-- HIGHLIGHTS -->
+      <!-- BANTUAN -->
       <v-container>
-        <h4 class="deep-orange--text mb-4">Highlights</h4>
-        <template v-if="highlights != null">
-          <v-btn
-            v-for="(highlight, i) in highlights"
-            :key="i"
-            @click="$router.push('/highlight/'+highlight.title); drawer = false"
-            small
-            depressed
-            rounded
-            color="#2f2f2f"
-            dark
-            class="mr-1 mb-1"
-          >{{highlight.title}}</v-btn>
-        </template>
-        <template v-else-if="highlights == 'loading'">
-          <span class="caption">Loading data...</span>
-        </template>
-      </v-container>
-
-      <!-- CATEGORIES -->
-      <v-container>
-        <h4 class="deep-orange--text">Categories</h4>
-        <v-row>
-          <v-col cols="12" v-for="(cat, i) in categories" :key="'cat-'+i">
+        <h4 class="deep-orange--text">Help</h4>
+        <v-row v-if="bantuanMenu">
+          <v-col cols="12" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <v-btn
               class="pl-0"
               small
               text
               dark
-              @click="$router.push(cat.link); drawer = false"
-            >{{cat.title}}</v-btn>
-            <div class="devider-small"></div>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <!-- PROGRAM -->
-      <v-container>
-        <h4 class="deep-orange--text">Program</h4>
-        <v-row>
-          <v-col cols="12" v-for="(program, i) in programs" :key="'program-'+i">
-            <v-btn class="pl-0" small text dark :href="program.link">{{program.title}}</v-btn>
-            <div class="devider-small"></div>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <!-- BANTUAN -->
-      <v-container class="d-none">
-        <h4 class="deep-orange--text">Help</h4>
-        <v-row>
-          <v-col cols="12">
-            <v-btn class="pl-0" small text dark to="/bantuan/?tab=2">Point &amp; Rewards</v-btn>
-            <div class="devider-small"></div>
-          </v-col>
-          <v-col cols="12">
-            <v-btn class="pl-0" small text dark to="/bantuan/">Lainnya...</v-btn>
+              @click="$router.push('/bantuan/?tab='+bantuan.id)"
+            >{{bantuan.title}}</v-btn>
             <div class="devider-small"></div>
           </v-col>
         </v-row>
       </v-container>
 
       <!-- CONTACT -->
-      <v-container class="d-none">
+      <v-container>
         <h4 class="deep-orange--text">Contact</h4>
         <v-row class="pt-0">
-          <v-col cols="6">
+          <v-col cols="12">
             <v-list two-line color="#232323" dark class="pt-0">
               <v-list-item-group v-model="contact">
                 <v-list-item class="pl-0" v-for="(con, i) in contacts" :key="'consdf-'+i">
@@ -92,8 +45,6 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-          </v-col>
-          <v-col cols="6">
             <v-list two-line color="#232323" dark class="pt-0 pb-0">
               <v-list-item-group v-model="contacttwo">
                 <v-list-item class="pl-0" v-for="(con, i) in contactstwo" :key="'cons-'+i">
@@ -132,7 +83,7 @@
       </v-container>
 
       <!-- SOCIAL -->
-      <v-container class="d-none text-center social justify-space-between">
+      <v-container class="text-center social justify-space-between">
         <a
           target="blank"
           style="text-decoration: none;"
@@ -160,60 +111,17 @@
 
 <script>
 import MenuService from "@/services/MenuService";
+import ArticleService from "@/services/ArticleService";
 export default {
   name: "categories",
   data() {
     return {
-      highlights: null,
       facebook: process.env.facebook,
       instagram: process.env.instagram,
       twitter: process.env.twitter,
       youtube: process.env.youtube,
       youtubeUrl: process.env.youtubeUrl,
-      categories: [
-        {
-          title: "TRENDING",
-          link: "/"
-        },
-        {
-          title: "Entertaiment",
-          link: "/viral"
-        },
-        {
-          title: "MUSIK",
-          link: "/lagu"
-        },
-        {
-          title: "NONTON",
-          link: "/nonton"
-        },
-        {
-          title: "PIKNIK",
-          link: "/piknik"
-        },
-        {
-          title: "TEKNO",
-          link: "/tekno"
-        },
-        {
-          title: "SPORT",
-          link: "/sport"
-        },
-        {
-          title: "VIDEO",
-          link: "/video"
-        }
-      ],
-      programs: [
-        {
-          title: "TUKAR POIN",
-          link: "/tukarpoin"
-        },
-        {
-          title: "REZEKI BEDUK",
-          link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
-        }
-      ],
+      bantuanMenu: null,
       contact: 2,
       contacts: [
         {
@@ -256,20 +164,20 @@ export default {
     };
   },
   methods: {
-    async fetchHighlight() {
-      this.highlights = "loading";
+    async fetchBantuan() {
       try {
-        const res = await MenuService.getHighlight();
+        const res = await ArticleService.getBantuan();
         const data = res.data.data;
-        // console.log("Highlights", JSON.parse(JSON.stringify(data)));
-        this.highlights = data;
+        // console.log(JSON.parse(JSON.stringify(data)));
+        this.bantuanMenu = data;
+        //this.loading = false
       } catch (error) {
         console.log(error);
       }
     }
   },
   mounted() {
-    this.fetchHighlight();
+    this.fetchBantuan();
   }
 };
 </script>
