@@ -217,11 +217,10 @@ export default {
             // other code
         },
         checkVIP(id, bandid) {
-            this.$auth.fetchUser()
-
             var res = []
 
 			if( this.$auth.user ) {
+                this.$auth.fetchUser()
                 res.data = this.$auth.user
 
                 if (new Date(res.data.data.expire) > new Date() ) {

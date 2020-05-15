@@ -503,11 +503,10 @@ export default {
     // },
     methods: {
         fetchUserdata() {
-          this.$auth.fetchUser()
-
           var res = []
 
           if (this.$auth.user) {
+            this.$auth.fetchUser()
             res.data = this.$auth.user
             
             this.user_id = res.data.data.id
