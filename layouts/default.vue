@@ -769,9 +769,9 @@ export default {
       if (this.$auth.user) {
         this.$auth.fetchUser()
         let userdata = this.$auth.user;
-        let mypoint = userdata.data.point_total
+        let mypoint = userdata.point_total
 
-        if (userdata.data.daily_point) {
+        if (userdata.daily_point) {
           if ( window.location.pathname != "/member/histori_penggunaan_poin" ) {
             this.dailyPointModalVisible = true;
           }
