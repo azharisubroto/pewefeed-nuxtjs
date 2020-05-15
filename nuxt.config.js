@@ -46,7 +46,12 @@ export default {
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
-		]
+		],
+		noscript: [{
+			innerHtml: `
+				<img src="https://certify.alexametrics.com/atrk.gif?account=zT0Lu1hNdI20fn" style="display:none" height="1" width="1" alt="" />
+			`
+		}]
 	},
 	/*
 	** Customize the progress-bar color
@@ -70,7 +75,8 @@ export default {
 		{ src: '~/plugins/moment', ssr: false },
 		{ src: '~/plugins/bus' },
 		{ src: '~/plugins/ga', mode: 'client' },
-		{ src: '~/plugins/vue-google-adsense', ssr: false }
+		{ src: '~/plugins/vue-google-adsense', ssr: false },
+		{ src: '~/plugins/alexa', mode: 'client' }
 	],
 	/*
 	** Nuxt.js dev-modules
