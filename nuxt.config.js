@@ -44,14 +44,25 @@ export default {
 			{ name: 'google-site-verification', content: 'GBGSbmO6dIV5P18M0oBdihBDH26dvWzYrvOulDlWVzw' },
 			{ hid: 'description', name: 'description', content: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!' }
 		],
+		noscript: [
+			{
+				innerHTML: `
+          <img src="https://certify.alexametrics.com/atrk.gif?account=zT0Lu1hNdI20fn" style="display:none" height="1" width="1" alt="" />
+        `
+			}
+		],
+		script: [
+			{
+				innerHTML: `
+          _atrk_opts = { atrk_acct:"zT0Lu1hNdI20fn", domain:"pewefeed.com",dynamic: true};
+          (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+        `
+			}
+		],
+		__dangerouslyDisableSanitizers: ['script'],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
-		],
-		noscript: [{
-			innerHtml: `
-				<img src="https://certify.alexametrics.com/atrk.gif?account=zT0Lu1hNdI20fn" style="display:none" height="1" width="1" alt="" />
-			`
-		}]
+		]
 	},
 	/*
 	** Customize the progress-bar color
@@ -75,8 +86,7 @@ export default {
 		{ src: '~/plugins/moment', ssr: false },
 		{ src: '~/plugins/bus' },
 		{ src: '~/plugins/ga', mode: 'client' },
-		{ src: '~/plugins/vue-google-adsense', ssr: false },
-		{ src: '~/plugins/alexa', mode: 'client' }
+		{ src: '~/plugins/vue-google-adsense', ssr: false }
 	],
 	/*
 	** Nuxt.js dev-modules
