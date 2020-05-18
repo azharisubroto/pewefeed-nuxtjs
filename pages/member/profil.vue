@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row align="center">
+    <v-row align="center" class="profile-bag">
       <v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
         <v-avatar
           @click="$router.push('/member/pengaturan/profil');drawer = false"
@@ -11,7 +11,7 @@
         </v-avatar>
       </v-col>
       <v-col cols="10">
-        <v-row>
+        <v-row align="center">
           <v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
             <strong class="subheading">{{ userdata.first_name }}</strong>
             <div>Pewe ID: {{userdata.id}}</div>
@@ -31,8 +31,8 @@
     <div class="devider-small full"></div>
 
     <!-- USER MENU -->
-    <v-list dense color="#545353" class="mt-3 mb-10">
-      <v-list-item-group color="dark" v-model="category">
+    <v-list color="#545353" class="mt-3 mb-10">
+      <v-list-item-group color="dark">
         <template v-for="(item, i) in personmenu">
           <v-list-item :key="'persmenu-'+i" :to="item.to">
             <v-list-item-content>
@@ -40,7 +40,9 @@
                 {{item.name}}
                 <template v-if="item.poin">
                   <br />
-                  {{mypoint}}
+                  <span class="text-20">
+                    <strong>{{mypoint}}</strong>
+                  </span>
                 </template>
               </v-list-item-title>
             </v-list-item-content>
@@ -50,6 +52,14 @@
           </v-list-item>
           <div :key="'dvdr-'+i" class="devider-small"></div>
         </template>
+        <v-list-item @click="logout()">
+          <v-list-item-content>
+            <v-list-item-title class="red--text">Sign Out</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-icon>
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-container>
@@ -60,7 +70,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   name: "pengaturanPage",
   data() {
     return {
@@ -138,6 +148,20 @@ export default {
     BuyVip
   },
   methods: {
+    logout() {
+      let vm = this;
+      localStorage.removeItem("loggedin");
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("useres");
+      this.isLoggedIn = false;
+      //this.isLogin();
+      // if (window.location.pathname == '/member/login') {
+      // 	window.location.href = '/'
+      // } else {
+      // 	window.location.href = window.location.pathname
+      // }
+      this.$router.push("/");
+    },
     isLogin() {
       return this.isLoggedIn;
     },
@@ -159,16 +183,15 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-      this.$auth.fetchUser()
-      var res = []
-      res.data = this.$auth.user
+      this.$auth.fetchUser();
+      var res = [];
+      res.data = this.$auth.user;
 
       this.userdata = res.data.data;
       this.mypoint = res.data.point_total;
       this.profile = res.data.data;
 
-      this.dropOptions.headers.Authorization =
-        "Bearer " + res.data.token;
+      this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
       this.data.first_name = res.data.data.first_name;
       this.data.last_name = res.data.data.last_name;
@@ -223,4 +246,13 @@ export default {
 	opacity: 1
 	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
 		color: var(--primary)!important
+</style>
+
+<style lang="scss">
+.profile-bag {
+  background: #535352;
+  color: #fff;
+  border-top: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+}
 </style>

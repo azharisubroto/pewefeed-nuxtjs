@@ -3,9 +3,9 @@
     <client-only>
       <!-- BANTUAN -->
       <v-container>
-        <h4 class="deep-orange--text">Help</h4>
+        <h4 class="deep-orange--text mb-4">Help</h4>
         <v-row v-if="bantuanMenu">
-          <v-col cols="12" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
+          <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <v-btn
               class="pl-0"
               small
@@ -13,7 +13,7 @@
               dark
               @click="$router.push('/bantuan/?tab='+bantuan.id)"
             >{{bantuan.title}}</v-btn>
-            <div class="devider-small"></div>
+            <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
       </v-container>
@@ -41,6 +41,7 @@
                       >{{ con.title }}</a>
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    <div class="devider-small mt-3"></div>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -58,6 +59,7 @@
                       >{{ con.title }}</a>
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    <div class="devider-small mt-3"></div>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -75,6 +77,7 @@
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
                   </v-list-item-content>
+                  <div class="devider-small mt-3"></div>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -83,27 +86,72 @@
       </v-container>
 
       <!-- SOCIAL -->
-      <v-container class="text-center social justify-space-between">
+      <v-container class="justify-space-between">
+        <h4 class="deep-orange--text mb-4">Social Media</h4>
         <a
+          class="d-block py-4"
+          text
           target="blank"
           style="text-decoration: none;"
           :href="'https://www.facebook.com/' + facebook"
         >
-          <img src="/img/icons/icon-facebook.png" width="40" alt />
+          <img
+            src="/img/icons/icon-facebook.png"
+            width="20"
+            class="mr-2"
+            style="vertical-align:middle"
+            alt
+          /> pewefeeds
         </a>
-        <a target="blank" style="text-decoration: none;" :href="'https://twitter.com/' + twitter">
-          <img src="/img/icons/icon-twitter.png" width="40" alt />
-        </a>
+        <div class="devider-small"></div>
         <a
+          class="d-block py-4"
+          text
+          target="blank"
+          style="text-decoration: none;"
+          :href="'https://twitter.com/' + twitter"
+        >
+          <img
+            src="/img/icons/icon-twitter.png"
+            width="20"
+            class="mr-2"
+            style="vertical-align:middle"
+            alt
+          /> pewefeeds
+        </a>
+        <div class="devider-small"></div>
+        <a
+          class="d-block py-4"
+          text
           target="blank"
           style="text-decoration: none;"
           :href="'https://www.instagram.com/' + instagram"
         >
-          <img src="/img/icons/icon-instagram.png" width="40" alt />
+          <img
+            src="/img/icons/icon-instagram.png"
+            width="20"
+            class="mr-2"
+            style="vertical-align:middle"
+            alt
+          /> pewefeeds
         </a>
-        <a target="blank" style="text-decoration: none;" :href="youtubeUrl">
-          <img src="/img/icons/icon-youtube.png" width="40" alt />
+        <div class="devider-small"></div>
+        <a
+          class="d-block py-4"
+          text
+          target="blank"
+          style="text-decoration: none;"
+          :href="youtubeUrl"
+        >
+          <img
+            src="/img/icons/icon-youtube.png"
+            width="20"
+            class="mr-2"
+            style="vertical-align:middle"
+            alt
+          /> pewefeeds
         </a>
+        <div class="devider-small"></div>
       </v-container>
     </client-only>
   </div>
