@@ -9,7 +9,6 @@
             v-for="(highlight, i) in highlights"
             :key="i"
             @click="$router.push('/highlight/'+highlight.title); drawer = false"
-            small
             depressed
             rounded
             color="#2f2f2f"
@@ -24,28 +23,27 @@
 
       <!-- CATEGORIES -->
       <v-container>
-        <h4 class="deep-orange--text">Categories</h4>
+        <h4 class="deep-orange--text mb-4">Categories</h4>
         <v-row>
-          <v-col cols="12" v-for="(cat, i) in categories" :key="'cat-'+i">
+          <v-col cols="12" class="py-0" v-for="(cat, i) in categories" :key="'cat-'+i">
             <v-btn
               class="pl-0"
-              small
               text
               dark
               @click="$router.push(cat.link); drawer = false"
             >{{cat.title}}</v-btn>
-            <div class="devider-small"></div>
+            <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
       </v-container>
 
       <!-- PROGRAM -->
       <v-container>
-        <h4 class="deep-orange--text">Program</h4>
+        <h4 class="deep-orange--text mb-4">Program</h4>
         <v-row>
-          <v-col cols="12" v-for="(program, i) in programs" :key="'program-'+i">
-            <v-btn class="pl-0" small text dark :href="program.link">{{program.title}}</v-btn>
-            <div class="devider-small"></div>
+          <v-col cols="12" class="py-0" v-for="(program, i) in programs" :key="'program-'+i">
+            <v-btn class="pl-0" text dark :href="program.link">{{program.title}}</v-btn>
+            <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
       </v-container>
