@@ -3,7 +3,7 @@
     <client-only>
       <!-- HIGHLIGHTS -->
       <v-container>
-        <h4 class="deep-orange--text mb-4">Highlights</h4>
+        <h4 class="deep-orange--text text-20 mb-4">Highlights</h4>
         <template v-if="highlights != null">
           <v-btn
             v-for="(highlight, i) in highlights"
@@ -23,7 +23,7 @@
 
       <!-- CATEGORIES -->
       <v-container>
-        <h4 class="deep-orange--text mb-4">Categories</h4>
+        <h4 class="deep-orange--text text-20 mb-4">Categories</h4>
         <v-row>
           <v-col cols="12" class="py-0" v-for="(cat, i) in categories" :key="'cat-'+i">
             <v-btn
@@ -39,7 +39,7 @@
 
       <!-- PROGRAM -->
       <v-container>
-        <h4 class="deep-orange--text mb-4">Program</h4>
+        <h4 class="deep-orange--text text-20 mb-4">Program</h4>
         <v-row>
           <v-col cols="12" class="py-0" v-for="(program, i) in programs" :key="'program-'+i">
             <v-btn class="pl-0" text dark :href="program.link">{{program.title}}</v-btn>
@@ -50,7 +50,7 @@
 
       <!-- BANTUAN -->
       <v-container class="d-none">
-        <h4 class="deep-orange--text">Help</h4>
+        <h4 class="deep-orange--text text-20">Help</h4>
         <v-row>
           <v-col cols="12">
             <v-btn class="pl-0" small text dark to="/bantuan/?tab=2">Point &amp; Rewards</v-btn>
@@ -65,7 +65,7 @@
 
       <!-- CONTACT -->
       <v-container class="d-none">
-        <h4 class="deep-orange--text">Contact</h4>
+        <h4 class="deep-orange--text text-20">Contact</h4>
         <v-row class="pt-0">
           <v-col cols="6">
             <v-list two-line color="#232323" dark class="pt-0">
