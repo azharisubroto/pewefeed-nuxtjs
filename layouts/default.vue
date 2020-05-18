@@ -767,8 +767,10 @@ export default {
     },
     fetchUser() {
       if (this.$auth.user) {
-        this.$auth.fetchUser();
-        let userdata = this.$auth.user;
+        var useres = localStorage.getItem('userdata')
+        // console.log(JSON.parse(useres))
+        // this.$auth.fetchUser();
+        let userdata = JSON.parse(useres);
         let mypoint = userdata.point_total;
 
         if (userdata.daily_point) {

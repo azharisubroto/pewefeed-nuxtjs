@@ -227,9 +227,10 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-      this.$auth.fetchUser()
+      // this.$auth.fetchUser()
       var res = []
-      res.data = this.$auth.user
+      // res.data = this.$auth.user
+      res.data = JSON.parse(localStorage.getItem('userdata'));
       this.profile = res.data.data;
 
       this.dropOptions.headers.Authorization =
@@ -260,7 +261,11 @@ export default {
       };
       try {
         const res = await UserService.updateProfile(params);
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+        })
         vm.snackbar = true;
+        this.setProfile()
       } catch (error) {
         console.log(error);
       }

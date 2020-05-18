@@ -97,10 +97,11 @@ export default {
   },
   methods: {
     fetchUserdata() {
-      this.$auth.fetchUser()
+      // this.$auth.fetchUser()
 
       var res = []
-      res.data = this.$auth.user
+      // res.data = this.$auth.user
+      res.data = JSON.parse(localStorage.getItem('userdata'));
 
       this.userdata = res.data;
     },
@@ -181,10 +182,15 @@ export default {
     },
     async claim() {
       this.overlay = true;
+      let vm = this
       try {
         const res = await UserService.claimDailyPoint();
         this.overlay = false;
         if (res.status == 201) {
+          this.$auth.fetchUser().then(() => {
+            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          })
+          
           this.fetchUserdata();
           this.fethMutasi();
           this.$router.push("/member/histori_penggunaan_poin");

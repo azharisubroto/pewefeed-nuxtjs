@@ -18,8 +18,11 @@ export default {
         this.$auth.setToken('local', 'Bearer ' + this.token)
         this.$auth.setStrategy('local')
         localStorage.setItem('access-token', this.token)
+        var vm = this
 
         this.$auth.fetchUser().then(() => {
+            var userdata = vm.$auth.user
+            localStorage.setItem('userdata', JSON.stringify(userdata))
             return this.$router.push('/')
         }).catch((e) => {
             this.$auth.logout()

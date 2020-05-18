@@ -183,9 +183,9 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-      this.$auth.fetchUser();
+      // this.$auth.fetchUser();
       var res = [];
-      res.data = this.$auth.user;
+      res.data = JSON.parse(localStorage.getItem('userdata'));
 
       this.userdata = res.data.data;
       this.mypoint = res.data.point_total;
