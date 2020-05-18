@@ -16,11 +16,11 @@
 
         <div class="flex-grow-1"></div>
 
-        <!-- <v-btn to="/" small icon v-if="$route.name != 'index'">
-          <v-icon>mdi-home</v-icon>
-        </v-btn>-->
+        <div to="/" class="mr-1" v-if="$route.name != 'index'">
+          <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
+        </div>
 
-        <v-btn @click="opensearch = true" class="mr-1" small icon>
+        <v-btn v-else @click="opensearch = true" class="mr-1" small icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
@@ -1078,7 +1078,7 @@ a,
 }
 .devider-small {
   height: 1px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
   &.full {
     margin-left: -10px;
