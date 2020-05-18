@@ -20,7 +20,7 @@
           <v-icon>mdi-home</v-icon>
         </v-btn>-->
 
-        <v-btn @click="opensearch = true" small icon>
+        <v-btn @click="opensearch = true" class="mr-1" small icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
@@ -42,7 +42,7 @@
       </v-app-bar>
 
       <!-- MEMBER MENU -->
-      <v-tabs
+      <!-- <v-tabs
         v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
         grow
         color="deep-orange"
@@ -50,7 +50,7 @@
         class="pw-tab"
       >
         <v-tab v-for="menu in memberMenu" :key="menu.loc" :to="menu.loc">{{menu.name}}</v-tab>
-      </v-tabs>
+      </v-tabs>-->
 
       <!-- PROFIL MENU -->
       <v-bottom-navigation
@@ -69,7 +69,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent">
         <a
-          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase')"
+          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') "
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
@@ -749,7 +749,7 @@ export default {
     },
     logout() {
       let vm = this;
-      this.$auth.logout()
+      this.$auth.logout();
       this.isLoggedIn = false;
       this.isLogin();
       // if (window.location.pathname == '/member/login') {
@@ -767,18 +767,18 @@ export default {
     },
     fetchUser() {
       if (this.$auth.user) {
-        this.$auth.fetchUser()
+        this.$auth.fetchUser();
         let userdata = this.$auth.user;
-        let mypoint = userdata.point_total
+        let mypoint = userdata.point_total;
 
         if (userdata.daily_point) {
-          if ( window.location.pathname != "/member/histori_penggunaan_poin" ) {
+          if (window.location.pathname != "/member/histori_penggunaan_poin") {
             this.dailyPointModalVisible = true;
           }
         }
       } else {
-        this.isLoggedIn = false
-        this.isLogin()
+        this.isLoggedIn = false;
+        this.isLogin();
       }
     },
     /* Validasi Form */
@@ -1078,7 +1078,7 @@ a,
 }
 .devider-small {
   height: 1px;
-  border-bottom: 1px solid #2b2b2b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   &.full {
     margin-left: -10px;

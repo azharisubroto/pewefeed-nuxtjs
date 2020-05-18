@@ -114,7 +114,10 @@ export default {
         //console.log(userdata);
         localStorage.setItem("access-token", token);
         localStorage.setItem("loggedin", true);
-        if (window.location.pathname == "/member/login") {
+        if (
+          window.location.pathname == "/member/login" ||
+          window.location.pathname == "/login"
+        ) {
           window.location.href = "/";
         } else {
           window.location.href = window.location.pathname;
