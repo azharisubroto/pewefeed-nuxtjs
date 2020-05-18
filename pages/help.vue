@@ -3,7 +3,7 @@
     <client-only>
       <!-- BANTUAN -->
       <v-container>
-        <h4 class="deep-orange--text mb-4">Help</h4>
+        <h4 class="deep-orange--text text-20 mb-4">Help</h4>
         <v-row v-if="bantuanMenu">
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <v-btn
@@ -19,7 +19,7 @@
 
       <!-- CONTACT -->
       <v-container class="contaclist">
-        <h4 class="deep-orange--text">Contact</h4>
+        <h4 class="deep-orange--text text-20">Contact</h4>
         <v-row class="pt-0">
           <v-col cols="12">
             <v-list two-line color="#232323" dark class="pt-0">
@@ -86,7 +86,7 @@
 
       <!-- SOCIAL -->
       <v-container class="justify-space-between">
-        <h4 class="deep-orange--text mb-4">Social Media</h4>
+        <h4 class="deep-orange--text text-20 mb-4">Social Media</h4>
         <a
           class="d-block py-4"
           text
