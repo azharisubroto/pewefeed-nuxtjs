@@ -8,7 +8,6 @@
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <v-btn
               class="pl-0"
-              small
               text
               dark
               @click="$router.push('/bantuan/?tab='+bantuan.id)"
@@ -19,7 +18,7 @@
       </v-container>
 
       <!-- CONTACT -->
-      <v-container>
+      <v-container class="contaclist">
         <h4 class="deep-orange--text">Contact</h4>
         <v-row class="pt-0">
           <v-col cols="12">
@@ -30,13 +29,13 @@
                     <v-list-item-title>
                       <a
                         v-if="con.isWhatsapp"
-                        style="text-decoration: none; color: #fff;font-size:14px"
+                        style="text-decoration: none; color: #fff;font-size:18px"
                         target="blank"
                         :href="'https://api.whatsapp.com/send?phone=' + con.phone"
                       >{{ con.title }}</a>
                       <a
                         v-else
-                        style="text-decoration: none; color: #fff;font-size:14px"
+                        style="text-decoration: none; color: #fff;font-size:18px"
                         :href="'tel:' + con.phone"
                       >{{ con.title }}</a>
                     </v-list-item-title>
@@ -53,7 +52,7 @@
                     <v-list-item-title>
                       <a
                         v-if="con.isPhone"
-                        style="text-decoration: none; color: #fff;font-size:14px"
+                        style="text-decoration: none; color: #fff;font-size:18px"
                         target="blank"
                         :href="'https://api.whatsapp.com/send?phone=' + con.phone"
                       >{{ con.title }}</a>
@@ -71,7 +70,7 @@
                     <v-list-item-title>
                       <a
                         v-if="!con.isPhone"
-                        style="text-decoration: none; color: #fff;font-size:14px"
+                        style="text-decoration: none; color: #fff;font-size:18px"
                         :href="'mailto:' + con.mail"
                       >{{ con.title }}</a>
                     </v-list-item-title>
@@ -236,6 +235,11 @@ export default {
 .bg-dark {
   .devider-small {
     opacity: 0.3;
+  }
+}
+.contaclist {
+  .v-list-item__title {
+    font-size: 18px !important;
   }
 }
 </style>

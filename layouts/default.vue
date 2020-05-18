@@ -9,36 +9,24 @@
           </v-btn>
           <div class="flex-grow-1"></div>
         </template>
-        <v-toolbar-title @click="$router.push('/'); drawer = false" class="pl-0">
+        <template v-else>
+          <v-btn @click="historyBack()" small icon>&nbsp;</v-btn>
+          <div class="flex-grow-1"></div>
+        </template>
+
+        <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
           <v-img :src="mainlogo" width="130"></v-img>
           <!-- {{$route.name}} -->
         </v-toolbar-title>
-
         <div class="flex-grow-1"></div>
 
-        <div to="/" class="mr-1" v-if="$route.name != 'index'">
+        <div to="/" class="pr-1" v-if="$route.name != 'index'">
           <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
         </div>
 
-        <v-btn v-else @click="opensearch = true" class="mr-1" small icon>
+        <div v-else @click="opensearch = true" class="pr-1">
           <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <!-- <div class="headsearch" v-if="$route.name == 'index'">
-          <v-text-field
-            flat
-            filled
-            rounded
-            single-line
-            dense
-            hide-details
-            prepend-inner-icon="mdi-magnify"
-            background-color="#000"
-            v-model="searchModel"
-            @keyup.enter="validate()"
-            label="Tulis Judul Artikel . . ."
-          ></v-text-field>
-        </div>-->
+        </div>
       </v-app-bar>
 
       <!-- MEMBER MENU -->
@@ -69,7 +57,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent">
         <a
-          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') "
+          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('help')"
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
