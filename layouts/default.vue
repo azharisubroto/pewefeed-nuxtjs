@@ -20,7 +20,7 @@
         </v-toolbar-title>
         <div class="flex-grow-1"></div>
 
-        <div to="/" class="pr-1" v-if="$route.name != 'index'">
+        <div @click="$router.push('/')" class="pr-1" v-if="$route.name != 'index'">
           <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
         </div>
 
@@ -57,7 +57,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent">
         <a
-          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('help')"
+          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('help') && !$nuxt.$route.name.includes('bantuan')"
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         >
@@ -79,6 +79,7 @@
           color="white"
           background-color="#2C2C2D"
           v-model="wowtab"
+          height="80"
           class="pwmenubottom"
           v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug'"
         >
@@ -1131,7 +1132,7 @@ a,
 }
 
 .v-item-group.v-bottom-navigation--fixed {
-  height: 68px !important;
+  height: 80px !important;
   .v-btn__content {
     font-size: 0.875rem !important;
   }
@@ -1180,5 +1181,8 @@ a,
 }
 .bg-dark {
   background: #232323;
+}
+.theme--dark.v-tabs-items {
+  background-color: #1d1d1d;
 }
 </style>

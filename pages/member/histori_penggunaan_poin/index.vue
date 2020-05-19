@@ -83,7 +83,7 @@
 <script>
 import UserService from "@/services/UserService";
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   name: "historiPoinPage",
   data() {
     return {
@@ -97,10 +97,10 @@ export default {
   },
   methods: {
     fetchUserdata() {
-      this.$auth.fetchUser()
+      this.$auth.fetchUser();
 
-      var res = []
-      res.data = this.$auth.user
+      var res = [];
+      res.data = this.$auth.user;
 
       this.userdata = res.data;
     },

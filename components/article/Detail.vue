@@ -180,12 +180,12 @@
 
       <!-- COMMENT -->
       <template v-if="isComment">
-        <v-tabs color="deep-orange" v-model="tabCom">
+        <v-tabs color="deep-orange" v-model="tabCom" background-color="transparent">
           <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
           <v-tab href="#ketentuankom">Ketentuan</v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="tabCom">
+        <v-tabs-items v-model="tabCom" style="background:transparent!important">
           <v-tab-item value="kasihkomen">
             <v-alert
               border="left"
@@ -270,18 +270,22 @@
       <!-- QUIZ -->
       <template v-if="isQuiz">
         <div v-if="quiz">
-          <v-tabs color="deep-orange" v-model="tab">
+          <v-tabs color="deep-orange" background-color="transparent" v-model="tab">
             <v-tab href="#jawab">Jawab Quiz</v-tab>
             <v-tab href="#ketentuan">Ketentuan</v-tab>
             <v-tab href="#statistik">Statistik</v-tab>
           </v-tabs>
 
-          <v-tabs-items v-model="tab">
-            <v-tab-item value="jawab">
+          <v-tabs-items
+            v-model="tab"
+            background-color="transparent"
+            style="background: transparent!important"
+          >
+            <v-tab-item value="jawab" background-color="transparent">
               <div v-if="quizzes!=null && !sudahpernah && !ispoin">
                 <div v-for="(quiz, i) in quizzes" :key="'quiz-'+i">
                   <h4 class="mt-5">{{ quiz.question }}</h4>
-                  <v-radio-group v-model="jawabanQuiz[i]">
+                  <v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
                     <v-row>
                       <v-col cols="6">
                         <v-radio :label="`${quiz.option_a}`" value="A"></v-radio>
@@ -718,11 +722,11 @@ export default {
       }
     },
     fetchUserdata() {
-      var res = []
+      var res = [];
       if (this.$auth.user) {
-        this.$auth.fetchUser()
-        res.data = this.$auth.user
-        
+        this.$auth.fetchUser();
+        res.data = this.$auth.user;
+
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
         // console.log(JSON.parse(JSON.stringify(res.data.data)))
