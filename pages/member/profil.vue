@@ -155,6 +155,7 @@ export default {
       this.$auth.logout();
       localStorage.removeItem("loggedin");
       localStorage.removeItem("access-token");
+      localStorage.removeItem("userdata");
       localStorage.removeItem("auth._token.local");
       localStorage.removeItem("auth.strategy");
       localStorage.removeItem("useres");
@@ -188,9 +189,9 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-      this.$auth.fetchUser();
+      // this.$auth.fetchUser();
       var res = [];
-      res.data = this.$auth.user;
+      res.data = JSON.parse(localStorage.getItem('userdata'));
 
       this.userdata = res.data.data;
       this.mypoint = res.data.point_total;

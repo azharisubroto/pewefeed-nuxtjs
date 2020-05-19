@@ -181,10 +181,11 @@ export default {
   },
   methods: {
     fetchUser() {
-      this.$auth.fetchUser()
+      // this.$auth.fetchUser()
       var res = []
 
-      res.data = this.$auth.user
+      // res.data = this.$auth.user
+      res.data = JSON.parse(localStorage.getItem('userdata'));
 
       this.userdetail = res.data;
       this.userdata = res.data.data;

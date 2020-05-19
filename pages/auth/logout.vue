@@ -12,6 +12,12 @@ export default {
     mounted() {
         var self = this
         this.$auth.logout()
+        localStorage.removeItem("loggedin");
+        localStorage.removeItem("access-token");
+        localStorage.removeItem("userdata");
+        localStorage.removeItem("auth._token.local");
+        localStorage.removeItem("auth.strategy");
+        localStorage.removeItem("useres");
 
         this.$router.push('/')
     }

@@ -710,8 +710,9 @@ export default {
         checkVIP(id, bandid) {
 			var res = []
 			if( this.$auth.user ) {
-				this.$auth.fetchUser()
-				res.data = this.$auth.user
+				// this.$auth.fetchUser()
+				// res.data = this.$auth.user
+				res.data = JSON.parse(localStorage.getItem('userdata'));
 
 				if (new Date(res.data.data.expire) > new Date() ) {
 					this.makeStar(id, bandid);

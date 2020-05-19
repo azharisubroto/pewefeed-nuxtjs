@@ -724,9 +724,10 @@ export default {
     fetchUserdata() {
       var res = [];
       if (this.$auth.user) {
-        this.$auth.fetchUser();
-        res.data = this.$auth.user;
-
+        // this.$auth.fetchUser()
+        // res.data = this.$auth.user
+        res.data = JSON.parse(localStorage.getItem('userdata'));
+        
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
         // console.log(JSON.parse(JSON.stringify(res.data.data)))

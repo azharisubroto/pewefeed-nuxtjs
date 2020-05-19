@@ -165,9 +165,10 @@ export default {
 
       if (this.$auth.user) {
         try {
-          this.$auth.fetchUser()
+          // this.$auth.fetchUser()
           var res = []
-          res.data = this.$auth.user
+          // res.data = this.$auth.user
+          res.data = JSON.parse(localStorage.getItem('userdata'));
           
           const user = await UserService.getReward();
           console.log("User data");

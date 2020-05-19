@@ -849,6 +849,13 @@ export default {
           //       "+WPW&dest=97789&&success=http://playworld.id/rand"
           //   );
         }
+
+        let vm = this
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+
+          this.fetchUser()
+        })
       } else {
         // send the form
         const sendform = vm.formdata;
@@ -864,14 +871,22 @@ export default {
         }
 
         this.recaptchaToken = null;
+
+        let vm = this
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+
+          this.fetchUser()
+        })
       }
     },
 
     fetchUser() {  
       var res = []
       if (this.$auth.user) {
-        this.$auth.fetchUser()
-        res.data = this.$auth.user
+        // this.$auth.fetchUser()
+        // res.data = this.$auth.user
+        res.data = JSON.parse(localStorage.getItem('userdata'));
         this.userdata = res.data.data;
       }
     },

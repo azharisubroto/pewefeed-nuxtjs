@@ -225,8 +225,9 @@ export default {
       
       var res = []
       if (this.$auth.user) {
-        this.$auth.fetchUser()
-        res = this.$auth.user
+        // this.$auth.fetchUser()
+        // res = this.$auth.user
+        res.data = JSON.parse(localStorage.getItem('userdata'));
         this.userdata = res.data.data;
       }
     }

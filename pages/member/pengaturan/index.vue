@@ -188,10 +188,11 @@ export default {
         this.avatar_preview = 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/'+response.file_name;
     },
     fetchUserdata() {
-      this.$auth.fetchUser()
+      // this.$auth.fetchUser()
 
       var res = []
-      res.data = this.$auth.user
+      // res.data = this.$auth.user
+      res.data = JSON.parse(localStorage.getItem('userdata'));
 
       this.user_id = res.data.data.id
       this.profile = res.data.data
@@ -224,7 +225,11 @@ export default {
         }
 
         try {
-          const res = await UserService.updateProfile(params)
+          const res = await UserService.updateProfile(params);
+
+          this.$auth.fetchUser().then(() => {
+            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          })
           vm.snackbar = true
           this.fetchUserdata()
         } catch (error) {

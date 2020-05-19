@@ -739,6 +739,12 @@ export default {
     logout() {
       let vm = this;
       this.$auth.logout();
+      localStorage.removeItem("loggedin");
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("userdata");
+      localStorage.removeItem("auth._token.local");
+      localStorage.removeItem("auth.strategy");
+      localStorage.removeItem("useres");
       this.isLoggedIn = false;
       this.isLogin();
       // if (window.location.pathname == '/member/login') {
@@ -755,19 +761,31 @@ export default {
       return this.$auth.user;
     },
     fetchUser() {
-      if (this.$auth.user) {
-        this.$auth.fetchUser();
-        let userdata = this.$auth.user;
-        let mypoint = userdata.point_total;
+      if (localStorage.getItem('loggedin')) {
+        if (this.$auth.user) {
+          var useres = localStorage.getItem('userdata')
+          // console.log(JSON.parse(useres))
+          // this.$auth.fetchUser();
+          let userdata = JSON.parse(useres);
+          let mypoint = userdata.point_total;
 
-        if (userdata.daily_point) {
-          if (window.location.pathname != "/member/histori_penggunaan_poin") {
-            this.dailyPointModalVisible = true;
+          if (userdata.daily_point) {
+            if (window.location.pathname != "/member/histori_penggunaan_poin") {
+              this.dailyPointModalVisible = true;
+            }
           }
+        } else {
+          this.isLoggedIn = false;
+          this.isLogin();
         }
       } else {
-        this.isLoggedIn = false;
-        this.isLogin();
+        this.$auth.logout()
+        localStorage.removeItem("loggedin");
+        localStorage.removeItem("access-token");
+        localStorage.removeItem("userdata");
+        localStorage.removeItem("auth._token.local");
+        localStorage.removeItem("auth.strategy");
+        localStorage.removeItem("useres");
       }
     },
     /* Validasi Form */
@@ -830,11 +848,19 @@ export default {
       // if not vip, show dialog
       this.notVipVisible = false;
       this.buyVipDialogVisible = true;
+    },
+    fetchDaily() {
+      let vm = this
+      this.$auth.fetchUser().then(() => {
+        localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+
+        this.fetchUser()
+      })
     }
   },
   mounted() {
+    this.fetchDaily()
     this.isLogin();
-    this.fetchUser();
     //this.fetchBantuan();
     //this.fetchHighlight();
     this.years = new Date().getFullYear();
