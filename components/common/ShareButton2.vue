@@ -1,7 +1,11 @@
 <template>
   <span class="d-block px-3 v-btn">
     <v-btn @click="recaptchaDialogVisible = true">
-      <span>Share</span>
+      <span style="font-size:10px!important;">
+        Share
+        <br />
+        <span>(+1 Poin)</span>
+      </span>
       <img
         src="/img/icons/icon-transfer-2.png"
         style="transform: rotate(-90deg)"

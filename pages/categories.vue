@@ -26,12 +26,7 @@
         <h4 class="deep-orange--text text-20 mb-4">Categories</h4>
         <v-row>
           <v-col cols="12" class="py-0" v-for="(cat, i) in categories" :key="'cat-'+i">
-            <v-btn
-              class="pl-0"
-              text
-              dark
-              @click="$router.push(cat.link); drawer = false"
-            >{{cat.title}}</v-btn>
+            <a class="pl-0" text dark @click="$router.push(cat.link); drawer = false">{{cat.title}}</a>
             <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
@@ -42,7 +37,7 @@
         <h4 class="deep-orange--text text-20 mb-4">Program</h4>
         <v-row>
           <v-col cols="12" class="py-0" v-for="(program, i) in programs" :key="'program-'+i">
-            <v-btn class="pl-0" text dark :href="program.link">{{program.title}}</v-btn>
+            <a class="pl-0" text dark :href="program.link">{{program.title}}</a>
             <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
@@ -53,11 +48,11 @@
         <h4 class="deep-orange--text text-20">Help</h4>
         <v-row>
           <v-col cols="12">
-            <v-btn class="pl-0" small text dark to="/bantuan/?tab=2">Point &amp; Rewards</v-btn>
+            <a class="pl-0" small text dark to="/bantuan/?tab=2">Point &amp; Rewards</a>
             <div class="devider-small"></div>
           </v-col>
           <v-col cols="12">
-            <v-btn class="pl-0" small text dark to="/bantuan/">Lainnya...</v-btn>
+            <a class="pl-0" small text dark to="/bantuan/">Lainnya...</a>
             <div class="devider-small"></div>
           </v-col>
         </v-row>

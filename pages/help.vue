@@ -6,12 +6,12 @@
         <h4 class="deep-orange--text text-20 mb-4">Help</h4>
         <v-row v-if="bantuanMenu">
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
-            <v-btn
+            <a
               class="pl-0"
               text
               dark
               @click="$router.push('/bantuan/?tab='+bantuan.id)"
-            >{{bantuan.title}}</v-btn>
+            >{{bantuan.title}}</a>
             <div class="devider-small my-3"></div>
           </v-col>
         </v-row>
@@ -240,6 +240,12 @@ export default {
 .contaclist {
   .v-list-item__title {
     font-size: 18px !important;
+  }
+  .v-list-item--link:before {
+    display: none !important;
+  }
+  .v-ripple__container {
+    display: none !important;
   }
 }
 </style>

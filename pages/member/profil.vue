@@ -1,34 +1,36 @@
 <template>
-  <v-container>
-    <v-row align="center" class="profile-bag">
-      <v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
-        <v-avatar
-          @click="$router.push('/member/pengaturan/profil');drawer = false"
-          size="50"
-          color="grey"
-        >
-          <v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
-        </v-avatar>
-      </v-col>
-      <v-col cols="10">
-        <v-row align="center">
-          <v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-            <strong class="subheading">{{ userdata.first_name }}</strong>
-            <div>Pewe ID: {{userdata.id}}</div>
-            <div
-              class="text-12"
-              :class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-            >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
-          </v-col>
-          <v-col cols="3" class="text-right">
-            <v-btn @click="logout(); drawer = false" icon dark depressed small>
-              <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-    <div class="devider-small full"></div>
+  <div>
+    <v-container>
+      <v-row align="center" class="profile-bag">
+        <v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
+          <v-avatar
+            @click="$router.push('/member/pengaturan/profil');drawer = false"
+            size="50"
+            color="grey"
+          >
+            <v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
+          </v-avatar>
+        </v-col>
+        <v-col cols="10">
+          <v-row align="center">
+            <v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
+              <strong class="subheading">{{ userdata.first_name }}</strong>
+              <div>Pewe ID: {{userdata.id}}</div>
+              <div
+                class="text-12"
+                :class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
+              >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+            </v-col>
+            <v-col cols="3" class="text-right">
+              <v-btn @click="logout(); drawer = false" icon dark depressed small>
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <div class="devider-small full"></div>
+    </v-container>
 
     <!-- USER MENU -->
     <v-list color="#545353" class="mt-3 mb-10">
@@ -62,7 +64,7 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-  </v-container>
+  </div>
 </template>
 <script>
 import UserService from "@/services/UserService";

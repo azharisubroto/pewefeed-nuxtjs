@@ -210,6 +210,9 @@ export default {
 	*/
 	vuetify: {
 		customVariables: ['~/assets/variables.scss'],
+		options: {
+			customProperties: true,
+		},
 		theme: {
 			dark: true,
 			themes: {
@@ -220,7 +223,8 @@ export default {
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
-					success: colors.green.accent3
+					success: colors.green.accent3,
+					background: '#1d1d1d'
 				}
 			}
 		}
