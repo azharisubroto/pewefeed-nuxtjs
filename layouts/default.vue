@@ -851,11 +851,14 @@ export default {
     },
     fetchDaily() {
       let vm = this
-      this.$auth.fetchUser().then(() => {
-        localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
-        this.fetchUser()
-      })
+      if(this.$route.path != '/auth/callback') {
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+
+          this.fetchUser()
+        })
+      }
     }
   },
   mounted() {
