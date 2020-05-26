@@ -56,7 +56,7 @@
 
       <!-- CONTENT -->
       <v-content class="maincontent">
-        <a
+        <!-- <a
           v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('help') && !$nuxt.$route.name.includes('bantuan')"
           style="line-height:1;display:block;margin-bottom:-4px"
           href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
@@ -65,7 +65,7 @@
             src="http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/RB-WEB-MOBILE.png"
             alt="promo banner"
           />
-        </a>
+        </a> -->
         <nuxt />
         <div class="mb-5 pb-5"></div>
 
