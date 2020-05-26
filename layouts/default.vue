@@ -70,8 +70,19 @@
         <div class="mb-5 pb-5"></div>
 
         <!-- oooooooooooooooooooooooooooooooooooo
-		BOTTOM NAVIGATION
+		    BOTTOM NAVIGATION
         ooooooooooooooooooooooooooooooooooooo-->
+		<div class="ghost-page" :class="[wowtab >= 1 ? 'd-block' : 'd-none']" v-if="$route.name == 'index'">
+			<div :class="[wowtab == 1 ? 'd-block' : 'd-none']">
+				<categories/>
+			</div>
+			<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
+				<help/>
+			</div>
+			<div :class="[wowtab == 3 ? 'd-block' : 'd-none']">
+				<profil v-if="wowtab == 3"/>
+			</div>
+		</div>
         <v-bottom-navigation
           fixed
           dark
@@ -81,19 +92,19 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug'"
+          v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat'"
         >
           <v-btn to="/">
             <span>Trending</span>
             <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
-          <v-btn to="/categories/">
+          <v-btn>
             <span>Categories</span>
             <img src="/img/icons/icon-category-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
           <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />
 
-          <v-btn to="/help/">
+          <v-btn>
             <span>Help</span>
             <img
               src="/img/icons/icon-contactus-orange.png"
@@ -102,346 +113,13 @@
               height="20"
             />
           </v-btn>
-          <v-btn to="/member/profil">
+          <v-btn>
             <span>Me</span>
             <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
         </v-bottom-navigation>
       </v-content>
       <!-- CONTENT -->
-
-      <!-- DRAWER -->
-      <!-- <v-navigation-drawer v-model="drawer" app fixed width="100%" @click="drawer = false">
-        <v-card tile>
-          <v-app-bar absolute color="white" elevation="1">
-            <v-icon @click="drawer=false" class="mr-3">mdi mdi-close</v-icon>
-
-            <v-toolbar-title class="pl-0" @click="$router.push('/')">
-              <v-img :src="mainlogo" width="130"></v-img>
-            </v-toolbar-title>
-          </v-app-bar>
-        </v-card>
-
-
-        <v-container>
-          <v-row v-if="!isLogin()">
-            <v-col class="mt-6" cols="12">
-              <Login />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-12" v-else align="center">
-            <v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
-              <v-avatar
-                @click="$router.push('/member/pengaturan/profil');drawer = false"
-                size="50"
-                color="grey"
-              >
-                <v-img
-                  :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"
-                  :aspect-ratio="1/1"
-                ></v-img>
-              </v-avatar>
-            </v-col>
-            <v-col cols="10">
-              <v-row>
-                <v-col cols="6" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-                  <strong class="subheading">{{ userdata.first_name }}</strong>
-                </v-col>
-                <v-col cols="6" class="text-right">
-                  <v-btn
-                    @click="logout(); drawer = false"
-                    color="deep-orange"
-                    dark
-                    depressed
-                    small
-                  >SIGN OUT</v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-          <div class="devider-small full"></div>
-
-          <v-row v-if="isLogin()" no-gutters class="mt-5 m-4">
-            <v-col cols="6">
-              <v-row no-gutters>
-                <v-col cols="2" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-                  <img
-                    width="22"
-                    src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png"
-                    alt
-                  />
-                </v-col>
-                <v-col cols="10" class="pl-1">
-                  <strong class="font-weight-bold orange--text text-14">VIP Expiry Date</strong>
-                  <br />
-                  <strong class="mr-2 dark--text font-weight-bold text-14">
-                    {{(userdata.status_expired == 1) ? 'ACTIVE' : 'EXPIRED'}}
-                    ({{userdata.expire}})
-                  </strong>
-                  <v-btn
-                    @click="buyVip()"
-                    small
-                    class="mt-3"
-                    color="deep-orange"
-                    dark
-                    depressed
-                  >Purchase VIP</v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="5">
-              <v-row no-gutters>
-                <v-col cols="2">
-                  <img
-                    width="22"
-                    src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/p.png"
-                    alt
-                  />
-                </v-col>
-                <v-col cols="10" class="pl-2">
-                  <strong class="font-weight-bold orange--text text-14">Total Poin</strong>
-                  <br />
-                  <strong class="text-14 ont-weight-bold">{{ mypoint ? mypoint : '0'}}</strong>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="1" class="right-right">
-              <div @click="$router.push('/member/pengaturan/profil'); drawer = false">
-                <v-icon>mdi-arrow-right</v-icon>
-              </div>
-            </v-col>
-          </v-row>
-
-          <v-row class="d-none">
-            <v-col cols="12">
-              <v-btn
-                @click="$router.push('/member'); drawer = false"
-                block
-                color="orange accent-14"
-                depressed
-                dark
-              >
-                <v-icon class="mr-2">mdi-settings</v-icon>SETTINGS
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-
-        <div class="devider-big"></div>
-
-
-        <v-container>
-
-          <v-row>
-            <v-col cols="6">
-              <v-list>
-                <v-subheader class="black--text text-16 font-weight-bold">CATEGORY</v-subheader>
-                <v-list-item-group color="dark" v-model="category">
-                  <v-list-item
-                    v-for="(cat, i) in categories"
-                    :key="i"
-                    @click="$router.push(cat.link); drawer = false"
-                  >
-                    <v-list-item-content class="menu">
-                      <v-list-item-title v-html="cat.title"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-col>
-            <v-col cols="6" v-if="highlights">
-              <v-list>
-                <v-subheader class="black--text text-16 font-weight-bold">HIGHLIGHT</v-subheader>
-                <v-list-item-group v-model="premium">
-                  <v-list-item
-                    v-for="(highlight, i) in highlights"
-                    :key="i"
-                    @click="$router.push('/highlight/'+highlight.title); drawer = false"
-                  >
-                    <v-list-item-content class="menu">
-                      <v-list-item-title v-html="highlight.title"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-              <v-list>
-                <v-subheader class="black--text text-16 font-weight-bold">PREMIUM</v-subheader>
-                <v-list-item-group v-model="premium">
-                  <v-list-item
-                    v-for="(prem, i) in premiums"
-                    :key="i"
-                    @click="$router.push(prem.link); drawer = false"
-                  >
-                    <v-list-item-content class="menu">
-                      <v-list-item-title v-html="prem.title"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-              <v-container>
-                <div class="devider-small full"></div>
-              </v-container>
-              <v-list>
-                <v-subheader class="black--text text-16 font-weight-bold">PROGRAM</v-subheader>
-                <v-list-item-group v-model="program">
-                  <v-list-item
-                    v-for="(prog, i) in programs"
-                    :key="i"
-                    @click="$router.push(prog.link); drawer = false"
-                  >
-                    <v-list-item-content class="menu">
-                      <v-list-item-title v-html="prog.title"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-col>
-          </v-row>
-          <v-container>
-            <div class="devider-small full"></div>
-          </v-container>
-
-          <v-row>
-            <v-col cols="12" style="margin-bottom: -30px !important">
-              <v-subheader class="black--text text-16 font-weight-bold">CONTACT</v-subheader>
-            </v-col>
-            <v-col cols="6">
-              <v-list two-line>
-                <v-list-item-group v-model="contact">
-                  <v-list-item v-for="(con, i) in contacts" :key="i">
-                    <v-list-item-content class="menu">
-                      <v-list-item-title>
-                        <a
-                          v-if="con.isWhatsapp"
-                          style="text-decoration: none; color: #000"
-                          target="blank"
-                          :href="'https://api.whatsapp.com/send?phone=' + con.phone"
-                        >{{ con.title }}</a>
-                        <a
-                          v-else
-                          style="text-decoration: none; color: #000"
-                          :href="'tel:' + con.phone"
-                        >{{ con.title }}</a>
-                      </v-list-item-title>
-                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-col>
-            <v-col cols="6">
-              <v-list two-line>
-                <v-list-item-group v-model="contacttwo">
-                  <v-list-item v-for="(con, i) in contactstwo" :key="i">
-                    <v-list-item-content class="menu">
-                      <v-list-item-title>
-                        <a
-                          v-if="con.isPhone"
-                          style="text-decoration: none; color: #000"
-                          target="blank"
-                          :href="'https://api.whatsapp.com/send?phone=' + con.phone"
-                        >{{ con.title }}</a>
-                      </v-list-item-title>
-                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-col>
-            <v-col cols="12">
-              <v-list two-line>
-                <v-list-item-group v-model="contactmail">
-                  <v-list-item v-for="(con, i) in contactsmail" :key="i">
-                    <v-list-item-content class="menu">
-                      <v-list-item-title>
-                        <a
-                          v-if="!con.isPhone"
-                          style="text-decoration: none; color: #000"
-                          :href="'mailto:' + con.mail"
-                        >{{ con.title }}</a>
-                      </v-list-item-title>
-                      <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-col>
-          </v-row>
-          <v-container>
-            <div class="devider-small full"></div>
-          </v-container>
-
-
-          <v-row>
-            <v-col cols="12">
-              <v-container>
-                <a
-                  target="blank"
-                  style="text-decoration: none;"
-                  :href="'https://www.facebook.com/' + facebook"
-                >
-                  <img src="/img/001-facebook.png" width="40" alt />
-                </a>
-                <a
-                  target="blank"
-                  style="text-decoration: none;"
-                  :href="'https://twitter.com/' + twitter"
-                >
-                  <img src="/img/003-twitter.png" width="40" alt />
-                </a>
-                <a
-                  target="blank"
-                  style="text-decoration: none;"
-                  :href="'https://www.instagram.com/' + instagram"
-                >
-                  <img src="/img/002-instagram.png" width="40" alt />
-                </a>
-                <a target="blank" style="text-decoration: none;" :href="youtubeUrl">
-                  <img src="/img/004-youtube.png" width="40" alt />
-                </a>
-              </v-container>
-            </v-col>
-          </v-row>
-          <v-container>
-            <div class="devider-small full"></div>
-          </v-container>
-
-          <v-container class="pb-0">
-            <v-row align="center" @click="$router.push('/bantuan'); drawer = false">
-              <v-col cols="9" class="text-16 py-0">
-                <strong>BANTUAN</strong>
-              </v-col>
-              <v-col cols="3" class="text-right py-0">
-                <v-icon>mdi-chevron-right</v-icon>
-              </v-col>
-            </v-row>
-            <v-row class="text-left mt-4">
-              <v-col
-                v-for="(bantuan, i) in bantuanMenu"
-                :key="i"
-                @click="$router.push('/bantuan/?tab='+bantuan.id);drawer = false"
-                cols="6"
-              >
-                <span class="text-uppercase">{{bantuan.title}}</span>
-              </v-col>
-            </v-row>
-          </v-container>
-
-
-          <v-container>
-            <div class="devider-small full"></div>
-          </v-container>
-          <v-container class="mb-5 pb-5">
-            <strong class="caption">{{years}} &copy; PT Jayadata Indonesia</strong>
-            <br />
-            <br />
-            <br />
-            <br />
-          </v-container>
-        </v-container>
-      </v-navigation-drawer>-->
-      <!-- END DRAWER -->
     </v-sheet>
 
     <!-- OVERLAY -->
@@ -519,6 +197,9 @@ import MenuService from "../services/MenuService";
 import ShareButton2 from "@/components/common/ShareButton2";
 import BuyVip from "@/components/modal/BuyVip";
 import DrawerWelcome from "@/components/common/DrawerWelcome";
+import categories from "@/components/categories"
+import help from "@/components/help"
+import profil from "@/components/profil"
 
 export default {
   name: "App",
@@ -528,11 +209,14 @@ export default {
     NewLogin,
     ShareButton2,
     BuyVip,
-    DrawerWelcome
+	DrawerWelcome,
+	categories,
+	help,
+	profil
   },
   data() {
     return {
-      wowtab: "/",
+      wowtab: 0,
       facebook: process.env.facebook,
       instagram: process.env.instagram,
       twitter: process.env.twitter,
@@ -1213,5 +897,17 @@ a,
 }
 .theme--dark.v-tabs-items {
   background-color: #1d1d1d;
+}
+.ghost-page {
+	background: #232323;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow-x:hidden;
+	overflow-y:auto;
+	padding-top: 50px;
+	padding-bottom: 80px;
+	z-index: 2;
 }
 </style>
