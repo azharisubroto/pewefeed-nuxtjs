@@ -769,10 +769,8 @@ export default {
           let userdata = JSON.parse(useres);
           let mypoint = userdata.point_total;
 
-          if (userdata.daily_point) {
-            if (window.location.pathname != "/member/histori_penggunaan_poin") {
-              this.dailyPointModalVisible = true;
-            }
+          if (window.location.pathname != "/member/histori_penggunaan_poin") {
+            this.fetchDaily()
           }
         } else {
           this.isLoggedIn = false;
@@ -849,15 +847,21 @@ export default {
       this.notVipVisible = false;
       this.buyVipDialogVisible = true;
     },
-    fetchDaily() {
+    async fetchDaily() {
       let vm = this
 
-      if(this.$route.path != '/auth/callback') {
-        this.$auth.fetchUser().then(() => {
-          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-
-          this.fetchUser()
-        })
+      try {
+        const res = await UserService.checkDailyPoint();
+        const data = res.data.get_point;
+        // console.log(JSON.parse(JSON.stringify(data)));
+        if (data) {
+          this.dailyPointModalVisible = true;
+        } else {
+          this.dailyPointModalVisible = false;
+        }
+        //this.loading = false
+      } catch (error) {
+        console.log(error);
       }
     }
   },

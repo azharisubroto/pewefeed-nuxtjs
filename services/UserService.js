@@ -114,5 +114,9 @@ export default {
 
 	claimDailyPoint(data = null) {
 		return AuthApi().post('/member/daily-point', data)
+	},
+
+	checkDailyPoint() {
+		return AuthApi().get('/member/check-daily-point')
 	}
 }
