@@ -362,6 +362,12 @@ export default {
       // console.log(params);
       try {
         const res = await UserService.tukarPoin(params);
+
+        let vm = this
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+        })
+        
         // console.log(res);
         this.overlay = false;
         this.tukarmsg = "Tukar POIN telah berhasil dilakukan";
