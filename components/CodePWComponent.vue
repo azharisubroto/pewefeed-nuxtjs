@@ -274,9 +274,16 @@ export default {
       vm.responsemessage = "";
       try {
         const res = await VoucherService.submitVoucher(sendform);
+        setTimeout(() => {
+          this.$auth.fetchUser().then(() => {
+            localStorage.removeItem('userdata')
+            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          })
+        }, 500);
+
         this.notloading();
         this.recaptchaToken = null;
-        console.log(res);
+        // console.log(res);
         this.status_code = false;
         vm.snackbar = false;
         vm.dialog = true;
