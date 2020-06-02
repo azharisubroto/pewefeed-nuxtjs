@@ -300,7 +300,7 @@ export default {
 
 <style lang="scss" scoped>
 .CodePW {
-  margin-top: -40px;
+  margin-top: 40px;
 
   .stretchout {
     margin-left: -15px;
