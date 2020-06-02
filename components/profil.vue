@@ -160,7 +160,6 @@ export default {
   methods: {
     logout() {
       let vm = this;
-      this.$auth.logout();
       localStorage.removeItem("loggedin");
       localStorage.removeItem("access-token");
       localStorage.removeItem("userdata");
@@ -174,7 +173,8 @@ export default {
       // } else {
       // 	window.location.href = window.location.pathname
       // }
-      this.$router.push("/");
+      this.$auth.logout();
+      location.reload()
     },
     isLogin() {
       return this.isLoggedIn;
