@@ -865,6 +865,7 @@ export default {
     },
     async submitAnswer() {
       this.sending = true;
+      var vm = this
       if (!this.profile) {
         this.sending = false;
         this.notLogin = true;
@@ -881,6 +882,14 @@ export default {
           try {
             const res = await UserService.answerMultiple(params);
             const data = await res.data;
+
+            setTimeout(() => {
+              this.$auth.fetchUser().then(() => {
+                localStorage.removeItem('userdata')
+                localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+              })
+            }, 500);
+
             this.total_poin = data.total_point;
             this.ispoin = true;
             this.profile = false;

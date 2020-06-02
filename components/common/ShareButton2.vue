@@ -200,8 +200,17 @@ export default {
       this.SharePoinVisible = false;
     },
     async saveShare(data) {
+      let vm = this
       try {
         const res = await UserService.share(data);
+
+        setTimeout(() => {
+          this.$auth.fetchUser().then(() => {
+            localStorage.removeItem('userdata')
+            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          })
+        }, 500);
+
         // console.log(res)
         if (res.data.point == 1) {
           console.log("dapat poin");
