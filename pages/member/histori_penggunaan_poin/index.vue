@@ -186,15 +186,14 @@ export default {
       try {
         const res = await UserService.claimDailyPoint();
         this.overlay = false;
-        if (res.status == 201) {
-          this.$auth.fetchUser().then(() => {
-            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-          })
-          
-          this.fetchUserdata();
-          this.fethMutasi();
-          this.$router.push("/member/histori_penggunaan_poin");
-        }
+        
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+        })
+        
+        this.fetchUserdata();
+        this.fethMutasi();
+        location.reload()
       } catch (error) {
         this.overlay = false;
         console.log(error);
