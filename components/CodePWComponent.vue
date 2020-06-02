@@ -164,15 +164,17 @@ export default {
       /* Init Data User to Customer Detail */
 
       if (this.$auth.user) {
+
+        // this.$auth.fetchUser()
+        var res = []
+        // res.data = this.$auth.user
+        res.data = JSON.parse(localStorage.getItem('userdata'));
+        this.formdata.msisdn = res.data.data.msisdn;
+
         try {
-          // this.$auth.fetchUser()
-          var res = []
-          // res.data = this.$auth.user
-          res.data = JSON.parse(localStorage.getItem('userdata'));
-          
           const user = await UserService.getReward();
           console.log("User data");
-          console.log(user);
+          // console.log(user);
 
           if (user.data.data != null) {
             this.reward = user.data.data;
@@ -186,8 +188,7 @@ export default {
             // }
             // this.newuser = true
           }
-
-          this.formdata.msisdn = res.data.data.msisdn;
+          
           if (res.data.data.email_confirmed == 1) {
             this.newuser = true;
           }
