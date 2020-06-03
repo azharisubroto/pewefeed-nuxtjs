@@ -7,7 +7,7 @@
         <v-row v-if="bantuanMenu">
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <a
-              class="pl-0"
+              class="pl-0 text-uppercase"
               text
               dark
               @click="$router.push('/bantuan/?tab='+bantuan.id)"
