@@ -230,7 +230,7 @@
           <v-btn
             icon
             tile
-            style="border-right: 1px solid #717171"
+            style="border-right: 0px solid #717171"
             light
             @click="ratingModal = false"
           >
@@ -423,7 +423,7 @@ export default {
         // this.$auth.fetchUser()
         // res.data = this.$auth.user
         res.data = JSON.parse(localStorage.getItem('userdata'));
-        
+
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
         this.isVip = this.profile.vip;

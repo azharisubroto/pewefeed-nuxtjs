@@ -22,7 +22,7 @@
               >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
             </v-col>
             <v-col cols="3" class="text-right">
-              <v-btn @click="$router.push('/member/pengaturan/profil'); drawer = false" icon dark depressed small>
+              <v-btn to="/member/pengaturan/" icon dark depressed small>
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </v-col>

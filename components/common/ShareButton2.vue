@@ -22,7 +22,7 @@
             dark
             icon
             tile
-            style="border-right: 1px solid #717171"
+            style="border-right: 0px solid #717171"
             light
             @click="recaptchaDialogVisible = false;"
           >
@@ -36,7 +36,6 @@
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-        <v-divider></v-divider>
 
         <div class="mx-2">
           <div class="py-10" v-if="recaptcha">

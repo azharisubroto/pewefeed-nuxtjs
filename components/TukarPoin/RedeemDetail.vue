@@ -131,7 +131,7 @@
             <v-btn
               icon
               tile
-              style="border-right: 1px solid #d1d1d1"
+              style="border-right: 0px solid #d1d1d1"
               light
               @click="buyconfirm = !buyconfirm"
             >
@@ -367,7 +367,7 @@ export default {
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
         })
-        
+
         // console.log(res);
         this.overlay = false;
         this.tukarmsg = "Tukar POIN telah berhasil dilakukan";

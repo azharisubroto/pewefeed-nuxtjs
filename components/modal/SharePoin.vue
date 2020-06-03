@@ -1,76 +1,40 @@
 <template>
-  <v-dialog
-    v-model="intDialogVisible"
-    max-width="290"
-    persistent
-    fullscreen hide-overlay transition="dialog-bottom-transition"
-  >
-    <!-- Header -->
-    <v-toolbar light color="white">
-      <!-- Arrow -->
-      <v-btn icon tile style="border-right: 1px solid #d1d1d1" light @click="notVipVisible = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
+  	<v-bottom-sheet v-model="intDialogVisible">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="intDialogVisible = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
 
-      <!-- Logo -->
-      <v-toolbar-title>
-        <v-img
-          src="/pl-logo.png"
-          max-width="100"
-        >
-        </v-img>
-      </v-toolbar-title>
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text">You've got 1 Point!</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
 
-      <!-- Title -->
-      <div class="flex-grow-1"></div>
-      <v-toolbar-items>
-        <v-btn light text>You got poin</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
-
-
-    <v-card>
-
-      <v-card-text>
-        <div class="text-center pt-5">
-          <div class="whitebox pb-0">
-
-            <div
-            >
-              <img src="/img/poinextra.png" width="80" class="mt-5"/>
-              <br>
-              <br>
-              <h3 class="green--text">Extra POIN +1</h3>
-              <v-alert
-                border="left"
-				dense
-				colored-border
-				type="info"
-				class="text-left mt-3"
-				style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-              >
-                Kamu mendapat tambahan POIN karena telah melakukan SHARE
-              </v-alert>
-            </div>
-          </div>
+        <div class="mx-2">
+          <v-container class="text-center">
+			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
+			  <br>
+			  Kamu mendapat 1 Point karena sudah<br>
+			  Share Artikel
+			  <br>
+			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
+			  <br><br>
+		  </v-container>
         </div>
-        <v-row>
-          <v-col cols="12">
-            <v-btn
-              color="deep-orange darken-1"
-              @click="closeIt()"
-              dark
-              block
-              depressed
-              large
-            >
-              Tutup
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+      </v-sheet>
+    </v-bottom-sheet>
 </template>
 
 <script>

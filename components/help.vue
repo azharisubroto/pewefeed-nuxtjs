@@ -116,7 +116,7 @@
             class="mr-2"
             style="vertical-align:middle"
             alt
-          /> pewefeeds
+          /> pewefeed
         </a>
         <div class="devider-small"></div>
         <a
@@ -132,7 +132,7 @@
             class="mr-2"
             style="vertical-align:middle"
             alt
-          /> pewefeeds
+          /> pewefeed
         </a>
         <div class="devider-small"></div>
         <a
@@ -148,7 +148,7 @@
             class="mr-2"
             style="vertical-align:middle"
             alt
-          /> pewefeeds
+          /> pewefeed
         </a>
         <div class="devider-small"></div>
       </v-container>
@@ -196,8 +196,8 @@ export default {
       ],
       contactsmail: [
         {
-          title: "halo@playworld.id",
-          mail: "halo@playworld.id",
+          title: "halo@pewefeed.com",
+          mail: "halo@pewefeed.com",
           isSubtitle: false,
           subtitle: "(Official Email Address)"
         }
