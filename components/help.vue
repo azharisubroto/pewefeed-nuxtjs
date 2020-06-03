@@ -7,7 +7,7 @@
         <v-row v-if="bantuanMenu">
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <a
-              class="pl-0"
+              class="pl-0 text-uppercase"
               text
               dark
               @click="$router.push('/bantuan/?tab='+bantuan.id)"
@@ -175,13 +175,13 @@ export default {
           title: "(021) 293 85 381",
           phone: "02129385381",
           isWhatsapp: false,
-          subtitle: "(Business Hour)"
+          subtitle: "Mon-Fri 09:00 - 18:00"
         },
         {
           title: "0815 1906 0929",
           phone: "6281519060929",
           isWhatsapp: true,
-          subtitle: "(24 Hour)"
+          subtitle: "(WhatsApp only - 24 Hour)"
         }
       ],
       contacttwo: 2,
@@ -191,7 +191,7 @@ export default {
           title: "0817 1717 3029",
           phone: "6281717173029",
           isPhone: true,
-          subtitle: "(24 Hour)"
+          subtitle: "(WhatsApp only - 24 Hour)"
         }
       ],
       contactsmail: [

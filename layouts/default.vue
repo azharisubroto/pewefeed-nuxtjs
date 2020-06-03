@@ -15,7 +15,7 @@
         </template>
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
-          <v-img :src="mainlogo" width="130"></v-img>
+          <v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
           <!-- {{$route.name}} -->
         </v-toolbar-title>
         <div class="flex-grow-1"></div>
@@ -919,4 +919,7 @@ a,
 .theme--dark.v-divider {
 	background: #fff!important;
 }
+// .mainlogo {
+// 	filter: grayscale(100%) invert(100%) brightness(100%)
+// }
 </style>
