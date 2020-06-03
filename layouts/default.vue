@@ -94,7 +94,7 @@
           class="pwmenubottom"
           v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat'"
         >
-          <v-btn to="/">
+          <v-btn @click="$router.push('/')">
             <span>Trending</span>
             <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
@@ -141,13 +141,13 @@
     <!-- ==== SEARCH BAR === -->
     <v-bottom-sheet v-model="opensearch">
       <v-sheet height="100%">
-        <v-toolbar :elevation="1">
+        <v-toolbar :elevation="0" style="border-top: 2px solid #fff">
           <!-- Arrow -->
           <v-btn
             dark
             icon
             tile
-            style="border-right: 1px solid #717171"
+            style="border-right: 0px solid #717171"
             light
             @click="opensearch = false"
           >
@@ -161,19 +161,21 @@
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-        <div class="devider-small" style="margin-top: 2px;"></div>
+		<v-divider></v-divider>
 
         <div class="px-5 py-10">
           <v-text-field
             flat
             filled
             single-line
+			solo
             hide-details
             prepend-inner-icon="mdi-magnify"
             background-color="#000"
             v-model="searchModel"
             @keyup.enter="validate()"
             label="Tulis Judul Artikel . . ."
+			style="border:0!important;box-shadow:none!important;"
           ></v-text-field>
           <v-btn @click="validate()" block large color="green" class="mt-3">Submit</v-btn>
         </div>
@@ -374,8 +376,8 @@ export default {
       ],
       contactsmail: [
         {
-          title: "halo@playworld.id",
-          mail: "halo@playworld.id",
+          title: "halo@pewefeed.com",
+          mail: "halo@pewefeed.com",
           isSubtitle: false,
           subtitle: "(Official Email Address)"
         },
@@ -913,5 +915,8 @@ a,
 	padding-top: 50px;
 	padding-bottom: 80px;
 	z-index: 2;
+}
+.theme--dark.v-divider {
+	background: #fff!important;
 }
 </style>

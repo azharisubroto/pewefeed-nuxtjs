@@ -7,7 +7,7 @@
         <v-btn
           icon
           tile
-          style="border-right: 1px solid #e5e5e5"
+          style="border-right: 0px solid #e5e5e5"
           light
           @click="myDialogVisible = false"
         >

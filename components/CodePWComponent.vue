@@ -88,7 +88,7 @@
         <!-- Header -->
         <v-toolbar light color="white">
           <!-- Arrow -->
-          <v-btn icon tile style="border-right: 1px solid #717171" light>
+          <v-btn icon tile style="border-right: 0px solid #717171" light>
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
@@ -188,7 +188,7 @@ export default {
             // }
             // this.newuser = true
           }
-          
+
           if (res.data.data.email_confirmed == 1) {
             this.newuser = true;
           }

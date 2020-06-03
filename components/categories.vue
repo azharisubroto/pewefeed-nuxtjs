@@ -169,7 +169,7 @@ export default {
           link: "/"
         },
         {
-          title: "Entertaiment",
+          title: "ENTERTAINMENT",
           link: "/viral"
         },
         {
@@ -234,8 +234,8 @@ export default {
       ],
       contactsmail: [
         {
-          title: "halo@playworld.id",
-          mail: "halo@playworld.id",
+          title: "halo@pewefeed.com",
+          mail: "halo@pewefeed.com",
           isSubtitle: false,
           subtitle: "(Official Email Address)"
         }

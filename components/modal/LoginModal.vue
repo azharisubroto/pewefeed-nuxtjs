@@ -10,7 +10,7 @@
       <!-- Header -->
       <v-toolbar light color="white">
         <!-- Arrow -->
-        <v-btn icon tile style="border-right: 1px solid #d1d1d1" light @click="loginModal = false">
+        <v-btn icon tile style="border-right: 0px solid #d1d1d1" light @click="loginModal = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
 

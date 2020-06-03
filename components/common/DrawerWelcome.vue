@@ -5,7 +5,7 @@
       <v-card>
         <v-toolbar :elevation="1">
           <!-- Arrow -->
-          <v-btn dark icon tile style="border-right: 1px solid #717171" light @click="closeIt()">
+          <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="closeIt()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
 

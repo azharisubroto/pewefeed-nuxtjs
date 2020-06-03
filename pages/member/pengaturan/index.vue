@@ -68,29 +68,29 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" sm="9" md="9" lg="9">
+                <v-col cols="12" sm="9" md="9" lg="9" class="px-0">
                     <v-text-field
                         label="First Name"
                         placeholder="First Name"
-                        outlined
+                        filled
                         v-model="data.first_name"
                     ></v-text-field>
                     <v-text-field
                         label="Last Name"
                         placeholder="Last Name"
-                        outlined
+                        filled
                         v-model="data.last_name"
                     ></v-text-field>
                     <v-text-field
                         label="Username"
                         placeholder="Username"
-                        outlined
+                        filled
                         v-model="data.username"
                     ></v-text-field>
                     <v-text-field
                         label="Email"
                         placeholder="Email"
-                        outlined
+                        filled
                         readonly
                         disabled
                         v-model="data.email"
@@ -98,7 +98,7 @@
                     <v-text-field
                         label="msisdn"
                         placeholder="msisdn"
-                        outlined
+                        filled
                         readonly
                         disabled
                         v-model="data.msisdn"
@@ -106,7 +106,7 @@
                     <v-text-field
                         label="Expired"
                         placeholder="Expired"
-                        outlined
+                        filled
                         readonly
                         disabled
                         v-model="data.expire"
@@ -114,13 +114,13 @@
                     <v-text-field
                         label="Instagram"
                         placeholder="@username"
-                        outlined
+                        filled
                         v-model="data.instagram"
                     ></v-text-field>
                     <v-text-field
                         label="Phone"
                         placeholder="Phone"
-                        outlined
+                        filled
                         v-model="data.no_telp"
                     ></v-text-field>
 
@@ -242,3 +242,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+	.theme--dark.v-text-field--filled > .v-input__control > .v-input__slot {
+		background: #313131;
+	}
+</style>
