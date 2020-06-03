@@ -573,6 +573,9 @@ export default {
   watch: {
     $route(to, from) {
       this.fetchUser();
+      if (from.name == 'auth-callback') {
+        this.wowtab = 3
+      }
     }
   }
 };
