@@ -107,7 +107,7 @@ export default {
 		// '@nuxtjs/google-adsense',
 		'@nuxtjs/google-gtag',
 		'@nuxtjs/robots',
-		'@nuxtjs/sitemap'
+		// '@nuxtjs/sitemap'
 	],
 
 	/* Auth */
@@ -148,18 +148,18 @@ export default {
 	/**
 	 * Sitemap
 	 */
-	sitemap: {
-		// custom configuration
-		defaults: {
-			changefreq: 'daily',
-			priority: 1,
-			lastmod: new Date(),
-			lastmodrealtime: true
-		},
-		xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-		path: '/sitemap.xml',
-		hostname: 'https://m.pewefeed.com'
-	},
+	// sitemap: {
+	// 	// custom configuration
+	// 	defaults: {
+	// 		changefreq: 'daily',
+	// 		priority: 1,
+	// 		lastmod: new Date(),
+	// 		lastmodrealtime: true
+	// 	},
+	// 	xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+	// 	path: '/sitemap.xml',
+	// 	hostname: 'https://m.pewefeed.com'
+	// },
 
 	/**
 	 * Google Tag
