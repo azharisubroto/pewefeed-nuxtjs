@@ -549,10 +549,22 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async generateDaily() {
+      let vm = this
+
+      try {
+        const res = await UserService.generateDailyPoint(null);
+        console.log(res)
+        this.fetchDaily()
+        //this.loading = false
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   mounted() {
-    this.fetchDaily()
+    this.generateDaily()
     this.isLogin();
     //this.fetchBantuan();
     //this.fetchHighlight();
@@ -575,6 +587,7 @@ export default {
       this.fetchUser();
       if (from.name == 'auth-callback') {
         this.wowtab = 3
+        this.fetchDaily()
       }
     }
   }
