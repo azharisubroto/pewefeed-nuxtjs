@@ -26,7 +26,7 @@
           <v-container class="text-center">
 			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
 			  <br>
-			  Kamu mendapat 10 Point karena sudah<br>
+			  Kamu mendapat 2 Point karena sudah<br>
 			  Komentar di Artikel
 			  <br>
 			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
