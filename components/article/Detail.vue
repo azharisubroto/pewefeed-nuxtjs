@@ -264,7 +264,7 @@
           </v-tab-item>
         </v-tabs-items>
 
-        <KomentarPoin :dialogVisible="true" @close="myDialogClose" />
+        <KomentarPoin :dialogVisible="KomentarPoinVisible" @close="myDialogClose" />
       </template>
 
       <!-- QUIZ -->
