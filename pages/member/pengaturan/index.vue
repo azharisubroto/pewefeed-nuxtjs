@@ -68,68 +68,87 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" sm="9" md="9" lg="9" class="px-0">
-                    <v-text-field
-                        label="First Name"
-                        placeholder="First Name"
+                <v-col cols="12" sm="9" md="9" lg="9" class="px-0 hahaha">
+                    <div class="mb-2 px-4">First Name</div>
+					<v-text-field
+                        solo
+						single-line
+                        placeholder="Last Name"
                         filled
                         v-model="data.first_name"
                     ></v-text-field>
-                    <v-text-field
-                        label="Last Name"
+                    <div class="mb-2 px-4">Last Name</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="Last Name"
                         filled
                         v-model="data.last_name"
                     ></v-text-field>
-                    <v-text-field
-                        label="Username"
+                    <div class="mb-2 px-4">Username</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="Username"
                         filled
                         v-model="data.username"
                     ></v-text-field>
-                    <v-text-field
-                        label="Email"
+                    <div class="mb-2 px-4">Email</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="Email"
                         filled
                         readonly
                         disabled
                         v-model="data.email"
                     ></v-text-field>
-                    <v-text-field
-                        label="msisdn"
+                    <div class="mb-2 px-4">msisdn</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="msisdn"
                         filled
                         readonly
                         disabled
                         v-model="data.msisdn"
                     ></v-text-field>
-                    <v-text-field
-                        label="Expired"
+                    <div class="mb-2 px-4">Expired</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="Expired"
                         filled
                         readonly
                         disabled
                         v-model="data.expire"
                     ></v-text-field>
-                    <v-text-field
-                        label="Instagram"
-                        placeholder="@username"
-                        filled
-                        v-model="data.instagram"
-                    ></v-text-field>
-                    <v-text-field
-                        label="Phone"
+					<div class="mb-2 px-4">Phone</div>
+					<v-text-field
+						solo
+						single-line
                         placeholder="Phone"
                         filled
                         v-model="data.no_telp"
                     ></v-text-field>
+                    <div class="mb-2 px-4">Instagram</div>
+					<v-text-field
+						solo
+						single-line
+                        placeholder="@username"
+                        filled
+                        v-model="data.instagram"
+                    ></v-text-field>
 
-                    <v-btn depressed dark color="orange" @click="save">
-                        Save
-                    </v-btn>
-                    <v-btn depressed dark color="grey" class="ml-3" @click="$router.go(-1)">
-                        Cancel
-                    </v-btn>
+
+                    <div class="px-4">
+						<v-btn depressed dark block color="green" @click="save" class="mb-3">
+							Save
+						</v-btn>
+						<v-btn depressed dark block color="red" class="mb-5" @click="$router.go(-1)">
+							Cancel
+						</v-btn>
+					</div>
                 </v-col>
             </v-row>
         </div>
@@ -246,5 +265,8 @@ export default {
 <style lang="scss">
 	.theme--dark.v-text-field--filled > .v-input__control > .v-input__slot {
 		background: #313131;
+	}
+	.hahaha input {
+		margin-top: 0!important;
 	}
 </style>

@@ -15,7 +15,13 @@
         </template>
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
-          <v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
+          <template v-if="wowtab != 3">
+            <v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
+          </template>
+          <template v-else>
+            Profile
+          </template>
+
           <!-- {{$route.name}} -->
         </v-toolbar-title>
         <div class="flex-grow-1"></div>

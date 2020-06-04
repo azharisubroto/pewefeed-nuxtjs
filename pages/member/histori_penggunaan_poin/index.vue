@@ -15,8 +15,8 @@
         </v-col>
       </v-row>
 
-      <div class="text-center row pb-0">
-        <v-col cols="12" class="pb-0">
+      <div class="text-center row" style="background-color:#474747;border-top:1px solid #fff;border-bottom:1px solid #fff;">
+        <v-col cols="12">
           <v-btn @click="fethMutasi(1, 'all')" text dark small>
             <span>All</span>
           </v-btn>
@@ -36,7 +36,7 @@
     <v-container v-if="mutasi.length > 0">
       <v-row v-for="(item, i) in mutasi" :key="'item-'+i">
         <v-col cols="9">
-          <div class="caption">{{item.status}}/{{item.created_at}}</div>
+          <div class="caption">{{item.created_at}}</div>
           <div class="text-16">
             <strong>{{item.type}}</strong>
           </div>
@@ -56,7 +56,7 @@
         </v-col>
         <v-col class="text-20 text-right" cols="3">
           <strong v-if="item.daily_point == 'expire'">0</strong>
-          <strong v-else>{{item.point}}</strong>
+          <strong v-else>{{ item.status == 'DAPAT' ? '+' : ''  }}{{ item.status == 'FRAUD' ? '-' : ''  }}{{item.point}}</strong>
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
@@ -186,14 +186,14 @@ export default {
       try {
         const res = await UserService.claimDailyPoint();
         this.overlay = false;
-        
+
         setTimeout(() => {
           this.$auth.fetchUser().then(() => {
             localStorage.removeItem('userdata')
             localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
           })
         }, 500);
-        
+
         this.fetchUserdata();
         this.fethMutasi();
         location.reload()
@@ -212,7 +212,7 @@ export default {
 
 <style lang="scss">
 .highlight {
-  background: #303030;
+  background: transparent;
   color: #fff;
 }
 .text-dark {
