@@ -17,7 +17,7 @@
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-           <v-btn dark text class="deep-orange--text pl-0">You've got 1 Point!</v-btn>
+           <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">You've got 1 Point!</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
