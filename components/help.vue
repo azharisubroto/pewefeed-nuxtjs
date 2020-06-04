@@ -175,7 +175,7 @@ export default {
           title: "(021) 293 85 381",
           phone: "02129385381",
           isWhatsapp: false,
-          subtitle: "Mon-Fri 09:00 - 18:00"
+          subtitle: "(Mon-Fri 09:00 - 18:00)"
         },
         {
           title: "0815 1906 0929",

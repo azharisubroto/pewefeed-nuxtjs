@@ -16,7 +16,12 @@
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
           <template v-if="wowtab != 3">
-            <v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
+			<template v-if="$route.name == 'purchase'">
+				Purchase VIP Membership
+			</template>
+			<template v-else>
+				<v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
+			</template>
           </template>
           <template v-else>
             Profile
@@ -147,7 +152,7 @@
     <!-- ==== SEARCH BAR === -->
     <v-bottom-sheet v-model="opensearch">
       <v-sheet height="100%">
-        <v-toolbar :elevation="0" style="border-top: 2px solid #fff">
+        <v-toolbar :elevation="0" style="border-top: 2px solid #000">
           <!-- Arrow -->
           <v-btn
             dark
@@ -163,11 +168,11 @@
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text">Search</v-btn>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-		<v-divider></v-divider>
+		<div class="devider-small" style="border-color:#000"></div>
 
         <div class="px-5 py-10">
           <v-text-field

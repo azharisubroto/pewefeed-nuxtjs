@@ -18,8 +18,8 @@
         <v-stepper-items>
           <!-- Step 1 -->
           <v-stepper-content step="1" class="px-0">
-            <v-card :elevation="0" class="grey darken-2 mx-auto" tile>
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Dengan Pulsa</v-card-title>
+            <v-card :elevation="0" class="grey darken-2 mx-auto text-18" tile>
+              <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
               <v-divider></v-divider>
 
               <div class="px-4 py-0" @click="e1 = 2">
@@ -42,8 +42,8 @@
             </v-card>
 
             <!-- Content -->
-            <v-card class="mx-auto grey darken-2 mt-4 mb-2">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Tanpa Pulsa</v-card-title>
+            <v-card class="mx-auto grey darken-2 mt-4 mb-2 text-18">
+              <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
               <v-divider></v-divider>
               <div class="px-4 py-0" @click="e1 = 5">
                 <v-row align="center">
@@ -881,7 +881,7 @@ export default {
       }
     },
 
-    fetchUser() {  
+    fetchUser() {
       var res = []
       if (this.$auth.user) {
         // this.$auth.fetchUser()

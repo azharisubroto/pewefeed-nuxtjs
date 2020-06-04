@@ -17,7 +17,7 @@
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text">
+           	<v-btn dark text class="deep-orange--text pl-0">
 				<template v-if="already== true">
 					Oops, Sorry!
 				</template>

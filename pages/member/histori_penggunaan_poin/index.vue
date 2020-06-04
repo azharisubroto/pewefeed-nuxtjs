@@ -45,7 +45,7 @@
               class="blue--text"
               v-if="item.link"
               @click="$router.push(item.link)"
-            >{{item.description}}</a>
+            >Article</a>
             <span v-else>{{item.description}}</span>
           </div>
           <div v-if="item.daily_point" class="mt-2">
