@@ -16,7 +16,7 @@
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
 			<!-- {{$route.name}} -->
-			<template  v-if="$route.name == 'member-pengaturan'">
+			<template  v-if="$route.name == 'member-pengaturan' || $route.name == 'member-pengaturan-profil'">
 				Profile
 			</template>
 			<template  v-else-if="$route.name == 'member-histori_penggunaan_poin'">
@@ -26,7 +26,7 @@
 				Purchase VIP Membership
 			</template>
 			<template  v-else-if="$route.name == 'member-barang_yang_didapat'">
-				Rewards
+				Rewards Status
 			</template>
 			<template  v-else-if="$route.name == 'member-pengaturan-daftar-alamat'">
 				Address List for Rewards

@@ -9,88 +9,19 @@
     <v-row class="pt-0 mt-0">
       <v-col cols="12">
         <div>
-          <v-row align="center" justify="center">
-            <v-col cols="12" class="pb-0">
-              <v-alert
-                v-if="isActive"
-                border="left"
-                dense
-                outlined
-                class="mb-0"
-                type="success"
-                :icon="false"
-              >
-                <v-row no-gutters>
-                  <v-col cols="1" class="mr-2">
-                    <img
-                      width="25"
-                      class="mt-1"
-                      src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png"
-                      alt
-                    />
-                  </v-col>
-                  <v-col cols="10">
-                    <strong
-                      :class="isActive ? 'subtitle-2 green--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'"
-                      v-text="isActive ? 'ACTIVE' : 'INACTIVE'"
-                    ></strong>
-                    <br />
-                    <strong
-                      class="body-2 black--text"
-                      v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"
-                    ></strong>
-                    <div class="my-3"></div>
-                    <v-btn @click="buyVip()" color="deep-orange" dark depressed small>PURCHASE VIP</v-btn>
-                  </v-col>
-                </v-row>
-              </v-alert>
-              <v-alert v-else border="left" dense outlined class="mb-0" type="error" :icon="false">
-                <v-row no-gutters>
-                  <v-col cols="1" class="mr-2">
-                    <img
-                      width="25"
-                      class="mt-1"
-                      src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/m-menu2/v.png"
-                      alt
-                    />
-                  </v-col>
-                  <v-col cols="10">
-                    <strong
-                      :class="isActive ? 'subtitle-2 green--text font-weight-bold' : 'subtitle-2 red--text font-weight-bold'"
-                      v-text="isActive ? 'ACTIVE' : 'INACTIVE'"
-                    ></strong>
-                    <br />
-                    <strong
-                      class="body-2 black--text"
-                      v-text="isActive ? 'Keanggotaan VIP berlaku hingga ' + expire_date : 'Keanggotaan VIP telah kadaluarsa sejak ' + expire_date"
-                    ></strong>
-                    <div class="my-3"></div>
-                    <v-btn @click="buyVip()" color="deep-orange" dark depressed small>PURCHASE VIP</v-btn>
-                  </v-col>
-                </v-row>
-              </v-alert>
-            </v-col>
-          </v-row>
           <v-row>
             <v-col cols="12" sm="3" md="3" lg="3">
-              <v-row>
-                <v-col cols="12">
-                  <div class="text-center">
-                    <v-avatar
-                      v-if="avatar_preview"
-                      size="100"
-                      color="grey"
-                      @click="avatar_preview=''"
-                    >
-                      <v-img
-                        :src="avatar_preview"
-                        @click="avatar_preview='' && data.avatar"
-                        :aspect-ratio="1/1"
-                      >
-                        <v-icon dark class="mt-10">mdi-pencil</v-icon>
-                      </v-img>
-                    </v-avatar>
-                  </div>
+              <v-row align="center">
+                <v-col cols="3" v-if="avatar_preview">
+                  <v-avatar size="80" color="grey">
+                    <v-img
+                      :src="avatar_preview"
+                      @click="avatar_preview='' && data.avatar"
+                      :aspect-ratio="1/1"
+                    ></v-img>
+                  </v-avatar>
+                </v-col>
+                <v-col cols="9">
                   <vue-dropzone
                     v-if="!avatar_preview"
                     ref="dropzone"
@@ -98,80 +29,87 @@
                     :options="dropOptions"
                     @vdropzone-success="afterComplete"
                   ></vue-dropzone>
-                  <div class="text-center">
-                    <a v-if="avatar_preview" @click="avatar_preview=false">Remove File</a>
-                    <div></div>
-                    <br />
-                    <v-btn v-if="!avatar_preview" @click="avatar_preview = profile.avatar">Cancel</v-btn>
-                  </div>
+                  <a v-if="!avatar_preview" @click="avatar_preview=false">Remove File</a>
+                  <v-btn
+                    v-if="avatar_preview"
+                    text
+                    class="mt-2"
+                    depressed
+                    dark
+                    @click="avatar_preview=''"
+                  >
+                    <v-icon dark left>mdi-pencil</v-icon>Change Photo
+                  </v-btn>
+                </v-col>
+                <v-col cols="12">
+                  <div class="text-center"></div>
                 </v-col>
               </v-row>
             </v-col>
-            <v-col cols="12" sm="9" md="9" lg="9">
+            <v-col cols="12" sm="9" md="9" lg="9" class="px-0 hahaha">
+              <div class="mb-2 px-3">
+                First Name
+                <span class="red--text">(required)</span>
+              </div>
               <v-text-field
-                label="First Name"
-                placeholder="First Name"
-                outlined
+                solo
+                single-line
+                placeholder="Last Name"
+                filled
                 v-model="data.first_name"
               ></v-text-field>
+              <div class="mb-2 px-3">
+                Last Name
+                <span class="red--text">(required)</span>
+              </div>
               <v-text-field
-                label="Last Name"
+                solo
+                single-line
                 placeholder="Last Name"
-                outlined
+                filled
                 v-model="data.last_name"
               ></v-text-field>
+              <div class="mb-2 px-3">Username (optional)</div>
+              <v-text-field solo single-line placeholder="Username" filled v-model="data.username"></v-text-field>
+              <div class="mb-2 px-3">Phone</div>
+              <v-text-field solo single-line placeholder="Phone" filled v-model="data.no_telp"></v-text-field>
+              <div class="mb-2 px-3">Instagram</div>
               <v-text-field
-                label="Username"
-                placeholder="Username"
-                outlined
-                v-model="data.username"
-              ></v-text-field>
-              <v-text-field
-                label="Email"
-                placeholder="Email"
-                outlined
-                readonly
-                v-model="data.email"
-              ></v-text-field>
-              <v-text-field
-                label="msisdn"
-                placeholder="msisdn"
-                outlined
-                readonly
-                v-model="data.msisdn"
-              ></v-text-field>
-              <v-text-field
-                label="Expired"
-                placeholder="Expired"
-                outlined
-                readonly
-                v-model="data.expire"
-              ></v-text-field>
-              <v-text-field
-                label="Instagram"
+                solo
+                single-line
                 placeholder="@username"
-                outlined
+                filled
                 v-model="data.instagram"
               ></v-text-field>
-              <v-text-field label="Phone" placeholder="Phone" outlined v-model="data.no_telp"></v-text-field>
+              <div class="mb-2 px-3">Email (optional but required when bank transfer)</div>
+              <v-text-field
+                solo
+                single-line
+                placeholder="Email"
+                filled
+                readonly
+                disabled
+                v-model="data.email"
+              ></v-text-field>
 
-              <v-btn depressed dark color="orange" @click="save">Save</v-btn>
+              <div class="px-4">
+                <v-btn depressed dark block color="green" @click="save" class="mb-3">Save</v-btn>
+                <v-btn depressed dark block color="red" class="mb-5" @click="$router.go(-1)">Cancel</v-btn>
+              </div>
             </v-col>
           </v-row>
         </div>
       </v-col>
     </v-row>
     <!-- /FORM -->
-    <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose" />
   </v-container>
 </template>
 <script>
 import UserService from "@/services/UserService";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
-import BuyVip from "@/components/modal/BuyVip";
 
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   name: "pengaturanPage",
   data() {
     return {
@@ -187,7 +125,7 @@ export default {
         msisdn: "",
         expire: "",
         instagram: "",
-        no_telp: ""
+        no_no_: ""
       },
       snackbar: false,
       dropOptions: {
@@ -203,13 +141,8 @@ export default {
         thumbnailHeight: 100
       },
       isActive: false,
-      expire_date: "",
-      dialog: false,
-      buyVipDialogVisible: false
+      expire_date: ""
     };
-  },
-  components: {
-    BuyVip
   },
   methods: {
     removeAllFiles() {
@@ -223,18 +156,16 @@ export default {
         response.file_name;
     },
     fetchUserdata() {
-      this.setProfile();
-      this.isLoggedIn = true;
-    },
-    setProfile() {
       // this.$auth.fetchUser()
-      var res = []
-      // res.data = this.$auth.user
-      res.data = JSON.parse(localStorage.getItem('userdata'));
-      this.profile = res.data.data;
 
-      this.dropOptions.headers.Authorization =
-        "Bearer " + res.data.token;
+      var res = [];
+      // res.data = this.$auth.user
+      res.data = JSON.parse(localStorage.getItem("userdata"));
+
+      this.user_id = res.data.data.id;
+      this.profile = res.data.data;
+      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+      this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
       this.data.first_name = res.data.data.first_name;
       this.data.last_name = res.data.data.last_name;
@@ -245,6 +176,7 @@ export default {
       this.data.email = res.data.data.email;
       this.data.expire = res.data.data.expire;
       this.expire_date = this.data.expire;
+      // console.log(this.data)
       if (res.data.data.status_expired == 1) {
         this.isActive = true;
       }
@@ -259,38 +191,31 @@ export default {
         instagram: this.data.instagram,
         avatar: this.data.avatar
       };
+
       try {
         const res = await UserService.updateProfile(params);
+
         this.$auth.fetchUser().then(() => {
-          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-        })
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        });
         vm.snackbar = true;
-        this.setProfile()
+        this.fetchUserdata();
       } catch (error) {
         console.log(error);
       }
-    },
-    myDialogClose() {
-      this.buyVipDialogVisible = false;
-      // other code
-    },
-    buyVip() {
-      // if not vip, show dialog
-      this.notVipVisible = false;
-      this.buyVipDialogVisible = true;
     }
   },
   mounted() {
-    this.setProfile();
-    this.isLoggedIn = true;
+    this.fetchUserdata();
   }
 };
 </script>
 
-<style lang="sass">
-.v-item-group.v-bottom-navigation .v-btn .v-btn__content
-	color: #fff
-	opacity: 1
-	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
-		color: var(--primary)!important
+<style lang="scss">
+.theme--dark.v-text-field--filled > .v-input__control > .v-input__slot {
+  background: #313131;
+}
+.hahaha input {
+  margin-top: 0 !important;
+}
 </style>
