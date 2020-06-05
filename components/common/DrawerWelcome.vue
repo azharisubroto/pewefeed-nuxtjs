@@ -28,7 +28,7 @@
         </div>
         <v-divider></v-divider>
 
-        <v-card-actions>
+        <v-card-actions class="pb-10">
           <v-spacer></v-spacer>
           <v-btn
             color="green"

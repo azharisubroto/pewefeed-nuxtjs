@@ -1,42 +1,42 @@
 <template>
   <div>
 	  <template v-if="login">
-		<v-container>
-		<v-row align="center" class="profile-bag">
-			<v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
-			<v-avatar
-				@click="$router.push('/member/pengaturan/profil');drawer = false"
-				size="50"
-				color="grey"
-			>
-				<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
-			</v-avatar>
-			</v-col>
-			<v-col cols="10">
-			<v-row align="center">
-				<v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-				<strong class="subheading">{{ userdata.first_name }}</strong>
-				<div>Pewe ID: {{userdata.id}}</div>
-				<div
-					class="text-12"
-					:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-				>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+		<v-container class="pb-0">
+			<v-row align="center" class="profile-bag pb-0">
+				<v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
+					<v-avatar
+						@click="$router.push('/member/pengaturan/profil');drawer = false"
+						size="50"
+						color="grey"
+					>
+						<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
+					</v-avatar>
 				</v-col>
-				<v-col cols="3" class="text-right">
-				<v-btn to="/member/pengaturan/" icon dark depressed small>
-					<v-icon>mdi-chevron-right</v-icon>
-				</v-btn>
+				<v-col cols="10">
+					<v-row align="center">
+						<v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
+						<strong class="subheading">{{ userdata.first_name }}</strong>
+						<div>Pewe ID: {{userdata.id}}</div>
+						<div
+							class="text-12"
+							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
+						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+						</v-col>
+						<v-col cols="3" class="text-right">
+						<v-btn to="/member/pengaturan/" icon dark depressed small>
+							<v-icon>mdi-chevron-right</v-icon>
+						</v-btn>
+						</v-col>
+					</v-row>
 				</v-col>
 			</v-row>
-			</v-col>
-		</v-row>
-		<div class="devider-small full"></div>
 		</v-container>
 
 		<!-- USER MENU -->
-		<v-list color="#545353" class="mt-3 mb-10">
+		<v-list color="transparent" class="mb-10">
 		<v-list-item-group color="dark">
 			<template v-for="(item, i) in personmenu">
+			<div v-if="i==0" :key="'dvdr-'+i" class="devider-small"></div>
 			<v-list-item :key="'persmenu-'+i" :to="item.to">
 				<v-list-item-content>
 				<v-list-item-title>
@@ -63,6 +63,7 @@
 				<v-icon>mdi-chevron-right</v-icon>
 			</v-list-item-icon>
 			</v-list-item>
+			<div class="devider-small"></div>
 		</v-list-item-group>
 		</v-list>
 	  </template>
@@ -267,9 +268,9 @@ export default {
 
 <style lang="scss">
 .profile-bag {
-  background: #535352;
+  background: transparent;
   color: #fff;
-  border-top: 1px solid #d1d1d1;
-  border-bottom: 1px solid #d1d1d1;
+  border-top: 0!important;
+  border-bottom: 0 solid transparent!important;
 }
 </style>
