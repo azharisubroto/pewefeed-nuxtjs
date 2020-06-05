@@ -15,16 +15,19 @@
         </template>
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
-          <template v-if="wowtab != 3">
+          <template v-if="wowtab != 3 && $route.name == 'purchase'">
 			<template v-if="$route.name == 'purchase'">
 				Purchase VIP Membership
 			</template>
-			<template v-else>
-				<v-img :src="mainlogo" width="130" class="mainlogo"></v-img>
-			</template>
           </template>
+		  <template  v-if="wowtab == 3 && $route.name == 'purchase'">
+			  Purchase VIP Membership
+		  </template>
+		  <template  v-if="wowtab == 3 && $route.name != 'purchase'">
+			   Profile
+		  </template>
           <template v-else>
-            Profile
+            <v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
           </template>
 
           <!-- {{$route.name}} -->

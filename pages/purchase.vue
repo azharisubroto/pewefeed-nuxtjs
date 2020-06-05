@@ -18,7 +18,7 @@
         <v-stepper-items>
           <!-- Step 1 -->
           <v-stepper-content step="1" class="px-0">
-            <v-card :elevation="0" class="grey darken-2 mx-auto text-18" tile>
+            <v-card :elevation="0" class="hohoho mx-auto text-18" tile>
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
               <v-divider></v-divider>
 
@@ -42,7 +42,7 @@
             </v-card>
 
             <!-- Content -->
-            <v-card class="mx-auto grey darken-2 mt-4 mb-2 text-18">
+            <v-card class="mx-auto hohoho mt-4 mb-2 text-18">
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
               <v-divider></v-divider>
               <div class="px-4 py-0" @click="e1 = 5">
@@ -106,7 +106,7 @@
               </v-col>
             </v-row>
 
-            <v-card class="grey darken-2 mb-3 mt-4">
+            <v-card class="hohoho mb-3 mt-4">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold text-16">Berlangganan</v-card-title>
               <div
                 @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
@@ -133,7 +133,7 @@
                 </v-row>
               </div>
             </v-card>
-            <v-card class="grey darken-2 mx-auto mb-3">
+            <v-card class="hohoho mx-auto mb-3">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div
@@ -177,7 +177,7 @@
                 <div class="font-weight-bold text-center">INDOSAT</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2 mb-3">
+            <v-card class="hohoho mb-3">
               <v-card-title class="grey darken-3 font-weight-bold subtitle-2">Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div
@@ -213,7 +213,7 @@
             <div class="px-3">
               <strong>Nilai Transaksi</strong>
             </div>
-            <v-card class="grey darken-2 mb-3 mt-4">
+            <v-card class="hohoho mb-3 mt-4">
               <v-row class="px-4">
                 <v-col cols="12">{{itemprice}}</v-col>
               </v-row>
@@ -222,7 +222,7 @@
             <div class="px-3 mt-10">
               <strong>Rincian Transaksi</strong>
             </div>
-            <v-card class="grey darken-2 mb-3 mt-4">
+            <v-card class="hohoho mb-3 mt-4">
               <v-row class="px-4">
                 <v-col cols="12">{{itemname}}</v-col>
               </v-row>
@@ -232,15 +232,15 @@
               <v-row style="margin-top: -10px">
                 <v-col cols="12">
                   <div class="text-14 mb-2">Channel Pembayaran (Pilih Salah Satu)</div>
-                  <v-card class="grey darken-2 mx-auto mb-2">
+                  <v-card class="hohoho mx-auto mb-2">
                     <v-tabs grow v-model="buymethod" color="deep-orange">
-                      <v-tab href="#sms" class="grey darken-2">SMS</v-tab>
-                      <v-tab href="#wap" class="grey darken-2" @click="useWap=true">WAP</v-tab>
-                      <!-- <v-tab href="#ussd" class="grey darken-2">USSD</v-tab> -->
+                      <v-tab href="#sms" class="hohoho">SMS</v-tab>
+                      <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
+                      <!-- <v-tab href="#ussd" class="hohoho">USSD</v-tab> -->
                     </v-tabs>
 
                     <v-tabs-items v-model="buymethod">
-                      <v-tab-item value="sms" class="grey darken-2">
+                      <v-tab-item value="sms" class="hohoho">
                         <v-form ref="form" v-model="valid" lazy-validation>
                           <v-container>
                             <v-row no-gutters>
@@ -272,14 +272,14 @@
                           </v-btn>
                         </v-snackbar>
                       </v-tab-item>
-                      <v-tab-item value="wap" class="grey darken-2">
+                      <v-tab-item value="wap" class="hohoho">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
                           <strong
                             class="body-2"
                           >Setelah mencentang Google Recaptcha dan klik tombol "Process" di bawah, anda akan diarahkan ke halaman Pembayaran</strong>
                         </v-container>
                       </v-tab-item>
-                      <v-tab-item value="ussd" class="grey darken-2">
+                      <v-tab-item value="ussd" class="hohoho">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
                           <strong class="body-2">Pilihan Tidak Tersedia</strong>
                         </v-container>
@@ -290,7 +290,7 @@
               </v-row>
 
               <div
-                class="grey darken-2"
+                class="hohoho"
                 style="text-align:center;padding: 20px 10px 10px;border-radius:3px"
               >
                 <recaptcha
@@ -326,7 +326,7 @@
                 <div class="font-weight-bold text-center">BCA</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2">
+            <v-card class="hohoho">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div v-for="trans in vipTrans" :key="trans.id">
@@ -370,7 +370,7 @@
                 <div class="font-weight-bold text-center">BRI</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2">
+            <v-card class="hohoho">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div v-for="trans in vipTrans" :key="trans.id">
@@ -408,7 +408,7 @@
                 <div class="font-weight-bold text-center">BNI</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2 mt-4">
+            <v-card class="hohoho mt-4">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div v-for="trans in vipTrans" :key="trans.id">
@@ -465,7 +465,7 @@
                 <div class="font-weight-bold text-center">MANDIRI</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2">
+            <v-card class="hohoho">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div v-for="trans in vipTrans" :key="trans.id">
@@ -503,7 +503,7 @@
                 <div class="font-weight-bold text-center">PERMATA</div>
               </v-col>
             </v-row>
-            <v-card class="grey darken-2">
+            <v-card class="hohoho">
               <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
               <v-divider></v-divider>
               <div v-for="trans in vipTrans" :key="trans.id">
@@ -939,5 +939,8 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+.hohoho {
+	background: rgba(255,255,255,.07)!important
 }
 </style>
