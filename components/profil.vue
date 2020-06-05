@@ -36,7 +36,7 @@
 		<v-list color="transparent" class="mb-10">
 		<v-list-item-group color="dark">
 			<template v-for="(item, i) in personmenu">
-			<div v-if="i==0" :key="'dvdr-'+i" class="devider-small"></div>
+			<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
 			<v-list-item :key="'persmenu-'+i" :to="item.to">
 				<v-list-item-content>
 				<v-list-item-title>
