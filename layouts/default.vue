@@ -15,20 +15,37 @@
         </template>
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
-          <template v-if="wowtab != 3 && $route.name == 'purchase'">
-			<template v-if="$route.name == 'purchase'">
+			<!-- {{$route.name}} -->
+			<template  v-if="$route.name == 'member-pengaturan'">
+				Profile
+			</template>
+			<template  v-else-if="$route.name == 'member-histori_penggunaan_poin'">
+				Points History
+			</template>
+			<template  v-else-if="$route.name == 'purchase'">
 				Purchase VIP Membership
 			</template>
-          </template>
-		  <template  v-if="wowtab == 3 && $route.name == 'purchase'">
-			  Purchase VIP Membership
-		  </template>
-		  <template  v-if="wowtab == 3 && $route.name != 'purchase'">
-			   Profile
-		  </template>
-          <template v-else>
-            <v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
-          </template>
+			<template  v-else-if="$route.name == 'member-barang_yang_didapat'">
+				Rewards
+			</template>
+			<template  v-else-if="$route.name == 'member-pengaturan-daftar-alamat'">
+				Address List for Rewards
+			</template>
+			<template  v-else-if="$route.name == 'member-pengaturan-daftar-nomor'">
+				Phone List for Rewards
+			</template>
+			<template  v-else-if="$route.name == 'member-status_transfer'">
+				Bank Transfer Status
+			</template>
+			<template  v-else-if="$route.name == 'member-kode-pw'">
+				VIP Code from SMS
+			</template>
+			<template  v-else-if="$route.name == 'bantuan'">
+				Help Desk
+			</template>
+			<template v-else>
+				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
+			</template>
 
           <!-- {{$route.name}} -->
         </v-toolbar-title>

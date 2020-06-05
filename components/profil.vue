@@ -149,7 +149,7 @@ export default {
         },
         {
           name: "Help Desk",
-          to: "/bantuan"
+          to: "/bantuan/?tab=2"
         }
       ]
     };
