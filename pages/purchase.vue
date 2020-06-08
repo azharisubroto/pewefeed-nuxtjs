@@ -829,11 +829,9 @@ export default {
     validate(voucher) {
       var vm = this;
       vm.formdata.voucher_id = voucher;
-      this.submit();
       if (this.$refs.form.validate()) {
-        if (this.recaptchaToken != null) {
-          //this.submit();
-          // console.log('nggak');
+        if (vm.recaptchaToken != null) {
+          this.submit();
         } else {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";
@@ -843,9 +841,8 @@ export default {
 
     /* Submit Form */
     async submit() {
-      let vm = this;
-
       if (this.useWap) {
+        let vm = this;
         if (this.wap == "xllangganan") {
           //   window.open(
           //     "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw"
@@ -868,7 +865,7 @@ export default {
           //   );
         }
 
-        let vm = this
+        // let vm = this
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
@@ -876,6 +873,7 @@ export default {
         })
       } else {
         // send the form
+        let vm = this
         const sendform = vm.formdata;
 
         try {
@@ -889,8 +887,7 @@ export default {
         }
 
         this.recaptchaToken = null;
-
-        let vm = this
+        
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
@@ -926,9 +923,6 @@ export default {
   mounted() {
     /* Init Data User to Customer Detail */
     this.fetchUser();
-    this.onError();
-    this.onExpired();
-    this.onSuccess();
   }
 };
 </script>
