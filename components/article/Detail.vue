@@ -363,12 +363,8 @@
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
                 >
                   <v-row>
-                    <v-col cols="2">
-                      <img width="30" src="/img/poinextra.png" alt />
-                    </v-col>
                     <v-col cols="10">
-                      <strong class="orange--text text--deep body-1">No Extra Poin</strong>
-                      <br />Maaf! Kamu gagal mendapatkan tambahan POIN karena telah menjawab QUIZ
+                      You have answered this Quiz
                     </v-col>
                   </v-row>
                 </v-alert>
@@ -378,13 +374,6 @@
                   dark
                   color="orange"
                 >LIHAT TOTAL POIN</v-btn>
-                <v-btn
-                  class="mt-2"
-                  @click="drawer = false; ispoin = false; profile = true; notLogin = false; sudahpernah = false; noLimit = false"
-                  block
-                  dark
-                  color="deep-orange"
-                >TUTUP</v-btn>
               </v-container>
 
               <v-container v-if="noLimit">
@@ -890,26 +879,37 @@ export default {
               })
             }, 500);
 
-            this.total_poin = data.total_point;
-            this.ispoin = true;
-            this.profile = false;
-            this.notLogin = true;
+			this.total_poin = data.total_point;
+			this.dialog = true;
+			//this.ispoin = true;
+			if( data.total_point == 0 ) {
+				this.answerResult = false
+			} else  {
+				this.answerResult = true
+ 			}
+            //this.profile = false;
+			//this.notLogin = true;
+			this.sending = false;
+			this.sudahpernah = true
             // console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
             console.log(error);
             if (error.response.status == 410) {
-              this.noLimit = true;
-              this.sudahpernah = false;
+              //this.noLimit = true;
+			  //this.already = false;
+			  this.notLogin = true;
             } else {
               this.noLimit = false;
-              this.sudahpernah = true;
-            }
+              this.already = true;
+			}
+			this.sending = false;
+			this.sudahpernah = true
           }
         } else {
           this.sending = false;
           this.notVipDialogVisible = true;
         }
-      }
+	  }
     },
     openModalLogin() {
       this.loginModalVisible = true;

@@ -16,7 +16,7 @@
 					<v-row align="center">
 						<v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
 						<strong class="subheading">{{ userdata.first_name }}</strong>
-						<div>Pewe ID: {{userdata.id}}</div>
+						<div>PEWE ID: {{userdata.msisdn}}</div>
 						<div
 							class="text-12"
 							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"

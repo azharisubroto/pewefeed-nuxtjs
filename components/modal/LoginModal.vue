@@ -1,55 +1,39 @@
 <template>
-  <v-dialog
-    v-model="loginModal"
-    fullscreen
-    hide-overlay
-    class="LoginModal"
-    transition="dialog-bottom-transition"
-  >
-    <v-card>
-      <!-- Header -->
-      <v-toolbar light color="white">
-        <!-- Arrow -->
-        <v-btn icon tile style="border-right: 0px solid #d1d1d1" light @click="loginModal = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
+  <v-bottom-sheet v-model="loginModal">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="loginModal = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
 
-        <!-- Logo -->
-        <v-toolbar-title>
-          <img :src="logo" width="130" class="d-inline-block mt-3" />
-        </v-toolbar-title>
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+           	<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">
+				Login Required
+			</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
 
-        <!-- Title -->
-        <div class="flex-grow-1"></div>
-        <v-toolbar-items>
-          <v-btn light text>Information</v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-
-      <v-container class="py-0">
-        <v-row align="center" justify="center">
-          <v-col cols="12" class="pb-0">
-            <v-alert
-              border="left"
-              dense
-              colored-border
-              type="info"
-              class="mb-0"
-              style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-            >
-              Untuk dapat menggunakan fitur ini, anda diharuskan untuk Login atau Registrasi terlebih dahulu.
+        <div class="mx-2">
+          <v-container class="text-center">
+			  Untuk dapat menggunakan fitur ini, anda diharuskan untuk Login atau Registrasi terlebih dahulu.
               <br />
               <br />Klik tombol di bawah ini untuk melanjutkan
-            </v-alert>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-container class="pa-0 LoginModal">
-        <Login />
-      </v-container>
-    </v-card>
-  </v-dialog>
+			   <Login />
+		  </v-container>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
 </template>
 <script>
 import Login from "@/components/Login";

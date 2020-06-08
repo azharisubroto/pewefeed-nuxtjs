@@ -15,18 +15,18 @@
         </v-col>
       </v-row>
 
-      <div class="text-center row" style="background-color:#474747;border-top:1px solid #fff;border-bottom:1px solid #fff;">
+      <div class="statusquo text-center row" style="background-color:#474747;border-top:1px solid #fff;border-bottom:1px solid #fff;">
         <v-col cols="12">
-          <v-btn @click="fethMutasi(1, 'all')" text dark small>
+          <v-btn @click="fethMutasi(1, 'all')" :class="[position == 'all' ? 'active' : null]" text dark small>
             <span>All</span>
           </v-btn>
-          <v-btn @click="fethMutasi(1, 'dapat')" text dark small>
+          <v-btn @click="fethMutasi(1, 'dapat')" :class="[position == 'dapat' ? 'active' : null]" text dark small>
             <span>Received</span>
           </v-btn>
-          <v-btn @click="fethMutasi(1, 'tukar')" text dark small>
+          <v-btn @click="fethMutasi(1, 'tukar')" :class="[position == 'tukar' ? 'active' : null]" text dark small>
             <span>Exchange</span>
           </v-btn>
-          <v-btn @click="fethMutasi(1, 'fraud')" text dark small>
+          <v-btn @click="fethMutasi(1, 'fraud')" :class="[position == 'fraud' ? 'active' : null]" text dark small>
             <span>Fraud</span>
           </v-btn>
         </v-col>
@@ -92,7 +92,8 @@ export default {
       page: 1,
       last_page: 1,
       available: false,
-      overlay: false
+	  overlay: false,
+	  position: 'all'
     };
   },
   methods: {
@@ -106,9 +107,10 @@ export default {
       this.userdata = res.data;
     },
     async fethMutasi(page, filter) {
+		this.position = filter;
       this.mutasi = [];
       var n = page ? page : 1;
-      var fil = filter ? filter : "all";
+      var fil = filter;
       this.available = false;
       try {
         const res = await UserService.mutasiPoin(n, fil);
@@ -144,8 +146,8 @@ export default {
         // console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
         console.log("error");
-        this.fethMutasi(1, "all");
-      }
+        //this.fethMutasi(1, "all");
+	  }
     },
     next(num) {
       this.fethMutasi(num);
@@ -205,7 +207,8 @@ export default {
   },
   mounted() {
     this.fetchUserdata();
-    this.fethMutasi();
+	this.fethMutasi();
+	this.position = 'all'
   }
 };
 </script>
@@ -240,5 +243,10 @@ export default {
     padding: 0 10px;
     background: #303030;
   }
+}
+.statusquo {
+	.v-btn.active {
+		color: #ff9800 !important;
+	}
 }
 </style>
