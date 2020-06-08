@@ -35,6 +35,7 @@
             class="font-weight-bold"
             @click="$router.push('/member/histori_penggunaan_poin'); closeIt()"
           >Klaim Poin Sekarang</v-btn>
+		  <br><br><br>
           <v-spacer></v-spacer>
         </v-card-actions>
         <v-overlay :value="overlay">
