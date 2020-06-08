@@ -54,7 +54,7 @@
           </v-alert>
 
           <v-btn
-            @click="buyVip()"
+            @click="$router.push('/purchase')"
             dark
             block
             large
