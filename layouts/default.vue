@@ -966,6 +966,9 @@ a,
 .theme--dark.v-divider {
 	background: #fff!important;
 }
+.v-ripple__container {
+    display:none !important;
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }
