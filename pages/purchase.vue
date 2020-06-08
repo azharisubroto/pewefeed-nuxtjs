@@ -6,11 +6,11 @@
         <v-stepper-header style="display: none !important">
           <v-stepper-step :complete="e1 > 1" step="1"></v-stepper-step>
 
-          <v-divider></v-divider>
+          <div class="devider-small"></div>
 
           <v-stepper-step :complete="e1 > 2" step="2"></v-stepper-step>
 
-          <v-divider></v-divider>
+          <div class="devider-small"></div>
 
           <v-stepper-step step="3"></v-stepper-step>
         </v-stepper-header>
@@ -20,21 +20,21 @@
           <v-stepper-content step="1" class="px-0">
             <v-card :elevation="0" class="hohoho mx-auto text-18" tile>
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
 
               <div class="px-4 py-0" @click="e1 = 2">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">XL & AXIS</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">XL & AXIS</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
               </div>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 3">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">Indosat</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">Indosat</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
@@ -44,47 +44,47 @@
             <!-- Content -->
             <v-card class="mx-auto hohoho mt-4 mb-2 text-18">
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 5">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">BCA</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">BCA</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
               </div>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 6">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">BRI</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">BRI</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
               </div>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 7">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">BNI</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">BNI</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
               </div>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 9">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">MANDIRI</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">MANDIRI</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
               </div>
-              <v-divider></v-divider>
+              <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 10">
                 <v-row align="center">
-                  <v-col cols="10" class="py-0">PERMATA</v-col>
-                  <v-col cols="2">
+                  <v-col cols="10" class="py-5">PERMATA</v-col>
+                  <v-col cols="2" class="text-right">
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-col>
                 </v-row>
@@ -107,7 +107,7 @@
             </v-row>
 
             <v-card class="hohoho mb-3 mt-4">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold text-16">Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1  font-weight-bold text-16">Berlangganan</v-card-title>
               <div
                 @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
                 v-for="vip in vipItems.slice(0,1)"
@@ -117,7 +117,7 @@
                   <v-col cols="9">
                     <strong>{{ vip.label }}</strong>
                     <br />
-                    <strong>{{ vip.price }}</strong>
+                    <div v-html="vip.desc"></div>
                   </v-col>
                   <v-col cols="3" class="text-right">
                     <v-btn
@@ -134,33 +134,35 @@
               </div>
             </v-card>
             <v-card class="hohoho mx-auto mb-3">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
-              <div
-                v-for="(vip, i) in vipItems"
-                @click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                :key="vip.id+'-'+i"
-              >
-                <v-row class="py-0 mx-0" align="center">
-                  <v-col cols="9">
-                    <strong>{{ vip.label }}</strong>
-                    <br />
-                    <strong>{{ vip.price }}</strong>
-                  </v-col>
-                  <v-col cols="3" class="text-right">
-                    <v-btn
-                      icon
-                      tile
-                      light
-                      dark
-                      @click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-                    >
-                      <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <v-divider></v-divider>
-              </div>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
+			  <template v-for="(vip, i) in vipItems">
+              	<div
+				  	v-if="i!=0"
+					@click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+					:key="vip.id+'-'+i"
+				>
+					<v-row class="py-0 mx-0" align="center">
+					<v-col cols="9">
+						<strong>{{ vip.label }}</strong>
+						<br />
+					<div v-html="vip.desc"></div>
+					</v-col>
+					<v-col cols="3" class="text-right">
+						<v-btn
+						icon
+						tile
+						light
+						dark
+						@click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+						>
+						<v-icon>mdi-chevron-right</v-icon>
+						</v-btn>
+					</v-col>
+					</v-row>
+					<div class="devider-small"></div>
+				</div>
+			  </template>
             </v-card>
           </v-stepper-content>
           <!-- END OF STEP 2 : XL -->
@@ -178,8 +180,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho mb-3">
-              <v-card-title class="grey darken-3 font-weight-bold subtitle-2">Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class=" font-weight-bold subtitle-2">Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div
                 @click="wap='indosatlangganan';setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
                 v-for="vip in vipItems.slice(0,1)"
@@ -327,8 +329,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
                   class="mx-0"
@@ -352,7 +354,7 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider></v-divider>
+                <div class="devider-small"></div>
               </div>
             </v-card>
           </v-stepper-content>
@@ -371,8 +373,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
                   class="mx-0"
@@ -390,7 +392,7 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider></v-divider>
+                <div class="devider-small"></div>
               </div>
             </v-card>
           </v-stepper-content>
@@ -409,8 +411,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho mt-4">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
                   class="mx-0"
@@ -428,7 +430,7 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider></v-divider>
+                <div class="devider-small"></div>
               </div>
             </v-card>
           </v-stepper-content>
@@ -466,8 +468,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
                   class="mx-0"
@@ -485,7 +487,7 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider></v-divider>
+                <div class="devider-small"></div>
               </div>
             </v-card>
           </v-stepper-content>
@@ -504,8 +506,8 @@
               </v-col>
             </v-row>
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1 grey darken-3 font-weight-bold">Non Berlangganan</v-card-title>
-              <v-divider></v-divider>
+              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
                   class="mx-0"
@@ -523,7 +525,7 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider></v-divider>
+                <div class="devider-small"></div>
               </div>
             </v-card>
           </v-stepper-content>
@@ -562,10 +564,10 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "VIP BERLANGGANAN",
+      indosatlabel: "BERLANGGANAN VIP",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "VIP BERLANGGANAN",
+      xlreglabel: "BERLANGGANAN VIP",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -588,11 +590,22 @@ export default {
         "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-s.svg",
       vipItems: [
         {
+          id: 0,
+          voucher_id: 0,
+          image:
+            "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
+		  label: "6 Hari VIP",
+		  desc: '3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%',
+          price: "Rp 2.200",
+          code: "PW0"
+		},
+		{
           id: 1,
           voucher_id: 3,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 2 Hari",
+		  label: "2 Hari VIP",
+		  desc: 'Rp 2.200/SMS termasuk PPN 10%',
           price: "Rp 2.200",
           code: "PW3"
         },
@@ -601,7 +614,8 @@ export default {
           voucher_id: 4,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 3 Hari",
+		  label: "3 Hari VIP",
+		  desc: 'Rp 3.300/SMS termasuk PPN 10%',
           price: "Rp 3.300",
           code: "PW4"
         },
@@ -610,7 +624,8 @@ export default {
           voucher_id: 5,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 5 Hari",
+		  label: "5 Hari VIP",
+		  desc: 'Rp 5.500/SMS termasuk PPN 10%',
           price: "Rp 5.500",
           code: "PW5"
         },
@@ -619,7 +634,8 @@ export default {
           voucher_id: 6,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 8 Hari",
+		  label: "8 Hari VIP",
+		  desc: 'Rp 8.800/SMS termasuk PPN 10%',
           price: "Rp 8.800",
           code: "REG"
         },
@@ -628,7 +644,8 @@ export default {
           voucher_id: 7,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
-          label: "VIP 12",
+		  label: "12 Hari VIP",
+		  desc: 'Rp 11.000/SMS termasuk PPN 10%',
           price: "Rp 11.000",
           code: "PW7"
         },
@@ -637,7 +654,8 @@ export default {
           voucher_id: 8,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
-          label: "VIP 17",
+		  label: "17 Hari VIP",
+		  desc: 'Rp 16.500/SMS termasuk PPN 10%',
           price: "Rp 16.500",
           code: "PW8"
         }
@@ -648,7 +666,7 @@ export default {
           voucher_id: 12,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 16 Hari",
+          label: "16 Hari VIP",
           price: "Rp 10.000",
           code: "PW"
         },
@@ -657,7 +675,7 @@ export default {
           voucher_id: 9,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 40 Hari",
+          label: "40 Hari VIP",
           price: "Rp 25.000",
           code: "PW"
         },
@@ -666,7 +684,7 @@ export default {
           voucher_id: 10,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 80 Hari",
+          label: "80 Hari VIP",
           price: "Rp 50.000",
           code: "PW"
         },
@@ -675,7 +693,7 @@ export default {
           voucher_id: 11,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-          label: "VIP 160 Hari",
+          label: "160 Hari VIP",
           price: "Rp 100.000",
           code: "PW"
         }
@@ -811,11 +829,9 @@ export default {
     validate(voucher) {
       var vm = this;
       vm.formdata.voucher_id = voucher;
-      this.submit();
       if (this.$refs.form.validate()) {
-        if (this.recaptchaToken != null) {
-          //this.submit();
-          // console.log('nggak');
+        if (vm.recaptchaToken != null) {
+          this.submit();
         } else {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";
@@ -825,9 +841,8 @@ export default {
 
     /* Submit Form */
     async submit() {
-      let vm = this;
-
       if (this.useWap) {
+        let vm = this;
         if (this.wap == "xllangganan") {
           //   window.open(
           //     "https://150.107.148.9/app/wap/playworld/jayadata/isat/pw"
@@ -850,7 +865,7 @@ export default {
           //   );
         }
 
-        let vm = this
+        // let vm = this
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
@@ -858,6 +873,7 @@ export default {
         })
       } else {
         // send the form
+        let vm = this
         const sendform = vm.formdata;
 
         try {
@@ -871,8 +887,7 @@ export default {
         }
 
         this.recaptchaToken = null;
-
-        let vm = this
+        
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
@@ -908,9 +923,6 @@ export default {
   mounted() {
     /* Init Data User to Customer Detail */
     this.fetchUser();
-    this.onError();
-    this.onExpired();
-    this.onSuccess();
   }
 };
 </script>
@@ -941,6 +953,9 @@ export default {
   margin: 0 auto;
 }
 .hohoho {
-	background: rgba(255,255,255,.07)!important
+	background: rgba(255,255,255,.07)!important;
+	.subtitle-1 {
+		background: #1c1c1d!important;
+	}
 }
 </style>
