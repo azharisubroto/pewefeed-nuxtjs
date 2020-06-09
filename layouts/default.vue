@@ -579,6 +579,13 @@ export default {
         //this.loading = false
       } catch (error) {
         console.log(error);
+        this.$auth.logout()
+        localStorage.removeItem("loggedin");
+        localStorage.removeItem("access-token");
+        localStorage.removeItem("userdata");
+        localStorage.removeItem("auth._token.local");
+        localStorage.removeItem("auth.strategy");
+        localStorage.removeItem("useres");
       }
     },
     async generateDaily() {
@@ -597,6 +604,7 @@ export default {
   mounted() {
     this.generateDaily()
     this.isLogin();
+    this.fetchDaily();
     //this.fetchBantuan();
     //this.fetchHighlight();
     this.years = new Date().getFullYear();
