@@ -302,11 +302,7 @@
                       </v-tab-item>
                       <v-tab-item value="wap" class="hohoho">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
-                          <strong
-                            class="body-2"
-                          >Setelah mencentang Google Recaptcha dan klik tombol "Process" di bawah, anda akan diarahkan ke halaman Pembayaran</strong>
-						  <br>
-						  <strong class="body-2">Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
+						              <strong class="body-2">Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
                         </v-container>
                       </v-tab-item>
                       <v-tab-item value="ussd" class="hohoho">
@@ -596,7 +592,7 @@ export default {
       indosatlabel: "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "BERLANGGANAN VIP",
+      xlreglabel: "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -868,19 +864,19 @@ export default {
     /* Validasi Form */
     validate(voucher) {
       var vm = this;
+      console.log(vm.recaptchaToken)
       vm.formdata.voucher_id = voucher;
-      if (this.$refs.form.validate()) {
-        if (vm.recaptchaToken != null) {
-          this.submit();
-        } else {
-          this.snackbar = true;
-          this.responsemessage = "Mohon Centang Recaptha";
-        }
+      if (vm.recaptchaToken == 'success') {
+        this.submit();
+      } else {
+        this.snackbar = true;
+        this.responsemessage = "Mohon Centang Recaptha";
       }
     },
 
     /* Submit Form */
     async submit() {
+      console.log(this.useWap)
       if (this.useWap) {
         let vm = this;
         if (this.wap == "xllangganan") {
