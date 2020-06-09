@@ -189,12 +189,10 @@ export default {
         const res = await UserService.claimDailyPoint();
         this.overlay = false;
 
-        setTimeout(() => {
-          this.$auth.fetchUser().then(() => {
-            localStorage.removeItem('userdata')
-            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-          })
-        }, 500);
+        this.$auth.fetchUser().then(() => {
+          localStorage.removeItem('userdata')
+          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+        })
 
         this.fetchUserdata();
         this.fethMutasi();
