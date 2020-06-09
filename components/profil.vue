@@ -202,7 +202,7 @@ export default {
         localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
       });
       // this.$auth.fetchUser();
-      if( localStorage.getItem('loggedin') ) {
+      if( localStorage.getItem('userdata') ) {
         var res = [];
         res.data = JSON.parse(localStorage.getItem('userdata'));
 
@@ -225,8 +225,6 @@ export default {
           this.isActive = true;
         }
         this.login = true
-      } else {
-        this.logout()
       }
     },
     async save() {
