@@ -602,9 +602,11 @@ export default {
     }
   },
   mounted() {
-    this.generateDaily()
+    if (localStorage.getItem('loggedin')) {
+      this.generateDaily()
+      this.fetchDaily();
+    }
     this.isLogin();
-    this.fetchDaily();
     //this.fetchBantuan();
     //this.fetchHighlight();
     this.years = new Date().getFullYear();
