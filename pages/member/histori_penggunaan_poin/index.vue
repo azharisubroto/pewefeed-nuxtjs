@@ -190,11 +190,10 @@ export default {
         this.overlay = false;
 
         this.$auth.fetchUser().then(() => {
-          localStorage.removeItem('userdata')
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          this.fetchUserdata()
         })
 
-        this.fetchUserdata();
         this.fethMutasi();
         location.reload()
       } catch (error) {

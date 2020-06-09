@@ -198,31 +198,36 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
-	  // this.$auth.fetchUser();
-	  if( localStorage.getItem('userdata') ) {
-		var res = [];
-		res.data = JSON.parse(localStorage.getItem('userdata'));
+      this.$auth.fetchUser().then(() => {
+        localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+      });
+      // this.$auth.fetchUser();
+      if( localStorage.getItem('loggedin') ) {
+        var res = [];
+        res.data = JSON.parse(localStorage.getItem('userdata'));
 
-		this.userdata = res.data.data;
-		this.mypoint = res.data.point_total;
-		this.profile = res.data.data;
+        this.userdata = res.data.data;
+        this.mypoint = res.data.point_total;
+        this.profile = res.data.data;
 
-		this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
-		this.avatar_preview = res.data.data.avatar;
-		this.data.first_name = res.data.data.first_name;
-		this.data.last_name = res.data.data.last_name;
-		this.data.username = res.data.data.username;
-		this.data.msisdn = res.data.data.msisdn;
-		this.data.no_telp = res.data.data.no_telp;
-		this.data.instagram = res.data.data.instagram;
-		this.data.email = res.data.data.email;
-		this.data.expire = res.data.data.expire;
-		this.expire_date = this.data.expire;
-		if (res.data.data.status_expired == 1) {
-			this.isActive = true;
-		}
-		this.login = true
-	  }
+        this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
+        this.avatar_preview = res.data.data.avatar;
+        this.data.first_name = res.data.data.first_name;
+        this.data.last_name = res.data.data.last_name;
+        this.data.username = res.data.data.username;
+        this.data.msisdn = res.data.data.msisdn;
+        this.data.no_telp = res.data.data.no_telp;
+        this.data.instagram = res.data.data.instagram;
+        this.data.email = res.data.data.email;
+        this.data.expire = res.data.data.expire;
+        this.expire_date = this.data.expire;
+        if (res.data.data.status_expired == 1) {
+          this.isActive = true;
+        }
+        this.login = true
+      } else {
+        this.logout()
+      }
     },
     async save() {
       let vm = this;
