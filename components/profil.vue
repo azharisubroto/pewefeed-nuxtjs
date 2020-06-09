@@ -198,6 +198,7 @@ export default {
       this.isLoggedIn = true;
     },
     setProfile() {
+      let vm = this
       this.$auth.fetchUser().then(() => {
         localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
       });
