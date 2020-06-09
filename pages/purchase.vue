@@ -1,5 +1,27 @@
 <template>
   <div>
+	  <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+        <template v-if="$route.name != 'index'">
+          <v-btn @click="prev()" small icon>
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <div class="flex-grow-1"></div>
+        </template>
+        <template v-else>
+          <v-btn @click="prev()" small icon>&nbsp;</v-btn>
+          <div class="flex-grow-1"></div>
+        </template>
+
+        <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
+			{{appBarLabel ? appBarLabel : 'Purchase VIP Membership'}}
+        </v-toolbar-title>
+        <div class="flex-grow-1"></div>
+
+        <div @click="$router.push('/')" v-if="$route.name != 'index'">
+          <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
+        </div>
+      </v-app-bar>
+
     <v-card :elevation="0">
       <!-- Step -->
       <v-stepper v-model="e1">
@@ -22,7 +44,7 @@
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
               <div class="devider-small"></div>
 
-              <div class="px-4 py-0" @click="e1 = 2">
+              <div class="px-4 py-0" @click="e1 = 2; appBarLabel = 'XL & Axis'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">XL & AXIS</v-col>
                   <v-col cols="2" class="text-right">
@@ -31,7 +53,7 @@
                 </v-row>
               </div>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 3">
+              <div class="px-4 py-0" @click="e1 = 3; appBarLabel = 'Indosat'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">Indosat</v-col>
                   <v-col cols="2" class="text-right">
@@ -39,13 +61,14 @@
                   </v-col>
                 </v-row>
               </div>
+			   <div class="devider-small"></div>
             </v-card>
 
             <!-- Content -->
             <v-card class="mx-auto hohoho mt-4 mb-2 text-18">
               <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 5">
+              <div class="px-4 py-0" @click="e1 = 5; appBarLabel = 'BCA'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">BCA</v-col>
                   <v-col cols="2" class="text-right">
@@ -54,7 +77,7 @@
                 </v-row>
               </div>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 6">
+              <div class="px-4 py-0" @click="e1 = 6; appBarLabel = 'BRI'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">BRI</v-col>
                   <v-col cols="2" class="text-right">
@@ -63,7 +86,7 @@
                 </v-row>
               </div>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 7">
+              <div class="px-4 py-0" @click="e1 = 7; appBarLabel = 'BNI'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">BNI</v-col>
                   <v-col cols="2" class="text-right">
@@ -72,7 +95,7 @@
                 </v-row>
               </div>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 9">
+              <div class="px-4 py-0" @click="e1 = 9; appBarLabel = 'MANDIRI'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">MANDIRI</v-col>
                   <v-col cols="2" class="text-right">
@@ -81,7 +104,7 @@
                 </v-row>
               </div>
               <div class="devider-small"></div>
-              <div class="px-4 py-0" @click="e1 = 10">
+              <div class="px-4 py-0" @click="e1 = 10; appBarLabel = 'PERMATA'">
                 <v-row align="center">
                   <v-col cols="10" class="py-5">PERMATA</v-col>
                   <v-col cols="2" class="text-right">
@@ -89,13 +112,14 @@
                   </v-col>
                 </v-row>
               </div>
+			   <div class="devider-small"></div>
             </v-card>
           </v-stepper-content>
           <!-- END OF STEP 1 -->
 
           <!-- Step 2 : XL -->
-          <v-stepper-content step="2" class="mb-3 px-0">
-            <v-row align="center">
+          <v-stepper-content step="2" class="mb-3 px-0 jumpup">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -104,7 +128,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">XL &amp; AXIS</div>
               </v-col>
-            </v-row>
+            </v-row> -->
 
             <v-card class="hohoho mb-3 mt-4">
               <v-card-title class="subtitle-1  font-weight-bold text-16">Berlangganan</v-card-title>
@@ -117,7 +141,7 @@
                   <v-col cols="9">
                     <strong>{{ vip.label }}</strong>
                     <br />
-                    <div v-html="vip.desc"></div>
+                    <div class="text-12" v-html="vip.desc"></div>
                   </v-col>
                   <v-col cols="3" class="text-right">
                     <v-btn
@@ -146,7 +170,7 @@
 					<v-col cols="9">
 						<strong>{{ vip.label }}</strong>
 						<br />
-					<div v-html="vip.desc"></div>
+					<div class="text-12" v-html="vip.desc"></div>
 					</v-col>
 					<v-col cols="3" class="text-right">
 						<v-btn
@@ -168,8 +192,8 @@
           <!-- END OF STEP 2 : XL -->
 
           <!-- Step 2 : Indosat -->
-          <v-stepper-content step="3" class="px-0 text-14">
-            <v-row align="center">
+          <v-stepper-content step="3" class="px-0 text-14 jumpup">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -178,7 +202,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">INDOSAT</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho mb-3">
               <v-card-title class=" font-weight-bold subtitle-2">Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -191,7 +215,7 @@
                   <v-col cols="9">
                     <strong>{{ vip.label }}</strong>
                     <br />
-                    <strong>{{ vip.price }}</strong>
+                    <div class="text-12" v-html="vip.desc"></div>
                   </v-col>
                   <v-col cols="3" class="text-right">
                     <v-btn
@@ -211,8 +235,10 @@
           <!-- END OF STEP 3 : Indosat -->
 
           <!-- Step 4 : Order Detail -->
-          <v-stepper-content step="4" class="px-0">
+          <v-stepper-content step="4" class="px-0 jumpup">
             <div class="px-3">
+				<br>
+				<br>
               <strong>Nilai Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
@@ -226,7 +252,7 @@
             </div>
             <v-card class="hohoho mb-3 mt-4">
               <v-row class="px-4">
-                <v-col cols="12">{{itemname}}</v-col>
+                <v-col cols="12"><div v-html="itemname"></div></v-col>
               </v-row>
             </v-card>
 
@@ -279,6 +305,8 @@
                           <strong
                             class="body-2"
                           >Setelah mencentang Google Recaptcha dan klik tombol "Process" di bawah, anda akan diarahkan ke halaman Pembayaran</strong>
+						  <br>
+						  <strong class="body-2">Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
                         </v-container>
                       </v-tab-item>
                       <v-tab-item value="ussd" class="hohoho">
@@ -317,8 +345,8 @@
           <!-- END OF STEP 4 : Order Detail -->
 
           <!-- Step 5 : Midtrans : BCA-->
-          <v-stepper-content step="5" class="mb-3 px-0">
-            <v-row align="center">
+          <v-stepper-content step="5" class="mb-3 px-0 jumpup">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -327,7 +355,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BCA</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -361,8 +389,8 @@
           <!-- END OF Step 5 : Midtrans : BCA -->
 
           <!-- Step 6 : Xendit : BRI -->
-          <v-stepper-content step="6" class="mb-3 px-0">
-            <v-row align="center">
+          <v-stepper-content step="6" class="mb-3 px-0 jumpup">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -371,7 +399,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BRI</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -399,8 +427,8 @@
           <!-- END OF Step 6 : Xendit BRI -->
 
           <!-- Step 7 : Xendit : BNI -->
-          <v-stepper-content step="7" class="mb-3 px-0">
-            <v-row align="center">
+          <v-stepper-content step="7" class="mb-3 px-0 jumpup">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -409,7 +437,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BNI</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho mt-4">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -457,7 +485,7 @@
 
           <!-- Step 9 : Xendit : MANDIRI -->
           <v-stepper-content step="9" class="mb-3 px-0">
-            <v-row align="center">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -466,7 +494,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">MANDIRI</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -495,7 +523,7 @@
 
           <!-- Step 10 : Xendit : PERMATA -->
           <v-stepper-content step="10" class="mb-3 px-0">
-            <v-row align="center">
+            <!-- <v-row align="center">
               <v-col cols="2">
                 <v-btn v-if="e1 > 1 && e1 < 11 && e1 != 8" icon tile dark @click="prev()">
                   <v-icon>mdi-arrow-left</v-icon>
@@ -504,7 +532,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">PERMATA</div>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-card class="hohoho">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
@@ -554,6 +582,7 @@ export default {
   },
   data() {
     return {
+		appBarLabel: null,
       e1: 1,
       dialog: false,
       itemprice: null,
@@ -564,7 +593,7 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "BERLANGGANAN VIP",
+      indosatlabel: "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
       xlreglabel: "BERLANGGANAN VIP",
@@ -705,6 +734,13 @@ export default {
   components: {
     IframePreview
   },
+  watch: {
+		e1: function (baru, lama) {
+			if( baru == 1 ) {
+				this.appBarLabel = 'Purchase VIP Membership'
+			}
+		}
+  },
   computed: {
     /* Init Modal */
     intDialogVisible: {
@@ -739,6 +775,10 @@ export default {
 
     /* Change Icon Arrow Prev Step */
     prev() {
+		if(this.e1 == 1) {
+		  this.$router.push('/');
+		  console.log(this.e1)
+	  }
       if (this.e1 != 0) {
         if (this.e1 == 3) {
           this.e1 = this.e1 - 2;
@@ -749,19 +789,19 @@ export default {
             if (this.current == "xl") {
               this.e1 = this.e1 - 2;
               this.current = 0;
-              console.log(this.e1);
+              //console.log(this.e1);
             } else if (this.current == "indosat") {
               this.e1 = 3;
               this.current = 0;
             } else {
-              console.log(this.current);
+              //console.log(this.current);
             }
           } else {
             this.e1 = 1;
-            console.log(this.current);
+            //console.log(this.current);
           }
         }
-      }
+	  }
     },
 
     /* Set Data Order */
@@ -887,7 +927,7 @@ export default {
         }
 
         this.recaptchaToken = null;
-        
+
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 
@@ -957,5 +997,9 @@ export default {
 	.subtitle-1 {
 		background: #1c1c1d!important;
 	}
+}
+.jumpup {
+	position: relative;
+	padding-top:0!important;
 }
 </style>
