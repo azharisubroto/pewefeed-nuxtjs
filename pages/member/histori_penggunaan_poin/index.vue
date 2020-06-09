@@ -187,7 +187,6 @@ export default {
       let vm = this
       try {
         const res = await UserService.claimDailyPoint();
-        this.overlay = false;
 
         this.$auth.fetchUser().then(() => {
           localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
@@ -195,7 +194,11 @@ export default {
         })
 
         this.fethMutasi();
-        location.reload()
+
+        setTimeout(() => {
+          this.overlay = false;
+          location.reload()
+        }, 1000);
       } catch (error) {
         this.overlay = false;
         console.log(error);
