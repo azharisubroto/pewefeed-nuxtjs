@@ -24,8 +24,8 @@
 
         <template v-if="addressForm">
           <v-text-field
-            label="Label Alamat"
-            placeholder="Label Alamat"
+            label="Label"
+            placeholder="Kantor, Rumah . . ."
             outlined
             v-model="dataAddress.title"
           ></v-text-field>

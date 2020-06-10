@@ -189,9 +189,10 @@ export default {
 				const res = await UserService.getContacts()
 				var items = res.data.data
 				if( items && items.length > 0 ) {
-				//console.log(JSON.parse(JSON.stringify(items)))
-				this.contacts = items
-				this.isLoading = false
+					this.contacts = items
+					this.isLoading = false
+				} else {
+					this.isLoading = false
 				}
 			} catch (error) {
 				console.log(res)
@@ -242,6 +243,7 @@ export default {
 				this.responseMessage = 'Nomor telah dihapus'
 				this.numberForm = false
 				this.getNumbers()
+				this.isLoading = false
 			} catch (error) {
 			console.log(error)
 				this.snackbar = true
