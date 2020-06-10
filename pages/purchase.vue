@@ -132,6 +132,7 @@
 
             <v-card class="hohoho mb-3 mt-4">
               <v-card-title class="subtitle-1  font-weight-bold text-16">Berlangganan</v-card-title>
+              <div class="devider-small"></div>
               <div
                 @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
                 v-for="vip in vipItems.slice(0,1)"
@@ -156,6 +157,7 @@
                   </v-col>
                 </v-row>
               </div>
+              <div class="devider-small"></div>
             </v-card>
             <v-card class="hohoho mx-auto mb-3">
               <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
@@ -163,7 +165,7 @@
 			  <template v-for="(vip, i) in vipItems">
               	<div
 				  	v-if="i!=0"
-					@click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+					@click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl', vip.desc)"
 					:key="vip.id+'-'+i"
 				>
 					<v-row class="py-0 mx-0" align="center">
@@ -203,8 +205,8 @@
                 <div class="font-weight-bold text-center">INDOSAT</div>
               </v-col>
             </v-row> -->
+            <div class="font-weight-bold px-3 py-4 text-18 mt-3">Berlangganan</div>
             <v-card class="hohoho mb-3">
-              <v-card-title class=" font-weight-bold subtitle-2">Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div
                 @click="wap='indosatlangganan';setOrder(indosatvoucherid, userdata.email, indosatlabel, indosatprice, current = 'indosat')"
@@ -230,6 +232,7 @@
                   </v-col>
                 </v-row>
               </div>
+              <div class="devider-small"></div>
             </v-card>
           </v-stepper-content>
           <!-- END OF STEP 3 : Indosat -->
@@ -242,25 +245,31 @@
               <strong>Nilai Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
+				<div class="devider-small"></div>
               <v-row class="px-4">
                 <v-col cols="12">{{itemprice}}</v-col>
-              </v-row>
+              </v-row><div class="devider-small"></div>
             </v-card>
 
             <div class="px-3 mt-10">
               <strong>Rincian Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
+				<div class="devider-small"></div>
               <v-row class="px-4">
-                <v-col cols="12"><div v-html="itemname"></div></v-col>
+                <v-col cols="12">
+					<div v-html="itemname"></div>
+					<div v-html="sublabel"></div>
+				</v-col>
               </v-row>
+			  <div class="devider-small"></div>
             </v-card>
 
             <v-container class="mt-4 card-trans">
               <v-row style="margin-top: -10px">
-                <v-col cols="12">
+                <v-col cols="12" class="pb-0">
                   <div class="text-14 mb-2">Channel Pembayaran (Pilih Salah Satu)</div>
-                  <v-card class="hohoho mx-auto mb-2">
+                  <v-card class="hohoho mx-auto mb-0">
                     <v-tabs grow v-model="buymethod" color="deep-orange">
                       <v-tab href="#sms" class="hohoho">SMS</v-tab>
                       <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
@@ -316,7 +325,7 @@
               </v-row>
 
               <div
-                class="hohoho"
+                class="hohoho mt-0"
                 style="text-align:center;padding: 20px 10px 10px;border-radius:3px"
               >
                 <recaptcha
@@ -329,9 +338,9 @@
 
               <v-btn
                 @click="validate(itemvoucher)"
-                color="deep-orange"
+                color="green"
                 block
-                class="white--text mt-2 deep-orange"
+                class="white--text mt-2"
               >PROCESS</v-btn>
               <br />
               <br />
@@ -583,16 +592,17 @@ export default {
       dialog: false,
       itemprice: null,
       itemname: null,
+      sublabel: null,
       itemcode: null,
       itemvoucher: null,
       itemhari: null,
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel: "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel: "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -801,7 +811,7 @@ export default {
     },
 
     /* Set Data Order */
-    async setOrder(voucherId, email, label, price, currentstep) {
+    async setOrder(voucherId, email, label, price, currentstep, sublabel = null) {
       if (currentstep == "xendit") {
         const sendvoucher = {
           voucher_id: voucherId,
@@ -834,7 +844,8 @@ export default {
           console.log(error);
         }
       } else {
-        this.itemname = label;
+		this.itemname = label;
+		this.sublabel = sublabel;
         this.itemprice = price;
 
         var hari = "";
@@ -990,6 +1001,7 @@ export default {
 }
 .hohoho {
 	background: rgba(255,255,255,.07)!important;
+	// border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 	.subtitle-1 {
 		background: #1c1c1d!important;
 	}

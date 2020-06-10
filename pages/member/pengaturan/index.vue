@@ -52,6 +52,7 @@
                 <span class="red--text">(required)</span>
               </div>
               <v-text-field
+			  	class="giveline"
                 solo
                 single-line
                 placeholder="Last Name"
@@ -63,6 +64,7 @@
                 <span class="red--text">(required)</span>
               </div>
               <v-text-field
+			  	class="giveline"
                 solo
                 single-line
                 placeholder="Last Name"
@@ -70,11 +72,14 @@
                 v-model="data.last_name"
               ></v-text-field>
               <div class="mb-2 px-3">Username (optional)</div>
-              <v-text-field solo single-line placeholder="Username" filled v-model="data.username"></v-text-field>
+              <v-text-field
+			  	class="giveline" solo single-line placeholder="Username" filled v-model="data.username"></v-text-field>
               <div class="mb-2 px-3">Phone</div>
-              <v-text-field solo single-line placeholder="Phone" filled v-model="data.no_telp"></v-text-field>
+              <v-text-field
+			  	class="giveline" solo single-line placeholder="Phone" filled v-model="data.no_telp"></v-text-field>
               <div class="mb-2 px-3">Instagram</div>
               <v-text-field
+			  	class="giveline"
                 solo
                 single-line
                 placeholder="@username"
@@ -83,6 +88,7 @@
               ></v-text-field>
               <div class="mb-2 px-3">Email (optional but required when bank transfer)</div>
               <v-text-field
+			  	class="giveline"
                 solo
                 single-line
                 placeholder="Email"
@@ -217,5 +223,9 @@ export default {
 }
 .hahaha input {
   margin-top: 0 !important;
+}
+.giveline .v-input__slot{
+	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
 </style>

@@ -246,7 +246,7 @@ export default {
 }
 .statusquo {
 	.v-btn.active {
-		color: #ff9800 !important;
+		color: var(--primary) !important;
 	}
 }
 </style>
