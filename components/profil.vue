@@ -147,10 +147,6 @@ export default {
           name: "VIP Code from SMS",
           to: "/member/kode-pw"
         },
-        {
-          name: "Help Desk",
-          to: "/bantuan/?tab=2"
-        }
       ]
     };
   },
