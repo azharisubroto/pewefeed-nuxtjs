@@ -1,26 +1,27 @@
 <template>
   <div>
-	  <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
-        <template v-if="$route.name != 'index'">
-          <v-btn @click="prev()" small icon>
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <div class="flex-grow-1"></div>
-        </template>
-        <template v-else>
-          <v-btn @click="prev()" small icon>&nbsp;</v-btn>
-          <div class="flex-grow-1"></div>
-        </template>
-
-        <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
-			{{appBarLabel ? appBarLabel : 'Purchase VIP Membership'}}
-        </v-toolbar-title>
+    <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+      <template v-if="$route.name != 'index'">
+        <v-btn @click="prev()" small icon>
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
         <div class="flex-grow-1"></div>
+      </template>
+      <template v-else>
+        <v-btn @click="prev()" small icon>&nbsp;</v-btn>
+        <div class="flex-grow-1"></div>
+      </template>
 
-        <div @click="$router.push('/')" v-if="$route.name != 'index'">
-          <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
-        </div>
-      </v-app-bar>
+      <v-toolbar-title
+        @click="$router.push('/'); drawer = false"
+        class="px-0"
+      >{{appBarLabel ? appBarLabel : 'Purchase VIP Membership'}}</v-toolbar-title>
+      <div class="flex-grow-1"></div>
+
+      <div @click="$router.push('/')" v-if="$route.name != 'index'">
+        <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
+      </div>
+    </v-app-bar>
 
     <v-card :elevation="0">
       <!-- Step -->
@@ -41,7 +42,10 @@
           <!-- Step 1 -->
           <v-stepper-content step="1" class="px-0">
             <v-card :elevation="0" class="hohoho mx-auto text-18" tile>
-              <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
+              <v-card-title
+                class="subtitle-1 font-weight-bold"
+                style="background: #1c1c1d"
+              >Pembelian Dengan Pulsa</v-card-title>
               <div class="devider-small"></div>
 
               <div class="px-4 py-0" @click="e1 = 2; appBarLabel = 'XL & Axis'">
@@ -61,12 +65,15 @@
                   </v-col>
                 </v-row>
               </div>
-			   <div class="devider-small"></div>
+              <div class="devider-small"></div>
             </v-card>
 
             <!-- Content -->
             <v-card class="mx-auto hohoho mt-4 mb-2 text-18">
-              <v-card-title class="subtitle-1 font-weight-bold" style="background: #1c1c1d">Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
+              <v-card-title
+                class="subtitle-1 font-weight-bold"
+                style="background: #1c1c1d"
+              >Pembelian Dengan Bank Transfer / Credit Card</v-card-title>
               <div class="devider-small"></div>
               <div class="px-4 py-0" @click="e1 = 5; appBarLabel = 'BCA'">
                 <v-row align="center">
@@ -112,7 +119,7 @@
                   </v-col>
                 </v-row>
               </div>
-			   <div class="devider-small"></div>
+              <div class="devider-small"></div>
             </v-card>
           </v-stepper-content>
           <!-- END OF STEP 1 -->
@@ -128,10 +135,10 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">XL &amp; AXIS</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
 
             <v-card class="hohoho mb-3 mt-4">
-              <v-card-title class="subtitle-1  font-weight-bold text-16">Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold text-16">Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div
                 @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
@@ -160,35 +167,35 @@
               <div class="devider-small"></div>
             </v-card>
             <v-card class="hohoho mx-auto mb-3">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
-			  <template v-for="(vip, i) in vipItems">
-              	<div
-				  	v-if="i!=0"
-					@click="wap='PW'+(i+3);setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl', vip.desc)"
-					:key="vip.id+'-'+i"
-				>
-					<v-row class="py-0 mx-0" align="center">
-					<v-col cols="9">
-						<strong>{{ vip.label }}</strong>
-						<br />
-					<div class="text-12" v-html="vip.desc"></div>
-					</v-col>
-					<v-col cols="3" class="text-right">
-						<v-btn
-						icon
-						tile
-						light
-						dark
-						@click="setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
-						>
-						<v-icon>mdi-chevron-right</v-icon>
-						</v-btn>
-					</v-col>
-					</v-row>
-					<div class="devider-small"></div>
-				</div>
-			  </template>
+              <template v-for="(vip, i) in vipItems">
+                <div
+                  v-if="i!=0"
+                  @click="wap=vip.code;setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl', vip.desc)"
+                  :key="vip.id+'-'+i"
+                >
+                  <v-row class="py-0 mx-0" align="center">
+                    <v-col cols="9">
+                      <strong>{{ vip.label }}</strong>
+                      <br />
+                      <div class="text-12" v-html="vip.desc"></div>
+                    </v-col>
+                    <v-col cols="3" class="text-right">
+                      <v-btn
+                        icon
+                        tile
+                        light
+                        dark
+                        @click="wap=vip.code;setOrder(vip.voucher_id, userdata.email, vip.label,vip.price, current = 'xl')"
+                      >
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <div class="devider-small"></div>
+                </div>
+              </template>
             </v-card>
           </v-stepper-content>
           <!-- END OF STEP 2 : XL -->
@@ -204,7 +211,7 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">INDOSAT</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <div class="font-weight-bold px-3 py-4 text-18 mt-3">Berlangganan</div>
             <v-card class="hohoho mb-3">
               <div class="devider-small"></div>
@@ -240,29 +247,30 @@
           <!-- Step 4 : Order Detail -->
           <v-stepper-content step="4" class="px-0 jumpup">
             <div class="px-3">
-				<br>
-				<br>
+              <br />
+              <br />
               <strong>Nilai Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
-				<div class="devider-small"></div>
+              <div class="devider-small"></div>
               <v-row class="px-4">
                 <v-col cols="12">{{itemprice}}</v-col>
-              </v-row><div class="devider-small"></div>
+              </v-row>
+              <div class="devider-small"></div>
             </v-card>
 
             <div class="px-3 mt-10">
               <strong>Rincian Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
-				<div class="devider-small"></div>
+              <div class="devider-small"></div>
               <v-row class="px-4">
                 <v-col cols="12">
-					<div v-html="itemname"></div>
-					<div v-html="sublabel"></div>
-				</v-col>
+                  <div v-html="itemname"></div>
+                  <div v-html="sublabel"></div>
+                </v-col>
               </v-row>
-			  <div class="devider-small"></div>
+              <div class="devider-small"></div>
             </v-card>
 
             <v-container class="mt-4 card-trans">
@@ -301,17 +309,12 @@
                             </v-row>
                           </v-container>
                         </v-form>
-
-                        <v-snackbar v-model="snackbar" :timeout="timeout" top>
-                          {{ responsemessage }}
-                          <v-btn color="primary" text icon @click="snackbar = false">
-                            <v-icon color="white">mdi-close-circle-outline</v-icon>
-                          </v-btn>
-                        </v-snackbar>
                       </v-tab-item>
                       <v-tab-item value="wap" class="hohoho">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
-						              <strong class="body-2">Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
+                          <strong
+                            class="body-2"
+                          >Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
                         </v-container>
                       </v-tab-item>
                       <v-tab-item value="ussd" class="hohoho">
@@ -323,6 +326,13 @@
                   </v-card>
                 </v-col>
               </v-row>
+
+              <v-snackbar v-model="snackbar" :timeout="timeout" top>
+                {{ responsemessage }}
+                <v-btn color="primary" text icon @click="snackbar = false">
+                  <v-icon color="white">mdi-close-circle-outline</v-icon>
+                </v-btn>
+              </v-snackbar>
 
               <div
                 class="hohoho mt-0"
@@ -360,9 +370,9 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BCA</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -404,9 +414,9 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BRI</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -442,9 +452,9 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">BNI</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <v-card class="hohoho mt-4">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -499,9 +509,9 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">MANDIRI</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -537,9 +547,9 @@
               <v-col cols="8" class="text-center">
                 <div class="font-weight-bold text-center">PERMATA</div>
               </v-col>
-            </v-row> -->
+            </v-row>-->
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1  font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -580,14 +590,14 @@ import PurchaseService from "@/services/PurchaseService";
 import UserService from "@/services/UserService";
 import IframePreview from "@/components/modal/IframePreview";
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   name: "PurchasePage",
   props: {
     dialogVisible: Boolean
   },
   data() {
     return {
-		appBarLabel: null,
+      appBarLabel: null,
       e1: 1,
       dialog: false,
       itemprice: null,
@@ -599,10 +609,12 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel:
+        "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel:
+        "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -629,18 +641,19 @@ export default {
           voucher_id: 0,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-		  label: "6 Hari VIP",
-		  desc: '3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%',
+          label: "6 Hari VIP",
+          desc:
+            "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
           price: "Rp 2.200",
           code: "PW0"
-		},
-		{
+        },
+        {
           id: 1,
           voucher_id: 3,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-		  label: "2 Hari VIP",
-		  desc: 'Rp 2.200/SMS termasuk PPN 10%',
+          label: "2 Hari VIP",
+          desc: "Rp 2.200/SMS termasuk PPN 10%",
           price: "Rp 2.200",
           code: "PW3"
         },
@@ -649,8 +662,8 @@ export default {
           voucher_id: 4,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-		  label: "3 Hari VIP",
-		  desc: 'Rp 3.300/SMS termasuk PPN 10%',
+          label: "3 Hari VIP",
+          desc: "Rp 3.300/SMS termasuk PPN 10%",
           price: "Rp 3.300",
           code: "PW4"
         },
@@ -659,8 +672,8 @@ export default {
           voucher_id: 5,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-		  label: "5 Hari VIP",
-		  desc: 'Rp 5.500/SMS termasuk PPN 10%',
+          label: "5 Hari VIP",
+          desc: "Rp 5.500/SMS termasuk PPN 10%",
           price: "Rp 5.500",
           code: "PW5"
         },
@@ -669,8 +682,8 @@ export default {
           voucher_id: 6,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
-		  label: "8 Hari VIP",
-		  desc: 'Rp 8.800/SMS termasuk PPN 10%',
+          label: "8 Hari VIP",
+          desc: "Rp 8.800/SMS termasuk PPN 10%",
           price: "Rp 8.800",
           code: "REG"
         },
@@ -679,8 +692,8 @@ export default {
           voucher_id: 7,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
-		  label: "12 Hari VIP",
-		  desc: 'Rp 11.000/SMS termasuk PPN 10%',
+          label: "12 Hari VIP",
+          desc: "Rp 11.000/SMS termasuk PPN 10%",
           price: "Rp 11.000",
           code: "PW7"
         },
@@ -689,8 +702,8 @@ export default {
           voucher_id: 8,
           image:
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip-3.svg",
-		  label: "17 Hari VIP",
-		  desc: 'Rp 16.500/SMS termasuk PPN 10%',
+          label: "17 Hari VIP",
+          desc: "Rp 16.500/SMS termasuk PPN 10%",
           price: "Rp 16.500",
           code: "PW8"
         }
@@ -741,11 +754,11 @@ export default {
     IframePreview
   },
   watch: {
-		e1: function (baru, lama) {
-			if( baru == 1 ) {
-				this.appBarLabel = 'Purchase VIP Membership'
-			}
-		}
+    e1: function(baru, lama) {
+      if (baru == 1) {
+        this.appBarLabel = "Purchase VIP Membership";
+      }
+    }
   },
   computed: {
     /* Init Modal */
@@ -781,10 +794,10 @@ export default {
 
     /* Change Icon Arrow Prev Step */
     prev() {
-		if(this.e1 == 1) {
-		  this.$router.push('/');
-		  console.log(this.e1)
-	  }
+      if (this.e1 == 1) {
+        this.$router.push("/");
+        console.log(this.e1);
+      }
       if (this.e1 != 0) {
         if (this.e1 == 3) {
           this.e1 = this.e1 - 2;
@@ -807,11 +820,18 @@ export default {
             //console.log(this.current);
           }
         }
-	  }
+      }
     },
 
     /* Set Data Order */
-    async setOrder(voucherId, email, label, price, currentstep, sublabel = null) {
+    async setOrder(
+      voucherId,
+      email,
+      label,
+      price,
+      currentstep,
+      sublabel = null
+    ) {
       if (currentstep == "xendit") {
         const sendvoucher = {
           voucher_id: voucherId,
@@ -844,9 +864,10 @@ export default {
           console.log(error);
         }
       } else {
-		this.itemname = label;
-		this.sublabel = sublabel;
+        this.itemname = label;
+        this.sublabel = sublabel;
         this.itemprice = price;
+        // console.log(this.wap)
 
         var hari = "";
         if (price == "Rp 2.200") {
@@ -875,9 +896,8 @@ export default {
     /* Validasi Form */
     validate(voucher) {
       var vm = this;
-      console.log(vm.recaptchaToken)
       vm.formdata.voucher_id = voucher;
-      if (vm.recaptchaToken == 'success') {
+      if (vm.recaptchaToken == "success") {
         this.submit();
       } else {
         this.snackbar = true;
@@ -887,7 +907,7 @@ export default {
 
     /* Submit Form */
     async submit() {
-      console.log(this.useWap)
+      console.log(this.useWap);
       if (this.useWap) {
         let vm = this;
         if (this.wap == "xllangganan") {
@@ -901,26 +921,22 @@ export default {
           window.location.href =
             "http://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
         } else {
-          window.location.href =
-            "http://www.gudangapp.com/Wap_action.jsp?content=" +
-            this.wap +
-            "+WPW&dest=97789&&success=http://pewefeed.com/rand";
-          //   window.open(
-          //     "http://www.gudangapp.com/Wap_action.jsp?content=" +
-          //       this.wap +
-          //       "+WPW&dest=97789&&success=http://playworld.id/rand"
-          //   );
+            window.open(
+              "http://www.gudangapp.com/Wap_action.jsp?content=" +
+              this.wap +
+              "+WPW&dest=97789&&success=http://pewefeed.com/rand"
+            );
         }
 
         // let vm = this
         this.$auth.fetchUser().then(() => {
-          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
 
-          this.fetchUser()
-        })
+          this.fetchUser();
+        });
       } else {
         // send the form
-        let vm = this
+        let vm = this;
         const sendform = vm.formdata;
 
         try {
@@ -936,19 +952,19 @@ export default {
         this.recaptchaToken = null;
 
         this.$auth.fetchUser().then(() => {
-          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
 
-          this.fetchUser()
-        })
+          this.fetchUser();
+        });
       }
     },
 
     fetchUser() {
-      var res = []
+      var res = [];
       if (this.$auth.user) {
         // this.$auth.fetchUser()
         // res.data = this.$auth.user
-        res.data = JSON.parse(localStorage.getItem('userdata'));
+        res.data = JSON.parse(localStorage.getItem("userdata"));
         this.userdata = res.data.data;
       }
     },
@@ -1000,14 +1016,14 @@ export default {
   margin: 0 auto;
 }
 .hohoho {
-	background: rgba(255,255,255,.07)!important;
-	// border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-	.subtitle-1 {
-		background: #1c1c1d!important;
-	}
+  background: rgba(255, 255, 255, 0.07) !important;
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  .subtitle-1 {
+    background: #1c1c1d !important;
+  }
 }
 .jumpup {
-	position: relative;
-	padding-top:0!important;
+  position: relative;
+  padding-top: 0 !important;
 }
 </style>
