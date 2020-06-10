@@ -3,7 +3,7 @@
   <v-bottom-sheet v-model="intDialogVisible">
     <v-sheet height="100%" color="transparent">
       <v-card>
-        <v-toolbar :elevation="1">
+        <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
           <!-- Arrow -->
           <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="closeIt()">
             <v-icon>mdi-close</v-icon>
@@ -19,14 +19,13 @@
 
         <div class="px-5 pt-10 text-center">
           <v-img src="/img/icons/icon-confetti-orange.png" max-width="60" class="mx-auto"></v-img>
-          <div class="mt-5 mb-5 text-14">
+          <div class="mt-5 mb-0 text-14">
             Terima kasih sudah mengunjungi kembali pewefeed.com, untuk itu kamu mendapat 10 Poin Extra. Klaim Sekarang!
             <strong
               class="deep-orange--text"
             >10 POIN</strong>!
           </div>
         </div>
-        <v-divider></v-divider>
 
         <v-card-actions class="pb-10">
           <v-spacer></v-spacer>

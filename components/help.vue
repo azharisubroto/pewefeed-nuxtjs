@@ -3,7 +3,7 @@
     <client-only>
       <!-- BANTUAN -->
       <v-container>
-        <h4 class="deep-orange--text text-20 mb-4">Help</h4>
+        <h4 class="deep-orange--text text-20 mb-4 mt-5">Help</h4>
         <v-row v-if="bantuanMenu">
           <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
             <a

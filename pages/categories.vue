@@ -202,10 +202,10 @@ export default {
           title: "TUKAR POIN",
           link: "/tukarpoin"
         },
-        {
-          title: "REZEKI BEDUK",
-          link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
-        }
+        // {
+        //   title: "REZEKI BEDUK",
+        //   link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
+        // }
       ],
       contact: 2,
       contacts: [
