@@ -363,9 +363,7 @@
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
                 >
                   <v-row>
-                    <v-col cols="10">
-                      You have answered this Quiz
-                    </v-col>
+                    <v-col cols="10">You have answered this Quiz</v-col>
                   </v-row>
                 </v-alert>
                 <v-btn
@@ -715,7 +713,7 @@ export default {
       if (this.$auth.user) {
         // this.$auth.fetchUser()
         // res.data = this.$auth.user
-        res.data = JSON.parse(localStorage.getItem('userdata'));
+        res.data = JSON.parse(localStorage.getItem("userdata"));
 
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
@@ -806,6 +804,7 @@ export default {
       }
     },
     async postComment() {
+      let vm = this;
       this.commentIsPosting = true;
       const params = {
         msg: this.comment_message,
@@ -829,6 +828,9 @@ export default {
           this.$route.params.articleslug,
           params
         );
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        });
         // console.log(res.data.poin);
         this.fetchComment();
         this.commentIsPosting = false;
@@ -854,7 +856,7 @@ export default {
     },
     async submitAnswer() {
       this.sending = true;
-      var vm = this
+      var vm = this;
       if (!this.profile) {
         this.sending = false;
         this.notLogin = true;
@@ -872,44 +874,41 @@ export default {
             const res = await UserService.answerMultiple(params);
             const data = await res.data;
 
-            setTimeout(() => {
-              this.$auth.fetchUser().then(() => {
-                localStorage.removeItem('userdata')
-                localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-              })
-            }, 500);
+            this.$auth.fetchUser().then(() => {
+              localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+            });
 
-			this.total_poin = data.total_point;
-			this.dialog = true;
-			//this.ispoin = true;
-			if( data.total_point == 0 ) {
-				this.answerResult = false
-			} else  {
-				this.answerResult = true
- 			}
+            this.total_poin = data.total_point;
+            this.dialog = true;
+            //this.ispoin = true;
+            if (data.total_point == 0) {
+              this.answerResult = false;
+            } else {
+              this.answerResult = true;
+            }
             //this.profile = false;
-			//this.notLogin = true;
-			this.sending = false;
-			this.sudahpernah = true
+            //this.notLogin = true;
+            this.sending = false;
+            this.sudahpernah = true;
             // console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
             console.log(error);
             if (error.response.status == 410) {
               //this.noLimit = true;
-			  //this.already = false;
-			  this.notLogin = true;
+              //this.already = false;
+              this.notLogin = true;
             } else {
               this.noLimit = false;
               this.already = true;
-			}
-			this.sending = false;
-			this.sudahpernah = true
+            }
+            this.sending = false;
+            this.sudahpernah = true;
           }
         } else {
           this.sending = false;
           this.notVipDialogVisible = true;
         }
-	  }
+      }
     },
     openModalLogin() {
       this.loginModalVisible = true;
@@ -975,52 +974,52 @@ export default {
 
 <style lang="sass">
 .news-related
-	ul
-		margin: 0!important
-		list-style: none
-		padding: 0
-		li
-			margin: 0
-			display: block
-			overflow: hidden
-			background: #f9f9f9
-			padding: 10px
-			font-size: 14px
-			border-bottom: 1px solid #e5e5e5
-			&
-				border: 0
-				a
-					display: block
-					text-decoration: none
-					color: #000
-				.thumbnail
-					width: 60px
-					height: 60px
-					float: left
-					margin-right: 10px
-					background-size: cover
-	.v-breadcrumbs__item:not(.v-breadcrumbs__item--disabled)
-		color: #ff9800!important
-	.article-thumb
-		margin: 0 -20px
-	.v-content__wrap
-		max-width: 100%
-		overflow-x: hidden
-	.container
-		padding: 12px 20px
-	p
-		small
-			line-height: 0
-			opacity: .5
+  ul
+    margin: 0!important
+    list-style: none
+    padding: 0
+    li
+      margin: 0
+      display: block
+      overflow: hidden
+      background: #f9f9f9
+      padding: 10px
+      font-size: 14px
+      border-bottom: 1px solid #e5e5e5
+      &
+        border: 0
+        a
+          display: block
+          text-decoration: none
+          color: #000
+        .thumbnail
+          width: 60px
+          height: 60px
+          float: left
+          margin-right: 10px
+          background-size: cover
+  .v-breadcrumbs__item:not(.v-breadcrumbs__item--disabled)
+    color: #ff9800!important
+  .article-thumb
+    margin: 0 -20px
+  .v-content__wrap
+    max-width: 100%
+    overflow-x: hidden
+  .container
+    padding: 12px 20px
+  p
+    small
+      line-height: 0
+      opacity: .5
 
-	.comment-item
-		padding: 10px 0
-		border-bottom: 1px solid #e5e5e5
-	.v-item-group.v-bottom-navigation .v-btn .v-btn__content
-		color: #fff
-		opacity: 1
-	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
-		color: var(--primary)!important
+  .comment-item
+    padding: 10px 0
+    border-bottom: 1px solid #e5e5e5
+  .v-item-group.v-bottom-navigation .v-btn .v-btn__content
+    color: #fff
+    opacity: 1
+  .v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
+    color: var(--primary)!important
 </style>
 <style lang="scss">
 .articlewrapper {

@@ -72,7 +72,13 @@
               <v-card max-width="444" class="mx-auto grey lighten-4 pt-5" :elevation="0">
                 <flickity v-if="dataImage" :options="{adaptiveHeight: true,lazyLoad: true}">
                   <div v-for="content in dataImage" :key="content.link" style="width:100%">
-                    <v-img :src="content.link" :aspect-ratio="1" width="300" height="300" class="mx-auto grey lighten-2"></v-img>
+                    <v-img
+                      :src="content.link"
+                      :aspect-ratio="1"
+                      width="300"
+                      height="300"
+                      class="mx-auto grey lighten-2"
+                    ></v-img>
                   </div>
                 </flickity>
                 <v-row no-gutters class="mt-4">
@@ -160,7 +166,8 @@
               class="mt-4"
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
             >
-              Dapatkan <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
+              Dapatkan
+              <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
             </v-alert>
             <!-- TEXT AREA -->
             <v-textarea
@@ -173,9 +180,22 @@
               auto-grow
               v-model="comment_message"
             ></v-textarea>
-            <div class="counter mb-3" align="end" style="margin-top: -30px !important;">{{ total_counter }}</div>
+            <div
+              class="counter mb-3"
+              align="end"
+              style="margin-top: -30px !important;"
+            >{{ total_counter }}</div>
 
-            <v-btn :disabled="recaptchaToken == null" :style="recaptchaToken == null ? 'background-color: grey !important' : ''" block dark depressed class="mb-4" color="deep-orange" @click="postComment()">
+            <v-btn
+              :disabled="recaptchaToken == null"
+              :style="recaptchaToken == null ? 'background-color: grey !important' : ''"
+              block
+              dark
+              depressed
+              class="mb-4"
+              color="deep-orange"
+              @click="postComment()"
+            >
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
@@ -382,7 +402,8 @@ export default {
       notVipDialogVisible: false,
       ratingModal: false,
       dataUrl:
-        process.env.mobileUrl + "komik/" +
+        process.env.mobileUrl +
+        "komik/" +
         this.$route.params.category +
         "/" +
         this.$route.params.detail,
@@ -417,12 +438,12 @@ export default {
       }
     },
     fetchUserdata() {
-      var res = []
+      var res = [];
 
       if (this.$auth.user) {
         // this.$auth.fetchUser()
         // res.data = this.$auth.user
-        res.data = JSON.parse(localStorage.getItem('userdata'));
+        res.data = JSON.parse(localStorage.getItem("userdata"));
 
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
@@ -475,24 +496,32 @@ export default {
     },
     async fetchComment() {
       try {
-        const res = await ArticleService.getComments('comic', this.$route.params.detail, 1)
+        const res = await ArticleService.getComments(
+          "comic",
+          this.$route.params.detail,
+          1
+        );
         // console.log(res)
-        this.comments = res.data.data.comments
-        this.totalComment = res.data.pagination.total
+        this.comments = res.data.data.comments;
+        this.totalComment = res.data.pagination.total;
 
         if (res.data.pagination.current_page == res.data.pagination.last_page) {
           this.isMoreComment = false;
         }
       } catch (error) {
-          console.log(error)
+        console.log(error);
       }
     },
     async loadMoreComment(n) {
       this.moreLoadingComment = true;
       try {
-        const res = await ArticleService.getComments('comic', this.$route.params.detail, n)
+        const res = await ArticleService.getComments(
+          "comic",
+          this.$route.params.detail,
+          n
+        );
 
-        var dataComments = res.data.data.comments
+        var dataComments = res.data.data.comments;
 
         dataComments.forEach(element => {
           this.comments.push(element);
@@ -513,20 +542,21 @@ export default {
     urlify(text) {
       var urlRegex = /(https?:\/\/[^\s]+)/g;
       if (text) {
-        var isUrl = text.replace(urlRegex)
+        var isUrl = text.replace(urlRegex);
 
         if (isUrl != text) {
-          return true
+          return true;
         }
 
-        return false
+        return false;
       }
 
-      return false
+      return false;
     },
 
     /* Submit Comment */
     async postComment() {
+      let vm = this
       this.commentIsPosting = true;
       const params = {
         msg: this.comment_message,
@@ -534,19 +564,25 @@ export default {
       };
 
       if (this.total_counter < 20) {
-        var isUrl = this.urlify(this.comment_message)
+        var isUrl = this.urlify(this.comment_message);
 
-        this.commentIsPosting = false
+        this.commentIsPosting = false;
 
         if (isUrl) {
-          return alert('Comments tidak boleh mengandung tautan')
+          return alert("Comments tidak boleh mengandung tautan");
         }
 
-        return alert('Comments harus mengandung minimal 20 kata')
+        return alert("Comments harus mengandung minimal 20 kata");
       }
 
       try {
-        const res = await UserService.postComment(this.$route.params.detail, params);
+        const res = await UserService.postComment(
+          this.$route.params.detail,
+          params
+        );
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        });
         // console.log(res.data)
         this.fetchComment();
         if (res.data.poin > 0) {
@@ -559,7 +595,7 @@ export default {
         // console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response.status == 422) {
-          alert(error.response.data.message)
+          alert(error.response.data.message);
         } else if (error.response.status == 500) {
           alert("an error occured");
         } else if (error.response.status == 401) {
@@ -582,6 +618,9 @@ export default {
       this.setloading();
       try {
         const res = await ComicService.makeRating(sendform);
+        this.$auth.fetchUser().then(() => {
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        });
         this.notloading();
         this.recaptchaToken = null;
         // console.log(res);
@@ -676,19 +715,21 @@ export default {
     }
   },
   watch: {
-    comment_message: function (value) {
-
+    comment_message: function(value) {
       if (value) {
         if (value.length == 0) {
-          return this.total_counter = 0
+          return (this.total_counter = 0);
         }
 
         var regex = /\s+/gi;
-        var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+        var wordCount = value
+          .trim()
+          .replace(regex, " ")
+          .split(" ").length;
 
-        return this.total_counter = wordCount
+        return (this.total_counter = wordCount);
       } else {
-        return (this.total_counter = 0)
+        return (this.total_counter = 0);
       }
     }
   },
@@ -703,50 +744,50 @@ export default {
 };
 </script>
 <style lang="scss">
-	.article-thumb {
-		margin-left: -15px;
-		margin-right: -15px;
-	}
+.article-thumb {
+  margin-left: -15px;
+  margin-right: -15px;
+}
 </style>
 <style lang="sass">
-    .news-related
-        ul
-            margin: 0!important
-            list-style: none
-            padding: 0
-            li
-                margin: 0
-                display: block
-                overflow: hidden
-                background: #f9f9f9
-                padding: 10px
-                font-size: 14px
-                border-bottom: 1px solid #e5e5e5
-                &
-                    border: 0
-                a
-                    display: block
-                    text-decoration: none
-                    color: #000
-                .thumbnail
-                    width: 60px
-                    height: 60px
-                    float: left
-                    margin-right: 10px
-                    background-size: cover
+.news-related
+  ul
+    margin: 0!important
+    list-style: none
+    padding: 0
+    li
+      margin: 0
+      display: block
+      overflow: hidden
+      background: #f9f9f9
+      padding: 10px
+      font-size: 14px
+      border-bottom: 1px solid #e5e5e5
+      &
+        border: 0
+        a
+          display: block
+          text-decoration: none
+          color: #000
+          .thumbnail
+            width: 60px
+            height: 60px
+            float: left
+            margin-right: 10px
+            background-size: cover
     .v-breadcrumbs__item:not(.v-breadcrumbs__item--disabled)
-        color: #ff9800!important
+      color: #ff9800!important
     .article-thumb
-        margin: 0 -20px
+      margin: 0 -20px
     .v-content__wrap
-        max-width: 100%
-        overflow-x: hidden
+      max-width: 100%
+      overflow-x: hidden
     .container
       padding: 12px 20px
     p
       small
-        line-height:0
-        opacity:.5
+        line-height: 0
+        opacity: .5
     iframe
       width: calc(100% + 40px)
       margin-left: -20px
@@ -760,5 +801,5 @@ export default {
       background: rgba(0,0,0,.5)
 
     .blur .v-image__image--cover
-        filter: blur(20px)
+      filter: blur(20px)
 </style>
