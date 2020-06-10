@@ -3,7 +3,7 @@
     <client-only>
       <!-- HIGHLIGHTS -->
       <v-container>
-        <h4 class="deep-orange--text text-20 mb-4">Highlights</h4>
+        <h4 class="deep-orange--text text-20 mb-4 mt-5">Highlights</h4>
         <template v-if="highlights != null">
           <v-btn
             v-for="(highlight, i) in highlights"
@@ -202,10 +202,10 @@ export default {
           title: "TUKAR POIN",
           link: "/tukarpoin"
         },
-        {
-          title: "REZEKI BEDUK",
-          link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
-        }
+        // {
+        //   title: "REZEKI BEDUK",
+        //   link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
+        // }
       ],
       contact: 2,
       contacts: [

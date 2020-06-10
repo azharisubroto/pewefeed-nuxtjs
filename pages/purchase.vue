@@ -42,10 +42,7 @@
           <!-- Step 1 -->
           <v-stepper-content step="1" class="px-0">
             <v-card :elevation="0" class="hohoho mx-auto text-18" tile>
-              <v-card-title
-                class="subtitle-1 font-weight-bold"
-                style="background: #1c1c1d"
-              >Pembelian Dengan Pulsa</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold pt-2" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
               <div class="devider-small"></div>
 
               <div class="px-4 py-0" @click="e1 = 2; appBarLabel = 'XL & Axis'">
@@ -167,7 +164,7 @@
               <div class="devider-small"></div>
             </v-card>
             <v-card class="hohoho mx-auto mb-3">
-              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1  font-weight-bold pt-2">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <template v-for="(vip, i) in vipItems">
                 <div
@@ -246,9 +243,8 @@
 
           <!-- Step 4 : Order Detail -->
           <v-stepper-content step="4" class="px-0 jumpup">
-            <div class="px-3">
-              <br />
-              <br />
+            <div class="px-3 pt-2">
+				<br>
               <strong>Nilai Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
@@ -265,10 +261,10 @@
             <v-card class="hohoho mb-3 mt-4">
               <div class="devider-small"></div>
               <v-row class="px-4">
-                <v-col cols="12">
-                  <div v-html="itemname"></div>
-                  <div v-html="sublabel"></div>
-                </v-col>
+                <v-col cols="12" class="hmmm">
+					<div v-html="itemname"></div>
+					<div v-html="sublabel"></div>
+				</v-col>
               </v-row>
               <div class="devider-small"></div>
             </v-card>
@@ -277,7 +273,7 @@
               <v-row style="margin-top: -10px">
                 <v-col cols="12" class="pb-0">
                   <div class="text-14 mb-2">Channel Pembayaran (Pilih Salah Satu)</div>
-                  <v-card class="hohoho mx-auto mb-0">
+                  <v-card class="mx-auto mb-0" style="background: #4c4c4c!important;">
                     <v-tabs grow v-model="buymethod" color="deep-orange">
                       <v-tab href="#sms" class="hohoho">SMS</v-tab>
                       <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
@@ -285,23 +281,20 @@
                     </v-tabs>
 
                     <v-tabs-items v-model="buymethod">
-                      <v-tab-item value="sms" class="hohoho">
+                      <v-tab-item value="sms" style="background: #4c4c4c!important;">
                         <v-form ref="form" v-model="valid" lazy-validation>
-                          <v-container>
+                          <v-container class="pa-0 apasih">
                             <v-row no-gutters>
-                              <v-col cols="2" class="text-right pr-2 pt-2">+62</v-col>
-                              <v-col cols="10">
+                              <v-col cols="12">
                                 <v-text-field
-                                  dense
+								  flat
                                   single-line
-                                  outlined
-                                  label="+62"
                                   prepend-inner-icon
-                                  counter
                                   maxlength="12"
                                   v-model="formdata.nomorhandphone"
                                   type="number"
                                   required
+								  hide-details
                                   placeholder="Enter your mobile phone number"
                                   :rules="numberRules"
                                 ></v-text-field>
@@ -310,14 +303,14 @@
                           </v-container>
                         </v-form>
                       </v-tab-item>
-                      <v-tab-item value="wap" class="hohoho">
+                      <v-tab-item value="wap" style="background: #4c4c4c!important;">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
                           <strong
                             class="body-2"
                           >Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
                         </v-container>
                       </v-tab-item>
-                      <v-tab-item value="ussd" class="hohoho">
+                      <v-tab-item value="ussd" style="background: #4c4c4c!important;">
                         <v-container class="text-center pt-4" style="padding-bottom: 40px">
                           <strong class="body-2">Pilihan Tidak Tersedia</strong>
                         </v-container>
@@ -335,8 +328,8 @@
               </v-snackbar>
 
               <div
-                class="hohoho mt-0"
-                style="text-align:center;padding: 20px 10px 10px;border-radius:3px"
+                class="mt-0"
+                style="text-align:center;padding: 20px 10px 10px;border-radius:3px;background: #4c4c4c!important;"
               >
                 <recaptcha
                   style="display:inline-block"
@@ -372,7 +365,7 @@
               </v-col>
             </v-row>-->
             <v-card class="hohoho">
-              <v-card-title class="subtitle-1 font-weight-bold">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 pt-8 font-weight-bold">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div v-for="trans in vipTrans" :key="trans.id">
                 <v-row
@@ -609,12 +602,10 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel:
-        "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-12 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel:
-        "6 Hari VIP<br>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-12 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -1025,5 +1016,28 @@ export default {
 .jumpup {
   position: relative;
   padding-top: 0 !important;
+}
+.hmmm {
+	& > div:first-of-type {
+		font-weight: bold;
+		span {
+			font-weight: normal;
+		}
+	}
+	& > div:last-of-type {
+		font-weight: normal;
+		font-size: 12px;
+		span {
+			font-weight: normal;
+		}
+	}
+}
+
+</style>
+
+<style lang="scss">
+.apasih .v-text-field__slot {
+	padding-left: 10px!important;
+	padding-right: 10px!important;
 }
 </style>
