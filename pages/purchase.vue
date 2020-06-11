@@ -135,7 +135,7 @@
             </v-row>-->
 
             <v-card class="hohoho mb-3 mt-4">
-              <v-card-title class="subtitle-1 font-weight-bold text-16">Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold text-18">Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <div
                 @click="wap='xllangganan';setOrder(xlregvoucher, userdata.email, xlreglabel,xlregprice, current = 'xl')"
@@ -146,7 +146,7 @@
                   <v-col cols="9">
                     <strong>{{ vip.label }}</strong>
                     <br />
-                    <div class="text-12" v-html="vip.desc"></div>
+                    <div class="text-14" v-html="vip.desc"></div>
                   </v-col>
                   <v-col cols="3" class="text-right">
                     <v-btn
@@ -176,7 +176,7 @@
                     <v-col cols="9">
                       <strong>{{ vip.label }}</strong>
                       <br />
-                      <div class="text-12" v-html="vip.desc"></div>
+                      <div class="text-14" v-html="vip.desc"></div>
                     </v-col>
                     <v-col cols="3" class="text-right">
                       <v-btn
@@ -221,7 +221,7 @@
                   <v-col cols="9">
                     <strong>{{ vip.label }}</strong>
                     <br />
-                    <div class="text-12" v-html="vip.desc"></div>
+                    <div class="text-14" v-html="vip.desc"></div>
                   </v-col>
                   <v-col cols="3" class="text-right">
                     <v-btn
@@ -269,11 +269,11 @@
               <div class="devider-small"></div>
             </v-card>
 
-            <v-container class="mt-4 card-trans">
+            <v-container class="mt-4 card-trans px-0">
               <v-row style="margin-top: -10px">
                 <v-col cols="12" class="pb-0">
-                  <div class="text-14 mb-2">Channel Pembayaran (Pilih Salah Satu)</div>
-                  <v-card class="mx-auto mb-0" style="background: #4c4c4c!important;">
+                  <div class="text-16 mb-2 px-4"><strong>Channel Pembayaran (Pilih Salah Satu)</strong></div>
+                  <v-card class="mx-auto mb-0" style="background: #4c4c4c!important;border-radius:0!important">
                     <v-tabs grow v-model="buymethod" color="deep-orange">
                       <v-tab href="#sms" class="hohoho">SMS</v-tab>
                       <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
@@ -337,14 +337,13 @@
                   @success="onSuccess()"
                   @expired="onExpired()"
                 />
-              </div>
-
-              <v-btn
+				<v-btn
                 @click="validate(itemvoucher)"
                 color="green"
                 block
                 class="white--text mt-2"
               >PROCESS</v-btn>
+              </div>
               <br />
               <br />
               <br />
@@ -602,10 +601,10 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-12 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel: "<strong class='text-18'>6 Hari VIP</strong><br><span class='text-14 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-12 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel: "<strong class='text-18'>6 Hari VIP</strong><br><span class='text-14 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
