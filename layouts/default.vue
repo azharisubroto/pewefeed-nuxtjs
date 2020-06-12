@@ -934,7 +934,7 @@ a,
   position: relative;
   &:before {
     content: "";
-    width: calc(100% + 25px);
+    width: calc(100% + 27px);
     height: 100%;
     position: absolute;
     left: -15px;
@@ -975,6 +975,14 @@ a,
 }
 .theme--dark.v-divider {
 	background: #fff!important;
+}
+.v-ripple__container {
+    display:none !important;
+}
+.v-overlay.v-overlay--active {
+	.v-overlay__scrim {
+		opacity: .7!important;
+	}
 }
 .v-ripple__container {
     display:none !important;

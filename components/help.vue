@@ -2,31 +2,25 @@
   <div class="bg-dark fill-height">
     <client-only>
       <!-- BANTUAN -->
-      <v-container>
-        <h4 class="deep-orange--text text-20 mb-4 mt-5">Help</h4>
-        <v-row v-if="bantuanMenu">
-          <v-col cols="12" class="py-0" v-for="(bantuan, i) in bantuanMenu" :key="'bantuan-'+i">
-            <a
-              class="pl-0 text-uppercase"
-              text
-              dark
-              @click="$router.push('/bantuan/?tab='+bantuan.id)"
-            >{{bantuan.title}}</a>
-            <div class="devider-small my-3"></div>
-          </v-col>
-        </v-row>
-      </v-container>
+        <h4 class="deep-orange--text text-20 mb-4 mt-5 px-4">Help</h4>
+		<template  v-for="(bantuan, i) in bantuanMenu">
+			<div v-if="i==0" class="devider-small my-3" :key="'asdas-'+i"></div>
+			<div cols="12" class="px-4" :key="'cat-'+i">
+				<a class="pl-0" text dark @click="$router.push('/bantuan/?tab='+bantuan.id)">{{bantuan.title}}</a>
+			</div>
+			<div class="devider-small my-3" :key="'cats-'+i"></div>
+		</template>
 
       <!-- CONTACT -->
-      <v-container class="contaclist">
-        <h4 class="deep-orange--text text-20">Contact</h4>
+      <div class="contaclist">
+        <h4 class="deep-orange--text text-20 px-4">Contact</h4>
         <v-row class="pt-0">
           <v-col cols="12">
             <v-list two-line color="#232323" dark class="pt-0">
               <v-list-item-group v-model="contact">
                 <v-list-item class="pl-0" v-for="(con, i) in contacts" :key="'consdf-'+i">
                   <v-list-item-content class="pt-0 menu">
-                    <v-list-item-title>
+                    <v-list-item-title class="px-4">
                       <a
                         v-if="con.isWhatsapp"
                         style="text-decoration: none; color: #fff;font-size:18px"
@@ -39,7 +33,7 @@
                         :href="'tel:' + con.phone"
                       >{{ con.title }}</a>
                     </v-list-item-title>
-                    <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="con.subtitle" class="px-4"></v-list-item-subtitle>
                     <div class="devider-small mt-3"></div>
                   </v-list-item-content>
                 </v-list-item>
@@ -47,9 +41,9 @@
             </v-list>
             <v-list two-line color="#232323" dark class="pt-0 pb-0">
               <v-list-item-group v-model="contacttwo">
-                <v-list-item class="pl-0" v-for="(con, i) in contactstwo" :key="'cons-'+i">
+                <v-list-item class="pl-0 " v-for="(con, i) in contactstwo" :key="'cons-'+i">
                   <v-list-item-content class="pt-0 menu">
-                    <v-list-item-title>
+                    <v-list-item-title class="px-4">
                       <a
                         v-if="con.isPhone"
                         style="text-decoration: none; color: #fff;font-size:18px"
@@ -57,7 +51,7 @@
                         :href="'https://api.whatsapp.com/send?phone=' + con.phone"
                       >{{ con.title }}</a>
                     </v-list-item-title>
-                    <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="con.subtitle" class="px-4"></v-list-item-subtitle>
                     <div class="devider-small mt-3"></div>
                   </v-list-item-content>
                 </v-list-item>
@@ -66,7 +60,7 @@
             <v-list two-line color="#232323" dark class="pt-0">
               <v-list-item-group v-model="contactmail">
                 <v-list-item class="pl-0" v-for="(con, i) in contactsmail" :key="'email-'+i">
-                  <v-list-item-content class="pt-0 menu">
+                  <v-list-item-content class="pt-0 px-4 menu">
                     <v-list-item-title>
                       <a
                         v-if="!con.isPhone"
@@ -74,7 +68,7 @@
                         :href="'mailto:' + con.mail"
                       >{{ con.title }}</a>
                     </v-list-item-title>
-                    <v-list-item-subtitle v-html="con.subtitle" class="caption"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
                   </v-list-item-content>
                   <div class="devider-small mt-3"></div>
                 </v-list-item>
@@ -82,7 +76,7 @@
             </v-list>
           </v-col>
         </v-row>
-      </v-container>
+      </div>
 
       <!-- SOCIAL -->
       <v-container class="justify-space-between">
