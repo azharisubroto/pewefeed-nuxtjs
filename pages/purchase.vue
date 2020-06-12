@@ -219,7 +219,7 @@
               >
                 <v-row class="py-0 mx-0" align="center">
                   <v-col cols="9">
-                    <strong>{{ vip.label }}</strong>
+                    <strong class="text-16">{{ vip.label }}</strong>
                     <br />
                     <div class="text-14" v-html="vip.desc"></div>
                   </v-col>
@@ -296,6 +296,7 @@
                                   required
 								  hide-details
                                   placeholder="Enter your mobile phone number"
+								  @keypress="isNumber"
                                   :rules="numberRules"
                                 ></v-text-field>
                               </v-col>
@@ -339,6 +340,7 @@
                 />
 				<v-btn
                 @click="validate(itemvoucher)"
+				:disabled="finalbuttondisabled"
                 color="green"
                 block
                 class="white--text mt-2"
@@ -737,7 +739,8 @@ export default {
         }
       ],
       iframeDialogVisible: false,
-      invoiceUrl: ""
+	  invoiceUrl: "",
+	  finalbuttondisabled: true
     };
   },
   components: {
@@ -748,7 +751,24 @@ export default {
       if (baru == 1) {
         this.appBarLabel = "Purchase VIP Membership";
       }
-    }
+	},
+	'formdata.nomorhandphone': function( baru, lama ) {
+		//console.log(baru)
+		setTimeout(() => {
+			let phonenumber = this.formdata.nomorhandphone;
+			var zero = phonenumber.substring(0,1);
+			var namdua = phonenumber.substring(0,2);
+			if( zero == 0 || namdua == 62 ) {
+				if( phonenumber != '' && phonenumber != null ) {
+					this.finalbuttondisabled = false
+				} else {
+					this.finalbuttondisabled = true
+				}
+			} else {
+				this.finalbuttondisabled = true
+			}
+		}, 200);
+	}
   },
   computed: {
     /* Init Modal */
@@ -881,10 +901,21 @@ export default {
         this.current = currentstep;
         this.e1 = 4;
       }
+	},
+
+	isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
     },
 
     /* Validasi Form */
     validate(voucher) {
+		if( this.formdata.nomorhandphone.includes('0') )
       var vm = this;
       vm.formdata.voucher_id = voucher;
       if (vm.recaptchaToken == "success") {
