@@ -255,7 +255,7 @@
               <div class="devider-small"></div>
             </v-card>
 
-            <div class="px-3 mt-10">
+            <div class="px-3 mt-6">
               <strong>Rincian Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
@@ -269,9 +269,9 @@
               <div class="devider-small"></div>
             </v-card>
 
-            <v-container class="mt-4 card-trans px-0">
-              <v-row style="margin-top: -10px">
-                <v-col cols="12" class="pb-0">
+            <v-container class="mt-0 card-trans px-0">
+              <v-row>
+                <v-col cols="12" class="pb-0 pt-0">
                   <div class="text-16 mb-2 px-4"><strong>Channel Pembayaran (Pilih Salah Satu)</strong></div>
                   <v-card class="mx-auto mb-0" style="background: #4c4c4c!important;border-radius:0!important">
                     <v-tabs grow v-model="buymethod" color="deep-orange">
@@ -601,10 +601,10 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "<strong class='text-18'>6 Hari VIP</strong><br><span class='text-14 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "<strong class='text-18'>6 Hari VIP</strong><br><span class='text-14 text-normal'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
@@ -1019,15 +1019,16 @@ export default {
 .hmmm {
 	& > div:first-of-type {
 		font-weight: bold;
+		font-size: 16px;
 		span {
 			font-weight: normal;
 		}
 	}
 	& > div:last-of-type {
 		font-weight: normal;
-		font-size: 12px;
+		font-size: 14px;
 		span {
-			font-weight: normal;
+			font-weight: normal!important;
 		}
 	}
 }
