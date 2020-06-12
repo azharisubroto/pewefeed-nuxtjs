@@ -1,5 +1,5 @@
 <template>
-  <span class="d-block px-3 v-btn">
+  <span class="d-block px-3 v-btn mr-4">
     <v-btn @click="recaptchaDialogVisible = true">
       <span style="font-size:10px!important;">
         Share
