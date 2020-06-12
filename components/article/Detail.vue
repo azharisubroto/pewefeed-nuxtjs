@@ -180,7 +180,7 @@
 
       <!-- COMMENT -->
       <template v-if="isComment">
-        <v-tabs color="deep-orange" v-model="tabCom" background-color="transparent">
+        <v-tabs grow color="deep-orange" v-model="tabCom" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;">
           <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
           <v-tab href="#ketentuankom">Ketentuan</v-tab>
         </v-tabs>
@@ -270,7 +270,7 @@
       <!-- QUIZ -->
       <template v-if="isQuiz">
         <div v-if="quiz">
-          <v-tabs color="deep-orange" background-color="transparent" v-model="tab">
+          <v-tabs grow color="deep-orange" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;" v-model="tab">
             <v-tab href="#jawab">Jawab Quiz</v-tab>
             <v-tab href="#ketentuan">Ketentuan</v-tab>
             <v-tab href="#statistik">Statistik</v-tab>
@@ -982,7 +982,7 @@ export default {
       margin: 0
       display: block
       overflow: hidden
-      background: #f9f9f9
+      background: #2c2c2d
       padding: 10px
       font-size: 14px
       border-bottom: 1px solid #e5e5e5
@@ -1086,5 +1086,8 @@ export default {
     width: 200px;
     z-index: 1;
   }
+}
+.news-related a {
+	color: #fff!important
 }
 </style>

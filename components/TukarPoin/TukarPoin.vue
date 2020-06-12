@@ -266,6 +266,9 @@ export default {
   width: 100%;
 }
 .jeruk {
-	background: #ff9800
+	background: #ff9800;
+}
+.featured-item-2 .jeruk {
+	height: 400px;
 }
 </style>
