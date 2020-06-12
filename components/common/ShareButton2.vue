@@ -17,24 +17,23 @@
     <v-bottom-sheet v-model="recaptchaDialogVisible">
       <v-sheet height="100%">
         <v-toolbar :elevation="1">
-          <!-- Arrow -->
-          <v-btn
-            dark
-            icon
-            tile
-            style="border-right: 0px solid #717171"
-            light
-            @click="recaptchaDialogVisible = false;"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-
-          <!-- Title -->
-          <div class="flex-grow-1"></div>
-          <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text">SHARE (+1 POIN)</v-btn>
-          </v-toolbar-items>
-          <div class="flex-grow-1"></div>
+          <v-row class="pa-0" align="center">
+			  <v-col cols="2">
+				  <v-btn
+					dark
+					icon
+					tile
+					style="border-right: 0px solid #717171"
+					light
+					@click="recaptchaDialogVisible = false;"
+				>
+					<v-icon>mdi-close</v-icon>
+				</v-btn>
+			  </v-col>
+				<v-col cols="8" class="deep-orange--text text-center">
+					SHARE (+1 POIN)
+				</v-col>
+		  </v-row>
         </v-toolbar>
 
         <div class="mx-2">
@@ -128,8 +127,8 @@
         </div>
       </v-sheet>
     </v-bottom-sheet>
-    <v-snackbar v-model="snackbar" :timeout="timeout" top>
-      {{ responsemessage }}
+    <v-snackbar v-model="snackbar" :timeout="timeout" color="#fff" top class="copysuccess">
+      <span style="color:#333">{{ responsemessage }}</span>
       <v-btn color="primary" text icon @click="snackbar = false">
         <v-icon color="white">mdi-close-circle-outline</v-icon>
       </v-btn>
@@ -160,7 +159,7 @@ export default {
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
     sheet: false,
-    timeout: 2000,
+    timeout: 5000,
     snackbar: false,
     responsemessage: "Copied to clipboard",
     sharingUrl: "",
@@ -275,3 +274,18 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+	.g-recaptcha {
+		& > div {
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+	.copysuccess {
+		z-index: 99999999999;
+		margin-top: 70px;
+		.v-icon {
+			color: #333!important;
+		}
+	}
+</style>

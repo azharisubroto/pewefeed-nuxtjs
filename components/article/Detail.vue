@@ -180,7 +180,7 @@
 
       <!-- COMMENT -->
       <template v-if="isComment">
-        <v-tabs grow color="deep-orange" v-model="tabCom" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;">
+        <v-tabs grow hide-slider class="biasaaja" color="deep-orange" v-model="tabCom" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;">
           <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
           <v-tab href="#ketentuankom">Ketentuan</v-tab>
         </v-tabs>
@@ -270,7 +270,7 @@
       <!-- QUIZ -->
       <template v-if="isQuiz">
         <div v-if="quiz">
-          <v-tabs grow color="deep-orange" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;" v-model="tab">
+          <v-tabs grow hide-slider class="biasaaja" color="deep-orange" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;" v-model="tab">
             <v-tab href="#jawab">Jawab Quiz</v-tab>
             <v-tab href="#ketentuan">Ketentuan</v-tab>
             <v-tab href="#statistik">Statistik</v-tab>
@@ -1089,5 +1089,11 @@ export default {
 }
 .news-related a {
 	color: #fff!important
+}
+.biasaaja {
+	&.v-tabs .v-tab:hover::before,
+	&.v-tabs .v-tab--active:focus::before {
+		content: none!important;
+	}
 }
 </style>

@@ -41,12 +41,8 @@
                 <strong>Status</strong>
                 <div class="caption"></div>
               </v-col>
-              <v-col cols="9" class="text-right caption pr-0">
-                <v-btn
-                  small
-                  text
-                  color="deep-orange"
-                >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-btn>
+              <v-col cols="9" class="text-right deep-orange--text">
+                Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
               </v-col>
             </v-row>
             <div class="devider-small"></div>
@@ -54,11 +50,9 @@
               <v-col cols="6">
                 <strong>Poin Diperlukan</strong>
               </v-col>
-              <v-col cols="6" class="text-right pr-0">
-                <v-btn text small color="deep-orange">
-                  <img src="/img/poin.png" alt width="16" class="mr-1" />
-                  <strong>{{detail.point}}</strong>
-                </v-btn>
+              <v-col cols="6" class="text-right">
+                  <img src="/img/poin.png" alt width="16" class="mr-1" style="position:relative;top:4px;" />
+                  <strong class="deep-orange--text">{{detail.point}}</strong>
               </v-col>
             </v-row>
             <div class="devider-small"></div>
@@ -66,12 +60,8 @@
               <v-col cols="6">
                 <strong>Sisa Hadiah</strong>
               </v-col>
-              <v-col cols="6" class="text-right pr-0">
-                <v-btn
-                  small
-                  text
-                  color="deep-orange"
-                >{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-btn>
+              <v-col cols="6" class="text-right deep-orange--text">
+               {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
               </v-col>
             </v-row>
             <div class="devider-small"></div>
@@ -420,8 +410,11 @@ export default {
 
 <style lang="scss">
 .nocard {
+	.v-expansion-panel {
+		background:transparent!important;
+	}
   &.v-expansion-panels {
-    background: transparent;
+    background: transparent!important;
     box-shadow: none;
     .v-expansion-panel {
       &:before {

@@ -296,7 +296,7 @@
                                   required
 								  hide-details
                                   placeholder="Enter your mobile phone number"
-								  @keypress="isNumber"
+								  @keydown="filterKey"
                                   :rules="numberRules"
                                 ></v-text-field>
                               </v-col>
@@ -903,14 +903,22 @@ export default {
       }
 	},
 
-	isNumber: function(evt) {
-      evt = (evt) ? evt : window.event;
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        evt.preventDefault();;
-      } else {
-        return true;
-      }
+	filterKey(e){
+      const key = e.key;
+
+      // If is '.' key, stop it
+      if (key === '.')
+        return e.preventDefault();
+
+      // OPTIONAL
+      // If is 'e' key, stop it
+      if (key === 'e')
+        return e.preventDefault();
+    },
+
+    // This can also prevent copy + paste invalid character
+    filterInput(e){
+      e.target.value = e.target.value.replace(/[^0-9]+/g, '');
     },
 
     /* Validasi Form */
