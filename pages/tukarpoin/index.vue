@@ -1,11 +1,11 @@
 <template>
   <section>
-    <PwPoin/>
+    <TukarPoin/>
   </section>
 </template>
 
 <script>
-import PwPoin from '@/components/TukarPoin/TukarPoin';
+import TukarPoin from '@/components/TukarPoin/TukarPoin';
 import ArticleService from '@/services/ArticleService';
 export default {
   data(){
@@ -58,7 +58,7 @@ export default {
     }
   },
   components: {
-    PwPoin
+    TukarPoin
   },
 };
 </script>

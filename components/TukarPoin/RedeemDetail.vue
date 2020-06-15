@@ -85,7 +85,7 @@
                   dark
                   depressed
                   color="deep-orange"
-                  :disabled="detail.stock.remaining == 0"
+                  :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
                   :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
                   tile
                   @click="buyconfirm = !buyconfirm"
@@ -95,6 +95,7 @@
                   block
                   dark
                   depressed
+                  :disabled="detail.expired ? true : false"
                   color="deep-orange"
                   style="background-color: grey !important;"
                   tile
