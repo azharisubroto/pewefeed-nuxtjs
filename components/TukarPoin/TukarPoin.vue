@@ -73,6 +73,7 @@
           class="topview-item"
           v-for="(article, i) in redeems"
           :key="'topview-'+article.id+'-'+i"
+          @click="$router.push('/tukarpoin/redeem/'+article.id)"
         >
 			<v-col cols="12" v-if="i%5 == 0">
 				<!-- ADSENSE -->
@@ -96,11 +97,10 @@
             <div class="self-align-end meta text--gray" style="font-size:16px;">
               <v-btn
                 color="deep-orange"
-                :disabled="article.expired ? true : false"
                 depressed
                 dark
                 small
-                @click="$router.push('/tukarpoin/redeem/'+article.id)"
+                @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
               >Tukar Poin</v-btn>
             </div>
           </v-col>
@@ -195,7 +195,6 @@ export default {
         const res = await TukarPoinService.getRedeemItems(n);
         // console.log(JSON.parse(JSON.stringify(res)));
         this.redeems = res.data.data;
-        console.log(this.redeems)
         this.totalpage = res.data.pagination.last_page;
       } catch (error) {
         console.log(error);
