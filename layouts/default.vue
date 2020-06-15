@@ -43,6 +43,9 @@
 			<template  v-else-if="$route.name == 'bantuan'">
 				Help Desk
 			</template>
+			<template  v-else-if="$route.name == 'tukarpoin'">
+				Tukar Poin
+			</template>
 			<template v-else>
 				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
 			</template>
@@ -123,8 +126,9 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat'"
+          v-if="$route.name=='index'"
         >
+		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
             <span>Trending</span>
             <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
