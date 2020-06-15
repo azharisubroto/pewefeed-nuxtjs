@@ -3,7 +3,7 @@
     <v-sheet>
       <v-app-bar v-if="$route.name != 'purchase'" dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-        <template v-if="$route.name != 'index'">
+        <template v-if="$route.name != 'index' && $route.name != 'tukarpoin' && $route.name != 'tukarpoin-redeem-detail'">
           <v-btn @click="historyBack()" small icon>
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
@@ -43,7 +43,7 @@
 			<template  v-else-if="$route.name == 'bantuan'">
 				Help Desk
 			</template>
-			<template  v-else-if="$route.name == 'tukarpoin'">
+			<template  v-else-if="$route.name == 'tukarpoin' || $route.name == 'tukarpoin-redeem-detail'">
 				Tukar Poin
 			</template>
 			<template v-else>
