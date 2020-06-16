@@ -33,7 +33,7 @@
 		</template>
 
       <!-- PROGRAM -->
-        <h4 class="deep-orange--text text-20 mb-4 px-4">Program</h4>
+        <h4 class="deep-orange--text text-20 mb-4 px-4 mt-8">Program</h4>
 		<template  v-for="(program, i) in programs" >
 			<div v-if="i==0" class="devider-small my-4" :key="'catsxxx-'+i"></div>
           <div class="px-4" :key="'program-'+i">
