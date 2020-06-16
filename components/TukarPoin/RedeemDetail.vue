@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="tukarpoin-content">
     <!-- SNACKBAR SUKSES ATAU FAIL -->
     <v-snackbar v-model="snackbar" :multi-line="true" top>
       {{ tukarmsg }}
@@ -73,7 +73,7 @@
                       <div class="text-16 font-weight-bold">Deskripsi</div>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <div v-html="detail.description" class="py-3"></div>
+                      <div v-html="detail.description" class="py-3 text-14"></div>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -443,5 +443,8 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+.tukarpoin-content p {
+	font-size: 16px!important;
 }
 </style>

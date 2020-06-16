@@ -16,8 +16,8 @@
     </v-container>
 
     <!-- LATEST -->
-    <flickity v-if="discounts" ref="flashPoin" :options="flickityOptions">
-      <div v-for="item in discounts" :key="item.id" class="featured-item-2">
+    <flickity class="tukarpoinslide" v-if="discounts" ref="flashPoin" :options="flickityOptions">
+      <div v-for="item in discounts" :key="item.id" class="featured-item-2" @click="$router.push('/tukarpoin/redeem/'+item.id)">
         <div class="py-5 px-7 jeruk">
           <v-row>
             <v-col cols="4">
@@ -75,6 +75,7 @@
           v-for="(article, i) in redeems"
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/tukarpoin/redeem/'+article.id)"
+		  :class="article.expired ? 'expired': 'active'"
         >
 			<v-col cols="12" v-if="i%5 == 0">
 				<!-- ADSENSE -->
@@ -102,7 +103,7 @@
                 dark
                 small
                 @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
-              >Tukar Poin</v-btn>
+              > {{article.expired ? 'Lihat' : 'Tukar Poin'}} </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -246,10 +247,17 @@ export default {
 </script>
 
 <style lang="scss">
-.featured-item-2 {
-  width: 100%;
-  height: 200px;
+.tukarpoinslide {
+	height: 230px!important;
+	.featured-item-2 {
+	width: 100%;
+	height: 230px!important;
+		.jeruk {
+			height: 230px!important;
+		}
+	}
 }
+
 .poinbutuh {
   position: absolute;
   z-index: 100;
@@ -284,7 +292,7 @@ export default {
 .jeruk {
 	background: #ff9800;
 }
-.featured-item-2 .jeruk {
-	height: 400px;
+.expired {
+	filter: grayscale(100%)
 }
 </style>
