@@ -149,7 +149,7 @@
 	>
       <v-btn @click="tukarpointab=true;syarattab=false">
 		<span>Rewards</span>
-        <img src="/img/tukarpoin/redeem-orange.png" class="mb-1 d-block" width="20" height="20" />
+        <img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
 
       <v-btn @click="tukarpointab=false;syarattab=true">

@@ -3,7 +3,7 @@
     <v-sheet>
       <v-app-bar v-if="$route.name != 'purchase'" dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-        <template v-if="$route.name != 'index' && $route.name != 'tukarpoin' && $route.name != 'tukarpoin-redeem-detail'">
+        <template v-if="$route.name != 'index' && $route.name != 'tukarpoin'">
           <v-btn @click="historyBack()" small icon>
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
@@ -988,7 +988,7 @@ a,
 		opacity: .7!important;
 	}
 }
-.v-ripple__container {
+.v-ripple__container, .v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
     display:none !important;
 }
 // .mainlogo {
