@@ -19,7 +19,7 @@
               <div
                 class="text-12"
                 :class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-              >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+              >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Since {{userdata.expire}}</div>
             </v-col>
             <v-col cols="3" class="text-right">
               <v-btn to="/member/pengaturan/" icon dark depressed small>
