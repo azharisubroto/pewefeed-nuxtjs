@@ -12,8 +12,9 @@
 		</template>
 
       <!-- CONTACT -->
-      <div class="contaclist">
+      <div class="contaclist mt-8">
         <h4 class="deep-orange--text text-20 px-4">Contact</h4>
+		<div class="devider-small mt-3 mb-2"></div>
         <v-row class="pt-0">
           <v-col cols="12">
             <v-list two-line color="#232323" dark class="pt-0">

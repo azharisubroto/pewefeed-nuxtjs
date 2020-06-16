@@ -127,10 +127,10 @@
         </div>
       </v-sheet>
     </v-bottom-sheet>
-    <v-snackbar style="margin-top: 60px !important" v-model="snackbar" :timeout="timeout" top>
-      {{ responsemessage }}
+    <v-snackbar style="margin-top: 60px !important" v-model="snackbar" :timeout="timeout" top color="#fff">
+      <span style="color:#000;">{{ responsemessage }}</span>
       <v-btn color="primary" text icon @click="snackbar = false">
-        <v-icon style="margin-left: 100% !important" class="mr-4" color="white">mdi-close-circle-outline</v-icon>
+        <v-icon style="margin-left: 100% !important;color:#000!important" class="mr-4" color="white">mdi-close-circle-outline</v-icon>
       </v-btn>
     </v-snackbar>
 
