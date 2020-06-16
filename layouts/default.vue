@@ -75,7 +75,7 @@
       </v-tabs>-->
 
       <!-- PROFIL MENU -->
-      <v-bottom-navigation
+      <!-- <v-bottom-navigation
         v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program') &&!$nuxt.$route.name.includes('barang_yang_didapat') && !$nuxt.$route.name.includes('kode-pw')"
         fixed
         dark
@@ -86,7 +86,7 @@
         <v-btn v-for="menu in profileMenu" :key="menu.loc" :to="menu.loc">
           <span>{{menu.name}}</span>
         </v-btn>
-      </v-bottom-navigation>
+      </v-bottom-navigation> -->
 
       <!-- CONTENT -->
       <v-content class="maincontent">

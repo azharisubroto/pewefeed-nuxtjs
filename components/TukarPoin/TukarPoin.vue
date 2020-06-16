@@ -75,7 +75,6 @@
           v-for="(article, i) in redeems"
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/tukarpoin/redeem/'+article.id)"
-		  :class="article.expired ? 'expired': 'active'"
         >
 			<v-col cols="12" v-if="i%5 == 0">
 				<!-- ADSENSE -->
@@ -85,12 +84,12 @@
 				data-ad-slot="7916120444"
 				></InFeedAdsense>
 			</v-col>
-          <v-col cols="4">
+          <v-col cols="4" :class="article.expired ? 'expired': 'active'">
             <div class="jeruk pa-3">
               <v-img contain :src="article.image" aspect-ratio="1" class="jeruk"></v-img>
             </div>
           </v-col>
-          <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
+          <v-col cols="8" :class="article.expired ? 'expired': 'active'" class="d-flex align-content-space-between flex-wrap">
             <div class="d-block mb-2 w-100">
               <h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
               <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
@@ -116,9 +115,9 @@
       </template>
 
       <template v-if="syarattab">
-        <v-row class="mt-0">
+        <v-row class="mt-0 tukarpoin-content">
           <v-col>
-            <h2 class="mb-4">Syarat &amp; Ketentuan</h2>
+            <h2 class="mb-4 text-20">Syarat &amp; Ketentuan</h2>
             <p>Untuk mendapatkan barang cukup menukarkan POIN sesuai dengan jumlah POIN YANG DIPERLUKAN</p>
 
             <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel {{ domainTitle }} atau mainkan GAME nya.</p>
@@ -294,5 +293,8 @@ export default {
 }
 .expired {
 	filter: grayscale(100%)
+}
+.tukarpoin-content p {
+	font-size: 16px!important;
 }
 </style>
