@@ -3,7 +3,7 @@
     <v-sheet>
       <v-app-bar v-if="$route.name != 'purchase'" dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-        <template v-if="$route.name != 'index'">
+        <template v-if="$route.name != 'index' && $route.name != 'tukarpoin'">
           <v-btn @click="historyBack()" small icon>
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
@@ -42,6 +42,9 @@
 			</template>
 			<template  v-else-if="$route.name == 'bantuan'">
 				Help Desk
+			</template>
+			<template  v-else-if="$route.name == 'tukarpoin' || $route.name == 'tukarpoin-redeem-detail'">
+				Tukar Poin
 			</template>
 			<template v-else>
 				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
@@ -123,8 +126,9 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat'"
+          v-if="$route.name=='index'"
         >
+		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
             <span>Trending</span>
             <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
@@ -984,7 +988,7 @@ a,
 		opacity: .7!important;
 	}
 }
-.v-ripple__container {
+.v-ripple__container, .v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
     display:none !important;
 }
 // .mainlogo {

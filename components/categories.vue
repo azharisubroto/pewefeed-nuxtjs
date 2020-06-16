@@ -23,23 +23,23 @@
 
       <!-- CATEGORIES -->
 
-        <h4 class="deep-orange--text text-20 mb-4 px-4">Categories</h4>
+        <h4 class="deep-orange--text text-20 mb-4 px-4 mt-5">Categories</h4>
 		<template  v-for="(cat, i) in categories">
-			<div v-if="i==0" class="devider-small my-3" :key="'catsx-'+i"></div>
+			<div v-if="i==0" class="devider-small my-4" :key="'catsx-'+i"></div>
 			<div cols="12" class="px-4" :key="'cat-'+i">
 				<a class="pl-0" text dark @click="$router.push(cat.link); drawer = false">{{cat.title}}</a>
 			</div>
-			<div class="devider-small my-3" :key="'cats-'+i"></div>
+			<div class="devider-small my-4" :key="'cats-'+i"></div>
 		</template>
 
       <!-- PROGRAM -->
-        <h4 class="deep-orange--text text-20 mb-4 px-4">Program</h4>
+        <h4 class="deep-orange--text text-20 mb-4 px-4 mt-8">Program</h4>
 		<template  v-for="(program, i) in programs" >
-			<div v-if="i==0" class="devider-small my-3" :key="'catsxxx-'+i"></div>
+			<div v-if="i==0" class="devider-small my-4" :key="'catsxxx-'+i"></div>
           <div class="px-4" :key="'program-'+i">
             <a class="pl-0" text dark :href="program.link">{{program.title}}</a>
           </div>
-        	<div class="devider-small my-3" :key="'programas-'+i"></div>
+        	<div class="devider-small my-4" :key="'programas-'+i"></div>
 		</template>
 
       <!-- SOCIAL -->

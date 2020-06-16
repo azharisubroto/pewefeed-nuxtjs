@@ -363,7 +363,7 @@
                   style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
                 >
                   <v-row>
-                    <v-col cols="10">You have answered this Quiz</v-col>
+                    <v-col cols="10">Kamu sudah menjawab Quiz ini</v-col>
                   </v-row>
                 </v-alert>
                 <v-btn

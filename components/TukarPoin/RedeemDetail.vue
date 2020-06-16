@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="tukarpoin-content">
     <!-- SNACKBAR SUKSES ATAU FAIL -->
     <v-snackbar v-model="snackbar" :multi-line="true" top>
       {{ tukarmsg }}
@@ -73,7 +73,7 @@
                       <div class="text-16 font-weight-bold">Deskripsi</div>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <div v-html="detail.description" class="py-3"></div>
+                      <div v-html="detail.description" class="py-3 text-14"></div>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -228,25 +228,29 @@
     <br />
     <br />
 
-    <v-bottom-navigation fixed dark grow color="white" background-color="black">
+    <v-bottom-navigation
+		fixed
+		dark
+		grow
+		color="white"
+		background-color="#2C2C2D"
+		height="80"
+		class="pwmenubottom"
+		v-model="tptab"
+	>
       <v-btn @click="detailtab=true;hitoritab=false;syarattab=false">
-        <span>
-          Detail
-          <br />Reward
-        </span>
+        <span class="text-13">Redeem</span>
+        <img src="/img/tukarpoin/redeem-orange.png" class="mb-1 d-block" width="25" height="25" />
       </v-btn>
       <v-btn @click="detailtab=false;hitoritab=true;syarattab=false;fetchHistory()">
-        <span>
-          Histori
-          <br />Penukaran
-        </span>
+        <span class="text-13">Redeem History</span>
+        <img src="/img/tukarpoin/redeemer-orange.png" class="mb-1 d-block" width="25" height="25" />
       </v-btn>
       <v-btn @click="detailtab=false;hitoritab=false;syarattab=true">
-        <span>
-          Syarat &amp;
-          <br />Ketentuan
-        </span>
+        <span class="text-13">How to</span>
+        <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="25" height="25" />
       </v-btn>
+	  <ShareButton2 />
     </v-bottom-navigation>
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
@@ -257,11 +261,13 @@
 import TukarPoinService from "@/services/TukarPoinService";
 import UserService from "@/services/UserService";
 import LoginModal from "@/components/modal/LoginModal";
+import ShareButton2 from "@/components/common/ShareButton2";
 
 export default {
   name: "RedeemDetail",
   components: {
-    LoginModal
+	LoginModal,
+	ShareButton2
   },
   head() {
     return {
@@ -278,6 +284,7 @@ export default {
   },
   data() {
     return {
+	  tptab: 0,
       snackbar: false,
       tukarmsg: "",
       overlay: false,
@@ -436,5 +443,8 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+.tukarpoin-content p {
+	font-size: 16px!important;
 }
 </style>

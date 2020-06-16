@@ -4,21 +4,22 @@
       <!-- BANTUAN -->
         <h4 class="deep-orange--text text-20 mb-4 mt-5 px-4">Help</h4>
 		<template  v-for="(bantuan, i) in bantuanMenu">
-			<div v-if="i==0" class="devider-small my-3" :key="'asdas-'+i"></div>
+			<div v-if="i==0" class="devider-small my-4" :key="'asdas-'+i"></div>
 			<div cols="12" class="px-4" :key="'cat-'+i">
 				<a class="pl-0" text dark @click="$router.push('/bantuan/?tab='+bantuan.id)">{{bantuan.title}}</a>
 			</div>
-			<div class="devider-small my-3" :key="'cats-'+i"></div>
+			<div class="devider-small my-4" :key="'cats-'+i"></div>
 		</template>
 
       <!-- CONTACT -->
-      <div class="contaclist">
+      <div class="contaclist mt-8">
         <h4 class="deep-orange--text text-20 px-4">Contact</h4>
+		<div class="devider-small mt-4 mb-2"></div>
         <v-row class="pt-0">
           <v-col cols="12">
             <v-list two-line color="#232323" dark class="pt-0">
               <v-list-item-group v-model="contact">
-                <v-list-item class="pl-0" v-for="(con, i) in contacts" :key="'consdf-'+i">
+                <v-list-item class="pl-0 pr-0" v-for="(con, i) in contacts" :key="'consdf-'+i">
                   <v-list-item-content class="pt-0 menu">
                     <v-list-item-title class="px-4">
                       <a
@@ -34,14 +35,14 @@
                       >{{ con.title }}</a>
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle" class="px-4"></v-list-item-subtitle>
-                    <div class="devider-small mt-3"></div>
+                    <div class="devider-small mt-4"></div>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
             <v-list two-line color="#232323" dark class="pt-0 pb-0">
               <v-list-item-group v-model="contacttwo">
-                <v-list-item class="pl-0 " v-for="(con, i) in contactstwo" :key="'cons-'+i">
+                <v-list-item class="pl-0 pr-0" v-for="(con, i) in contactstwo" :key="'cons-'+i">
                   <v-list-item-content class="pt-0 menu">
                     <v-list-item-title class="px-4">
                       <a
@@ -52,14 +53,14 @@
                       >{{ con.title }}</a>
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle" class="px-4"></v-list-item-subtitle>
-                    <div class="devider-small mt-3"></div>
+                    <div class="devider-small mt-4"></div>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
             <v-list two-line color="#232323" dark class="pt-0">
               <v-list-item-group v-model="contactmail">
-                <v-list-item class="pl-0" v-for="(con, i) in contactsmail" :key="'email-'+i">
+                <v-list-item class="pl-0 pr-0" v-for="(con, i) in contactsmail" :key="'email-'+i">
                   <v-list-item-content class="pt-0 px-4 menu">
                     <v-list-item-title>
                       <a
@@ -70,19 +71,21 @@
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="con.subtitle"></v-list-item-subtitle>
                   </v-list-item-content>
-                  <div class="devider-small mt-3"></div>
+                  <div class="devider-small mt-4"></div>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
+			<div class="devider-small mt-0"></div>
           </v-col>
         </v-row>
       </div>
 
       <!-- SOCIAL -->
-      <v-container class="justify-space-between">
-        <h4 class="deep-orange--text text-20 mb-4">Social Media</h4>
+      <v-container class="justify-space-between mt-8 px-0">
+        <h4 class="deep-orange--text text-20 mb-4 px-4">Social Media</h4>
+		<div class="devider-small"></div>
         <a
-          class="d-block py-4"
+          class="d-block py-5 px-4"
           text
           target="blank"
           style="text-decoration: none;"
@@ -98,7 +101,7 @@
         </a>
         <div class="devider-small"></div>
         <a
-          class="d-block py-4"
+          class="d-block py-5 px-4"
           text
           target="blank"
           style="text-decoration: none;"
@@ -114,7 +117,7 @@
         </a>
         <div class="devider-small"></div>
         <a
-          class="d-block py-4"
+          class="d-block py-5 px-4"
           text
           target="blank"
           style="text-decoration: none;"
@@ -130,7 +133,7 @@
         </a>
         <div class="devider-small"></div>
         <a
-          class="d-block py-4"
+          class="d-block py-5 px-4"
           text
           target="blank"
           style="text-decoration: none;"

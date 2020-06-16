@@ -1,10 +1,11 @@
 <template>
+
   <section class="pb-5">
     <!-- PENAWARAN -->
     <v-container>
       <v-row align="center" v-if="discounts">
         <v-col cols="6" class="py-0">
-          <strong class="text-14">PENAWARAN TERBATAS</strong>
+          <h4 class="text-uppercase">Penawaran Terbatas</h4>
         </v-col>
         <v-col cols="6" class="text-right py-0" v-if="expire">
           <no-ssr>
@@ -15,8 +16,8 @@
     </v-container>
 
     <!-- LATEST -->
-    <flickity v-if="discounts" ref="flashPoin" :options="flickityOptions">
-      <div v-for="item in discounts" :key="item.id" class="featured-item-2">
+    <flickity class="tukarpoinslide" v-if="discounts" ref="flashPoin" :options="flickityOptions">
+      <div v-for="item in discounts" :key="item.id" class="featured-item-2" @click="$router.push('/tukarpoin/redeem/'+item.id)">
         <div class="py-5 px-7 jeruk">
           <v-row>
             <v-col cols="4">
@@ -74,6 +75,7 @@
           v-for="(article, i) in redeems"
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/tukarpoin/redeem/'+article.id)"
+		  :class="article.expired ? 'expired': 'active'"
         >
 			<v-col cols="12" v-if="i%5 == 0">
 				<!-- ADSENSE -->
@@ -101,7 +103,7 @@
                 dark
                 small
                 @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
-              >Tukar Poin</v-btn>
+              > {{article.expired ? 'Lihat' : 'Tukar Poin'}} </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -136,14 +138,26 @@
       </template>
     </v-container>
 
-    <v-bottom-navigation fixed dark grow color="white" background-color="black">
+    <v-bottom-navigation
+		fixed
+		dark
+		grow
+		color="white"
+		background-color="#2C2C2D"
+		height="80"
+		class="pwmenubottom"
+		v-model="hehe"
+	>
       <v-btn @click="tukarpointab=true;syarattab=false">
-        <span>Tukar Poin</span>
+		<span>Rewards</span>
+        <img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
 
       <v-btn @click="tukarpointab=false;syarattab=true">
-        <span>Syarat &amp; Ketentuan</span>
+        <span>How to</span>
+        <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
+	  <ShareButton2 />
     </v-bottom-navigation>
   </section>
 </template>
@@ -151,13 +165,16 @@
 <script>
 import TukarPoinService from "@/services/TukarPoinService";
 import FlipCountdown from "vue2-flip-countdown";
+import ShareButton2 from "@/components/common/ShareButton2";
 export default {
   name: "TukarPoin",
   components: {
-    FlipCountdown
+	FlipCountdown,
+	ShareButton2
   },
   data() {
     return {
+		hehe:0,
       domainTitle: process.env.domainTitle,
       tukarpointab: true,
       syarattab: false,
@@ -230,10 +247,17 @@ export default {
 </script>
 
 <style lang="scss">
-.featured-item-2 {
-  width: 100%;
-  height: 200px;
+.tukarpoinslide {
+	height: 230px!important;
+	.featured-item-2 {
+	width: 100%;
+	height: 230px!important;
+		.jeruk {
+			height: 230px!important;
+		}
+	}
 }
+
 .poinbutuh {
   position: absolute;
   z-index: 100;
@@ -268,7 +292,7 @@ export default {
 .jeruk {
 	background: #ff9800;
 }
-.featured-item-2 .jeruk {
-	height: 400px;
+.expired {
+	filter: grayscale(100%)
 }
 </style>
