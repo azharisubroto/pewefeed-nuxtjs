@@ -16,7 +16,7 @@
 				<div></div>
 
 				<v-container v-if="tptab == 0">
-					<v-btn v-if="description == false" @click="description = !description" color="deep-orange" block class="mt-4">
+					<v-btn v-if="description == false" :to="'/toppoin/'+periode.slug" color="deep-orange" block class="mt-4">
 						Read More
 					</v-btn>
 				</v-container>
@@ -110,6 +110,7 @@
 							<v-col cols="9">
 								<div class="winner-name">
 									{{item.customer.username}}
+									<div class="text-12 deep-orange--text">{{item.customer.point}}</div>
 								</div>
 								<div>
 									{{item.redeem.name}}
@@ -138,6 +139,7 @@
 								<v-col cols="9">
 									<div class="winner-name">
 										{{item.customer.username}}
+										<div class="text-12 deep-orange--text">{{item.customer.point}}</div>
 									</div>
 									<div>
 										{{item.redeem.name}}
@@ -206,7 +208,7 @@
 					<div></div>
 
 					<v-container>
-						<v-btn color="deep-orange" block class="mt-5">
+						<v-btn :to="'/toppoin/'+winnersFeatured.slug" color="deep-orange" block class="mt-5">
 							See Winner
 						</v-btn>
 					</v-container>
@@ -228,7 +230,7 @@
 									{{ [item.periode.start_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM') }} -
 									{{ [item.periode.end_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM YYYY') }}
 
-									<v-btn color="deep-orange" small class="mt-4">See Winner</v-btn>
+									<v-btn :to="'/toppoin/'+item.slug" color="deep-orange" small class="mt-4">See Winner</v-btn>
 								</v-col>
 							</v-row>
 						</div>
@@ -315,9 +317,14 @@ export default {
     };
   },
   components: {},
+  watch:{
+		tptab: function (newVal, oldVal) {
+			localStorage.setItem('tptab', this.tptab);
+		}
+  },
   data() {
     return {
-		tptab: 0,
+		tptab: null,
       isloading: true,
 	  masterdata: null,
 	  periode: null,
@@ -383,7 +390,10 @@ export default {
   mounted() {
     this.fetchAll();
     this.fetchLastRanked(1);
-    this.fetchWinners(1);
+	this.fetchWinners(1);
+	if( localStorage.getItem('tptab') ) {
+		this.tptab = parseInt(localStorage.getItem('tptab'))
+	}
   }
 };
 </script>
