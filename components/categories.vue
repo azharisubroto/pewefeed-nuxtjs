@@ -120,6 +120,10 @@ export default {
           title: "TUKAR POIN",
           link: "/tukarpoin"
         },
+        {
+          title: "TOP POIN",
+          link: "/toppoin"
+        },
         // {
         //   title: "REZEKI BEDUK",
         //   link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
