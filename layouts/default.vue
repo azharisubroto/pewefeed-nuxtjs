@@ -997,6 +997,9 @@ a,
 .v-expansion-panels {
 	border-radius: 0!important;
 }
+.v-expansion-panels:not(.v-expansion-panels--accordion) > .v-expansion-panel--active {
+	border-radius: 0!important;
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }

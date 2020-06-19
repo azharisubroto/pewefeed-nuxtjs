@@ -16,7 +16,7 @@
 				<div></div>
 
 				<v-container>
-					<v-btn v-if="description == false" @click="description = !description" color="deep-orange" block class="mt-4">
+					<v-btn v-if="description == false" :to="'/toppoin/deep/'+detail.slug" color="deep-orange" block class="mt-4">
 						Read More
 					</v-btn>
 				</v-container>
@@ -150,6 +150,40 @@
 				</section>
 			</div>
 		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<!-- BOTTOM NAVIGATION -->
+		<v-bottom-navigation
+			fixed
+			dark
+			grow
+			color="white"
+			background-color="#2C2C2D"
+			v-model="tptab"
+			height="80"
+			class="pwmenubottom"
+		>
+		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
+			<v-btn @click="$router.push('/toppoin')">
+				<span>Prizes</span>
+				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
+			</v-btn>
+			<v-btn @click="$router.push('/toppoin')">
+				<span>Ranking</span>
+				<img src="/img/tukarpoin/icon-rank-orange.png" class="mb-1 d-block" width="20" height="20" />
+			</v-btn>
+			<v-btn @click="$router.push('/toppoin')">
+				<span>Winners</span>
+				<img src="/img/tukarpoin/icon-winner-orange.png" class="mb-1 d-block" width="20" height="20" />
+			</v-btn>
+			<v-btn @click="$router.push('/toppoin')">
+				<span>How To</span>
+				<img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="20" height="20" />
+			</v-btn>
+		</v-bottom-navigation>
 	</section>
 </template>
 
@@ -159,6 +193,7 @@ export default {
 	name:"topPoinDetail",
 	data(){
 		return {
+			tptab: 0,
 			detail: null,
 			isloading: true,
 			howto: null,
@@ -167,6 +202,11 @@ export default {
 	 		prizewithoutpemenang: null,
 		}
 	},
+	watch:{
+		tptab: function (newVal, oldVal) {
+			localStorage.setItem('tptab', this.tptab);
+		}
+  	},
 	methods:{
 		async fetchDetail(){
 			try {
@@ -184,6 +224,9 @@ export default {
 	},
 	mounted() {
 		this.fetchDetail();
+		if( localStorage.getItem('tptab') ) {
+			this.tptab = parseInt(localStorage.getItem('tptab'))
+		}
 		//console.log(this.$route.params.detail)
 	}
 }

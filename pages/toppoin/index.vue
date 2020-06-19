@@ -42,7 +42,7 @@
 							<v-col cols="9">
 								<div class="winner-name">
 									{{item.customer.username ? item.customer.username : 'No Data'}}
-									<div class="text-14 deep-orange--text">{{item.customer.point ? item.customer.point : 'No Data'}}</div>
+									<div class="text-14 deep-orange--text">{{item.customer.point ? item.customer.point : 'No'}} Poin</div>
 								</div>
 								<div>
 									{{item.redeem.name}}
@@ -71,7 +71,7 @@
 								<v-col cols="9">
 									<div class="winner-name">
 										{{item.customer.username}}
-										<div class="text-12 deep-orange--text">{{item.customer.point}}</div>
+										<div class="text-14 deep-orange--text">{{item.customer.point ? item.customer.point : 'No'}} Poin</div>
 									</div>
 									<div>
 										{{item.redeem.name}}
