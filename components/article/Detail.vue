@@ -46,6 +46,10 @@
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
 
+            <div class="mb-1 mt-5" id="banner-between">
+                <v-img src="/img/banner-top-point-new.png"></v-img>
+            </div>
+
             <!-- CONTENT -->
             <div id="redeem-between">
               <RedeemCard class="mb-5" />
@@ -933,6 +937,10 @@ export default {
       setTimeout(() => {
         var newParent = document.getElementById("redeem-between");
         var oldParent = document.getElementsByClassName("news-related")[0];
+
+        var bannerParent = document.getElementsByTagName('em')[0];
+        
+        bannerParent.append(document.getElementById('banner-between'));
 
         //while (oldParent.childNodes.length > 0) {
         oldParent.prepend(newParent);

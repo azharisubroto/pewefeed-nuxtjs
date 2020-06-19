@@ -42,6 +42,9 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="12">
+          <v-img src="/img/banner-top-point-new.png"></v-img>
+        </v-col>
+        <v-col cols="12">
           <RedeemCard />
         </v-col>
       </v-row>
