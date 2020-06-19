@@ -47,7 +47,7 @@
             </div>
 
             <div class="mb-1 mt-5" id="banner-between">
-                <v-img src="/img/banner-top-point-new.png"></v-img>
+                <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
             </div>
 
             <!-- CONTENT -->

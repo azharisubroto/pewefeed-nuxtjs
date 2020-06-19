@@ -105,7 +105,7 @@
             </v-row>
           </v-col>
          <v-col cols="12">
-            <v-img src="/img/banner-top-point-new.png"></v-img>
+            <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
         </v-col>
         </v-row>
       </template>
