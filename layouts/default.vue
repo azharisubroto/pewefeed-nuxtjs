@@ -994,6 +994,9 @@ a,
 .v-ripple__container, .v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
     display:none !important;
 }
+.v-expansion-panels {
+	border-radius: 0!important;
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }
