@@ -6,7 +6,7 @@ export default {
         return Api().get('/poin/top/all');
 	},
 	lastRanked(n) {
-		return Api().get('/poin/top/last-ranked?page='+n);
+		return AuthApi().get('/poin/top/last-ranked?page='+n);
 	},
 	winners(n) {
 		return Api().get('/poin/top/winner-previous?page='+n);

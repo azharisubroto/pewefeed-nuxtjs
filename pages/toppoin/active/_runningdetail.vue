@@ -24,11 +24,11 @@
 				<!-- TOP POIN FAQ -->
 				<template v-if="description == true">
 					<section class="toppoin-acc" v-if="howto != null">
-						<v-expansion-panels v-for="(item, i) in howto" :key="i">
+						<v-expansion-panels v-for="(item, i) in howto" :key="'howto'+i">
 							<v-expansion-panel class="mb-0">
-								<v-expansion-panel-header class="text-uppercase">{{ howto.title }}</v-expansion-panel-header>
+								<v-expansion-panel-header class="text-uppercase">{{ item.title }}</v-expansion-panel-header>
 								<v-expansion-panel-content class='caption'>
-									{{ howto.content }}
+									{{ item.content }}
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 						</v-expansion-panels>
@@ -89,65 +89,6 @@
 						</v-expansion-panels>
 					</section>
 				</template>
-
-				<!-- MAIN PRIZES -->
-				<section class="ranking" v-if="prizeswithpemenang != null">
-					<v-container><h4>MAIN PRIZES</h4></v-container>
-
-					<template v-for="(item, i) in prizeswithpemenang">
-						<div v-if="i<3" class="px-4" :key="'winner-'+i" >
-							<v-row>
-								<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-								<v-col cols="2">
-									<v-avatar>
-										<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/80'"></v-img>
-									</v-avatar>
-								</v-col>
-								<v-col cols="9">
-									<div class="winner-name">
-										{{item.customer.username}}
-									</div>
-									<div>
-										{{item.redeem.name}}
-									</div>
-									<div class="text-14 green--text">
-										Min. {{item.redeem.min_point}}
-									</div>
-								</v-col>
-							</v-row>
-						</div>
-						<div v-if="i<3" class="devider-small" :key="'winner-dash-'+i"></div>
-					</template>
-
-					<v-container><h4>OTHER PRIZES</h4></v-container>
-
-					<template v-for="(item, i) in prizeswithpemenang">
-						<template v-if="i>=3">
-							<div class="px-4" :key="'winner-'+i" >
-								<v-row>
-									<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-									<v-col cols="2">
-										<v-avatar>
-											<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/80'"></v-img>
-										</v-avatar>
-									</v-col>
-									<v-col cols="9">
-										<div class="winner-name">
-											{{item.customer.username}}
-										</div>
-										<div>
-											{{item.redeem.name}}
-										</div>
-										<div class="text-14 green--text">
-											Min. {{item.redeem.min_point}}
-										</div>
-									</v-col>
-								</v-row>
-							</div>
-							<div class="devider-small" :key="'winner-dash-'+i"></div>
-						</template>
-					</template>
-				</section>
 			</div>
 		</section>
 	</section>
@@ -162,7 +103,7 @@ export default {
 			detail: null,
 			isloading: true,
 			howto: null,
-			description: false,
+			description: true,
 			prizeswithpemenang: null,
 	 		prizewithoutpemenang: null,
 		}
@@ -170,9 +111,10 @@ export default {
 	methods:{
 		async fetchDetail(){
 			try {
-        		const res = await TopPoin.periodeDetail(this.$route.params.detail);
+        		const res = await TopPoin.periodeDetail(this.$route.params.runningdetail);
 				this.detail = res.data.data.periode
 				this.howto = res.data.data.periode.howto
+				console.log(JSON.parse(JSON.stringify(this.howto)))
 				this.prizewithoutpemenang = res.data.data.reward
 				this.prizeswithpemenang = res.data.data.ranking
 				this.isloading = false

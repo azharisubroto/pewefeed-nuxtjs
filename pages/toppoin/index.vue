@@ -16,7 +16,7 @@
 				<div></div>
 
 				<v-container v-if="tptab == 0">
-					<v-btn v-if="description == false" :to="'/toppoin/'+periode.slug" color="deep-orange" block class="mt-4">
+					<v-btn :to="'/toppoin/active/'+periode.slug" color="deep-orange" block class="mt-4">
 						Read More
 					</v-btn>
 				</v-container>
@@ -25,74 +25,6 @@
 
 		<!-- PRIZES TAB -->
 		<template v-if="tptab == 0">
-			<!-- TOP POIN FAQ -->
-			<template v-if="description == true">
-				<section class="toppoin-acc" v-if="periode.howto">
-					<v-expansion-panels v-for="(item,index) in periode.howto" :key="index">
-						<v-expansion-panel class="mb-0">
-							<v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
-							<v-expansion-panel-content class='caption'>
-								<div v-html="item.content"></div>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels>
-				</section>
-
-				<!-- REWARD LIST, WITHOUT PEMENANG -->
-				<section class="toppoin-acc mainprizes">
-					<v-expansion-panels>
-						<v-expansion-panel>
-							<v-expansion-panel-header>MAIN PRIZES</v-expansion-panel-header>
-							<v-expansion-panel-content class='caption px-0'>
-								<template v-for="(item, i) in prizewithoutpemenang">
-									<template v-if="i<3">
-										<div class="py-0 px-4" :key="'rewards-'+i">
-											<v-row>
-												<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-												<v-col cols="11">
-													{{item.redeem.name}}
-													<br>
-													<div class="text-14 green--text">
-														Min. {{item.min_point}}
-													</div>
-												</v-col>
-											</v-row>
-										</div>
-										<div class="devider-small" :key="'reward-'+i"></div>
-									</template>
-								</template>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels>
-				</section>
-
-				<section class="toppoin-acc mainprizes">
-					<v-expansion-panels>
-						<v-expansion-panel class='mb-6'>
-							<v-expansion-panel-header>OTHER PRIZES</v-expansion-panel-header>
-							<v-expansion-panel-content class='caption px-0'>
-								<template v-for="(item, i) in prizewithoutpemenang">
-									<template v-if="i>2">
-										<div class="py-0" :key="'rewards-'+i">
-											<v-row class="px-6">
-												<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-												<v-col cols="11">
-													{{item.redeem.name}}
-													<br>
-													<div class="text-14 green--text">
-														Min. {{item.min_point}}
-													</div>
-												</v-col>
-											</v-row>
-										</div>
-										<div class="devider-small" :key="'reward-'+i"></div>
-									</template>
-								</template>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels>
-				</section>
-			</template>
 
 			<!-- MAIN PRIZES -->
 			<section class="ranking" v-if="prizeswithpemenang != null">
@@ -104,13 +36,13 @@
 							<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
 							<v-col cols="2">
 								<v-avatar>
-									<v-img :src="item.customer.avatar"></v-img>
+									<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
 								</v-avatar>
 							</v-col>
 							<v-col cols="9">
 								<div class="winner-name">
-									{{item.customer.username}}
-									<div class="text-12 deep-orange--text">{{item.customer.point}}</div>
+									{{item.customer.username ? item.customer.username : 'No Data'}}
+									<div class="text-14 deep-orange--text">{{item.customer.point ? item.customer.point : 'No Data'}}</div>
 								</div>
 								<div>
 									{{item.redeem.name}}
@@ -159,6 +91,32 @@
 		<!-- RANKING TAB -->
 		<template v-if="tptab == 1">
 			<v-container>
+				<h4>PERINGKAT KAMU SAAT INI</h4>
+			</v-container>
+			<section v-if="myrank.length > 0" style="background: #fa5624">
+				<template v-for="(item, i) in myrank">
+					<div class="px-4" :key="'ranks-'+i">
+						<v-row>
+							<v-col cols="2">
+								<v-avatar>
+									<v-img :src="item.customer.avatar"></v-img>
+								</v-avatar>
+							</v-col>
+							<v-col cols="10">
+								<div class="text-16">
+									{{item.customer.username}}
+								</div>
+								<div class="text-14">
+									{{item.poin.grand_total}} Poin
+								</div>
+							</v-col>
+						</v-row>
+					</div>
+				</template>
+				<v-overlay v-if="pagingload"></v-overlay>
+			</section>
+
+			<v-container>
 				<h4>PERINGKAT YANG LAIN</h4>
 			</v-container>
 			<section v-if="lastRanked!=null">
@@ -175,7 +133,7 @@
 									{{item.customer.username}}
 								</div>
 								<div class="text-14">
-									{{item.poin.grand_total}}
+									{{item.poin.grand_total}} Poin
 								</div>
 							</v-col>
 						</v-row>
@@ -217,7 +175,7 @@
 
 			<div v-if="winners!=null">
 				<template v-for="(item, i) in winners">
-					<template v-if="i>1">
+					<template v-if="i > 0 || paged >= 2">
 						<div v-if="i==2" class="devider-small" :key="'winners-deviderz-'+i"></div>
 						<div :key="'winnersz-'+i" class="px-4">
 							<v-row>
@@ -256,7 +214,7 @@
 			<section class="toppoin-acc" v-if="periode.howto">
 				<v-expansion-panels v-for="(item,index) in periode.howto" :key="index">
 					<v-expansion-panel class="mb-0">
-						<v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
+						<v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
 						<v-expansion-panel-content class='caption'>
 							<div v-html="item.content"></div>
 						</v-expansion-panel-content>
@@ -338,7 +296,8 @@ export default {
 	  pagingload: true,
 	  winners: null,
 	  winnertotalPage: 3,
-	  winnersFeatured:null
+	  winnersFeatured:null,
+	  myrank: []
     };
   },
   methods: {
@@ -359,6 +318,7 @@ export default {
         const res = await TopPoin.lastRanked(n);
 		//console.log(res);
 		this.lastRanked = res.data.data.ranked
+		this.myrank.push(res.data.current)
 		this.totalPage = res.data.pagination.last_page
 		this.pagingload = false
       } catch (error) {
@@ -370,7 +330,9 @@ export default {
       try {
         const res = await TopPoin.winners(n);
 		this.winners = res.data.data.periode;
-		this.winnersFeatured = res.data.data.periode[0];
+		if( this.paged == 1 ) {
+			this.winnersFeatured = res.data.data.periode[0];
+		}
 		this.pagingload = false
 		this.winnertotalPage = res.data.pagination.last_page
       } catch (error) {
