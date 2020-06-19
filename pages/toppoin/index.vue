@@ -90,7 +90,7 @@
 
 		<!-- RANKING TAB -->
 		<template v-if="tptab == 1">
-			<v-container>
+			<v-container  v-if="myrank.length > 0">
 				<h4>PERINGKAT KAMU SAAT INI</h4>
 			</v-container>
 			<section v-if="myrank.length > 0" style="background: #fa5624">
@@ -313,12 +313,20 @@ export default {
 		this.isloading = false
       }
     },
+    async fetchMyRank() {
+      try {
+        const res = await TopPoin.lastRankedMe();
+		//console.log(res);
+		this.myrank.push(res.data.current)
+      } catch (error) {
+		console.log(error);
+      }
+	},
     async fetchLastRanked(n) {
       try {
         const res = await TopPoin.lastRanked(n);
 		//console.log(res);
 		this.lastRanked = res.data.data.ranked
-		this.myrank.push(res.data.current)
 		this.totalPage = res.data.pagination.last_page
 		this.pagingload = false
       } catch (error) {
@@ -353,6 +361,7 @@ export default {
     this.fetchAll();
     this.fetchLastRanked(1);
 	this.fetchWinners(1);
+	this.fetchMyRank();
 	if( localStorage.getItem('tptab') ) {
 		this.tptab = parseInt(localStorage.getItem('tptab'))
 	}
@@ -365,18 +374,18 @@ export default {
 		.v-expansion-panels {
 			.v-expansion-panel {
 				background: #1c1c1f!important;
-				border-top: 1px solid #fff;
+				border-top: 1px solid rgba(255, 255, 255, 0.5);
 			}
 			&:last-of-type {
 				.v-expansion-panel {
-					border-bottom: 1px solid #fff;
+					border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 				}
 			}
 			.v-expansion-panel-content__wrap {
 				background: #000!important;
 				padding-top:15px;
 				font-size: 14px;
-				border-top: 1px solid #fff;
+				border-top: 1px solid rgba(255, 255, 255, 0.5);
 			}
 		}
 	}
