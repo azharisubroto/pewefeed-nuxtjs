@@ -8,27 +8,21 @@
 		<section v-if="detail!=null && isloading == false">
 			<v-img :src="detail.banner.desktop"></v-img>
 			<div class="py-3">
-				<div class="text-center">
+				<div class="text-center py-4">
 					Periode:
 					{{ [detail.periode.start_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM') }} -
 					{{ [detail.periode.end_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM YYYY') }}
 				</div>
 				<div></div>
 
-				<v-container>
-					<v-btn v-if="description == false" @click="description = !description" color="deep-orange" block class="mt-4">
-						Read More
-					</v-btn>
-				</v-container>
-
 				<!-- TOP POIN FAQ -->
-				<template v-if="description == true">
+				<template>
 					<section class="toppoin-acc" v-if="howto != null">
-						<v-expansion-panels v-for="(item, i) in howto" :key="'howto'+i">
+						<v-expansion-panels v-for="(item, i) in howto" :key="i">
 							<v-expansion-panel class="mb-0">
-								<v-expansion-panel-header class="text-uppercase">{{ item.title }}</v-expansion-panel-header>
+								<v-expansion-panel-header class="text-uppercase">{{ howto.title }}</v-expansion-panel-header>
 								<v-expansion-panel-content class='caption'>
-									{{ item.content }}
+									{{ howto.content }}
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 						</v-expansion-panels>
@@ -139,7 +133,7 @@ export default {
 			detail: null,
 			isloading: true,
 			howto: null,
-			description: true,
+			description: false,
 			prizeswithpemenang: null,
 	 		prizewithoutpemenang: null,
 		}
@@ -152,10 +146,9 @@ export default {
 	methods:{
 		async fetchDetail(){
 			try {
-        		const res = await TopPoin.periodeDetail(this.$route.params.runningdetail);
+        		const res = await TopPoin.periodeDetail(this.$route.params.deepdetail);
 				this.detail = res.data.data.periode
 				this.howto = res.data.data.periode.howto
-				console.log(JSON.parse(JSON.stringify(this.howto)))
 				this.prizewithoutpemenang = res.data.data.reward
 				this.prizeswithpemenang = res.data.data.ranking
 				this.isloading = false
