@@ -939,7 +939,7 @@ export default {
         var oldParent = document.getElementsByClassName("news-related")[0];
 
         var bannerParent = document.getElementsByTagName('em')[0];
-        
+
         bannerParent.append(document.getElementById('banner-between'));
 
         //while (oldParent.childNodes.length > 0) {

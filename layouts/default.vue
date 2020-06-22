@@ -57,7 +57,7 @@
         </v-toolbar-title>
         <div class="flex-grow-1"></div>
 
-        <div @click="$router.push('/')" class="pr-1" v-if="$route.name != 'index'">
+        <div @click="$router.push('/');clearStorage();" class="pr-1" v-if="$route.name != 'index'">
           <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
         </div>
 
@@ -460,6 +460,9 @@ export default {
     historyBack() {
       this.$router.back();
     },
+	clearStorage() {
+		localStorage.removeItem('tptab');
+	},
     logout() {
       let vm = this;
       this.$auth.logout();

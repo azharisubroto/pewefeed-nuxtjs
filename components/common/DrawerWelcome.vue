@@ -2,7 +2,7 @@
   <!-- MODAL -->
   <v-bottom-sheet v-model="intDialogVisible">
     <v-sheet height="100%" color="transparent">
-      <v-card>
+      <v-card style="border-radius: 0!important;">
         <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
           <!-- Arrow -->
           <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="closeIt()">

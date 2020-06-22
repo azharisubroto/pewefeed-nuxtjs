@@ -15,11 +15,11 @@
 				</div>
 				<div></div>
 
-				<v-container>
+				<!-- <v-container>
 					<v-btn v-if="description == false" :to="'/toppoin/deep/'+detail.slug" color="deep-orange" block class="mt-4">
 						Read More
 					</v-btn>
-				</v-container>
+				</v-container> -->
 
 				<!-- TOP POIN FAQ -->
 				<template v-if="description == true">
