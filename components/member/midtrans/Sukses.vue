@@ -83,9 +83,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.finish-page .container {
-  background: #fff;
-}
 
 .finish-page .v-icon:not(.rel) {
   color: #ff5722 !important;

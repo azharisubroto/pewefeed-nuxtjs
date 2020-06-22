@@ -130,9 +130,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.finish-page .container {
-  background: #fff;
-}
 .pending-page .v-icon {
   color: #ff5722 !important;
   position: absolute;
