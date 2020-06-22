@@ -15,11 +15,11 @@
 				{{ [periode.periode.end_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM YYYY') }}
 				<div></div>
 
-				<v-container v-if="tptab == 0">
+				<!-- <v-container v-if="tptab == 0">
 					<v-btn :to="'/toppoin/active/'+periode.slug" color="deep-orange" block class="mt-4">
 						Read More
 					</v-btn>
-				</v-container>
+				</v-container> -->
 			</div>
 		</template>
 
