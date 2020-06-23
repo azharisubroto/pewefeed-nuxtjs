@@ -1,7 +1,7 @@
 <template>
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
-      <v-app-bar v-if="$route.name != 'purchase'" dark color="dark" flat fixed tile class="main-app-bar">
+      <v-app-bar v-if="$route.name != 'purchase' && !$route.name.includes('sing')" dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
         <template v-if="$route.name != 'index' && $route.name != 'tukarpoin' && $route.name != 'toppoin'">
           <v-btn @click="historyBack()" small icon>
