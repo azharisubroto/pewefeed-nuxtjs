@@ -118,11 +118,11 @@
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/?tab=0'); ">
 				<span>Join</span>
 				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/?tab=1'); ">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
@@ -193,7 +193,8 @@ export default {
 					video_thumb: 'https://via.placeholder.com/350x250',
 					vote: 1043,
 					comments: 30,
-					star: true
+					star: true,
+					slug: 'melynda'
 				},
 				{
 					name: 'Azhari',
@@ -201,7 +202,8 @@ export default {
 					video_thumb: 'https://via.placeholder.com/350x250',
 					vote: 700,
 					comments: 30,
-					star: false
+					star: false,
+					slug: 'azhari'
 				}
 			],
 			pagination: 1,

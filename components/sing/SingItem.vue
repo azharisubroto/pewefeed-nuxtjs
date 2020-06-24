@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div @click="$router.push('/sing/video/'+item.slug)">
 		<v-row>
 			<v-col cols="6">
 				<v-img :src="item.video_thumb"></v-img>

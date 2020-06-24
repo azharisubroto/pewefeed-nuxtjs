@@ -81,6 +81,7 @@ export default {
 					vote: 0,
 					comments: 0,
 					star: false,
+					slug: 'anak-gaul',
 				}
 				this.$bus.$emit('datapunyaku', datapunyaku)
 		  }

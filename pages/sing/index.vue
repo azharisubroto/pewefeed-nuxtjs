@@ -26,6 +26,12 @@
 			</v-list>
 		</template>
 
+		<template v-if="singtab == 1">
+			<v-container class="text-center pa-10">
+				HADIAH
+			</v-container>
+		</template>
+
 		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
 			fixed
@@ -91,9 +97,14 @@ export default {
 				},
 				{
 					title: 'Winner',
-					to: '/sing/winner',
+					to: '/sing/winners',
 				},
 			]
+		}
+	},
+	mounted() {
+		if( this.$router.currentRoute.query['tab'] ) {
+			this.singtab = parseInt(this.$router.currentRoute.query['tab'])
 		}
 	}
 }
