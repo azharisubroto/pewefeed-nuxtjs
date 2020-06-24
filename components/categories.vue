@@ -37,7 +37,7 @@
 		<template  v-for="(program, i) in programs" >
 			<div v-if="i==0" class="devider-small my-4" :key="'catsxxx-'+i"></div>
           <div class="px-4" :key="'program-'+i">
-            <a class="pl-0" text dark :to="program.link">{{program.title}}</a>
+            <a class="pl-0 d-block" text dark :href="program.link">{{program.title}}</a>
           </div>
         	<div class="devider-small my-4" :key="'programas-'+i"></div>
 		</template>
