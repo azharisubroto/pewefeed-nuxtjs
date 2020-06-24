@@ -26,6 +26,11 @@
 <script>
 export default {
 	name:"SingAppBar",
-	props: ['title', 'back']
+	props: ['title', 'back'],
+	methods: {
+		historyBack() {
+		this.$router.back();
+		},
+	}
 }
 </script>
