@@ -124,10 +124,10 @@ export default {
           title: "TOP POIN",
           link: "/toppoin"
         },
-        {
-          title: "SING",
-          link: "/sing"
-        },
+        // {
+        //   title: "SING",
+        //   link: "/sing"
+        // },
         // {
         //   title: "REZEKI BEDUK",
         //   link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
