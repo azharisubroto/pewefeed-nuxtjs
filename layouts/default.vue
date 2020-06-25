@@ -462,6 +462,7 @@ export default {
     },
 	clearStorage() {
 		localStorage.removeItem('tptab');
+		this.wowtab = 0
 	},
     logout() {
       let vm = this;
@@ -1002,6 +1003,25 @@ a,
 }
 .v-expansion-panels:not(.v-expansion-panels--accordion) > .v-expansion-panel--active {
 	border-radius: 0!important;
+}
+.toppoin-acc {
+	.v-expansion-panels {
+		.v-expansion-panel {
+			background: #1c1c1f!important;
+			border-top: 1px solid rgba(255, 255, 255, 0.5);
+		}
+		&:last-of-type {
+			.v-expansion-panel {
+				border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+			}
+		}
+		.v-expansion-panel-content__wrap {
+			background: #000!important;
+			padding-top:15px;
+			font-size: 14px;
+			border-top: 1px solid rgba(255, 255, 255, 0.5);
+		}
+	}
 }
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)

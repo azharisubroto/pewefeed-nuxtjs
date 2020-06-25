@@ -370,25 +370,6 @@ export default {
 </script>
 
 <style lang="scss">
-	.toppoin-acc {
-		.v-expansion-panels {
-			.v-expansion-panel {
-				background: #1c1c1f!important;
-				border-top: 1px solid rgba(255, 255, 255, 0.5);
-			}
-			&:last-of-type {
-				.v-expansion-panel {
-					border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-				}
-			}
-			.v-expansion-panel-content__wrap {
-				background: #000!important;
-				padding-top:15px;
-				font-size: 14px;
-				border-top: 1px solid rgba(255, 255, 255, 0.5);
-			}
-		}
-	}
 	.mainprizes {
 		.v-expansion-panel-content__wrap {
 			padding:0!important;

@@ -27,7 +27,7 @@
 		<template  v-for="(cat, i) in categories">
 			<div v-if="i==0" class="devider-small my-4" :key="'catsx-'+i"></div>
 			<div cols="12" class="px-4" :key="'cat-'+i">
-				<a class="pl-0" text dark @click="$router.push(cat.link); drawer = false">{{cat.title}}</a>
+				<a class="pl-0" text dark :href="cat.link">{{cat.title}}</a>
 			</div>
 			<div class="devider-small my-4" :key="'cats-'+i"></div>
 		</template>

@@ -1,70 +1,56 @@
 <template>
   <div>
-    <v-dialog v-model="notVipVisible" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card>
-        <!-- Header -->
-        <v-toolbar light color="white">
+    <v-bottom-sheet v-model="notVipVisible">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <!-- Arrow -->
           <v-btn
+            dark
             icon
             tile
-            style="border-right: 0px solid #e5e5e5"
+            style="border-right: 0px solid #717171"
             light
-            @click="notVipVisible = false"
+            @click="notVipVisible = false;"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
-          <!-- Logo -->
-          <v-toolbar-title>
-            <img :src="logo" width="130" class="d-inline-block mt-3" />
-          </v-toolbar-title>
-
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn light text>Information</v-btn>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">Information</v-btn>
           </v-toolbar-items>
+          <div class="flex-grow-1"></div>
         </v-toolbar>
 
-        <!-- <v-row
-          align="center"
-          justify="center"
-        >
-          <v-icon color="black" class="display-3" style="margin-top: 60px">mdi-information-outline</v-icon>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <p class="title mt-4">ANDA BUKAN ANGGOTA VIP</p>
-        </v-row>-->
+        <div class="mx-2">
+          <v-container class="text-center">
+            <v-alert
+              border="left"
+              dense
+              colored-border
+              type="info"
+              style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+            >
+              Fitur ini diperuntukkan hanya untuk user dengan keanggotaan VIP yang masih aktif.
+              <br />
+              <br />Untuk mengaktifkan keanggotaan VIP anda, tekan tombol di bawah ini
+            </v-alert>
 
-        <v-container>
-          <v-alert
-            border="left"
-            dense
-            colored-border
-            type="info"
-            style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-          >
-            Fitur ini diperuntukkan hanya untuk user dengan keanggotaan VIP yang masih aktif.
+            <v-btn
+              @click="$router.push('/purchase')"
+              dark
+              block
+              large
+              color="deep-orange"
+              class="text-capitalize"
+            >Perpanjang Keanggotaan VIP</v-btn>
             <br />
-            <br />Untuk mengaktifkan keanggotaan VIP anda, tekan tombol di bawah ini
-          </v-alert>
-
-          <v-btn
-            @click="$router.push('/purchase')"
-            dark
-            block
-            large
-            color="deep-orange"
-            class="text-capitalize"
-          >Perpanjang Keanggotaan VIP</v-btn>
-        </v-container>
-      </v-card>
-    </v-dialog>
-
+            <br />
+          </v-container>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
     <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose" />
   </div>
 </template>

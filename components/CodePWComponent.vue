@@ -83,43 +83,50 @@
     </div>
 
     <!-- Dialog Success -->
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card>
-        <!-- Header -->
-        <v-toolbar light color="white">
+	<v-bottom-sheet v-model="dialog">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <!-- Arrow -->
-          <v-btn icon tile style="border-right: 0px solid #717171" light>
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="dialog = false;"
+          >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-
-          <!-- Logo -->
-          <v-toolbar-title>
-            <v-img :src="logo" :lazy-src="lazy" max-width="130" max-height="40"></v-img>
-          </v-toolbar-title>
 
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn light text>Information</v-btn>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">Information</v-btn>
           </v-toolbar-items>
+          <div class="flex-grow-1"></div>
         </v-toolbar>
 
-        <v-row align="center" justify="center">
-          <v-icon color="green" class="display-3" style="margin-top: 60px">mdi-check-circle</v-icon>
-        </v-row>
-        <v-row align="center" justify="center">
-          <p class="title mt-4">{{responsemessage}}</p>
-        </v-row>
-        <v-row align="center" justify="center" class="mx-4">
-          <p class="subtitle-1 text-center">Silahkan klik tombol dibawah ini untuk melanjutkan</p>
-        </v-row>
-        <v-row align="center" justify="center" class="mx-4">
-          <div>
-            <v-btn @click="lanjutkan()" dark color="deep-orange">Lanjutkan</v-btn>
-          </div>
-        </v-row>
-      </v-card>
-    </v-dialog>
+        <div class="mx-2">
+          <v-container class="text-center">
+            <v-row align="center" justify="center">
+			<v-icon color="green" class="display-3">mdi-check-circle</v-icon>
+			</v-row>
+			<v-row align="center" justify="center">
+			<p class="title mt-4">{{responsemessage}}</p>
+			</v-row>
+			<v-row align="center" justify="center" class="mx-4">
+			<p class="subtitle-1 text-center">Silahkan klik tombol dibawah ini untuk melanjutkan</p>
+			</v-row>
+			<v-row align="center" justify="center" class="mx-4">
+			<div>
+				<v-btn @click="lanjutkan()" dark color="deep-orange">Lanjutkan</v-btn>
+			</div>
+			</v-row>
+		            <br />
+          </v-container>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </v-container>
 </template>
 
@@ -145,7 +152,7 @@ export default {
     message_code: "",
     responsemessage: "",
     responselink: "",
-    dialog: false,
+    dialog: true,
     valid: true,
     lazy:
       "https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png",

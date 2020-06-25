@@ -16,7 +16,7 @@
     </v-btn>
     <v-bottom-sheet v-model="recaptchaDialogVisible">
       <v-sheet height="100%">
-        <v-toolbar :elevation="1">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <v-row class="pa-0" align="center">
 			  <v-col cols="2">
 				  <v-btn
@@ -154,7 +154,7 @@ export default {
   data: () => ({
     recaptchaDialogVisible: false,
     recaptchaToken: null,
-    recaptchaKey: 1,
+    recaptchaKey: 123123,
     recaptcha: true,
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,

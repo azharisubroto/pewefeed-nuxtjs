@@ -11,236 +11,255 @@
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-    <div v-if="detail" class="py-10" style="background: #ff9800">
-      <v-row align="center" no-gutters>
-        <v-col cols="6">
-          <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
-        </v-col>
-        <v-col cols="6">
-          <div class="pr-4">
-            <!-- TITLE -->
-            <h2 class="ma-0">{{detail.title}}</h2>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
-
     <v-skeleton-loader
       v-if="detail==''"
       class="mx-auto mt-5"
       type="list-item-avatar-three-line, image, article"
     ></v-skeleton-loader>
 
-    <v-container v-else class="mb-5 pb-5">
-      <!-- DETAIL REWWARD -->
-      <template v-if="detailtab">
-        <v-row>
-          <v-col>
-            <v-row>
-              <v-col cols="3">
-                <strong>Status</strong>
-                <div class="caption"></div>
-              </v-col>
-              <v-col cols="9" class="text-right deep-orange--text">
-                Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
-              </v-col>
-            </v-row>
-            <div class="devider-small"></div>
-            <v-row>
-              <v-col cols="6">
-                <strong>Poin Diperlukan</strong>
-              </v-col>
-              <v-col cols="6" class="text-right">
-                  <img src="/img/poin.png" alt width="16" class="mr-1" style="position:relative;top:4px;" />
-                  <strong class="deep-orange--text">{{detail.point}}</strong>
-              </v-col>
-            </v-row>
-            <div class="devider-small"></div>
-            <v-row>
-              <v-col cols="6">
-                <strong>Sisa Hadiah</strong>
-              </v-col>
-              <v-col cols="6" class="text-right deep-orange--text">
-               {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
-              </v-col>
-            </v-row>
-            <div class="devider-small"></div>
-            <v-row class="mt-2">
-              <v-col cols="12">
-                <v-expansion-panels v-model="panel" class="nocard">
-                  <v-expansion-panel>
-                    <v-expansion-panel-header>
-                      <div class="text-16 font-weight-bold">Deskripsi</div>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <div v-html="detail.description" class="py-3 text-14"></div>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
-              </v-col>
-              <v-col>
-                <v-btn
-                  v-if="detail.stock"
-                  block
-                  dark
-                  depressed
-                  color="deep-orange"
-                  :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-                  :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-                  tile
-                  @click="buyconfirm = !buyconfirm"
-                >Tukarkan Poin</v-btn>
-                <v-btn
-                  v-else
-                  block
-                  dark
-                  depressed
-                  :disabled="detail.expired ? true : false"
-                  color="deep-orange"
-                  style="background-color: grey !important;"
-                  tile
-                  @click="buyconfirm = !buyconfirm"
-                >Tukarkan Poin</v-btn>
-              </v-col>
-            </v-row>
+    <!-- DETAIL REWWARD -->
+    <template v-if="detailtab">
+      <div v-if="detail" class="py-10" style="background: #ff9800">
+        <v-row align="center" no-gutters>
+          <v-col cols="6">
+            <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
           </v-col>
-         <v-col cols="12">
-            <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
-        </v-col>
+          <v-col cols="6">
+            <div class="pr-4">
+              <!-- TITLE -->
+              <h2 class="ma-0">{{detail.title}}</h2>
+            </div>
+          </v-col>
         </v-row>
-      </template>
+      </div>
+      <v-container>
+		  <v-row>
+        <v-col>
+          <v-row>
+            <v-col cols="3">
+              <strong>Status</strong>
+              <div class="caption"></div>
+            </v-col>
+            <v-col
+              cols="9"
+              class="text-right deep-orange--text"
+            >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
+          </v-row>
+          <div class="devider-small"></div>
+          <v-row>
+            <v-col cols="6">
+              <strong>Poin Diperlukan</strong>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <img
+                src="/img/poin.png"
+                alt
+                width="16"
+                class="mr-1"
+                style="position:relative;top:4px;"
+              />
+              <strong class="deep-orange--text">{{detail.point}}</strong>
+            </v-col>
+          </v-row>
+          <div class="devider-small"></div>
+          <v-row>
+            <v-col cols="6">
+              <strong>Sisa Hadiah</strong>
+            </v-col>
+            <v-col
+              cols="6"
+              class="text-right deep-orange--text"
+            >{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-col>
+          </v-row>
+          <div class="devider-small"></div>
+          <v-row class="mt-2">
+            <v-col cols="12">
+              <v-expansion-panels v-model="panel" class="nocard">
+                <v-expansion-panel>
+                  <v-expansion-panel-header>
+                    <div class="text-16 font-weight-bold">Deskripsi</div>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <div v-html="detail.description" class="py-3 text-14"></div>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-col>
+            <v-col>
+              <v-btn
+                v-if="detail.stock"
+                block
+                dark
+                depressed
+                color="deep-orange"
+                :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                tile
+                @click="buyconfirm = !buyconfirm"
+              >Tukarkan Poin</v-btn>
+              <v-btn
+                v-else
+                block
+                dark
+                depressed
+                :disabled="detail.expired ? true : false"
+                color="deep-orange"
+                style="background-color: grey !important;"
+                tile
+                @click="buyconfirm = !buyconfirm"
+              >Tukarkan Poin</v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12">
+          <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
+        </v-col>
+      </v-row>
+	  </v-container>
+    </template>
 
-      <!-- BUY CONFIRM -->
-      <v-dialog
-        v-model="buyconfirm"
-        fullscreen
-        hide-overlay
-        class="LoginModal"
-        transition="dialog-bottom-transition"
-      >
-        <v-card>
-          <!-- Header -->
-          <v-toolbar light color="white">
-            <!-- Arrow -->
-            <v-btn
-              icon
-              tile
-              style="border-right: 0px solid #d1d1d1"
-              light
-              @click="buyconfirm = !buyconfirm"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-
-            <!-- Logo -->
-            <v-toolbar-title>
-              <img src="/pl-logo.png" width="130" class="d-inline-block mt-3" />
-            </v-toolbar-title>
-
-            <!-- Title -->
-            <div class="flex-grow-1"></div>
-            <v-toolbar-items>
-              <v-btn light text>Konfirmasi</v-btn>
-            </v-toolbar-items>
-          </v-toolbar>
-
-          <v-container class="py-0">
-            <v-row align="center" justify="center">
-              <v-col cols="12" class="pb-0">
-                <v-alert
-                  border="left"
-                  colored-border
-                  type="info"
-                  class="mb-0 mt-4"
-                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                >
-                  Anda akan menukarkan koin sebanyak
-                  <div class="py-5 text-30" style="line-height:1">
-                    <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
-                    <strong>{{detail.point}}</strong>
-                  </div>
-                </v-alert>
-
-                <v-btn
-                  :loading="pending"
-                  block
-                  dark
-                  depressed
-                  color="deep-orange"
-                  tile
-                  x-large
-                  class="tukaryuk"
-                  @click="tukarPoin()"
-                >LANJUTKAN</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-
-          <v-container class="pa-0 LoginModal">
-            <Login />
-          </v-container>
-        </v-card>
-      </v-dialog>
-
-      <!-- HISTORY -->
-      <template v-if="hitoritab">
-        <template v-if="histories && histories.length > 0">
-          <div
-            class="comment-item mb-2"
-            v-for="(history, i) in histories"
-            :key="history.id+'-'+i"
-            :id="'history'+history.redeem_id"
-          >
-            <v-row>
-              <v-col cols="2">
-                <v-avatar size="30">
-                  <img
-                    :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
-                    onerror="this.src='/img/user.jpeg';"
-                  />
-                </v-avatar>
-              </v-col>
-              <v-col cols="10">
-                <strong>{{ history.customer.name }}</strong>
-                <br />
-                <div class="mt-2 caption text--gray">{{history.date}}</div>
-              </v-col>
-            </v-row>
-          </div>
+    <!-- BUY CONFIRM -->
+    <v-dialog
+      v-model="buyconfirm"
+      fullscreen
+      hide-overlay
+      class="LoginModal"
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <!-- Header -->
+        <v-toolbar light color="white">
+          <!-- Arrow -->
           <v-btn
-            block
-            dark
-            depressed
-            :loading="moreLoading"
-            color="deep-orange"
-            @click="moreHistory(historyNext)"
-          >Load More</v-btn>
-        </template>
-        <template v-else>
-          <div class="py-10 caption grey--text text-center">Loading...</div>
-        </template>
-        <br />
-        <br />
-      </template>
+            icon
+            tile
+            style="border-right: 0px solid #d1d1d1"
+            light
+            @click="buyconfirm = !buyconfirm"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
 
-      <!-- SYARAT -->
-      <template v-if="syarattab">
-        <div v-html="detail.term"></div>
+          <!-- Logo -->
+          <v-toolbar-title>
+            <img src="/pl-logo.png" width="130" class="d-inline-block mt-3" />
+          </v-toolbar-title>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn light text>Konfirmasi</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <v-container class="py-0">
+          <v-row align="center" justify="center">
+            <v-col cols="12" class="pb-0">
+              <v-alert
+                border="left"
+                colored-border
+                type="info"
+                class="mb-0 mt-4"
+                style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+              >
+                Anda akan menukarkan koin sebanyak
+                <div class="py-5 text-30" style="line-height:1">
+                  <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
+                  <strong>{{detail.point}}</strong>
+                </div>
+              </v-alert>
+
+              <v-btn
+                :loading="pending"
+                block
+                dark
+                depressed
+                color="deep-orange"
+                tile
+                x-large
+                class="tukaryuk"
+                @click="tukarPoin()"
+              >LANJUTKAN</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-container class="pa-0 LoginModal">
+          <Login />
+        </v-container>
+      </v-card>
+    </v-dialog>
+
+    <!-- HISTORY -->
+    <template v-if="hitoritab">
+      <v-container>
+		  <template v-if="histories && histories.length > 0">
+        <div
+          class="comment-item mb-2"
+          v-for="(history, i) in histories"
+          :key="history.id+'-'+i"
+          :id="'history'+history.redeem_id"
+        >
+          <v-row>
+            <v-col cols="2">
+              <v-avatar size="30">
+                <img
+                  :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
+                  onerror="this.src='/img/user.jpeg';"
+                />
+              </v-avatar>
+            </v-col>
+            <v-col cols="10">
+              <strong>{{ history.customer.name }}</strong>
+              <br />
+              <div class="mt-2 caption text--gray">{{history.date}}</div>
+            </v-col>
+          </v-row>
+        </div>
+        <v-btn
+          block
+          dark
+          depressed
+          :loading="moreLoading"
+          color="deep-orange"
+          @click="moreHistory(historyNext)"
+        >Load More</v-btn>
       </template>
-    </v-container>
+      <template v-else>
+        <div class="py-10 caption grey--text text-center">Loading...</div>
+      </template>
+      <br />
+      <br />
+	  </v-container>
+    </template>
+
+    <!-- SYARAT -->
+    <template v-if="syarattab">
+      <!-- <div v-html="detail.term"></div> -->
+      <section class="toppoin-acc" v-if="detail.term">
+        <v-expansion-panels v-for="(item,index) in detail.term" :key="index">
+          <v-expansion-panel class="mb-0">
+            <v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
+            <v-expansion-panel-content class="caption">
+              <div v-html="item.content"></div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </section>
+    </template>
     <br />
     <br />
 
     <v-bottom-navigation
-		fixed
-		dark
-		grow
-		color="white"
-		background-color="#2C2C2D"
-		height="80"
-		class="pwmenubottom"
-		v-model="tptab"
-	>
+      fixed
+      dark
+      grow
+      color="white"
+      background-color="#2C2C2D"
+      height="80"
+      class="pwmenubottom"
+      v-model="tptab"
+    >
       <v-btn @click="detailtab=true;hitoritab=false;syarattab=false">
         <span class="text-13">Redeem</span>
         <img src="/img/tukarpoin/redeem-orange.png" class="mb-1 d-block" width="25" height="25" />
@@ -253,7 +272,7 @@
         <span class="text-13">How to</span>
         <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="25" height="25" />
       </v-btn>
-	  <ShareButton2 />
+      <ShareButton2 />
     </v-bottom-navigation>
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
@@ -269,8 +288,8 @@ import ShareButton2 from "@/components/common/ShareButton2";
 export default {
   name: "RedeemDetail",
   components: {
-	LoginModal,
-	ShareButton2
+    LoginModal,
+    ShareButton2
   },
   head() {
     return {
@@ -287,7 +306,7 @@ export default {
   },
   data() {
     return {
-	  tptab: 0,
+      tptab: 0,
       snackbar: false,
       tukarmsg: "",
       overlay: false,
@@ -364,10 +383,10 @@ export default {
       try {
         const res = await UserService.tukarPoin(params);
 
-        let vm = this
+        let vm = this;
         this.$auth.fetchUser().then(() => {
-          localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-        })
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        });
 
         // console.log(res);
         this.overlay = false;
@@ -421,11 +440,11 @@ export default {
 
 <style lang="scss">
 .nocard {
-	.v-expansion-panel {
-		background:transparent!important;
-	}
+  .v-expansion-panel {
+    background: transparent !important;
+  }
   &.v-expansion-panels {
-    background: transparent!important;
+    background: transparent !important;
     box-shadow: none;
     .v-expansion-panel {
       &:before {
@@ -448,6 +467,6 @@ export default {
   right: 0;
 }
 .tukarpoin-content p {
-	font-size: 16px!important;
+  font-size: 16px !important;
 }
 </style>
