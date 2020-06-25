@@ -1,73 +1,77 @@
 <template>
-
   <section class="pb-5">
-    <!-- PENAWARAN -->
-    <v-container>
-      <v-row align="center" v-if="discounts">
-        <v-col cols="6" class="py-0">
-          <h4 class="text-uppercase">Penawaran Terbatas</h4>
-        </v-col>
-        <v-col cols="6" class="text-right py-0" v-if="expire">
-          <no-ssr>
-            <flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
-          </no-ssr>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <!-- LATEST -->
-    <flickity class="tukarpoinslide" v-if="discounts" ref="flashPoin" :options="flickityOptions">
-      <div v-for="item in discounts" :key="item.id" class="featured-item-2" @click="$router.push('/tukarpoin/redeem/'+item.id)">
-        <div class="py-5 px-7 jeruk">
-          <v-row>
-            <v-col cols="4">
-              <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
-            </v-col>
-            <v-col cols="8">
-              <v-row no-gutters>
-                <v-col cols="1">&nbsp;</v-col>
-                <v-col cols="11">
-                  <strong
-                    style="text-decoration:line-through"
-                    class="text-14 red--text"
-                  >{{item.promoted_price}}</strong>
-                </v-col>
-              </v-row>
-              <v-row no-gutters>
-                <v-col cols="1">
-                  <img
-                    src="/img/poin.png"
-                    alt
-                    width="16"
-                    class="mr-1 mt-1"
-                    style="vertical-align:top"
-                  />
-                </v-col>
-                <v-col cols="11">
-                  <strong class="text-14" style="line-height:1">{{item.price}}</strong>
-                  <h1 class="mb-2">{{item.title}}</h1>
-                  <v-btn
-                    color="deep-orange"
-                    depressed
-                    dark
-                    small
-                    @click="$router.push('/tukarpoin/redeem/'+item.id)"
-                  >Tukar Poin</v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-        </div>
-      </div>
-    </flickity>
-
-    <div class="devider-small"></div>
-
     <v-container class="mt-5 pt-5 mb-5 pb-5">
       <template v-if="tukarpointab">
+        <v-row align="center" v-if="discounts">
+          <v-col cols="6" class="py-0">
+            <h4 class="text-uppercase">Penawaran Terbatas</h4>
+          </v-col>
+          <v-col cols="6" class="text-right py-0" v-if="expire">
+            <no-ssr>
+              <flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
+            </no-ssr>
+          </v-col>
+        </v-row>
+        <!-- LATEST -->
+        <flickity
+          class="tukarpoinslide my-5"
+          v-if="discounts"
+          ref="flashPoin"
+          :options="flickityOptions"
+        >
+          <div
+            v-for="item in discounts"
+            :key="item.id"
+            class="featured-item-2"
+            @click="$router.push('/tukarpoin/redeem/'+item.id)"
+          >
+            <div class="py-5 px-7 jeruk">
+              <v-row>
+                <v-col cols="4">
+                  <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
+                </v-col>
+                <v-col cols="8">
+                  <v-row no-gutters>
+                    <v-col cols="1">&nbsp;</v-col>
+                    <v-col cols="11">
+                      <strong
+                        style="text-decoration:line-through"
+                        class="text-14 red--text"
+                      >{{item.promoted_price}}</strong>
+                    </v-col>
+                  </v-row>
+                  <v-row no-gutters>
+                    <v-col cols="1">
+                      <img
+                        src="/img/poin.png"
+                        alt
+                        width="16"
+                        class="mr-1 mt-1"
+                        style="vertical-align:top"
+                      />
+                    </v-col>
+                    <v-col cols="11">
+                      <strong class="text-14" style="line-height:1">{{item.price}}</strong>
+                      <h1 class="mb-2">{{item.title}}</h1>
+                      <v-btn
+                        color="deep-orange"
+                        depressed
+                        dark
+                        small
+                        @click="$router.push('/tukarpoin/redeem/'+item.id)"
+                      >Tukar Poin</v-btn>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </div>
+          </div>
+        </flickity>
+
+        <div class="devider-small"></div>
         <v-row>
           <v-col cols="12" class="py-0">
-            <h4 class="text-uppercase">Rewards Lainnya</h4>
+            <h4 class="text-uppercase mt-4">Rewards Lainnya</h4>
           </v-col>
         </v-row>
         <v-row
@@ -76,20 +80,24 @@
           :key="'topview-'+article.id+'-'+i"
           @click="$router.push('/tukarpoin/redeem/'+article.id)"
         >
-			<v-col cols="12" v-if="i%5 == 0">
-				<!-- ADSENSE -->
-				<InFeedAdsense
-				data-ad-layout-key="-fb+5w+4e-db+86"
-				data-ad-client="ca-pub-6581994114503986"
-				data-ad-slot="7916120444"
-				></InFeedAdsense>
-			</v-col>
+          <v-col cols="12" v-if="i%5 == 0">
+            <!-- ADSENSE -->
+            <InFeedAdsense
+              data-ad-layout-key="-fb+5w+4e-db+86"
+              data-ad-client="ca-pub-6581994114503986"
+              data-ad-slot="7916120444"
+            ></InFeedAdsense>
+          </v-col>
           <v-col cols="4" :class="article.expired ? 'expired': 'active'">
             <div class="jeruk pa-3">
               <v-img contain :src="article.image" aspect-ratio="1" class="jeruk"></v-img>
             </div>
           </v-col>
-          <v-col cols="8" :class="article.expired ? 'expired': 'active'" class="d-flex align-content-space-between flex-wrap">
+          <v-col
+            cols="8"
+            :class="article.expired ? 'expired': 'active'"
+            class="d-flex align-content-space-between flex-wrap"
+          >
             <div class="d-block mb-2 w-100">
               <h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
               <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
@@ -102,7 +110,7 @@
                 dark
                 small
                 @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
-              > {{article.expired ? 'Lihat' : 'Tukar Poin'}} </v-btn>
+              >{{article.expired ? 'Lihat' : 'Tukar Poin'}}</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -138,17 +146,17 @@
     </v-container>
 
     <v-bottom-navigation
-		fixed
-		dark
-		grow
-		color="white"
-		background-color="#2C2C2D"
-		height="80"
-		class="pwmenubottom"
-		v-model="hehe"
-	>
+      fixed
+      dark
+      grow
+      color="white"
+      background-color="#2C2C2D"
+      height="80"
+      class="pwmenubottom"
+      v-model="hehe"
+    >
       <v-btn @click="tukarpointab=true;syarattab=false">
-		<span>Rewards</span>
+        <span>Rewards</span>
         <img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
 
@@ -156,7 +164,7 @@
         <span>How to</span>
         <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
-	  <ShareButton2 />
+      <ShareButton2 />
     </v-bottom-navigation>
   </section>
 </template>
@@ -168,12 +176,12 @@ import ShareButton2 from "@/components/common/ShareButton2";
 export default {
   name: "TukarPoin",
   components: {
-	FlipCountdown,
-	ShareButton2
+    FlipCountdown,
+    ShareButton2
   },
   data() {
     return {
-		hehe:0,
+      hehe: 0,
       domainTitle: process.env.domainTitle,
       tukarpointab: true,
       syarattab: false,
@@ -247,14 +255,14 @@ export default {
 
 <style lang="scss">
 .tukarpoinslide {
-	height: 230px!important;
-	.featured-item-2 {
-	width: 100%;
-	height: 230px!important;
-		.jeruk {
-			height: 230px!important;
-		}
-	}
+  height: 230px !important;
+  .featured-item-2 {
+    width: 100%;
+    height: 230px !important;
+    .jeruk {
+      height: 230px !important;
+    }
+  }
 }
 
 .poinbutuh {
@@ -289,12 +297,12 @@ export default {
   width: 100%;
 }
 .jeruk {
-	background: #ff9800;
+  background: #ff9800;
 }
 .expired {
-	filter: grayscale(100%)
+  filter: grayscale(100%);
 }
 .tukarpoin-content p {
-	font-size: 16px!important;
+  font-size: 16px !important;
 }
 </style>

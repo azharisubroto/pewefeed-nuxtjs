@@ -30,9 +30,9 @@
                     @click="submit()"
                     color="deep-orange"
                     class="mt-4"
+					block
                     dark
                     depressed
-                    small
                   >PROCESS</v-btn>
                 </v-form>
               </v-col>

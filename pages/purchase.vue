@@ -571,6 +571,50 @@
       </v-stepper>
     </v-card>
 
+	<!-- SUKSES -->
+	<v-bottom-sheet v-model="success">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <v-row class="pa-0" align="center">
+			  <v-col cols="2">
+				  <v-btn
+					dark
+					icon
+					tile
+					style="border-right: 0px solid #717171"
+					light
+					@click="success = false;"
+				>
+					<v-icon>mdi-close</v-icon>
+				</v-btn>
+			  </v-col>
+				<v-col cols="8" class="deep-orange--text text-center">
+					SUCCESS
+				</v-col>
+		  </v-row>
+        </v-toolbar>
+
+        <div class="mx-2">
+          <div class="pb-10">
+            <v-row align="center" justify="center">
+              <v-icon color="green" class="display-3">mdi-check-circle</v-icon>
+            </v-row>
+            <v-row align="center" justify="center">
+              <p class="heading mt-4 text-center">
+                PERIKSA HANDPHONE ANDA
+                <br />UNTUK PROSES SELANJUTNYA
+              </p>
+            </v-row>
+            <v-row align="center" justify="center" class="mx-4">
+              <div>
+                <v-btn @click="success = false" dark color="deep-orange" class="text-capitalize">CLOSE</v-btn>
+              </div>
+            </v-row>
+          </div>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+
     <IframePreview
       :dialogVisible="iframeDialogVisible"
       :invoiceUrl="invoiceUrl"
@@ -740,7 +784,8 @@ export default {
       ],
       iframeDialogVisible: false,
 	  invoiceUrl: "",
-	  finalbuttondisabled: true
+	  finalbuttondisabled: true,
+	  success: true,
     };
   },
   components: {
@@ -972,7 +1017,8 @@ export default {
           const res = await PurchaseService.BuyVip(sendform);
           vm.responsemessage = res.data.message;
           if (res.status == 200) {
-            this.e1 = 8;
+			this.e1 = 1;
+			this.success = true
           }
         } catch (error) {
           console.log(error);
