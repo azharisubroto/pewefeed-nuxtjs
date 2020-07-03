@@ -4,13 +4,13 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const state = () => ({
-  isLoggedIn: false
+  isLoggedIn: false,
 })
 
 export const mutations = {
   login(state, login) {
     state.isLoggedIn = login
-  }
+  },
 }
 
 export const getters = {
@@ -23,7 +23,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       item: {},
-      meta: {}
+	  meta: {},
+	  storehelpStep: false
     },
     mutations: {
       SET_USER(state, item) {
@@ -37,7 +38,10 @@ const createStore = () => {
       },
       SET_HOST(state, host) {
         state.host = host
-      }
+	  },
+	  SET_HELP(state, val) {
+		state.storehelpStep = val
+	  }
     },
     actions: {
       nuxtServerInit({ commit }, { req }) {

@@ -10,8 +10,14 @@
           <div class="flex-grow-1"></div>
         </template>
         <template v-else>
-          <v-btn @click="historyBack()" small icon>&nbsp;</v-btn>
-          <div class="flex-grow-1"></div>
+        	<template v-if="wowtab == 2 && $store.state.storehelpStep > 1">
+				<v-btn @click="helpBack()" small icon><v-icon>mdi-chevron-left</v-icon></v-btn>
+				<div class="flex-grow-1"></div>
+        	</template>
+			<template v-else>
+				<v-btn small icon>&nbsp;</v-btn>
+				<div class="flex-grow-1"></div>
+        	</template>
         </template>
 
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
@@ -459,7 +465,11 @@ export default {
   methods: {
     historyBack() {
       this.$router.back();
-    },
+	},
+	helpBack(){
+		var toStep = parseFloat(this.$store.state.storehelpStep - 1)
+		this.$store.commit('SET_HELP', toStep);
+	},
 	clearStorage() {
 		localStorage.removeItem('tptab');
 		this.wowtab = 0
@@ -641,7 +651,7 @@ export default {
         this.wowtab = 3
         this.fetchDaily()
       }
-    }
+	},
   }
 };
 </script>
