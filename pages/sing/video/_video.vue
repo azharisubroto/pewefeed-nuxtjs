@@ -312,7 +312,16 @@ export default {
 				console.log(data);
 				this.content2 = data
 			} catch (error) {
-				console.log(error)
+				console.log(error);
+				if (error.response && error.response.status == 422) {
+				alert(error.response.data.message);
+				} else if (error.response && error.response.status == 500) {
+				alert("an error occured");
+				} else if (error.response && error.response.status == 401) {
+				alert('Mohon Maaf :(, Anda harus login')
+				} else {
+				alert("error! " + error.message);
+				}
 			}
 		},
 		async getVideoDetail(slug) {
