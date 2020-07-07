@@ -90,8 +90,8 @@
 		</v-bottom-sheet>
 
 		<div class="devider-small"></div>
-		<div v-if="peserta.length > 0">
-			<div class="pesertalist px-4" v-for="(item, i) in peserta" :key="'peserta-'+i">
+		<div v-if="pesertaloop.length > 0">
+			<div class="pesertalist px-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
 				<SingItem :item="item"/>
 			</div>
 		</div>
@@ -140,7 +140,7 @@ import UploadVideo from "@/components/sing/UploadVideo";
 import Sorter from "@/components/sing/Sorter";
 export default {
 	name:"StageContent",
-	props: ['title'],
+	props: ['title', 'pesertaloop'],
 	components: {
 		ShareButton2,
 		SingAppBar,

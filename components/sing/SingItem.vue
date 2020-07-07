@@ -1,35 +1,36 @@
 <template>
-	<div @click="$router.push('/sing/video/'+item.slug)">
+	<div>
 		<v-row>
 			<v-col cols="6">
-				<v-img :src="item.video_thumb"></v-img>
+				<a @click="$router.push('/sing/video/'+item.id)"><v-img :src="item.video.thumbnail_url"></v-img></a>
+				<!-- <div v-html="item.video.html"></div> -->
 			</v-col>
 			<v-col cols="6">
 				<div class="text-center pt-4">
-					<v-avatar>
-						<v-img :src="item.avatar"></v-img>
+					<v-avatar @click="$router.push('/sing/video/'+item.id)">
+						<v-img :src="item.customer.avatar"></v-img>
 					</v-avatar>
 					<div class="my-3"></div>
-					{{item.name}}
+					{{item.customer.name}}
 				</div>
 			</v-col>
 		</v-row>
 		<div class="devider-small my-2"></div>
 		<v-row class="text-center">
 			<v-col cols="4">
-				<div @click="item.star=!item.star">
+				<div @click="item.is_star=!item.is_star">
 					<strong>STAR</strong><br>
-					<v-icon v-if="item.star" color="yellow">mdi-star</v-icon>
+					<v-icon v-if="item.is_star" color="yellow">mdi-star</v-icon>
 					<v-icon v-else>mdi-star-outline</v-icon>
 				</div>
 			</v-col>
 			<v-col cols="4">
 				<strong>VOTE</strong><br>
-				{{item.vote}}
+				{{item.total_vote}}
 			</v-col>
 			<v-col cols="4">
 				<strong>COMMENTS</strong><br>
-				{{item.comments}}
+				{{item.total_comments}}
 			</v-col>
 		</v-row>
 	</div>

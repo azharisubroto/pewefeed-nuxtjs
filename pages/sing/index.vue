@@ -1,36 +1,39 @@
 <template>
 	<section class="sing">
-		<SingAppBar :back="false"/>
+		<div v-if="content != null" >
 
-		<Video/>
+			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
 
-		<template v-if="singtab == 0">
-			<v-list color="transparent" class="mb-10">
-				<v-list-item-group color="dark">
-					<template v-for="(item, i) in singcontent">
-					<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-					<v-list-item :key="'persmenu-'+i" :to="item.to">
-						<v-list-item-content>
-							<v-list-item-title>
-								{{item.title}}
-							</v-list-item-title>
-						</v-list-item-content>
-						<v-list-item-icon>
-							<v-icon>mdi-chevron-right</v-icon>
-						</v-list-item-icon>
-					</v-list-item>
-					<div :key="'dvdr-'+i" class="devider-small"></div>
-					</template>
-					<div class="devider-small"></div>
-				</v-list-item-group>
-			</v-list>
-		</template>
+			<Video/>
 
-		<template v-if="singtab == 1">
-			<v-container class="text-center pa-10">
-				HADIAH
-			</v-container>
-		</template>
+			<template v-if="singtab == 0">
+				<v-list color="transparent" class="mb-10">
+					<v-list-item-group color="dark">
+						<template v-for="(item, i) in singcontent">
+						<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
+						<v-list-item :key="'persmenu-'+i" :to="item.to">
+							<v-list-item-content>
+								<v-list-item-title>
+									{{item.title}}
+								</v-list-item-title>
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
+						<div :key="'dvdr-'+i" class="devider-small"></div>
+						</template>
+						<div class="devider-small"></div>
+					</v-list-item-group>
+				</v-list>
+			</template>
+
+			<template v-if="singtab == 1">
+				<v-container class="text-center pa-10">
+					HADIAH
+				</v-container>
+			</template>
+		</div>
 
 		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
@@ -60,6 +63,8 @@
 import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import Video from "@/components/sing/Video";
+import SingService from '@/services/SingService'
+
 export default {
 	name:"Sing",
 	components: {
@@ -70,6 +75,7 @@ export default {
 	data(){
 		return {
 			singtab: 0,
+			content: null,
 			singcontent: [
 				{
 					title: 'Cara Ikutan',
@@ -83,29 +89,44 @@ export default {
 					title: 'Download Video',
 					to: '/sing/download-video',
 				},
-				{
-					title: 'Stage 1: Audisi',
-					to: '/sing/stage-1',
-				},
-				{
-					title: 'Stage 2: Semifinal',
-					to: '/sing/stage-2',
-				},
-				{
-					title: 'Stage 3: Final',
-					to: '/sing/stage-3',
-				},
-				{
-					title: 'Winner',
-					to: '/sing/winners',
-				},
-			]
+			],
+		}
+	},
+	methods: {
+		async getPromotedVideo() {
+			console.log('fetching promoted video...')
+			try {
+				const res = await SingService.getPromoted()
+				const data = await res.data.data
+				this.content = data
+				this.$store.commit('SET_SING_VIDEO', data.full_video)
+				console.log(data)
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		async getStages() {
+			console.log('getting stages');
+			try {
+				const res = await SingService.getStage();
+				const data = await res.data.data
+				data.forEach(el => {
+					this.singcontent.push({
+						title: el.stage,
+						to: '/sing/stage/' + el.slug,
+					})
+				});
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	},
 	mounted() {
 		if( this.$router.currentRoute.query['tab'] ) {
 			this.singtab = parseInt(this.$router.currentRoute.query['tab'])
 		}
+		this.getPromotedVideo();
+		this.getStages();
 	}
 }
 </script>
