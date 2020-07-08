@@ -35,5 +35,11 @@ export default {
 	},
 	uploadVideo(params) {
 		return AuthApi().post('/member/program/sing-with/upload', params)
+	},
+	getHelp() {
+		return Api().get('/program/sing-with/helps/all')
+	},
+	getHelpDetail(slug) {
+		return Api().get('/program/sing-with/helps/detail/'+slug)
 	}
 }

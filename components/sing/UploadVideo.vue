@@ -112,13 +112,13 @@ export default {
 		} catch (error) {
 			console.log(error)
 			if (error.response && error.response.status == 422) {
-				console.log(error.response.data.message);
+				alert(error.response.data.message);
 			} else if (error.response && error.response.status == 500) {
-				console.log("an error occured");
+				alert("an error occured");
 			} else if (error.response && error.response.status == 401) {
-				console.log('Mohon Maaf :(, Anda harus login')
+				alert('Mohon Maaf :(, Anda harus login')
 			} else {
-				console.log("error! " + error.message);
+				alert("error! " + error.message);
 			}
 		}
 	}
