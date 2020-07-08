@@ -1,17 +1,18 @@
 <template>
 	<div>
-		<SingAppBar title="STAGE 1 : AUDISI" :back="true"/>
-		<v-container class="py-5">
+		<SingAppBar :title="content2 != null ? content2.stage : ''" :back="true"/>
+
+		<v-container class="py-5" v-if="content2!= null">
 			<v-avatar class="mr-3">
-				<v-img :src="content.customer.avatar ? content.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+				<v-img :src="content2.customer.avatar ? content2.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 			</v-avatar>
-			{{content.customer.name}}
+			{{content2.customer.name}}
 		</v-container>
 
-		<Video/>
+		<div v-if="content2 != null" v-html="content2.video.html"></div>
 
 		<template v-if="singtab == 0">
-			<v-container>
+			<v-container v-if="content2 != null">
 				<v-alert
 				outlined
 				type="warning"
@@ -28,7 +29,7 @@
 			<v-container>
 				<v-row class="text-center">
 					<v-col cols="4">
-						<div @click="content.star=!content.star">
+						<div @click="content2.is_star=!content2.is_star">
 							<strong>STAR</strong><br>
 							<v-icon v-if="content.star" color="yellow">mdi-star</v-icon>
 							<v-icon v-else>mdi-star-outline</v-icon>
@@ -36,14 +37,14 @@
 					</v-col>
 					<v-col cols="4">
 						<strong>VOTE</strong><br>
-						{{content.votes}}
+						{{content2.total_vote}}
 					</v-col>
 					<v-col cols="4">
 						<strong>COMMENTS</strong><br>
-						{{content.comments}}
+						{{content2.total_comments}}
 					</v-col>
 					<v-col cols="12" class="text-center">
-						<v-btn color="deep-orange" @click="content.star=true">Beri Vote</v-btn>
+						<v-btn color="deep-orange" @click="content2.total_vote+1;content2.is_star=!content2.is_star;sendVote(content2.id);">Beri Vote</v-btn>
 					</v-col>
 				</v-row>
 			</v-container>
@@ -70,7 +71,7 @@
 			<v-container class="px-5">
 				<div class="text-16 weight-normal">VOTERS</div>
 
-				<div v-for="(voter, i) in content.voters" class="px-3 py-3" :key="'voter-'+i">
+				<div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
 					<div class="d-flex" style="width:100%;">
 						<div class="mr-3">
 							<v-avatar>
@@ -218,12 +219,12 @@ import SingAppBar from "@/components/sing/SingAppBar";
 import Video from "@/components/sing/Video";
 import ArticleService from "@/services/ArticleService";
 import CommentList from "@/components/common/CommentList";
+import SingService from "@/services/SingService";
 export default {
 	name:"SingVideoPage",
 	components: {
 		ShareButton2,
 		SingAppBar,
-		Video,
 		CommentList
 	},
 	data() {
@@ -241,35 +242,11 @@ export default {
 				},
 				star: false,
 				votes: 100,
-				voters: [
-					{
-						name: 'Fahli',
-						avatar: '//via.placeholder.com/80',
-						date: '10 Juni 2020, 11:00'
-					},
-					{
-						name: 'Fahli',
-						avatar: '//via.placeholder.com/80',
-						date: '10 Juni 2020, 11:00'
-					},
-					{
-						name: 'Fahli',
-						avatar: '//via.placeholder.com/80',
-						date: '10 Juni 2020, 11:00'
-					},
-					{
-						name: 'Fahli',
-						avatar: '//via.placeholder.com/80',
-						date: '10 Juni 2020, 11:00'
-					},
-					{
-						name: 'Fahli',
-						avatar: '//via.placeholder.com/80',
-						date: '10 Juni 2020, 11:00'
-					},
-				],
+				voters: null,
 				comments: 234
 			},
+			content2: this.$store.state.sing_detail,
+			voters: this.$store.state.sing_voters,
 
 			comment_tab: 0,
 			comments: [],
@@ -324,16 +301,78 @@ export default {
 			}
 		}
 	},
+	async fetch ({ store, params }) {
+		//console.log('fetch this')
+		//console.log(params.articleslug)
+		var item = await SingService.getDetailVideo(params.video)
+		.then(res => {
+			return res.data
+		})
+		const data = item
+
+		// Voters
+		let voters = data.voters
+		let votersTemp = []
+		voters.forEach(el => {
+			votersTemp.push({
+				name: el.name,
+				avatar: el.avatar,
+				date: el.vote_date
+			})
+		});
+		store.commit('SET_SING_VOTERS', votersTemp);
+		store.commit('SET_SING_SINGLE', item);
+		console.log(JSON.parse(JSON.stringify(item)))
+	},
 	methods: {
+		async sendVote(id) {
+			console.log('sendVote')
+			try {
+				const res =  await SingService.sendVote({
+					customer_video_id: id
+				});
+				const data = res.data
+				console.log(data);
+			} catch (error) {
+				console.log(error);
+				if (error.response && error.response.status == 422) {
+				alert(error.response.data.message);
+				} else if (error.response && error.response.status == 500) {
+				alert("an error occured");
+				} else if (error.response && error.response.status == 401) {
+				alert('Mohon Maaf :(, Anda harus login')
+				} else {
+				alert("error! " + error.message);
+				}
+			}
+		},
+		async getVideoDetail(slug) {
+			console.log('getVideoDetail')
+			try {
+				const res =  await SingService.getDetailVideo(slug);
+				const data = res.data
+				console.log(data);
+				this.content2 = data
+				let voters = data.voters
+				let votersTemp = []
+				voters.forEach(el => {
+					votersTemp.push({
+						name: el.name,
+						avatar: el.avatar,
+						date: el.vote_date
+					})
+				});
+				this.voters = votersTemp;
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		async fetchComment() {
 			try {
-				const res = await ArticleService.getComments(
-					"news",
-					'ganti-nama-software-antivirus-microsoft-defender-bakal-hadir-untuk-smartphone',
-					1
-				);
-				// console.log(res)
+				const res = await SingService.getComments(this.$route.params.video);
+				//console.log(res.data.data)
 				this.comments = res.data.data.comments;
+				this.starcomments = res.data.data.artist_comments;
 				this.totalComment = res.data.pagination.total;
 				this.comments_fetched = true;
 
@@ -371,7 +410,7 @@ export default {
 				this.moreLoadingComment = false;
 			}
 		},
-	}
+	},
 }
 </script>
 <style lang="scss">

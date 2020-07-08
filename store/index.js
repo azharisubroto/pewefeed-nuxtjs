@@ -24,7 +24,10 @@ const createStore = () => {
     state: {
       item: {},
 	  meta: {},
-	  storehelpStep: false
+	  storehelpStep: false,
+	  sing_video: null,
+	  sing_detail: null,
+	  sing_voters: null
     },
     mutations: {
       SET_USER(state, item) {
@@ -41,6 +44,15 @@ const createStore = () => {
 	  },
 	  SET_HELP(state, val) {
 		state.storehelpStep = val
+	  },
+	  SET_SING_VIDEO(state, val) {
+		  state.sing_video = val
+	  },
+	  SET_SING_SINGLE(state, val) {
+		  state.sing_detail = val
+	  },
+	  SET_SING_VOTERS(state, val) {
+		  state.sing_voters = val
 	  }
     },
     actions: {

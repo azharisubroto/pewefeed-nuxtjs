@@ -10,13 +10,20 @@
         <v-col cols="2">
           <v-avatar size="50">
             <img
+				v-if="comment.customer"
               :src="comment.customer.avatar ? comment.customer.avatar : '/img/user.jpeg'"
+              onerror="this.src='/img/user.jpeg';"
+            />
+			<img
+				v-if="comment.avatar"
+              :src="comment.avatar ? comment.avatar : '/img/user.jpeg'"
               onerror="this.src='/img/user.jpeg';"
             />
           </v-avatar>
         </v-col>
         <v-col cols="10">
-          <strong>{{ comment.customer.name }}</strong>
+          <strong v-if="comment.customer">{{ comment.customer.name }}</strong>
+          <strong v-else>{{ comment.artist_name }}</strong>
           <br />
           <v-rating
             v-if="comment.rate && comment.rate >= 0"

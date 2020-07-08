@@ -1,5 +1,5 @@
 <template>
-  	<v-bottom-sheet v-model="intDialogVisible">
+  	<v-bottom-sheet v-model="dialogVisible" persistent>
       <v-sheet height="100%">
         <v-toolbar :elevation="1">
           <!-- Arrow -->
@@ -9,7 +9,7 @@
             tile
             style="border-right: 0px solid #717171"
             light
-            @click="intDialogVisible = false;"
+            @click="closeIt()"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -39,9 +39,10 @@
 				<v-text-field
 					label="tempelkan URL video dari feed instagram kamu di sini"
 					solo
+					v-model="ig_url"
 				></v-text-field>
 
-				<v-btn color="deep-orange" dark block large @click="uploadStatus='success'">UPLOAD</v-btn>
+				<v-btn color="deep-orange" dark block large @click="uploadVideo()">UPLOAD</v-btn>
 			</template>
 
 			<template v-if="uploadStatus == 'success'">
@@ -50,7 +51,7 @@
 					<img src="/img/checklist.png" width="50">
 				</div>
 
-				<v-btn color="deep-orange" dark block large @click="uploadStatus='success'">Lihat jumlah vote</v-btn>
+				<v-btn color="deep-orange" dark block large @click="uploadVideo()">Lihat jumlah vote</v-btn>
 			</template>
 		  </v-container>
         </div>
@@ -59,73 +60,68 @@
 </template>
 
 <script>
+import SingService from '../../services/SingService'
 export default {
   name: "UploadVideo",
   props: {
 	dialogVisible: Boolean,
-	punyaaku: Array
+	punyaaku: Array,
+	stage: Number
   },
   data() {
     return{
 		logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
 		uploadStatus: 'start',
+		ig_url: null,
+		thisVisible: this.dialogVisible
     }
   },
   watch: {
-	  uploadStatus: function(newval, oldval) {
-		  if( newval == 'success' ) {
-			  	var datapunyaku = {
-					name: 'Anak Gaul',
-					avatar: 'https://via.placeholder.com/80',
-					video_thumb: 'https://via.placeholder.com/350x250',
-					vote: 0,
-					comments: 0,
-					star: false,
-					slug: 'anak-gaul',
-				}
-				this.$bus.$emit('datapunyaku', datapunyaku)
-		  }
-	  }
-  },
-  computed: {
-    /* Init Modal */
-    intDialogVisible: {
-      get: function () {
-        if (this.dialogVisible) {
-          // Some dialog initialization code could be placed here
-          // because it is called only when this.dialogVisible changes
-          this.$emit('open');
-        }
-
-        return this.dialogVisible
-      },
-      set: function (value) {
-        if (!value) {
-          this.$emit('close')
-        }
-      }
-    },
-    notVipVisible: {
-      get: function () {
-        if (this.dialogVisible) {
-          // Some dialog initialization code could be placed here
-          // because it is called only when this.dialogVisible changes
-          this.$emit('open');
-        }
-
-        return this.dialogVisible
-      },
-      set: function (value) {
-        if (!value) {
-          this.$emit('close')
-        }
-      }
-    }
+	//   uploadStatus: function(newval, oldval) {
+	// 	  if( newval == 'success' ) {
+	// 		  	var datapunyaku = {
+	// 				name: 'Anak Gaul',
+	// 				avatar: 'https://via.placeholder.com/80',
+	// 				video_thumb: 'https://via.placeholder.com/350x250',
+	// 				vote: 0,
+	// 				comments: 0,
+	// 				star: false,
+	// 				slug: 'anak-gaul',
+	// 			}
+	// 			this.$bus.$emit('datapunyaku', datapunyaku)
+	// 	  }
+	//  },
   },
   methods: {
     closeIt() {
-      this.$emit('close')
-    }
+	  this.$bus.$emit('uploadclose');
+	},
+	async uploadVideo() {
+		const data = {
+			'url' : this.ig_url,
+			'program_video_id' : this.stage
+		}
+		try {
+			const res = await SingService.uploadVideo(data);
+			console.log('status',res);
+			if( res.status == 200 ) {
+				//window.location.reload(true);
+				//this.$bus.$emit('uploadclose');
+				this.uploadStatus = 'success'
+			}
+		} catch (error) {
+			console.log(error)
+			if (error.response && error.response.status == 422) {
+				console.log(error.response.data.message);
+			} else if (error.response && error.response.status == 500) {
+				console.log("an error occured");
+			} else if (error.response && error.response.status == 401) {
+				console.log('Mohon Maaf :(, Anda harus login')
+			} else {
+				console.log("error! " + error.message);
+			}
+		}
+	}
   }
 }
 </script>

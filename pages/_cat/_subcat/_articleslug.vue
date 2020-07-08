@@ -1,5 +1,5 @@
 <template>
-  <Detail :respon="item"/>
+  <Detail :respon="item" :userid="userid"/>
 </template>
 
 <script>
@@ -13,9 +13,11 @@ export default {
   data() {
     return {
       item: this.$store.state.item,
-      origin: this.$store.state.host,
+	  origin: this.$store.state.host,
+
     }
   },
+
   async fetch ({ store, params }) {
     //console.log('fetch this')
     //console.log(params.articleslug)
@@ -24,7 +26,6 @@ export default {
       return res.data.data
     })
     store.commit('SET_ITEM', item)
-    console.log(JSON.parse(JSON.stringify(item)))
   },
   head () {
     let host = this.origin

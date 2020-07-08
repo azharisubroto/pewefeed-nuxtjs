@@ -1,12 +1,13 @@
 <template>
 	<div class="sing video-container mb-4">
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/wJYUWuqFjgA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<iframe v-if="$store.state.sing_video" width="560" height="315" :src="'https://www.youtube.com/embed/'+$store.state.sing_video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 </template>
 
 <script>
 export default {
-	name:"SingVideo"
+	name:"SingVideo",
+	props: ['video_id']
 }
 </script>
 
