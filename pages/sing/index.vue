@@ -9,6 +9,21 @@
 			<template v-if="singtab == 0">
 				<v-list color="transparent" class="mb-10">
 					<v-list-item-group color="dark">
+						<template v-for="(item, i) in help">
+						<div v-if="i==0" :key="'dvdrxx-'+i" class="devider-small"></div>
+						<v-list-item :key="'persmenuxxx-'+i" :to="'/sing/help/'+item.to">
+							<v-list-item-content>
+								<v-list-item-title>
+									{{item.title}}
+								</v-list-item-title>
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
+						<div :key="'dvdx-'+i" class="devider-small"></div>
+						</template>
+
 						<template v-for="(item, i) in singcontent">
 						<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
 						<v-list-item :key="'persmenu-'+i" :to="item.to">
@@ -76,20 +91,8 @@ export default {
 		return {
 			singtab: 0,
 			content: null,
-			singcontent: [
-				{
-					title: 'Cara Ikutan',
-					to: '/sing/cara-ikutan',
-				},
-				{
-					title: 'Cara Vote',
-					to: '/sing/cara-vote',
-				},
-				{
-					title: 'Download Video',
-					to: '/sing/download-video',
-				},
-			],
+			singcontent: [],
+			help: []
 		}
 	},
 	methods: {
@@ -119,6 +122,23 @@ export default {
 			} catch (error) {
 				console.log(error);
 			}
+		},
+		async getHelp() {
+			try {
+				const res = await SingService.getHelp();
+				const help =  await res.data.data
+				console.log(help)
+				let tempHelp = []
+				help.forEach(el => {
+					tempHelp.push({
+						title: el.label,
+						to: el.slug
+					});
+				});
+				this.help = tempHelp;
+			} catch (error) {
+
+			}
 		}
 	},
 	mounted() {
@@ -127,6 +147,7 @@ export default {
 		}
 		this.getPromotedVideo();
 		this.getStages();
+		this.getHelp();
 	}
 }
 </script>
