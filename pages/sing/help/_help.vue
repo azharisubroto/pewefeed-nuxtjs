@@ -2,7 +2,7 @@
 	<section class="sing">
 		<div v-if="label != null" >
 
-			<SingAppBar :back="false" :title="label ? label : 'Sing with Latinka'"/>
+			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
 			<Video/>
 
@@ -37,11 +37,11 @@
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/')">
 				<span>Join</span>
 				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/')">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
