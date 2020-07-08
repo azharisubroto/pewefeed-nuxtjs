@@ -13,16 +13,18 @@
 		</v-container>
 
 		<v-container v-if="punyaaku.length == 0" style="background: #3838ca" class="text-center py-10">
-			<v-btn color="deep-orange" class="px-5" dark @click="dialogVisible=!dialogVisible">Upload Video Kamu</v-btn>
+			<v-btn color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 		</v-container>
 
-		<div v-if="punyaaku.length > 0">
+		<div v-if="userid != null">
 			<v-container>
 				<div class="text-16"><strong>POSISI KAMU</strong></div>
 			</v-container>
-			<div style="background:#3838ca;color:white;" class="pesertalist px-4" v-for="(item, i) in punyaaku" :key="'peserta-'+i">
-				<SingItem :item="item"/>
-			</div>
+			<template v-for="(item, i) in pesertaloop">
+				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
+					<SingItem :item="item" />
+				</div>
+			</template>
 		</div>
 
 		<v-container>
@@ -104,7 +106,7 @@
 			></v-pagination>
 		</v-container>
 
-		<UploadVideo :dialogVisible="dialogVisible"/>
+		<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
 
 		<!-- BOTTOM NAVIGATION -->
 		<br><br><br><br>
@@ -140,7 +142,7 @@ import UploadVideo from "@/components/sing/UploadVideo";
 import Sorter from "@/components/sing/Sorter";
 export default {
 	name:"StageContent",
-	props: ['title', 'pesertaloop'],
+	props: ['title', 'pesertaloop', 'stage'],
 	components: {
 		ShareButton2,
 		SingAppBar,
@@ -151,6 +153,7 @@ export default {
 	},
 	data(){
 		return {
+			userid: null,
 			singtab: 0,
 			sorter: false,
 			opensearch: false,
@@ -207,7 +210,9 @@ export default {
 				}
 			],
 			pagination: 1,
-			dialogVisible: false
+			dialogVisible: false,
+			uploadVisible: false,
+			userid: null
 		}
 	},
 	methods: {
@@ -218,7 +223,18 @@ export default {
 	mounted() {
 		this.$bus.$on('datapunyaku', (data) => {
 			this.punyaaku.push(data);
+		});
+		this.$bus.$on('uploadopen', (data) => {
+			this.uploadVisible = true
 		})
+		this.$bus.$on('uploadclose', (data) => {
+			this.uploadVisible = false
+		})
+		if (localStorage.getItem('userdata')) {
+			var userdata = JSON.parse(localStorage.getItem('userdata'));
+			console.log(userdata)
+			this.userid = userdata.data.id
+		}
 	}
 }
 </script>

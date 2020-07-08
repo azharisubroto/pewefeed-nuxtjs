@@ -1,8 +1,7 @@
 <template>
 	<section class="sing">
 		<SingAppBar :title="content ? content.stage.label : 'Stage'" :back="true"/>
-
-		<StageContent v-if="peserta!=null && !isloading" :pesertaloop="peserta" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
+		<StageContent v-if="peserta!=null && !isloading" :userid="userid" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
 		<div v-else-if="peserta == null && isloading" class="pa-10 text-center">Memuat Data...</div>
 		<div v-else-if="peserta == null && !isloading" class="pa-10 text-center">Tidak Ada Data</div>
 	</section>
@@ -23,7 +22,7 @@ export default {
 		return {
 			content: null,
 			peserta: null,
-			isloading: true
+			isloading: true,
 		}
 	},
 	methods: {

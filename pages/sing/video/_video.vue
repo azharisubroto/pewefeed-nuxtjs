@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<SingAppBar :title="content2 != null ? content2.stage : ''" :back="true"/>
+
 		<v-container class="py-5" v-if="content2!= null">
 			<v-avatar class="mr-3">
 				<v-img :src="content2.customer.avatar ? content2.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
@@ -36,11 +37,11 @@
 					</v-col>
 					<v-col cols="4">
 						<strong>VOTE</strong><br>
-						{{content.votes}}
+						{{content2.total_vote}}
 					</v-col>
 					<v-col cols="4">
 						<strong>COMMENTS</strong><br>
-						{{content.comments}}
+						{{content2.total_comments}}
 					</v-col>
 					<v-col cols="12" class="text-center">
 						<v-btn color="deep-orange" @click="content2.total_vote+1;content2.is_star=!content2.is_star;sendVote(content2.id);">Beri Vote</v-btn>
@@ -244,8 +245,8 @@ export default {
 				voters: null,
 				comments: 234
 			},
-			content2: null,
-			voters: null,
+			content2: this.$store.state.sing_detail,
+			voters: this.$store.state.sing_voters,
 
 			comment_tab: 0,
 			comments: [],
@@ -300,17 +301,38 @@ export default {
 			}
 		}
 	},
-	mounted() {
-		this.getVideoDetail(this.$route.params.video);
+	async fetch ({ store, params }) {
+		//console.log('fetch this')
+		//console.log(params.articleslug)
+		var item = await SingService.getDetailVideo(params.video)
+		.then(res => {
+			return res.data
+		})
+		const data = item
+
+		// Voters
+		let voters = data.voters
+		let votersTemp = []
+		voters.forEach(el => {
+			votersTemp.push({
+				name: el.name,
+				avatar: el.avatar,
+				date: el.vote_date
+			})
+		});
+		store.commit('SET_SING_VOTERS', votersTemp);
+		store.commit('SET_SING_SINGLE', item);
+		console.log(JSON.parse(JSON.stringify(item)))
 	},
 	methods: {
-		async sendVote() {
+		async sendVote(id) {
 			console.log('sendVote')
 			try {
-				const res =  await SingService.sendVote();
+				const res =  await SingService.sendVote({
+					customer_video_id: id
+				});
 				const data = res.data
 				console.log(data);
-				this.content2 = data
 			} catch (error) {
 				console.log(error);
 				if (error.response && error.response.status == 422) {
@@ -347,13 +369,10 @@ export default {
 		},
 		async fetchComment() {
 			try {
-				const res = await ArticleService.getComments(
-					"news",
-					'ganti-nama-software-antivirus-microsoft-defender-bakal-hadir-untuk-smartphone',
-					1
-				);
-				// console.log(res)
+				const res = await SingService.getComments(this.$route.params.video);
+				//console.log(res.data.data)
 				this.comments = res.data.data.comments;
+				this.starcomments = res.data.data.artist_comments;
 				this.totalComment = res.data.pagination.total;
 				this.comments_fetched = true;
 
@@ -391,7 +410,7 @@ export default {
 				this.moreLoadingComment = false;
 			}
 		},
-	}
+	},
 }
 </script>
 <style lang="scss">

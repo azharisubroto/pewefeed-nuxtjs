@@ -29,5 +29,11 @@ export default {
 	},
 	sendVote(params) {
 		return AuthApi().post('/member/program/sing-with/make-vote', params);
+	},
+	getComments(params) {
+		return Api().get('/program/sing-with/comments/', params)
+	},
+	uploadVideo(params) {
+		return AuthApi().post('/member/program/sing-with/upload', params)
 	}
 }

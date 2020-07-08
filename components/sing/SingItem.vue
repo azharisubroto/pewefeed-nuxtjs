@@ -2,7 +2,7 @@
 	<div>
 		<v-row>
 			<v-col cols="6">
-				<a @click="$router.push('/sing/video/'+item.id)"><v-img :src="item.video.thumbnail_url"></v-img></a>
+				<a @click="$router.push('/sing/video/'+item.id)"><v-img :src="item.video.thumbnail_url" :aspect-ratio="1"></v-img></a>
 				<!-- <div v-html="item.video.html"></div> -->
 			</v-col>
 			<v-col cols="6">
