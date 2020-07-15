@@ -99,7 +99,7 @@ export default {
 	async uploadVideo() {
 		const data = {
 			'url' : this.ig_url,
-			'program_video_id' : this.stage
+			'program_video_id' : this.$store.state.promoted_video_id
 		}
 		try {
 			const res = await SingService.uploadVideo(data);
