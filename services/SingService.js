@@ -41,5 +41,8 @@ export default {
 	},
 	getHelpDetail(slug) {
 		return Api().get('/program/sing-with/helps/detail/'+slug)
+	},
+	checkAvail(slug) {
+		return AuthApi().get('/member/program/sing-with/check-upload/'+slug)
 	}
 }

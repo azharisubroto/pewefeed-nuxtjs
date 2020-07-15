@@ -8,12 +8,12 @@
 			prominent
 			border="left"
 			>
-				{{title}}
+				{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
 			</v-alert>
 		</v-container>
 
-		<v-container v-if="punyaaku.length == 0" style="background: #3838ca" class="text-center py-10">
-			<v-btn color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+		<v-container style="background: #3838ca" class="text-center py-10">
+			<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 		</v-container>
 
 		<div v-if="userid != null">
@@ -92,13 +92,13 @@
 		</v-bottom-sheet>
 
 		<div class="devider-small"></div>
-		<div v-if="pesertaloop.length > 0">
+		<div v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<div class="pesertalist px-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
 				<SingItem :item="item"/>
 			</div>
 		</div>
 
-		<v-container>
+		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<v-pagination
 				v-model="pagination"
 				:length="100"
@@ -140,9 +140,10 @@ import Video from "@/components/sing/Video";
 import SingItem from "@/components/sing/SingItem";
 import UploadVideo from "@/components/sing/UploadVideo";
 import Sorter from "@/components/sing/Sorter";
+import SingService from '../../services/SingService';
 export default {
 	name:"StageContent",
-	props: ['title', 'pesertaloop', 'stage'],
+	props: ['title', 'pesertaloop', 'stage', 'content'],
 	components: {
 		ShareButton2,
 		SingAppBar,
@@ -158,6 +159,7 @@ export default {
 			sorter: false,
 			opensearch: false,
 			searchModel:'',
+			uploadallowed: false,
 			singcontent: [
 				{
 					title: 'Cara Ikutan',
@@ -219,6 +221,15 @@ export default {
 		historyBack() {
 			this.$router.back();
 		},
+		async checkUploadAvailablity(stage) {
+			try {
+				const res = await SingService.checkAvail(stage);
+				console.log(res.data);
+				this.uploadallowed = res.data.upload_available
+			} catch (error) {
+				console.log(error)
+			}
+		}
 	},
 	mounted() {
 		this.$bus.$on('datapunyaku', (data) => {
@@ -234,6 +245,7 @@ export default {
 			var userdata = JSON.parse(localStorage.getItem('userdata'));
 			console.log(userdata)
 			this.userid = userdata.data.id
+			this.checkUploadAvailablity(this.$route.params.stage);
 		}
 	}
 }
