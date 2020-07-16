@@ -120,6 +120,10 @@ export default {
 						to: '/sing/stage/' + el.slug,
 					})
 				});
+				this.singcontent.push({
+					title: 'Winners',
+					to: '/sing/winners/'
+				})
 			} catch (error) {
 				console.log(error);
 			}
