@@ -22,7 +22,7 @@ export default {
 		return Api().get(`/program/sing-with/comments/${videoid}`);
 	},
 	winnersHome() {
-		return Api().get(`api/program/sing-with/winners/all`);
+		return Api().get(`program/sing-with/winners/all`);
 	},
 	winnersDetail(id) {
 		return Api().get(`/program/sing-with/winners/video/detail/${id}`);

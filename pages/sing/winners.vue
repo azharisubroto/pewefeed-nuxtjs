@@ -2,12 +2,12 @@
 	<section>
 		<SingAppBar title="WINNER" :back="true"/>
 
-		<Video/>
+		<Video />
 
 		<v-container><h4>JUDGES WINNERS</h4></v-container>
 
 		<template v-for="(item, i) in prizeswithpemenang">
-			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.slug)">
+			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.customer.id)">
 				<v-row>
 					<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
 					<v-col cols="2">
@@ -17,11 +17,11 @@
 					</v-col>
 					<v-col cols="9">
 						<div class="winner-name">
-							{{item.customer.username ? item.customer.username : 'No Data'}}
-							<div class="text-14 deep-orange--text">{{item.customer.point ? item.customer.point : 'No'}} Votes</div>
+							{{item.customer.name ? item.customer.name : 'No Data'}}
+							<div class="text-14 deep-orange--text">{{item.total_vote ? item.total_vote : 'No'}} Votes</div>
 						</div>
 						<div>
-							{{item.redeem.name}}
+							{{item.prize.redeem.title}}
 						</div>
 					</v-col>
 				</v-row>
@@ -32,6 +32,31 @@
 		<v-container class="pt-7"><h4>HIGHEST VOTES</h4></v-container>
 
 		<template v-for="(item, i) in prizeswithpemenang">
+			<template v-if="i>=3">
+				<div class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.customer.id)">
+					<v-row>
+						<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
+						<v-col cols="2">
+							<v-avatar>
+								<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
+							</v-avatar>
+						</v-col>
+						<v-col cols="9">
+							<div class="winner-name">
+								{{item.customer.name ? item.customer.name : 'No Data'}}
+								<div class="text-14 deep-orange--text">{{item.total_vote ? item.total_vote : 'No'}} Votes</div>
+							</div>
+							<div>
+								{{item.prize.redeem.title}}
+							</div>
+						</v-col>
+					</v-row>
+				</div>
+				<div v-if="i>3" class="devider-small" :key="'winner-dash-'+i"></div>
+			</template>
+		</template>
+
+		<!-- <template v-for="(item, i) in prizeswithpemenang">
 			<template v-if="i>=3">
 				<div class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.slug)">
 					<v-row>
@@ -54,7 +79,7 @@
 				</div>
 				<div class="devider-small" :key="'winner-dash-'+i"></div>
 			</template>
-		</template>
+		</template> -->
 
 		<br>
 		<br>
@@ -87,6 +112,7 @@
 import ShareButton2 from "@/components/common/ShareButton2";
 import Video from "@/components/sing/Video";
 import SingAppBar from "@/components/sing/SingAppBar";
+import SingService from "@/services/SingService";
 export default {
 	name: "WinnersPage",
 	components: {
@@ -94,71 +120,25 @@ export default {
 		SingAppBar,
 		ShareButton2
 	},
+	mounted(){
+		this.getWinners()
+	},
+	methods:{
+		async getWinners() {
+			try {
+				const res = await SingService.winnersHome()
+				const data = res.data.winners
+				this.prizeswithpemenang = data
+				console.log(data);
+			} catch (error) {
+				console.log(error)
+			}
+		}
+	},
 	data() {
 		return {
 			singtab: 0,
-			prizeswithpemenang: [
-				{
-					"slug": "melynda",
-					"customer":{
-						"id":"",
-						"avatar":"https:\/\/via.placeholder.com\/48\/?text=No+Data",
-						"username":"No Data",
-						"point":"10000"
-					},
-					"redeem":{
-						"min_point":20000,
-						"id":640,
-						"name":"1 Unit Daihatsu Granmax",
-						"image":"https:\/\/be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com\/news\/1592820677.1806.png"
-					}
-				},
-				{
-					"slug": "melynda",
-					"customer":{
-						"id":"",
-						"avatar":"https:\/\/via.placeholder.com\/48\/?text=No+Data",
-						"username":"No Data",
-						"point":"10000"
-					},
-					"redeem":{
-						"min_point":20000,
-						"id":640,
-						"name":"1 Unit Daihatsu Granmax",
-						"image":"https:\/\/be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com\/news\/1592820677.1806.png"
-					}
-				},
-				{
-					"slug": "melynda",
-					"customer":{
-						"id":"",
-						"avatar":"https:\/\/via.placeholder.com\/48\/?text=No+Data",
-						"username":"No Data",
-						"point":"10000"
-					},
-					"redeem":{
-						"min_point":20000,
-						"id":640,
-						"name":"1 Unit Daihatsu Granmax",
-						"image":"https:\/\/be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com\/news\/1592820677.1806.png"
-					}
-				},
-				{
-					"slug": "melynda",
-					"customer":{
-						"id":"",
-						"avatar":"https:\/\/via.placeholder.com\/48\/?text=No+Data",
-						"username":"No Data",
-						"point":"10000"
-					},
-					"redeem":{
-						"min_point":20000,
-						"id":640,
-						"name":"1 Unit Daihatsu Granmax",
-						"image":"https:\/\/be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com\/news\/1592820677.1806.png"
-					}
-				},
-			],
+			prizeswithpemenang: [],
 		}
 	},
 }
