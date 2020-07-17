@@ -172,7 +172,7 @@
     </v-overlay>
 
     <!-- === DAILY POINT MODAL === -->
-    <!-- <DrawerWelcome :dialogVisible="dailyPointModalVisible" @close="myDialogClose" /> -->
+    <DrawerWelcome :dialogVisible="dailyPointModalVisible" @close="myDialogClose" />
 
     <v-snackbar v-model="snackbar" :timeout="timeout" top>
       {{ responsemessage }}
