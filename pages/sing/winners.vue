@@ -7,7 +7,7 @@
 		<v-container><h4>JUDGES WINNERS</h4></v-container>
 
 		<template v-for="(item, i) in prizeswithpemenang">
-			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.customer.id)">
+			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
 				<v-row>
 					<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
 					<v-col cols="2">
@@ -33,7 +33,7 @@
 
 		<template v-for="(item, i) in prizeswithpemenang">
 			<template v-if="i>=3">
-				<div class="px-4" :key="'winner-'+i" @click="$router.push('/sing/winner/'+item.customer.id)">
+				<div class="px-4" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1)); $router.push('/sing/winner/'+item.winner_id)">
 					<v-row>
 						<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
 						<v-col cols="2">
@@ -129,7 +129,7 @@ export default {
 				const res = await SingService.winnersHome()
 				const data = res.data.winners
 				this.prizeswithpemenang = data
-				console.log(data);
+				console.log(JSON.parse(JSON.stringify(data)));
 			} catch (error) {
 				console.log(error)
 			}

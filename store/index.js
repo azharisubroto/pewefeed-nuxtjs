@@ -28,7 +28,8 @@ const createStore = () => {
 	  sing_video: null,
 	  sing_detail: null,
 	  sing_voters: null,
-	  promoted_video_id: 4
+	  promoted_video_id: 4,
+	  judge_num: null
     },
     mutations: {
       SET_USER(state, item) {
@@ -57,6 +58,9 @@ const createStore = () => {
 	  },
 	  SET_SING_VOTERS(state, val) {
 		  state.sing_voters = val
+	  },
+	  SET_JUDGE_NUMBER(state, val) {
+		  state.judge_num = val
 	  }
     },
     actions: {

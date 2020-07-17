@@ -21,17 +21,20 @@ export default {
 	getComments(videoid) {
 		return Api().get(`/program/sing-with/comments/${videoid}`);
 	},
+	postComment(params){
+		return AuthApi().post(`member/program/sing-with/post-comment`, params)
+	},
 	winnersHome() {
 		return Api().get(`program/sing-with/winners/all`);
 	},
 	winnersDetail(id) {
-		return Api().get(`/program/sing-with/winners/video/detail/${id}`);
+		return Api().get(`/program/sing-with/winners/detail/${id}`);
+	},
+	winnerVideoDetail(customer_video_id) {
+		return Api().get(`/program/sing-with/winners/video/detail/${customer_video_id}`);
 	},
 	sendVote(params) {
 		return AuthApi().post('/member/program/sing-with/make-vote', params);
-	},
-	getComments(params) {
-		return Api().get('/program/sing-with/comments/', params)
 	},
 	uploadVideo(params) {
 		return AuthApi().post('/member/program/sing-with/upload', params)
