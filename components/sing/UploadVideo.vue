@@ -1,6 +1,6 @@
 <template>
   	<v-bottom-sheet v-model="dialogVisible" persistent>
-      <v-sheet height="100%">
+      <v-sheet height="100%" :class="[uploadStatus=='loading' ? 'modalloading' : '']">
         <v-toolbar :elevation="1">
           <!-- Arrow -->
           <v-btn
@@ -42,13 +42,21 @@
 					v-model="ig_url"
 				></v-text-field>
 
-				<v-btn color="deep-orange" dark block large @click="uploadVideo()">UPLOAD</v-btn>
+				<v-btn color="deep-orange" dark block large @click="uploadVideo();uploadStatus=='loading'">UPLOAD</v-btn>
 			</template>
 
 			<template v-if="uploadStatus == 'success'">
 
 				<div class="py-8 text-center">
 					<img src="/img/checklist.png" width="50">
+				</div>
+
+				<v-btn color="deep-orange" dark block large @click="uploadVideo()">Lihat jumlah vote</v-btn>
+			</template>
+			<template v-if="uploadStatus == 'failed'">
+
+				<div class="py-8 text-center">
+					<img src="/img/close.svg" width="50">
 				</div>
 
 				<v-btn color="deep-orange" dark block large @click="uploadVideo()">Lihat jumlah vote</v-btn>
@@ -105,9 +113,11 @@ export default {
 			const res = await SingService.uploadVideo(data);
 			console.log('status',res);
 			if( res.status == 200 ) {
-				//window.location.reload(true);
 				//this.$bus.$emit('uploadclose');
 				this.uploadStatus = 'success'
+				setTimeout(() => {
+					window.location.reload(true);
+				}, 2000);
 			}
 		} catch (error) {
 			console.log(error)
@@ -120,6 +130,7 @@ export default {
 			} else {
 				alert("error! " + error.message);
 			}
+			this.uploadStatus = 'failed'
 		}
 	}
   }
@@ -137,5 +148,9 @@ export default {
   }
   .v-dialog {
     z-index:10000;
+  }
+  .modalloading {
+	  cursor: none!important;
+	  opacity: .5;
   }
 </style>

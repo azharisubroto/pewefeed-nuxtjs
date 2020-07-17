@@ -1,34 +1,19 @@
 <template>
 	<section class="sing">
-		<div v-if="content != null" >
+		<div v-if="label != null" >
 
-			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
+			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
 			<Video/>
 
 			<template v-if="singtab == 0">
 				<v-list color="transparent" class="mb-10">
 					<v-list-item-group color="dark">
-						<template v-for="(item, i) in help">
-						<div v-if="i==0" :key="'dvdrxx-'+i" class="devider-small"></div>
-						<v-list-item :key="'persmenuxxx-'+i" :to="'/sing/help/'+item.to">
-							<v-list-item-content>
-								<v-list-item-title>
-									{{item.title}}
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-icon>
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-list-item-icon>
-						</v-list-item>
-						<div :key="'dvdx-'+i" class="devider-small"></div>
-						</template>
-
 						<div class="devider-small"></div>
-						<v-list-item :to="'/sing/download/'">
+						<v-list-item :to="'/sing/download-audisi/'">
 							<v-list-item-content>
 								<v-list-item-title>
-									Download Video
+									Video Audisi
 								</v-list-item-title>
 							</v-list-item-content>
 							<v-list-item-icon>
@@ -37,20 +22,28 @@
 						</v-list-item>
 						<div class="devider-small"></div>
 
-						<template v-for="(item, i) in singcontent">
-						<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-						<v-list-item :disabled="!item.isactive" :key="'persmenu-'+i" :to="item.to" :class="[item.isactive == 1 ? 'active' : 'inactive']">
+						<v-list-item disabled :to="'/sing/download-semifinal/'">
 							<v-list-item-content>
 								<v-list-item-title>
-									{{item.title}}
+									Video Semi Final
 								</v-list-item-title>
 							</v-list-item-content>
 							<v-list-item-icon>
 								<v-icon>mdi-chevron-right</v-icon>
 							</v-list-item-icon>
 						</v-list-item>
-						<div :key="'dvdr-'+i" class="devider-small"></div>
-						</template>
+						<div class="devider-small"></div>
+
+						<v-list-item disabled :to="'/sing/download-final/'">
+							<v-list-item-content>
+								<v-list-item-title>
+									Video Final
+								</v-list-item-title>
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
 						<div class="devider-small"></div>
 					</v-list-item-group>
 				</v-list>
@@ -63,6 +56,9 @@
 			</template>
 		</div>
 
+		<br>
+		<br>
+		<br>
 		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
 			fixed
@@ -74,11 +70,11 @@
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/')">
 				<span>Join</span>
 				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn>
+			<v-btn @click="$router.push('/sing/')">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
@@ -103,71 +99,27 @@ export default {
 	data(){
 		return {
 			singtab: 0,
-			content: null,
+			label: 'Download',
 			singcontent: [],
-			help: []
+			download: null,
+			lirik: null
 		}
 	},
 	methods: {
 		async getPromotedVideo() {
-			console.log('fetching promoted video...')
 			try {
 				const res = await SingService.getPromoted()
 				const data = await res.data.data
-				this.content = data
-				this.$store.commit('SET_SING_VIDEO', data.full_video)
-				this.$store.commit('SET_SING_PROMOTED', data.id)
-				console.log(data)
+				console.log(JSON.parse(JSON.stringify(data)));
+				this.lirik = data.lirik
+				this.download = data.download_video
 			} catch (error) {
 				console.log(error)
 			}
 		},
-		async getStages() {
-			console.log('getting stages');
-			try {
-				const res = await SingService.getStage();
-				const data = await res.data.data
-				data.forEach(el => {
-					this.singcontent.push({
-						title: el.stage,
-						to: '/sing/stage/' + el.slug,
-						isactive: el.is_active
-					})
-				});
-				this.singcontent.push({
-					title: 'Winners',
-					to: '/sing/winners/',
-					isactive: 1
-				})
-			} catch (error) {
-				console.log(error);
-			}
-		},
-		async getHelp() {
-			try {
-				const res = await SingService.getHelp();
-				const help =  await res.data.data
-				console.log(help)
-				let tempHelp = []
-				help.forEach(el => {
-					tempHelp.push({
-						title: el.label,
-						to: el.slug
-					});
-				});
-				this.help = tempHelp;
-			} catch (error) {
-
-			}
-		}
 	},
 	mounted() {
-		if( this.$router.currentRoute.query['tab'] ) {
-			this.singtab = parseInt(this.$router.currentRoute.query['tab'])
-		}
 		this.getPromotedVideo();
-		this.getStages();
-		this.getHelp();
 	}
 }
 </script>
@@ -179,7 +131,7 @@ export default {
 			height: 300px;
 		}
 	}
-	.inactive {
+	.v-list-item--disabled {
 		.v-icon {
 			opacity: .5;
 		}
