@@ -26,6 +26,7 @@ const createStore = () => {
 	  meta: {},
 	  storehelpStep: false,
 	  sing_video: null,
+	  sing_video_data: null,
 	  sing_detail: null,
 	  sing_voters: null,
 	  promoted_video_id: 4,
@@ -52,6 +53,9 @@ const createStore = () => {
 	  },
 	  SET_SING_PROMOTED(state, val) {
 		state.promoted_video_id = val
+	  },
+	  SET_SING_VIDEO_DATA(state, val) {
+		state.video_data = val
 	  },
 	  SET_SING_SINGLE(state, val) {
 		  state.sing_detail = val
