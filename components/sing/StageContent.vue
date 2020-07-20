@@ -16,9 +16,9 @@
 			<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 		</v-container>
 
-		<div v-if="userid != null">
+		<div v-if="userid != null && pesertaloop != null">
 			<v-container>
-				<div class="text-16"><strong>POSISI KAMU</strong></div>
+				<div class="text-15"><strong>POSISI KAMU</strong></div>
 			</v-container>
 			<template v-for="(item, i) in pesertaloop">
 				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
@@ -30,7 +30,7 @@
 		<v-container>
 			<v-row align="center">
 				<v-col cols="5">
-					<div class="text-uppercase text-12">seluruh peserta</div>
+					<div class="text-uppercase text-15">seluruh peserta</div>
 				</v-col>
 				<v-col cols="7" class="text-right">
 					<v-btn small text @click="sorter=true">
@@ -100,9 +100,10 @@
 
 		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<v-pagination
-				v-model="pagination"
-				:length="100"
-				:total-visible="10"
+				v-model="page"
+				:length="50"
+				color="orange"
+				@input="next"
 			></v-pagination>
 		</v-container>
 
@@ -143,7 +144,7 @@ import Sorter from "@/components/sing/Sorter";
 import SingService from '../../services/SingService';
 export default {
 	name:"StageContent",
-	props: ['title', 'pesertaloop', 'stage', 'content'],
+	props: ['title', 'pesertaloop', 'stage', 'content', 'page'],
 	components: {
 		ShareButton2,
 		SingAppBar,
@@ -211,7 +212,6 @@ export default {
 					slug: 'azhari'
 				}
 			],
-			pagination: 1,
 			dialogVisible: false,
 			uploadVisible: false,
 			userid: null
@@ -229,6 +229,14 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
+		},
+		next(num) {
+			this.$bus.$emit('paginate', num);
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'smooth'
+			});
 		}
 	},
 	mounted() {
@@ -240,6 +248,9 @@ export default {
 		})
 		this.$bus.$on('uploadclose', (data) => {
 			this.uploadVisible = false
+		})
+		this.$bus.$on('sorterInvisible', (data) => {
+			this.sorter = false
 		})
 		if (localStorage.getItem('userdata')) {
 			var userdata = JSON.parse(localStorage.getItem('userdata'));

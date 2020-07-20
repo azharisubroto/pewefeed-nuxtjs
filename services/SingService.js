@@ -9,8 +9,8 @@ export default {
 	getPromoted() {
 		return Api().get('/program/sing-with/promoted-video');
 	},
-	getStageDetail(slug) {
-		return Api().get(`/program/sing-with/stage/detail/${slug}`);
+	getStageDetail(slug, filterkey, page) {
+		return Api().get(`/program/sing-with/stage/detail/${slug}/filter/${filterkey}/?page=${page}`);
 	},
 	getDetailVideo(id) {
 		return Api().get(`/program/sing-with/video/detail/${id}`);

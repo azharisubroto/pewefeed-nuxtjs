@@ -18,7 +18,7 @@
 		<div class="devider-small my-2"></div>
 		<v-row class="text-center">
 			<v-col cols="4">
-				<div @click="item.is_star=!item.is_star">
+				<div>
 					<strong>STAR</strong><br>
 					<v-icon v-if="item.is_star" color="yellow">mdi-star</v-icon>
 					<v-icon v-else>mdi-star-outline</v-icon>

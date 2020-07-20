@@ -24,7 +24,6 @@
 						<div :key="'dvdx-'+i" class="devider-small"></div>
 						</template>
 
-						<div class="devider-small"></div>
 						<v-list-item :to="'/sing/download/'">
 							<v-list-item-content>
 								<v-list-item-title>
@@ -35,7 +34,6 @@
 								<v-icon>mdi-chevron-right</v-icon>
 							</v-list-item-icon>
 						</v-list-item>
-						<div class="devider-small"></div>
 
 						<template v-for="(item, i) in singcontent">
 						<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
@@ -51,7 +49,6 @@
 						</v-list-item>
 						<div :key="'dvdr-'+i" class="devider-small"></div>
 						</template>
-						<div class="devider-small"></div>
 					</v-list-item-group>
 				</v-list>
 			</template>

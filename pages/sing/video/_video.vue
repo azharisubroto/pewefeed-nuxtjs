@@ -29,10 +29,10 @@
       <v-container>
         <v-row class="text-center">
           <v-col cols="4">
-            <div @click="content2.is_star=!content2.is_star">
+            <div>
               <strong>STAR</strong>
               <br />
-              <v-icon v-if="content.star" color="yellow">mdi-star</v-icon>
+              <v-icon v-if="content2.is_star" color="yellow">mdi-star</v-icon>
               <v-icon v-else>mdi-star-outline</v-icon>
             </div>
           </v-col>
@@ -176,9 +176,10 @@
           <template v-else>Mengirim Komentar...</template>
         </v-btn>
 
-        <h4 class="mb-4 mt-5">Star Comments</h4>
-        <CommentList v-if="starcomments != null && starcomments.length > 0" :items="starcomments" class="star-comments" />
-		<div v-else class="caption text-center pa-5">No Data</div>
+		<template v-if="starcomments != null && starcomments.length > 0">
+			<h4 class="mb-4 mt-5">Star Comments</h4>
+			<CommentList :items="starcomments" class="star-comments" />
+		</template>
 
         <h4 class="mb-4 mt-5">{{ totalComment }} Comments</h4>
 
@@ -271,7 +272,8 @@ export default {
       singtab: 0,
       howto: [
         {
-          title: "cara vote",
+		  title: "cara vote",
+		  to: '/sing/help/cara-vote',
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, ab numquam. Repellendus perferendis reiciendis rem eligendi fugiat accusamus similique illo tempore officiis, iusto aliquid consequatur est ducimus vel a velit?"
         }

@@ -25,7 +25,7 @@
         <div class="mx-0 text-center px-4">
 			<template v-for="(item, i) in sorter">
 				<div class="devider-small" :key="'devtop-'+i"></div>
-				<div class="py-4" :key="'devmid-'+i">{{item}}</div>
+				<div class="py-4" :key="'devmid-'+i" @click="doFilter(item.val)">{{item.name}}</div>
 				<div class="devider-small" :key="'devbot-'+i"></div>
 			</template>
         </div>
@@ -42,13 +42,13 @@ export default {
   data() {
     return{
 		sorter: [
-			'Star to NOT Star',
-			'High VOTE to low VOTE',
-			'Low VOTE to High VOTE',
-			'High COMMENTS to Low COMMENTS',
-			'Low COMMENTS to Hight COMMENTS',
-			'Newest to Oldest',
-			'Oldest to Newest',
+			{name:'Star to NOT Star', val: 'star'},
+			{name:'High VOTE to low VOTE', val: 'high_vote'},
+			{name:'Low VOTE to High VOTE', val: 'low_vote'},
+			{name:'High COMMENTS to Low COMMENTS', val: 'high_comment'},
+			{name:'Low COMMENTS to Hight COMMENTS', val: 'low_comment'},
+			{name:'Newest to Oldest', val: 'newest'},
+			{name:'Oldest to Newest', val: 'oldest'},
 		]
     }
   },
@@ -89,8 +89,15 @@ export default {
   },
   methods: {
     closeIt() {
-      this.$emit('close')
-    }
+      	this.$emit('close')
+	},
+	doFilter(val) {
+		this.$bus.$emit('sorterInvisible');
+		this.$bus.$emit('singprefetchItems', val);
+		setTimeout(() => {
+			this.closeIt();
+		}, 2000);
+	}
   }
 }
 </script>
