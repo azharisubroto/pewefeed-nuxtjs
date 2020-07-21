@@ -9,8 +9,8 @@ export default {
 	getPromoted() {
 		return Api().get('/program/sing-with/promoted-video');
 	},
-	getStageDetail(slug) {
-		return Api().get(`/program/sing-with/stage/detail/${slug}`);
+	getStageDetail(slug,page) {
+		return Api().get(`/program/sing-with/stage/detail/${slug}?page=${page}`);
 	},
 	getDetailVideo(id) {
 		return Api().get(`/program/sing-with/video/detail/${id}`);
@@ -47,5 +47,11 @@ export default {
 	},
 	checkAvail(slug) {
 		return AuthApi().get('/member/program/sing-with/check-upload/'+slug)
+	},
+	searchItem(stage_slug, keyword, page) {
+		return Api().get(`/program/sing-with/stage/detail/${stage_slug}/search/${keyword}?page=${page}`)
+	},
+	getPrizes() {
+		return Api().get(`program/sing-with/prizes`)
 	}
 }
