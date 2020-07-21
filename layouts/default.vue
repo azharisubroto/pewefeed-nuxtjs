@@ -1033,6 +1033,10 @@ a,
 		}
 	}
 }
+.theme--dark.v-list-item:before {
+	opacity:0!important;
+	display: none!important;
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }

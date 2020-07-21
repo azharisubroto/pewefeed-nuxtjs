@@ -37,7 +37,9 @@
       <template v-if="isArticle">
         <v-row class="pb-5">
           <v-col cols="12">
-            <div v-html="article.detail.embed"></div>
+			<div class="iframe-wrapper">
+				 <div v-html="article.detail.embed"></div>
+			</div>
 
             <!-- CONTENT -->
             <div class="iframe" v-html="article.article.content"></div>
@@ -76,7 +78,7 @@
           </v-col>
         </v-row>
 
-        <div class="makefull devider-big mb-5" style="margin: 0 -10px"></div>
+        <div class="makefull devider-big mb-5" style="margin: 0"></div>
 
         <!-- TERBARU -->
         <div class="text-center mb-3">VIDEO TERBARU LAINNYA</div>
@@ -124,6 +126,14 @@
               align="end"
               style="margin-top: -30px !important;"
             >{{ total_counter }}</div>
+
+			<recaptcha
+              :key="recaptchaKey"
+              class="mx-5 my-5"
+              @error="onError()"
+              @success="onSuccess()"
+              @expired="onExpired()"
+            />
 
             <v-btn
               :disabled="recaptchaToken == null"
@@ -426,7 +436,7 @@ export default {
       selengkapnya: "",
       writer: "",
       isMore: true,
-      next: null,
+      next: 2,
       isArticle: true,
       isComment: false,
       isQuiz: false,
@@ -478,7 +488,9 @@ export default {
       quiz_ids: [],
       sending: false,
       total_poin: null,
-      notLogin: null
+	  notLogin: null,
+	  recaptchaToken: null,
+      recaptchaKey: 1
     };
   },
   // computed: {
@@ -663,6 +675,30 @@ export default {
       }
 
       return false;
+	},
+	/* Recaptcha */
+    onError(error) {
+      console.log("Error happened:", error);
+      this.recaptchaToken = null;
+    },
+    onSuccess(token) {
+      this.recaptchaToken = "success";
+    },
+    onExpired() {
+      console.log("Expired");
+      this.recaptchaToken = null;
+    },
+
+    /* Validasi Form Rating */
+    validate() {
+      if (this.$refs.form.validate()) {
+        if (this.recaptchaToken != null) {
+          this.postComment();
+        } else {
+          this.snackbar = true;
+          this.responsemessage = "Mohon Centang Recaptha";
+        }
+      }
     },
     async postComment() {
       let vm = this;
@@ -841,4 +877,15 @@ export default {
       width: calc(100% + 40px)
       margin-left: -20px
       margin-right: -20px
+</style>
+
+<style lang="scss">
+	.iframe-wrapper {
+		position: relative;
+		iframe {
+			width: 94vw;
+			height: 56.25vw; /* 100/56.25 = 560/315 = 1.778 */
+			background:#000;
+		}
+	}
 </style>

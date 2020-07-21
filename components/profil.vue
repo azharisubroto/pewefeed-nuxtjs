@@ -3,22 +3,22 @@
 	  <template v-if="login">
 		<v-container class="pb-0">
 			<v-row align="center" class="profile-bag pb-0">
-				<v-col cols="2" @click="$router.push('/member/pengaturan/profil');drawer = false">
+				<v-col cols="3" @click="$router.push('/member/pengaturan/profil');drawer = false">
 					<v-avatar
 						@click="$router.push('/member/pengaturan/profil');drawer = false"
-						size="50"
+						size="70"
 						color="grey"
 					>
 						<v-img :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'" :aspect-ratio="1/1"></v-img>
 					</v-avatar>
 				</v-col>
-				<v-col cols="10">
+				<v-col cols="9">
 					<v-row align="center">
 						<v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-						<strong class="subheading">{{ userdata.first_name }}</strong>
-						<div>PEWE ID: {{userdata.msisdn}}</div>
+						<strong class="subheading text-18">{{ userdata.first_name }}</strong>
+						<div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
 						<div
-							class="text-12"
+							class="text-14"
 							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
 						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Since {{userdata.expire}}</div>
 						</v-col>
@@ -43,7 +43,7 @@
 					{{item.name}}
 					<template v-if="item.poin">
 					<br />
-					<span class="text-20">
+					<span class="text-20 mt-2 d-inline-block">
 						<strong>{{mypoint}}</strong>
 					</span>
 					</template>
