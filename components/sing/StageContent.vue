@@ -81,11 +81,11 @@
 					prepend-inner-icon="mdi-magnify"
 					background-color="#000"
 					v-model="searchModel"
-					@keyup.enter="validate()"
+					@keyup.enter="search(searchModel, 1)"
 					label="Tulis Kata Kunci . . ."
 					style="border:0!important;box-shadow:none!important;"
 				></v-text-field>
-				<v-btn @click="validate()" block large color="deep-orange" class="mt-3">Search</v-btn>
+				<v-btn @click="search(searchModel)" block large color="deep-orange" class="mt-3">Search</v-btn>
 				<v-btn block large color="deep-orange" class="mt-3">Show All Participants</v-btn>
 				</div>
 			</v-sheet>
@@ -100,8 +100,9 @@
 
 		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<v-pagination
+				@input="next"
 				v-model="pagination"
-				:length="100"
+				:length="content.paginations.last_page"
 				:total-visible="10"
 			></v-pagination>
 		</v-container>
@@ -143,7 +144,7 @@ import Sorter from "@/components/sing/Sorter";
 import SingService from '../../services/SingService';
 export default {
 	name:"StageContent",
-	props: ['title', 'pesertaloop', 'stage', 'content'],
+	props: ['title', 'pesertaloop', 'stage', 'content', 'type'],
 	components: {
 		ShareButton2,
 		SingAppBar,
@@ -211,7 +212,7 @@ export default {
 					slug: 'azhari'
 				}
 			],
-			pagination: 1,
+			pagination: this.content.paginations.current_page,
 			dialogVisible: false,
 			uploadVisible: false,
 			userid: null
@@ -228,6 +229,29 @@ export default {
 				this.uploadallowed = res.data.upload_available
 			} catch (error) {
 				console.log(error)
+			}
+		},
+		async search(key, page) {
+			console.log('searching...');
+			this.$bus.$emit('singSearchLoading');
+			this.opensearch = false
+			var n = page ? page : 1;
+			localStorage.setItem('singkeyword', this.searchModel);
+			try {
+				const res = await SingService.searchItem(this.$route.params.stage, key, n);
+				console.log(res.data)
+				this.$bus.$emit('singReplaceData', res.data);
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		next(num) {
+			console.log(num)
+			if( this.type == 'search' ) {
+				var key = localStorage.getItem('singkeyword');
+				this.search(key, num);
+			} else {
+				this.$bus.$emit('refetchPaginate', num);
 			}
 		}
 	},

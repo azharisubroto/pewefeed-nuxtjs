@@ -1,7 +1,7 @@
 <template>
 	<section class="sing">
 		<SingAppBar :title="content ? content.stage.label : 'Stage'" :back="true"/>
-		<StageContent v-if="content!=null && !isloading" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
+		<StageContent v-if="content!=null && !isloading" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
 		<div v-else-if="peserta == null && isloading" class="pa-10 text-center">Memuat Data...</div>
 		<div v-else-if="peserta == null && !isloading" class="pa-10 text-center">Tidak Ada Data</div>
 	</section>
@@ -23,12 +23,13 @@ export default {
 			content: null,
 			peserta: null,
 			isloading: true,
+			type: 'default'
 		}
 	},
 	methods: {
-		async stageDetail(slug) {
+		async stageDetail(slug, page) {
 			try {
-				const res =  await SingService.getStageDetail(slug)
+				const res =  await SingService.getStageDetail(slug, page)
 				const data = await res.data
 				this.content = data
 				this.peserta = data.video_customer
@@ -41,6 +42,24 @@ export default {
 	},
 	mounted() {
 		this.stageDetail(this.$route.params.stage);
+		this.$bus.$on('singSearchLoading', () => {
+			this.content = null
+			this.peserta = null
+			this.isloading = true
+		});
+		this.$bus.$on('singReplaceData', (data) => {
+			this.content = data
+			this.peserta = data.video_customer
+			this.isloading = false
+			this.type = 'search'
+		});
+		this.$bus.$on('refetchPaginate', (num) => {
+			this.content = null
+			this.peserta = null
+			this.isloading = true
+			this.stageDetail(this.$route.params.stage, num);
+			this.type = 'default'
+		});
 	}
 }
 </script>
