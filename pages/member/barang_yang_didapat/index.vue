@@ -5,14 +5,14 @@
 				v-for="item in tabItems"
 				:key="item"
 			>
-				<template v-if="item == 'Dikirim'">
-					<Dikirim />
-				</template>
-				<template v-if="item == 'Diterima'">
-					<Diterima />
-				</template>
 				<template v-if="item == 'Menunggu'">
 					<Menunggu :addresses="addresses" :contact="contact"/>
+				</template>
+				<template v-if="item == 'Diproses'">
+					<Dikirim />
+				</template>
+				<template v-if="item == 'Dikirim'">
+					<Diterima />
 				</template>
 				<template v-if="item == 'Selesai'">
 					<Selesai />

@@ -119,76 +119,53 @@
     </template>
 
     <!-- BUY CONFIRM -->
-    <v-dialog
-      v-model="buyconfirm"
-      fullscreen
-      hide-overlay
-      class="LoginModal"
-      transition="dialog-bottom-transition"
-    >
-      <v-card>
-        <!-- Header -->
-        <v-toolbar light color="white">
-          <!-- Arrow -->
-          <v-btn
-            icon
-            tile
-            style="border-right: 0px solid #d1d1d1"
-            light
-            @click="buyconfirm = !buyconfirm"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+	<v-bottom-sheet v-model="buyconfirm">
+		<v-sheet height="100%" color="transparent">
+		<v-card style="border-radius: 0!important;">
+			<v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+			<!-- Arrow -->
+			<v-btn dark icon tile style="border-right: 0px solid #717171" light @click="closeIt()">
+				<v-icon>mdi-close</v-icon>
+			</v-btn>
 
-          <!-- Logo -->
-          <v-toolbar-title>
-            <img src="/pl-logo.png" width="130" class="d-inline-block mt-3" />
-          </v-toolbar-title>
+			<!-- Title -->
+			<div class="flex-grow-1"></div>
+			<v-toolbar-items>
+				<v-btn dark text class="deep-orange--text">Konfirmasi</v-btn>
+			</v-toolbar-items>
+			<div class="flex-grow-1"></div>
+			</v-toolbar>
 
-          <!-- Title -->
-          <div class="flex-grow-1"></div>
-          <v-toolbar-items>
-            <v-btn light text>Konfirmasi</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
+			<div class="px-5 pt-10 text-center">
+				Anda akan menukarkan koin sebanyak
+				<div class="py-5 text-30" style="line-height:1">
+				<img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
+				<strong>{{detail.point}}</strong>
+				</div>
+				<br>
+				<br>
+				<br>
 
-        <v-container class="py-0">
-          <v-row align="center" justify="center">
-            <v-col cols="12" class="pb-0">
-              <v-alert
-                border="left"
-                colored-border
-                type="info"
-                class="mb-0 mt-4"
-                style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-              >
-                Anda akan menukarkan koin sebanyak
-                <div class="py-5 text-30" style="line-height:1">
-                  <img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
-                  <strong>{{detail.point}}</strong>
-                </div>
-              </v-alert>
+				<v-btn
+					:loading="pending"
+					block
+					dark
+					depressed
+					color="deep-orange"
+					tile
+					x-large
+					class="tukaryuk"
+					@click="tukarPoin()"
+				>LANJUTKAN</v-btn>
+			</div>
 
-              <v-btn
-                :loading="pending"
-                block
-                dark
-                depressed
-                color="deep-orange"
-                tile
-                x-large
-                class="tukaryuk"
-                @click="tukarPoin()"
-              >LANJUTKAN</v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
 
-        <v-container class="pa-0 LoginModal">
-          <Login />
-        </v-container>
-      </v-card>
-    </v-dialog>
+			<v-overlay :value="overlay">
+				<v-progress-circular indeterminate size="64"></v-progress-circular>
+			</v-overlay>
+		</v-card>
+		</v-sheet>
+	</v-bottom-sheet>
 
     <!-- HISTORY -->
     <template v-if="hitoritab">

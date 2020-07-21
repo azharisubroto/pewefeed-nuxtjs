@@ -841,6 +841,7 @@ export default {
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
+	  this.finalbuttondisabled = false
     },
     onExpired() {
       console.log("Expired");
