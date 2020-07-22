@@ -13,6 +13,7 @@
                   class="pl-0"
                   text
                   dark
+				  :id="'help-'+bantuan.id"
                   @click="helpStep = 2; secondahelpdata = bantuan.submenu"
                 >{{bantuan.title}}</a>
               </div>
@@ -179,6 +180,7 @@
                     class="pl-0"
                     text
                     dark
+					:id="'help-'+bantuan.id"
                     @click="helpStep = 3; thirdhelpdata = bantuan.content; thirdhelptitle = bantuan.title"
                   >{{bantuan.title}}</a>
                 </div>
@@ -289,7 +291,15 @@ export default {
         const res = await ArticleService.getBantuan();
         const data = res.data.data;
         // console.log(JSON.parse(JSON.stringify(data)));
-        this.bantuanMenu = data;
+		this.bantuanMenu = data;
+		setTimeout(() => {
+			if( this.$router.currentRoute.query['tab'] ) {
+				document.getElementById("help-2").click();
+				setTimeout(() => {
+					document.getElementById("help-73").click();
+				}, 100);
+			}
+		}, 2000);
         //this.loading = false
       } catch (error) {
         console.log(error);
@@ -297,7 +307,7 @@ export default {
     }
   },
   mounted() {
-    this.fetchBantuan();
+	this.fetchBantuan();
   }
 };
 </script>
