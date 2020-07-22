@@ -60,6 +60,12 @@ export default {
 			this.stageDetail(this.$route.params.stage, num);
 			this.type = 'default'
 		});
+		this.$bus.$on('singSortItem', (data) => {
+			this.content = data
+			this.peserta = data.video_customer
+			this.isloading = false
+			this.type = 'sort'
+		});
 	}
 }
 </script>

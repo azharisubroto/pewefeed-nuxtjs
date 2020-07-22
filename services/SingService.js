@@ -12,6 +12,9 @@ export default {
 	getStageDetail(slug,page) {
 		return Api().get(`/program/sing-with/stage/detail/${slug}?page=${page}`);
 	},
+	sortStageItem(stage_slug, key, page){
+		return Api().get(`/program/sing-with/stage/detail/${stage_slug}/filter/${key}?page=${page}`);
+	},
 	getDetailVideo(id) {
 		return Api().get(`/program/sing-with/video/detail/${id}`);
 	},

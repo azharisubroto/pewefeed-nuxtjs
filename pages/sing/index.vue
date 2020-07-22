@@ -24,7 +24,6 @@
 						<div :key="'dvdx-'+i" class="devider-small"></div>
 						</template>
 
-						<div class="devider-small"></div>
 						<v-list-item :to="'/sing/download/'">
 							<v-list-item-content>
 								<v-list-item-title>
@@ -35,7 +34,6 @@
 								<v-icon>mdi-chevron-right</v-icon>
 							</v-list-item-icon>
 						</v-list-item>
-						<div class="devider-small"></div>
 
 						<template v-for="(item, i) in singcontent">
 						<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
@@ -51,20 +49,19 @@
 						</v-list-item>
 						<div :key="'dvdr-'+i" class="devider-small"></div>
 						</template>
-						<div class="devider-small"></div>
 					</v-list-item-group>
 				</v-list>
 			</template>
 
 			<template v-if="singtab == 1">
 				<div v-if="prizes!==null">
-					<v-container>
+					<v-container class="py-3">
 						<div class="text-20"><strong>JUDGES WINNER</strong></div>
 					</v-container>
 					<template v-for="(item, i) in prizes">
 						<div v-if="i<3" class="px-4 pt-0 pb-5" style="background:#fca729;border-bottom:1px solid #fff"  :key="'prize-'+i">
 							<div class="text-center mb-4">
-								<div class="px-7 py-3 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
+								<div class="px-7 py-2 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
 									Juara {{i+1}}
 								</div>
 							</div>
@@ -87,13 +84,13 @@
 						</div>
 					</template>
 
-					<v-container>
+					<v-container class="py-3">
 						<div class="text-20"><strong>HIGHEST VOTES WINNER</strong></div>
 					</v-container>
 					<template v-for="(item, i) in prizes">
 						<div v-if="i>=3" class="px-4 pt-0 pb-5" style="background:#fca729;border-bottom:1px solid #fff"  :key="'prize2-'+i">
 							<div class="text-center mb-4">
-								<div class="px-7 py-3 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
+								<div class="px-7 py-2 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
 									Juara {{i+1}}
 								</div>
 							</div>

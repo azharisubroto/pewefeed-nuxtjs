@@ -33,7 +33,7 @@
 					<div class="text-uppercase text-12">seluruh peserta</div>
 				</v-col>
 				<v-col cols="7" class="text-right">
-					<v-btn small text @click="sorter=true">
+					<v-btn small text @click="sortopen=true">
 						<v-icon>mdi-sort-ascending</v-icon>
 						<span class="text-10">Urutkan</span>
 					</v-btn>
@@ -44,12 +44,44 @@
 				</v-col>
 			</v-row>
 		</v-container>
-		<Sorter :dialogVisible="sorter"/>
+
+		<!-- SORTER -->
+		<v-bottom-sheet v-model="sortopen">
+			<v-sheet height="100%" class="antiloncat">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+					<!-- Arrow -->
+					<v-btn
+						dark
+						icon
+						tile
+						style="border-right: 0px solid #717171"
+						light
+						@click="sortopen = false;"
+					>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Title -->
+					<div class="flex-grow-1"></div>
+					<v-toolbar-items>
+						<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">SORT</v-btn>
+					</v-toolbar-items>
+					<div class="flex-grow-1"></div>
+				</v-toolbar>
+
+				<div class="mx-0 text-center px-4">
+					<template v-for="(item, i) in sorter">
+						<div class="devider-small" :key="'devtop-'+i"></div>
+						<div class="py-4" :key="'devmid-'+i" @click="sortItem(item.slug, 1)">{{item.title}}</div>
+					</template>
+				</div>
+			</v-sheet>
+		</v-bottom-sheet>
 
 		<!-- ==== SEARCH BAR === -->
 		<v-bottom-sheet v-model="opensearch">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="0" style="border-top: 2px solid #000">
+				<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
 				<!-- Arrow -->
 				<v-btn
 					dark
@@ -84,9 +116,10 @@
 					@keyup.enter="search(searchModel, 1)"
 					label="Tulis Kata Kunci . . ."
 					style="border:0!important;box-shadow:none!important;"
+					class="antipenyok"
 				></v-text-field>
 				<v-btn @click="search(searchModel)" block large color="deep-orange" class="mt-3">Search</v-btn>
-				<v-btn block large color="deep-orange" class="mt-3">Show All Participants</v-btn>
+				<v-btn block large color="deep-orange" class="mt-3" @click="reload()">Show All Participants</v-btn>
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
@@ -157,7 +190,7 @@ export default {
 		return {
 			userid: null,
 			singtab: 0,
-			sorter: false,
+			sortopen: false,
 			opensearch: false,
 			searchModel:'',
 			uploadallowed: false,
@@ -215,7 +248,37 @@ export default {
 			pagination: this.content.paginations.current_page,
 			dialogVisible: false,
 			uploadVisible: false,
-			userid: null
+			userid: null,
+			sorter: [
+				{
+					title:'Star to NOT Star',
+					slug: 'star',
+				},
+				{
+					title:'High VOTE to low VOTE',
+					slug: 'high_vote',
+				},
+				{
+					title:'Low VOTE to High VOTE',
+					slug: 'low_vote',
+				},
+				{
+					title:'High COMMENTS to Low COMMENTS',
+					slug: 'high_comment',
+				},
+				{
+					title:'Low COMMENTS to Hight COMMENTS',
+					slug: 'low_comment',
+				},
+				{
+					title:'Newest to Oldest',
+					slug: 'newest',
+				},
+				{
+					title:'Oldest to Newest',
+					slug: 'oldest',
+				},
+			]
 		}
 	},
 	methods: {
@@ -245,14 +308,32 @@ export default {
 				console.log(error)
 			}
 		},
+		async sortItem(key, page) {
+			this.$bus.$emit('singSearchLoading');
+			this.sortopen = false
+			localStorage.setItem('singSortKey', key);
+			try {
+				const res = await SingService.sortStageItem(this.$route.params.stage, key, page);
+				this.$bus.$emit('singSortItem', res.data);
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		next(num) {
 			console.log(num)
 			if( this.type == 'search' ) {
 				var key = localStorage.getItem('singkeyword');
 				this.search(key, num);
+			} else if( this.type == 'sort' ){
+				var key = localStorage.getItem('singSortKey');
+				this.sortItem(key,num);
 			} else {
 				this.$bus.$emit('refetchPaginate', num);
 			}
+		},
+		reload() {
+			location.reload();
+			return false;
 		}
 	},
 	mounted() {
@@ -274,3 +355,15 @@ export default {
 	}
 }
 </script>
+<style lang="scss">
+	.antiloncat {
+		.header {
+			position: relative!important;
+		}
+	}
+	.antipenyok {
+		&.v-text-field--filled.v-text-field--single-line input {
+			margin-top: 0!important;
+		}
+	}
+</style>
