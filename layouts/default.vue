@@ -642,7 +642,7 @@ export default {
       }
     } else {
       console.log("mobile version");
-    }
+	}
   },
   watch: {
     $route(to, from) {
@@ -650,7 +650,10 @@ export default {
       if (from.name == 'auth-callback') {
         this.wowtab = 3
         this.fetchDaily()
-      }
+	  }
+	  if( this.$router.currentRoute.query['tab'] ) {
+		this.wowtab = parseInt(this.$router.currentRoute.query['tab'])
+	  }
 	},
   }
 };

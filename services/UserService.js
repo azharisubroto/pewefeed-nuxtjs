@@ -122,5 +122,9 @@ export default {
 
 	generateDailyPoint(data) {
 		return AuthApi().post('/member/check-daily-point', data)
+	},
+
+	voucherDailyPoint() {
+		return AuthApi().get('master/voucher/daily-point');
 	}
 }

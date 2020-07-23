@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-page">
 	  <template v-if="login">
 		<v-container class="pb-0">
 			<v-row align="center" class="profile-bag pb-0">
@@ -20,7 +20,7 @@
 						<div
 							class="text-14"
 							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Since {{userdata.expire}}</div>
+						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
 						</v-col>
 						<v-col cols="3" class="text-right">
 						<v-btn to="/member/pengaturan/" icon dark depressed small>
@@ -35,6 +35,30 @@
 		<!-- USER MENU -->
 		<v-list color="transparent" class="mb-10">
 		<v-list-item-group color="dark">
+
+			<template v-if="userdata.status_expired == 1">
+				<div  class="devider-small"></div>
+				<v-list-item to="/member/daily-limit">
+					<v-list-item-content>
+						<v-list-item-title>
+							<v-progress-linear
+							:value="sekarang"
+							color="green"
+							height="20"
+							reactive
+							rounded
+							></v-progress-linear>
+							<span class="text-16 mt-2 d-inline-block">
+								VIP Daily Limit: <span class="green--text">{{sekarang}}</span> / {{batas}}
+							</span>
+						</v-list-item-title>
+					</v-list-item-content>
+					<v-list-item-icon>
+						<v-icon>mdi-chevron-right</v-icon>
+					</v-list-item-icon>
+				</v-list-item>
+			</template>
+
 			<template v-for="(item, i) in personmenu">
 			<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
 			<v-list-item :key="'persmenu-'+i" :to="item.to">
@@ -99,6 +123,7 @@ export default {
         no_telp: ""
       },
       userdata: [],
+      usermentah: [],
       mypoint: null,
       snackbar: false,
       dropOptions: {
@@ -147,7 +172,9 @@ export default {
           name: "VIP Code from SMS",
           to: "/member/kode-pw"
         },
-      ]
+	  ],
+	  batas:0,
+	  sekarang: 0
     };
   },
   components: {
@@ -203,9 +230,15 @@ export default {
         var res = [];
         res.data = JSON.parse(localStorage.getItem('userdata'));
 
+        this.usermentah = res.data;
         this.userdata = res.data.data;
         this.mypoint = res.data.point_total;
-        this.profile = res.data.data;
+		this.profile = res.data.data;
+
+		var limit = res.data.point_limit
+		limit = limit.split('/');
+		this.sekarang = limit[0];
+		this.batas = limit[1];
 
         this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
         this.avatar_preview = res.data.data.avatar;
@@ -249,10 +282,19 @@ export default {
       // if not vip, show dialog
       this.notVipVisible = false;
       this.buyVipDialogVisible = true;
-    }
+	},
+	async dailypoint() {
+		try {
+			const res = await UserService.voucherDailyPoint();
+			console.log('daily',res.data.data);
+		} catch (error) {
+			console.log(error)
+		}
+	}
   },
   mounted() {
-    this.setProfile();
+	this.setProfile();
+	this.dailypoint();
     this.isLoggedIn = true;
   }
 };
@@ -272,5 +314,11 @@ export default {
   color: #fff;
   border-top: 0!important;
   border-bottom: 0 solid transparent!important;
+}
+.profile-page {
+	.v-progress-linear {
+		border-radius: 90px!important;
+		overflow: hidden;
+	}
 }
 </style>
