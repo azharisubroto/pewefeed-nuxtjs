@@ -42,7 +42,7 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<v-progress-linear
-							:value="sekarang"
+							:value="remaining"
 							color="green"
 							height="20"
 							reactive
@@ -174,7 +174,8 @@ export default {
         },
 	  ],
 	  batas:0,
-	  sekarang: 0
+	  sekarang: 0,
+	  remaining: 0,
     };
   },
   components: {
@@ -239,6 +240,7 @@ export default {
 		limit = limit.split('/');
 		this.sekarang = limit[0];
 		this.batas = limit[1];
+		this.remaining = limit[1] - limit[0]
 
         this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
         this.avatar_preview = res.data.data.avatar;
