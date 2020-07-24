@@ -914,11 +914,18 @@ export default {
 		console.log(userdata)
 		var limit = userdata.point_limit;
 		limit = limit.split("/");
-		if(limit[0] == limit[1]) {
+		console.log(limit[0]);
+		if( limit[0] == 0 ) {
 			this.dailyLimitNotice = true;
+		} else {
+			this.sendJawab()
 		}
       } else {
-        this.sending = true;
+        this.sendJawab()
+      }
+	},
+	async sendJawab() {
+		this.sending = true;
         var vm = this;
         if (!this.profile) {
           this.sending = false;
@@ -972,8 +979,7 @@ export default {
             this.notVipDialogVisible = true;
           }
         }
-      }
-    },
+	},
     openModalLogin() {
       this.loginModalVisible = true;
     },
@@ -1000,7 +1006,7 @@ export default {
 
         var bannerParent = document.getElementsByTagName("em")[0];
 
-        bannerParent.append(document.getElementById("banner-between"));
+        bannerParent.appendChild(document.getElementById("banner-between"));
 
         //while (oldParent.childNodes.length > 0) {
         oldParent.prepend(newParent);
