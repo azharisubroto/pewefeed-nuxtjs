@@ -157,15 +157,11 @@ export default {
           to: "/member/barang_yang_didapat"
         },
         {
-          name: "Address List for Rewards",
-          to: "/member/pengaturan/daftar-alamat"
+          name: "Rewards Contact List",
+          to: "/member/contact-list/"
         },
         {
-          name: "Phone List for Rewards",
-          to: "/member/pengaturan/daftar-nomor"
-        },
-        {
-          name: "Bank Transfer Status",
+          name: "Bank Payment Status",
           to: "/member/status_transfer"
         },
         {

@@ -1,5 +1,5 @@
 <template>
-  <Detail :respon="item" :userid="userid"/>
+  <Detail :respon="item" />
 </template>
 
 <script>
@@ -14,7 +14,6 @@ export default {
     return {
       item: this.$store.state.item,
 	  origin: this.$store.state.host,
-
     }
   },
 
