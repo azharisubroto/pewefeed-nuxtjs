@@ -6,7 +6,7 @@
     </v-snackbar>
 
     <!-- FORM -->
-    <v-row class="pt-0 mt-0">
+    <v-row class="pt-0 mt-0 profil-edit">
       <v-col cols="12">
         <div>
           <v-row>
@@ -56,6 +56,7 @@
                 single-line
                 placeholder="Last Name"
                 filled
+
                 v-model="data.first_name"
               ></v-text-field>
               <div class="mb-2 px-3">
@@ -71,7 +72,10 @@
               ></v-text-field>
               <div class="mb-2 px-3">Username (optional)</div>
               <v-text-field solo single-line placeholder="Username" filled v-model="data.username"></v-text-field>
-              <div class="mb-2 px-3">Phone</div>
+              <div class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap">
+				  <div>Phone</div>
+				  <v-btn v-if="!usermentah.verified" to="/member/otp" class="mt-2 text-10" color="red" dark small>Verify phone number (+100 POINT)</v-btn>
+			  </div>
               <v-text-field solo single-line placeholder="Phone" filled v-model="data.no_telp"></v-text-field>
               <div class="mb-2 px-3">Instagram</div>
               <v-text-field
@@ -141,7 +145,8 @@ export default {
         thumbnailHeight: 100
       },
       isActive: false,
-      expire_date: ""
+	  expire_date: "",
+	  usermentah: [],
     };
   },
   methods: {
@@ -162,6 +167,7 @@ export default {
       // res.data = this.$auth.user
       res.data = JSON.parse(localStorage.getItem("userdata"));
 
+      this.usermentah = res.data;
       this.user_id = res.data.data.id;
       this.profile = res.data.data;
       // console.log(JSON.parse(JSON.stringify(res.data.data)))
@@ -217,5 +223,10 @@ export default {
 }
 .hahaha input {
   margin-top: 0 !important;
+}
+.profil-edit {
+	.v-text-field--solo, .v-text-field--solo * {
+		border-radius: 0!important;
+	}
 }
 </style>

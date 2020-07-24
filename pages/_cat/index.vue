@@ -1,5 +1,7 @@
 <template>
-  <Category />
+	<client-only placeholder="Loading...">
+  		<Category />
+	</client-only>
 </template>
 
 <script>

@@ -126,5 +126,13 @@ export default {
 
 	voucherDailyPoint() {
 		return AuthApi().get('master/voucher/daily-point');
+	},
+
+	sendOTP(){
+		return AuthApi().get('/member/otp');
+	},
+
+	verifyOTP(params) {
+		return AuthApi().post('/member/otp', params)
 	}
 }

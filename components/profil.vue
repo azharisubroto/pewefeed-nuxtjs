@@ -14,18 +14,20 @@
 				</v-col>
 				<v-col cols="9">
 					<v-row align="center">
-						<v-col cols="9" @click="$router.push('/member/pengaturan/profil'); drawer = false">
-						<strong class="subheading text-18">{{ userdata.first_name }}</strong>
-						<div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
-						<div
-							class="text-14"
-							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+						<v-col cols="10" class="pr-0" @click="$router.push('/member/pengaturan/profil'); drawer = false">
+							<strong class="subheading text-18">{{ userdata.first_name }}</strong>
+							<div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
+							<div
+								class="text-14"
+								:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
+							>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
+
+							<v-btn v-if="!usermentah.verified" class="mt-2 text-10" color="red" dark block small>Verify phone number (+100 POINT)</v-btn>
 						</v-col>
-						<v-col cols="3" class="text-right">
-						<v-btn to="/member/pengaturan/" icon dark depressed small>
-							<v-icon>mdi-chevron-right</v-icon>
-						</v-btn>
+						<v-col cols="2" class="text-right">
+							<v-btn to="/member/pengaturan/" icon dark depressed small>
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-btn>
 						</v-col>
 					</v-row>
 				</v-col>
@@ -42,7 +44,8 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<v-progress-linear
-							:value="sekarang"
+							:value="remaining"
+							:buffer-value="batas"
 							color="green"
 							height="20"
 							reactive
@@ -236,7 +239,7 @@ export default {
 		limit = limit.split('/');
 		this.sekarang = limit[0];
 		this.batas = limit[1];
-		this.remaining = limit[0]
+		this.remaining = this.percentage(limit[0], limit[1]);
 
         this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
         this.avatar_preview = res.data.data.avatar;
@@ -254,7 +257,10 @@ export default {
         }
         this.login = true
       }
-    },
+	},
+	percentage(partialValue, totalValue) {
+		return (100 * partialValue) / totalValue;
+	},
     async save() {
       let vm = this;
       var params = {
