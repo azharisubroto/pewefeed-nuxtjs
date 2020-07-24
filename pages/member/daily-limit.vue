@@ -15,7 +15,7 @@
 
 		<v-list-item-group color="dark" class="mt-10">
 			<div  class="devider-small"></div>
-			<v-list-item to="/?tab=2">
+			<v-list-item to="/about-daily-limit">
 				<v-list-item-content>
 					<v-list-item-title>
 						Apa itu Daily Limit?

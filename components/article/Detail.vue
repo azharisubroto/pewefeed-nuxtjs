@@ -47,7 +47,7 @@
             </div>
 
             <div class="mb-1 mt-5" id="banner-between">
-                <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
+              <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
             </div>
 
             <!-- CONTENT -->
@@ -184,7 +184,15 @@
 
       <!-- COMMENT -->
       <template v-if="isComment">
-        <v-tabs grow hide-slider class="biasaaja" color="deep-orange" v-model="tabCom" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;">
+        <v-tabs
+          grow
+          hide-slider
+          class="biasaaja"
+          color="deep-orange"
+          v-model="tabCom"
+          background-color="rgb(71, 71, 71)"
+          style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;"
+        >
           <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
           <v-tab href="#ketentuankom">Ketentuan</v-tab>
         </v-tabs>
@@ -274,7 +282,15 @@
       <!-- QUIZ -->
       <template v-if="isQuiz">
         <div v-if="quiz">
-          <v-tabs grow hide-slider class="biasaaja" color="deep-orange" background-color="rgb(71, 71, 71)" style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;" v-model="tab">
+          <v-tabs
+            grow
+            hide-slider
+            class="biasaaja"
+            color="deep-orange"
+            background-color="rgb(71, 71, 71)"
+            style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;"
+            v-model="tab"
+          >
             <v-tab href="#jawab">Jawab Quiz</v-tab>
             <v-tab href="#ketentuan">Ketentuan</v-tab>
             <v-tab href="#statistik">Statistik</v-tab>
@@ -505,6 +521,39 @@
     </v-bottom-navigation>
 
     <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
+
+    <!-- DAILY LIMIT NOTIF -->
+    <v-bottom-sheet v-model="dailyLimitNotice">
+      <v-sheet height="100%" color="transparent">
+        <v-card style="border-radius: 0!important;">
+          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+            <!-- Arrow -->
+            <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="dailyLimitNotice = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+              <v-btn dark text class="deep-orange--text">VIP Daily Limit</v-btn>
+            </v-toolbar-items>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+
+          <div class="px-5 pt-10 text-center">
+            <v-img src="/img/icons/batre.svg" max-width="100" class="rotate-90 mx-auto"></v-img>
+            <div class="mt-5 mb-0 text-14">
+              Daily VIP Limit Kamu Sudah Habis
+              <br>
+              <br>
+				<v-btn to="/about-daily-limit" color="green" dark block class="mb-3">apa itu vip daily limit</v-btn>
+				<v-btn to="/member/purchase-daily/" color="green" dark block>tambahkan extra daily limit</v-btn>
+				<br><br>
+            </div>
+          </div>
+        </v-card>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
@@ -531,7 +580,7 @@ export default {
     ShareButton,
     LoginModal,
     RedeemCard,
-    ShareButton2
+    ShareButton2,
   },
   props: ["respon"],
   data() {
@@ -580,18 +629,18 @@ export default {
         {
           text: this.$route.params.cat,
           disabled: false,
-          href: this.$route.params.cat
+          href: this.$route.params.cat,
         },
         {
           text: this.$route.params.subcat,
           disabled: false,
-          href: this.$route.params.subcat
+          href: this.$route.params.subcat,
         },
         {
           text: this.$route.params.articleslug,
           disabled: true,
-          href: this.$route.params.subcat
-        }
+          href: this.$route.params.subcat,
+        },
       ],
       dataUrl:
         process.env.mobileUrl +
@@ -609,7 +658,8 @@ export default {
       total_poin: null,
       notLogin: null,
       recaptchaToken: null,
-      recaptchaKey: 1
+	  recaptchaKey: 1,
+	  dailyLimitNotice: false
     };
   },
   // computed: {
@@ -647,7 +697,7 @@ export default {
         // console.log("statistik", data[0].statistic);
         this.quizstatistic = res.data.statistic;
         this.quizzes = data;
-        data.forEach(el => {
+        data.forEach((el) => {
           this.quiz_ids.push(el.id);
         });
       } catch (error) {
@@ -659,17 +709,17 @@ export default {
         const res = await ArticleService.getRelated(slug);
         //console.log(JSON.parse(JSON.stringify(res.data.data)))
         var articles = res.data.data.article;
-        articles.forEach(element => {
+        articles.forEach((element) => {
           var link = element.link;
           link = link.replace("https://pewefeed.com/", "");
           var obj = {
             image: {
-              small: element.image.small
+              small: element.image.small,
             },
             link: "/" + link,
             title: element.title,
             type: element.reaction,
-            published_at: element.publish_at
+            published_at: element.publish_at,
           };
           this.latests.push(obj);
           //   if (element.id != this.id) {
@@ -688,17 +738,17 @@ export default {
         );
         //console.log(JSON.parse(JSON.stringify(res.data.data)))
         var articles = res.data.data.article;
-        articles.forEach(element => {
+        articles.forEach((element) => {
           var link = element.link;
           link = link.replace("https://pewefeed.com/", "");
           var obj = {
             image: {
-              small: element.image.small
+              small: element.image.small,
             },
             link: "/" + link,
             title: element.title,
             type: element.reaction,
-            published_at: element.publish_at
+            published_at: element.publish_at,
           };
           if (element.id != this.id) {
             this.latests.push(obj);
@@ -753,7 +803,7 @@ export default {
 
         var dataComments = res.data.data.comments;
 
-        dataComments.forEach(element => {
+        dataComments.forEach((element) => {
           this.comments.push(element);
         });
 
@@ -812,7 +862,7 @@ export default {
       this.commentIsPosting = true;
       const params = {
         msg: this.comment_message,
-        type: "news"
+        type: "news",
       };
 
       if (this.total_counter < 20) {
@@ -859,58 +909,68 @@ export default {
       }
     },
     async submitAnswer() {
-      this.sending = true;
-      var vm = this;
-      if (!this.profile) {
-        this.sending = false;
-        this.notLogin = true;
-        this.loginModalVisible = true;
+	  var userdata = JSON.parse(localStorage.getItem("userdata"));
+      if ( userdata ) {
+		console.log(userdata)
+		var limit = userdata.point_limit;
+		limit = limit.split("/");
+		if(limit[0] == limit[1]) {
+			this.dailyLimitNotice = true;
+		}
       } else {
-        this.notLogin = false;
-        if (this.profile.vip != false) {
-          var params = {
-            article_id: this.id,
-            quiz_id: this.quiz_ids,
-            jawaban: this.jawabanQuiz
-          };
-
-          try {
-            const res = await UserService.answerMultiple(params);
-            const data = await res.data;
-
-            this.$auth.fetchUser().then(() => {
-              localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-            });
-
-            this.total_poin = data.total_point;
-            this.dialog = true;
-            //this.ispoin = true;
-            if (data.total_point == 0) {
-              this.answerResult = false;
-            } else {
-              this.answerResult = true;
-            }
-            //this.profile = false;
-            //this.notLogin = true;
-            this.sending = false;
-            this.sudahpernah = true;
-            // console.log('Hasil', JSON.parse(JSON.stringify(data)))
-          } catch (error) {
-            console.log(error);
-            if (error.response.status == 410) {
-              //this.noLimit = true;
-              //this.already = false;
-              this.notLogin = true;
-            } else {
-              this.noLimit = false;
-              this.already = true;
-            }
-            this.sending = false;
-            this.sudahpernah = true;
-          }
-        } else {
+        this.sending = true;
+        var vm = this;
+        if (!this.profile) {
           this.sending = false;
-          this.notVipDialogVisible = true;
+          this.notLogin = true;
+          this.loginModalVisible = true;
+        } else {
+          this.notLogin = false;
+          if (this.profile.vip != false) {
+            var params = {
+              article_id: this.id,
+              quiz_id: this.quiz_ids,
+              jawaban: this.jawabanQuiz,
+            };
+
+            try {
+              const res = await UserService.answerMultiple(params);
+              const data = await res.data;
+
+              this.$auth.fetchUser().then(() => {
+                localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+              });
+
+              this.total_poin = data.total_point;
+              this.dialog = true;
+              //this.ispoin = true;
+              if (data.total_point == 0) {
+                this.answerResult = false;
+              } else {
+                this.answerResult = true;
+              }
+              //this.profile = false;
+              //this.notLogin = true;
+              this.sending = false;
+              this.sudahpernah = true;
+              // console.log('Hasil', JSON.parse(JSON.stringify(data)))
+            } catch (error) {
+              console.log(error);
+              if (error.response.status == 410) {
+                //this.noLimit = true;
+                //this.already = false;
+                this.notLogin = true;
+              } else {
+                this.noLimit = false;
+                this.already = true;
+              }
+              this.sending = false;
+              this.sudahpernah = true;
+            }
+          } else {
+            this.sending = false;
+            this.notVipDialogVisible = true;
+          }
         }
       }
     },
@@ -938,34 +998,31 @@ export default {
         var newParent = document.getElementById("redeem-between");
         var oldParent = document.getElementsByClassName("news-related")[0];
 
-        var bannerParent = document.getElementsByTagName('em')[0];
+        var bannerParent = document.getElementsByTagName("em")[0];
 
-        bannerParent.append(document.getElementById('banner-between'));
+        bannerParent.append(document.getElementById("banner-between"));
 
         //while (oldParent.childNodes.length > 0) {
         oldParent.prepend(newParent);
         //}
       }, 1000);
-    }
+    },
   },
   watch: {
-    comment_message: function(value) {
+    comment_message: function (value) {
       if (value) {
         if (value.length == 0) {
           return (this.total_counter = 0);
         }
 
         var regex = /\s+/gi;
-        var wordCount = value
-          .trim()
-          .replace(regex, " ")
-          .split(" ").length;
+        var wordCount = value.trim().replace(regex, " ").split(" ").length;
 
         return (this.total_counter = wordCount);
       } else {
         return (this.total_counter = 0);
       }
-    }
+    },
   },
   mounted() {
     this.fetchContent();
@@ -976,7 +1033,7 @@ export default {
   },
   updated() {
     this.moveRedeemBeforeRelated();
-  }
+  },
 };
 </script>
 
@@ -1096,12 +1153,15 @@ export default {
   }
 }
 .news-related a {
-	color: #fff!important
+  color: #fff !important;
 }
 .biasaaja {
-	&.v-tabs .v-tab:hover::before,
-	&.v-tabs .v-tab--active:focus::before {
-		content: none!important;
-	}
+  &.v-tabs .v-tab:hover::before,
+  &.v-tabs .v-tab--active:focus::before {
+    content: none !important;
+  }
+}
+.rotate-90 {
+	transform: rotate(90deg);
 }
 </style>

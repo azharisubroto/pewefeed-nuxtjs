@@ -74,5 +74,8 @@ export default {
 	},
 	getComments(type, slug, page) {
 		return Api().get('/comment/' + type + '/' + slug + '?page=' + page)
+	},
+	aboutDailyLimit() {
+		return Api().get('/help/sub/apa-itu-vip-daily-limit');
 	}
 }
