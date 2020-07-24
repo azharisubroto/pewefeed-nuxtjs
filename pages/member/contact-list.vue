@@ -4,7 +4,7 @@
 		<template v-if="menutab == 0">
 			<DaftarNomor/>
 		</template>
-		<template v-if="menutab == 0">
+		<template v-if="menutab == 1">
 			<DaftarAlamat/>
 		</template>
 
