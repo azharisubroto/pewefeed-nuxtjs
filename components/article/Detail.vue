@@ -308,16 +308,16 @@
                   <v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
                     <v-row>
                       <v-col cols="6">
-                        <v-radio :label="`${quiz.option_a}`" value="A"></v-radio>
+                        <v-radio :label="`${quiz.option_a}`" value="A" color="green"></v-radio>
                       </v-col>
                       <v-col cols="6">
-                        <v-radio :label="`${quiz.option_b}`" value="B"></v-radio>
+                        <v-radio :label="`${quiz.option_b}`" value="B" color="green"></v-radio>
                       </v-col>
                       <v-col cols="6">
-                        <v-radio :label="`${quiz.option_c}`" value="C"></v-radio>
+                        <v-radio :label="`${quiz.option_c}`" value="C" color="green"></v-radio>
                       </v-col>
                       <v-col cols="6">
-                        <v-radio :label="`${quiz.option_d}`" value="D"></v-radio>
+                        <v-radio :label="`${quiz.option_d}`" value="D" color="green"></v-radio>
                       </v-col>
                     </v-row>
                   </v-radio-group>
