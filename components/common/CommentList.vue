@@ -36,8 +36,8 @@
             :value="getrating(comment.rate)"
           ></v-rating>
 
-          <div style="font-size:16px;">
-            <div style="overflow: hidden" v-html="comment.message"></div>
+          <div class="comment-content" style="font-size:16px;">
+            <div class="comment-html" style="overflow: hidden" v-html="comment.message"></div>
           </div>
           <div class="mt-2 caption text--gray">
             <v-icon size="15">mdi-clock-outline</v-icon>
@@ -64,3 +64,27 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+	.comment-content {
+		font-size: 18px;
+		p {
+			font-size:18px;
+			margin-top: 0;
+		}
+	}
+	.comment-item {
+		font-size: 18px;
+		p {
+			font-size:18px;
+			margin-top: 0;
+			margin-bottom: 5px;
+		}
+	}
+	.comment-html {
+		font-size: 18px!important;
+		.col.col-10>strong {
+			font-size: 18px;
+		}
+	}
+</style>

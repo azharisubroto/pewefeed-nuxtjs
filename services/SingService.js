@@ -56,5 +56,8 @@ export default {
 	},
 	getPrizes() {
 		return Api().get(`program/sing-with/prizes`)
+	},
+	igVideo(url) {
+		return Api().get(url);
 	}
 }
