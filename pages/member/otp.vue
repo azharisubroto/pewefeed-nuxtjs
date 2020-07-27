@@ -5,6 +5,7 @@
 				Phone Number
 			</div>
 			<v-text-field
+			class="giveline"
 			solo
 			single-line
 			:placeholder="userdata.no_telp"
@@ -18,6 +19,7 @@
 				<v-btn small @click="sendOTP()" color="green">Send OTP</v-btn>
 			</div>
 			<v-text-field
+			class="giveline"
 			solo
 			single-line
 			placeholder=""
@@ -160,5 +162,15 @@ export default {
 		.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
 			background: #313131!important;
 		}
+	}
+	.profil-edit {
+		.v-text-field--solo, .v-text-field--solo * {
+			border-radius: 0!important;
+		}
+	}
+	.giveline .v-input__slot{
+		border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+		border-top: 1px solid rgba(255, 255, 255, 0.5);
+		border-radius: 0!important;
 	}
 </style>

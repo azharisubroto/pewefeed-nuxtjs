@@ -3,7 +3,7 @@
 	  <template v-if="login">
 		<v-container class="pb-0">
 			<v-row align="center" class="profile-bag pb-0">
-				<v-col cols="3" @click="$router.push('/member/pengaturan/profil');drawer = false">
+				<v-col cols="3" @click="$router.push('/member/pengaturan/');drawer = false">
 					<v-avatar
 						@click="$router.push('/member/pengaturan/profil');drawer = false"
 						size="70"
@@ -14,7 +14,7 @@
 				</v-col>
 				<v-col cols="9">
 					<v-row align="center">
-						<v-col cols="10" class="pr-0" @click="$router.push('/member/pengaturan/profil'); drawer = false">
+						<v-col cols="10" class="pr-0" @click="$router.push('/member/pengaturan/'); drawer = false">
 							<strong class="subheading text-18">{{ userdata.first_name }}</strong>
 							<div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
 							<div
