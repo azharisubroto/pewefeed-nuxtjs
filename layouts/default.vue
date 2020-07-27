@@ -185,7 +185,7 @@
     <!-- ==== SEARCH BAR === -->
     <v-bottom-sheet v-model="opensearch">
       <v-sheet height="100%">
-        <v-toolbar :elevation="0" style="border-top: 2px solid #000">
+        <v-toolbar :elevation="0" style="border-top: 2px solid #fff">
           <!-- Arrow -->
           <v-btn
             dark
@@ -1039,6 +1039,9 @@ a,
 .theme--dark.v-list-item:before {
 	opacity:0!important;
 	display: none!important;
+}
+.v-text-field--filled.v-text-field--single-line input {
+	margin-top: 0!important;
 }
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
