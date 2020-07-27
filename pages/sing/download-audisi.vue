@@ -8,14 +8,23 @@
 
 			<template v-if="singtab == 0">
 				<section class="toppoin-acc">
-					<v-expansion-panels>
+					<div class="devider-small"></div>
+					<a :href="download" :download="download" class="d-block py-2 px-5">
+						<v-row align="center">
+							<v-col cols="10" class="py-0">Download Now</v-col>
+							<v-col cols="2" class="text-right">
+								<v-icon>mdi-chevron-right</v-icon>
+							</v-col>
+						</v-row>
+					</a>
+					<!-- <v-expansion-panels>
 						<v-expansion-panel class="mb-0">
 							<v-expansion-panel-header class="py-5 text-uppercase">Download Video</v-expansion-panel-header>
 							<v-expansion-panel-content class='text-center'>
 								<v-btn :href="download" target="_BLANK" color="deep-orange">Download Now</v-btn>
 							</v-expansion-panel-content>
 						</v-expansion-panel>
-					</v-expansion-panels>
+					</v-expansion-panels> -->
 
 					<v-expansion-panels>
 						<v-expansion-panel class="mb-0">
@@ -96,6 +105,9 @@ export default {
 				console.log(error)
 			}
 		},
+		downloadVideo(url) {
+			//window.open(this.download,'Download');
+		}
 	},
 	mounted() {
 		this.getPromotedVideo();

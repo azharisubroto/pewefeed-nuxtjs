@@ -1,7 +1,7 @@
 <template>
   	<v-bottom-sheet v-model="dialogVisible" persistent>
       <v-sheet height="100%" :class="[uploadStatus=='loading' ? 'modalloading' : '']">
-        <v-toolbar :elevation="1">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <!-- Arrow -->
           <v-btn
             dark

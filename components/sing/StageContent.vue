@@ -12,15 +12,14 @@
 			</v-alert>
 		</v-container>
 
-		<v-container style="background: #3838ca" class="text-center py-10">
-			<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-		</v-container>
-
-		<div v-if="userid != null">
-			<v-container>
-				<div class="text-16"><strong>POSISI KAMU</strong></div>
-			</v-container>
+		<div v-if="pesertaloop != null && userid != null">
 			<template v-for="(item, i) in pesertaloop">
+				<v-container v-if="item.customer.id == userid && i == 0" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
+					<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+				</v-container>
+				<v-container v-if="i == 0" :key="i+'-asdfsdf'">
+					<div class="text-16"><strong>POSISI KAMU</strong></div>
+				</v-container>
 				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
 					<SingItem :item="item" />
 				</div>
@@ -30,7 +29,7 @@
 		<v-container>
 			<v-row align="center">
 				<v-col cols="5">
-					<div class="text-uppercase text-12">seluruh peserta</div>
+					<div class="text-uppercase text-15">seluruh peserta</div>
 				</v-col>
 				<v-col cols="7" class="text-right">
 					<v-btn small text @click="sortopen=true">

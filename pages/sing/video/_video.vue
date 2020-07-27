@@ -11,7 +11,10 @@
       {{content2.customer.name}}
     </v-container>
 
-    <div v-if="content2 != null" v-html="content2.video.html"></div>
+	<video v-if="videoutama!=null" width="400" controls>
+		<source :src="videoutama" type="video/mp4">
+	</video>
+
 
     <template v-if="singtab == 0">
       <v-container v-if="content2 != null">
@@ -29,10 +32,10 @@
       <v-container>
         <v-row class="text-center">
           <v-col cols="4">
-            <div @click="content2.is_star=!content2.is_star">
+            <div>
               <strong>STAR</strong>
               <br />
-              <v-icon v-if="content.star" color="yellow">mdi-star</v-icon>
+              <v-icon v-if="content2.is_star == 1" color="yellow">mdi-star</v-icon>
               <v-icon v-else>mdi-star-outline</v-icon>
             </div>
           </v-col>
@@ -49,7 +52,7 @@
           <v-col cols="12" class="text-center">
             <v-btn
               color="deep-orange"
-              @click="content2.total_vote+1;content2.is_star=!content2.is_star;sendVote(content2.id);"
+              @click="sendVote(content2.id);"
             >Beri Vote</v-btn>
           </v-col>
         </v-row>
@@ -93,7 +96,7 @@
           </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center" v-if="content2.total_vote > 0">
           <v-btn color="deep-orange" class="mt-4">Show More</v-btn>
         </div>
       </v-container>
@@ -241,6 +244,53 @@
       <ShareButton2 />
     </v-bottom-navigation>
 
+	<!-- Dapet bonus -->
+	<v-bottom-sheet v-model="apakahbetul">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="apakahbetul = !apakahbetul"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">You've got {{ type == 'vote' ? 5 : 2 }} Point!</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
+        <div class="mx-2">
+          <v-container v-if="type == 'vote'" class="text-center">
+			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
+			  <br>
+			  Kamu mendapat 5 Point karena sudah<br>
+			  Memberikan vote
+			  <br>
+			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
+			  <br><br>
+		  </v-container>
+		  <v-container v-else class="text-center">
+			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
+			  <br>
+			  Kamu mendapat 2 Point karena sudah<br>
+			  Memberikan vote
+			  <br>
+			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
+			  <br><br>
+		  </v-container>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+
 	<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 	<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
   </div>
@@ -268,10 +318,14 @@ export default {
   data() {
     return {
       comment_fetched: false,
-      singtab: 0,
+	  singtab: 0,
+	  notVipDialogVisible: false,
+	  loginModalVisible: false,
+	  apakahbetul: false,
       howto: [
         {
-          title: "cara vote",
+		  title: "cara vote",
+		  to: '/sing/help/cara-vote',
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, ab numquam. Repellendus perferendis reiciendis rem eligendi fugiat accusamus similique illo tempore officiis, iusto aliquid consequatur est ducimus vel a velit?"
         }
@@ -315,7 +369,9 @@ export default {
       comment_message: null,
       isMoreComment: true,
       commentIsPosting: false,
-      moreLoadingComment: false
+	  moreLoadingComment: false,
+	  videoutama: null,
+	  type: null
     };
   },
   watch: {
@@ -346,6 +402,9 @@ export default {
       }
     }
   },
+  mounted() {
+	  this.getVideoDetail(this.$route.params.video);
+  },
   async fetch({ store, params }) {
     //console.log('fetch this')
     //console.log(params.articleslug)
@@ -375,12 +434,15 @@ export default {
         const res = await SingService.sendVote({
           customer_video_id: id
         });
-        const data = res.data;
+		const data = res.data;
+		this.apakahbetul = true;
+		this.type = 'vote'
         console.log(data);
       } catch (error) {
         console.log(error);
         if (error.response && error.response.status == 422) {
-          alert(error.response.data.message);
+		  //alert(error.response.data.message);
+		  this.notVipDialogVisible = true
         } else if (error.response && error.response.status == 500) {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
@@ -389,24 +451,25 @@ export default {
           alert("error! " + error.message);
         }
       }
-    },
+	},
+	async fetchIGVIDEO(url) {
+		try {
+			const res = await SingService.igVideo(url);
+			console.log('ig video', res);
+			this.videoutama = res.data.graphql.shortcode_media.video_url
+		} catch (error) {
+			console.log(error)
+		}
+	},
     async getVideoDetail(slug) {
       console.log("getVideoDetail");
       try {
         const res = await SingService.getDetailVideo(slug);
         const data = res.data;
-        console.log(data);
-        this.content2 = data;
-        let voters = data.voters;
-        let votersTemp = [];
-        voters.forEach(el => {
-          votersTemp.push({
-            name: el.name,
-            avatar: el.avatar,
-            date: el.vote_date
-          });
-        });
-        this.voters = votersTemp;
+		let ig_video = data.video_url;
+		if( ig_video ) {
+			this.fetchIGVIDEO(ig_video);
+		}
       } catch (error) {
         console.log(error);
       }
@@ -535,7 +598,8 @@ export default {
         this.comment_message = null;
         this.recaptchaToken = null;
         if (res.data.poin > 0) {
-          this.KomentarPoinVisible = true;
+          	this.apakahbetul = true;
+			this.type = 'komen'
         }
       } catch (error) {
         //console.log(error.response.status)
@@ -587,5 +651,12 @@ export default {
 .star-comments .v-avatar {
   //border: 3px solid var(--primary);
   box-shadow: 0 0 0 3px var(--primary);
+  p {
+	  font-size: 18px;
+	  margin-top: 0;
+  }
+}
+video {
+	max-width: 100%!important;
 }
 </style>

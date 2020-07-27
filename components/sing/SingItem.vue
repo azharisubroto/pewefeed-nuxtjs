@@ -8,7 +8,8 @@
 			<v-col cols="6">
 				<div class="text-center pt-4">
 					<v-avatar @click="$router.push('/sing/video/'+item.id)">
-						<v-img :src="item.customer.avatar"></v-img>
+						<v-img cover :src="item.customer.avatar"></v-img>
+						<!-- <img :src="item.customer.avatar" class="avatar-img"/> -->
 					</v-avatar>
 					<div class="my-3"></div>
 					{{item.customer.name}}
@@ -18,7 +19,7 @@
 		<div class="devider-small my-2"></div>
 		<v-row class="text-center">
 			<v-col cols="4">
-				<div @click="item.is_star=!item.is_star">
+				<div>
 					<strong>STAR</strong><br>
 					<v-icon v-if="item.is_star" color="yellow">mdi-star</v-icon>
 					<v-icon v-else>mdi-star-outline</v-icon>
@@ -42,3 +43,16 @@ export default {
 	props: ['item']
 }
 </script>
+<style lang="scss">
+	.v-avatar {
+		overflow: hidden;
+		position: relative;
+		img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+			border-radius: 0!important;
+		}
+	}
+</style>
