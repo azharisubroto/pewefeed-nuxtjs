@@ -42,7 +42,10 @@
           <!-- Step 1 -->
           <v-stepper-content step="1" class="px-0">
             <v-card :elevation="0" class="hohoho mx-auto text-18" tile>
-              <v-card-title class="subtitle-1 font-weight-bold pt-2" style="background: #1c1c1d">Pembelian Dengan Pulsa</v-card-title>
+              <v-card-title
+                class="subtitle-1 font-weight-bold pt-2"
+                style="background: #1c1c1d"
+              >Pembelian Dengan Pulsa</v-card-title>
               <div class="devider-small"></div>
 
               <div class="px-4 py-0" @click="e1 = 2; appBarLabel = 'XL & Axis'">
@@ -164,7 +167,7 @@
               <div class="devider-small"></div>
             </v-card>
             <v-card class="hohoho mx-auto mb-3">
-              <v-card-title class="subtitle-1  font-weight-bold pt-2">Non Berlangganan</v-card-title>
+              <v-card-title class="subtitle-1 font-weight-bold pt-2">Non Berlangganan</v-card-title>
               <div class="devider-small"></div>
               <template v-for="(vip, i) in vipItems">
                 <div
@@ -244,7 +247,7 @@
           <!-- Step 4 : Order Detail -->
           <v-stepper-content step="4" class="px-0 jumpup">
             <div class="px-3 pt-2">
-				<br>
+              <br />
               <strong>Nilai Transaksi</strong>
             </div>
             <v-card class="hohoho mb-3 mt-4">
@@ -262,9 +265,9 @@
               <div class="devider-small"></div>
               <v-row class="px-4">
                 <v-col cols="12" class="hmmm">
-					<div v-html="itemname"></div>
-					<div v-html="sublabel"></div>
-				</v-col>
+                  <div v-html="itemname"></div>
+                  <div v-html="sublabel"></div>
+                </v-col>
               </v-row>
               <div class="devider-small"></div>
             </v-card>
@@ -272,8 +275,13 @@
             <v-container class="mt-0 card-trans px-0">
               <v-row>
                 <v-col cols="12" class="pb-0 pt-0">
-                  <div class="text-16 mb-2 px-4"><strong>Channel Pembayaran (Pilih Salah Satu)</strong></div>
-                  <v-card class="mx-auto mb-0" style="background: #4c4c4c!important;border-radius:0!important">
+                  <div class="text-16 mb-2 px-4">
+                    <strong>Channel Pembayaran (Pilih Salah Satu)</strong>
+                  </div>
+                  <v-card
+                    class="mx-auto mb-0"
+                    style="background: #4c4c4c!important;border-radius:0!important"
+                  >
                     <v-tabs grow v-model="buymethod" color="deep-orange">
                       <v-tab href="#sms" class="hohoho">SMS</v-tab>
                       <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
@@ -287,16 +295,16 @@
                             <v-row no-gutters>
                               <v-col cols="12">
                                 <v-text-field
-								  flat
+                                  flat
                                   single-line
                                   prepend-inner-icon
                                   maxlength="12"
                                   v-model="formdata.nomorhandphone"
                                   type="number"
                                   required
-								  hide-details
+                                  hide-details
                                   placeholder="Enter your mobile phone number"
-								  @keydown="filterKey"
+                                  @keydown="filterKey"
                                   :rules="numberRules"
                                 ></v-text-field>
                               </v-col>
@@ -338,13 +346,13 @@
                   @success="onSuccess()"
                   @expired="onExpired()"
                 />
-				<v-btn
-                @click="validate(itemvoucher)"
-				:disabled="finalbuttondisabled"
-                color="green"
-                block
-                class="white--text mt-2"
-              >PROCESS</v-btn>
+                <v-btn
+                  @click="validate(itemvoucher)"
+                  :disabled="finalbuttondisabled"
+                  color="green"
+                  block
+                  class="white--text mt-2"
+                >PROCESS</v-btn>
               </div>
               <br />
               <br />
@@ -571,27 +579,25 @@
       </v-stepper>
     </v-card>
 
-	<!-- SUKSES -->
-	<v-bottom-sheet v-model="success">
+    <!-- SUKSES -->
+    <v-bottom-sheet v-model="success">
       <v-sheet height="100%">
         <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <v-row class="pa-0" align="center">
-			  <v-col cols="2">
-				  <v-btn
-					dark
-					icon
-					tile
-					style="border-right: 0px solid #717171"
-					light
-					@click="success = false;"
-				>
-					<v-icon>mdi-close</v-icon>
-				</v-btn>
-			  </v-col>
-				<v-col cols="8" class="deep-orange--text text-center">
-					SUCCESS
-				</v-col>
-		  </v-row>
+            <v-col cols="2">
+              <v-btn
+                dark
+                icon
+                tile
+                style="border-right: 0px solid #717171"
+                light
+                @click="success = false;"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col cols="8" class="deep-orange--text text-center">SUCCESS</v-col>
+          </v-row>
         </v-toolbar>
 
         <div class="mx-2">
@@ -607,7 +613,12 @@
             </v-row>
             <v-row align="center" justify="center" class="mx-4">
               <div>
-                <v-btn @click="success = false" dark color="deep-orange" class="text-capitalize">CLOSE</v-btn>
+                <v-btn
+                  @click="success = false"
+                  dark
+                  color="deep-orange"
+                  class="text-capitalize"
+                >CLOSE</v-btn>
               </div>
             </v-row>
           </div>
@@ -631,7 +642,7 @@ export default {
   middleware: "auth",
   name: "PurchasePage",
   props: {
-    dialogVisible: Boolean
+    dialogVisible: Boolean,
   },
   data() {
     return {
@@ -647,19 +658,21 @@ export default {
       buymethod: null,
       current: 0,
       indosatvoucherid: 13,
-      indosatlabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      indosatlabel:
+        "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       indosatprice: "Rp 2.200",
       xlregvoucher: 17,
-      xlreglabel: "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
+      xlreglabel:
+        "<strong class='text-16'>6 Hari VIP</strong><br><span class='text-14 text-normal' style='font-weight:normal!important;'>3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
       xlregprice: "Rp 2.200",
       tab: null,
       userdata: [],
       valid: true,
       recaptchaToken: null,
-      numberRules: [v => !!v || "Input Valid Number"],
+      numberRules: [(v) => !!v || "Input Valid Number"],
       formdata: {
         voucher_id: null,
-        nomorhandphone: ""
+        nomorhandphone: "",
       },
       snackbar: false,
       timeout: 3000,
@@ -681,7 +694,7 @@ export default {
           desc:
             "3 SMS Per Minggu (Tidak Auto Renewal)<br>1 SMS untuk 2 Hari VIP<br>Rp. 2200/SMS termasuk PPN 10%",
           price: "Rp 2.200",
-          code: "PW0"
+          code: "PW0",
         },
         {
           id: 1,
@@ -691,7 +704,7 @@ export default {
           label: "2 Hari VIP",
           desc: "Rp 2.200/SMS termasuk PPN 10%",
           price: "Rp 2.200",
-          code: "PW3"
+          code: "PW3",
         },
         {
           id: 2,
@@ -701,7 +714,7 @@ export default {
           label: "3 Hari VIP",
           desc: "Rp 3.300/SMS termasuk PPN 10%",
           price: "Rp 3.300",
-          code: "PW4"
+          code: "PW4",
         },
         {
           id: 3,
@@ -711,7 +724,7 @@ export default {
           label: "5 Hari VIP",
           desc: "Rp 5.500/SMS termasuk PPN 10%",
           price: "Rp 5.500",
-          code: "PW5"
+          code: "PW5",
         },
         {
           id: 4,
@@ -721,7 +734,7 @@ export default {
           label: "8 Hari VIP",
           desc: "Rp 8.800/SMS termasuk PPN 10%",
           price: "Rp 8.800",
-          code: "REG"
+          code: "REG",
         },
         {
           id: 5,
@@ -731,7 +744,7 @@ export default {
           label: "12 Hari VIP",
           desc: "Rp 11.000/SMS termasuk PPN 10%",
           price: "Rp 11.000",
-          code: "PW7"
+          code: "PW7",
         },
         {
           id: 6,
@@ -741,8 +754,8 @@ export default {
           label: "17 Hari VIP",
           desc: "Rp 16.500/SMS termasuk PPN 10%",
           price: "Rp 16.500",
-          code: "PW8"
-        }
+          code: "PW8",
+        },
       ],
       vipTrans: [
         {
@@ -752,7 +765,7 @@ export default {
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
           label: "16 Hari VIP",
           price: "Rp 10.000",
-          code: "PW"
+          code: "PW",
         },
         {
           id: 8,
@@ -761,7 +774,7 @@ export default {
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
           label: "40 Hari VIP",
           price: "Rp 25.000",
-          code: "PW"
+          code: "PW",
         },
         {
           id: 9,
@@ -770,7 +783,7 @@ export default {
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
           label: "80 Hari VIP",
           price: "Rp 50.000",
-          code: "PW"
+          code: "PW",
         },
         {
           id: 10,
@@ -779,46 +792,46 @@ export default {
             "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
           label: "160 Hari VIP",
           price: "Rp 100.000",
-          code: "PW"
-        }
+          code: "PW",
+        },
       ],
       iframeDialogVisible: false,
-	  invoiceUrl: "",
-	  finalbuttondisabled: true,
-	  success: false,
+      invoiceUrl: "",
+      finalbuttondisabled: true,
+      success: false,
     };
   },
   components: {
-    IframePreview
+    IframePreview,
   },
   watch: {
-    e1: function(baru, lama) {
+    e1: function (baru, lama) {
       if (baru == 1) {
         this.appBarLabel = "Purchase VIP Membership";
       }
-	},
-	'formdata.nomorhandphone': function( baru, lama ) {
-		//console.log(baru)
-		setTimeout(() => {
-			let phonenumber = this.formdata.nomorhandphone;
-			var zero = phonenumber.substring(0,1);
-			var namdua = phonenumber.substring(0,2);
-			if( zero == 0 || namdua == 62 ) {
-				if( phonenumber != '' && phonenumber != null ) {
-					this.finalbuttondisabled = false
-				} else {
-					this.finalbuttondisabled = true
-				}
-			} else {
-				this.finalbuttondisabled = true
-			}
-		}, 200);
-	}
+    },
+    "formdata.nomorhandphone": function (baru, lama) {
+      //console.log(baru)
+      setTimeout(() => {
+        let phonenumber = this.formdata.nomorhandphone;
+        var zero = phonenumber.substring(0, 1);
+        var namdua = phonenumber.substring(0, 2);
+        if (zero == 0 || namdua == 62) {
+          if (phonenumber != "" && phonenumber != null) {
+            this.finalbuttondisabled = false;
+          } else {
+            this.finalbuttondisabled = true;
+          }
+        } else {
+          this.finalbuttondisabled = true;
+        }
+      }, 200);
+    },
   },
   computed: {
     /* Init Modal */
     intDialogVisible: {
-      get: function() {
+      get: function () {
         if (this.dialogVisible) {
           // Some dialog initialization code could be placed here
           // because it is called only when this.dialogVisible changes
@@ -827,12 +840,12 @@ export default {
 
         return this.dialogVisible;
       },
-      set: function(value) {
+      set: function (value) {
         if (!value) {
           this.$emit("close");
         }
-      }
-    }
+      },
+    },
   },
   methods: {
     onError(error) {
@@ -841,7 +854,7 @@ export default {
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
-	  this.finalbuttondisabled = false
+      this.finalbuttondisabled = false;
     },
     onExpired() {
       console.log("Expired");
@@ -891,7 +904,7 @@ export default {
       if (currentstep == "xendit") {
         const sendvoucher = {
           voucher_id: voucherId,
-          email: email
+          email: email,
         };
 
         try {
@@ -906,7 +919,7 @@ export default {
         }
       } else if (currentstep == "midtrans") {
         const sendvoucher = {
-          voucher_id: voucherId
+          voucher_id: voucherId,
         };
 
         try {
@@ -947,31 +960,30 @@ export default {
         this.current = currentstep;
         this.e1 = 4;
       }
-	},
+    },
 
-	filterKey(e){
+    filterKey(e) {
       const key = e.key;
 
       // If is '.' key, stop it
-      if (key === '.')
-        return e.preventDefault();
+      if (key === ".") return e.preventDefault();
 
       // OPTIONAL
       // If is 'e' key, stop it
-      if (key === 'e')
-        return e.preventDefault();
+      if (key === "e") return e.preventDefault();
     },
 
     // This can also prevent copy + paste invalid character
-    filterInput(e){
-      e.target.value = e.target.value.replace(/[^0-9]+/g, '');
+    filterInput(e) {
+      e.target.value = e.target.value.replace(/[^0-9]+/g, "");
     },
 
     /* Validasi Form */
     validate(voucher) {
-		if( this.formdata.nomorhandphone.includes('0') )
-      var vm = this;
-      vm.formdata.voucher_id = voucher;
+		var vm = this;
+	  if (this.formdata.nomorhandphone.includes("0")) {
+	  	vm.formdata.voucher_id = voucher;
+	  }
       if (vm.recaptchaToken == "success") {
         this.submit();
       } else {
@@ -996,11 +1008,11 @@ export default {
           window.location.href =
             "http://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
         } else {
-            window.open(
-              "http://www.gudangapp.com/Wap_action.jsp?content=" +
+          window.open(
+            "http://www.gudangapp.com/Wap_action.jsp?content=" +
               this.wap +
               "+WPW&dest=97789&&success=http://pewefeed.com/rand"
-            );
+          );
         }
 
         // let vm = this
@@ -1018,8 +1030,8 @@ export default {
           const res = await PurchaseService.BuyVip(sendform);
           vm.responsemessage = res.data.message;
           if (res.status == 200) {
-			this.e1 = 1;
-			this.success = true
+            this.e1 = 1;
+            this.success = true;
           }
         } catch (error) {
           console.log(error);
@@ -1057,12 +1069,12 @@ export default {
     },
     iframePreview() {
       this.iframeDialogVisible = true;
-    }
+    },
   },
   mounted() {
     /* Init Data User to Customer Detail */
     this.fetchUser();
-  }
+  },
 };
 </script>
 
@@ -1103,27 +1115,26 @@ export default {
   padding-top: 0 !important;
 }
 .hmmm {
-	& > div:first-of-type {
-		font-weight: bold;
-		font-size: 16px;
-		span {
-			font-weight: normal;
-		}
-	}
-	& > div:last-of-type {
-		font-weight: normal;
-		font-size: 14px;
-		span {
-			font-weight: normal!important;
-		}
-	}
+  & > div:first-of-type {
+    font-weight: bold;
+    font-size: 16px;
+    span {
+      font-weight: normal;
+    }
+  }
+  & > div:last-of-type {
+    font-weight: normal;
+    font-size: 14px;
+    span {
+      font-weight: normal !important;
+    }
+  }
 }
-
 </style>
 
 <style lang="scss">
 .apasih .v-text-field__slot {
-	padding-left: 10px!important;
-	padding-right: 10px!important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 </style>

@@ -1,10 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-	// server: {
-	// 	port: 8000, // default: 3000
-	// 	host: '0.0.0.0', // default: localhost
-	// },
+	server: {
+		port: 8000, // default: 3000
+		host: '0.0.0.0', // default: localhost
+	},
 	env: {
 		baseUrl: process.env.BASE_URL || 'https://pewefeed.com/',
 		mobileUrl: process.env.MOBILE_URL || 'https://m.pewefeed.com/',
@@ -194,7 +194,7 @@ export default {
 	recaptcha: {
 		hideBadge: true, // Hide badge element
 		version: 2,     // Version
-		siteKey: '6Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q' // Site key for requests
+		siteKey: '6LcS3PoUAAAAAO-84uJ28tPawOCH882_Ph8uiVlB' // Site key for requests
 	},
 
 
