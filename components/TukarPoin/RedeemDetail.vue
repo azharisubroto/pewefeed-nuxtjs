@@ -122,18 +122,24 @@
 	<v-bottom-sheet v-model="buyconfirm">
 		<v-sheet height="100%" color="transparent">
 		<v-card style="border-radius: 0!important;">
-			<v-toolbar :elevation="1" style="border-top:2px solid #fff;">
-			<!-- Arrow -->
-			<v-btn dark icon tile style="border-right: 0px solid #717171" light @click="closeIt()">
-				<v-icon>mdi-close</v-icon>
-			</v-btn>
-
-			<!-- Title -->
-			<div class="flex-grow-1"></div>
-			<v-toolbar-items>
-				<v-btn dark text class="deep-orange--text">Konfirmasi</v-btn>
-			</v-toolbar-items>
-			<div class="flex-grow-1"></div>
+			<v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+				<v-row class="pa-0" align="center">
+					<v-col cols="2">
+						<v-btn
+							dark
+							icon
+							tile
+							style="border-right: 0px solid #717171"
+							light
+							@click="buyconfirm = false;"
+						>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+					</v-col>
+					<v-col cols="8" class="deep-orange--text text-center">
+						Konfirmasi
+					</v-col>
+				</v-row>
 			</v-toolbar>
 
 			<div class="px-5 pt-10 text-center">
