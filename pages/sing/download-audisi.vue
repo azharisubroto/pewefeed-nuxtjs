@@ -9,7 +9,7 @@
 			<template v-if="singtab == 0">
 				<section class="toppoin-acc">
 					<div class="devider-small"></div>
-					<a :href="download" :download="download" class="d-block py-2 px-5">
+					<a @click="downloadVideo(download)" class="d-block py-2 px-5">
 						<v-row align="center">
 							<v-col cols="10" class="py-0">Download Now</v-col>
 							<v-col cols="2" class="text-right">
@@ -76,6 +76,7 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import Video from "@/components/sing/Video";
 import SingService from '@/services/SingService'
+import axios from 'axios'
 
 export default {
 	name:"Sing",
@@ -90,6 +91,7 @@ export default {
 			label: 'Download',
 			singcontent: [],
 			download: null,
+			videoName: null,
 			lirik: null
 		}
 	},
@@ -101,12 +103,43 @@ export default {
 				console.log(JSON.parse(JSON.stringify(data)));
 				this.lirik = data.lirik
 				this.download = data.download_video
+				this.videoName = data.promoted_video
 			} catch (error) {
 				console.log(error)
 			}
 		},
-		downloadVideo(url) {
-			//window.open(this.download,'Download');
+		reqListener () {
+			console.log(this.responseText);
+		},
+		async downloadVideo(url){
+			//let blob = await fetch(url).then(r => r.blob());
+			// let file = await fetch(url).then(r => r.blob()).then(blobFile => new File([blobFile], this.videoName, { type: "video/mp4" }));
+			// console.log(file);
+
+			axios({
+				url: url, //your url
+				method: 'GET',
+				responseType: 'arraybuffer', // important
+			}).then((response) => {
+				const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', this.videoName+'.mp4'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+			});
+
+			// axios.get(url, {responseType: 'arraybuffer'})
+			// .then(function (response) {
+			// 	var headers = response.headers();
+			// 	var blob = new Blob([response.data],{
+			// 		type:headers['content-type']
+			// 	});
+			// 	var link = document.createElement('a');
+			// 	link.href = window.URL.createObjectURL(blob);
+			// 	link.download = "Your_file_name";
+			// 	link.click();
+			// });
 		}
 	},
 	mounted() {
