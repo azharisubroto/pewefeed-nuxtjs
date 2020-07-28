@@ -446,7 +446,7 @@ export default {
         } else if (error.response && error.response.status == 500) {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
-          alert("Mohon Maaf :(, Anda harus login");
+          this.loginModalVisible = true;
         } else {
           alert("error! " + error.message);
         }
@@ -610,7 +610,7 @@ export default {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
           //alert('Mohon Maaf :(, Anda harus login')
-          this.openModalLogin();
+          this.loginModalVisible = true
         } else {
           alert("error! " + error.message);
         }
