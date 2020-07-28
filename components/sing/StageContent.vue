@@ -11,14 +11,13 @@
 				{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
 			</v-alert>
 		</v-container>
-
+		<v-container v-if="uploaded" :key="i+'-asdfsdf'">
+			<div class="text-16"><strong>POSISI KAMU</strong></div>
+		</v-container>
 		<div v-if="pesertaloop != null && userid != null">
 			<template v-for="(item, i) in pesertaloop">
-				<v-container v-if="item.customer.id == userid && i == 0" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
+				<v-container v-if="i == 0 && !uploaded" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
 					<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-				</v-container>
-				<v-container v-if="i == 0" :key="i+'-asdfsdf'">
-					<div class="text-16"><strong>POSISI KAMU</strong></div>
 				</v-container>
 				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
 					<SingItem :item="item" />
@@ -247,7 +246,6 @@ export default {
 			pagination: this.content.paginations.current_page,
 			dialogVisible: false,
 			uploadVisible: false,
-			userid: null,
 			sorter: [
 				{
 					title:'Star to NOT Star',
@@ -277,8 +275,31 @@ export default {
 					title:'Oldest to Newest',
 					slug: 'oldest',
 				},
-			]
+			],
+			uploaded: false
 		}
+	},
+	watch: {
+		pesertaloop: {
+			immediate: true,
+			handler (val, oldVal) {
+				if (localStorage.getItem('userdata')) {
+					var userdata = JSON.parse(localStorage.getItem('userdata'));
+					let userid = userdata.data.id
+
+					console.log('pesertaloop',JSON.parse(JSON.stringify(val)));
+					for (let index = 0; index < val.length; index++) {
+						const el = val[index];
+						console.log(el.customer.id, userid);
+						if( el.customer.id == userid ) {
+							this.uploaded = true
+							console.log('exists');
+							return false;
+						}
+					}
+				}
+			}
+		},
 	},
 	methods: {
 		historyBack() {
