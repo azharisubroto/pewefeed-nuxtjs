@@ -16,7 +16,7 @@
 		</v-container>
 		<div v-if="pesertaloop != null && userid != null">
 			<template v-for="(item, i) in pesertaloop">
-				<v-container v-if="i == 0 && !uploaded" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
+				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
 					<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 				</v-container>
 				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
