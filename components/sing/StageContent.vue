@@ -11,7 +11,7 @@
 				{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
 			</v-alert>
 		</v-container>
-		<v-container v-if="uploaded" :key="i+'-asdfsdf'">
+		<v-container v-if="uploaded">
 			<div class="text-16"><strong>POSISI KAMU</strong></div>
 		</v-container>
 		<div v-if="pesertaloop != null && userid != null">
@@ -23,6 +23,16 @@
 					<SingItem :item="item" />
 				</div>
 			</template>
+		</div>
+		<div v-if="userid != null && uploadallowed">
+			<v-container style="background: #3838ca" class="text-center py-10">
+				<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+			</v-container>
+		</div>
+		<div v-else-if="userid == null">
+			<v-container style="background: #3838ca" class="text-center py-10">
+				<v-btn color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
+			</v-container>
 		</div>
 
 		<v-container>
@@ -123,10 +133,14 @@
 		</v-bottom-sheet>
 
 		<div class="devider-small"></div>
+
 		<div v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<div class="pesertalist px-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
 				<SingItem :item="item"/>
 			</div>
+		</div>
+		<div v-else class="text-center pa-10">
+			Tidak Ada Data
 		</div>
 
 		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
@@ -162,6 +176,9 @@
 			</v-btn>
 			<ShareButton2/>
 		</v-bottom-navigation>
+		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
+		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
+
 	</div>
 </template>
 
@@ -173,6 +190,9 @@ import SingItem from "@/components/sing/SingItem";
 import UploadVideo from "@/components/sing/UploadVideo";
 import Sorter from "@/components/sing/Sorter";
 import SingService from '../../services/SingService';
+import LoginModal from "@/components/modal/LoginModal";
+import NotVip from "@/components/modal/NotVip";
+
 export default {
 	name:"StageContent",
 	props: ['title', 'pesertaloop', 'stage', 'content', 'type'],
@@ -182,7 +202,9 @@ export default {
 		Video,
 		UploadVideo,
 		SingItem,
-		Sorter
+		Sorter,
+		LoginModal,
+		NotVip
 	},
 	data(){
 		return {
@@ -276,18 +298,19 @@ export default {
 					slug: 'oldest',
 				},
 			],
-			uploaded: false
+			uploaded: false,
+			loginModalVisible: false,
+      		notVipDialogVisible: false,
 		}
 	},
 	watch: {
 		pesertaloop: {
 			immediate: true,
 			handler (val, oldVal) {
-				if (localStorage.getItem('userdata')) {
+				//console.log(val);
+				if (localStorage.getItem('userdata') && val != null ) {
 					var userdata = JSON.parse(localStorage.getItem('userdata'));
 					let userid = userdata.data.id
-
-					console.log('pesertaloop',JSON.parse(JSON.stringify(val)));
 					for (let index = 0; index < val.length; index++) {
 						const el = val[index];
 						console.log(el.customer.id, userid);
@@ -302,6 +325,14 @@ export default {
 		},
 	},
 	methods: {
+		myDialogClose() {
+			this.dialog = false;
+			this.loginModalVisible = false;
+			this.buyVipDialogVisible = false;
+			this.pleaseLoginDialogVisible = false;
+			this.notVipDialogVisible = false;
+			this.KomentarPoinVisible = false;
+		},
 		historyBack() {
 			this.$router.back();
 		},

@@ -1,9 +1,7 @@
 <template>
 	<section class="sing">
 		<SingAppBar :title="content ? content.stage.label : 'Stage'" :back="true"/>
-		<StageContent v-if="peserta!=null && !isloading" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
-		<div v-else-if="peserta == null && isloading" class="pa-10 text-center">Memuat Data...</div>
-		<div v-else-if="peserta == null && !isloading" class="pa-10 text-center">Tidak Ada Data</div>
+		<StageContent v-if="!isloading" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 31 Mei 2020"/>
 
 	</section>
 </template>
@@ -33,16 +31,20 @@ export default {
 				const res =  await SingService.getStageDetail(slug, page)
 				const data = await res.data
 				this.content = data
-				this.peserta = data.video_customer
+				if( data.video_customer.length > 0 ) {
+					this.peserta = data.video_customer;
+				} else {
+					this.peserta = null;
+				}
 				this.isloading = false
-				console.log(JSON.parse(JSON.stringify(this.peserta)))
+				//console.log(JSON.parse(JSON.stringify(this.peserta)))
 			} catch (error) {
 				console.log(error)
 			}
 		},
 	},
 	mounted() {
-		this.stageDetail(this.$route.params.stage);
+		this.stageDetail(this.$route.params.stage, 1);
 		this.$bus.$on('singSearchLoading', () => {
 			this.content = null
 			this.peserta = null
@@ -68,7 +70,12 @@ export default {
 		});
 		this.$bus.$on('singSortItem', (data) => {
 			this.content = data
-			this.peserta = data.video_customer
+			let vide = data.video_customer
+			if( vide.length > 0 ) {
+				this.peserta = data.video_customer;
+			} else {
+				this.peserta = null;
+			}
 			this.isloading = false
 			this.type = 'sort'
 		});
