@@ -344,7 +344,7 @@
                   depressed
                   color="deep-orange"
                   :loading="sending"
-                  @click="recaptchaPreSend()"
+                  @click="submitAnswer()"
                 >KIRIM JAWABAN</v-btn>
               </div>
               <div v-else-if="!sudahpernah && quizzes == null" class="pa-8 text-center">Loading Quiz</div>
