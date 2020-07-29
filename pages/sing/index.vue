@@ -136,7 +136,7 @@
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<ShareButton2/>
+			<ShareButton2 tipe="Sing"/>
 		</v-bottom-navigation>
 	</section>
 </template>
@@ -232,6 +232,13 @@ export default {
 		this.getStages();
 		this.getHelp();
 		this.fetchPrizes();
+
+		let singredirect = localStorage.getItem('sing_to_login');
+		if( singredirect != null && singredirect !== undefined ) {
+			localStorage.removeItem('sing_to_login');
+		} else {
+			localStorage.removeItem('sing_to_login');
+		}
 	}
 }
 </script>
@@ -241,6 +248,9 @@ export default {
 		iframe {
 			width: 100%;
 			height: 300px;
+		}
+		.v-list-item__title {
+			font-size: 18px;
 		}
 	}
 	.inactive {

@@ -81,7 +81,7 @@
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<ShareButton2/>
+			<ShareButton2 tipe="Sing"/>
 		</v-bottom-navigation>
 	</section>
 </template>

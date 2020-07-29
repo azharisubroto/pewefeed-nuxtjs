@@ -170,7 +170,7 @@
           height="20"
         />
       </v-btn>
-      <ShareButton2 />
+      <ShareButton2 tipe="Sing"/>
     </v-bottom-navigation>
 
 	<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />

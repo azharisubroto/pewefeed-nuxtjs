@@ -46,15 +46,17 @@
               @expired="onExpired()"
             />
           </div>
+
           <v-container v-if="sheet">
             <v-row>
               <v-col v-if="sharingImage" cols="8">
-                <strong class="subtitle-1 font-weight-bold" style="color: #fff">{{ sharingTitle }}</strong>
+                <strong v-if="tipe == 'Sing'" class="subtitle-1">Dukung video saya di '{{tipe}}' klik disini untuk vote</strong>
+				<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
                 <br />
                 <strong class="caption grey--text">{{ sharingTime }}</strong>
               </v-col>
               <v-col v-else cols="8">
-                <strong class="subtitle-1">{{ sharingTitle }}</strong>
+				<strong class="subtitle-1">{{ sharingTitle }}</strong>
                 <br />
                 <strong class="caption grey--text">{{ domainTitle }}</strong>
               </v-col>
@@ -145,7 +147,7 @@ import SharePoin from "@/components/modal/SharePoin";
 
 export default {
   name: "ShareButton2",
-  props: ["share"],
+  props: ["share", "tipe", "customimage"],
   //props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
   components: {
     socialSharing,
@@ -154,7 +156,7 @@ export default {
   data: () => ({
     recaptchaDialogVisible: false,
     recaptchaToken: null,
-    recaptchaKey: 123123,
+    recaptchaKey: '6LcS3PoUAAAAAO-84uJ28tPawOCH882_Ph8uiVlB',
     recaptcha: true,
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
@@ -261,15 +263,24 @@ export default {
     }
   },
   mounted() {
-    let vm = this;
-    this.refetchMeta();
+	let vm = this;
+	this.recaptcha = false;
+    this.sheet = true;
   },
   updated() {
-    this.refetchMeta();
+	if( this.customimage ) {
+		this.sharingImage = this.customimage
+	} else {
+		this.refetchMeta();
+ 	}
   },
   watch: {
     $route(to, from) {
-      this.refetchMeta();
+	 if( this.customimage )  {
+		 this.sharingImage = this.customimage
+	 } else {
+	  this.refetchMeta();
+	 }
     }
   }
 };
