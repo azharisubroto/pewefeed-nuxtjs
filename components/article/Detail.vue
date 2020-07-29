@@ -8,34 +8,8 @@
     <v-container v-if="article" class="mb-5 pb-5 articlewrapper">
       <v-row>
         <v-col>
-          <!-- META 1 -->
-          <div class="mb-1">
-            <div
-              class="d-inline-block mr-2"
-              style="line-height:1;font-size:12px"
-            >{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</div>
-            <div class="d-inline-block" style="font-size:12px">
-              <div class="d-inline-block mr-3 text--small">
-                <v-icon small size="12">mdi-clock-outline</v-icon>
-                {{article.published_at}}
-              </div>
-              <div class="d-inline-block mr-3 text--small">
-                <v-icon small size="12">mdi-calendar-blank</v-icon>
-                {{article.created_at}}
-              </div>
-              <div class="d-inline-block mr-3 text--small">
-                <v-icon small size="12">mdi-eye-outline</v-icon>
-                {{article.total_view}}
-              </div>
-              <div class="d-inline-block mr-3 text--small">
-                <v-icon small size="12">mdi-message-text-outline</v-icon>
-                {{article.total_comment ? article.total_comment : 0}}
-              </div>
-            </div>
-          </div>
-
           <!-- TITLE -->
-          <h2 class="mb-0">{{article.title}}</h2>
+          <h2 class="mb-0 text-center">{{article.title}}</h2>
         </v-col>
       </v-row>
       <!-- ARTICLE -->
@@ -45,6 +19,33 @@
             <div class="article-thumb">
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
+
+			<!-- META 1 -->
+			<div class="mt-2 d-flex justify-space-between align-center">
+				<div
+				class="mr-2"
+				style="line-height:1;font-size:12px"
+				>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</div>
+
+				<div style="font-size:12px">
+					<!-- <div class="d-inline-block mr-3 text--small">
+						<v-icon small size="12">mdi-clock-outline</v-icon>
+						{{article.published_at}}
+					</div> -->
+					<div class="d-inline-block mr-3 text--small">
+						<v-icon small size="12">mdi-calendar-blank</v-icon>
+						{{article.created_at}}
+					</div>
+					<div class="d-inline-block mr-3 text--small">
+						<v-icon small size="12">mdi-eye-outline</v-icon>
+						{{article.total_view}}
+					</div>
+					<div class="d-inline-block mr-3 text--small">
+						<v-icon small size="12">mdi-message-text-outline</v-icon>
+						{{article.total_comment ? article.total_comment : 0}}
+					</div>
+				</div>
+			</div>
 
             <div class="mb-1 mt-5" id="banner-between">
               <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
@@ -200,15 +201,16 @@
         <v-tabs-items v-model="tabCom" style="background:transparent!important">
           <v-tab-item value="kasihkomen">
             <v-alert
-              border="left"
               dense
-              colored-border
-              type="info"
               class="mt-4"
-              style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
+			  color="#0057FF"
+      		  prominent
             >
+			  <template v-slot:prepend>
+				  <v-img src="/img/icons/info.svg" class="mr-3"></v-img>
+			  </template>
               Dapatkan
-              <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
+              2 Poin atas setiap komentar dengan minimum 20 kata
             </v-alert>
             <!-- TEXT AREA -->
             <v-textarea
@@ -227,22 +229,13 @@
               style="margin-top: -30px !important;"
             >{{ total_counter }}</div>
             <div class="d-block"></div>
-            <recaptcha
-              :key="recaptchaKey"
-              class="mx-5 my-5"
-              @error="onError()"
-              @success="onSuccess()"
-              @expired="onExpired()"
-            />
 
             <v-btn
-              :disabled="recaptchaToken == null"
-              :style="recaptchaToken == null ? 'background-color: grey !important' : ''"
               block
               dark
               depressed
               color="deep-orange"
-              @click="postComment()"
+              @click="recaptchaPreSend = true"
             >
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
@@ -291,7 +284,7 @@
             style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;"
             v-model="tab"
           >
-            <v-tab href="#jawab">Jawab Quiz</v-tab>
+            <v-tab href="#jawab">Quiz</v-tab>
             <v-tab href="#ketentuan">Ketentuan</v-tab>
             <v-tab href="#statistik">Statistik</v-tab>
           </v-tabs>
@@ -302,25 +295,46 @@
             style="background: transparent!important"
           >
             <v-tab-item value="jawab" background-color="transparent">
+				<v-alert
+				dense
+				class="mt-4"
+				color="#0057FF"
+				prominent
+				>
+					<template v-slot:prepend>
+						<v-img src="/img/icons/info.svg" class="mr-3"></v-img>
+					</template>
+					Dapatkan 20 Points jika seluruh jawaban kamu benar
+				</v-alert>
               <div v-if="quizzes!=null && !sudahpernah && !ispoin">
                 <div v-for="(quiz, i) in quizzes" :key="'quiz-'+i">
-                  <h4 class="mt-5">{{ quiz.question }}</h4>
-                  <v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
-                    <v-row>
-                      <v-col cols="6">
-                        <v-radio :label="`${quiz.option_a}`" value="A" color="green"></v-radio>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-radio :label="`${quiz.option_b}`" value="B" color="green"></v-radio>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-radio :label="`${quiz.option_c}`" value="C" color="green"></v-radio>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-radio :label="`${quiz.option_d}`" value="D" color="green"></v-radio>
-                      </v-col>
-                    </v-row>
-                  </v-radio-group>
+
+					<v-row class="pb-0">
+						<v-col cols="2" class="pb-0">
+							<div class="pointsquare">
+								0{{parseFloat(i+1)}}
+							</div>
+						</v-col>
+						<v-col cols="10" class="pb-0">
+							<h4 class="mt-0">{{ quiz.question }}</h4>
+							<v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
+								<v-row>
+								<v-col cols="6">
+									<v-radio :label="`${quiz.option_a}`" value="A" color="green"></v-radio>
+								</v-col>
+								<v-col cols="6">
+									<v-radio :label="`${quiz.option_b}`" value="B" color="green"></v-radio>
+								</v-col>
+								<v-col cols="6">
+									<v-radio :label="`${quiz.option_c}`" value="C" color="green"></v-radio>
+								</v-col>
+								<v-col cols="6">
+									<v-radio :label="`${quiz.option_d}`" value="D" color="green"></v-radio>
+								</v-col>
+								</v-row>
+							</v-radio-group>
+						</v-col>
+					</v-row>
                 </div>
 
                 <v-btn
@@ -330,19 +344,18 @@
                   depressed
                   color="deep-orange"
                   :loading="sending"
-                  @click="submitAnswer()"
+                  @click="recaptchaPreSend()"
                 >KIRIM JAWABAN</v-btn>
               </div>
               <div v-else-if="!sudahpernah && quizzes == null" class="pa-8 text-center">Loading Quiz</div>
 
               <v-container v-if="ispoin">
                 <v-alert
-                  border="left"
-                  dense
-                  colored-border
-                  color="primary"
-                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                >
+				dense
+				class="mt-4"
+				color="#0057FF"
+				prominent
+				>
                   <v-row>
                     <v-col cols="2">
                       <img width="30" src="/img/poinextra.png" alt />
@@ -376,32 +389,25 @@
 
               <v-container v-if="sudahpernah">
                 <v-alert
-                  border="left"
-                  dense
-                  colored-border
-                  color="primary"
-                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                >
-                  <v-row>
-                    <v-col cols="10">Kamu sudah menjawab Quiz ini</v-col>
-                  </v-row>
-                </v-alert>
-                <v-btn
-                  @click="$router.push('/member/histori_penggunaan_poin')"
-                  block
-                  dark
-                  color="orange"
-                >LIHAT TOTAL POIN</v-btn>
+				dense
+				class="mt-4"
+				color="#0057FF"
+				prominent
+				>
+				<template v-slot:prepend>
+					<v-img src="/img/icons/info.svg" class="mr-3"></v-img>
+				</template>
+				Kamu sudah menjawab Quiz ini
+				</v-alert>
               </v-container>
 
               <v-container v-if="noLimit">
                 <v-alert
-                  border="left"
-                  dense
-                  colored-border
-                  color="primary"
-                  style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-                >
+				dense
+				class="mt-4"
+				color="#0057FF"
+				prominent
+				>
                   <v-row>
                     <v-col cols="2">
                       <img width="30" src="/img/poinextra.png" alt />
@@ -554,6 +560,39 @@
         </v-card>
       </v-sheet>
     </v-bottom-sheet>
+
+	<!-- RECAPTCHA POPUP -->
+	<v-bottom-sheet v-model="recaptchaPreSend">
+      <v-sheet height="100%" color="transparent">
+        <v-card style="border-radius: 0!important;">
+          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+            <!-- Arrow -->
+            <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="recaptchaPreSend = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+              <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
+            </v-toolbar-items>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+
+          <div class="px-5 pt-1 text-center">
+            <div class="mt-3 mb-5 pb-10 text-14">
+				<recaptcha
+				:key="recaptchaKey"
+				class="mx-5 my-5"
+				@error="onError()"
+				@success="onSuccess()"
+				@expired="onExpired()"
+				/>
+            </div>
+          </div>
+        </v-card>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
@@ -659,7 +698,8 @@ export default {
       notLogin: null,
       recaptchaToken: null,
 	  recaptchaKey: 1,
-	  dailyLimitNotice: false
+	  dailyLimitNotice: false,
+	  recaptchaPreSend: false
     };
   },
   // computed: {
@@ -839,7 +879,10 @@ export default {
       this.recaptchaToken = null;
     },
     onSuccess(token) {
-      this.recaptchaToken = "success";
+	  this.recaptchaToken = "success";
+	  this.postComment();
+	  //this.validate();
+	  //this.validate();
     },
     onExpired() {
       console.log("Expired");
@@ -892,7 +935,8 @@ export default {
         this.recaptchaToken = null;
         if (res.data.poin > 0) {
           this.KomentarPoinVisible = true;
-        }
+		}
+		this.recaptchaPreSend = false
       } catch (error) {
         //console.log(error.response.status)
         this.commentIsPosting = false;
@@ -905,7 +949,8 @@ export default {
           this.openModalLogin();
         } else {
           alert("error! " + error.message);
-        }
+		}
+		this.recaptchaPreSend = false
       }
     },
     async submitAnswer() {
@@ -1169,5 +1214,15 @@ export default {
 }
 .rotate-90 {
 	transform: rotate(90deg);
+}
+.pointsquare {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background: #C4C4C4;
+	color: #000;
+	border-radius: 10px;
+	font-weight: bold;
 }
 </style>
