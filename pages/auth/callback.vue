@@ -23,8 +23,13 @@ export default {
 
         this.$auth.fetchUser().then(() => {
             var userdata = vm.$auth.user
-            localStorage.setItem('userdata', JSON.stringify(userdata))
-            return this.$router.push('/')
+			localStorage.setItem('userdata', JSON.stringify(userdata))
+			let singredirect = localStorage.getItem('sing_to_login');
+			if( singredirect != null && singredirect !== undefined ) {
+				return this.$router.push('/sing/')
+			} else {
+				return this.$router.push('/')
+			}
         }).catch((e) => {
             this.$auth.logout()
             localStorage.removeItem("loggedin");

@@ -11,9 +11,28 @@
       {{content2.customer.name}}
     </v-container>
 
-	<video v-if="videoutama!=null" width="400" controls>
+	<video v-if="videoutama!=null && playnow !== false" width="400" controls autoPlay>
 		<source :src="videoutama" type="video/mp4">
 	</video>
+	<v-img v-else
+		:src="content2.video.thumbnail_url"
+		position="center"
+		aspect-ratio="1"
+		class="position-relative"
+		height="300"
+		@click="playnow = true"
+	>
+		<template v-slot:default>
+			<v-row
+			class="ma-0"
+			align="center"
+			justify="center"
+			style="height:100%;"
+			>
+				<v-icon size="100">mdi-play-circle</v-icon>
+			</v-row>
+		</template>
+	</v-img>
 
 
     <template v-if="singtab == 0">
@@ -241,7 +260,7 @@
           height="20"
         />
       </v-btn>
-      <ShareButton2 />
+      <ShareButton2 tipe="Sing" :customimage="content2.video.thumbnail_url"/>
     </v-bottom-navigation>
 
 	<!-- Dapet bonus -->
@@ -263,7 +282,10 @@
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">You've got {{ type == 'vote' ? 5 : 2 }} Point!</v-btn>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">
+				<span v-if="type=='vote'">You've got {{ type == 'vote' ? 5 : 2 }} Point!</span>
+				<span v-if="type=='alreadyvote'">Information</span>
+			</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
@@ -274,6 +296,15 @@
 			  <br>
 			  Kamu mendapat 5 Point karena sudah<br>
 			  Memberikan vote
+			  <br>
+			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
+			  <br><br>
+		  </v-container>
+		  <v-container v-else-if="type == 'alreadyvote'" class="text-center">
+			  <img src="/img/close.svg" width="40" class="mt-5"/>
+			  <br>
+			  Kamu sudah memberikan vote hari ini
+			  <br>
 			  <br>
 			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
 			  <br><br>
@@ -317,6 +348,7 @@ export default {
   },
   data() {
     return {
+		playnow: false,
       comment_fetched: false,
 	  singtab: 0,
 	  notVipDialogVisible: false,
@@ -437,12 +469,16 @@ export default {
 		const data = res.data;
 		this.apakahbetul = true;
 		this.type = 'vote'
-        console.log(data);
+		console.log(data);
+		setTimeout(() => {
+			window.location.reload(true);
+		}, 1000);
       } catch (error) {
         console.log(error);
         if (error.response && error.response.status == 422) {
 		  //alert(error.response.data.message);
-		  this.notVipDialogVisible = true
+		  this.apakahbetul = true
+		  this.type = 'alreadyvote'
         } else if (error.response && error.response.status == 500) {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
@@ -616,6 +652,9 @@ export default {
         }
       }
     }
+  },
+  beforeDestroy() {
+	localStorage.setItem('sing_to_login', 'yes');
   }
 };
 </script>

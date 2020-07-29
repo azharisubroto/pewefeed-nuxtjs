@@ -10,9 +10,9 @@
 				<section class="toppoin-acc" v-if="help">
 					<v-expansion-panels v-for="(item,index) in help" :key="index">
 						<v-expansion-panel class="mb-0">
-							<v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
+							<v-expansion-panel-header class="py-5 text-uppercase text-18">{{item.title}}</v-expansion-panel-header>
 							<v-expansion-panel-content class='caption'>
-								<div v-html="item.content"></div>
+								<div v-html="formatText(item.content)" class="text-18" style="line-height:30px"></div>
 							</v-expansion-panel-content>
 						</v-expansion-panel>
 					</v-expansion-panels>
@@ -25,7 +25,9 @@
 				</v-container>
 			</template>
 		</div>
-
+		<br>
+		<br>
+		<br>
 		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
 			fixed
@@ -89,6 +91,10 @@ export default {
 			} catch (error) {
 
 			}
+		},
+		formatText( text ) {
+			const doc = text
+    		return doc.replace(/(?:\r\n|\r|\n)/g, '<br>');
 		}
 	},
 	mounted() {
