@@ -713,6 +713,9 @@ a,
   font-size: 18px;
   margin: 30px 0;
   color: #fff;
+  &:first-of-type {
+	  margin-top: 20px;
+  }
 }
 .v-application {
   &.open {
@@ -770,9 +773,9 @@ a,
 
 .topview-item {
   h2 {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.3;
+    font-size: 16px!important;
+    font-weight: 500!important;
+    line-height: 1.3!important;
   }
   .playbutton {
     position: absolute;
@@ -1042,6 +1045,14 @@ a,
 }
 .v-text-field--filled.v-text-field--single-line input {
 	margin-top: 0!important;
+}
+
+.theme--dark.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+	color: #fff;
+	opacity:1!important;
+}
+.theme--dark.v-tabs > .v-tabs-bar .v-tab {
+	font-weight: bold;
 }
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)

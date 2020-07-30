@@ -1,4 +1,4 @@
-<template>
+h2<template>
   <section>
     <v-skeleton-loader
       v-if="article==''"
@@ -9,7 +9,7 @@
       <v-row>
         <v-col>
           <!-- TITLE -->
-          <h2 class="mb-0 text-center">{{article.title}}</h2>
+          <h2 class="mb-0 text-center maintitle">{{article.title}}</h2>
         </v-col>
       </v-row>
       <!-- ARTICLE -->
@@ -20,32 +20,34 @@
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
 
-			<!-- META 1 -->
-			<div class="mt-2 d-flex justify-space-between align-center">
-				<div
-				class="mr-2"
-				style="line-height:1;font-size:12px"
-				>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</div>
+            <!-- META 1 -->
+            <div class="mt-2 d-flex justify-space-between align-center mt-5">
+              <div
+                class="mr-2"
+                style="line-height:1;font-size:12px"
+              >{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</div>
 
-				<div style="font-size:12px">
-					<!-- <div class="d-inline-block mr-3 text--small">
+              <div style="font-size:12px">
+                <!-- <div class="d-inline-block mr-3 text--small">
 						<v-icon small size="12">mdi-clock-outline</v-icon>
 						{{article.published_at}}
-					</div> -->
-					<div class="d-inline-block mr-3 text--small">
-						<v-icon small size="12">mdi-calendar-blank</v-icon>
-						{{article.created_at}}
-					</div>
-					<div class="d-inline-block mr-3 text--small">
-						<v-icon small size="12">mdi-eye-outline</v-icon>
-						{{article.total_view}}
-					</div>
-					<div class="d-inline-block mr-3 text--small">
-						<v-icon small size="12">mdi-message-text-outline</v-icon>
-						{{article.total_comment ? article.total_comment : 0}}
-					</div>
-				</div>
-			</div>
+                </div>-->
+                <div class="d-inline-block mr-3 text--small">
+                  <v-icon small size="12">mdi-calendar-blank</v-icon>
+                  {{article.created_at}}
+                </div>
+                <div class="d-inline-block mr-3 text--small">
+                  <v-icon small size="12">mdi-eye-outline</v-icon>
+                  {{article.total_view}}
+                </div>
+                <div class="d-inline-block mr-3 text--small">
+                  <v-icon small size="12">mdi-message-text-outline</v-icon>
+                  {{article.total_comment ? article.total_comment : 0}}
+                </div>
+              </div>
+            </div>
+
+            <div class="devider-small mt-5"></div>
 
             <div class="mb-1 mt-5" id="banner-between">
               <v-img @click="$router.push('/toppoin')" src="/img/banner-top-point-new.png"></v-img>
@@ -191,24 +193,19 @@
           class="biasaaja"
           color="deep-orange"
           v-model="tabCom"
-          background-color="rgb(71, 71, 71)"
+          background-color="#000"
           style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;"
         >
-          <v-tab href="#kasihkomen">Berikan Komentar</v-tab>
+          <v-tab href="#kasihkomen">Komentar</v-tab>
           <v-tab href="#ketentuankom">Ketentuan</v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tabCom" style="background:transparent!important">
           <v-tab-item value="kasihkomen">
-            <v-alert
-              dense
-              class="mt-4"
-			  color="#0057FF"
-      		  prominent
-            >
-			  <template v-slot:prepend>
-				  <v-img src="/img/icons/info.svg" class="mr-3"></v-img>
-			  </template>
+            <v-alert class="mt-4" color="#0057FF" prominent>
+              <template v-slot:prepend>
+                <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+              </template>
               Dapatkan
               2 Poin atas setiap komentar dengan minimum 20 kata
             </v-alert>
@@ -226,17 +223,11 @@
             <div
               class="counter mb-3"
               align="end"
-              style="margin-top: -30px !important;"
-            >{{ total_counter }}</div>
+              style="margin-top: -20px !important;"
+            >Counter : {{ total_counter }}</div>
             <div class="d-block"></div>
 
-            <v-btn
-              block
-              dark
-              depressed
-              color="deep-orange"
-              @click="recaptchaPreSend = true"
-            >
+            <v-btn block dark depressed large color="deep-orange" @click="recaptchaPreSend = true">
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
@@ -280,7 +271,7 @@
             hide-slider
             class="biasaaja"
             color="deep-orange"
-            background-color="rgb(71, 71, 71)"
+            background-color="#000"
             style="border-top: 1px solid #fff;border-bottom:1px solid #fff;margin: 0 -12px;width:auto;"
             v-model="tab"
           >
@@ -295,46 +286,38 @@
             style="background: transparent!important"
           >
             <v-tab-item value="jawab" background-color="transparent">
-				<v-alert
-				dense
-				class="mt-4"
-				color="#0057FF"
-				prominent
-				>
-					<template v-slot:prepend>
-						<v-img src="/img/icons/info.svg" class="mr-3"></v-img>
-					</template>
-					Dapatkan 20 Points jika seluruh jawaban kamu benar
-				</v-alert>
+              <v-alert v-if="!sudahpernah" class="mt-4" color="#0057FF" prominent>
+                <template v-slot:prepend>
+                  <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+                </template>
+                Dapatkan 20 Points jika seluruh jawaban kamu benar
+              </v-alert>
               <div v-if="quizzes!=null && !sudahpernah && !ispoin">
                 <div v-for="(quiz, i) in quizzes" :key="'quiz-'+i">
-
-					<v-row class="pb-0">
-						<v-col cols="2" class="pb-0">
-							<div class="pointsquare">
-								0{{parseFloat(i+1)}}
-							</div>
-						</v-col>
-						<v-col cols="10" class="pb-0">
-							<h4 class="mt-0">{{ quiz.question }}</h4>
-							<v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
-								<v-row>
-								<v-col cols="6">
-									<v-radio :label="`${quiz.option_a}`" value="A" color="green"></v-radio>
-								</v-col>
-								<v-col cols="6">
-									<v-radio :label="`${quiz.option_b}`" value="B" color="green"></v-radio>
-								</v-col>
-								<v-col cols="6">
-									<v-radio :label="`${quiz.option_c}`" value="C" color="green"></v-radio>
-								</v-col>
-								<v-col cols="6">
-									<v-radio :label="`${quiz.option_d}`" value="D" color="green"></v-radio>
-								</v-col>
-								</v-row>
-							</v-radio-group>
-						</v-col>
-					</v-row>
+                  <v-row class="pb-0">
+                    <v-col cols="2" class="pb-0">
+                      <div class="pointsquare">0{{parseFloat(i+1)}}</div>
+                    </v-col>
+                    <v-col cols="10" class="pb-0">
+                      <h4 class="mt-0">{{ quiz.question }}</h4>
+                      <v-radio-group v-model="jawabanQuiz[i]" background-color="transparent">
+                        <v-row>
+                          <v-col cols="6">
+                            <v-radio :label="`${quiz.option_a}`" value="A" color="green"></v-radio>
+                          </v-col>
+                          <v-col cols="6">
+                            <v-radio :label="`${quiz.option_b}`" value="B" color="green"></v-radio>
+                          </v-col>
+                          <v-col cols="6">
+                            <v-radio :label="`${quiz.option_c}`" value="C" color="green"></v-radio>
+                          </v-col>
+                          <v-col cols="6">
+                            <v-radio :label="`${quiz.option_d}`" value="D" color="green"></v-radio>
+                          </v-col>
+                        </v-row>
+                      </v-radio-group>
+                    </v-col>
+                  </v-row>
                 </div>
 
                 <v-btn
@@ -350,12 +333,7 @@
               <div v-else-if="!sudahpernah && quizzes == null" class="pa-8 text-center">Loading Quiz</div>
 
               <v-container v-if="ispoin">
-                <v-alert
-				dense
-				class="mt-4"
-				color="#0057FF"
-				prominent
-				>
+                <v-alert class="mt-4" color="#0057FF" prominent>
                   <v-row>
                     <v-col cols="2">
                       <img width="30" src="/img/poinextra.png" alt />
@@ -387,27 +365,17 @@
                 >TUTUP</v-btn>
               </v-container>
 
-              <v-container v-if="sudahpernah">
-                <v-alert
-				dense
-				class="mt-4"
-				color="#0057FF"
-				prominent
-				>
-				<template v-slot:prepend>
-					<v-img src="/img/icons/info.svg" class="mr-3"></v-img>
-				</template>
-				Kamu sudah menjawab Quiz ini
-				</v-alert>
-              </v-container>
+              <div v-if="sudahpernah">
+                <v-alert class="mt-4" color="#0057FF" prominent>
+                  <template v-slot:prepend>
+                    <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+                  </template>
+                  Kamu sudah menjawab Quiz ini
+                </v-alert>
+              </div>
 
               <v-container v-if="noLimit">
-                <v-alert
-				dense
-				class="mt-4"
-				color="#0057FF"
-				prominent
-				>
+                <v-alert class="mt-4" color="#0057FF" prominent>
                   <v-row>
                     <v-col cols="2">
                       <img width="30" src="/img/poinextra.png" alt />
@@ -486,9 +454,9 @@
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span>News</span>
+        <span>Read</span>
         <img
-          src="/img/icons/icon-article-orange-v2.png"
+          src="/img/icons/read.svg"
           class="mb-1 d-block"
           width="20"
           height="20"
@@ -534,7 +502,14 @@
         <v-card style="border-radius: 0!important;">
           <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
             <!-- Arrow -->
-            <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="dailyLimitNotice = false">
+            <v-btn
+              dark
+              icon
+              tile
+              style="border-right: 0px solid #717171"
+              light
+              @click="dailyLimitNotice = false"
+            >
               <v-icon>mdi-close</v-icon>
             </v-btn>
 
@@ -550,24 +525,43 @@
             <v-img src="/img/icons/batre.svg" max-width="100" class="rotate-90 mx-auto"></v-img>
             <div class="mt-5 mb-0 text-14">
               Daily VIP Limit Kamu Sudah Habis
-              <br>
-              <br>
-				<v-btn to="/about-daily-limit" color="green" dark block class="mb-3">apa itu vip daily limit</v-btn>
-				<v-btn to="/member/purchase-daily/" color="green" dark block>tambahkan extra daily limit</v-btn>
-				<br><br>
+              <br />
+              <br />
+              <v-btn
+                to="/about-daily-limit"
+                color="green"
+                dark
+                block
+                class="mb-3"
+              >apa itu vip daily limit</v-btn>
+              <v-btn
+                to="/member/purchase-daily/"
+                color="green"
+                dark
+                block
+              >tambahkan extra daily limit</v-btn>
+              <br />
+              <br />
             </div>
           </div>
         </v-card>
       </v-sheet>
     </v-bottom-sheet>
 
-	<!-- RECAPTCHA POPUP -->
-	<v-bottom-sheet v-model="recaptchaPreSend">
+    <!-- RECAPTCHA POPUP -->
+    <v-bottom-sheet v-model="recaptchaPreSend">
       <v-sheet height="100%" color="transparent">
         <v-card style="border-radius: 0!important;">
           <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
             <!-- Arrow -->
-            <v-btn dark icon tile style="border-right: 0px solid #717171" light @click="recaptchaPreSend = false">
+            <v-btn
+              dark
+              icon
+              tile
+              style="border-right: 0px solid #717171"
+              light
+              @click="recaptchaPreSend = false"
+            >
               <v-icon>mdi-close</v-icon>
             </v-btn>
 
@@ -581,13 +575,13 @@
 
           <div class="px-5 pt-1 text-center">
             <div class="mt-3 mb-5 pb-10 text-14">
-				<recaptcha
-				:key="recaptchaKey"
-				class="mx-5 my-5"
-				@error="onError()"
-				@success="onSuccess()"
-				@expired="onExpired()"
-				/>
+              <recaptcha
+                :key="recaptchaKey"
+                class="mx-5 my-5"
+                @error="onError()"
+                @success="onSuccess()"
+                @expired="onExpired()"
+              />
             </div>
           </div>
         </v-card>
@@ -697,9 +691,9 @@ export default {
       total_poin: null,
       notLogin: null,
       recaptchaToken: null,
-	  recaptchaKey: 1,
-	  dailyLimitNotice: false,
-	  recaptchaPreSend: false
+      recaptchaKey: 1,
+      dailyLimitNotice: false,
+      recaptchaPreSend: false,
     };
   },
   // computed: {
@@ -879,10 +873,10 @@ export default {
       this.recaptchaToken = null;
     },
     onSuccess(token) {
-	  this.recaptchaToken = "success";
-	  this.postComment();
-	  //this.validate();
-	  //this.validate();
+      this.recaptchaToken = "success";
+      this.postComment();
+      //this.validate();
+      //this.validate();
     },
     onExpired() {
       console.log("Expired");
@@ -935,8 +929,8 @@ export default {
         this.recaptchaToken = null;
         if (res.data.poin > 0) {
           this.KomentarPoinVisible = true;
-		}
-		this.recaptchaPreSend = false
+        }
+        this.recaptchaPreSend = false;
       } catch (error) {
         //console.log(error.response.status)
         this.commentIsPosting = false;
@@ -949,82 +943,82 @@ export default {
           this.openModalLogin();
         } else {
           alert("error! " + error.message);
-		}
-		this.recaptchaPreSend = false
+        }
+        this.recaptchaPreSend = false;
       }
     },
     async submitAnswer() {
-	  var userdata = JSON.parse(localStorage.getItem("userdata"));
-      if ( userdata ) {
-		console.log(userdata)
-		var limit = userdata.point_limit;
-		limit = limit.split("/");
-		console.log(limit[0]);
-		if( limit[0] == 0 ) {
-			this.dailyLimitNotice = true;
-		} else {
-			this.sendJawab()
-		}
-      } else {
-        this.sendJawab()
-      }
-	},
-	async sendJawab() {
-		this.sending = true;
-        var vm = this;
-        if (!this.profile) {
-          this.sending = false;
-          this.notLogin = true;
-          this.loginModalVisible = true;
+      var userdata = JSON.parse(localStorage.getItem("userdata"));
+      if (userdata) {
+        console.log(userdata);
+        var limit = userdata.point_limit;
+        limit = limit.split("/");
+        console.log(limit[0]);
+        if (limit[0] == 0) {
+          this.dailyLimitNotice = true;
         } else {
-          this.notLogin = false;
-          if (this.profile.vip != false) {
-            var params = {
-              article_id: this.id,
-              quiz_id: this.quiz_ids,
-              jawaban: this.jawabanQuiz,
-            };
-
-            try {
-              const res = await UserService.answerMultiple(params);
-              const data = await res.data;
-
-              this.$auth.fetchUser().then(() => {
-                localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-              });
-
-              this.total_poin = data.total_point;
-              this.dialog = true;
-              //this.ispoin = true;
-              if (data.total_point == 0) {
-                this.answerResult = false;
-              } else {
-                this.answerResult = true;
-              }
-              //this.profile = false;
-              //this.notLogin = true;
-              this.sending = false;
-              this.sudahpernah = true;
-              // console.log('Hasil', JSON.parse(JSON.stringify(data)))
-            } catch (error) {
-              console.log(error);
-              if (error.response.status == 410) {
-                //this.noLimit = true;
-                //this.already = false;
-                this.notLogin = true;
-              } else {
-                this.noLimit = false;
-                this.already = true;
-              }
-              this.sending = false;
-              this.sudahpernah = true;
-            }
-          } else {
-            this.sending = false;
-            this.notVipDialogVisible = true;
-          }
+          this.sendJawab();
         }
-	},
+      } else {
+        this.sendJawab();
+      }
+    },
+    async sendJawab() {
+      this.sending = true;
+      var vm = this;
+      if (!this.profile) {
+        this.sending = false;
+        this.notLogin = true;
+        this.loginModalVisible = true;
+      } else {
+        this.notLogin = false;
+        if (this.profile.vip != false) {
+          var params = {
+            article_id: this.id,
+            quiz_id: this.quiz_ids,
+            jawaban: this.jawabanQuiz,
+          };
+
+          try {
+            const res = await UserService.answerMultiple(params);
+            const data = await res.data;
+
+            this.$auth.fetchUser().then(() => {
+              localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+            });
+
+            this.total_poin = data.total_point;
+            this.dialog = true;
+            //this.ispoin = true;
+            if (data.total_point == 0) {
+              this.answerResult = false;
+            } else {
+              this.answerResult = true;
+            }
+            //this.profile = false;
+            //this.notLogin = true;
+            this.sending = false;
+            this.sudahpernah = true;
+            // console.log('Hasil', JSON.parse(JSON.stringify(data)))
+          } catch (error) {
+            console.log(error);
+            if (error.response.status == 410) {
+              //this.noLimit = true;
+              //this.already = false;
+              this.notLogin = true;
+            } else {
+              this.noLimit = false;
+              this.already = true;
+            }
+            this.sending = false;
+            this.sudahpernah = true;
+          }
+        } else {
+          this.sending = false;
+          this.notVipDialogVisible = true;
+        }
+      }
+    },
     openModalLogin() {
       this.loginModalVisible = true;
     },
@@ -1145,6 +1139,13 @@ export default {
       font-size: 20px !important;
     }
   }
+  h2.maintitle {
+    font-size: 25px !important;
+    line-height: 27px;
+    span {
+      font-size: 25px !important;
+    }
+  }
   p {
     img {
       margin-left: -15px;
@@ -1154,6 +1155,12 @@ export default {
       width: auto !important;
       height: auto !important;
     }
+	.infoarticleicon {
+		margin-top: -5px;
+	}
+  }
+  .v-input--selection-controls.v-input .v-label {
+	  color: #fff!important;
   }
 }
 .container {
@@ -1213,16 +1220,16 @@ export default {
   }
 }
 .rotate-90 {
-	transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 .pointsquare {
-	width: 40px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	background: #C4C4C4;
-	color: #000;
-	border-radius: 10px;
-	font-weight: bold;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background: #c4c4c4;
+  color: #000;
+  border-radius: 10px;
+  font-weight: bold;
 }
 </style>
