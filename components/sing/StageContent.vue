@@ -1,13 +1,10 @@
 <template>
 	<div>
 		<v-container>
-			<v-alert
-			outlined
-			type="warning"
-			color="white"
-			prominent
-			border="left"
-			>
+			<v-alert class="mt-4" color="#0057FF" prominent>
+				<template v-slot:prepend>
+				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+				</template>
 				{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
 			</v-alert>
 		</v-container>
@@ -19,7 +16,7 @@
 				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
 					<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 				</v-container>
-				<div style="background:#3838ca;color:white;" v-if="item.customer.id == userid" class="pesertalist px-4" :key="'peserta-'+i">
+				<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
 					<SingItem :item="item" />
 				</div>
 			</template>
@@ -135,7 +132,7 @@
 		<div class="devider-small"></div>
 
 		<div v-if="pesertaloop !=null && pesertaloop.length > 0">
-			<div class="pesertalist px-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
+			<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
 				<SingItem :item="item"/>
 			</div>
 		</div>
@@ -167,8 +164,8 @@
 			class="pwmenubottom"
 		>
 			<v-btn @click="$router.push('/sing/?tab=0'); ">
-				<span>Join</span>
-				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
+				<span>Contestant</span>
+				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
 			<v-btn @click="$router.push('/sing/?tab=1'); ">
 				<span>Prizes</span>
