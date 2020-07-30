@@ -40,7 +40,7 @@ h2<template>
                   <v-icon small size="12">mdi-eye-outline</v-icon>
                   {{article.total_view}}
                 </div>
-                <div class="d-inline-block mr-3 text--small">
+                <div class="d-inline-block text--small">
                   <v-icon small size="12">mdi-message-text-outline</v-icon>
                   {{article.total_comment ? article.total_comment : 0}}
                 </div>

@@ -1,5 +1,30 @@
 <template>
-	<div>
+	<div class="stagesing">
+		<v-app-bar dark color="dark" flat fixed tile class="main-app-bar px-0">
+			<v-row class="py-0 mx-0" align="center" justify="space-between">
+				<v-col cols="3" class="py-0">
+					<v-btn @click="historyBack()" small icon>
+						<v-icon>mdi-chevron-left</v-icon>
+					</v-btn>
+				</v-col>
+				<v-col cols="6" class="py-0 text-center">
+					<v-toolbar-title
+						class="pl-4"
+					>
+						{{content.stage.label}}
+					</v-toolbar-title>
+				</v-col>
+				<v-col cols="3" class="pb-2 text-right">
+					<div @click="sortopen = true" class="mr-4 d-inline-block">
+						<v-img src="/img/icons/filter.svg" width="20"></v-img>
+					</div>
+					<div @click="opensearch = true" class="d-inline-block">
+						<v-img src="/img/icons/search.svg" width="20"></v-img>
+					</div>
+				</v-col>
+			</v-row>
+		</v-app-bar>
+
 		<v-container>
 			<v-alert class="mt-4" color="#0057FF" prominent>
 				<template v-slot:prepend>
@@ -13,8 +38,8 @@
 		</v-container>
 		<div v-if="pesertaloop != null && userid != null">
 			<template v-for="(item, i) in pesertaloop">
-				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" style="background: #3838ca" class="text-center py-10">
-					<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" style="background: #000" class="text-center py-0">
+					<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 				</v-container>
 				<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
 					<SingItem :item="item" />
@@ -22,17 +47,17 @@
 			</template>
 		</div>
 		<div v-if="userid != null && uploadallowed">
-			<v-container style="background: #3838ca" class="text-center py-10">
-				<v-btn :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+			<v-container style="background: #000" class="text-center py-0">
+				<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 			</v-container>
 		</div>
 		<div v-else-if="userid == null">
-			<v-container style="background: #3838ca" class="text-center py-10">
-				<v-btn color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
+			<v-container style="background: #000" class="text-center py-0">
+				<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
 			</v-container>
 		</div>
 
-		<v-container>
+		<v-container class="d-none">
 			<v-row align="center">
 				<v-col cols="5">
 					<div class="text-uppercase text-15">seluruh peserta</div>
@@ -404,6 +429,12 @@ export default {
 }
 </script>
 <style lang="scss">
+	.stagesing {
+		.v-toolbar__content {
+			padding-left: 0!important;
+			padding-right: 0!important;
+		}
+	}
 	.antiloncat {
 		.header {
 			position: relative!important;

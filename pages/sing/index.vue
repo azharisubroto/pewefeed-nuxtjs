@@ -130,7 +130,7 @@
 		>
 			<v-btn>
 				<span>Contestant</span>
-				<img src="/img/icons/contestant.png" class="mb-1 d-block" width="20" height="20" />
+				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
 			<v-btn>
 				<span>Prizes</span>
