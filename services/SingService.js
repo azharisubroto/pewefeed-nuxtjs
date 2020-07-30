@@ -59,5 +59,8 @@ export default {
 	},
 	igVideo(url) {
 		return Api().get(url);
+	},
+	getVoters(id, n) {
+		return Api().get('/program/sing-with/voters/'+id+'?page='+n)
 	}
 }

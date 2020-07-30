@@ -110,26 +110,28 @@
 
       <v-container>
 		  <template v-if="votetab == 0">
-			<div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
-				<div class="d-flex" style="width:100%;">
-					<div class="mr-3">
-						<v-avatar>
-							<v-img :src="voter.avatar"></v-img>
-						</v-avatar>
-					</div>
-					<div>
-						<div class="text-14">
-							<strong>{{voter.name}}</strong>
+			<div v-if="voters.length > 0">
+				<div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
+					<div class="d-flex" style="width:100%;">
+						<div class="mr-3">
+							<v-avatar>
+								<v-img :src="voter.avatar ? voter.avatar : '//via.placeholder.com/80'"></v-img>
+							</v-avatar>
 						</div>
-						<div class="text-12">
-							<strong>{{voter.date}}</strong>
+						<div>
+							<div class="text-14">
+								<strong>{{voter.name ? voter.name : 'null'}}</strong>
+							</div>
+							<div class="text-12">
+								<strong>{{voter.date ? voter.date : 'null'}}</strong>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="text-center mt-3" v-if="content2.total_vote > 0">
-				<v-btn color="deep-orange" class="mt-4">Show More</v-btn>
+			<div class="text-center mt-3" v-if="votersismore">
+				<v-btn color="deep-orange" class="mt-4" @click="loadVoters(voterspaging);">Show More</v-btn>
 			</div>
 		  </template>
 
@@ -206,21 +208,11 @@
           style="margin-top: -30px !important;"
         >{{ total_counter }}</div>
         <div class="d-block"></div>
-        <recaptcha
-          :key="recaptchaKey"
-          class="mx-5 my-5"
-          @error="onError()"
-          @success="onSuccess()"
-          @expired="onExpired()"
-        />
         <v-btn
-			:disabled="recaptchaToken == null"
-			:style="recaptchaToken == null ? 'background-color: grey !important' : ''"
           block
           dark
-          depressed
           color="deep-orange"
-          @click="postComment()"
+          @click="recaptchaPreSend = true;"
         >
           <template v-if="!commentIsPosting">Kirim Komentar</template>
           <template v-else>Mengirim Komentar...</template>
@@ -350,6 +342,46 @@
       </v-sheet>
     </v-bottom-sheet>
 
+	<!-- RECAPTCHA POPUP -->
+    <v-bottom-sheet v-model="recaptchaPreSend">
+      <v-sheet height="100%" color="transparent">
+        <v-card style="border-radius: 0!important;">
+          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+            <!-- Arrow -->
+            <v-btn
+              dark
+              icon
+              tile
+              style="border-right: 0px solid #717171"
+              light
+              @click="recaptchaPreSend = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+              <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
+            </v-toolbar-items>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+
+          <div class="px-5 pt-1 text-center">
+            <div class="mt-3 mb-5 pb-10 text-14">
+              <recaptcha
+                :key="recaptchaKey"
+                class="mx-5 my-5"
+                @error="onError()"
+                @success="onSuccess()"
+                @expired="onExpired()"
+              />
+            </div>
+          </div>
+        </v-card>
+      </v-sheet>
+    </v-bottom-sheet>
+
 	<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 	<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
   </div>
@@ -403,26 +435,12 @@ export default {
         comments: 234
       },
       content2: this.$store.state.sing_detail,
-      voters: this.$store.state.sing_voters,
+      voters: [],
 
       comment_tab: 0,
       comments: [],
-      starcomments: [
-        {
-          comment_id: 253876,
-          article_id: 28350,
-          customer: {
-            id: 4792116,
-            name: "Latinka",
-            avatar:
-              "https://lh3.googleusercontent.com/a-/AOh14GgFR_bR9R0I10JoGR-GOfdim87Wyyd32oW1BJys-g"
-          },
-          message:
-            "Hfethg hewt Berilah pujian jikalau memang seseorang layak mendapatkan pujian. Jika pujian yang diberikan tidak sesuai dengan situasi yang sebenarnya, sering dilakukan tanpa ada sebab yang jelas plus karena ada agenda tersendiri\u2026 Nah, itulah yang disebut dengan menggombal",
-          commented_at: "38 minutes ago",
-          comment_replys: []
-        }
-      ],
+      starcomments: [],
+	  recaptchaPreSend: false,
       comments_fetched: false,
       totalComment: 0,
       recaptchaKey: 1,
@@ -433,7 +451,9 @@ export default {
       commentIsPosting: false,
 	  moreLoadingComment: false,
 	  videoutama: null,
-	  type: null
+	  type: null,
+	  voterspaging: 1,
+	  votersismore: false
     };
   },
   watch: {
@@ -465,7 +485,8 @@ export default {
     }
   },
   mounted() {
-	  this.getVideoDetail(this.$route.params.video);
+	  //this.getVideoDetail(this.$route.params.video);
+	  this.loadVoters(this.voterspaging);
   },
   async fetch({ store, params }) {
     //console.log('fetch this')
@@ -476,16 +497,16 @@ export default {
     const data = item;
 
     // Voters
-    let voters = data.voters;
-    let votersTemp = [];
-    voters.forEach(el => {
-      votersTemp.push({
-        name: el.name,
-        avatar: el.avatar,
-        date: el.vote_date
-      });
-    });
-    store.commit("SET_SING_VOTERS", votersTemp);
+    // let voters = data.voters;
+    // let votersTemp = [];
+    // voters.forEach(el => {
+    //   votersTemp.push({
+    //     name: el.name,
+    //     avatar: el.avatar,
+    //     date: el.vote_date
+    //   });
+    // });
+    //store.commit("SET_SING_VOTERS", votersTemp);
     store.commit("SET_SING_SINGLE", item);
     console.log(JSON.parse(JSON.stringify(item)));
   },
@@ -534,15 +555,6 @@ export default {
         const data = res.data;
 		let ig_video = data.video_url;
 		let voters = data.voters
-
-		let votersTemp = [];
-		voters.forEach(el => {
-			votersTemp.push({
-				name: el.name,
-				avatar: el.avatar,
-				date: el.vote_date
-			});
-		});
 		if( ig_video ) {
 			this.fetchIGVIDEO(ig_video);
 		}
@@ -592,14 +604,39 @@ export default {
         console.log(error);
         this.moreLoadingComment = false;
       }
-    },
+	},
+	async loadVoters(n) {
+		try {
+			const res = await SingService.getVoters(this.$route.params.video, n);
+			let voters = res.data.data;
+
+			voters.forEach(el => {
+				this.voters.push({
+					name: el.name,
+					avatar: el.avatar,
+					date: el.vote_date
+				});
+			});
+
+			//this.voters.push(votersTemp);
+			this.voterspaging++;
+
+			let current = res.data.paginations.current_page
+			let last = res.data.paginations.last_page
+
+			this.votersismore = (last > current) ? true : false
+		} catch (error) {
+			console.log(error)
+		}
+	},
     /* Recaptcha */
     onError(error) {
       console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
-      this.recaptchaToken = "success";
+	  this.recaptchaToken = "success";
+      this.postComment();
     },
     onExpired() {
       console.log("Expired");
@@ -633,30 +670,16 @@ export default {
     },
     /* Validasi Form Rating */
     validate() {
-      if (this.$refs.form.validate()) {
-        if (this.recaptchaToken != null) {
-          this.postComment();
-        } else {
+      if (!this.$refs.form.validate()) {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";
-        }
-      }
+      } else {
+		  this.recaptchaPreSend = true
+	  }
     },
     async postComment() {
       let vm = this;
       this.commentIsPosting = true;
-
-      if (this.total_counter < 20) {
-        var isUrl = this.urlify(this.comment_message);
-
-        this.commentIsPosting = false;
-
-        if (isUrl) {
-          return alert("Comments tidak boleh mengandung tautan");
-        }
-
-        return alert("Comments harus mengandung minimal 20 kata");
-      }
 
       var data = {
         msg: this.comment_message,
