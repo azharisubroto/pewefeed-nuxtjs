@@ -1140,8 +1140,8 @@ export default {
     }
   }
   h2.maintitle {
-    font-size: 25px !important;
-    line-height: 27px;
+    font-size: 27px !important;
+    line-height: 37px;
     span {
       font-size: 25px !important;
     }
