@@ -24,7 +24,7 @@
 
         <div class="mx-2">
           <v-container class="text-center">
-			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
+			  <img src="/img/poinextra.png" width="40" class="mt-5 mb-3"/>
 			  <br>
 			  Kamu mendapat 2 Point karena sudah<br>
 			  Komentar di Artikel

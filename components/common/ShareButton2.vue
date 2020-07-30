@@ -7,8 +7,7 @@
         <span>(+1 Poin)</span>
       </span>
       <img
-        src="/img/icons/icon-transfer-2.png"
-        style="transform: rotate(-90deg)"
+        src="/img/icons/share-icon.svg"
         class="mb-1 d-block"
         width="20"
         height="20"

@@ -25,7 +25,7 @@
         </v-img>
       </v-col>
       <v-col cols="8" class="d-flex align-content-space-between flex-wrap">
-        <h2>{{article.title}}</h2>
+        <h2 class="text-16">{{article.title}}</h2>
 
         <v-rating
           v-if="article.rating >= 0"
