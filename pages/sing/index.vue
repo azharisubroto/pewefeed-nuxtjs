@@ -129,8 +129,8 @@
 			class="pwmenubottom"
 		>
 			<v-btn>
-				<span>Join</span>
-				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
+				<span>Contestant</span>
+				<img src="/img/icons/contestant.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
 			<v-btn>
 				<span>Prizes</span>

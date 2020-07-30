@@ -2,147 +2,178 @@
   <div>
     <SingAppBar :title="content2 != null ? content2.stage : ''" :back="true" />
 
-    <v-container class="py-5" v-if="content2!= null">
-      <v-avatar class="mr-3">
-        <v-img
-          :src="content2.customer.avatar ? content2.customer.avatar : 'https://via.placeholder.com/350x150'"
-        ></v-img>
-      </v-avatar>
-      {{content2.customer.name}}
-    </v-container>
+	<v-container>
+		<v-alert class="mt-4" color="#0057FF" prominent>
+			<template v-slot:prepend>
+				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+			</template>
+			Pastikan kamu memiliki minimal XXX Vote untuk bisa melaju ke stage selanjutnya
+		</v-alert>
 
-	<video v-if="videoutama!=null && playnow !== false" width="400" controls autoPlay>
-		<source :src="videoutama" type="video/mp4">
-	</video>
-	<v-img v-else
-		:src="content2.video.thumbnail_url"
-		position="center"
-		aspect-ratio="1"
-		class="position-relative"
-		height="300"
-		@click="playnow = true"
-	>
-		<template v-slot:default>
-			<v-row
-			class="ma-0"
-			align="center"
-			justify="center"
-			style="height:100%;"
+
+		<div v-if="content2!= null" class="d-flex justify-space-between align-center mt-3">
+			<div>
+				<v-avatar size="30">
+					<v-img cover :src="content2.customer.avatar ? content2.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+				</v-avatar>
+				<div class="d-inline-block ml-2 text-14">
+					{{content2.customer.name}}
+				</div>
+			</div>
+
+			<div class="text-14 d-flex align-center justify-content-end metasing">
+				<div class="d-inline-block">
+					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+					(123)
+				</div>
+				<div class="d-inline-block ml-3">
+					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+					({{content2.total_vote}})
+				</div>
+				<div class="d-inline-block ml-3">
+					<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+					({{content2.total_comments}})
+				</div>
+			</div>
+		</div>
+
+		<div v-if="content2!= null" class="mt-4">
+			<video v-if="videoutama!=null && playnow !== false" width="400" controls autoPlay>
+				<source :src="videoutama" type="video/mp4">
+			</video>
+			<v-img v-else
+				:src="content2.video.thumbnail_url"
+				position="center"
+				:aspect-ratio="16/9"
+				class="position-relative"
+				@click="playnow = true"
 			>
-				<v-icon size="100">mdi-play-circle</v-icon>
-			</v-row>
-		</template>
-	</v-img>
+				<div class="singstarstatus">
+					<img v-if="content2.is_star" src="/img/icons/star-yellow.svg" alt="">
+					<img v-else src="/img/icons/star-default.svg" alt="">
+				</div>
+				<template v-slot:default>
+					<v-row
+					class="ma-0"
+					align="center"
+					justify="center"
+					style="height:100%;"
+					>
+						<v-icon size="100">mdi-play-circle</v-icon>
+					</v-row>
+				</template>
+			</v-img>
 
-
-    <template v-if="singtab == 0">
-      <v-container v-if="content2 != null">
-        <v-alert
-          outlined
-          type="warning"
-          color="white"
-          prominent
-          border="left"
-          dense
-          class="text-12"
-        >Untuk bisa masuk ke tahap selanjutnya, jagoan kamu harus punya minimal XX VOTE. Segera share halaman ini ke social media kamu!</v-alert>
-      </v-container>
-
-      <v-container>
-        <v-row class="text-center">
-          <v-col cols="4">
-            <div>
-              <strong>STAR</strong>
-              <br />
-              <v-icon v-if="content2.is_star == 1" color="yellow">mdi-star</v-icon>
-              <v-icon v-else>mdi-star-outline</v-icon>
-            </div>
-          </v-col>
-          <v-col cols="4">
-            <strong>VOTE</strong>
-            <br />
-            {{content2.total_vote}}
-          </v-col>
-          <v-col cols="4">
-            <strong>COMMENTS</strong>
-            <br />
-            {{content2.total_comments}}
-          </v-col>
-          <v-col cols="12" class="text-center">
-            <v-btn
+			<v-btn
+			  class="mt-4"
+			  block
               color="deep-orange"
               @click="sendVote(content2.id);"
             >Beri Vote</v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+		</div>
+	</v-container>
 
-      <v-list color="transparent" class="mb-0">
-        <v-list-item-group color="dark">
-          <template v-for="(item, i) in howto">
-            <div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-            <v-list-item :key="'persmenu-'+i" :to="item.to">
-              <v-list-item-content>
-                <v-list-item-title class="text-uppercase">{{item.title}}</v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon>
-                <v-icon>mdi-chevron-right</v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-            <div :key="'dvdr-'+i" class="devider-small"></div>
-          </template>
-        </v-list-item-group>
-      </v-list>
+    <template v-if="singtab == 0">
+		<v-container>
+			<div
+			class="statusquo text-center row text-18"
+			style="background-color:#000;border-top:1px solid #fff;border-bottom:1px solid #fff;"
+			>
+				<v-col cols="6">
+					<v-btn
+					@click="votetab = 0; "
+					:class="[votetab == 0 ? 'active' : null]"
+					text
+					dark
+					block
+					class="text-18 text-capitalize"
+					style="letter-spacing:0"
+					>
+						<strong>Voters</strong>
+					</v-btn>
+				</v-col>
+				<v-col cols="6">
+					<v-btn
+					@click="votetab = 1; "
+					:class="[votetab == 1 ? 'active' : null]"
+					text
+					dark
+					block
+					class="text-18 text-capitalize"
+					style="letter-spacing:0"
+					>
+						<strong>Ketentuan</strong>
+					</v-btn>
+				</v-col>
+			</div>
+		</v-container>
 
-      <v-container class="px-5">
-        <div class="text-16 weight-normal">VOTERS</div>
+      <v-container>
+		  <template v-if="votetab == 0">
+			<div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
+				<div class="d-flex" style="width:100%;">
+					<div class="mr-3">
+						<v-avatar>
+							<v-img :src="voter.avatar"></v-img>
+						</v-avatar>
+					</div>
+					<div>
+						<div class="text-14">
+							<strong>{{voter.name}}</strong>
+						</div>
+						<div class="text-12">
+							<strong>{{voter.date}}</strong>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
-          <div class="d-flex" style="width:100%;">
-            <div class="mr-3">
-              <v-avatar>
-                <v-img :src="voter.avatar"></v-img>
-              </v-avatar>
-            </div>
-            <div>
-              <div class="text-14">
-                <strong>{{voter.name}}</strong>
-              </div>
-              <div class="text-12">
-                <strong>{{voter.date}}</strong>
-              </div>
-            </div>
-          </div>
-        </div>
+			<div class="text-center mt-3" v-if="content2.total_vote > 0">
+				<v-btn color="deep-orange" class="mt-4">Show More</v-btn>
+			</div>
+		  </template>
 
-        <div class="text-center" v-if="content2.total_vote > 0">
-          <v-btn color="deep-orange" class="mt-4">Show More</v-btn>
-        </div>
+		  <template v-if="votetab == 1">
+			Untuk ikut mendukung kontestan favoritmu
+			kebabak selanjutnya <br> berikan vote dengan
+			cara :<br><br>
+
+			1. Pastikan kamu sudah memiliki VIP Pewefeed<br>
+			2. Silakan pilih penyanyi favorit kamu dan
+			berikan Vote sebanyak-banyaknya<br>
+			3. Satu Vote berlaku hanya berlaku untuk
+		  </template>
       </v-container>
     </template>
 
     <template v-if="singtab == 1">
       <v-container>
         <div
-          class="statusquo text-center row"
-          style="background-color:#474747;border-top:1px solid #fff;border-bottom:1px solid #fff;"
+          class="statusquo text-center row text-18"
+		  style="background-color:#000;border-top:1px solid #fff;border-bottom:1px solid #fff;"
         >
-          <v-col cols="12">
-            <v-btn
+          <v-col cols="6">
+			  <v-btn
               @click="comment_tab = 0; "
               :class="[comment_tab == 0 ? 'active' : null]"
               text
-              dark
-              small
+			  dark
+			  block
+			  class="text-18 text-capitalize"
+			  style="letter-spacing:0"
             >
               <span>Berikan Komentar</span>
             </v-btn>
+          </v-col>
+          <v-col cols="6">
             <v-btn
               @click="comment_tab = 1; "
               :class="[comment_tab == 1 ? 'active' : null]"
               text
-              dark
-              small
+			  dark
+			  block
+			  class="text-18 text-capitalize"
+			  style="letter-spacing:0"
             >
               <span>Ketentuan</span>
             </v-btn>
@@ -151,15 +182,12 @@
       </v-container>
 
       <v-container v-if="comment_tab==0">
-        <v-alert
-          outlined
-          type="warning"
-          color="white"
-          prominent
-          border="left"
-          dense
-          class="text-12"
-        >Dapatkan 2 Poin atas setiap komentar dengan minimum 20 kata</v-alert>
+        <v-alert class="mt-0" color="#0057FF" prominent>
+			<template v-slot:prepend>
+				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+			</template>
+			Dapatkan 2 Poin atas setiap komentar dengan minimum 20 kata
+		</v-alert>
 
         <!-- TEXT AREA -->
         <v-textarea
@@ -351,9 +379,11 @@ export default {
 		playnow: false,
       comment_fetched: false,
 	  singtab: 0,
+	  votetab: 0,
 	  notVipDialogVisible: false,
 	  loginModalVisible: false,
 	  apakahbetul: false,
+	  ispaging: false,
       howto: [
         {
 		  title: "cara vote",
@@ -503,6 +533,16 @@ export default {
         const res = await SingService.getDetailVideo(slug);
         const data = res.data;
 		let ig_video = data.video_url;
+		let voters = data.voters
+
+		let votersTemp = [];
+		voters.forEach(el => {
+			votersTemp.push({
+				name: el.name,
+				avatar: el.avatar,
+				date: el.vote_date
+			});
+		});
 		if( ig_video ) {
 			this.fetchIGVIDEO(ig_video);
 		}

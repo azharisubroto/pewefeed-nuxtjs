@@ -91,8 +91,8 @@ export default {
 		}
 	}
 	.pesertalist {
-		border-bottom: 3px solid #d1d1d1;
-		padding: 30px 0;
+		border-bottom: 1px solid rgba(255,255,255,.2);
+		padding: 20px 0;
 		// &:first-of-type {
 		// 	//padding-top: 0;
 		// }
