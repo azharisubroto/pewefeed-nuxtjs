@@ -37,13 +37,15 @@
 
         <div class="mx-2">
           <div class="py-10" v-if="recaptcha">
-            <recaptcha
-              :key="recaptchaKey"
-              class="mx-5 my-5"
-              @error="onError()"
-              @success="onSuccess()"
-              @expired="onExpired()"
-            />
+			<client-only>
+				<recaptcha
+				:key="recaptchaKey"
+				class="mx-5 my-5"
+				@error="onError()"
+				@success="onShareSuccess()"
+				@expired="onExpired()"
+				/>
+			</client-only>
           </div>
 
           <v-container v-if="sheet">
@@ -155,7 +157,7 @@ export default {
   data: () => ({
     recaptchaDialogVisible: false,
     recaptchaToken: null,
-    recaptchaKey: '6LcS3PoUAAAAAO-84uJ28tPawOCH882_Ph8uiVlB',
+    recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
     recaptcha: true,
     domainTitle: process.env.domainTitle,
     twitterEnv: process.env.twitter,
@@ -169,7 +171,9 @@ export default {
     sharingImage: "",
     sharingTime: "",
     SharePoinVisible: false,
-    isSaved: false
+	isSaved: false,
+	recaptchatrigger: 0,
+	sharecount: 0,
   }),
   methods: {
     /* Recaptcha */
@@ -178,15 +182,22 @@ export default {
       this.recaptchaToken = null;
       this.recaptchaDialogVisible = true;
       this.sheet = false;
-    },
-    onSuccess() {
-      this.$recaptcha.getResponse().then(token => {
-        // console.log(token)
-        this.recaptchaToken = token;
-        this.recaptcha = false;
-        //this.recaptchaDialogVisible = false;
-        this.sheet = true;
-      });
+	},
+    async onShareSuccess(token) {
+		if( this.recaptchatrigger == 0) {
+			this.recaptchatrigger = 1
+			console.log('onshare success')
+			try {
+				const token = await this.$recaptcha.getResponse()
+				console.log('ReCaptcha token:', token)
+				this.recaptchaToken = token;
+				this.recaptcha = false;
+				this.sheet = true;
+				await this.$recaptcha.reset()
+			} catch (error) {
+				console.log('Login error:', error)
+			}
+		}
     },
     onExpired() {
       console.log("Expired");
@@ -199,26 +210,29 @@ export default {
       this.SharePoinVisible = false;
     },
     async saveShare(data) {
-      let vm = this
-      try {
-        const res = await UserService.share(data);
+	  let vm = this
+	  if( vm.sharecount == 0 ){
+		try {
+			vm.sharecount=1
+			const res = await UserService.share(data);
 
-        this.$auth.fetchUser().then(() => {
-            localStorage.removeItem('userdata')
-            localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
-          })
+			this.$auth.fetchUser().then(() => {
+				localStorage.removeItem('userdata')
+				localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
+			})
 
-        // console.log(res)
-        if (res.data.point == 1) {
-          console.log("dapat poin");
-          this.SharePoinVisible = true;
-        }
-        this.recaptchaToken = null;
-        this.$recaptcha.reset();
-      } catch (error) {
-        console.log(error);
-        this.recaptchaToken = null;
-        this.$recaptcha.reset();
+			// console.log(res)
+			if (res.data.point == 1) {
+			console.log("dapat poin");
+			this.SharePoinVisible = true;
+			}
+			this.recaptchaToken = null;
+			this.$recaptcha.reset();
+		} catch (error) {
+			console.log(error);
+			this.recaptchaToken = null;
+			this.$recaptcha.reset();
+		}
       }
     },
     copyToClipBoard() {
@@ -263,8 +277,8 @@ export default {
   },
   mounted() {
 	let vm = this;
-	this.recaptcha = false;
-    this.sheet = true;
+	// this.recaptcha = false;
+    // this.sheet = true;
   },
   updated() {
 	if( this.customimage ) {

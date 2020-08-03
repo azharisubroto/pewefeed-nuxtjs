@@ -66,6 +66,7 @@
 			</v-img>
 
 			<v-btn
+			  v-if="singtab != 1"
 			  class="mt-4"
 			  block
               color="deep-orange"
@@ -74,7 +75,7 @@
 		</div>
 	</v-container>
 
-    <template v-if="singtab == 0">
+    <template v-if="singtab == 0 || singtab == 2 || singtab == 3">
 		<v-container>
 			<div
 			class="statusquo text-center row text-18"
@@ -271,7 +272,11 @@
         <img src="/img/icons/icon-vote-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
       <v-btn>
-        <span>Comments</span>
+		<span style="font-size:10px!important;">
+			Comments
+			<br />
+			<span>(+5 Poin)</span>
+		</span>
         <img
           src="/img/icons/icon-comment-orange-v3.png"
           class="mb-1 d-block"
