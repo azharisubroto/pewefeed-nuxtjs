@@ -1,13 +1,25 @@
 <template>
 	<div class="sing video-container mb-4">
 		<iframe v-if="$store.state.sing_video" width="560" height="315" :src="'https://www.youtube.com/embed/'+$store.state.sing_video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<iframe v-else-if="!$store.state.sing_video && altvideo!=null" width="560" height="315" :src="'https://www.youtube.com/embed/'+altvideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 </template>
 
 <script>
 export default {
 	name:"SingVideo",
-	props: ['video_id']
+	props: ['video_id'],
+	data(){
+		return {
+			altvideo: null,
+		}
+	},
+	mounted() {
+		let SING_VIDEO = localStorage.getItem('SING_VIDEO');
+		if( SING_VIDEO != null ) {
+			this.altvideo = SING_VIDEO
+		}
+	}
 }
 </script>
 

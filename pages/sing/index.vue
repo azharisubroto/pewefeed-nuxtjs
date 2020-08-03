@@ -171,6 +171,7 @@ export default {
 				const data = await res.data.data
 				this.content = data
 				this.$store.commit('SET_SING_VIDEO', data.full_video)
+				localStorage.setItem('SING_VIDEO', data.full_video)
 				this.$store.commit('SET_SING_PROMOTED', data.id)
 				console.log(data)
 			} catch (error) {

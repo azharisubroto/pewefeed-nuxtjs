@@ -7,7 +7,7 @@
 			<template v-slot:prepend>
 				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 			</template>
-			Pastikan kamu memiliki minimal XXX Vote untuk bisa melaju ke stage selanjutnya
+			Pastikan kamu memiliki minimal {{content2.full_stage && content2.full_stage.min_vote ? content2.full_stage.min_vote : 'xxx'}} Vote untuk bisa melaju ke stage selanjutnya
 		</v-alert>
 
 
@@ -24,7 +24,7 @@
 			<div class="text-14 d-flex align-center justify-content-end metasing">
 				<div class="d-inline-block">
 					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					(123)
+					({{content2.ranking}})
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
@@ -38,7 +38,7 @@
 		</div>
 
 		<div v-if="content2!= null" class="mt-4">
-			<video v-if="videoutama!=null && playnow !== false" width="400" controls autoPlay>
+			<video v-if="videoutama!=null && playnow!==false" width="400" controls autoPlay>
 				<source :src="videoutama" type="video/mp4">
 			</video>
 			<v-img v-else
@@ -59,7 +59,8 @@
 					justify="center"
 					style="height:100%;"
 					>
-						<v-icon size="100">mdi-play-circle</v-icon>
+						<v-icon size="100" v-if="videoutama!=null">mdi-play-circle</v-icon>
+						<v-progress-circular v-else indeterminate size="64"></v-progress-circular>
 					</v-row>
 				</template>
 			</v-img>
@@ -136,14 +137,12 @@
 		  </template>
 
 		  <template v-if="votetab == 1">
-			Untuk ikut mendukung kontestan favoritmu
-			kebabak selanjutnya <br> berikan vote dengan
-			cara :<br><br>
+			Untuk ikut mendukung kontestan favoritmu kebabak selanjutnya berikan vote dengan cara: <br><br>
 
 			1. Pastikan kamu sudah memiliki VIP Pewefeed<br>
-			2. Silakan pilih penyanyi favorit kamu dan
-			berikan Vote sebanyak-banyaknya<br>
-			3. Satu Vote berlaku hanya berlaku untuk
+			2. Silakan pilih penyanyi favorit kamu dan berikan Vote sebanyak-banyaknya <br>
+			3. Satu Vote berlaku hanya berlaku untuk satu kontestan dalam satu hari <br>
+			4. Jika Vote memenuhi syarat maka penyanyi favorit kamu bisa melangkah ke babak selanjutnya
 		  </template>
       </v-container>
     </template>
@@ -485,7 +484,7 @@ export default {
     }
   },
   mounted() {
-	  //this.getVideoDetail(this.$route.params.video);
+	  this.getVideoDetail(this.$route.params.video);
 	  this.loadVoters(this.voterspaging);
   },
   async fetch({ store, params }) {
@@ -542,8 +541,8 @@ export default {
 	async fetchIGVIDEO(url) {
 		try {
 			const res = await SingService.igVideo(url);
-			console.log('ig video', res);
-			this.videoutama = res.data.graphql.shortcode_media.video_url
+			//console.log('ig video', res);
+			this.videoutama = res.data.graphql.shortcode_media.video_url ? res.data.graphql.shortcode_media.video_url : null
 		} catch (error) {
 			console.log(error)
 		}
@@ -554,7 +553,6 @@ export default {
         const res = await SingService.getDetailVideo(slug);
         const data = res.data;
 		let ig_video = data.video_url;
-		let voters = data.voters
 		if( ig_video ) {
 			this.fetchIGVIDEO(ig_video);
 		}

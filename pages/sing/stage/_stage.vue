@@ -1,6 +1,12 @@
 <template>
 	<section class="sing">
 		<StageContent v-if="!isloading" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 30 Agustus 2020"/>
+		<div v-else class="text-center pa-10">
+			<v-progress-circular indeterminate size="64"></v-progress-circular>
+			<div class="mt-4">
+				Loading...
+			</div>
+		</div>
 	</section>
 </template>
 
