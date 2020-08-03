@@ -13,22 +13,22 @@
 					<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 				</v-avatar>
 				<div class="d-inline-block ml-2 text-14">
-					{{item.customer.name}}
+					{{item.customer.name ? item.customer.name : 'n/a'}}
 				</div>
 			</div>
 
 			<div class="text-14 d-flex align-center justify-content-end metasing">
 				<div class="d-inline-block">
 					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					(123)
+					({{item.ranking ? item.ranking : 'n/a'}})
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{item.total_vote}})
+					({{item.total_vote ? item.total_vote : 'n/a'}})
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{item.total_comments}})
+					({{item.total_comments ? item.total_comments : 'n/a'}})
 				</div>
 			</div>
 		</div>

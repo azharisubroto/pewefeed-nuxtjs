@@ -49,14 +49,14 @@
 		<br>
 		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
-			fixed
-			dark
-			grow
-			color="white"
-			background-color="#2C2C2D"
-			v-model="singtab"
-			height="80"
-			class="pwmenubottom"
+		fixed
+		dark
+		grow
+		color="white"
+		background-color="#2C2C2D"
+		v-model="singtab"
+		height="80"
+		class="pwmenubottom"
 		>
 			<v-btn @click="$router.push('/sing/')">
 				<span>Contestant</span>
@@ -68,6 +68,18 @@
 			</v-btn>
 			<ShareButton2/>
 		</v-bottom-navigation>
+
+		<v-overlay
+          :opacity="1"
+          :value="downloadOverlay"
+        >
+          <div class="text-center">
+			  <v-progress-circular indeterminate size="64"></v-progress-circular>
+				<div class="mt-4">
+					Downloading Video File...
+				</div>
+		  </div>
+        </v-overlay>
 	</section>
 </template>
 
@@ -92,7 +104,8 @@ export default {
 			singcontent: [],
 			download: null,
 			videoName: null,
-			lirik: null
+			lirik: null,
+			downloadOverlay: false
 		}
 	},
 	methods: {
@@ -115,6 +128,7 @@ export default {
 			//let blob = await fetch(url).then(r => r.blob());
 			// let file = await fetch(url).then(r => r.blob()).then(blobFile => new File([blobFile], this.videoName, { type: "video/mp4" }));
 			// console.log(file);
+			this.downloadOverlay = true
 
 			axios({
 				url: url, //your url
@@ -127,6 +141,10 @@ export default {
 				link.setAttribute('download', this.videoName+'.mp4'); //or any other extension
 				document.body.appendChild(link);
 				link.click();
+				this.downloadOverlay = false
+			}).catch(function(error){
+				alert("Can't download video file")
+				this.downloadOverlay = false;
 			});
 
 			// axios.get(url, {responseType: 'arraybuffer'})

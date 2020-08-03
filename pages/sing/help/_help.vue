@@ -10,7 +10,7 @@
 				<section class="toppoin-acc" v-if="help">
 					<v-expansion-panels v-for="(item,index) in help" :key="index">
 						<v-expansion-panel class="mb-0">
-							<v-expansion-panel-header class="py-5 text-uppercase text-18">{{item.title}}</v-expansion-panel-header>
+							<v-expansion-panel-header class="py-5 text-uppercase text-18" style="line-height:28px">{{item.title}}</v-expansion-panel-header>
 							<v-expansion-panel-content class='caption'>
 								<div v-html="formatText(item.content)" class="text-18" style="line-height:30px"></div>
 							</v-expansion-panel-content>

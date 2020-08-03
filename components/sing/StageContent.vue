@@ -38,7 +38,7 @@
 		</v-container>
 		<div v-if="pesertaloop != null && userid != null">
 			<template v-for="(item, i) in pesertaloop">
-				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" style="background: #000" class="text-center py-0">
+				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" class="text-center py-0">
 					<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 				</v-container>
 				<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
@@ -47,12 +47,12 @@
 			</template>
 		</div>
 		<div v-if="userid != null && uploadallowed">
-			<v-container style="background: #000" class="text-center py-0">
+			<v-container class="text-center py-0">
 				<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 			</v-container>
 		</div>
 		<div v-else-if="userid == null">
-			<v-container style="background: #000" class="text-center py-0">
+			<v-container class="text-center py-0">
 				<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
 			</v-container>
 		</div>
@@ -153,8 +153,6 @@
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
-
-		<div class="devider-small"></div>
 
 		<div v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
