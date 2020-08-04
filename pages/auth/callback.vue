@@ -26,6 +26,7 @@ export default {
 			localStorage.setItem('userdata', JSON.stringify(userdata))
 			let singredirect = localStorage.getItem('sing_to_login');
 			if( singredirect != null && singredirect !== undefined ) {
+				localStorage.removeItem('sing_to_login');
 				return this.$router.push('/sing/')
 			} else {
 				return this.$router.push('/')
