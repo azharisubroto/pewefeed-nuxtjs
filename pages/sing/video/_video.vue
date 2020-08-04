@@ -66,7 +66,7 @@
 			</v-img>
 
 			<v-btn
-			  v-if="singtab != 1"
+			  v-if="singtab == 0"
 			  class="mt-4"
 			  block
               color="deep-orange"
@@ -75,7 +75,7 @@
 		</div>
 	</v-container>
 
-    <template v-if="singtab == 0 || singtab == 2 || singtab == 3">
+    <template v-if="singtab == 0">
 		<v-container>
 			<div
 			class="statusquo text-center row text-18"
@@ -268,14 +268,18 @@
       class="pwmenubottom"
     >
       <v-btn>
-        <span>Vote</span>
+		<span style="font-size:10px!important;">
+			Vote
+			<br />
+			<span>(+5 Poin)</span>
+		</span>
         <img src="/img/icons/icon-vote-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
       <v-btn>
 		<span style="font-size:10px!important;">
 			Comments
 			<br />
-			<span>(+5 Poin)</span>
+			<span>(+2 Poin)</span>
 		</span>
         <img
           src="/img/icons/icon-comment-orange-v3.png"
@@ -412,6 +416,8 @@ export default {
   },
   data() {
     return {
+		item: this.$store.state.item,
+	 	 origin: this.$store.state.host,
 		playnow: false,
       comment_fetched: false,
 	  singtab: 0,
@@ -493,26 +499,43 @@ export default {
 	  this.loadVoters(this.voterspaging);
   },
   async fetch({ store, params }) {
-    //console.log('fetch this')
-    //console.log(params.articleslug)
     var item = await SingService.getDetailVideo(params.video).then(res => {
       return res.data;
     });
     const data = item;
-
-    // Voters
-    // let voters = data.voters;
-    // let votersTemp = [];
-    // voters.forEach(el => {
-    //   votersTemp.push({
-    //     name: el.name,
-    //     avatar: el.avatar,
-    //     date: el.vote_date
-    //   });
-    // });
-    //store.commit("SET_SING_VOTERS", votersTemp);
-    store.commit("SET_SING_SINGLE", item);
+	store.commit("SET_SING_SINGLE", item);
+	store.commit('SET_ITEM', item);
     console.log(JSON.parse(JSON.stringify(item)));
+  },
+  head () {
+    let host = this.origin
+    var url = 'https://' + host + '/sing/video/' + this.item.id
+    return {
+      title: this.item.video.title,
+      meta: [
+        {hid: 'description', property: 'description', content: this.item.video.title},
+        // Facebok
+        {hid: 'og:title', property: 'og:title', content: this.item.video.title},
+        {hid: 'og:description', property: 'og:description', content: this.item.video.title},
+        {hid: 'og:type', property: 'og:type', content: 'website'},
+        {hid: 'og:url', property: 'og:url', content: url},
+        {hid: 'og:image', property: 'og:image', content: this.item.video.thumbnail_url},
+        {hid: 'og:image:width', property: 'og:image:width', content: '640'},
+        {hid: 'og:image:height', property: 'og:image:height', content: '434'},
+        {hid: 'og:locale', property: 'og:locale', content: 'id_ID'},
+        {hid: 'og:site_name', property: 'og:site_name', content: 'Pewefeed'},
+        {hid: 'fb:admins', property: 'fb:admins', content: '100006462279538'},
+        {hid: 'fb:app_id', property: 'fb:app_id', content: '107188393464738'},
+
+        // Twitter
+        {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
+        {hid: 'twitter:creator', name: 'twitter:creator', content: '@pewedeed'},
+        {hid: 'twitter:site', name: 'twitter:site', content: '@pewedeed'},
+        {hid: 'twitter:title', name: 'twitter:title', content: this.item.video.title},
+        {hid: 'twitter:description', name: 'twitter:description', content: this.item.video.title},
+        {hid: 'twitter:image', name: 'twitter:image', content: this.item.video.thumbnail_url},
+      ]
+    }
   },
   methods: {
     async sendVote(id) {

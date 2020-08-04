@@ -647,7 +647,7 @@ export default {
   watch: {
     $route(to, from) {
       this.fetchUser();
-      if (from.name == 'auth-callback') {
+      if (from.name == 'auth-callback' || from.name == 'member-otp') {
         this.wowtab = 3
         this.fetchDaily()
 	  }
