@@ -497,6 +497,7 @@ export default {
   mounted() {
 	  this.getVideoDetail(this.$route.params.video);
 	  this.loadVoters(this.voterspaging);
+	  localStorage.setItem('sing_to_login', 'yes');
   },
   async fetch({ store, params }) {
     var item = await SingService.getDetailVideo(params.video).then(res => {
@@ -555,8 +556,14 @@ export default {
         console.log(error);
         if (error.response && error.response.status == 422) {
 		  //alert(error.response.data.message);
-		  this.apakahbetul = true
-		  this.type = 'alreadyvote'
+
+		  if( error.response.data.not_vip == true ) {
+			this.notVipDialogVisible = true
+		  } else {
+		  	this.apakahbetul = true
+			this.type = 'alreadyvote'
+		  }
+
         } else if (error.response && error.response.status == 500) {
           alert("an error occured");
         } else if (error.response && error.response.status == 401) {
@@ -742,9 +749,6 @@ export default {
       }
     }
   },
-  beforeDestroy() {
-	localStorage.setItem('sing_to_login', 'yes');
-  }
 };
 </script>
 <style lang="scss">

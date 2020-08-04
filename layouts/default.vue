@@ -503,9 +503,11 @@ export default {
         if (this.$auth.user) {
           var useres = localStorage.getItem('userdata')
           // console.log(JSON.parse(useres))
-          // this.$auth.fetchUser();
-          let userdata = JSON.parse(useres);
-          let mypoint = userdata.point_total;
+		  // this.$auth.fetchUser();
+		  if( useres !=null ) {
+			let userdata = JSON.parse(useres);
+			let mypoint = userdata.point_total;
+		  }
 
           if (window.location.pathname != "/member/histori_penggunaan_poin") {
             this.fetchDaily()

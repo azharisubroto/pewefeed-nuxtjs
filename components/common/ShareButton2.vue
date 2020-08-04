@@ -246,10 +246,12 @@ export default {
       this.sharingCopy = window.location.href;
       let data = this.$store.state.item;
       if (data) {
-        this.sharingTitle =
-          data && data.article
-            ? data.article.title
-            : "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Playworld";
+		if( data && data.article ) {
+			this.sharingTitle = data && data.article ? data.article.title : "Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - Pewefeed";
+		} else if( data && data.video ) {
+			this.sharingTitle = "Dukung video saya di 'Sing', klik di sini untuk vote"
+		}
+
         this.sharingImage =
           data && data.article && data.article.image
             ? data.article.image.medium
@@ -278,6 +280,7 @@ export default {
   },
   mounted() {
 	let vm = this;
+	this.refetchMeta();
 	// this.recaptcha = false;
     // this.sheet = true;
   },
