@@ -223,8 +223,9 @@ export default {
 
 			// console.log(res)
 			if (res.data.point == 1) {
-			console.log("dapat poin");
-			this.SharePoinVisible = true;
+				console.log("dapat poin");
+				this.SharePoinVisible = true;
+				this.recaptchaDialogVisible = false;
 			}
 			this.recaptchaToken = null;
 			this.$recaptcha.reset();

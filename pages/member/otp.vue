@@ -36,7 +36,7 @@
 		<!-- MODAL -->
 		<v-bottom-sheet v-model="otpmodal" persistent>
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1">
+				<v-toolbar :elevation="1" style="border-top:2px solid #fff;">
 				<!-- Arrow -->
 				<v-btn
 					dark
@@ -101,6 +101,13 @@ export default {
 			otp: null,
 			otpmodal: false,
 			verifyStatus: null
+		}
+	},
+	watch: {
+		otpmodal: function(newVal, oldval) {
+			if( newVal !== true && this.verifyStatus == 'success' ) {
+				this.$router.push('/');
+			}
 		}
 	},
 	methods: {
