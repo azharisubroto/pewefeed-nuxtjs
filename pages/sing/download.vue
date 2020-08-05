@@ -6,7 +6,7 @@
 
 			<Video/>
 
-			<template v-if="singtab == 0">
+			<template v-if="maintab == 0">
 				<v-list color="transparent" class="mb-10">
 					<v-list-item-group color="dark">
 						<div class="devider-small"></div>
@@ -49,10 +49,8 @@
 				</v-list>
 			</template>
 
-			<template v-if="singtab == 1">
-				<v-container class="text-center pa-10">
-					HADIAH
-				</v-container>
+			<template v-if="maintab == 1">
+				<SingPrizes/>
 			</template>
 		</div>
 
@@ -70,11 +68,11 @@
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn @click="$router.push('/sing/')">
+			<v-btn @click="maintab = 0">
 				<span>Contestant</span>
 				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn @click="$router.push('/sing/')">
+			<v-btn @click="maintab = 1">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
@@ -86,6 +84,7 @@
 <script>
 import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
+import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
 import SingService from '@/services/SingService'
 
@@ -94,11 +93,13 @@ export default {
 	components: {
 		ShareButton2,
 		SingAppBar,
+		SingPrizes,
 		Video
 	},
 	data(){
 		return {
 			singtab: 0,
+			maintab: 0,
 			label: 'Download',
 			singcontent: [],
 			download: null,

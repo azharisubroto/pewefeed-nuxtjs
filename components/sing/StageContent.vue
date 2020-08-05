@@ -25,60 +25,94 @@
 			</v-row>
 		</v-app-bar>
 
-		<v-container>
-			<v-alert class="mt-4" color="#0057FF" prominent>
-				<template v-slot:prepend>
-				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+		<template v-if="maintab == 0">
+			<v-container>
+				<v-alert class="mt-4" color="#0057FF" prominent>
+					<template v-slot:prepend>
+					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+					</template>
+					{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
+				</v-alert>
+			</v-container>
+			<v-container v-if="uploaded">
+				<div class="text-16"><strong>POSISI KAMU</strong></div>
+			</v-container>
+			<div v-if="pesertaloop != null && userid != null">
+				<template v-for="(item, i) in pesertaloop">
+					<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" class="text-center py-0">
+						<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
+					</v-container>
+					<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
+						<SingItem :item="item" />
+					</div>
 				</template>
-				{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
-			</v-alert>
-		</v-container>
-		<v-container v-if="uploaded">
-			<div class="text-16"><strong>POSISI KAMU</strong></div>
-		</v-container>
-		<div v-if="pesertaloop != null && userid != null">
-			<template v-for="(item, i) in pesertaloop">
-				<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" class="text-center py-0">
+			</div>
+			<div v-if="userid != null && uploadallowed">
+				<v-container class="text-center py-0">
 					<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 				</v-container>
-				<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
-					<SingItem :item="item" />
-				</div>
-			</template>
-		</div>
-		<div v-if="userid != null && uploadallowed">
-			<v-container class="text-center py-0">
-				<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-			</v-container>
-		</div>
-		<div v-else-if="userid == null">
-			<v-container class="text-center py-0">
-				<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
-			</v-container>
-		</div>
+			</div>
+			<div v-else-if="userid == null">
+				<v-container class="text-center py-0">
+					<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
+				</v-container>
+			</div>
 
-		<v-container class="d-none">
-			<v-row align="center">
-				<v-col cols="5">
-					<div class="text-uppercase text-15">seluruh peserta</div>
-				</v-col>
-				<v-col cols="7" class="text-right">
-					<v-btn small text @click="sortopen=true">
-						<v-icon>mdi-sort-ascending</v-icon>
-						<span class="text-10">Urutkan</span>
-					</v-btn>
-					<v-btn small text @click="opensearch = true">
-						<v-icon>mdi-magnify</v-icon>
-						<span class="text-10">Cari</span>
-					</v-btn>
-				</v-col>
-			</v-row>
-		</v-container>
+			<v-container class="d-none">
+				<v-row align="center">
+					<v-col cols="5">
+						<div class="text-uppercase text-15">seluruh peserta</div>
+					</v-col>
+					<v-col cols="7" class="text-right">
+						<v-btn small text @click="sortopen=true">
+							<v-icon>mdi-sort-ascending</v-icon>
+							<span class="text-10">Urutkan</span>
+						</v-btn>
+						<v-btn small text @click="opensearch = true">
+							<v-icon>mdi-magnify</v-icon>
+							<span class="text-10">Cari</span>
+						</v-btn>
+					</v-col>
+				</v-row>
+			</v-container>
 
-		<!-- SORTER -->
-		<v-bottom-sheet v-model="sortopen">
-			<v-sheet height="100%" class="antiloncat">
-				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+			<!-- SORTER -->
+			<v-bottom-sheet v-model="sortopen">
+				<v-sheet height="100%" class="antiloncat">
+					<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+						<!-- Arrow -->
+						<v-btn
+							dark
+							icon
+							tile
+							style="border-right: 0px solid #717171"
+							light
+							@click="sortopen = false;"
+						>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+
+						<!-- Title -->
+						<div class="flex-grow-1"></div>
+						<v-toolbar-items>
+							<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">SORT</v-btn>
+						</v-toolbar-items>
+						<div class="flex-grow-1"></div>
+					</v-toolbar>
+
+					<div class="mx-0 text-center px-4">
+						<template v-for="(item, i) in sorter">
+							<div class="devider-small" :key="'devtop-'+i"></div>
+							<div class="py-4" :key="'devmid-'+i" @click="sortItem(item.slug, 1)">{{item.title}}</div>
+						</template>
+					</div>
+				</v-sheet>
+			</v-bottom-sheet>
+
+			<!-- ==== SEARCH BAR === -->
+			<v-bottom-sheet v-model="opensearch">
+				<v-sheet height="100%">
+					<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -86,7 +120,7 @@
 						tile
 						style="border-right: 0px solid #717171"
 						light
-						@click="sortopen = false;"
+						@click="opensearch = false"
 					>
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
@@ -94,85 +128,57 @@
 					<!-- Title -->
 					<div class="flex-grow-1"></div>
 					<v-toolbar-items>
-						<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">SORT</v-btn>
+						<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
 					</v-toolbar-items>
 					<div class="flex-grow-1"></div>
-				</v-toolbar>
+					</v-toolbar>
+					<div class="devider-small" style="border-color:rgba(255,255,255,.1)"></div>
 
-				<div class="mx-0 text-center px-4">
-					<template v-for="(item, i) in sorter">
-						<div class="devider-small" :key="'devtop-'+i"></div>
-						<div class="py-4" :key="'devmid-'+i" @click="sortItem(item.slug, 1)">{{item.title}}</div>
-					</template>
+					<div class="px-5 py-10">
+					<v-text-field
+						flat
+						filled
+						single-line
+						solo
+						hide-details
+						prepend-inner-icon="mdi-magnify"
+						background-color="#000"
+						v-model="searchModel"
+						@keyup.enter="search(searchModel, 1)"
+						label="Tulis Kata Kunci . . ."
+						style="border:0!important;box-shadow:none!important;"
+						class="antipenyok"
+					></v-text-field>
+					<v-btn @click="search(searchModel)" block large color="deep-orange" class="mt-3">Search</v-btn>
+					<v-btn block large color="deep-orange" class="mt-3" @click="reload()">Show All Participants</v-btn>
+					</div>
+				</v-sheet>
+			</v-bottom-sheet>
+
+			<div v-if="pesertaloop !=null && pesertaloop.length > 0">
+				<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
+					<SingItem :item="item"/>
 				</div>
-			</v-sheet>
-		</v-bottom-sheet>
-
-		<!-- ==== SEARCH BAR === -->
-		<v-bottom-sheet v-model="opensearch">
-			<v-sheet height="100%">
-				<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
-				<!-- Arrow -->
-				<v-btn
-					dark
-					icon
-					tile
-					style="border-right: 0px solid #717171"
-					light
-					@click="opensearch = false"
-				>
-					<v-icon>mdi-close</v-icon>
-				</v-btn>
-
-				<!-- Title -->
-				<div class="flex-grow-1"></div>
-				<v-toolbar-items>
-					<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
-				</v-toolbar-items>
-				<div class="flex-grow-1"></div>
-				</v-toolbar>
-				<div class="devider-small" style="border-color:rgba(255,255,255,.1)"></div>
-
-				<div class="px-5 py-10">
-				<v-text-field
-					flat
-					filled
-					single-line
-					solo
-					hide-details
-					prepend-inner-icon="mdi-magnify"
-					background-color="#000"
-					v-model="searchModel"
-					@keyup.enter="search(searchModel, 1)"
-					label="Tulis Kata Kunci . . ."
-					style="border:0!important;box-shadow:none!important;"
-					class="antipenyok"
-				></v-text-field>
-				<v-btn @click="search(searchModel)" block large color="deep-orange" class="mt-3">Search</v-btn>
-				<v-btn block large color="deep-orange" class="mt-3" @click="reload()">Show All Participants</v-btn>
-				</div>
-			</v-sheet>
-		</v-bottom-sheet>
-
-		<div v-if="pesertaloop !=null && pesertaloop.length > 0">
-			<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
-				<SingItem :item="item"/>
 			</div>
-		</div>
-		<div v-else class="text-center pa-10">
-			Tidak Ada Data
-		</div>
+			<div v-else class="text-center pa-10">
+				Tidak Ada Data
+			</div>
 
-		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
-			<v-pagination
-				@input="next"
-				v-model="pagination"
-				:length="content.paginations.last_page"
-				:total-visible="10"
-			></v-pagination>
-		</v-container>
+			<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
+				<v-pagination
+					@input="next"
+					v-model="pagination"
+					:length="content.paginations.last_page"
+					:total-visible="10"
+				></v-pagination>
+			</v-container>
 
-		<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
+			<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
+		</template>
+
+		<template v-if="maintab == 1">
+			<SingPrizes/>
+		</template>
 
 		<!-- BOTTOM NAVIGATION -->
 		<br><br><br><br>
@@ -186,11 +192,11 @@
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn @click="$router.push('/sing/?tab=0'); ">
+			<v-btn @click="maintab = 0">
 				<span>Contestant</span>
 				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn @click="$router.push('/sing/?tab=1'); ">
+			<v-btn @click="maintab = 1">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
@@ -205,6 +211,7 @@
 <script>
 import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
+import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
 import SingItem from "@/components/sing/SingItem";
 import UploadVideo from "@/components/sing/UploadVideo";
@@ -219,6 +226,7 @@ export default {
 	components: {
 		ShareButton2,
 		SingAppBar,
+		SingPrizes,
 		Video,
 		UploadVideo,
 		SingItem,
@@ -230,6 +238,7 @@ export default {
 		return {
 			userid: null,
 			singtab: 0,
+			maintab: 0,
 			sortopen: false,
 			opensearch: false,
 			searchModel:'',
