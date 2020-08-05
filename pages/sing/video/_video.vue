@@ -320,7 +320,7 @@
           <v-toolbar-items>
             <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">
 				<span v-if="type=='vote'">You've got {{ type == 'vote' ? 5 : 2 }} Point!</span>
-				<span v-if="type=='alreadyvote'">Information</span>
+				<span v-if="type=='alreadyvote' || type=='komen'">You've got 2 Point</span>
 			</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
@@ -335,6 +335,15 @@
 			  <br>
 			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
 			  <br><br>
+		  </v-container>
+		  <v-container v-if="type == 'komen'" class="text-center">
+			  <img src="/img/poinextra.png" width="40" class="mt-0"/>
+			  <br>
+			  Kamu mendapat 2 Point karena sudah<br>
+			  Memberikan komentar
+			  <br>
+			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
+			  <br><br><br><br>
 		  </v-container>
 		  <v-container v-else-if="type == 'alreadyvote'" class="text-center">
 			  <img src="/img/close.svg" width="40" class="mt-5"/>
@@ -506,6 +515,8 @@ export default {
   mounted() {
 	  this.getVideoDetail(this.$route.params.video);
 	  this.loadVoters(this.voterspaging);
+	  this.apakahbetul = true
+	  this.type = 'komen'
 	  localStorage.setItem('sing_to_login', 'yes');
   },
   async fetch({ store, params }) {
@@ -737,7 +748,8 @@ export default {
         this.fetchComment();
         this.commentIsPosting = false;
         this.comment_message = null;
-        this.recaptchaToken = null;
+		this.recaptchaToken = null;
+		this.recaptchaPreSend = false
         if (res.data.poin > 0) {
           	this.apakahbetul = true;
 			this.type = 'komen'
@@ -754,7 +766,8 @@ export default {
           this.loginModalVisible = true
         } else {
           alert("error! " + error.message);
-        }
+		}
+		this.recaptchaPreSend = false
       }
     }
   },
