@@ -23,37 +23,40 @@
         <v-toolbar-title @click="$router.push('/'); drawer = false" class="px-0">
 			<!-- {{$route.name}} -->
 			<template  v-if="$route.name == 'member-pengaturan' || $route.name == 'member-pengaturan-profil'">
-				Profile
+				<strong>Profile</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-histori_penggunaan_poin'">
-				Points History
+				<strong>Points History</strong>
 			</template>
 			<template  v-else-if="$route.name == 'purchase'">
-				Purchase VIP Membership
+				<strong>Purchase VIP Membership</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-barang_yang_didapat'">
-				Rewards Status
+				<strong>Rewards Status</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-pengaturan-daftar-alamat'">
-				Address List for Rewards
+				<strong>Address List for Rewards</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-pengaturan-daftar-nomor'">
-				Phone List for Rewards
+				<strong>Phone List for Rewards</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-status_transfer'">
-				Bank Transfer Status
+				<strong>Bank Transfer Status</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-kode-pw'">
-				VIP Code from SMS
+				<strong>VIP Code from SMS</strong>
 			</template>
 			<template  v-else-if="$route.name == 'bantuan'">
-				Help Desk
+				<strong>Help Desk</strong>
+			</template>
+			<template  v-else-if="$route.name == 'member-daily-limit'">
+				<strong>VIP Daily Limit</strong>
 			</template>
 			<template  v-else-if="$route.name == 'tukarpoin' || $route.name == 'tukarpoin-redeem-detail'">
-				Tukar Poin
+				<strong>Tukar Poin</strong>
 			</template>
 			<template  v-else-if="$route.name.includes('toppoin')">
-				TOP POIN
+				<strong>TOP POIN</strong>
 			</template>
 			<template v-else>
 				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
@@ -126,6 +129,7 @@
 				<profil v-if="wowtab == 3"/>
 			</div>
 		</div>
+		<br><br><br>
         <v-bottom-navigation
           fixed
           dark
@@ -135,7 +139,7 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name=='index'"
+          v-if="$route.name=='index' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
         >
 		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
@@ -640,10 +644,13 @@ export default {
       if (location.host == "m." + process.env.domainTitle.toLowerCase()) {
         window.location.href = desktopUrl;
       } else {
-        console.log("desktop version");
+        //console.log("desktop version");
       }
     } else {
-      console.log("mobile version");
+      //console.log("mobile version");
+	}
+	if( this.$route.name=='member-daily-limit' || this.$route.name=='member-purchase-daily' || this.$route.name == 'about-daily-limit' || this.$route.name == 'purchase' ) {
+		this.wowtab = 3
 	}
   },
   watch: {

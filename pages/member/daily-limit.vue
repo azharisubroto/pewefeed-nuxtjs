@@ -1,21 +1,21 @@
 <template>
 	<div class="profile-page ">
-		<div class="text-center pt-10 px-5">
+		<div class="text-center pt-8 px-5">
+			<span class="text-16 mb-3 d-inline-block">
+				<span class="green--text">{{sekarang}}</span> / {{batas}}
+			</span>
 			<v-progress-linear
 			:value="sekarang"
 			color="green"
-			height="20"
+			height="25"
 			reactive
 			rounded
 			></v-progress-linear>
-			<span class="text-16 mt-2 d-inline-block">
-				VIP Daily Limit: <span class="green--text">{{sekarang}}</span> / {{batas}}
-			</span>
 		</div>
 
 		<v-list-item-group color="dark" class="mt-10">
 			<div  class="devider-small"></div>
-			<v-list-item to="/about-daily-limit">
+			<v-list-item class="py-3" to="/about-daily-limit">
 				<v-list-item-content>
 					<v-list-item-title>
 						Apa itu Daily Limit?
@@ -27,10 +27,11 @@
 			</v-list-item>
 
 			<div  class="devider-small"></div>
-			<v-list-item to="/member/purchase-daily">
+			<v-list-item class="py-3" to="/member/purchase-daily">
 				<v-list-item-content>
-					<v-list-item-title>
-						Purchase VIP Daily Limit
+					<v-list-item-title style="line-height:26px">
+						Purchase Extra 300 VIP Daily Limit<br>
+						Rp. 10.000 (exclude PPN 10%)
 					</v-list-item-title>
 				</v-list-item-content>
 				<v-list-item-icon>

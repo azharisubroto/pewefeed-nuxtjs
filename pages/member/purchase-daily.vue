@@ -1,17 +1,40 @@
 <template>
   <div>
-    <v-container class="pt-10">
-      <v-row>
-        <v-col cols="12" class="text-center">Pembelian Dengan Bank Transfer / Credit Card</v-col>
-      </v-row>
-    </v-container>
-
     <template v-if="step == 1">
-      <v-list-item-group color="dark" class="mt-2">
+      <v-container class="pt-8">
+        <v-row>
+          <v-col cols="12" class="deep-orange--text text-18">
+            <strong>Bank Transfer / Credit Card</strong>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-list-item-group color="dark" class="mt-0">
         <template v-for="(item, i) in menu">
           <div class="devider-small" :key="'div-'+i"></div>
-          <v-list-item @click="step = 2; merchant = item.merchant" :key="'list-'+i">
-            <v-list-item-content>
+          <v-list-item class="py-3" @click="step = 2; merchant = item.merchant" :key="'list-'+i">
+            <v-list-item-content class="text-18">
+              <v-list-item-title>{{item.title}}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </template>
+        <div class="devider-small"></div>
+      </v-list-item-group>
+
+	  <v-container class="pt-8">
+        <v-row>
+          <v-col cols="12" class="deep-orange--text text-18">
+            <strong>eWallets</strong>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-list-item-group color="dark" class="mt-0">
+        <template v-for="(item, i) in ewalletsmenu">
+          <div class="devider-small" :key="'div-'+i"></div>
+          <v-list-item class="py-3" @click="eWalletPurchase(item.merchant)" :key="'list-'+i">
+            <v-list-item-content class="text-18">
               <v-list-item-title>{{item.title}}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-icon>
@@ -26,8 +49,8 @@
     <template v-if="step == 2">
       <v-list-item-group color="dark" class="mt-10">
         <div class="devider-small"></div>
-        <v-list-item @click="purchaseLink()">
-          <v-list-item-content>
+        <v-list-item class="py-3" @click="purchaseLink()">
+          <v-list-item-content class="text-18">
             <v-list-item-title>
               Extra 300 VIP Daily Limit
               <div class="text-12 mt-1">Rp 10.000 belum termasuk PPN 10%</div>
@@ -41,11 +64,23 @@
       </v-list-item-group>
     </template>
 
-	<IframePreview
+    <IframePreview
       :dialogVisible="iframeDialogVisible"
       :invoiceUrl="invoiceUrl"
       @close="iframeClose()"
     />
+
+	<v-overlay
+		:opacity="1"
+		:value="ewalletOverlay"
+	>
+		<div class="text-center">
+			<v-progress-circular indeterminate size="64" color="deep-orange"></v-progress-circular>
+			<div class="mt-4">
+				Connecting Provider...
+			</div>
+		</div>
+	</v-overlay>
   </div>
 </template>
 
@@ -57,15 +92,16 @@ export default {
   name: "PurcahsePage",
   middleware: "auth",
   components: {
-	  IframePreview,
+    IframePreview,
   },
   data() {
     return {
-      step: 1,
-	  merchant: null,
-	  invoiceUrl: "",
-	  iframeDialogVisible: false,
-	  data: {
+	  step: 1,
+	  ewalletOverlay: false,
+      merchant: null,
+      invoiceUrl: "",
+      iframeDialogVisible: false,
+      data: {
         avatar: "",
         first_name: "",
         last_name: "",
@@ -74,8 +110,18 @@ export default {
         msisdn: "",
         expire: "",
         instagram: "",
-        no_telp: ""
+        no_telp: "",
       },
+      ewalletsmenu: [
+        {
+          title: "DANA",
+          merchant: "dana",
+        },
+        {
+          title: "LINKAJA",
+          merchant: "linkaja",
+        },
+	  ],
       menu: [
         {
           title: "BCA",
@@ -105,8 +151,8 @@ export default {
       ],
     };
   },
-  mounted(){
-	  this.setProfile();
+  mounted() {
+    this.setProfile();
   },
   methods: {
     fetchUserdata() {
@@ -184,18 +230,34 @@ export default {
         }
       }
 	},
-	closeDialog() {
+	async eWalletPurchase(provider) {
+		this.ewalletOverlay = true
+		let data = {
+			provider: provider,
+			voucher_id: 204
+		}
+		try {
+			const res = await UserService.eWalletBuy(data);
+			console.log(res.data.invoice_url);
+			window.open(res.data.invoice_url, '_blank');
+			this.ewalletOverlay = false
+		} catch (error) {
+			console.log(error);
+			this.ewalletOverlay = false
+		}
+	},
+    closeDialog() {
       this.e1 = 1;
       this.intDialogVisible = false;
     },
-	iframeClose() {
+    iframeClose() {
       this.iframeDialogVisible = false;
       this.$router.push("/member/status_transfer");
       // other code
     },
     iframePreview() {
       this.iframeDialogVisible = true;
-    }
+    },
   },
 };
 </script>
