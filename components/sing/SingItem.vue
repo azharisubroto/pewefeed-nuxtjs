@@ -24,11 +24,11 @@
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{item.total_vote ? item.total_vote : 'n/a'}})
+					({{item.total_vote ? item.total_vote : '0'}})
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{item.total_comments ? item.total_comments : 'n/a'}})
+					({{item.total_comments ? item.total_comments : '0'}})
 				</div>
 			</div>
 		</div>

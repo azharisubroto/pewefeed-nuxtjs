@@ -21,9 +21,6 @@
           <v-img src="/img/icons/icon-confetti-orange.png" max-width="60" class="mx-auto"></v-img>
           <div class="mt-5 mb-0 text-14">
             Terima kasih sudah mengunjungi kembali pewefeed.com, untuk itu kamu mendapat 10 Poin Extra. Klaim Sekarang!
-            <strong
-              class="deep-orange--text"
-            >10 POIN</strong>!
           </div>
         </div>
 
