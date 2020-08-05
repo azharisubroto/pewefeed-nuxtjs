@@ -66,7 +66,7 @@
 			</v-img>
 
 			<v-btn
-			  v-if="singtab == 0"
+			  v-if="maintab == 0"
 			  class="mt-4"
 			  block
               color="deep-orange"
@@ -75,7 +75,7 @@
 		</div>
 	</v-container>
 
-    <template v-if="singtab == 0">
+    <template v-if="maintab == 0">
 		<v-container>
 			<div
 			class="statusquo text-center row text-18"
@@ -112,6 +112,14 @@
 
       <v-container>
 		  <template v-if="votetab == 0">
+
+			<v-alert class="mt-0" color="#0057FF" prominent>
+				<template v-slot:prepend>
+					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+				</template>
+				Dapatkan 5 Poin atas setiap Vote. Vote pada masing-masing kontestan hanya bisa diberikan 1 kali per 1 hari.
+			</v-alert>
+
 			<div v-if="voters.length > 0">
 				<div v-for="(voter, i) in voters" class="px-3 py-3" :key="'voter-'+i">
 					<div class="d-flex" style="width:100%;">
@@ -148,7 +156,7 @@
       </v-container>
     </template>
 
-    <template v-if="singtab == 1">
+    <template v-if="maintab == 1">
       <v-container>
         <div
           class="statusquo text-center row text-18"
@@ -263,11 +271,11 @@
       grow
       color="white"
       background-color="#2C2C2D"
-      v-model="singtab"
       height="80"
       class="pwmenubottom"
+	  v-model="singtab"
     >
-      <v-btn>
+      <v-btn @click="maintab = 0">
 		<span style="font-size:10px!important;">
 			Vote
 			<br />
@@ -275,7 +283,7 @@
 		</span>
         <img src="/img/icons/icon-vote-orange.png" class="mb-1 d-block" width="20" height="20" />
       </v-btn>
-      <v-btn>
+      <v-btn @click="maintab = 1">
 		<span style="font-size:10px!important;">
 			Comments
 			<br />
@@ -419,6 +427,7 @@ export default {
 		item: this.$store.state.item,
 	 	 origin: this.$store.state.host,
 		playnow: false,
+		maintab: 0,
       comment_fetched: false,
 	  singtab: 0,
 	  votetab: 0,
@@ -463,7 +472,7 @@ export default {
 	  videoutama: null,
 	  type: null,
 	  voterspaging: 1,
-	  votersismore: false
+	  votersismore: false,
     };
   },
   watch: {
