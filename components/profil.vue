@@ -17,11 +17,6 @@
 						<v-col cols="10" class="pr-0" @click="$router.push('/member/pengaturan/'); drawer = false">
 							<strong class="subheading text-18">{{ userdata.first_name }}</strong>
 							<div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
-							<div
-								class="text-14"
-								:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-							>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</div>
-
 							<v-btn v-if="!usermentah.verified" class="mt-2 text-10" color="red" dark block small>Verify phone number (+100 POINT)</v-btn>
 						</v-col>
 						<v-col cols="2" class="text-right">
@@ -38,22 +33,57 @@
 		<v-list color="transparent" class="mb-10">
 		<v-list-item-group color="dark">
 
+			<!-- VIP MEMBERSHIP STATUS -->
+			<div  class="devider-small"></div>
+			<v-list-item class="py-3" to="/purchase/">
+				<v-list-item-content>
+					<v-list-item-title>
+						<span>
+							VIP Membership Status
+						</span>
+						<span class="d-block mt-3"
+							:class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
+						>VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</span>
+					</v-list-item-title>
+				</v-list-item-content>
+				<v-list-item-icon>
+					<v-icon>mdi-chevron-right</v-icon>
+				</v-list-item-icon>
+			</v-list-item>
+
+			<div  class="devider-small"></div>
+			<v-list-item class="py-3" to="/member/histori_penggunaan_poin">
+				<v-list-item-content>
+					<v-list-item-title>
+						Total Points
+						<br />
+						<span class="text-20 mt-2 d-inline-block">
+							<strong>{{mypoint | thousand}}</strong>
+						</span>
+					</v-list-item-title>
+				</v-list-item-content>
+				<v-list-item-icon>
+					<v-icon>mdi-chevron-right</v-icon>
+				</v-list-item-icon>
+			</v-list-item>
+
 			<template v-if="userdata.status_expired == 1">
 				<div  class="devider-small"></div>
-				<v-list-item to="/member/daily-limit">
+				<v-list-item class="py-3" to="/member/daily-limit">
 					<v-list-item-content>
 						<v-list-item-title>
+							<span class="text-16 d-inline-block">
+								VIP Daily Limit: <span class="green--text">{{sekarang}}</span> / {{batas}}
+							</span>
 							<v-progress-linear
 							:value="remaining"
 							:buffer-value="batas"
 							color="green"
+							class="mt-4"
 							height="20"
 							reactive
 							rounded
 							></v-progress-linear>
-							<span class="text-16 mt-2 d-inline-block">
-								VIP Daily Limit: <span class="green--text">{{sekarang}}</span> / {{batas}}
-							</span>
 						</v-list-item-title>
 					</v-list-item-content>
 					<v-list-item-icon>
@@ -63,28 +93,28 @@
 			</template>
 
 			<template v-for="(item, i) in personmenu">
-			<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-			<v-list-item :key="'persmenu-'+i" :to="item.to">
-				<v-list-item-content>
-				<v-list-item-title>
-					{{item.name}}
-					<template v-if="item.poin">
-					<br />
-					<span class="text-20 mt-2 d-inline-block">
-						<strong>{{mypoint}}</strong>
-					</span>
-					</template>
-				</v-list-item-title>
-				</v-list-item-content>
-				<v-list-item-icon>
-				<v-icon>mdi-chevron-right</v-icon>
-				</v-list-item-icon>
-			</v-list-item>
-			<div :key="'dvdr-'+i" class="devider-small"></div>
+				<div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
+				<v-list-item class="py-3" :key="'persmenu-'+i" :to="item.to">
+					<v-list-item-content>
+					<v-list-item-title>
+						{{item.name}}
+						<template v-if="item.poin">
+						<br />
+						<span class="text-20 mt-2 d-inline-block">
+							<strong>{{mypoint | thousand}}</strong>
+						</span>
+						</template>
+					</v-list-item-title>
+					</v-list-item-content>
+					<v-list-item-icon>
+					<v-icon>mdi-chevron-right</v-icon>
+					</v-list-item-icon>
+				</v-list-item>
+				<div :key="'dvdr-'+i" class="devider-small"></div>
 			</template>
-			<v-list-item @click="logout()">
+			<v-list-item class="py-3" @click="logout()">
 			<v-list-item-content>
-				<v-list-item-title class="red--text">Sign Out</v-list-item-title>
+				<v-list-item-title class="red--text"><strong>Sign Out</strong></v-list-item-title>
 			</v-list-item-content>
 			<v-list-item-icon>
 				<v-icon>mdi-chevron-right</v-icon>
@@ -146,31 +176,31 @@ export default {
       dialog: false,
       buyVipDialogVisible: false,
       personmenu: [
+        // {
+        //   name: "Total Points",
+        //   to: "/member/histori_penggunaan_poin",
+        //   poin: true
+        // },
+        // {
+        //   name: "VIP Membership",
+        //   to: "/purchase"
+        // },
         {
-          name: "Points History",
-          to: "/member/histori_penggunaan_poin",
-          poin: true
-        },
-        {
-          name: "Purchase VIP Membership",
-          to: "/purchase"
-        },
-        {
-          name: "Rewards Status",
+          name: "Rewards",
           to: "/member/barang_yang_didapat"
         },
-        {
-          name: "Rewards Contact List",
-          to: "/member/contact-list/"
-        },
-        {
-          name: "Bank Payment Status",
-          to: "/member/status_transfer"
-        },
-        {
-          name: "VIP Code from SMS",
-          to: "/member/kode-pw"
-        },
+        // {
+        //   name: "Rewards Contact List",
+        //   to: "/member/contact-list/"
+        // },
+        // {
+        //   name: "Bank Payment Status",
+        //   to: "/member/status_transfer"
+        // },
+        // {
+        //   name: "VIP Code from SMS",
+        //   to: "/member/kode-pw"
+        // },
 	  ],
 	  batas:0,
 	  sekarang: 0,
@@ -180,6 +210,11 @@ export default {
   components: {
 	BuyVip,
 	Login
+  },
+  filters: {
+    thousand (value) {
+      return `${value.toLocaleString()}`
+    }
   },
   methods: {
     logout() {

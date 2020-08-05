@@ -141,8 +141,8 @@ export default {
       dropOptions: {
         url: "https://s1.playworld.id/api/member/avatar",
         headers: {
-          Authorization: "",
-          "Cache-Control": ""
+		  Authorization: '',
+		  "Cache-Control": ""
         },
         method: "POST",
         paramName: "avatar",
@@ -163,7 +163,7 @@ export default {
       console.log(response.file_name);
       this.data.avatar = response.file_name;
       this.avatar_preview =
-        "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/" +
+        "https://cdn.pewefeed.com/containers/pewefeed/avatars/" +
         response.file_name;
     },
     fetchUserdata() {
@@ -211,14 +211,15 @@ export default {
           localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         });
         vm.snackbar = true;
-        this.fetchUserdata();
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }
     }
   },
   mounted() {
-    this.fetchUserdata();
+	this.fetchUserdata();
+	this.dropOptions.headers.Authorization = "Bearer " + localStorage.getItem('access-token');
   }
 };
 </script>
