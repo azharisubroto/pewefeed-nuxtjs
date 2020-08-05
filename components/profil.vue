@@ -69,26 +69,31 @@
 
 			<template v-if="userdata.status_expired == 1">
 				<div  class="devider-small"></div>
-				<v-list-item class="py-3" to="/member/daily-limit">
-					<v-list-item-content>
+				<v-list-item class="pt-3 pb-0" to="/member/daily-limit">
+					<v-list-item-content class="py-0">
 						<v-list-item-title>
 							<span class="text-16 d-inline-block">
 								VIP Daily Limit: <span class="green--text">{{sekarang}}</span> / {{batas}}
 							</span>
+						</v-list-item-title>
+					</v-list-item-content>
+					<v-list-item-icon class="mb-0 mt-2">
+						<v-icon>mdi-chevron-right</v-icon>
+					</v-list-item-icon>
+				</v-list-item>
+				<v-list-item class="pt-0" to="/member/daily-limit">
+					<v-list-item-content class="pt-0">
+						<v-list-item-title>
 							<v-progress-linear
 							:value="remaining"
 							:buffer-value="batas"
 							color="green"
-							class="mt-4"
 							height="20"
 							reactive
 							rounded
 							></v-progress-linear>
 						</v-list-item-title>
 					</v-list-item-content>
-					<v-list-item-icon>
-						<v-icon>mdi-chevron-right</v-icon>
-					</v-list-item-icon>
 				</v-list-item>
 			</template>
 

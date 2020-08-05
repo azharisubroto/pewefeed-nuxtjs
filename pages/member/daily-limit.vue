@@ -7,7 +7,7 @@
 			<v-progress-linear
 			:value="sekarang"
 			color="green"
-			height="20"
+			height="25"
 			reactive
 			rounded
 			></v-progress-linear>
