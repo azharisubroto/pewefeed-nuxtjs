@@ -33,7 +33,7 @@
       <v-list-item-group color="dark" class="mt-0">
         <template v-for="(item, i) in ewalletsmenu">
           <div class="devider-small" :key="'div-'+i"></div>
-          <v-list-item class="py-3" @click="step = 2; merchant = item.merchant" :key="'list-'+i">
+          <v-list-item class="py-3" @click="eWalletPurchase(item.merchant)" :key="'list-'+i">
             <v-list-item-content class="text-18">
               <v-list-item-title>{{item.title}}</v-list-item-title>
             </v-list-item-content>
@@ -69,6 +69,18 @@
       :invoiceUrl="invoiceUrl"
       @close="iframeClose()"
     />
+
+	<v-overlay
+		:opacity="1"
+		:value="ewalletOverlay"
+	>
+		<div class="text-center">
+			<v-progress-circular indeterminate size="64" color="deep-orange"></v-progress-circular>
+			<div class="mt-4">
+				Connecting Provider...
+			</div>
+		</div>
+	</v-overlay>
   </div>
 </template>
 
@@ -84,7 +96,8 @@ export default {
   },
   data() {
     return {
-      step: 1,
+	  step: 1,
+	  ewalletOverlay: false,
       merchant: null,
       invoiceUrl: "",
       iframeDialogVisible: false,
@@ -102,15 +115,13 @@ export default {
       ewalletsmenu: [
         {
           title: "DANA",
-          to: "dana",
-          merchant: "midtrans",
+          merchant: "dana",
         },
         {
           title: "LINKAJA",
-          to: "linkaja",
-          merchant: "xendit",
+          merchant: "linkaja",
         },
-      ],
+	  ],
       menu: [
         {
           title: "BCA",
@@ -218,7 +229,23 @@ export default {
           console.log(error);
         }
       }
-    },
+	},
+	async eWalletPurchase(provider) {
+		this.ewalletOverlay = true
+		let data = {
+			provider: provider,
+			voucher_id: 204
+		}
+		try {
+			const res = await UserService.eWalletBuy(data);
+			console.log(res.data.invoice_url);
+			window.open(res.data.invoice_url, '_blank');
+			this.ewalletOverlay = false
+		} catch (error) {
+			console.log(error);
+			this.ewalletOverlay = false
+		}
+	},
     closeDialog() {
       this.e1 = 1;
       this.intDialogVisible = false;

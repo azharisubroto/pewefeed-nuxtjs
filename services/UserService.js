@@ -134,5 +134,10 @@ export default {
 
 	verifyOTP(params) {
 		return AuthApi().post('/member/otp', params)
-	}
+	},
+
+	eWalletBuy(params) {
+		return AuthApi().post('https://s1.playworld.id/api/xendit/e-wallets', params)
+	},
+
 }
