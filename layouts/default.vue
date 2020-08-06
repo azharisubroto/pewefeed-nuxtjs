@@ -143,8 +143,8 @@
         >
 		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
-            <span>Trending</span>
-            <img src="/img/icons/icon-trending-2.png" class="mb-1 d-block" width="20" height="20" />
+            <span>Feeds</span>
+            <img src="/img/icons/feeds.svg" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
           <v-btn>
             <span>Categories</span>

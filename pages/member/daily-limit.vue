@@ -5,7 +5,7 @@
 				<span class="green--text">{{sekarang}}</span> / {{batas}}
 			</span>
 			<v-progress-linear
-			:value="sekarang"
+			:value="remaining"
 			color="green"
 			height="25"
 			reactive
@@ -123,6 +123,9 @@ export default {
 			this.setProfile();
 			this.isLoggedIn = true;
 		},
+		percentage(partialValue, totalValue) {
+			return (100 * partialValue) / totalValue;
+		},
 		setProfile() {
 			let vm = this
 			this.$auth.fetchUser().then(() => {
@@ -142,6 +145,7 @@ export default {
 				limit = limit.split('/');
 				this.sekarang = limit[0];
 				this.batas = limit[1];
+				this.remaining = this.percentage(limit[0], limit[1]);
 
 				this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
 				this.avatar_preview = res.data.data.avatar;
