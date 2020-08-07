@@ -1,81 +1,29 @@
 <template>
   <section class="pending-page">
-    <v-container>
-      <v-row v-if="list">
-        <v-col>
-          <v-expansion-panels v-if="!loading && datamidtrans" class="mb-3" focusable>
-            <v-expansion-panel v-for="(mid, i) in datamidtrans" :key="i" class="mb-3">
-              <v-expansion-panel-header>
-                <v-row no-gutters>
-                  <v-col cols="4" class="lh-a text-14">{{ mid.created_at }}</v-col>
-                  <v-col
-                    cols="7"
-                    class="text-14 lh-a"
-                  >Pembayaran dengan No. {{ '#' + mid.order_id }} akan berakhir pada {{ mid.expired_at }}</v-col>
-                </v-row>
-              </v-expansion-panel-header>
+	<template v-if="datamidtrans!=null && datamidtrans.length > 0">
+		<div class="status-item" v-for="(mid, i) in datamidtrans" :key="i">
+			<div class="deep-orange--text text-18"><strong>{{ '#' + mid.order_id }}</strong></div>
+			<div class="text-16">
+				<div>{{ mid.created_at ? mid.created_at : 'n/a' }}</div>
+				<div>{{ mid.voucher.description ? mid.voucher.description : 'n/a' }}</div>
+				<div>{{ mid.voucher.price ? mid.voucher.price : 'n/a' }}</div>
+				<v-btn @click="openIframe(mid.invoice_url)" color="deep-orange" block large class="mt-4">
+					Selesaikan Pembayaran
+				</v-btn>
+			</div>
+		</div>
+	</template>
 
-              <!-- === if xendit === -->
-              <v-expansion-panel-content class="pt-3" v-if="mid.xendit">
-                <v-btn @click="openIframe(mid.invoice_url)" block color="deep-orange" dark>Show</v-btn>
-              </v-expansion-panel-content>
-
-              <!-- === if midtrans === -->
-              <v-expansion-panel-content class="pt-3" v-else>
-                <v-simple-table>
-                  <template v-slot:default>
-                    <tbody>
-                      <tr>
-                        <td>Transfer Ke</td>
-                        <td>BCA</td>
-                      </tr>
-                      <tr v-if="mid.veritrans_callback.va_numbers.length > 0">
-                        <td>No. Virtual Account</td>
-                        <td>
-                          <v-row
-                            no-gutters
-                            v-for="(va, i) in mid.veritrans_callback.va_numbers"
-                            :key="i"
-                          >
-                            <v-col cols="12">{{va.va_number}}</v-col>
-                          </v-row>
-                        </td>
-                      </tr>
-                      <tr v-else>
-                        <td>No. Virtual Account</td>
-                        <td>-</td>
-                      </tr>
-                      <tr>
-                        <td>Nama Perusahan</td>
-                        <td>PT. Jayadata Indonesia</td>
-                      </tr>
-                      <tr>
-                        <td>Jumlah Transfer</td>
-                        <td>{{'Rp.' + mid.amount + ',-'}}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-          <br />
-          <br />
-          <br />
-          <br />
-        </v-col>
-      </v-row>
-      <v-row v-else-if="!list && !loading">
+	<v-row v-else-if="!list && !loading">
         <v-col>
           <v-alert prominent text type="info">Tidak ada data yang tersedia</v-alert>
         </v-col>
-      </v-row>
-      <v-skeleton-loader
+    </v-row>
+    <v-skeleton-loader
         v-else
         class="mx-auto mt-5"
         type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
-      ></v-skeleton-loader>
-    </v-container>
+    ></v-skeleton-loader>
 
     <IframePreview
       :dialogVisible="iframeDialogVisible"
@@ -135,5 +83,13 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+.status-item {
+	border-top: 1px solid rgba(255, 236, 236, .5);
+	padding: 20px 15px;
+	line-height: 25px;
+}
+div .status-item:last-child {
+	border-bottom: 1px solid rgba(255, 236, 236, .5);
 }
 </style>
