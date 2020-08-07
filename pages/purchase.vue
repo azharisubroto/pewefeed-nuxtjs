@@ -2,13 +2,13 @@
   <div class="paymentpage">
     <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
       <template v-if="$route.name != 'index'">
-        <v-btn @click="e1 = e1 - 1" small icon>
+        <v-btn @click="prev()" small icon>
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
         <div class="flex-grow-1"></div>
       </template>
       <template v-else>
-        <v-btn @click="e1 = e1 - 1" small icon>&nbsp;</v-btn>
+        <v-btn @click="prev()" small icon>&nbsp;</v-btn>
         <div class="flex-grow-1"></div>
       </template>
 
@@ -142,13 +142,13 @@
               class="text-center px-5 py-10 mb-4"
             >
               <strong class="text-18" v-if="prechoice.label">{{ prechoice.label }}</strong>
-              <div class="text-16" v-if="prechoice.price">{{ prechoice.price }}</div>
+              <div class="text-16" v-if="prechoice.price">{{ prechoice.price }} (exclude PPN 10%)</div>
               <div class="text-16" v-if="prechoice.desc">{{ prechoice.desc }}</div>
             </div>
 
             <!-- SMS  -->
             <template
-              v-if="prechoice.payment != null && !prechoice.payment.includes('bank') && !prechoice.payment.includes('ewallets')"
+              v-if="prechoice.payment != null"
             >
               <v-container class="mb-3">
                 <strong class="deep-orange--text text-18">SMS Method</strong>
@@ -205,7 +205,7 @@
 
             <!-- EWALLETS  -->
             <v-container class="mb-3 mt-4">
-              <strong class="deep-orange--text text-18">Bank Transfer / Credit Card</strong>
+              <strong class="deep-orange--text text-18">eWallets</strong>
             </v-container>
             <v-list-item-group v-if="prechoice.payment != null">
               <template v-for="(item, i) in ewalletspayment">
@@ -232,13 +232,13 @@
 
           <!-- WAP -->
           <v-stepper-content step="4" class="px-0 pt-0">
-			<div
+			  <div
               v-if="userdata.status_expired == 1"
               style="background: #757575;color:#fff"
               class="text-center px-5 py-10 mb-4"
             >
               <strong class="text-18" v-if="prechoice.label">{{ prechoice.label }}</strong>
-              <div class="text-16" v-if="prechoice.price">{{ prechoice.price }}</div>
+              <div class="text-16" v-if="prechoice.price">{{ prechoice.price }} (exclude PPN 10%)</div>
               <div class="text-16" v-if="prechoice.desc">{{ prechoice.desc }}</div>
             </div>
 
@@ -603,11 +603,6 @@ export default {
     IframePreview,
   },
   watch: {
-    e1: function (baru, lama) {
-      if (baru == 1) {
-        this.appBarLabel = "Purchase VIP Membership";
-      }
-    },
     "formdata.nomorhandphone": function (baru, lama) {
       //console.log(baru)
       setTimeout(() => {
@@ -733,27 +728,7 @@ export default {
         console.log(this.e1);
       }
       if (this.e1 != 0) {
-        if (this.e1 == 3) {
-          this.e1 = this.e1 - 2;
-        } else if (this.e1 == 5) {
-          this.e1 = this.e1 - 4;
-        } else {
-          if (this.e1 == 4) {
-            if (this.current == "xl") {
-              this.e1 = this.e1 - 2;
-              this.current = 0;
-              //console.log(this.e1);
-            } else if (this.current == "indosat") {
-              this.e1 = 3;
-              this.current = 0;
-            } else {
-              //console.log(this.current);
-            }
-          } else {
-            this.e1 = 1;
-            //console.log(this.current);
-          }
-        }
+        this.e1--
       }
     },
 

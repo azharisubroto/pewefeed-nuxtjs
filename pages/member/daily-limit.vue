@@ -48,6 +48,7 @@ export default {
 	middleware: "auth",
 	data() {
 		return {
+		remaining: 0,
 		profile: null,
 		token: null,
 		avatar_preview: "",
