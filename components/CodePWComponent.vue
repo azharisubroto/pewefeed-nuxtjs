@@ -5,31 +5,23 @@
     </v-overlay>
 
     <div v-if="formsignin">
-      <v-alert
-        border="left"
-        dense
-        colored-border
-        type="info"
-        style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-      >
-        Segera Signin dengan Facebook atau Google untuk mengaktifkan Membership VIP kamu dan reward Pulsa gratis!
-        <br />Klik Tombol di bawah ini untuk melanjutkan
-      </v-alert>
+	  	<v-alert class="mt-4" color="#0057FF" prominent>
+			<template v-slot:prepend>
+			<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+			</template>
+			Masukan 32 Digit Kode yang kamu terima dari SMS untuk menambah VIP Membership
+		</v-alert>
       <Login />
     </div>
 
     <div v-else>
       <div v-if="newuser">
-        <v-alert
-          v-if="reward"
-          border="left"
-          dense
-          colored-border
-          type="info"
-          icon="mdi-trophy"
-          prominent
-          style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-        >Selamat! ambil reward kamu dengan klik tombol Claim di bawah ini, gratis!</v-alert>
+        <v-alert color="#0057FF" prominent>
+			<template v-slot:prepend>
+			<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+			</template>
+			Selamat! ambil reward kamu dengan klik tombol Claim di bawah ini, gratis!
+		</v-alert>
 
         <v-row v-if="reward">
           <v-col cols="5">
@@ -46,29 +38,30 @@
 
       <div v-if="newuser" class="devider-big stretchout my-5"></div>
 
-      <v-card @makeloading="setloading" @notloading="notloading">
-        <v-card-text>
-          <v-alert
-            v-if="status_code"
-            border="left"
-            dense
-            colored-border
-            type="info"
-            style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-          >{{message_code}}</v-alert>
+      <v-card class="pa-0" @makeloading="setloading" @notloading="notloading">
+        <v-card-text class="pa-0">
+          <v-alert color="#0057FF" prominent>
+			<template v-slot:prepend>
+			<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+			</template>Masukan 32 Digit Kode yang kamu terima dari SMS untuk menambah VIP Membership
+		  </v-alert>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row no-gutters>
-              <v-col cols="12">
+              <v-col cols="12" class="d-none">
                 <v-text-field label="PW ID" v-model="formdata.msisdn" :rules="pwIdRules"></v-text-field>
               </v-col>
-              <v-col cols="12">
-                <v-text-field label="Kode PW" v-model="formdata.code" required :rules="pwCodeRules"></v-text-field>
+              <v-col cols="12" class="pb-0">
+				<v-text-field
+					class="mb-0"
+					outlined
+					v-model="formdata.code" required :rules="pwCodeRules"
+				></v-text-field>
               </v-col>
-              <v-col cols="12" class="my-5">
+              <v-col cols="12" class="mt-0 pt-0 mb-5">
                 <recaptcha @error="onError()" @success="onSuccess()" @expired="onExpired()" />
               </v-col>
-              <v-col cols="12">
-                <v-btn @click="validate()" color="deep-orange" depressed dark width="100%">PROCESS</v-btn>
+              <v-col cols="12" class="mt-2">
+                <v-btn @click="validate()" color="deep-orange" depressed dark large width="100%">PROCESS</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -313,7 +306,7 @@ export default {
 
 <style lang="scss" scoped>
 .CodePW {
-  margin-top: 40px;
+  margin-top: 0;
 
   .stretchout {
     margin-left: -15px;

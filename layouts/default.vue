@@ -14,6 +14,10 @@
 				<v-btn @click="helpBack()" small icon><v-icon>mdi-chevron-left</v-icon></v-btn>
 				<div class="flex-grow-1"></div>
         	</template>
+			<template v-else-if="wowtab == 3 && $store.state.storehelpStepRewards > 1">
+				<v-btn @click="reWardsHelpBack()" small icon><v-icon>mdi-chevron-left</v-icon></v-btn>
+				<div class="flex-grow-1"></div>
+        	</template>
 			<template v-else>
 				<v-btn small icon>&nbsp;</v-btn>
 				<div class="flex-grow-1"></div>
@@ -41,7 +45,7 @@
 				<strong>Phone List for Rewards</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-status_transfer'">
-				<strong>Bank Transfer Status</strong>
+				<strong>Purchase Status via Bank</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-kode-pw'">
 				<strong>VIP Code from SMS</strong>
@@ -57,6 +61,9 @@
 			</template>
 			<template  v-else-if="$route.name.includes('toppoin')">
 				<strong>TOP POIN</strong>
+			</template>
+			<template  v-else-if="$route.name.includes('member-status_transfer-sms')">
+				<strong>Purchase Status via SMS</strong>
 			</template>
 			<template v-else>
 				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
@@ -473,6 +480,10 @@ export default {
 	helpBack(){
 		var toStep = parseFloat(this.$store.state.storehelpStep - 1)
 		this.$store.commit('SET_HELP', toStep);
+	},
+	reWardsHelpBack(){
+		var toStep = parseFloat(this.$store.state.storehelpStepRewards - 1)
+		this.$store.commit('SET_HELP_REWARDS', toStep);
 	},
 	clearStorage() {
 		localStorage.removeItem('tptab');

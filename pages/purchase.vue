@@ -65,7 +65,7 @@
               <div class="devider-small"></div>
 
               <template v-for="(item, i) in purchasemenu">
-                <v-list-item class="py-3" :key="'purchase-menu'+i">
+                <v-list-item class="py-3" :key="'purchase-menu'+i" :to="item.to">
                   <v-list-item-content>
                     <v-list-item-title>
                       <span>{{item.title}}</span>
@@ -455,15 +455,15 @@ export default {
       purchasemenu: [
         {
           title: "Purchase Status via Banks / eWallets",
-          to: "",
+          to: "/member/status_transfer",
         },
         {
           title: "Purchase Status via SMS",
-          to: "",
+          to: "/member/status_transfer/sms",
         },
         {
           title: "Activate VIP Membership - SMS Code",
-          to: "",
+          to: "/c/",
         },
       ],
       indosatlabel:

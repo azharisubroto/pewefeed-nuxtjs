@@ -25,6 +25,7 @@ const createStore = () => {
       item: {},
 	  meta: {},
 	  storehelpStep: false,
+	  storehelpStepRewards: false,
 	  sing_video: null,
 	  sing_video_data: null,
 	  sing_detail: null,
@@ -47,6 +48,9 @@ const createStore = () => {
 	  },
 	  SET_HELP(state, val) {
 		state.storehelpStep = val
+	  },
+	  SET_HELP_REWARDS(state, val) {
+		state.storehelpStepRewards = val
 	  },
 	  SET_SING_VIDEO(state, val) {
 		  state.sing_video = val
