@@ -33,7 +33,7 @@
 								<div v-if="i==0" class="devider-small my-0" :key="'asdasasd-'+i"></div>
 								<v-expansion-panels :key="'asdaasdass-'+i">
 									<v-expansion-panel class="mb-0">
-										<v-expansion-panel-header class="py-5 text-uppercase">{{bantuan.title}}</v-expansion-panel-header>
+										<v-expansion-panel-header class="py-5 text-uppercase"><span style="line-height:25px">{{bantuan.title}}</span></v-expansion-panel-header>
 										<v-expansion-panel-content class='text-left'>
 											<div v-html="bantuan.content"></div>
 										</v-expansion-panel-content>

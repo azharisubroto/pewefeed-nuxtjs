@@ -50,6 +50,7 @@ const createStore = () => {
 		state.storehelpStep = val
 	  },
 	  SET_HELP_REWARDS(state, val) {
+		console.log(val)
 		state.storehelpStepRewards = val
 	  },
 	  SET_SING_VIDEO(state, val) {
