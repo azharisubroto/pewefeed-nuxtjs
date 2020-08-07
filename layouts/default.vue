@@ -631,7 +631,6 @@ export default {
 
       try {
         const res = await UserService.generateDailyPoint(null);
-        console.log(res)
         this.fetchDaily()
         //this.loading = false
       } catch (error) {
@@ -663,16 +662,22 @@ export default {
 	if( this.$route.name=='member-daily-limit' || this.$route.name=='member-purchase-daily' || this.$route.name == 'about-daily-limit' || this.$route.name == 'purchase' ) {
 		this.wowtab = 3
 	}
+
   },
   watch: {
     $route(to, from) {
-      this.fetchUser();
+		let vm = this
+	  this.fetchUser();
       if (from.name == 'auth-callback' || from.name == 'member-otp') {
         this.wowtab = 3
         this.fetchDaily()
 	  }
 	  if( this.$router.currentRoute.query['tab'] ) {
 		this.wowtab = parseInt(this.$router.currentRoute.query['tab'])
+	  }
+	  if (from.name == 'member-barang_yang_didapat' || from.name == 'member-pengaturan-daftar-nomor') {
+		console.log('dari rewards')
+		this.$bus.$emit('profilestep', 2);
 	  }
 	},
   }
