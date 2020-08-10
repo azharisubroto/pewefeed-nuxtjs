@@ -354,15 +354,6 @@
 			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
 			  <br><br>
 		  </v-container>
-		  <v-container v-else class="text-center">
-			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
-			  <br>
-			  Kamu mendapat 2 Point karena sudah<br>
-			  Memberikan vote
-			  <br>
-			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
-			  <br><br>
-		  </v-container>
         </div>
       </v-sheet>
     </v-bottom-sheet>
@@ -515,8 +506,6 @@ export default {
   mounted() {
 	  this.getVideoDetail(this.$route.params.video);
 	  this.loadVoters(this.voterspaging);
-	  this.apakahbetul = true
-	  this.type = 'komen'
 	  localStorage.setItem('sing_to_login', 'yes');
   },
   async fetch({ store, params }) {

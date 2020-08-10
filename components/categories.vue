@@ -82,10 +82,10 @@ export default {
       youtube: process.env.youtube,
       youtubeUrl: process.env.youtubeUrl,
       categories: [
-        {
-          title: "TRENDING",
-          link: "/"
-        },
+        // {
+        //   title: "TRENDING",
+        //   link: "/"
+        // },
         {
           title: "ENTERTAINMENT",
           link: "/viral"
@@ -110,10 +110,10 @@ export default {
           title: "SPORT",
           link: "/sport"
         },
-        {
-          title: "VIDEO",
-          link: "/video"
-        }
+        // {
+        //   title: "VIDEO",
+        //   link: "/video"
+        // }
       ],
       programs: [
         {
