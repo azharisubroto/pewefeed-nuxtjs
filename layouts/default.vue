@@ -30,7 +30,7 @@
 				<strong>Profile</strong>
 			</template>
 			<template  v-else-if="$route.name == 'member-histori_penggunaan_poin'">
-				<strong>Points History</strong>
+				<strong>Total Points</strong>
 			</template>
 			<template  v-else-if="$route.name == 'purchase'">
 				<strong>Purchase VIP Membership</strong>
@@ -64,6 +64,9 @@
 			</template>
 			<template  v-else-if="$route.name.includes('member-status_transfer-sms')">
 				<strong>Purchase Status via SMS</strong>
+			</template>
+			<template  v-else-if="$route.name.includes('member-mypoints')">
+				<strong>Total Points</strong>
 			</template>
 			<template v-else>
 				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
@@ -646,6 +649,9 @@ export default {
 	if( localStorage.getItem('sing_to_login') ) {
 		localStorage.removeItem('sing_to_login');
 	}
+	if( this.$router.currentRoute.query['tab'] ) {
+		this.wowtab = parseInt(this.$router.currentRoute.query['tab'])
+	}
     this.isLogin();
     //this.fetchBantuan();
     //this.fetchHighlight();
@@ -674,9 +680,6 @@ export default {
       if (from.name == 'auth-callback' || from.name == 'member-otp') {
         this.wowtab = 3
         this.fetchDaily()
-	  }
-	  if( this.$router.currentRoute.query['tab'] ) {
-		this.wowtab = parseInt(this.$router.currentRoute.query['tab'])
 	  }
 	  if (from.name == 'member-barang_yang_didapat' || from.name == 'member-pengaturan-daftar-nomor') {
 		console.log('dari rewards')
@@ -1081,6 +1084,9 @@ a,
 }
 .theme--dark.v-tabs > .v-tabs-bar .v-tab {
 	font-weight: bold;
+}
+.text--italic {
+	font-style: italic!important;
 }
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)

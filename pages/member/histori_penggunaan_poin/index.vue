@@ -15,19 +15,19 @@
         </v-col>
       </v-row>
 
-      <div class="statusquo text-center row" style="background-color:#474747;border-top:1px solid #fff;border-bottom:1px solid #fff;">
-        <v-col cols="12">
+      <div class="statusquo text-center row" style="background-color:#000;border-top:1px solid #fff;border-bottom:1px solid #fff;">
+        <v-col cols="12" class="px-0">
           <v-btn @click="fethMutasi(1, 'all')" :class="[position == 'all' ? 'active' : null]" text dark small>
-            <span>All</span>
+            <span class="text-14">Semua</span>
           </v-btn>
           <v-btn @click="fethMutasi(1, 'dapat')" :class="[position == 'dapat' ? 'active' : null]" text dark small>
-            <span>Received</span>
+            <span class="text-14">Diterima</span>
           </v-btn>
           <v-btn @click="fethMutasi(1, 'tukar')" :class="[position == 'tukar' ? 'active' : null]" text dark small>
-            <span>Exchange</span>
+            <span class="text-14">Ditukar</span>
           </v-btn>
           <v-btn @click="fethMutasi(1, 'fraud')" :class="[position == 'fraud' ? 'active' : null]" text dark small>
-            <span>Fraud</span>
+            <span class="text-14">Fraud</span>
           </v-btn>
         </v-col>
       </div>

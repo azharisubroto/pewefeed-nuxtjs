@@ -7,7 +7,7 @@
 					<h3>Diterima</h3>
 				</v-col>
 			</v-row>
-			<v-row v-if="list.length > 0">
+			<v-row v-if="list!=null && !loading">
 				<v-col>
 					<RewardCard :list="list" :sent="true"/>
 
@@ -24,13 +24,13 @@
 					<br>
 				</v-col>
 			</v-row>
-			<v-row v-else-if="list.length == 0 && !loading">
+			<v-row v-else-if="list==null && !loading">
 				<v-col>
-					<v-alert
-					prominent
-					text
-					type="info"
-					success>Tidak ada barang yang tersedia</v-alert>
+					<v-col>
+						<div class="text-center pa-5">
+							<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
+						</div>
+					</v-col>
 				</v-col>
 			</v-row>
 			<v-skeleton-loader v-else
@@ -51,22 +51,25 @@ export default {
 	data() {
 		return {
 			loading: true,
-			list: [],
+			list: null,
 			page: 1,
 			totalpage: 0
 		}
 	},
 	methods: {
 		async fetchWait(n) {
+			console.log()
 			this.loading = true
 			var page = n ? n : 1
 			try {
 				const res = await UserService.rewardsReceived(page)
 				const items = res.data.data
 				this.totalpage = res.data.meta.last_page
-				//if( items.length > 0 ){
+				if( items.length > 0 ){
 					this.list = res.data.data
-				//}
+				} else {
+					this.list = null
+				}
 				console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.loading = false
 			} catch (error) {

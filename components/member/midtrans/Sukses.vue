@@ -16,10 +16,12 @@
 			</div>
 		</div>
 	</template>
-	<v-row v-else-if="!list && !loading">
-        <v-col>
-          <v-alert prominent text type="info">Tidak ada data yang tersedia</v-alert>
-        </v-col>
+	<v-row class="mx-0" v-else-if="datamidtrans == null && !loading">
+        <v-col cols="12">
+			<div class="text-center pa-5">
+				<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
+			</div>
+		</v-col>
     </v-row>
     <v-skeleton-loader
         v-else
