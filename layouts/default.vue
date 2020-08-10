@@ -642,7 +642,10 @@ export default {
     if (localStorage.getItem('loggedin')) {
       this.generateDaily()
       this.fetchDaily();
-    }
+	}
+	if( localStorage.getItem('sing_to_login') ) {
+		localStorage.removeItem('sing_to_login');
+	}
     this.isLogin();
     //this.fetchBantuan();
     //this.fetchHighlight();
@@ -707,7 +710,7 @@ img {
 }
 .theme--dark.v-application,
 .theme--dark.v-sheet {
-  background: #1c1c1d;
+  background: #000;
 }
 .main-app-bar.theme--dark {
   background: #2c2c2d;
@@ -1007,14 +1010,14 @@ a,
     }
   }
 }
-.bg-dark {
-  background: #232323;
+.bg-dark, .theme--dark.v-stepper {
+  background: #000;
 }
 .theme--dark.v-tabs-items {
   background-color: #1d1d1d;
 }
 .ghost-page {
-	background: #232323;
+	background: #000;
 	position: fixed;
 	top: 0;
 	width: 100%;

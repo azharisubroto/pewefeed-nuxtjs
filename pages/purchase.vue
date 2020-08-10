@@ -230,12 +230,12 @@
             </v-list-item-group>
           </v-stepper-content>
 
-          <!-- WAP -->
+          <!-- SMS CHECKPOINT -->
           <v-stepper-content step="4" class="px-0 pt-0">
 			  <div
               v-if="userdata.status_expired == 1"
               style="background: #757575;color:#fff"
-              class="text-center px-5 py-10 mb-4"
+              class="text-center px-5 py-10 mb-1"
             >
               <strong class="text-18" v-if="prechoice.label">{{ prechoice.label }}</strong>
               <div class="text-16" v-if="prechoice.price">{{ prechoice.price }} (exclude PPN 10%)</div>
@@ -243,80 +243,57 @@
             </div>
 
             <template v-if="prechoice.payment != null && (!prechoice.payment.includes('bank') || !prechoice.payment.includes('ewallets'))">
-              <div class="px-3 pt-2">
-                <br />
-                <strong>Nilai Transaksi</strong>
-              </div>
-              <v-card class="hohoho mb-3 mt-4">
-                <div class="devider-small"></div>
-                <v-row class="px-4">
-                  <v-col cols="12">{{prechoice.price ? prechoice.price : 'n/a'}}</v-col>
-                </v-row>
-                <div class="devider-small"></div>
-              </v-card>
 
-              <div class="px-3 mt-6">
-                <strong>Rincian Transaksi</strong>
-              </div>
-              <v-card class="hohoho mb-3 mt-4">
-                <div class="devider-small"></div>
-                <v-row class="px-4">
-                  <v-col cols="12" class="hmmm">
-                    <div v-html="prechoice.label ? prechoice.label : 'n/a'"></div>
-                    <div v-html="prechoice.price ? prechoice.price : ''"></div>
-                  </v-col>
-                </v-row>
-                <div class="devider-small"></div>
-              </v-card>
+				<v-container class="pb-0">
+					<v-alert color="#0057FF" class="mb-1" prominent>
+						<template v-slot:prepend>
+							<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+						</template>
+						Pilih salah satu metode pembelian, bisa dengan SMS atau WAP (Instan)
+					</v-alert>
+				</v-container>
 
               <v-container class="mt-0 card-trans px-0">
                 <v-row>
                   <v-col cols="12" class="pb-0 pt-0">
-                    <div class="text-16 mb-2 px-4">
-                      <strong>Channel Pembayaran (Pilih Salah Satu)</strong>
-                    </div>
                     <v-card
                       class="mx-auto mb-0"
-                      style="background: #4c4c4c!important;border-radius:0!important"
+                      style="background: #000!important;border-radius:0!important"
                     >
-                      <v-tabs grow v-model="buymethod" color="deep-orange">
-                        <v-tab href="#sms" class="hohoho">SMS</v-tab>
-                        <v-tab href="#wap" class="hohoho" @click="useWap=true">WAP</v-tab>
+                      <v-tabs grow v-model="buymethod" color="deep-orange" background="#000000">
+                        <v-tab href="#sms" class="hohoho text-18">SMS</v-tab>
+                        <v-tab href="#wap" class="hohoho text-18" @click="useWap=true">WAP</v-tab>
                         <!-- <v-tab href="#ussd" class="hohoho">USSD</v-tab> -->
                       </v-tabs>
 
-                      <v-tabs-items v-model="buymethod">
-                        <v-tab-item value="sms" style="background: #4c4c4c!important;">
+                      <v-tabs-items v-model="buymethod" class="mt-4">
+                        <v-tab-item value="sms" style="background: #000!important;">
                           <v-form ref="form" v-model="valid" lazy-validation>
-                            <v-container class="pa-0 apasih">
-                              <v-row no-gutters>
-                                <v-col cols="12">
-                                  <v-text-field
-                                    flat
-                                    single-line
-                                    prepend-inner-icon
-                                    maxlength="12"
-                                    v-model="formdata.nomorhandphone"
-                                    type="number"
-                                    required
-                                    hide-details
-                                    placeholder="Enter your mobile phone number"
-                                    @keydown="filterKey"
-                                    :rules="numberRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
+                            <v-container class="pb-0">
+                              <v-text-field
+								outlined
+								single-line
+								prepend-inner-icon
+								maxlength="12"
+								v-model="formdata.nomorhandphone"
+								type="number"
+								required
+								hide-details
+								placeholder="Masukan nomor ponsel anda"
+								@keydown="filterKey"
+								:rules="numberRules"
+								></v-text-field>
                             </v-container>
                           </v-form>
                         </v-tab-item>
-                        <v-tab-item value="wap" style="background: #4c4c4c!important;">
+                        <v-tab-item value="wap" style="background: #000!important;">
                           <v-container class="text-center pt-4" style="padding-bottom: 40px">
                             <strong
                               class="body-2"
                             >Pastikan anda tidak menggunakan WiFi, kemudian beri centang pada Google ReCaptcha dan tekan tombol "Process", dan anda akan diarahkan ke halaman pembayaran</strong>
                           </v-container>
                         </v-tab-item>
-                        <v-tab-item value="ussd" style="background: #4c4c4c!important;">
+                        <v-tab-item value="ussd" style="background: #000!important;">
                           <v-container class="text-center pt-4" style="padding-bottom: 40px">
                             <strong class="body-2">Pilihan Tidak Tersedia</strong>
                           </v-container>
@@ -335,7 +312,7 @@
 
                 <div
                   class="mt-0"
-                  style="text-align:center;padding: 20px 10px 10px;border-radius:3px;background: #4c4c4c!important;"
+                  style="text-align:center;padding: 20px 10px 10px;border-radius:3px;background: #000!important;"
                 >
                   <recaptcha
                     style="display:inline-block"
@@ -346,7 +323,8 @@
                   <v-btn
                     @click="validate(prechoice.voucher_id)"
 					:disabled="finalbuttondisabled"
-                    color="green"
+                    color="deep-orange"
+					large
                     block
                     class="white--text mt-2"
                   >PROCESS</v-btn>
@@ -950,13 +928,6 @@ export default {
   right: 0;
   margin: 0 auto;
 }
-.hohoho {
-  background: rgba(255, 255, 255, 0.07) !important;
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  .subtitle-1 {
-    background: #1c1c1d !important;
-  }
-}
 .jumpup {
   position: relative;
   padding-top: 0 !important;
@@ -980,10 +951,6 @@ export default {
 </style>
 
 <style lang="scss">
-.apasih .v-text-field__slot {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
 .paymentpage {
   .v-list-item--disabled {
     .v-list-item__icon {
@@ -1006,5 +973,19 @@ export default {
       font-style: italic;
     }
   }
+}
+.card-trans {
+	.v-tabs-bar {
+		height: 64px!important;
+	}
+	.hohoho {
+		background: #000!important;
+		border-top: 1px solid rgba(255, 236, 236, 0.5);
+		border-bottom: 1px solid rgba(255, 236, 236, 0.5)!important;
+		height: auto!important;
+		.subtitle-1 {
+			background: #000 !important;
+		}
+	}
 }
 </style>

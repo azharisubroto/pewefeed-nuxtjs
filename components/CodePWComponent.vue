@@ -5,12 +5,6 @@
     </v-overlay>
 
     <div v-if="formsignin">
-	  	<v-alert class="mt-4" color="#0057FF" prominent>
-			<template v-slot:prepend>
-			<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
-			</template>
-			Masukan 32 Digit Kode yang kamu terima dari SMS untuk menambah VIP Membership
-		</v-alert>
       <Login />
     </div>
 
