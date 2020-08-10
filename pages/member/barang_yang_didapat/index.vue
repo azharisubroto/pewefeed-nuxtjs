@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<v-tabs-items v-model="tab">
+		<v-tabs-items style="background:#000!important" v-model="tab">
 			<v-tab-item
 				v-for="item in tabItems"
 				:key="item"
@@ -14,7 +14,7 @@
 				<template v-if="item == 'Dikirim'">
 					<Diterima />
 				</template>
-				<template v-if="item == 'Selesai'">
+				<template v-if="item == 'Diterima'">
 					<Selesai />
 				</template>
 			</v-tab-item>
@@ -26,7 +26,7 @@
 		dark
 		grow
 		color="white"
-		background-color="black"
+		background-color="#2c2c2d"
 		v-model="tab"
 		>
 			<v-btn

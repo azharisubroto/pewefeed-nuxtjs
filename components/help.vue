@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dark fill-height">
+  <div class="helppage bg-dark fill-height">
     <client-only>
       <v-stepper class="stepperHelp" v-model="helpStep">
         <v-stepper-items>
@@ -314,6 +314,11 @@ export default {
 <style lang="scss">
 .fill-height {
   min-height: 100vh;
+}
+.helppage {
+	.theme--dark.v-list {
+		background: #000!important;
+	}
 }
 .bg-dark {
   .devider-small {

@@ -67,7 +67,7 @@
               </v-list-item>
 
               <div class="devider-small"></div>
-              <v-list-item class="py-3" to="/member/histori_penggunaan_poin">
+              <v-list-item class="py-3" to="/member/mypoints">
                 <v-list-item-content>
                   <v-list-item-title>
                     Total Points
