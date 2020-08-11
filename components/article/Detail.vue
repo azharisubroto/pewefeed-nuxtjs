@@ -18,6 +18,9 @@ h2<template>
         <v-row class="pb-5">
           <v-col cols="12">
             <div class="article-thumb">
+				<div class="partnership" v-if="article.partnership!=null">
+					<img src="/img/tripartnership.png" alt=""/>
+				</div>
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
 
@@ -1171,6 +1174,7 @@ export default {
 .article-thumb {
   margin-left: -15px;
   margin-right: -15px;
+  position: relative;
 }
 .article-readmore {
   height: 350px;
@@ -1232,5 +1236,11 @@ export default {
   color: #000;
   border-radius: 10px;
   font-weight: bold;
+}
+.partnership {
+	position: absolute;
+	top: 20px;
+	left: 0;
+	z-index: 11;
 }
 </style>
