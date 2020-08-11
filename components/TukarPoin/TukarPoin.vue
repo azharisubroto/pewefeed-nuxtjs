@@ -1,18 +1,20 @@
 <template>
   <section class="pb-5">
-    <v-container class="mt-5 pt-5 mb-5 pb-5">
-      <template v-if="tukarpointab">
-        <v-row align="center" v-if="discounts">
-          <v-col cols="6" class="py-0">
-            <h4 class="text-uppercase">Penawaran Terbatas</h4>
-          </v-col>
-          <v-col cols="6" class="text-right py-0" v-if="expire">
-            <no-ssr>
-              <flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
-            </no-ssr>
-          </v-col>
-        </v-row>
-        <!-- LATEST -->
+	<template v-if="tukarpointab">
+		<v-container>
+			<v-row align="center" v-if="discounts">
+				<v-col cols="6" class="py-0">
+				<h4 class="text-uppercase">Rewards Terbatas</h4>
+				</v-col>
+				<v-col cols="6" class="text-right py-0" v-if="expire">
+				<no-ssr>
+					<flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
+				</no-ssr>
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<!-- LATEST -->
         <flickity
           class="tukarpoinslide my-5"
           v-if="discounts"
@@ -25,125 +27,127 @@
             class="featured-item-2"
             @click="$router.push('/tukarpoin/redeem/'+item.id)"
           >
-            <div class="py-5 px-7 jeruk">
+            <div class="py-5 px-3 jeruk">
               <v-row>
                 <v-col cols="4">
                   <v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
                 </v-col>
                 <v-col cols="8">
                   <v-row no-gutters>
-                    <v-col cols="1">&nbsp;</v-col>
-                    <v-col cols="11">
-                      <strong
-                        style="text-decoration:line-through"
-                        class="text-14 red--text"
-                      >{{item.promoted_price}}</strong>
-                    </v-col>
-                  </v-row>
-                  <v-row no-gutters>
-                    <v-col cols="1">
-                      <img
-                        src="/img/poin.png"
+                    <v-col cols="2" clas="pr-2">
+						<img
+                        src="/img/icons/poin-black.svg"
                         alt
-                        width="16"
                         class="mr-1 mt-1"
                         style="vertical-align:top"
                       />
-                    </v-col>
-                    <v-col cols="11">
-                      <strong class="text-14" style="line-height:1">{{item.price}}</strong>
-                      <h1 class="mb-2">{{item.title}}</h1>
-                      <v-btn
-                        color="deep-orange"
-                        depressed
-                        dark
-                        small
-                        @click="$router.push('/tukarpoin/redeem/'+item.id)"
-                      >Tukar Poin</v-btn>
+					</v-col>
+                    <v-col cols="10">
+                      <strong
+                        style="text-decoration:line-through"
+                        class="text-16 black--text"
+                      >{{item.promoted_price}}</strong>
+						<div></div>
+					  <strong class="text-18" style="line-height:1">{{item.price}}</strong>
                     </v-col>
                   </v-row>
+				  <div class="devider-small my-3" style="border-color:#000"></div>
+
+				  <div class="mb-2 text-20">{{item.title}}</div>
+                    <v-btn
+					color="deep-orange"
+					depressed
+					dark
+					block
+					small
+					@click="$router.push('/tukarpoin/redeem/'+item.id)"
+					>Tukar Poin</v-btn>
                 </v-col>
               </v-row>
             </div>
           </div>
         </flickity>
 
-        <div class="devider-small"></div>
-        <v-row>
-          <v-col cols="12" class="py-0">
-            <h4 class="text-uppercase mt-4">Rewards Lainnya</h4>
-          </v-col>
-        </v-row>
-        <v-row
-          class="topview-item"
-          v-for="(article, i) in redeems"
-          :key="'topview-'+article.id+'-'+i"
-          @click="$router.push('/tukarpoin/redeem/'+article.id)"
-        >
-          <v-col cols="12" v-if="i%5 == 0">
-            <!-- ADSENSE -->
-            <InFeedAdsense
-              data-ad-layout-key="-fb+5w+4e-db+86"
-              data-ad-client="ca-pub-6581994114503986"
-              data-ad-slot="7916120444"
-            ></InFeedAdsense>
-          </v-col>
-          <v-col cols="4" :class="article.expired ? 'expired': 'active'">
-            <div class="jeruk pa-3">
-              <v-img contain :src="article.image" aspect-ratio="1" class="jeruk"></v-img>
-            </div>
-          </v-col>
-          <v-col
-            cols="8"
-            :class="article.expired ? 'expired': 'active'"
-            class="d-flex align-content-space-between flex-wrap"
-          >
-            <div class="d-block mb-2 w-100">
-              <h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
-              <img src="/img/poin.png" alt width="16" class="mr-1 mt-1" style="vertical-align:top" />
-              <strong class="text-14" style="line-height:1">{{article.point}}</strong>
-            </div>
-            <div class="self-align-end meta text--gray" style="font-size:16px;">
-              <v-btn
-                color="deep-orange"
-                depressed
-                dark
-                small
-                @click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
-              >{{article.expired ? 'Lihat' : 'Tukar Poin'}}</v-btn>
-            </div>
-          </v-col>
-        </v-row>
+		<v-container>
+			<div class="devider-small"></div>
+			<v-row>
+				<v-col cols="12" class="py-0">
+				<h4 class="text-uppercase mt-4">Rewards Lainnya</h4>
+				</v-col>
+			</v-row>
+			<v-row
+				class="topview-item py-4"
+				style="border-bottom:1px solid #FFECEC"
+				v-for="(article, i) in redeems"
+				:key="'topview-'+article.id+'-'+i"
+				@click="$router.push('/tukarpoin/redeem/'+article.id)"
+			>
+				<v-col cols="12" v-if="i%5 == 0">
+					<!-- ADSENSE -->
+					<InFeedAdsense
+						data-ad-layout-key="-fb+5w+4e-db+86"
+						data-ad-client="ca-pub-6581994114503986"
+						data-ad-slot="7916120444"
+					></InFeedAdsense>
+					</v-col>
+					<v-col cols="4" :class="article.expired ? 'expired': 'active'">
+						<v-img contain :src="article.image" aspect-ratio="1"></v-img>
+					</v-col>
+					<v-col
+					cols="8"
+					:class="article.expired ? 'expired': 'active'"
+					class="d-flex align-content-space-between flex-wrap"
+					>
+					<div class="d-block mb-2 w-100">
+						<img src="/img/icons/poin-p.svg" alt width="20" class="mr-1 mt-0" style="vertical-align:top" />
+						<strong class="text-18" style="line-height:1">{{article.point}}</strong>
 
-        <v-row class="mt-4">
-          <v-col>
-            <v-pagination v-model="page" :length="totalpage" color="orange" @input="next"></v-pagination>
-          </v-col>
-        </v-row>
-      </template>
+						<div class="devider-small my-4"></div>
 
-      <template v-if="syarattab">
-        <v-row class="mt-0 tukarpoin-content">
-          <v-col>
-            <h2 class="mb-4 text-20">Syarat &amp; Ketentuan</h2>
-            <p>Untuk mendapatkan barang cukup menukarkan POIN sesuai dengan jumlah POIN YANG DIPERLUKAN</p>
+						<h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
+					</div>
+					<div class="d-block w-100">
+						<v-btn
+						color="deep-orange"
+						depressed
+						dark
+						block
+						small
+						@click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
+						>{{article.expired ? 'Lihat' : 'Tukar Poin'}}</v-btn>
+					</div>
+				</v-col>
+			</v-row>
 
-            <p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel {{ domainTitle }} atau mainkan GAME nya.</p>
+			<v-row class="mt-4">
+				<v-col>
+				<v-pagination v-model="page" :length="totalpage" color="orange" @input="next"></v-pagination>
+				</v-col>
+			</v-row>
+		</v-container>
+	</template>
 
-            <p>Cek videonya disini :</p>
+	<template v-if="syarattab">
+	<v-row class="mt-0 tukarpoin-content">
+		<v-col>
+		<h2 class="mb-4 text-20">Syarat &amp; Ketentuan</h2>
+		<p>Untuk mendapatkan barang cukup menukarkan POIN sesuai dengan jumlah POIN YANG DIPERLUKAN</p>
 
-            <iframe
-              width="320"
-              height="315"
-              src="https://www.youtube.com/embed/_gbe_xq27pE"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </v-col>
-        </v-row>
-      </template>
-    </v-container>
+		<p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel {{ domainTitle }} atau mainkan GAME nya.</p>
+
+		<p>Cek videonya disini :</p>
+
+		<iframe
+			width="320"
+			height="315"
+			src="https://www.youtube.com/embed/_gbe_xq27pE"
+			frameborder="0"
+			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen
+		></iframe>
+		</v-col>
+	</v-row>
+	</template>
 
     <v-bottom-navigation
       fixed
@@ -264,6 +268,9 @@ export default {
     }
   }
 }
+.flip-card__top[data-v-72281230], .flip-card__bottom[data-v-72281230], .flip-card__back-bottom[data-v-72281230], .flip-card__back[data-v-72281230]::before, .flip-card__back[data-v-72281230]::after{
+	color: #fff!important;
+}
 
 .poinbutuh {
   position: absolute;
@@ -285,7 +292,7 @@ export default {
   text-align: center !important;
 }
 .flip-card__top {
-  color: #fba627;
+  color: #fff;
 }
 .flip-card {
   font-size: 20px !important;
@@ -297,7 +304,8 @@ export default {
   width: 100%;
 }
 .jeruk {
-  background: #ff9800;
+  background: #FE9800;
+  color: #000;
 }
 .expired {
   filter: grayscale(100%);
