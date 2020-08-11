@@ -1,31 +1,34 @@
 <template>
   <section class="pending-page">
-	<template v-if="datamidtrans!=null && datamidtrans.length > 0">
-		<div class="status-item" v-for="(mid, i) in datamidtrans" :key="i">
-			<div class="deep-orange--text text-18"><strong>{{ '#' + mid.order_id }}</strong></div>
-			<div class="text-16">
-				<div>{{ mid.created_at ? mid.created_at : 'n/a' }}</div>
-				<div>{{ mid.voucher.description ? mid.voucher.description : 'n/a' }}</div>
-				<div>{{ mid.voucher.price ? mid.voucher.price : 'n/a' }}</div>
-				<v-btn @click="openIframe(mid.invoice_url)" color="deep-orange" block large class="mt-4">
-					Selesaikan Pembayaran
-				</v-btn>
-			</div>
-		</div>
-	</template>
+    <div v-if="loading">
+        <v-skeleton-loader
+            class="mx-auto mt-5"
+            type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
+        ></v-skeleton-loader>
+    </div>
+    <div v-else>
+        <template v-if="datamidtrans!=null && datamidtrans.length > 0">
+            <div class="status-item" v-for="(mid, i) in datamidtrans" :key="i">
+                <div class="deep-orange--text text-18"><strong>{{ '#' + mid.order_id }}</strong></div>
+                <div class="text-16">
+                    <div>{{ mid.created_at ? mid.created_at : 'n/a' }}</div>
+                    <div>{{ mid.voucher.description ? mid.voucher.description : 'n/a' }}</div>
+                    <div>{{ mid.voucher.price ? mid.voucher.price : 'n/a' }}</div>
+                    <v-btn @click="openIframe(mid.invoice_url)" color="deep-orange" block large class="mt-4">
+                        Selesaikan Pembayaran
+                    </v-btn>
+                </div>
+            </div>
+        </template>
 
-	<v-row class="mx-0" v-else-if="datamidtrans == null && !loading">
-        <v-col cols="12">
-			<div class="text-center pa-5">
-				<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
-			</div>
-		</v-col>
-    </v-row>
-    <v-skeleton-loader
-        v-else
-        class="mx-auto mt-5"
-        type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
-    ></v-skeleton-loader>
+        <v-row class="mx-0" v-else>
+            <v-col cols="12">
+                <div class="text-center pa-5">
+                    <v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
+                </div>
+            </v-col>
+        </v-row>
+    </div>
 
     <IframePreview
       :dialogVisible="iframeDialogVisible"
