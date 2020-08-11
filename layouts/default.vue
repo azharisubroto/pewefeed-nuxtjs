@@ -1088,6 +1088,9 @@ a,
 .text--italic {
 	font-style: italic!important;
 }
+ol.flickity-page-dots {
+	padding-left: 0!important
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }
