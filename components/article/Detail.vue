@@ -1,6 +1,8 @@
-h2<template>
+<template>
   <section>
-	<v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
+	  <a href="https://instagram.com/pewefeed">
+		  <v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
+	  </a>
     <v-skeleton-loader
       v-if="article==''"
       class="mx-auto mt-5"
@@ -19,7 +21,7 @@ h2<template>
           <v-col cols="12">
             <div class="article-thumb">
 				<div class="partnership" v-if="article.partnership!=null">
-					<img src="/img/tripartnership.png" alt=""/>
+					In Partnership with {{article.partnership.title}} <img :src="article.partnership.avatar" width="20" alt=""/>
 				</div>
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
@@ -1242,5 +1244,18 @@ export default {
 	top: 20px;
 	left: 0;
 	z-index: 11;
+	background: #000;
+	border-radius: 0 90px 90px 0;
+	color: #fff;
+	border: 1px solid #fff;
+	padding: 0 15px;
+	line-height: 44px;
+	height: 44px;
+
+	img {
+		vertical-align: middle;
+		display: inline-block;
+		margin-left: 10px;
+	}
 }
 </style>
