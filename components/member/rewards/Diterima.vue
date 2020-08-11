@@ -26,11 +26,9 @@
 			</v-row>
 			<v-row v-else-if="list==null && !loading">
 				<v-col>
-					<v-col>
-						<div class="text-center pa-5">
-							<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
-						</div>
-					</v-col>
+					<div class="text-center pa-5">
+						<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
+					</div>
 				</v-col>
 			</v-row>
 			<v-skeleton-loader v-else

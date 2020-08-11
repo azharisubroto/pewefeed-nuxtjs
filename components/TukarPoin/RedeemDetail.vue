@@ -38,9 +38,10 @@
 						<strong
 						style="text-decoration:line-through"
 						class="text-16 black--text"
-						>{{detail.discount}}</strong>
-						<div></div>
-						<strong class="text-18 black--text" style="line-height:1">{{detail.point}}</strong>
+						v-if="detail.discount > 0"
+						>{{detail.discount}} POIN</strong>
+						<div :class="[detail.discount == 0 ? 'mb-1' : '']"></div>
+						<strong class="text-20 black--text" style="line-height:1">{{detail.point}} Poin</strong>
 					</v-col>
 				</v-row>
 				<div class="devider-small my-3" style="border-color:#000"></div>
@@ -69,11 +70,11 @@
             </v-col>
             <v-col cols="6" class="text-right">
               <img
-                src="/img/poin.png"
+                src="/img/icons/poin-p.svg"
                 alt
-                width="16"
+                width="20"
                 class="mr-1"
-                style="position:relative;top:4px;"
+                style="position:relative;top:5px;"
               />
               <strong class="">{{detail.point}}</strong>
             </v-col>
@@ -111,7 +112,6 @@
                 color="deep-orange"
                 :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
                 :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-                tile
                 @click="buyconfirm = !buyconfirm"
               >Tukarkan Poin</v-btn>
               <v-btn
@@ -122,7 +122,6 @@
                 :disabled="detail.expired ? true : false"
                 color="deep-orange"
                 style="background-color: grey !important;"
-                tile
                 @click="buyconfirm = !buyconfirm"
               >Tukarkan Poin</v-btn>
             </v-col>
