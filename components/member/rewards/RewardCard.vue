@@ -132,7 +132,7 @@
 		</template>
 		<template v-else>
 			<div class="text-center text-bold py-5">
-				<strong>No data</strong>
+				<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
 			</div>
 		</template>
 	</div>

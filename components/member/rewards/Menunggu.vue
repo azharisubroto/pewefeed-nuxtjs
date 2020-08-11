@@ -64,8 +64,8 @@ export default {
 			var page = n ? n : 1
 			try {
 				const res = await UserService.rewardsWait(page)
-				this.list = res.data.data
-				//this.list = null
+				//this.list = res.data.data
+				this.list = null
 				this.totalpage = res.data.meta.last_page
 				this.loading = false
 				//console.log(JSON.parse(JSON.stringify(res.data)))
