@@ -19,17 +19,34 @@
 
     <!-- DETAIL REWWARD -->
     <template v-if="detailtab">
-      <div v-if="detail" class="py-10" style="background: #ff9800">
+      <div v-if="detail" class="py-10 px-0" style="background: #ff9800">
         <v-row align="center" no-gutters>
-          <v-col cols="6">
+          <v-col cols="5">
             <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
           </v-col>
-          <v-col cols="6">
-            <div class="pr-4">
-              <!-- TITLE -->
-              <h2 class="ma-0">{{detail.title}}</h2>
-            </div>
-          </v-col>
+          <v-col cols="7" class="pr-4">
+				<v-row no-gutters class="mx-0">
+					<v-col cols="2" class="pr-2">
+						<img
+						src="/img/icons/poin-black.svg"
+						alt
+						class="mr-1 mt-1"
+						style="vertical-align:top"
+						/>
+					</v-col>
+					<v-col cols="10">
+						<strong
+						style="text-decoration:line-through"
+						class="text-16 black--text"
+						>{{detail.discount}}</strong>
+						<div></div>
+						<strong class="text-18 black--text" style="line-height:1">{{detail.point}}</strong>
+					</v-col>
+				</v-row>
+				<div class="devider-small my-3" style="border-color:#000"></div>
+
+				<div class="mb-2 text-20 black--text">{{detail.title}}</div>
+			</v-col>
         </v-row>
       </div>
       <v-container>
@@ -42,7 +59,7 @@
             </v-col>
             <v-col
               cols="9"
-              class="text-right deep-orange--text"
+              class="text-right "
             >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
           </v-row>
           <div class="devider-small"></div>
@@ -58,7 +75,7 @@
                 class="mr-1"
                 style="position:relative;top:4px;"
               />
-              <strong class="deep-orange--text">{{detail.point}}</strong>
+              <strong class="">{{detail.point}}</strong>
             </v-col>
           </v-row>
           <div class="devider-small"></div>
@@ -68,7 +85,7 @@
             </v-col>
             <v-col
               cols="6"
-              class="text-right deep-orange--text"
+              class="text-right"
             >{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-col>
           </v-row>
           <div class="devider-small"></div>
