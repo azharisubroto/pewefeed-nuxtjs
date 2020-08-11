@@ -87,7 +87,7 @@ export default {
         //   link: "/"
         // },
         {
-          title: "ENTERTAINMENT",
+          title: "NEWSTAINMENT",
           link: "/viral"
         },
         {
