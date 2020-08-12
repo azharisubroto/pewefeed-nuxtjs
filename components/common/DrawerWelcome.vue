@@ -17,8 +17,8 @@
           <div class="flex-grow-1"></div>
         </v-toolbar>
 
-        <div class="px-5 pt-10 text-center">
-          <v-img src="/img/icons/icon-confetti-orange.png" max-width="60" class="mx-auto"></v-img>
+        <div class="px-4 pt-10 text-center">
+          <v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
           <div class="mt-5 mb-0 text-14">
             Terima kasih sudah mengunjungi kembali pewefeed.com, untuk itu kamu mendapat 10 Poin Extra. Klaim Sekarang!
           </div>
@@ -27,10 +27,11 @@
         <v-card-actions class="pb-10">
           <v-spacer></v-spacer>
           <v-btn
-            color="green"
+            color="deep-orange"
+			block
             class="font-weight-bold"
             @click="$router.push('/member/histori_penggunaan_poin'); closeIt()"
-          >Klaim Poin Sekarang</v-btn>
+          >Klaim Poin</v-btn>
 		  <br><br><br>
           <v-spacer></v-spacer>
         </v-card-actions>
