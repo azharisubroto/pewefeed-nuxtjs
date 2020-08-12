@@ -27,7 +27,7 @@
 			</v-list-item>
 
 			<div  class="devider-small"></div>
-			<v-list-item class="py-3" to="/member/purchase-daily">
+			<v-list-item class="py-3" to="/member/purchase-daily" :disabled="batas >= 600">
 				<v-list-item-content>
 					<v-list-item-title style="line-height:26px">
 						Purchase Extra 300 VIP Daily Limit<br>
