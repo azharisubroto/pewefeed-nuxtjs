@@ -25,17 +25,12 @@
 
         <div class="mx-2">
           <v-container class="text-center">
-            <v-alert
-              border="left"
-              dense
-              colored-border
-              type="info"
-              style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
-            >
-              Fitur ini diperuntukkan hanya untuk user dengan keanggotaan VIP yang masih aktif.
-              <br />
-              <br />Untuk mengaktifkan keanggotaan VIP anda, tekan tombol di bawah ini
-            </v-alert>
+			  <v-alert class="mt-4 mb-10 text-left" color="#0057FF" prominent>
+				<template v-slot:prepend>
+					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+				</template>
+				Fitur ini hanya untuk Keanggotaan VIP yang masih aktif
+			</v-alert>
 
             <v-btn
               @click="$router.push('/purchase')"
@@ -44,7 +39,7 @@
               large
               color="deep-orange"
               class="text-capitalize"
-            >Perpanjang Keanggotaan VIP</v-btn>
+            >Aktifkan Keanggotaan VIP</v-btn>
             <br />
             <br />
           </v-container>
