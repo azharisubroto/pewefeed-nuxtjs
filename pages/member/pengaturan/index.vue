@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-snackbar v-model="snackbar" top color="green">
-      Data telah tersimpan
+      {{aftersavewords}}
       <v-btn color="green lighten-2" text @click="snackbar = false">Close</v-btn>
     </v-snackbar>
 
@@ -102,6 +102,20 @@
                 v-model="data.email"
               ></v-text-field>
 
+			  <v-container>
+				  <v-alert
+					v-if="fielderrors!=null"
+					text
+					outlined
+					color="red"
+					icon="mdi-information-outline"
+					>
+						<div class="mb-1" v-for="(item, i) in fielderrors" :key="'error-'+i">
+							&bull; {{item[0]}}
+						</div>
+				  </v-alert>
+			  </v-container>
+
               <div class="px-4">
                 <v-btn depressed dark block color="green" @click="save" class="mb-3">Save</v-btn>
                 <v-btn depressed dark block color="red" class="mb-5" @click="$router.go(-1)">Cancel</v-btn>
@@ -137,7 +151,8 @@ export default {
         instagram: "",
         no_no_: ""
       },
-      snackbar: false,
+	  snackbar: false,
+	  aftersavewords: '',
       dropOptions: {
         url: "https://s1.playworld.id/api/member/avatar",
         headers: {
@@ -153,6 +168,7 @@ export default {
       isActive: false,
 	  expire_date: "",
 	  usermentah: [],
+	  fielderrors: null
     };
   },
   methods: {
@@ -208,13 +224,15 @@ export default {
       try {
         const res = await UserService.updateProfile(params);
 
-        this.$auth.fetchUser().then(() => {
-          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-        });
-        vm.snackbar = true;
-        window.location.reload();
+        this.fetchUserdata();
+		vm.snackbar = true;
+		vm.aftersavewords = 'Data telah tersimpan';
+		this.fielderrors = null
+        //window.location.reload();
       } catch (error) {
-        console.log(error);
+        if (error.response.status == 422) {
+			this.fielderrors = error.response.data.errors;
+        }
       }
     }
   },
