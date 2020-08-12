@@ -51,86 +51,90 @@
         </v-row>
       </div>
       <v-container>
-		  <v-row>
-        <v-col>
-          <v-row>
-            <v-col cols="3">
-              <strong>Status</strong>
-              <div class="caption"></div>
-            </v-col>
-            <v-col
-              cols="9"
-              class="text-right "
-            >Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
-          </v-row>
-          <div class="devider-small"></div>
-          <v-row>
-            <v-col cols="6">
-              <strong>Poin Diperlukan</strong>
-            </v-col>
-            <v-col cols="6" class="text-right">
-              <img
-                src="/img/icons/poin-p.svg"
-                alt
-                width="20"
-                class="mr-1"
-                style="position:relative;top:5px;"
-              />
-              <strong class="">{{detail.point}}</strong>
-            </v-col>
-          </v-row>
-          <div class="devider-small"></div>
-          <v-row>
-            <v-col cols="6">
-              <strong>Sisa Hadiah</strong>
-            </v-col>
-            <v-col
-              cols="6"
-              class="text-right"
-            >{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-col>
-          </v-row>
-          <div class="devider-small"></div>
-          <v-row class="mt-2">
-            <v-col cols="12">
-              <v-expansion-panels v-model="panel" class="nocard">
-                <v-expansion-panel>
-                  <v-expansion-panel-header>
-                    <div class="text-16 font-weight-bold">Deskripsi</div>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <div v-html="detail.description" class="py-3 text-14"></div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </v-col>
-            <v-col>
-              <v-btn
-                v-if="detail.stock"
-                block
-                dark
-                depressed
-                color="deep-orange"
-                :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-                :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-                @click="buyconfirm = !buyconfirm"
-              >Tukarkan Poin</v-btn>
-              <v-btn
-                v-else
-                block
-                dark
-                depressed
-                :disabled="detail.expired ? true : false"
-                color="deep-orange"
-                style="background-color: grey !important;"
-                @click="buyconfirm = !buyconfirm"
-              >Tukarkan Poin</v-btn>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col cols="12">
-          <v-img @click="$router.push('/toppoin')" src="https://cdn.pewefeed.com/containers/pewefeed/news/007268a8-761a-43c2-8849-517daba96017_1596515421.2159.png"></v-img>
-        </v-col>
-      </v-row>
+		<v-row>
+			<v-col>
+				<v-row class="py-4">
+					<v-col cols="3">
+					<strong>Status</strong>
+					<div class="caption"></div>
+					</v-col>
+					<v-col
+					cols="9"
+					class="text-right "
+					>Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
+				</v-row>
+				<div class="devider-small"></div>
+				<v-row class="py-4">
+					<v-col cols="6">
+					<strong>Poin Diperlukan</strong>
+					</v-col>
+					<v-col cols="6" class="text-right">
+					<img
+						src="/img/icons/poin-p.svg"
+						alt
+						width="20"
+						class="mr-1"
+						style="position:relative;top:5px;"
+					/>
+					<strong class="">{{detail.point}}</strong>
+					</v-col>
+				</v-row>
+				<div class="devider-small"></div>
+				<v-row class="py-4">
+					<v-col cols="6">
+					<strong>Sisa Hadiah</strong>
+					</v-col>
+					<v-col
+					cols="6"
+					class="text-right"
+					>{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-col>
+				</v-row>
+				<div class="devider-small"></div>
+				<v-row class="py-4">
+					<v-col cols="12">
+						<v-expansion-panels v-model="panel" class="nocard">
+							<v-expansion-panel>
+							<v-expansion-panel-header>
+								<div class="text-16 font-weight-bold">Deskripsi</div>
+							</v-expansion-panel-header>
+							<v-expansion-panel-content>
+								<div v-html="detail.description" class="py-3 text-14"></div>
+							</v-expansion-panel-content>
+							</v-expansion-panel>
+						</v-expansion-panels>
+
+						<div class="devider-small mt-7"></div>
+					</v-col>
+					<v-col cols="12">
+						<v-btn
+							v-if="detail.stock"
+							block
+							dark
+							depressed
+							large
+							color="deep-orange"
+							:disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+							:style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+							@click="buyconfirm = !buyconfirm"
+						>Tukarkan Poin</v-btn>
+						<v-btn
+							v-else
+							block
+							dark
+							depressed
+							large
+							:disabled="detail.expired ? true : false"
+							color="deep-orange"
+							style="background-color: grey !important;"
+							@click="buyconfirm = !buyconfirm"
+						>Tukarkan Poin</v-btn>
+					</v-col>
+				</v-row>
+			</v-col>
+			<v-col cols="12">
+				<v-img @click="$router.push('/toppoin')" src="https://cdn.pewefeed.com/containers/pewefeed/news/007268a8-761a-43c2-8849-517daba96017_1596515421.2159.png"></v-img>
+			</v-col>
+      	</v-row>
 	  </v-container>
     </template>
 
@@ -467,5 +471,8 @@ export default {
 }
 .tukarpoin-content p {
   font-size: 16px !important;
+}
+.nocard p:only-of-type {
+	margin-bottom: 0;
 }
 </style>

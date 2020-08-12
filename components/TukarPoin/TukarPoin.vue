@@ -16,62 +16,63 @@
 
 		<!-- LATEST -->
 		<client-only>
-			<flickity
-			class="tukarpoinslide my-5"
-			v-if="discounts"
-			ref="flashPoin"
-			:options="flickityOptions"
-			>
-			<div
-				v-for="item in discounts"
-				:key="item.id"
-				class="featured-item-2"
-				@click="$router.push('/tukarpoin/redeem/'+item.id)"
-			>
-				<div class="py-5 px-3 jeruk">
-				<v-row>
-					<v-col cols="4">
-					<v-img :contain="true" :src="item.image ? item.image : ''"></v-img>
-					</v-col>
-					<v-col cols="8">
-					<v-row no-gutters>
-						<v-col cols="2" clas="pr-2">
-							<img
-							src="/img/icons/poin-black.svg"
-							alt
-							class="mr-1 mt-1"
-							style="vertical-align:top"
-						/>
-						</v-col>
-						<v-col cols="10">
-						<strong
-							style="text-decoration:line-through"
-							class="text-16 black--text"
-						>{{item.promoted_price}} Poin</strong>
-							<div></div>
-						<strong class="text-18" style="line-height:1">{{item.price}} Poin</strong>
-						</v-col>
-					</v-row>
-					<div class="devider-small my-3" style="border-color:#000"></div>
+			<div class="slidewrapper  my-5">
+				<flickity
+				class="tukarpoinslide"
+				v-if="discounts"
+				ref="tukarpointslideeee"
+				:options="flickityOptions"
+				>
+				<div
+					v-for="item in discounts"
+					:key="item.id"
+					class="featured-item-2"
+					@click="$router.push('/tukarpoin/redeem/'+item.id)"
+				>
+					<div class="pt-5 px-3 jeruk">
+						<v-row>
+							<v-col cols="5" class="pt-0 pr-0">
+								<img :src="item.image ? item.image : ''" alt=""/>
+							</v-col>
+							<v-col cols="7">
+								<v-row no-gutters>
+									<v-col cols="2" clas="pr-4">
+										<img
+										src="/img/icons/poin-black.svg"
+										alt
+										class="mr-1 mt-1"
+										style="vertical-align:top"
+									/>
+									</v-col>
+									<v-col cols="10">
+										<strong
+											style="text-decoration:line-through"
+											class="text-16 black--text"
+										>{{item.promoted_price}} Poin</strong>
+											<div></div>
+										<strong class="text-18" style="line-height:1">{{item.price}} Poin</strong>
+									</v-col>
+								</v-row>
+								<div class="devider-small my-3" style="border-color:#000"></div>
 
-					<div class="mb-2 text-20">{{item.title}}</div>
-						<v-btn
-						color="deep-orange"
-						depressed
-						dark
-						block
-						small
-						@click="$router.push('/tukarpoin/redeem/'+item.id)"
-						>Tukar Poin</v-btn>
-					</v-col>
-				</v-row>
+								<div class="mb-2 text-20">{{item.title}}</div>
+								<v-btn
+								color="deep-orange"
+								depressed
+								dark
+								block
+								small
+								@click="$router.push('/tukarpoin/redeem/'+item.id)"
+								>Tukar Poin</v-btn>
+							</v-col>
+						</v-row>
+					</div>
 				</div>
+				</flickity>
 			</div>
-			</flickity>
 		</client-only>
 
 		<v-container>
-			<div class="devider-small"></div>
 			<v-row>
 				<v-col cols="12" class="py-0">
 				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
@@ -255,18 +256,32 @@ export default {
   mounted() {
     this.fetchRedeemItems();
     this.fetchDiscounts();
+  },
+  beforeRouteLeave (from, to, next) {
+	const slider = this.$refs.tukarpointslideeee.$el
+	slider.style.transition = 'opacity .25s ease'
+	slider.style.opacity = 0
+	setTimeout(() => {
+		next()
+	}, 250)
   }
 };
 </script>
 
 <style lang="scss">
+.slidewrapper {
+	height: 260px;
+	overflow: hidden;
+	position: relative;
+}
 .tukarpoinslide {
-  height: 230px !important;
+  height: 260px !important;
+  background: #FE9800;
   .featured-item-2 {
     width: 100%;
-    height: 230px !important;
+    height: 260px !important;
     .jeruk {
-      height: 230px !important;
+      height: 260px !important;
     }
   }
 }
