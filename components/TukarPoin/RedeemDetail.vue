@@ -19,12 +19,12 @@
 
     <!-- DETAIL REWWARD -->
     <template v-if="detailtab">
-      <div v-if="detail" class="py-10 px-0" style="background: #ff9800">
-        <v-row align="center" no-gutters>
-          <v-col cols="5">
-            <v-img :src="detail.image" :aspect-ratio="1" contain></v-img>
+      <div v-if="detail" class="py-7 px-3" style="background: #ff9800">
+        <v-row align="center">
+          <v-col cols="4">
+            <img :src="detail.image" alt=""/>
           </v-col>
-          <v-col cols="7" class="pr-4">
+          <v-col cols="8" class="pr-4">
 				<v-row no-gutters class="mx-0">
 					<v-col cols="2" class="pr-2">
 						<img
@@ -39,9 +39,9 @@
 						style="text-decoration:line-through"
 						class="text-16 black--text"
 						v-if="detail.discount > 0"
-						>{{detail.discount}} POIN</strong>
+						>{{detail.point}} POIN</strong>
 						<div :class="[detail.discount == 0 ? 'mb-1' : '']"></div>
-						<strong class="text-20 black--text" style="line-height:1">{{detail.point}} Poin</strong>
+						<strong class="text-20 black--text" style="line-height:1">{{detail.point - detail.discount}} Poin</strong>
 					</v-col>
 				</v-row>
 				<div class="devider-small my-3" style="border-color:#000"></div>

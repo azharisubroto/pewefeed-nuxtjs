@@ -116,7 +116,7 @@
 						dark
 						block
 						small
-						@click="$router.push('/tukarpoin/redeem/'+item.redeem.id)"
+						@click="$router.push('/tukarpoin/redeem/'+article.id)"
 						>{{article.expired ? 'Lihat' : 'Tukar Poin'}}</v-btn>
 					</div>
 				</v-col>
@@ -270,19 +270,22 @@ export default {
 
 <style lang="scss">
 .slidewrapper {
-	height: 260px;
+	height: 280px;
 	overflow: hidden;
 	position: relative;
 }
 .tukarpoinslide {
-  height: 260px !important;
+  height: 280px !important;
   background: #FE9800;
   .featured-item-2 {
     width: 100%;
-    height: 260px !important;
+    height: 280px !important;
     .jeruk {
-      height: 260px !important;
+      height: 280px !important;
     }
+  }
+  .flickity-page-dots {
+	  bottom: 16px !important;
   }
 }
 .flip-card__top[data-v-72281230], .flip-card__bottom[data-v-72281230], .flip-card__back-bottom[data-v-72281230], .flip-card__back[data-v-72281230]::before, .flip-card__back[data-v-72281230]::after{

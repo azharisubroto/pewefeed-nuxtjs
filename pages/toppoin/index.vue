@@ -65,7 +65,7 @@
 								<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
 								<v-col cols="2">
 									<v-avatar>
-										<v-img :src="item.customer.avatar"></v-img>
+										<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
 									</v-avatar>
 								</v-col>
 								<v-col cols="9">
@@ -90,16 +90,16 @@
 
 		<!-- RANKING TAB -->
 		<template v-if="tptab == 1">
-			<v-container  v-if="myrank.length > 0">
+			<v-container  v-if="myrank!=null">
 				<h4>PERINGKAT KAMU SAAT INI</h4>
 			</v-container>
-			<section v-if="myrank.length > 0" style="background: #fa5624">
+			<section v-if="myrank!=null" style="background: #fa5624">
 				<template v-for="(item, i) in myrank">
 					<div class="px-4" :key="'ranks-'+i">
 						<v-row>
 							<v-col cols="2">
 								<v-avatar>
-									<v-img :src="item.customer.avatar"></v-img>
+									<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
 								</v-avatar>
 							</v-col>
 							<v-col cols="10">
@@ -297,7 +297,7 @@ export default {
 	  winners: null,
 	  winnertotalPage: 3,
 	  winnersFeatured:null,
-	  myrank: []
+	  myrank: null
     };
   },
   methods: {
@@ -317,7 +317,7 @@ export default {
       try {
         const res = await TopPoin.lastRankedMe();
 		//console.log(res);
-		this.myrank.push(res.data.current)
+		if( res.data.current != null ) this.myrank.push(res.data.current);
       } catch (error) {
 		console.log(error);
       }

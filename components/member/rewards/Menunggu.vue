@@ -7,7 +7,7 @@
 					<h3>Menunggu Respon</h3>
 				</v-col>
 			</v-row>
-			<v-row v-if="list && !loading">
+			<v-row v-if="list!=null && !loading">
 				<v-col>
 					<RewardCard
 					:addresses="addresses"
@@ -28,7 +28,7 @@
 					<br>
 				</v-col>
 			</v-row>
-			<v-row v-else-if="!list && !loading">
+			<v-row v-else-if="list==null && !loading">
 				<v-col>
 					<div class="text-center pa-5">
 						<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
@@ -64,8 +64,8 @@ export default {
 			var page = n ? n : 1
 			try {
 				const res = await UserService.rewardsWait(page)
-				//this.list = res.data.data
-				this.list = null
+				this.list = res.data.data
+				//this.list = null
 				this.totalpage = res.data.meta.last_page
 				this.loading = false
 				//console.log(JSON.parse(JSON.stringify(res.data)))

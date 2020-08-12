@@ -167,31 +167,32 @@ export default {
         response.file_name;
     },
     fetchUserdata() {
-      // this.$auth.fetchUser()
+	  // this.$auth.fetchUser()
+	  let vm = this
+	  this.$auth.fetchUser().then(() => {
+		var res = [];
+		res.data = vm.$auth.user;
 
-      var res = [];
-      // res.data = this.$auth.user
-      res.data = JSON.parse(localStorage.getItem("userdata"));
-
-      this.usermentah = res.data;
-      this.user_id = res.data.data.id;
-      this.profile = res.data.data;
-      // console.log(JSON.parse(JSON.stringify(res.data.data)))
-      this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
-      this.avatar_preview = res.data.data.avatar;
-      this.data.first_name = res.data.data.first_name;
-      this.data.last_name = res.data.data.last_name;
-      this.data.username = res.data.data.username;
-      this.data.msisdn = res.data.data.msisdn;
-      this.data.no_telp = res.data.data.no_telp;
-      this.data.instagram = res.data.data.instagram;
-      this.data.email = res.data.data.email;
-      this.data.expire = res.data.data.expire;
-      this.expire_date = this.data.expire;
-      // console.log(this.data)
-      if (res.data.data.status_expired == 1) {
-        this.isActive = true;
-      }
+		vm.usermentah = res.data;
+		vm.user_id = res.data.data.id;
+		vm.profile = res.data.data;
+		// console.log(JSON.parse(JSON.stringify(res.data.data)))
+		vm.dropOptions.headers.Authorization = "Bearer " + res.data.token;
+		vm.avatar_preview = res.data.data.avatar;
+		vm.data.first_name = res.data.data.first_name;
+		vm.data.last_name = res.data.data.last_name;
+		vm.data.username = res.data.data.username;
+		vm.data.msisdn = res.data.data.msisdn;
+		vm.data.no_telp = res.data.data.no_telp;
+		vm.data.instagram = res.data.data.instagram;
+		vm.data.email = res.data.data.email;
+		vm.data.expire = res.data.data.expire;
+		vm.expire_date = vm.data.expire;
+		// console.log(vm.data)
+		if (res.data.data.status_expired == 1) {
+			vm.isActive = true;
+		}
+	  });
     },
     async save() {
       let vm = this;
