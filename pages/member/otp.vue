@@ -16,7 +16,7 @@
 
 			<div class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap">
 				6 Digit OTP Code
-				<v-btn small @click="sendOTP()" color="green">Send OTP</v-btn>
+				<v-btn small @click="sendOTP()" color="deep-orange">Send OTP</v-btn>
 			</div>
 			<v-text-field
 			class="giveline"
