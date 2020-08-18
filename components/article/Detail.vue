@@ -1,8 +1,8 @@
 <template>
   <section>
-	  <a href="https://instagram.com/pewefeed">
+	  <!-- <a href="https://instagram.com/pewefeed">
 		  <v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
-	  </a>
+	  </a> -->
     <v-skeleton-loader
       v-if="article==''"
       class="mx-auto mt-5"
