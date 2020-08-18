@@ -53,14 +53,14 @@
       <v-container>
 		<v-row>
 			<v-col>
-				<v-row class="py-4">
-					<v-col cols="3">
+				<v-row class="pb-4">
+					<v-col cols="3" class="pt-0">
 					<strong>Status</strong>
 					<div class="caption"></div>
 					</v-col>
 					<v-col
 					cols="9"
-					class="text-right "
+					class="text-right pt-0"
 					>Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
 				</v-row>
 				<div class="devider-small"></div>
@@ -76,7 +76,7 @@
 						class="mr-1"
 						style="position:relative;top:5px;"
 					/>
-					<strong class="">{{detail.point}}</strong>
+					<strong class="">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</strong>
 					</v-col>
 				</v-row>
 				<div class="devider-small"></div>
@@ -157,7 +157,7 @@
 						</v-btn>
 					</v-col>
 					<v-col cols="8" class="deep-orange--text text-center">
-						INFORMATION
+						{{(buystep == 1) ? 'INFORMATION' : 'VERIFICATION'}}
 					</v-col>
 				</v-row>
 			</v-toolbar>
@@ -166,7 +166,7 @@
 				<template v-if="buystep == 1">
 					Anda akan menukarkan
 					<div class="mt-2 text-18" style="line-height:1">
-						{{detail.point}} Poin<br>
+						<strong>{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</strong> Poin<br>
 					</div>
 
 					<div class="mt-3">
@@ -181,9 +181,8 @@
 						dark
 						depressed
 						color="deep-orange"
-						x-large
 						@click="buystep = 2"
-						>LANJUTKAN</v-btn>
+						><strong>LANJUTKAN</strong></v-btn>
 						<br><br><br>
 						<v-spacer></v-spacer>
 					</v-card-actions>
@@ -246,7 +245,10 @@
         </div>
 		<v-card-actions class="pb-10">
           <v-spacer></v-spacer>
-          <v-btn @click="afterSaveModal = false" color="deep-orange" block class="mt-2">Tutup</v-btn>
+
+          <v-btn v-if="infotype == 'error'" to="/member/histori_penggunaan_poin/" color="deep-orange" block class="mt-2"><strong>Cek Poin</strong></v-btn>
+          <v-btn v-else-if="infotype == 'success'" to="/member/rewards-status/" color="deep-orange" block class="mt-2"><strong>Cek Status Rewards</strong></v-btn>
+
 		  <br><br><br>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -488,7 +490,7 @@ export default {
             "An Error Occured";
         }
         this.pending = false;
-		//this.buyconfirm = false;
+		this.buyconfirm = false;
 		this.afterSaveModal = true
 		this.infotype = 'error'
       }

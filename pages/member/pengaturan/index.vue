@@ -6,7 +6,7 @@
     </v-snackbar>
 
     <!-- FORM -->
-    <v-row v-if="data!=null" class="pt-0 mt-0 profil-edit">
+    <v-row v-if="data.msisdn!=''" class="pt-0 mt-0 profil-edit">
       <v-col cols="12">
         <div>
           <v-row>
@@ -102,21 +102,6 @@
                 v-model="data.email"
               ></v-text-field>
 
-			  <v-container
-				v-if="fielderrors!=null"
-			  >
-				  <v-alert
-					text
-					outlined
-					color="red"
-					icon="mdi-information-outline"
-					>
-						<div class="mb-1" v-for="(item, i) in fielderrors" :key="'error-'+i">
-							&bull; {{item[0]}}
-						</div>
-				  </v-alert>
-			  </v-container>
-
               <div class="px-4">
                 <v-btn depressed dark block color="green" @click="save" class="mb-3">Save</v-btn>
                 <v-btn depressed dark block color="red" class="mb-5" @click="$router.go(-1)">Cancel</v-btn>
@@ -126,6 +111,9 @@
         </div>
       </v-col>
     </v-row>
+	<div v-else class="pa-10 text-center">
+		<v-progress-circular indeterminate size="64" color="deep-orange"></v-progress-circular>
+	</div>
     <!-- /FORM -->
 
 	<v-bottom-sheet v-model="afterSaveModal">
@@ -156,8 +144,13 @@
             <template v-if="infotype == 'error'">
 				<v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img>
 
-				Nomor ponsel telah terdaftar pada sistem,
-				gunakan Nomor ponsel yang lain
+				<template v-if="fielderrors!=null">
+					<div class="mb-1" v-for="(item, val, i) in fielderrors" :key="'error-'+i">
+						<template v-if="i == 0">
+							{{item[0]}}
+						</template>
+					</div>
+				</template>
             </template>
 			<template v-else-if="infotype == 'success'">
 				<v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img>
@@ -283,11 +276,8 @@ export default {
       } catch (error) {
         if (error.response.status == 422) {
 			this.fielderrors = error.response.data.errors;
-
-			if( error.response.data.errors.no_telp ) {
-				this.afterSaveModal = true
-				this.infotype = 'error'
-			}
+			this.afterSaveModal = true
+			this.infotype = 'error'
         }
       }
     }
