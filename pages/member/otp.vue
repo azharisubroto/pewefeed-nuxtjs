@@ -22,16 +22,19 @@
 			class="giveline"
 			solo
 			single-line
-			placeholder=""
+			placeholder="Masukkan kode OTP dari sms yang anda terima"
 			filled
 			v-model="otp"
 			></v-text-field>
 
 			<v-container>
-				<v-btn block @click="verifyOTP()" large color="green">VERIFY</v-btn>
+				<recaptcha @error="onError()" @success="onSuccess()" @expired="onExpired()" />
+			</v-container>
+
+			<v-container>
+				<v-btn block @click="verifyOTP()" large color="deep-orange" :disabled="verifydisabled">VERIFY</v-btn>
 			</v-container>
 		</div>
-
 
 		<!-- MODAL -->
 		<v-bottom-sheet v-model="otpmodal" persistent>
@@ -64,7 +67,7 @@
 						<template v-if="verifyStatus == 'success'">
 
 							<div class="py-8 text-center">
-								<img src="/img/checklist.png" width="50">
+								<img src="/img/success.svg" width="50" height="50">
 								<br><br>
 								Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu
 							</div>
@@ -73,7 +76,7 @@
 						<template v-if="verifyStatus == 'fail'">
 
 							<div class="py-8 text-center">
-								<img src="/img/close.svg" width="50">
+								<img src="/img/error.svg" width="50" height="50">
 								<br><br>
 								Nomor Ponsel anda gagal terverifikasi
 								<br><br>
@@ -81,10 +84,26 @@
 							</div>
 
 						</template>
+						<template v-if="verifyStatus == 'limited'">
+
+							<div class="py-8 text-center">
+								<img src="/img/error.svg" width="50" height="50">
+								<br><br>
+								Anda telah mencapai limit OTP harian,
+								silahkan coba lagi besok.
+								<br><br>
+								<v-btn block @click="otpmodal=false" color="deep-orange">Tutup</v-btn>
+							</div>
+
+						</template>
 					</v-container>
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
+
+		<v-overlay :value="overlay">
+		<v-progress-circular indeterminate size="64"></v-progress-circular>
+		</v-overlay>
 	</div>
 </template>
 
@@ -100,7 +119,9 @@ export default {
 			phone: null,
 			otp: null,
 			otpmodal: false,
-			verifyStatus: null
+			verifyStatus: null,
+			overlay: false,
+			verifydisabled: true
 		}
 	},
 	watch: {
@@ -111,6 +132,18 @@ export default {
 		}
 	},
 	methods: {
+		/* Recaptcha */
+		onError(error) {
+			console.log("Error happened:", error);
+			this.recaptchaToken = null;
+		},
+		onSuccess(token) {
+			this.verifydisabled = false
+		},
+		onExpired() {
+			console.log("Expired");
+			this.recaptchaToken = null;
+		},
 		fetchUserdata() {
 			this.setProfile();
 			this.isLoggedIn = true;
@@ -131,16 +164,24 @@ export default {
 			}
 		},
 		async sendOTP(){
+			this.overlay = true
 			try {
 				const res = await UserService.sendOTP();
 				console.log(res.data);
 				alert('Kode OTP telah terkirim')
+				this.overlay = false
 			} catch (error) {
-				console.log('gagal')
-				alert('Nomor ponsel telah terverifikasi')
+				console.log(JSON.parse(JSON.stringify(error)))
+				if (error.response && error.response.status == 422) {
+					this.otpmodal = true
+					this.verifyStatus = 'limited'
+				}
+				this.overlay = false
+				//alert('Nomor ponsel telah terverifikasi')
 			}
 		},
 		async verifyOTP(){
+			this.overlay = true
 			let data = {
 				otp: this.otp
 			}
@@ -148,10 +189,12 @@ export default {
 				const res = await UserService.verifyOTP(data);
 				this.otpmodal = true
 				this.verifyStatus = 'success'
+				this.overlay = false
 			} catch (error) {
 				console.log('gagal');
 				this.otpmodal = true
 				this.verifyStatus = 'fail'
+				this.overlay = false
 			}
 		},
 	},
