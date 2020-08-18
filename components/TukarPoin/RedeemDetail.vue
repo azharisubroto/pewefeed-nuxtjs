@@ -142,7 +142,7 @@
 	<v-bottom-sheet v-model="buyconfirm">
 		<v-sheet height="100%" color="transparent">
 		<v-card style="border-radius: 0!important;">
-			<v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+			<v-toolbar :elevation="1" style="border-top: 2px solid #fff;border-bottom:3px solid #000">
 				<v-row class="pa-0" align="center">
 					<v-col cols="2">
 						<v-btn
@@ -157,32 +157,45 @@
 						</v-btn>
 					</v-col>
 					<v-col cols="8" class="deep-orange--text text-center">
-						Konfirmasi
+						INFORMATION
 					</v-col>
 				</v-row>
 			</v-toolbar>
 
-			<div class="px-5 pt-10 text-center">
-				Anda akan menukarkan koin sebanyak
-				<div class="py-5 text-30" style="line-height:1">
-				<img src="/img/poin.png" width="40" class="mr-3" style="vertical-align:middle" />
-				<strong>{{detail.point}}</strong>
-				</div>
-				<br>
-				<br>
-				<br>
+			<div class="px-0 pt-10 text-center">
+				<template v-if="buystep == 1">
+					Anda akan menukarkan
+					<div class="mt-2 text-18" style="line-height:1">
+						{{detail.point}} Poin<br>
+					</div>
 
-				<v-btn
-					:loading="pending"
-					block
-					dark
-					depressed
-					color="deep-orange"
-					tile
-					x-large
-					class="tukaryuk"
-					@click="tukarPoin()"
-				>LANJUTKAN</v-btn>
+					<div class="mt-3">
+						Dengan reward
+						<div class="text-18"><strong>{{detail.title}}</strong></div>
+					</div>
+					<v-card-actions class="pb-10">
+						<v-spacer></v-spacer>
+						<v-btn
+						:loading="pending"
+						block
+						dark
+						depressed
+						color="deep-orange"
+						x-large
+						@click="buystep = 2"
+						>LANJUTKAN</v-btn>
+						<br><br><br>
+						<v-spacer></v-spacer>
+					</v-card-actions>
+				</template>
+
+
+				<template v-if="buystep == 2">
+					<recaptcha @error="onError()" @success="onSuccess()" @expired="onExpired()" />
+					<br>
+					<br>
+					<br>
+				</template>
 			</div>
 
 
@@ -192,6 +205,53 @@
 		</v-card>
 		</v-sheet>
 	</v-bottom-sheet>
+
+	<!-- AFTER PURCHASE -->
+	<v-bottom-sheet v-model="afterSaveModal">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="afterSaveModal = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">Information</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
+		<div class="px-4 pt-10 text-center">
+          <div class="mt-5 mb-0 text-16">
+            <template v-if="infotype == 'error'">
+				<v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img>
+
+				{{tukarmsg}}
+            </template>
+			<template v-else-if="infotype == 'success'">
+				<v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img>
+
+				Poin Sukses Ditukar
+			</template>
+          </div>
+        </div>
+		<v-card-actions class="pb-10">
+          <v-spacer></v-spacer>
+          <v-btn @click="afterSaveModal = false" color="deep-orange" block class="mt-2">Tutup</v-btn>
+		  <br><br><br>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-sheet>
+    </v-bottom-sheet>
 
     <!-- HISTORY -->
     <template v-if="hitoritab">
@@ -324,10 +384,26 @@ export default {
       panel: 0,
       loginModalVisible: false,
       buyconfirm: false,
-      pending: false
+	  pending: false,
+	  buystep: 1,
+	  recaptchaToken: null,
+	  afterSaveModal: false,
+	  infotype: null
     };
   },
   methods: {
+	/* Recaptcha */
+    onError(error) {
+      console.log("Error happened:", error);
+      this.recaptchaToken = null;
+    },
+    onSuccess(token) {
+      this.tukarPoin()
+    },
+    onExpired() {
+      console.log("Expired");
+      this.recaptchaToken = null;
+    },
     async fetchDetail() {
       try {
         let res = await TukarPoinService.getRedeemDetail(
@@ -378,7 +454,6 @@ export default {
     async tukarPoin() {
       var params = {
         redeem_id: this.detail.id
-        // target_point: this.detail.point
       };
       this.overlay = true;
       this.pending = true;
@@ -393,27 +468,29 @@ export default {
 
         // console.log(res);
         this.overlay = false;
-        this.tukarmsg = "Tukar POIN telah berhasil dilakukan";
-        this.snackbar = true;
+		this.afterSaveModal = true
+		this.infotype = 'success'
         this.pending = false;
         this.buyconfirm = false;
       } catch (error) {
         console.log(error.response.status);
         this.overlay = false;
         if (error.response.status == 401) {
-          //this.$router.push('/member/login')
           this.openModalLogin();
         } else if (error.response.status == 404) {
-          alert("Poin Anda Tidak Cukup");
+          this.tukarmsg =
+            "Poin Anda Tidak Cukup";
         } else if (error.response.status == 422) {
           this.tukarmsg =
             "Maaf, Reward ini hanya dapat ditukar dengan POIN satu kali per hari.";
-          this.snackbar = true;
         } else {
-          alert("An Error Ocured");
+		  this.tukarmsg =
+            "An Error Occured";
         }
         this.pending = false;
-        this.buyconfirm = false;
+		//this.buyconfirm = false;
+		this.afterSaveModal = true
+		this.infotype = 'error'
       }
     },
     openModalLogin() {
