@@ -6,7 +6,7 @@
     </v-snackbar>
 
     <!-- FORM -->
-    <v-row class="pt-0 mt-0 profil-edit">
+    <v-row v-if="data!=null" class="pt-0 mt-0 profil-edit">
       <v-col cols="12">
         <div>
           <v-row>
@@ -102,9 +102,10 @@
                 v-model="data.email"
               ></v-text-field>
 
-			  <v-container>
+			  <v-container
+				v-if="fielderrors!=null"
+			  >
 				  <v-alert
-					v-if="fielderrors!=null"
 					text
 					outlined
 					color="red"
@@ -126,6 +127,54 @@
       </v-col>
     </v-row>
     <!-- /FORM -->
+
+	<v-bottom-sheet v-model="afterSaveModal">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="afterSaveModal = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">Information</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
+		<div class="px-4 pt-10 text-center">
+          <div class="mt-5 mb-0 text-16">
+            <template v-if="infotype == 'error'">
+				<v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img>
+
+				Nomor ponsel telah terdaftar pada sistem,
+				gunakan Nomor ponsel yang lain
+            </template>
+			<template v-else-if="infotype == 'success'">
+				<v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img>
+
+				Data Sukses Tersimpan
+			</template>
+          </div>
+        </div>
+		<v-card-actions class="pb-10">
+          <v-spacer></v-spacer>
+          <v-btn @click="afterSaveModal = false" color="deep-orange" block class="mt-2">Tutup</v-btn>
+		  <br><br><br>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-sheet>
+    </v-bottom-sheet>
+
   </v-container>
 </template>
 <script>
@@ -168,7 +217,9 @@ export default {
       isActive: false,
 	  expire_date: "",
 	  usermentah: [],
-	  fielderrors: null
+	  fielderrors: null,
+	  afterSaveModal: false,
+	  infotype: null,
     };
   },
   methods: {
@@ -225,13 +276,18 @@ export default {
         const res = await UserService.updateProfile(params);
 
         this.fetchUserdata();
-		vm.snackbar = true;
-		vm.aftersavewords = 'Data telah tersimpan';
+		this.afterSaveModal = true
+		this.infotype = 'success'
 		this.fielderrors = null
         //window.location.reload();
       } catch (error) {
         if (error.response.status == 422) {
 			this.fielderrors = error.response.data.errors;
+
+			if( error.response.data.errors.no_telp ) {
+				this.afterSaveModal = true
+				this.infotype = 'error'
+			}
         }
       }
     }

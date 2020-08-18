@@ -1091,6 +1091,14 @@ a,
 ol.flickity-page-dots {
 	padding-left: 0!important
 }
+.v-dialog .theme--dark.v-sheet {
+	background-color: #2C2C2D!important;
+	.v-toolbar {
+		background-color: #2C2C2D!important;
+		border-bottom: 3px solid #000;
+		box-shadow: none!important;
+	}
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }
