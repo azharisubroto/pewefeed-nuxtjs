@@ -90,10 +90,10 @@
 
 		<!-- RANKING TAB -->
 		<template v-if="tptab == 1">
-			<v-container  v-if="myrank!=null">
+			<v-container  v-if="myrank.length > 0">
 				<h4>PERINGKAT KAMU SAAT INI</h4>
 			</v-container>
-			<section v-if="myrank!=null" style="background: #fa5624">
+			<section v-if="myrank.length > 0" style="background: #fa5624">
 				<template v-for="(item, i) in myrank">
 					<div class="px-4" :key="'ranks-'+i">
 						<v-row>
@@ -297,7 +297,7 @@ export default {
 	  winners: null,
 	  winnertotalPage: 3,
 	  winnersFeatured:null,
-	  myrank: null
+	  myrank: []
     };
   },
   methods: {
@@ -316,8 +316,8 @@ export default {
     async fetchMyRank() {
       try {
         const res = await TopPoin.lastRankedMe();
-		//console.log(res);
-		if( res.data.current != null ) this.myrank.push(res.data.current);
+		console.log('myrank',res.data.current);
+		this.myrank.push(res.data.current);
       } catch (error) {
 		console.log(error);
       }
