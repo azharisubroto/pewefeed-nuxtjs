@@ -19,12 +19,12 @@
 
     <!-- DETAIL REWWARD -->
     <template v-if="detailtab">
-      <div v-if="detail" class="py-7 px-3" style="background: #ff9800">
+      <div v-if="detail" class="py-4 px-3" style="background: #ff9800">
         <v-row align="center">
-          <v-col cols="4">
+          <v-col cols="5" class="pr-0">
             <img :src="detail.image" alt=""/>
           </v-col>
-          <v-col cols="8" class="pr-4">
+          <v-col cols="7" class="pr-4">
 				<v-row no-gutters class="mx-0">
 					<v-col cols="2" class="pr-2">
 						<img

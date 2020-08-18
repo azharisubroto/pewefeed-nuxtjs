@@ -131,25 +131,16 @@
 	</template>
 
 	<template v-if="syarattab">
-	<v-row class="mt-0 tukarpoin-content">
-		<v-col>
-		<h2 class="mb-4 text-20">Syarat &amp; Ketentuan</h2>
-		<p>Untuk mendapatkan barang cukup menukarkan POIN sesuai dengan jumlah POIN YANG DIPERLUKAN</p>
-
-		<p>Untuk mendapatkan POIN lakukan SHARE, COMMENT, jawab QUIZ disetiap Artikel {{ domainTitle }} atau mainkan GAME nya.</p>
-
-		<p>Cek videonya disini :</p>
-
-		<iframe
-			width="320"
-			height="315"
-			src="https://www.youtube.com/embed/_gbe_xq27pE"
-			frameborder="0"
-			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
-		></iframe>
-		</v-col>
-	</v-row>
+		<section class="toppoin-acc" v-if="term">
+			<v-expansion-panels v-for="(item,index) in term" :key="index">
+			<v-expansion-panel class="mb-0">
+				<v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
+				<v-expansion-panel-content class="caption">
+				<div v-html="item.content"></div>
+				</v-expansion-panel-content>
+			</v-expansion-panel>
+			</v-expansion-panels>
+      	</section>
 	</template>
 
     <v-bottom-navigation
@@ -201,7 +192,8 @@ export default {
       tukarpoin: "",
       totalpage: 1,
       page: 1,
-      expire: null,
+	  expire: null,
+	  term: null,
       flickityOptions: {
         groupCells: 1,
         prevNextButtons: false,
@@ -251,11 +243,20 @@ export default {
         left: 0,
         behavior: "smooth"
       });
-    }
+	},
+	async fetchDetail() {
+      try {
+        let res = await TukarPoinService.getRedeemDetail(608);
+        this.term = res.data.data.term;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   mounted() {
     this.fetchRedeemItems();
-    this.fetchDiscounts();
+	this.fetchDiscounts();
+	this.fetchDetail();
   },
   beforeRouteLeave (from, to, next) {
 	const slider = this.$refs.tukarpointslideeee.$el
