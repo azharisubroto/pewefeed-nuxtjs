@@ -77,7 +77,7 @@
         <div class="flex-grow-1"></div>
 
         <div @click="$router.push('/');clearStorage();" class="pr-1" v-if="$route.name != 'index'">
-          <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
+          <v-img src="/img/peweicon.svg" width="20"></v-img>
         </div>
 
         <div v-else @click="opensearch = true" class="pr-1">
