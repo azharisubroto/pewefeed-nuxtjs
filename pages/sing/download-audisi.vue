@@ -17,7 +17,7 @@
 							</v-col>
 						</v-row>
 					</a> -->
-                    <a download :href="download" class="d-block py-2 px-5">
+                    <a target="blank" download :href="download" class="d-block py-2 px-5">
 						<v-row align="center">
 							<v-col cols="10" class="py-0">Download Now</v-col>
 							<v-col cols="2" class="text-right">
