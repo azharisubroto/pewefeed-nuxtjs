@@ -1091,7 +1091,7 @@ a,
 ol.flickity-page-dots {
 	padding-left: 0!important
 }
-.v-dialog .theme--dark.v-sheet {
+.v-dialog .theme--dark.v-sheet:not(.v-alert) {
 	background-color: #2C2C2D!important;
 	.v-toolbar {
 		background-color: #2C2C2D!important;
