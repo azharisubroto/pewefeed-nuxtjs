@@ -22,17 +22,20 @@
           <div class="flex-grow-1"></div>
         </v-toolbar>
 
-        <div class="mx-2">
-          <v-container class="text-center">
-			  <img src="/img/poinextra.png" width="40" class="mt-5"/>
-			  <br>
+        <div class="px-4 pt-10 text-center">
+			<v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
+			<div class="mt-5 mb-0 text-14">
 			  Kamu mendapat 1 Point karena sudah<br>
 			  Share Artikel
-			  <br>
-			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>
-			  <br><br>
-		  </v-container>
+		  	</div>
         </div>
+
+		<v-card-actions class="pb-10">
+          <v-spacer></v-spacer>
+		  <v-btn to="/member/histori_penggunaan_poin" color="deep-orange" block class="mt-2">Check Total Point</v-btn>
+		  <br><br><br>
+          <v-spacer></v-spacer>
+        </v-card-actions>
       </v-sheet>
     </v-bottom-sheet>
 </template>
