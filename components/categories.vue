@@ -146,7 +146,7 @@ export default {
 	  classes: [
 		  {
 			  title: "FOTOGRAFI",
-			  link: "/kelas/fortografi"
+			  link: "/kelas/fotografi"
 		  }
 	  ],
       contact: 2,
