@@ -32,7 +32,7 @@
 			<div class="devider-small my-4" :key="'cats-'+i"></div>
 		</template>
 
-      <!-- PROGRAM -->
+      	<!-- PROGRAM -->
         <h4 class="deep-orange--text text-20 mb-4 px-4 mt-8">Program</h4>
 		<template  v-for="(program, i) in programs" >
 			<div v-if="i==0" class="devider-small my-4" :key="'catsxxx-'+i"></div>
@@ -40,6 +40,16 @@
             <a class="pl-0 d-block" text dark :href="program.link">{{program.title}}</a>
           </div>
         	<div class="devider-small my-4" :key="'programas-'+i"></div>
+		</template>
+
+      	<!-- PROGRAM -->
+        <h4 class="deep-orange--text text-20 mb-4 px-4 mt-8">Kelas</h4>
+		<template  v-for="(kelas, i) in classes" >
+			<div class="devider-small my-4" :key="'kelas-'+kelas.link"></div>
+				<div class="px-4" :key="'kelas-'+i">
+					<a class="pl-0 d-block" text dark :href="kelas.link">{{kelas.title}}</a>
+				</div>
+        	<div class="devider-small my-4" :key="'kelas-devider-'+i"></div>
 		</template>
 
       <!-- SOCIAL -->
@@ -132,7 +142,13 @@ export default {
         //   title: "REZEKI BEDUK",
         //   link: "https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
         // }
-      ],
+	  ],
+	  classes: [
+		  {
+			  title: "FOTOGRAFI",
+			  link: "/kelas/fortografi"
+		  }
+	  ],
       contact: 2,
       contacts: [
         {
