@@ -28,7 +28,7 @@
 		</template>
 
 		<v-container class="py-3">
-			<div class="text-18"><strong>Prizes for Judges Votes</strong></div>
+			<div class="text-18"><strong>Prize for Highest Votes</strong></div>
 		</v-container>
 		<div class="devider-small"></div>
 		<template v-for="(item, i) in prizes">
