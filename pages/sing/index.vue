@@ -4,9 +4,9 @@
 
 			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
 
-			<Video/>
-
 			<template v-if="maintab == 0">
+				<Video/>
+
 				<v-list color="transparent" class="mb-10">
 					<v-list-item-group color="dark">
 						<template v-for="(item, i) in help">
