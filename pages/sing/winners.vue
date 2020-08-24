@@ -4,7 +4,7 @@
 
 		<Video />
 
-		<v-container><h4>JUDGES WINNERS</h4></v-container>
+		<v-container><h4>Prizes for Judges Winner</h4></v-container>
 
 		<template v-for="(item, i) in prizeswithpemenang">
 			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
@@ -29,7 +29,7 @@
 			<div v-if="i<3" class="devider-small" :key="'winner-dash-'+i"></div>
 		</template>
 
-		<v-container class="pt-7"><h4>HIGHEST VOTES</h4></v-container>
+		<v-container class="pt-7"><h4>Prizes for Judges Votes</h4></v-container>
 
 		<template v-for="(item, i) in prizeswithpemenang">
 			<template v-if="i>=3">

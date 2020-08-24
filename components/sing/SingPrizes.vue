@@ -1,28 +1,26 @@
 <template>
 	<div v-if="prizes!==null">
 		<v-container class="py-3">
-			<div class="text-20"><strong>JUDGES WINNER</strong></div>
+			<div class="text-18"><strong>Prizes for Judges Winner</strong></div>
 		</v-container>
+		<div class="devider-small"></div>
 		<template v-for="(item, i) in prizes">
-			<div v-if="i<3" class="px-4 pt-0 pb-5" style="background:#fca729;border-bottom:1px solid #fff"  :key="'prize-'+i">
-				<div class="text-center mb-4">
-					<div class="px-7 py-2 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
-						Juara {{i+1}}
-					</div>
-				</div>
-
+			<div v-if="i<3" style="border-bottom:1px solid #fff"  :key="'prize-'+i">
 				<v-container>
 					<v-row>
-						<v-col cols="5">
+						<v-col cols="4">
 							<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
 						</v-col>
-						<v-col cols="7">
-							<h4 class="text-22" style="color:#000">
+						<v-col cols="8">
+							<div class="text-18">
+								<img src="/img/trophy.svg" alt="" width="20" style="vertical-align:middle;"/> <strong>Juara {{i+1}}</strong>
+							</div>
+							<div class="text-18 mt-4" >
 								{{item.redeem.title}}
-							</h4>
-							<h3 class="text-18 mt-2" style="color:#000">
+							</div>
+							<!-- <h3 class="text-18 mt-2" >
 								{{item.total_winners}} Pemenang
-							</h3>
+							</h3> -->
 						</v-col>
 					</v-row>
 				</v-container>
@@ -30,28 +28,26 @@
 		</template>
 
 		<v-container class="py-3">
-			<div class="text-20"><strong>HIGHEST VOTES WINNER</strong></div>
+			<div class="text-18"><strong>Prizes for Judges Votes</strong></div>
 		</v-container>
+		<div class="devider-small"></div>
 		<template v-for="(item, i) in prizes">
-			<div v-if="i>=3" class="px-4 pt-0 pb-5" style="background:#fca729;border-bottom:1px solid #fff"  :key="'prize2-'+i">
-				<div class="text-center mb-4">
-					<div class="px-7 py-2 d-inline-block" style="border-radius:0 0 4px 4px;background:#fa3824;color:#fff">
-						Juara {{i+1}}
-					</div>
-				</div>
-
+			<div v-if="i>=3" style="border-bottom:1px solid #fff"  :key="'prize2-'+i">
 				<v-container>
 					<v-row>
-						<v-col cols="5">
+						<v-col cols="4">
 							<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
 						</v-col>
-						<v-col cols="7">
-							<h4 class="text-22" style="color:#000">
+						<v-col cols="8">
+							<div class="text-18">
+								<img src="/img/trophy.svg" alt="" width="20" style="vertical-align:middle;"/> <strong>Juara {{i+1}}</strong>
+							</div>
+							<div class="text-18 mt-4" >
 								{{item.redeem.title}}
-							</h4>
-							<h3 class="text-18 mt-2" style="color:#000">
+							</div>
+							<!-- <h3 class="text-18 mt-2" >
 								{{item.total_winners}} Pemenang
-							</h3>
+							</h3> -->
 						</v-col>
 					</v-row>
 				</v-container>
