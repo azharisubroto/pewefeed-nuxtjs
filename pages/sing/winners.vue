@@ -2,56 +2,94 @@
 	<section>
 		<SingAppBar title="WINNER" :back="true"/>
 
-		<Video />
+		<v-container class="sing-herowinners">
+			<div class="singbanner">BANNER KHURUS WINNERS</div>
+		</v-container>
 
-		<v-container><h4>Prizes for Judges Winner</h4></v-container>
+		<v-container style="margin-top: -180px;">
+			<h4 class="mb-4 text-18" style="color: #000">Juara Pilihan Juri</h4>
+			<template v-for="(item, i) in prizeswithpemenang">
+				<v-card color="#404040" class="px-4 pt-4" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
+					<img src="/img/trophy.svg" alt="" width="16">	<strong>Juara {{i+1}}</strong>
 
-		<template v-for="(item, i) in prizeswithpemenang">
-			<div v-if="i<3" class="px-4" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
-				<v-row>
-					<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-					<v-col cols="2">
-						<v-avatar>
-							<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
-						</v-avatar>
-					</v-col>
-					<v-col cols="9">
-						<div class="winner-name">
-							{{item.customer.name ? item.customer.name : 'No Data'}}
-							<div class="text-14 deep-orange--text">{{item.total_vote ? item.total_vote : 'No'}} Votes</div>
-						</div>
-						<div>
-							{{item.prize.redeem.title}}
-						</div>
-					</v-col>
-				</v-row>
-			</div>
-			<div v-if="i<3" class="devider-small" :key="'winner-dash-'+i"></div>
-		</template>
+					<div class="devider-small mt-3"></div>
 
-		<v-container class="pt-7"><h4>Prizes for Judges Votes</h4></v-container>
-
-		<template v-for="(item, i) in prizeswithpemenang">
-			<template v-if="i>=3">
-				<div class="px-4" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1)); $router.push('/sing/winner/'+item.winner_id)">
 					<v-row>
-						<v-col cols="1"><strong class="deep-orange--text">#{{i+1}}</strong></v-col>
-						<v-col cols="2">
-							<v-avatar>
-								<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
-							</v-avatar>
+						<v-col cols="4" class="px-0 pb-0">
+							<img v-if="item.prize.redeem.image" :src="item.prize.redeem.image" alt="">
 						</v-col>
-						<v-col cols="9">
-							<div class="winner-name">
-								{{item.customer.name ? item.customer.name : 'No Data'}}
-								<div class="text-14 deep-orange--text">{{item.total_vote ? item.total_vote : 'No'}} Votes</div>
+						<v-col cols="8" class="pb-0">
+							<div class="d-flex align-center pt-3 mb-4">
+								<div class="mr-2">
+									<v-avatar size="30">
+										<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
+									</v-avatar>
+								</div>
+								<div>
+									<div>
+										{{item.customer.name ? item.customer.name : 'No Data'}}
+									</div>
+								</div>
 							</div>
-							<div>
-								{{item.prize.redeem.title}}
+							<div class="d-flex mt-3 align-center">
+								<div class="mr-3 text-center">
+									<v-img src="/img/icons/gift.svg" max-width="30"></v-img>
+								</div>
+								<div>
+									<div>
+										{{item.prize.redeem.title}}
+									</div>
+								</div>
+							</div>
+							<div class="mt-3">
+								<v-btn small depressed color="deep-orange" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">Video</v-btn>
 							</div>
 						</v-col>
 					</v-row>
-				</div>
+				</v-card>
+			</template>
+
+		</v-container>
+
+		<v-container class="pt-7"><h4 class="text-18">Prizes for Judges Votes</h4></v-container>
+
+		<template v-for="(item, i) in prizeswithpemenang">
+			<template v-if="i>=3">
+				<v-card color="#404040" class="px-4 py-4" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
+					<img src="/img/trophy.svg" alt="" width="16">	<strong>Juara {{i+1}}</strong>
+					<v-row>
+						<v-col cols="4" class="px-0 pb-0">
+							<img v-if="item.prize.redeem.image" :src="item.prize.redeem.image" alt="">
+						</v-col>
+						<v-col cols="8" class="pb-9">
+							<div class="d-flex align-center pt-3">
+								<div class="mr-2">
+									<v-avatar size="30">
+										<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
+									</v-avatar>
+								</div>
+								<div>
+									<div>
+										{{item.customer.name ? item.customer.name : 'No Data'}}
+									</div>
+								</div>
+							</div>
+							<div class="d-flex mt-3 align-center">
+								<div class="mr-3 text-center">
+									<v-img src="/img/icons/gift.svg" max-width="30"></v-img>
+								</div>
+								<div>
+									<div>
+										{{item.prize.redeem.title}}
+									</div>
+								</div>
+							</div>
+							<div class="mt-3">
+								<v-btn depressed color="deep-orange" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">Video</v-btn>
+							</div>
+						</v-col>
+					</v-row>
+				</v-card>
 				<div v-if="i>3" class="devider-small" :key="'winner-dash-'+i"></div>
 			</template>
 		</template>
@@ -149,5 +187,9 @@ export default {
 		border-bottom: 1px dotted #d1d1d1;
 		padding-bottom:10px;
 		margin-bottom:10px;
+	}
+	.sing-herowinners {
+		background: #C6C6C6;
+		padding-bottom: 200px;
 	}
 </style>

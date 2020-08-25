@@ -13,37 +13,37 @@
 					<v-card color="#404040">
 						<div class="py-5 px-3 text-center">
 							<v-row>
-								<v-col to="/sing/help/" cols="4">
+								<v-col @click="$router.push('/sing/help/tentang')" cols="4">
 									<v-img src="/img/icons/lucu-info.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Tentang
 									</div>
 								</v-col>
-								<v-col to="/sing/help/cara-ikutan" cols="4">
+								<v-col @click="$router.push('/sing/help/cara-join')" cols="4">
 									<v-img src="/img/icons/lucu-carajoin.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Cara Join
 									</div>
 								</v-col>
-								<v-col to="/sing/help/cara-vote" cols="4">
+								<v-col @click="$router.push('/sing/help/cara-vote')" cols="4">
 									<v-img src="/img/icons/lucu-votes.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Cara Vote
 									</div>
 								</v-col>
-								<v-col to="/sing/download/" cols="4">
+								<v-col @click="$router.push('/sing/download/')" cols="4">
 									<v-img src="/img/icons/lucu-download.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Download Video
 									</div>
 								</v-col>
-								<v-col to="/sing/prizes/" cols="4">
+								<v-col @click="$router.push('/sing/prizes/')" cols="4">
 									<v-img src="/img/icons/lucu-prizes.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Prizes
 									</div>
 								</v-col>
-								<v-col to="/sing/help/" cols="4">
+								<v-col @click="$router.push('/sing/help/')" cols="4">
 									<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 									<div class="mt-2 text-12">
 										Share

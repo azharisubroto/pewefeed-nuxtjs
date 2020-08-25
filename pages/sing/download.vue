@@ -1,52 +1,52 @@
 <template>
-	<section class="sing">
+	<section class="sing-herodownload">
 		<div v-if="label != null" >
 
 			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
-			<Video/>
-
 			<template v-if="maintab == 0">
-				<v-list color="transparent" class="mb-10">
-					<v-list-item-group color="dark">
-						<div class="devider-small"></div>
-						<v-list-item :to="'/sing/download-audisi/'">
-							<v-list-item-content>
-								<v-list-item-title>
+				<v-container>
+					<div class="singbanner">BANNER</div>
+				</v-container>
+
+				<v-container>
+					<v-card to="/sing/download-audisi/" color="#404040" class="px-4 py-4 my-3" >
+						<div class="d-flex align-center justify-space-between">
+							<div>
+								<strong class="text-16">
 									Video Audisi
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-icon>
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-list-item-icon>
-						</v-list-item>
-						<div class="devider-small"></div>
-
-						<v-list-item disabled :to="'/sing/download-semifinal/'">
-							<v-list-item-content>
-								<v-list-item-title>
+								</strong>
+							</div>
+							<div style="width:20px">
+								<v-icon size="30">mdi-chevron-right</v-icon>
+							</div>
+						</div>
+					</v-card>
+					<v-card to="/sing/download-semifinal/" color="#404040" disabled class="px-4 py-4 my-3" >
+						<div class="d-flex align-center justify-space-between">
+							<div>
+								<strong class="text-16">
 									Video Semi Final
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-icon>
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-list-item-icon>
-						</v-list-item>
-						<div class="devider-small"></div>
-
-						<v-list-item disabled :to="'/sing/download-final/'">
-							<v-list-item-content>
-								<v-list-item-title>
-									Video Final
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-icon>
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-list-item-icon>
-						</v-list-item>
-						<div class="devider-small"></div>
-					</v-list-item-group>
-				</v-list>
+								</strong>
+							</div>
+							<div style="width:20px">
+								<v-icon size="30">mdi-chevron-right</v-icon>
+							</div>
+						</div>
+					</v-card>
+					<v-card to="/sing/download-final/" color="#404040" disabled class="px-4 py-4 my-3" >
+						<div class="d-flex align-center justify-space-between">
+							<div>
+								<strong class="text-16">
+									Video Semi Final
+								</strong>
+							</div>
+							<div style="width:20px">
+								<v-icon size="30">mdi-chevron-right</v-icon>
+							</div>
+						</div>
+					</v-card>
+				</v-container>
 			</template>
 
 			<template v-if="maintab == 1">
