@@ -1,5 +1,5 @@
 <template>
-	<section class="sing">
+	<section class="sing-stage">
 		<StageContent v-if="!isloading" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 30 Agustus 2020"/>
 		<div v-else class="text-center pa-10">
 			<v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -95,8 +95,7 @@ export default {
 		}
 	}
 	.pesertalist {
-		border-bottom: 1px solid rgba(255,255,255,.2);
-		padding: 20px 0;
+		margin: 0 0 15px 0;
 		// &:first-of-type {
 		// 	//padding-top: 0;
 		// }

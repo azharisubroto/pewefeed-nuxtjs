@@ -25,94 +25,78 @@
 			</v-row>
 		</v-app-bar>
 
-		<template v-if="maintab == 0">
-			<v-container>
-				<v-alert class="mt-4" color="#0057FF" prominent>
-					<template v-slot:prepend>
-					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
-					</template>
-					{{content.stage.label}} akan berakhir tanggal {{content.stage.end_date}}
-				</v-alert>
-			</v-container>
-			<v-container v-if="uploaded">
-				<div class="text-16"><strong>POSISI KAMU</strong></div>
-			</v-container>
+		<v-container v-if="userid != null" class="hero pb-10">
+			<v-row align-center v-if="pesertaloop == null">
+				<v-col cols="8">
+					<v-avatar size="30">
+						<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+					</v-avatar>
+					<div class="d-inline-block ml-2 text-14" style="color:#000">
+						{{userdata.data.first_name ? userdata.data.first_name : ''}}
+						{{userdata.data.last_name ? userdata.data.last_name : ''}}
+					</div>
+				</v-col>
+				<v-col cols="4">
+					<v-btn color="deep-orange" @click="uploadVisible=!uploadVisible" block :disabled="!uploadallowed">Upload</v-btn>
+				</v-col>
+			</v-row>
+
 			<div v-if="pesertaloop != null && userid != null">
 				<template v-for="(item, i) in pesertaloop">
 					<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" class="text-center py-0">
 						<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 					</v-container>
-					<div v-if="item.customer.id == userid" class="pesertalist mx-4" :key="'peserta-'+i">
-						<SingItem :item="item" />
+					<div v-if="item.customer.id == userid" class="pesertalist mx-0 px-0" :key="'peserta-'+i">
+						<SingItem cardtype="light" :item="item" />
 					</div>
 				</template>
 			</div>
 			<div v-if="userid != null && uploadallowed">
-				<v-container class="text-center py-0">
-					<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-				</v-container>
+				<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
 			</div>
 			<div v-else-if="userid == null">
-				<v-container class="text-center py-0">
-					<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
-				</v-container>
+				<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
 			</div>
+			<div class="devider-small" style="background-color: #000"></div>
 
-			<v-container class="d-none">
-				<v-row align="center">
-					<v-col cols="5">
-						<div class="text-uppercase text-15">seluruh peserta</div>
-					</v-col>
-					<v-col cols="7" class="text-right">
-						<v-btn small text @click="sortopen=true">
-							<v-icon>mdi-sort-ascending</v-icon>
-							<span class="text-10">Urutkan</span>
-						</v-btn>
-						<v-btn small text @click="opensearch = true">
-							<v-icon>mdi-magnify</v-icon>
-							<span class="text-10">Cari</span>
-						</v-btn>
-					</v-col>
-				</v-row>
-			</v-container>
-
-			<!-- SORTER -->
-			<v-bottom-sheet v-model="sortopen">
-				<v-sheet height="100%" class="antiloncat">
-					<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
-						<!-- Arrow -->
-						<v-btn
-							dark
-							icon
-							tile
-							style="border-right: 0px solid #717171"
-							light
-							@click="sortopen = false;"
-						>
-							<v-icon>mdi-close</v-icon>
-						</v-btn>
-
-						<!-- Title -->
-						<div class="flex-grow-1"></div>
-						<v-toolbar-items>
-							<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">SORT</v-btn>
-						</v-toolbar-items>
-						<div class="flex-grow-1"></div>
-					</v-toolbar>
-
-					<div class="mx-0 text-center px-4">
-						<template v-for="(item, i) in sorter">
-							<div class="devider-small" :key="'devtop-'+i"></div>
-							<div class="py-4" :key="'devmid-'+i" @click="sortItem(item.slug, 1)">{{item.title}}</div>
-						</template>
+			<v-row class="text-14 mt-4" style="color:#000">
+				<v-col cols="5">
+					<div @click="opensearch = true">
+						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
+						Cari Peserta
 					</div>
-				</v-sheet>
-			</v-bottom-sheet>
+				</v-col>
+				<v-col cols="6">
+					<div @click="sortopen = true">
+						<v-img src="/img/icons/sorter.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
+						Urutkan Peserta
+					</div>
+				</v-col>
+			</v-row>
+		</v-container>
 
-			<!-- ==== SEARCH BAR === -->
-			<v-bottom-sheet v-model="opensearch">
-				<v-sheet height="100%">
-					<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
+		<v-container class="d-none">
+			<v-row align="center">
+				<v-col cols="5">
+					<div class="text-uppercase text-15">seluruh peserta</div>
+				</v-col>
+				<v-col cols="7" class="text-right">
+					<v-btn small text @click="sortopen=true">
+						<v-icon>mdi-sort-ascending</v-icon>
+						<span class="text-10">Urutkan</span>
+					</v-btn>
+					<v-btn small text @click="opensearch = true">
+						<v-icon>mdi-magnify</v-icon>
+						<span class="text-10">Cari</span>
+					</v-btn>
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<!-- SORTER -->
+		<v-bottom-sheet v-model="sortopen">
+			<v-sheet height="100%" class="antiloncat">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -120,68 +104,108 @@
 						tile
 						style="border-right: 0px solid #717171"
 						light
-						@click="opensearch = false"
+						@click="sortopen = false;"
 					>
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 
 					<!-- Title -->
-					<div class="flex-grow-1"></div>
-					<v-toolbar-items>
-						<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
+					<v-toolbar-items class="ml-3">
+						<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">Urutkan</v-btn>
 					</v-toolbar-items>
 					<div class="flex-grow-1"></div>
-					</v-toolbar>
-					<div class="devider-small" style="border-color:rgba(255,255,255,.1)"></div>
+				</v-toolbar>
 
-					<div class="px-5 py-10">
-					<v-text-field
-						flat
-						filled
-						single-line
-						solo
-						hide-details
-						prepend-inner-icon="mdi-magnify"
-						background-color="#000"
-						v-model="searchModel"
-						@keyup.enter="search(searchModel, 1)"
-						label="Tulis Kata Kunci . . ."
-						style="border:0!important;box-shadow:none!important;"
-						class="antipenyok"
-					></v-text-field>
-					<v-btn @click="search(searchModel)" block large color="deep-orange" class="mt-3">Search</v-btn>
-					<v-btn block large color="deep-orange" class="mt-3" @click="reload()">Show All Participants</v-btn>
-					</div>
-				</v-sheet>
-			</v-bottom-sheet>
-
-			<div v-if="pesertaloop !=null && pesertaloop.length > 0">
-				<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
-					<SingItem :item="item"/>
+				<div class="mx-0 text-left px-4 pt-4">
+					<template v-for="(item, i) in sorter">
+						<v-btn
+						small
+						:key="'devmid-'+i"
+						@click="sortItem(item.slug, 1)"
+						class="mr-2 mb-2 filterbtn"
+						color="#404040"
+						depressed
+						style="text-transform: normal!important">{{item.title}}</v-btn>
+					</template>
+					<br>
+					<br>
+					<br>
+					<br>
 				</div>
+			</v-sheet>
+		</v-bottom-sheet>
+
+		<!-- ==== SEARCH BAR === -->
+		<v-bottom-sheet v-model="opensearch">
+			<v-sheet height="100%">
+				<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
+				<!-- Arrow -->
+				<v-btn
+					dark
+					icon
+					tile
+					style="border-right: 0px solid #717171"
+					light
+					@click="opensearch = false"
+				>
+					<v-icon>mdi-close</v-icon>
+				</v-btn>
+
+				<!-- Title -->
+				<div class="flex-grow-1"></div>
+				<v-toolbar-items>
+					<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
+				</v-toolbar-items>
+				<div class="flex-grow-1"></div>
+				</v-toolbar>
+				<div class="devider-small" style="border-color:rgba(255,255,255,.1)"></div>
+
+				<div class="px-5 py-10">
+				<v-text-field
+					flat
+					filled
+					single-line
+					solo
+					hide-details
+					outlined
+					prepend-inner-icon="mdi-magnify"
+					background-color="transparent"
+					v-model="searchModel"
+					@keyup.enter="search(searchModel, 1)"
+					label="Tulis Kata Kunci . . ."
+					style="border:0!important;box-shadow:none!important;"
+					class="antipenyok"
+				></v-text-field>
+				<div class="text-right">
+					<v-btn @click="search(searchModel)" color="deep-orange" class="mt-3">Cari</v-btn>
+					<v-btn color="deep-orange" class="mt-3" @click="searchModel=''">Reset</v-btn>
+				</div>
+				</div>
+			</v-sheet>
+		</v-bottom-sheet>
+
+		<div v-if="pesertaloop !=null && pesertaloop.length > 0" style="margin-top:-30px">
+			<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
+				<SingItem :item="item"/>
 			</div>
-			<div v-else class="text-center pa-10">
-				Tidak Ada Data
-			</div>
+		</div>
+		<div v-else class="text-center pa-10">
+			Tidak Ada Data
+		</div>
 
-			<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
-				<v-pagination
-					@input="next"
-					v-model="pagination"
-					:length="content.paginations.last_page"
-					:total-visible="10"
-				></v-pagination>
-			</v-container>
+		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
+			<v-pagination
+				@input="next"
+				v-model="pagination"
+				:length="content.paginations.last_page"
+				:total-visible="10"
+			></v-pagination>
+		</v-container>
 
-			<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
-		</template>
-
-		<template v-if="maintab == 1">
-			<SingPrizes/>
-		</template>
+		<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
 
 		<!-- BOTTOM NAVIGATION -->
-		<br><br><br><br>
+		<!-- <br><br><br><br>
 		<v-bottom-navigation
 			fixed
 			dark
@@ -201,7 +225,7 @@
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
 			<ShareButton2/>
-		</v-bottom-navigation>
+		</v-bottom-navigation> -->
 		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
 
@@ -211,7 +235,6 @@
 <script>
 import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
-import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
 import SingItem from "@/components/sing/SingItem";
 import UploadVideo from "@/components/sing/UploadVideo";
@@ -226,7 +249,6 @@ export default {
 	components: {
 		ShareButton2,
 		SingAppBar,
-		SingPrizes,
 		Video,
 		UploadVideo,
 		SingItem,
@@ -237,6 +259,7 @@ export default {
 	data(){
 		return {
 			userid: null,
+			userdata: null,
 			singtab: 0,
 			maintab: 0,
 			sortopen: false,
@@ -299,32 +322,32 @@ export default {
 			uploadVisible: false,
 			sorter: [
 				{
-					title:'Star to NOT Star',
-					slug: 'star',
-				},
-				{
-					title:'High VOTE to low VOTE',
-					slug: 'high_vote',
-				},
-				{
-					title:'Low VOTE to High VOTE',
-					slug: 'low_vote',
-				},
-				{
-					title:'High COMMENTS to Low COMMENTS',
-					slug: 'high_comment',
-				},
-				{
-					title:'Low COMMENTS to Hight COMMENTS',
-					slug: 'low_comment',
-				},
-				{
-					title:'Newest to Oldest',
+					title:'Terbaru',
 					slug: 'newest',
 				},
 				{
-					title:'Oldest to Newest',
+					title:'Terlama',
 					slug: 'oldest',
+				},
+				{
+					title:'Vote Terbanyak',
+					slug: 'high_vote',
+				},
+				{
+					title:'Vote Terendah',
+					slug: 'low_vote',
+				},
+				{
+					title:'Komentar Terbanyak',
+					slug: 'high_comment',
+				},
+				{
+					title:'Komentar Terendah',
+					slug: 'low_comment',
+				},
+				{
+					title:'Star ke Non Star',
+					slug: 'star',
 				},
 			],
 			uploaded: false,
@@ -429,6 +452,7 @@ export default {
 		if (localStorage.getItem('userdata')) {
 			var userdata = JSON.parse(localStorage.getItem('userdata'));
 			console.log(userdata)
+			this.userdata = userdata
 			this.userid = userdata.data.id
 			this.checkUploadAvailablity(this.$route.params.stage);
 		}
@@ -436,6 +460,9 @@ export default {
 }
 </script>
 <style lang="scss">
+	.hero {
+		background: #C6C6C6;
+	}
 	.stagesing {
 		.v-toolbar__content {
 			padding-left: 0!important;
@@ -451,5 +478,8 @@ export default {
 		&.v-text-field--filled.v-text-field--single-line input {
 			margin-top: 0!important;
 		}
+	}
+	.filterbtn * {
+		text-transform: capitalize!important;
 	}
 </style>

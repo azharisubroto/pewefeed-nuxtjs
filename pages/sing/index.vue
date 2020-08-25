@@ -5,9 +5,80 @@
 			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
 
 			<template v-if="maintab == 0">
-				<Video/>
+				<v-container>
+					<Video/>
+				</v-container>
 
-				<v-list color="transparent" class="mb-10">
+				<v-container>
+					<v-card color="#404040">
+						<div class="py-5 px-3 text-center">
+							<v-row>
+								<v-col to="/sing/help/" cols="4">
+									<v-img src="/img/icons/lucu-info.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Tentang
+									</div>
+								</v-col>
+								<v-col to="/sing/help/cara-ikutan" cols="4">
+									<v-img src="/img/icons/lucu-carajoin.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Cara Join
+									</div>
+								</v-col>
+								<v-col to="/sing/help/cara-vote" cols="4">
+									<v-img src="/img/icons/lucu-votes.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Cara Vote
+									</div>
+								</v-col>
+								<v-col to="/sing/download/" cols="4">
+									<v-img src="/img/icons/lucu-download.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Download Video
+									</div>
+								</v-col>
+								<v-col to="/sing/prizes/" cols="4">
+									<v-img src="/img/icons/lucu-prizes.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Prizes
+									</div>
+								</v-col>
+								<v-col to="/sing/help/" cols="4">
+									<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+									<div class="mt-2 text-12">
+										Share
+									</div>
+								</v-col>
+							</v-row>
+						</div>
+					</v-card>
+
+					<template v-for="(item, i) in singcontent">
+						<v-card :key="'persmenu-'+i" color="#404040" :disabled="!item.isactive" class="px-4 py-4 my-3" :to="item.to">
+							<div class="d-flex align-center justify-space-between">
+								<div>
+									<div class="d-flex align-center">
+										<div class="text-center mr-5">
+											<v-img :src="'/img/icons/stage-'+i+'.svg'" width="30px" max-width="30px"></v-img>
+										</div>
+										<div>
+											<strong class="text-12">
+												<span v-if="i<3">Babak {{i+1}}:</span>
+												{{item.title}}
+											</strong>
+											<div class="text-10">Periode : {{item.start_date}} - {{item.end_date}}</div>
+										</div>
+									</div>
+								</div>
+								<div style="width:20px">
+									<v-icon size="30">mdi-chevron-right</v-icon>
+								</div>
+							</div>
+						</v-card>
+					</template>
+				</v-container>
+
+				<!-- <v-list color="transparent" class="mb-10">
 					<v-list-item-group color="dark">
 						<template v-for="(item, i) in help">
 						<div v-if="i==0" :key="'dvdrxx-'+i" class="devider-small"></div>
@@ -50,16 +121,15 @@
 						<div :key="'dvdr-'+i" class="devider-small"></div>
 						</template>
 					</v-list-item-group>
-				</v-list>
+				</v-list> -->
 			</template>
 
 			<template v-if="maintab == 1">
 				<SingPrizes/>
 			</template>
 		</div>
+		<!-- <br>
 		<br>
-		<br>
-		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
 			fixed
 			dark
@@ -79,7 +149,7 @@
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
 			<ShareButton2 tipe="Sing"/>
-		</v-bottom-navigation>
+		</v-bottom-navigation> -->
 	</section>
 </template>
 
@@ -132,13 +202,17 @@ export default {
 					this.singcontent.push({
 						title: el.stage,
 						to: '/sing/stage/' + el.slug,
-						isactive: el.is_active
+						isactive: el.is_active,
+						start_date: el.start_date,
+						end_date: el.end_date,
 					})
 				});
 				this.singcontent.push({
 					title: 'Winners',
 					to: '/sing/winners/',
-					isactive: 1
+					isactive: 0,
+					start_date: 'unknown',
+					end_date: 'unknown',
 				})
 			} catch (error) {
 				console.log(error);
@@ -190,6 +264,16 @@ export default {
 
 <style lang="scss">
 	.sing {
+		position:relative;
+		z-index: 90;
+		&:before{
+			content:"";
+			width: 100%;
+			z-index: -1;
+			height: 50vh;
+			background: #C6C6C6;
+			position:absolute;
+		}
 		iframe {
 			width: 100%;
 			height: 300px;

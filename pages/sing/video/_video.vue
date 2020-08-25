@@ -2,8 +2,8 @@
   <div>
     <SingAppBar :title="content2 != null ? content2.stage : ''" :back="true" />
 
-	<v-container>
-		<v-alert class="mt-4" color="#0057FF" prominent>
+	<v-container class="hero-detailsing pb-10">
+		<v-alert class="mt-4 text-14" color="#0057FF" prominent>
 			<template v-slot:prepend>
 				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 			</template>
@@ -22,18 +22,13 @@
 			</div>
 
 			<div class="text-14 d-flex align-center justify-content-end metasing">
-				<div class="d-inline-block">
-					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{content2.ranking}})
-				</div>
-				<div class="d-inline-block ml-3">
-					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{content2.total_vote}})
-				</div>
-				<div class="d-inline-block ml-3">
-					<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{content2.total_comments}})
-				</div>
+				<v-btn
+				v-if="maintab == 0"
+				class="mt-4"
+				block
+				color="deep-orange"
+				@click="sendVote(content2.id);"
+				>Beri Vote</v-btn>
 			</div>
 		</div>
 
@@ -48,10 +43,10 @@
 				class="position-relative"
 				@click="playnow = true"
 			>
-				<div class="singstarstatus">
+				<!-- <div class="singstarstatus">
 					<img v-if="content2.is_star" src="/img/icons/star-yellow.svg" alt="">
 					<img v-else src="/img/icons/star-default.svg" alt="">
-				</div>
+				</div> -->
 				<template v-slot:default>
 					<v-row
 					class="ma-0"
@@ -65,47 +60,58 @@
 				</template>
 			</v-img>
 
-			<v-btn
-			  v-if="maintab == 0"
-			  class="mt-4"
-			  block
-              color="deep-orange"
-              @click="sendVote(content2.id);"
-            >Beri Vote</v-btn>
+			<div class="d-flex justify-space-between">
+				<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
+					<v-icon :color="content2.is_star ? '#FFC107': '#f6f6f6'">mdi-star</v-icon>
+					Star
+				</div>
+
+				<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing pt-1">
+					<div class="d-inline-block">
+						<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+						({{content2.ranking}})
+					</div>
+					<div class="d-inline-block ml-3">
+						<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+						({{content2.total_vote}})
+					</div>
+					<div class="d-inline-block ml-3">
+						<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+						({{content2.total_comments}})
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</v-container>
 
     <template v-if="maintab == 0">
-		<v-container>
+		<v-container class="px-6" style="margin-top:-40px">
 			<div
 			class="statusquo text-center row text-18"
-			style="background-color:#000;border-top:1px solid #fff;border-bottom:1px solid #fff;"
+			style="background-color:#404040;border-radius:5px;"
 			>
 				<v-col cols="6">
-					<v-btn
+					<div
 					@click="votetab = 0; "
 					:class="[votetab == 0 ? 'active' : null]"
-					text
-					dark
-					block
-					class="text-18 text-capitalize"
+					class="text-12 text-capitalize text-center"
 					style="letter-spacing:0"
 					>
+						<v-img src="/img/icons/voters.svg" width="25" max-width="25" class="d-inline-block"></v-img><br>
 						<strong>Voters</strong>
-					</v-btn>
+					</div>
 				</v-col>
 				<v-col cols="6">
-					<v-btn
+					<div
 					@click="votetab = 1; "
 					:class="[votetab == 1 ? 'active' : null]"
-					text
-					dark
-					block
-					class="text-18 text-capitalize"
+					class="text-12 text-capitalize text-center"
 					style="letter-spacing:0"
 					>
+						<v-img src="/img/icons/info-white.svg" width="25" max-width="25" class="d-inline-block"></v-img><br>
 						<strong>Ketentuan</strong>
-					</v-btn>
+					</div>
 				</v-col>
 			</div>
 		</v-container>
@@ -113,7 +119,7 @@
       <v-container>
 		  <template v-if="votetab == 0">
 
-			<v-alert class="mt-0" color="#0057FF" prominent>
+			<v-alert class="mt-0 text-12" color="#0057FF" prominent>
 				<template v-slot:prepend>
 					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 				</template>
@@ -157,42 +163,38 @@
     </template>
 
     <template v-if="maintab == 1">
-      <v-container>
-        <div
-          class="statusquo text-center row text-18"
-		  style="background-color:#000;border-top:1px solid #fff;border-bottom:1px solid #fff;"
-        >
-          <v-col cols="6">
-			  <v-btn
-              @click="comment_tab = 0; "
-              :class="[comment_tab == 0 ? 'active' : null]"
-              text
-			  dark
-			  block
-			  class="text-18 text-capitalize"
-			  style="letter-spacing:0"
-            >
-              <span>Berikan Komentar</span>
-            </v-btn>
-          </v-col>
-          <v-col cols="6">
-            <v-btn
-              @click="comment_tab = 1; "
-              :class="[comment_tab == 1 ? 'active' : null]"
-              text
-			  dark
-			  block
-			  class="text-18 text-capitalize"
-			  style="letter-spacing:0"
-            >
-              <span>Ketentuan</span>
-            </v-btn>
-          </v-col>
-        </div>
-      </v-container>
+		<v-container class="px-6" style="margin-top:-40px">
+			<div
+			class="statusquo text-center row text-18"
+			style="background-color:#404040;border-radius:5px;"
+			>
+				<v-col cols="6">
+					<div
+					@click="comment_tab = 0; "
+              		:class="[comment_tab == 0 ? 'active' : null]"
+					class="text-12 text-capitalize text-center"
+					style="letter-spacing:0"
+					>
+						<v-img src="/img/icons/komentar.svg" width="25" max-width="25" class="d-inline-block"></v-img><br>
+						<strong>Komentar</strong>
+					</div>
+				</v-col>
+				<v-col cols="6">
+					<div
+					@click="comment_tab = 1; "
+              		:class="[comment_tab == 1 ? 'active' : null]"
+					class="text-12 text-capitalize text-center"
+					style="letter-spacing:0"
+					>
+						<v-img src="/img/icons/info-white.svg" width="25" max-width="25" class="d-inline-block"></v-img><br>
+						<strong>Ketentuan</strong>
+					</div>
+				</v-col>
+			</div>
+		</v-container>
 
       <v-container v-if="comment_tab==0">
-        <v-alert class="mt-0" color="#0057FF" prominent>
+        <v-alert class="mt-0 text-12" color="#0057FF" prominent>
 			<template v-slot:prepend>
 				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 			</template>
@@ -787,8 +789,14 @@ export default {
   }
 }
 .statusquo {
-  .v-btn.active {
+  .active {
     color: var(--primary) !important;
+	.v-image {
+		filter: grayscale(0);
+	}
+  }
+  .v-image {
+	  filter: grayscale(100%) invert(1);
   }
 }
 .star-comments .v-avatar {
@@ -801,5 +809,15 @@ export default {
 }
 video {
 	max-width: 100%!important;
+}
+.hero-detailsing {
+	background: #C6C6C6;
+	color: #000;
+	.singmetaicons {
+		.v-image {
+			filter: invert(1);
+			vertical-align: middle;
+		}
+	}
 }
 </style>

@@ -1,57 +1,51 @@
 <template>
 	<div v-if="prizes!==null">
-		<v-container class="py-3">
-			<div class="text-18"><strong>Prizes for Judges Winner</strong></div>
+		<v-container class="pt-3 pb-0">
+			<div class="text-18" style="color: #000"><strong>Pemenang Pilihan Juri</strong></div>
 		</v-container>
-		<div class="devider-small"></div>
 		<template v-for="(item, i) in prizes">
-			<div v-if="i<3" style="border-bottom:1px solid #fff"  :key="'prize-'+i">
-				<v-container>
-					<v-row>
-						<v-col cols="4">
-							<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
-						</v-col>
-						<v-col cols="8">
-							<div class="text-18">
-								<img src="/img/trophy.svg" alt="" width="20" style="vertical-align:middle;"/> <strong>Juara {{i+1}}</strong>
-							</div>
-							<div class="text-18 mt-4" >
-								{{item.redeem.title}}
-							</div>
-							<!-- <h3 class="text-18 mt-2" >
-								{{item.total_winners}} Pemenang
-							</h3> -->
-						</v-col>
-					</v-row>
-				</v-container>
-			</div>
+			<v-card color="#404040" class="px-2 my-4 mx-4" v-if="i<3"  :key="'prize-'+i">
+				<v-row>
+					<v-col cols="3">
+						<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
+					</v-col>
+					<v-col cols="9" class="pt-3">
+						<div class="text-16">
+							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;" class="mr-1"/> <strong>Juara {{i+1}}</strong>
+						</div>
+						<div class="text-14 mt-4" >
+							{{item.redeem.title}}
+						</div>
+						<!-- <h3 class="text-18 mt-2" >
+							{{item.total_winners}} Pemenang
+						</h3> -->
+					</v-col>
+				</v-row>
+			</v-card>
 		</template>
 
 		<v-container class="py-3">
-			<div class="text-18"><strong>Prize for Highest Votes</strong></div>
+			<div class="text-18"><strong>Pemenang Vote Terbanyak</strong></div>
 		</v-container>
-		<div class="devider-small"></div>
 		<template v-for="(item, i) in prizes">
-			<div v-if="i>=3" style="border-bottom:1px solid #fff"  :key="'prize2-'+i">
-				<v-container>
-					<v-row>
-						<v-col cols="4">
-							<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
-						</v-col>
-						<v-col cols="8">
-							<div class="text-18">
-								<img src="/img/trophy.svg" alt="" width="20" style="vertical-align:middle;"/> <strong>Juara {{i+1}}</strong>
-							</div>
-							<div class="text-18 mt-4" >
-								{{item.redeem.title}}
-							</div>
-							<!-- <h3 class="text-18 mt-2" >
-								{{item.total_winners}} Pemenang
-							</h3> -->
-						</v-col>
-					</v-row>
-				</v-container>
-			</div>
+			<v-card color="#404040" v-if="i>=3" class="px-2 my-4 mx-4" :key="'prize2-'+i">
+				<v-row>
+					<v-col cols="3">
+						<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
+					</v-col>
+					<v-col cols="9" class="pt-3">
+						<div class="text-16">
+							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;" class="mr-1"/> <strong>Juara {{i+1}}</strong>
+						</div>
+						<div class="text-14 mt-4" >
+							{{item.redeem.title}}
+						</div>
+						<!-- <h3 class="text-18 mt-2" >
+							{{item.total_winners}} Pemenang
+						</h3> -->
+					</v-col>
+				</v-row>
+			</v-card>
 		</template>
 	</div>
 </template>
