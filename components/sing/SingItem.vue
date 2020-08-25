@@ -1,13 +1,10 @@
 <template>
-	<div @click="$router.push('/sing/video/'+item.id)">
-		<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9">
-			<div class="singstarstatus">
-				<img v-if="item.is_star" src="/img/icons/star-yellow.svg" alt="">
-				<img v-else src="/img/icons/star-default.svg" alt="">
-			</div>
-		</v-img>
-
-		<div class="d-flex justify-space-between align-center mt-3">
+	<v-card
+	:elevation="0"
+	:color="what_type ? '#fff' : '#404040'"
+	@click="$router.push('/sing/video/'+item.id)"
+	:class="what_type ? 'cardtype' : 'dark py-5 px-4'">
+		<div class="d-flex justify-space-between align-center mb-3">
 			<div>
 				<v-avatar size="30" @click="$router.push('/sing/video/'+item.id)">
 					<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
@@ -17,7 +14,23 @@
 				</div>
 			</div>
 
-			<div class="text-14 d-flex align-center justify-content-end metasing">
+			<div>
+				<v-btn v-if="what_type" color="deep-orange" block small>Lihat Detail</v-btn>
+				<v-btn v-else color="deep-orange" block small>Vote</v-btn>
+			</div>
+		</div>
+
+		<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9"></v-img>
+
+		<div class="d-flex justify-space-between">
+			<div>
+				<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
+					<v-icon :color="item.is_star ? '#FFC107': '#f6f6f6'">mdi-star</v-icon>
+					Star
+				</div>
+			</div>
+
+			<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing pt-1">
 				<div class="d-inline-block">
 					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
 					({{item.ranking ? item.ranking : 'n/a'}})
@@ -65,13 +78,21 @@
 				{{item.total_comments}}
 			</v-col>
 		</v-row> -->
-	</div>
+	</v-card>
 </template>
 
 <script>
 export default {
 	name:"SingItem",
-	props: ['item']
+	props: {
+		item: Object,
+		cardtype: String
+	},
+	data() {
+		return {
+			what_type: this.cardtype
+		}
+	}
 }
 </script>
 <style lang="scss">
@@ -95,5 +116,15 @@ export default {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
+	}
+	.cardtype {
+		background: transparent!important;
+		color: #000!important;
+
+		.singmetaicons {
+			.v-image {
+				filter: invert(1)
+			}
+		}
 	}
 </style>

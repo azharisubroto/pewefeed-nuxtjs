@@ -713,7 +713,7 @@ img {
 }
 .theme--dark.v-application,
 .theme--dark.v-sheet {
-  background: #000;
+  background: #1c1c1c;
 }
 .main-app-bar.theme--dark {
   background: #2c2c2d;
@@ -1014,7 +1014,7 @@ a,
   }
 }
 .bg-dark, .theme--dark.v-stepper {
-  background: #000;
+  background: #1c1c1c;
 }
 .theme--dark.v-tabs-items {
   background-color: #1d1d1d;
