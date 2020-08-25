@@ -1099,6 +1099,14 @@ ol.flickity-page-dots {
 		box-shadow: none!important;
 	}
 }
+.singbanner {
+	background: linear-gradient(102.55deg, #ED1CFF 13.32%, #FF1C1C 78.48%);
+	border-radius: 5px;
+	height: 147px;
+	line-height: 147px;
+	text-align: center;
+	font-weight: bold;
+}
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }

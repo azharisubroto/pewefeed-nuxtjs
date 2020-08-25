@@ -1,62 +1,55 @@
 <template>
 	<section>
 		<SingAppBar :title="$store.state.judge_num + ' Judges Winner'" :back="true"/>
-		<v-container v-if="winners != null && winners.length > 0" class="py-5">
+		<v-container class="sing-herowinners pt-5" style="color: #000" v-if="winners != null && winners.length > 0">
 			<v-avatar class="mr-3">
 				<v-img :src="winners[0].customer.avatar ? winners[0].customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 			</v-avatar>
 			{{winners[0].customer.name}}
 
-			<v-btn text :href="winners[0].video.author_url">
+			<v-btn text :href="winners[0].video.author_url" color="#000">
 				<v-icon class="mr-2">mdi-instagram</v-icon>
-				{{winners[0].video.author_name}}
 			</v-btn>
 		</v-container>
 
 		<client-only>
-			<template v-if="winners != null && winners.length > 0">
-				<template v-for="(item, i) in winners">
-					<v-list color="transparent" class="mb-0" :key="'videoasdas-'+i">
-						<v-list-item-group color="dark">
-							<div class="devider-small"></div>
-							<v-list-item @click="$router.push('/sing/winner/detail/'+item.id)">
-								<v-list-item-content>
-									<v-list-item-title class="text-uppercase">
-										Stage: {{item.stage}}
-									</v-list-item-title>
-								</v-list-item-content>
-								<v-list-item-icon>
-									<v-icon>mdi-chevron-right</v-icon>
-								</v-list-item-icon>
-							</v-list-item>
-							<div class="devider-small"></div>
-						</v-list-item-group>
-					</v-list>
-					<div :key="'videodetail-'+i" @click="$router.push('/sing/winner/detail/'+item.id)">
-						<v-img :src="item.video.thumbnail_url"></v-img>
-						<div class="devider-small my-2"></div>
-						<v-container>
-							<v-row class="text-center">
-								<v-col cols="4">
-									<div @click="item.is_star=!item.is_star">
-										<strong>STAR</strong><br>
-										<v-icon v-if="item.is_star" color="yellow">mdi-star</v-icon>
-										<v-icon v-else>mdi-star-outline</v-icon>
+			<v-container style="margin-top:-100px">
+				<template v-if="winners != null && winners.length > 0">
+					<template v-for="(item, i) in winners">
+						<v-card @click="$router.push('/sing/winner/detail/'+item.id)" :key="'videoasdas-'+i" color="#404040" class="px-4 pt-4 pb-2 mb-4">
+							<div class="mb-3">
+								<img src="/img/icons/toa-white.svg" style="vertical-align:middle" width="20" class="mr-2" alt=""> <strong>Stage: {{item.stage}}</strong>
+							</div>
+
+							<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9"></v-img>
+
+							<div class="d-flex justify-space-between">
+								<div>
+									<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
+										<v-icon :color="item.is_star ? '#FFC107': '#f6f6f6'">mdi-star</v-icon>
+										Star
 									</div>
-								</v-col>
-								<v-col cols="4">
-									<strong>VOTE</strong><br>
-									{{item.total_vote}}
-								</v-col>
-								<v-col cols="4">
-									<strong>COMMENTS</strong><br>
-									{{item.total_comments}}
-								</v-col>
-							</v-row>
-						</v-container>
-					</div>
+								</div>
+
+								<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing pt-1">
+									<div class="d-inline-block">
+										<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+										({{item.ranking ? item.ranking : 'n/a'}})
+									</div>
+									<div class="d-inline-block ml-3">
+										<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+										({{item.total_vote ? item.total_vote : '0'}})
+									</div>
+									<div class="d-inline-block ml-3">
+										<v-img src="/img/icons/comment-single.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
+										({{item.total_comments ? item.total_comments : '0'}})
+									</div>
+								</div>
+							</div>
+						</v-card>
+					</template>
 				</template>
-			</template>
+			</v-container>
 		</client-only>
 
 		<br>
@@ -160,3 +153,15 @@ export default {
 	}
 }
 </script>
+
+<style lang="scss">
+	.sing-herowinners {
+		background: #C6C6C6;
+		padding-bottom: 120px;
+	}
+	.singmetaicons {
+		.v-image {
+			vertical-align: middle;
+		}
+	}
+</style>

@@ -11,6 +11,10 @@
 				</v-avatar>
 				<div class="d-inline-block ml-2 text-14">
 					{{item.customer.name ? item.customer.name : 'n/a'}}
+
+					<v-btn text :color="what_type ? '#000' : '#fff'">
+						<v-icon class="mr-2">mdi-instagram</v-icon>
+					</v-btn>
 				</div>
 			</div>
 

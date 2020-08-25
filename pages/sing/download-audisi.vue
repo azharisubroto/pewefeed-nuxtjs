@@ -1,48 +1,53 @@
 <template>
-	<section class="sing">
+	<section class="sing-herodownload">
 		<div v-if="label != null" >
 
 			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
-			<Video/>
-
 			<template v-if="maintab == 0">
-				<section class="toppoin-acc">
-					<div class="devider-small"></div>
-					<!-- <a @click="downloadVideo(download)" class="d-block py-2 px-5">
-						<v-row align="center">
-							<v-col cols="10" class="py-0">Download Now</v-col>
-							<v-col cols="2" class="text-right">
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-col>
-						</v-row>
-					</a> -->
-                    <a target="blank" download :href="download" class="d-block py-2 px-5">
-						<v-row align="center">
-							<v-col cols="10" class="py-0">Download Now</v-col>
-							<v-col cols="2" class="text-right">
-								<v-icon>mdi-chevron-right</v-icon>
-							</v-col>
-						</v-row>
-					</a>
-					<!-- <v-expansion-panels>
-						<v-expansion-panel class="mb-0">
-							<v-expansion-panel-header class="py-5 text-uppercase">Download Video</v-expansion-panel-header>
-							<v-expansion-panel-content class='text-center'>
-								<v-btn :href="download" target="_BLANK" color="deep-orange">Download Now</v-btn>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels> -->
+				<v-container>
+					<div class="singbanner">BANNER</div>
+				</v-container>
 
-					<v-expansion-panels>
-						<v-expansion-panel class="mb-0">
-							<v-expansion-panel-header class="py-5 text-uppercase">Lirik</v-expansion-panel-header>
-							<v-expansion-panel-content class='text-left'>
-								<div v-html="lirik"></div>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels>
-				</section>
+				<v-container>
+					<v-card color="#404040" class="px-4 py-3 my-3">
+						<a target="blank" download :href="download">
+							<div class="d-flex align-center justify-space-between">
+								<div>
+									<strong class="text-16">
+										Download Now
+									</strong>
+								</div>
+								<div style="width:20px">
+									<v-icon size="30">mdi-chevron-right</v-icon>
+								</div>
+							</div>
+						</a>
+					</v-card>
+					<v-card color="#404040" class="px-4 py-3 my-3">
+						<div class="d-flex align-center justify-space-between">
+							<div>
+								<strong class="text-16">
+									Download Lirik
+								</strong>
+							</div>
+							<div style="width:20px">
+								<v-icon size="30">mdi-chevron-right</v-icon>
+							</div>
+						</div>
+					</v-card>
+
+					<section class="helpexpandable">
+						<v-expansion-panels :accordion="true" focusable>
+							<v-expansion-panel class="mb-3">
+								<v-expansion-panel-header class="pl-4 pr-3 py-3 text-16" style="line-height:28px;font-weight:bold">Lihat Lirik</v-expansion-panel-header>
+								<v-expansion-panel-content>
+									<div v-html="lirik" class="text-14 py-4" style="line-height:30px"></div>
+								</v-expansion-panel-content>
+							</v-expansion-panel>
+						</v-expansion-panels>
+					</section>
+				</v-container>
 			</template>
 
 			<template v-if="maintab == 1">
@@ -179,6 +184,22 @@ export default {
 		iframe {
 			width: 100%;
 			height: 300px;
+		}
+	}
+	.helpexpandable {
+		.v-expansion-panels {
+			.v-expansion-panel {
+				border-radius: 6px;
+				&:after {
+					opacity:0!important;
+				}
+				.v-expansion-panel-content__wrap {
+					border-top: 1px solid #000;
+				}
+				.v-expansion-panel-header::before {
+					opacity: 0!important
+				}
+			}
 		}
 	}
 </style>
