@@ -1,11 +1,10 @@
 <template>
-  <div>
-	  <template v-if="isFlexible">
-		  <div @click="recaptchaDialogVisible = true"><slot></slot></div>
-	  </template>
-	  <template v-else>
-		  <div class="d-block px-0 v-btn pt-4">
-			<v-btn @click="recaptchaDialogVisible = true">
+  <div :class="[!isFlexible ? 'v-btn v-btn--contained theme--dark v-size--default' : '']">
+		<template v-if="isFlexible">
+			<div @click="recaptchaDialogVisible = true"><slot></slot></div>
+		</template>
+		<template v-else>
+			<span class="v-btn__content text-center" @click="recaptchaDialogVisible = true">
 				<span style="font-size:10px!important;">
 					Share
 					<br />
@@ -17,136 +16,135 @@
 					width="20"
 					height="20"
 				/>
+			</span>
+		</template>
+		<span>
+			<v-bottom-sheet v-model="recaptchaDialogVisible">
+			<v-sheet height="100%">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+				<v-row class="pa-0" align="center">
+					<v-col cols="2">
+						<v-btn
+							dark
+							icon
+							tile
+							style="border-right: 0px solid #717171"
+							light
+							@click="recaptchaDialogVisible = false;"
+						>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+					</v-col>
+						<v-col cols="8" class="deep-orange--text text-center">
+							SHARE (+1 POIN)
+						</v-col>
+				</v-row>
+				</v-toolbar>
+
+				<div class="mx-2">
+				<div class="py-10" v-if="recaptcha">
+					<client-only>
+						<recaptcha
+						:key="recaptchaKey"
+						class="mx-5 my-5"
+						@error="onError()"
+						@success="onShareSuccess()"
+						@expired="onExpired()"
+						/>
+					</client-only>
+				</div>
+
+				<v-container v-if="sheet">
+					<v-row>
+					<v-col v-if="sharingImage" cols="8">
+						<strong v-if="tipe == 'Sing'" class="subtitle-1">Dukung video saya di '{{tipe}}' klik disini untuk vote</strong>
+						<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
+						<br />
+						<strong class="caption grey--text">{{ sharingTime }}</strong>
+					</v-col>
+					<v-col v-else cols="8">
+						<strong class="subtitle-1">{{ sharingTitle }}</strong>
+						<br />
+						<strong class="caption grey--text">{{ domainTitle }}</strong>
+					</v-col>
+					<v-col v-if="sharingImage" cols="4">
+						<img width="100%" :src="sharingImage" alt />
+					</v-col>
+					<v-col v-else cols="4">
+						<img width="100%" src="/img/pw-icon.png" alt />
+					</v-col>
+					<v-col cols="12">
+						<v-row align="center" no-gutters>
+						<v-col cols="9">
+							<socialSharing
+							:url="sharingUrl"
+							:title="sharingTitle"
+							:description="sharingDescription"
+							:twitter-user="twitterEnv"
+							inline-template
+							>
+							<div>
+								<network network="facebook">
+								<i
+									style="font-size:40px"
+									aria-hidden="true"
+									class="v-icon notranslate mdi mdi-facebook theme--light white--text"
+								></i>
+								</network>
+								<network network="twitter">
+								<i
+									style="font-size:40px"
+									aria-hidden="true"
+									class="v-icon notranslate mdi mdi-twitter theme--light white--text"
+								></i>
+								</network>
+								<network network="whatsapp">
+								<i
+									style="font-size:40px"
+									aria-hidden="true"
+									class="v-icon notranslate mdi mdi-whatsapp theme--light white--text"
+								></i>
+								</network>
+								<network network="telegram">
+								<i
+									style="font-size:40px"
+									aria-hidden="true"
+									class="v-icon notranslate mdi mdi-telegram theme--light white--text"
+								></i>
+								</network>
+								<network network="skype">
+								<i
+									style="font-size:40px"
+									aria-hidden="true"
+									class="v-icon notranslate mdi mdi-skype theme--light white--text"
+								></i>
+								</network>
+							</div>
+							</socialSharing>
+						</v-col>
+						<v-col cols="3">
+							<v-icon
+							@click="copyToClipBoard()"
+							size="30"
+							style="margin-left: 3px;"
+							>mdi-content-copy</v-icon>
+						</v-col>
+						</v-row>
+					</v-col>
+					</v-row>
+				</v-container>
+				</div>
+			</v-sheet>
+			</v-bottom-sheet>
+			<v-snackbar style="margin-top: 60px !important" v-model="snackbar" :timeout="timeout" top color="#fff">
+			<span style="color:#000;">{{ responsemessage }}</span>
+			<v-btn color="primary" text icon @click="snackbar = false">
+				<v-icon style="margin-left: 100% !important;color:#000!important" class="mr-4" color="white">mdi-close-circle-outline</v-icon>
 			</v-btn>
-		  </div>
-	  </template>
-  <span class="d-block px-3 v-btn mr-4">
-    <v-bottom-sheet v-model="recaptchaDialogVisible">
-      <v-sheet height="100%">
-        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
-          <v-row class="pa-0" align="center">
-			  <v-col cols="2">
-				  <v-btn
-					dark
-					icon
-					tile
-					style="border-right: 0px solid #717171"
-					light
-					@click="recaptchaDialogVisible = false;"
-				>
-					<v-icon>mdi-close</v-icon>
-				</v-btn>
-			  </v-col>
-				<v-col cols="8" class="deep-orange--text text-center">
-					SHARE (+1 POIN)
-				</v-col>
-		  </v-row>
-        </v-toolbar>
+			</v-snackbar>
 
-        <div class="mx-2">
-          <div class="py-10" v-if="recaptcha">
-			<client-only>
-				<recaptcha
-				:key="recaptchaKey"
-				class="mx-5 my-5"
-				@error="onError()"
-				@success="onShareSuccess()"
-				@expired="onExpired()"
-				/>
-			</client-only>
-          </div>
-
-          <v-container v-if="sheet">
-            <v-row>
-              <v-col v-if="sharingImage" cols="8">
-                <strong v-if="tipe == 'Sing'" class="subtitle-1">Dukung video saya di '{{tipe}}' klik disini untuk vote</strong>
-				<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
-                <br />
-                <strong class="caption grey--text">{{ sharingTime }}</strong>
-              </v-col>
-              <v-col v-else cols="8">
-				<strong class="subtitle-1">{{ sharingTitle }}</strong>
-                <br />
-                <strong class="caption grey--text">{{ domainTitle }}</strong>
-              </v-col>
-              <v-col v-if="sharingImage" cols="4">
-                <img width="100%" :src="sharingImage" alt />
-              </v-col>
-              <v-col v-else cols="4">
-                <img width="100%" src="/img/pw-icon.png" alt />
-              </v-col>
-              <v-col cols="12">
-                <v-row align="center" no-gutters>
-                  <v-col cols="9">
-                    <socialSharing
-                      :url="sharingUrl"
-                      :title="sharingTitle"
-                      :description="sharingDescription"
-                      :twitter-user="twitterEnv"
-                      inline-template
-                    >
-                      <div>
-                        <network network="facebook">
-                          <i
-                            style="font-size:40px"
-                            aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-facebook theme--light white--text"
-                          ></i>
-                        </network>
-                        <network network="twitter">
-                          <i
-                            style="font-size:40px"
-                            aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-twitter theme--light white--text"
-                          ></i>
-                        </network>
-                        <network network="whatsapp">
-                          <i
-                            style="font-size:40px"
-                            aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-whatsapp theme--light white--text"
-                          ></i>
-                        </network>
-                        <network network="telegram">
-                          <i
-                            style="font-size:40px"
-                            aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-telegram theme--light white--text"
-                          ></i>
-                        </network>
-                        <network network="skype">
-                          <i
-                            style="font-size:40px"
-                            aria-hidden="true"
-                            class="v-icon notranslate mdi mdi-skype theme--light white--text"
-                          ></i>
-                        </network>
-                      </div>
-                    </socialSharing>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-icon
-                      @click="copyToClipBoard()"
-                      size="30"
-                      style="margin-left: 3px;"
-                    >mdi-content-copy</v-icon>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
-    <v-snackbar style="margin-top: 60px !important" v-model="snackbar" :timeout="timeout" top color="#fff">
-      <span style="color:#000;">{{ responsemessage }}</span>
-      <v-btn color="primary" text icon @click="snackbar = false">
-        <v-icon style="margin-left: 100% !important;color:#000!important" class="mr-4" color="white">mdi-close-circle-outline</v-icon>
-      </v-btn>
-    </v-snackbar>
-
-    <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
-  </span>
+			<SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
+		</span>
   </div>
 </template>
 
