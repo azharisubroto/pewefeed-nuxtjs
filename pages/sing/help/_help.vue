@@ -29,30 +29,6 @@
 				<SingPrizes/>
 			</template>
 		</div>
-		<br>
-		<br>
-		<br>
-		<!-- BOTTOM NAVIGATION -->
-		<v-bottom-navigation
-			fixed
-			dark
-			grow
-			color="white"
-			background-color="#2C2C2D"
-			v-model="singtab"
-			height="80"
-			class="pwmenubottom"
-		>
-			<v-btn @click="maintab = 0">
-				<span>Join</span>
-				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<v-btn @click="maintab = 1">
-				<span>Prizes</span>
-				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<ShareButton2/>
-		</v-bottom-navigation>
 	</section>
 </template>
 

@@ -19,7 +19,7 @@
 			</div>
 
 			<div>
-				<v-btn v-if="what_type" color="deep-orange" block small>Lihat Detail</v-btn>
+				<v-btn v-if="what_type" color="deep-orange" block small>Cek Detail</v-btn>
 				<v-btn v-else color="deep-orange" block small>Vote</v-btn>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 			<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing pt-1">
 				<div class="d-inline-block">
 					<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
-					({{item.ranking ? item.ranking : 'n/a'}})
+					({{item.ranking ? item.ranking : '0'}})
 				</div>
 				<div class="d-inline-block ml-3">
 					<v-img src="/img/icons/thumb.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>

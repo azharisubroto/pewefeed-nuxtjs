@@ -10,7 +10,7 @@
 				</v-container>
 
 				<v-container>
-					<v-card color="#404040" class="px-4 py-3 my-3">
+					<v-card color="#404040" class="px-4 py-4 my-3">
 						<a target="blank" download :href="download">
 							<div class="d-flex align-center justify-space-between">
 								<div>
@@ -24,7 +24,8 @@
 							</div>
 						</a>
 					</v-card>
-					<v-card color="#404040" class="px-4 py-3 my-3">
+					<v-card color="#404040" class="px-4 py-4 my-3">
+						<a :href="lirikdownload" target="_BLANK">
 						<div class="d-flex align-center justify-space-between">
 							<div>
 								<strong class="text-16">
@@ -35,6 +36,7 @@
 								<v-icon size="30">mdi-chevron-right</v-icon>
 							</div>
 						</div>
+						</a>
 					</v-card>
 
 					<section class="helpexpandable">
@@ -54,31 +56,6 @@
 				<SingPrizes/>
 			</template>
 		</div>
-
-		<br>
-		<br>
-		<br>
-		<!-- BOTTOM NAVIGATION -->
-		<v-bottom-navigation
-		fixed
-		dark
-		grow
-		color="white"
-		background-color="#2C2C2D"
-		v-model="singtab"
-		height="80"
-		class="pwmenubottom"
-		>
-			<v-btn @click="maintab = 0">
-				<span>Contestant</span>
-				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<v-btn @click="maintab = 1">
-				<span>Prizes</span>
-				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<ShareButton2/>
-		</v-bottom-navigation>
 
 		<v-overlay
           :opacity="1"
@@ -118,7 +95,8 @@ export default {
 			download: null,
 			videoName: null,
 			lirik: null,
-			downloadOverlay: false
+			downloadOverlay: false,
+			lirikdownload: null,
 		}
 	},
 	methods: {
@@ -126,6 +104,7 @@ export default {
 			try {
 				const res = await SingService.getPromoted()
 				const data = await res.data.data
+				this.lirikdownload = res.data.dlLyrics
 				console.log(JSON.parse(JSON.stringify(data)));
 				this.lirik = data.lirik
 				this.download = data.download_video

@@ -15,12 +15,7 @@
 					</v-toolbar-title>
 				</v-col>
 				<v-col cols="3" class="pb-2 text-right">
-					<div @click="sortopen = true" class="mr-4 d-inline-block">
-						<v-img src="/img/icons/filter.svg" width="20"></v-img>
-					</div>
-					<div @click="opensearch = true" class="d-inline-block">
-						<v-img src="/img/icons/search.svg" width="20"></v-img>
-					</div>
+					 <v-img src="/img/peweicon.svg" width="20" class="d-inline-block"></v-img>
 				</v-col>
 			</v-row>
 		</v-app-bar>
@@ -75,6 +70,23 @@
 			</v-row>
 		</v-container>
 
+		<v-container v-else class="hero" style="padding-bottom: 40px;">
+			<v-row class="text-14 mt-4" style="color:#000">
+				<v-col cols="5">
+					<div @click="opensearch = true">
+						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
+						Cari Peserta
+					</div>
+				</v-col>
+				<v-col cols="6">
+					<div @click="sortopen = true">
+						<v-img src="/img/icons/sorter.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
+						Urutkan Peserta
+					</div>
+				</v-col>
+			</v-row>
+		</v-container>
+
 		<v-container class="d-none">
 			<v-row align="center">
 				<v-col cols="5">
@@ -96,7 +108,7 @@
 		<!-- SORTER -->
 		<v-bottom-sheet v-model="sortopen">
 			<v-sheet height="100%" class="antiloncat">
-				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #404040">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -111,7 +123,7 @@
 
 					<!-- Title -->
 					<v-toolbar-items class="ml-3">
-						<v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">Urutkan</v-btn>
+						<v-btn dark text class="white--text pl-0 text-uppercase" style="margin-left:-10px;">Urutkan</v-btn>
 					</v-toolbar-items>
 					<div class="flex-grow-1"></div>
 				</v-toolbar>
@@ -119,18 +131,15 @@
 				<div class="mx-0 text-left px-4 pt-4">
 					<template v-for="(item, i) in sorter">
 						<v-btn
-						small
 						:key="'devmid-'+i"
-						@click="sortItem(item.slug, 1)"
-						class="mr-2 mb-2 filterbtn"
-						color="#404040"
+						@click="sortItem(item.slug, 1);setSorter(i)"
 						depressed
+						outlined
+						class="mr-2 mb-2 filterbtn"
+						:color="i == sorterMode ? 'deep-orange' : '#f5f5f5'"
 						style="text-transform: normal!important">{{item.title}}</v-btn>
 					</template>
-					<br>
-					<br>
-					<br>
-					<br>
+					<br><br><br><br><br><br><br><br>
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
@@ -138,7 +147,7 @@
 		<!-- ==== SEARCH BAR === -->
 		<v-bottom-sheet v-model="opensearch">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="0" style="border-top: 2px solid #fff">
+				<v-toolbar :elevation="0" style="border-top: 2px solid #404040">
 				<!-- Arrow -->
 				<v-btn
 					dark
@@ -152,15 +161,14 @@
 				</v-btn>
 
 				<!-- Title -->
-				<div class="flex-grow-1"></div>
-				<v-toolbar-items>
-					<v-btn dark text class="deep-orange--text pl-0" style="margin-left:-15px">Search</v-btn>
+				<v-toolbar-items class="ml-3">
+					<v-btn dark text class="white--text pl-0" style="margin-left:-15px">Cari</v-btn>
 				</v-toolbar-items>
 				<div class="flex-grow-1"></div>
 				</v-toolbar>
 				<div class="devider-small" style="border-color:rgba(255,255,255,.1)"></div>
 
-				<div class="px-5 py-10">
+				<div class="px-5 pb-10 pt-6">
 				<v-text-field
 					flat
 					filled
@@ -168,7 +176,6 @@
 					solo
 					hide-details
 					outlined
-					prepend-inner-icon="mdi-magnify"
 					background-color="transparent"
 					v-model="searchModel"
 					@keyup.enter="search(searchModel, 1)"
@@ -177,9 +184,12 @@
 					class="antipenyok"
 				></v-text-field>
 				<div class="text-right">
-					<v-btn @click="search(searchModel)" color="deep-orange" class="mt-3">Cari</v-btn>
-					<v-btn color="deep-orange" class="mt-3" @click="searchModel=''">Reset</v-btn>
+					<v-btn depressed @click="search(searchModel)" color="deep-orange" class="mt-3">Cari</v-btn>
+					<v-btn depressed color="deep-orange" class="mt-3" @click="searchModel=''">Reset</v-btn>
 				</div>
+				<br>
+				<br>
+				<br>
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
@@ -350,6 +360,7 @@ export default {
 					slug: 'star',
 				},
 			],
+			sorterMode: 0,
 			uploaded: false,
 			loginModalVisible: false,
       		notVipDialogVisible: false,
@@ -377,6 +388,9 @@ export default {
 		},
 	},
 	methods: {
+		setSorter(i) {
+			localStorage.setItem('sing_sorter', JSON.stringify(i));
+		},
 		myDialogClose() {
 			this.dialog = false;
 			this.loginModalVisible = false;
@@ -440,6 +454,10 @@ export default {
 		}
 	},
 	mounted() {
+		if( localStorage.getItem('sing_sorter') ) {
+			this.sorterMode = JSON.parse(localStorage.getItem('sing_sorter'))
+		}
+
 		this.$bus.$on('datapunyaku', (data) => {
 			this.punyaaku.push(data);
 		});

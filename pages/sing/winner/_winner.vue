@@ -18,7 +18,11 @@
 					<template v-for="(item, i) in winners">
 						<v-card @click="$router.push('/sing/winner/detail/'+item.id)" :key="'videoasdas-'+i" color="#404040" class="px-4 pt-4 pb-2 mb-4">
 							<div class="mb-3">
-								<img src="/img/icons/toa-white.svg" style="vertical-align:middle" width="20" class="mr-2" alt=""> <strong>Stage: {{item.stage}}</strong>
+								<img v-if="item.stage == 'Final'" src="/img/icons/stage-2.svg" style="vertical-align:middle" width="20" class="mr-2 makewhite" alt="">
+								<img v-if="item.stage == 'Semi Final'" src="/img/icons/stage-1.svg" style="vertical-align:middle" width="20" class="mr-2 makewhite" alt="">
+								<img v-if="item.stage == 'Audition'" src="/img/icons/stage-0.svg" style="vertical-align:middle" width="20" class="mr-2 makewhite" alt="">
+
+								<strong>Stage: {{item.stage}}</strong>
 							</div>
 
 							<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9"></v-img>
@@ -51,31 +55,6 @@
 				</template>
 			</v-container>
 		</client-only>
-
-		<br>
-		<br>
-		<br>
-		<br>
-		<v-bottom-navigation
-			fixed
-			dark
-			grow
-			color="white"
-			background-color="#2C2C2D"
-			v-model="singtab"
-			height="80"
-			class="pwmenubottom"
-		>
-			<v-btn @click="$router.push('/sing/?tab=0'); ">
-				<span>Join</span>
-				<img src="/img/icons/icon-join-orange.png" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<v-btn @click="$router.push('/sing/?tab=1'); ">
-				<span>Prizes</span>
-				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
-			</v-btn>
-			<ShareButton2 tipe="Sing"/>
-		</v-bottom-navigation>
 	</section>
 </template>
 
@@ -154,14 +133,17 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.sing-herowinners {
 		background: #C6C6C6;
-		padding-bottom: 120px;
+		padding-bottom: 110px;
 	}
 	.singmetaicons {
 		.v-image {
 			vertical-align: middle;
 		}
+	}
+	.makewhite {
+		filter: grayscale(1) invert(1) brightness(2)
 	}
 </style>

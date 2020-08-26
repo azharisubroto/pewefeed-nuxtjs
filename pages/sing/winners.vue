@@ -9,43 +9,47 @@
 		<v-container style="margin-top: -180px;">
 			<h4 class="mb-4 text-18" style="color: #000">Juara Pilihan Juri</h4>
 			<template v-for="(item, i) in prizeswithpemenang">
-				<v-card color="#404040" class="px-4 pt-4" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
-					<img src="/img/trophy.svg" alt="" width="16">	<strong>Juara {{i+1}}</strong>
+				<v-card color="#404040" class="" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
+					<div class="px-4 pt-4">
+						<img src="/img/trophy.svg" alt="" width="16">	<strong>Juara {{i+1}}</strong>
+					</div>
 
 					<div class="devider-small mt-3"></div>
 
-					<v-row>
-						<v-col cols="4" class="px-0 pb-0">
-							<img v-if="item.prize.redeem.image" :src="item.prize.redeem.image" alt="">
-						</v-col>
-						<v-col cols="8" class="pb-0">
-							<div class="d-flex align-center pt-3 mb-4">
-								<div class="mr-2">
-									<v-avatar size="30">
-										<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
-									</v-avatar>
-								</div>
-								<div>
+					<div class="px-4">
+						<v-row>
+							<v-col cols="4" class="px-0 pb-0">
+								<img v-if="item.prize.redeem.image" :src="item.prize.redeem.image" alt="">
+							</v-col>
+							<v-col cols="8" class="pb-0">
+								<div class="d-flex align-center pt-3 mb-4">
+									<div class="mr-2">
+										<v-avatar size="30">
+											<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'"></v-img>
+										</v-avatar>
+									</div>
 									<div>
-										{{item.customer.name ? item.customer.name : 'No Data'}}
+										<div>
+											{{item.customer.name ? item.customer.name : 'No Data'}}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="d-flex mt-3 align-center">
-								<div class="mr-3 text-center">
-									<v-img src="/img/icons/gift.svg" max-width="30"></v-img>
-								</div>
-								<div>
+								<div class="d-flex mt-3 align-center">
+									<div class="mr-3 text-center">
+										<v-img src="/img/icons/gift.svg" max-width="30"></v-img>
+									</div>
 									<div>
-										{{item.prize.redeem.title}}
+										<div>
+											{{item.prize.redeem.title}}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="mt-3">
-								<v-btn small depressed color="deep-orange" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">Video</v-btn>
-							</div>
-						</v-col>
-					</v-row>
+								<div class="mt-3">
+									<v-btn small depressed color="deep-orange" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">Video</v-btn>
+								</div>
+							</v-col>
+						</v-row>
+					</div>
 				</v-card>
 			</template>
 

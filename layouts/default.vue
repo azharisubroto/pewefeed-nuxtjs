@@ -1095,7 +1095,7 @@ ol.flickity-page-dots {
 	background-color: #2C2C2D!important;
 	.v-toolbar {
 		background-color: #2C2C2D!important;
-		border-bottom: 3px solid #000;
+		border-bottom: 3px solid #404040;
 		box-shadow: none!important;
 	}
 }
