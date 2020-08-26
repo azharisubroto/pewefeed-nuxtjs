@@ -1,15 +1,15 @@
 <template>
 	<section class="sing">
-		<div v-if="content != null" >
+		<div v-if="content != null && !loading" >
 
 			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
 
 			<template v-if="maintab == 0">
-				<v-container>
+				<v-container class="mb-2">
 					<Video/>
 				</v-container>
 
-				<v-container>
+				<v-container class="pt-0">
 					<v-card color="#404040">
 						<div class="py-5 px-3 text-center">
 							<v-row>
@@ -43,18 +43,20 @@
 										Prizes
 									</div>
 								</v-col>
-								<v-col @click="$router.push('/sing/help/')" cols="4">
-									<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
-									<div class="mt-2 text-12">
-										Share
-									</div>
+								<v-col cols="4">
+									<ShareButton2 independent>
+										<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
+										<div class="mt-2 text-12">
+											Prizes
+										</div>
+									</ShareButton2>
 								</v-col>
 							</v-row>
 						</div>
 					</v-card>
 
 					<template v-for="(item, i) in singcontent">
-						<v-card :key="'persmenu-'+i" color="#404040" :disabled="!item.isactive" class="px-4 py-4 my-3" :to="item.to">
+						<v-card :key="'persmenu-'+i" color="#404040" :disabled="!item.isactive" class="px-4 py-4 my-3" :to="i<3 ? item.to : '/sing/winners/'">
 							<div class="d-flex align-center justify-space-between">
 								<div>
 									<div class="d-flex align-center">
@@ -128,6 +130,17 @@
 				<SingPrizes/>
 			</template>
 		</div>
+
+		<div v-else-if="content == null && loading" class="text-center pa-10">
+			<v-progress-circular color="#000" indeterminate size="64"></v-progress-circular>
+			<div class="mt-4 black--text" style="color:#000">
+				Loading...
+			</div>
+		</div>
+
+		<div v-else class="pa-10 text-center">
+			Tidak Ada Data
+		</div>
 		<!-- <br>
 		<br>
 		<v-bottom-navigation
@@ -175,7 +188,8 @@ export default {
 			content: null,
 			singcontent: [],
 			help: [],
-			prizes: null
+			prizes: null,
+			loading: true,
 		}
 	},
 	methods: {
@@ -207,15 +221,10 @@ export default {
 						end_date: el.end_date,
 					})
 				});
-				this.singcontent.push({
-					title: 'Winners',
-					to: '/sing/winners/',
-					isactive: 0,
-					start_date: 'unknown',
-					end_date: 'unknown',
-				})
+				this.loading = false
 			} catch (error) {
 				console.log(error);
+				this.loading = false
 			}
 		},
 		async getHelp() {
@@ -265,7 +274,7 @@ export default {
 <style lang="scss">
 	.sing {
 		position:relative;
-		z-index: 90;
+		z-index: 1;
 		&:before{
 			content:"";
 			width: 100%;
@@ -285,6 +294,11 @@ export default {
 	.inactive {
 		.v-icon {
 			opacity: .5;
+		}
+	}
+	.v-card {
+		&.v-card--disabled .v-image {
+			filter: grayscale(1) invert(1) brightness(1.5)
 		}
 	}
 </style>

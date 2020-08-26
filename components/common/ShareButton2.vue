@@ -1,18 +1,26 @@
 <template>
+  <div>
+	  <template v-if="isFlexible">
+		  <div @click="recaptchaDialogVisible = true"><slot></slot></div>
+	  </template>
+	  <template v-else>
+		  <div class="d-block px-0 v-btn pt-4">
+			<v-btn @click="recaptchaDialogVisible = true">
+				<span style="font-size:10px!important;">
+					Share
+					<br />
+					<span>(+1 Poin)</span>
+				</span>
+				<img
+					src="/img/icons/share-icon.svg"
+					class="mb-1 d-block"
+					width="20"
+					height="20"
+				/>
+			</v-btn>
+		  </div>
+	  </template>
   <span class="d-block px-3 v-btn mr-4">
-    <v-btn @click="recaptchaDialogVisible = true">
-      <span style="font-size:10px!important;">
-        Share
-        <br />
-        <span>(+1 Poin)</span>
-      </span>
-      <img
-        src="/img/icons/share-icon.svg"
-        class="mb-1 d-block"
-        width="20"
-        height="20"
-      />
-    </v-btn>
     <v-bottom-sheet v-model="recaptchaDialogVisible">
       <v-sheet height="100%">
         <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
@@ -139,6 +147,7 @@
 
     <SharePoin :dialogVisible="SharePoinVisible" @close="myDialogClose" />
   </span>
+  </div>
 </template>
 
 <script>
@@ -148,33 +157,40 @@ import SharePoin from "@/components/modal/SharePoin";
 
 export default {
   name: "ShareButton2",
-  props: ["share", "tipe", "customimage"],
+  props: {
+		item: String,
+		customimage: String,
+		independent: Boolean
+	},
   //props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
   components: {
     socialSharing,
     SharePoin
   },
-  data: () => ({
-    recaptchaDialogVisible: false,
-    recaptchaToken: null,
-    recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
-    recaptcha: true,
-    domainTitle: process.env.domainTitle,
-    twitterEnv: process.env.twitter,
-    sheet: false,
-    timeout: 5000,
-    snackbar: false,
-    responsemessage: "Copied to clipboard",
-    sharingUrl: "",
-    sharingTitle: "",
-    sharingDescription: "",
-    sharingImage: "",
-    sharingTime: "",
-    SharePoinVisible: false,
-	isSaved: false,
-	recaptchatrigger: 0,
-	sharecount: 0,
-  }),
+  data() {
+	  return {
+		isFlexible: this.independent,
+		recaptchaDialogVisible: false,
+		recaptchaToken: null,
+		recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
+		recaptcha: true,
+		domainTitle: process.env.domainTitle,
+		twitterEnv: process.env.twitter,
+		sheet: false,
+		timeout: 5000,
+		snackbar: false,
+		responsemessage: "Copied to clipboard",
+		sharingUrl: "",
+		sharingTitle: "",
+		sharingDescription: "",
+		sharingImage: "",
+		sharingTime: "",
+		SharePoinVisible: false,
+		isSaved: false,
+		recaptchatrigger: 0,
+		sharecount: 0,
+	}
+  },
   methods: {
     /* Recaptcha */
     onError(error) {

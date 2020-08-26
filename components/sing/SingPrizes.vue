@@ -4,7 +4,7 @@
 			<div class="text-18" style="color: #000"><strong>Pemenang Pilihan Juri</strong></div>
 		</v-container>
 		<template v-for="(item, i) in prizes">
-			<v-card color="#404040" class="px-2 my-4 mx-4" v-if="i<3"  :key="'prize-'+i">
+			<v-card color="#404040" class="px-2 my-4 mx-3" v-if="i<3"  :key="'prize-'+i">
 				<v-row>
 					<v-col cols="3">
 						<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>

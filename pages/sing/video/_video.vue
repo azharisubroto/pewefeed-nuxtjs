@@ -18,25 +18,31 @@
 				</v-avatar>
 				<div class="d-inline-block ml-2 text-14">
 					{{content2.customer.name}}
+
+					<v-btn text color="#000">
+						<v-icon class="mr-2">mdi-instagram</v-icon>
+					</v-btn>
 				</div>
 			</div>
 
 			<div class="text-14 d-flex align-center justify-content-end metasing">
 				<v-btn
 				v-if="maintab == 0"
-				class="mt-4"
 				block
 				color="deep-orange"
 				@click="sendVote(content2.id);"
-				>Beri Vote</v-btn>
+				>Vote</v-btn>
 			</div>
 		</div>
 
 		<div v-if="content2!= null" class="mt-4">
-			<video v-if="videoutama!=null && playnow!==false" width="400" controls autoPlay>
+			<div v-if="videoutama!=null && playnow!==false" >
+			<video width="400" controls autoPlay style="margin-bottom: -8px">
 				<source :src="videoutama" type="video/mp4">
 			</video>
-			<v-img v-else
+			</div>
+			<div v-else>
+			<v-img
 				:src="content2.video.thumbnail_url"
 				position="center"
 				:aspect-ratio="16/9"
@@ -59,6 +65,7 @@
 					</v-row>
 				</template>
 			</v-img>
+			</div>
 
 			<div class="d-flex justify-space-between">
 				<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
@@ -66,7 +73,7 @@
 					Star
 				</div>
 
-				<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing pt-1">
+				<div class="singmetaicons text-14 d-flex align-center justify-content-end metasing">
 					<div class="d-inline-block">
 						<v-img src="/img/icons/rank.svg" width="14" max-width="14" class="mr-1 d-inline-block"></v-img>
 						({{content2.ranking}})
@@ -119,7 +126,7 @@
       <v-container>
 		  <template v-if="votetab == 0">
 
-			<v-alert class="mt-0 text-12" color="#0057FF" prominent>
+			<v-alert class="mt-0 text-14" color="#0057FF" prominent>
 				<template v-slot:prepend>
 					<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 				</template>
