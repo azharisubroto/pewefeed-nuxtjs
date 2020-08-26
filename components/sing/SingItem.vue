@@ -2,7 +2,6 @@
 	<v-card
 	:elevation="0"
 	:color="what_type ? '#fff' : '#404040'"
-	@click="$router.push('/sing/video/'+item.id)"
 	:class="what_type ? 'cardtype' : 'dark py-5 px-4'">
 		<div class="d-flex justify-space-between align-center mb-3">
 			<div>
@@ -12,21 +11,23 @@
 				<div class="d-inline-block ml-2 text-14">
 					{{item.customer.name ? item.customer.name : 'n/a'}}
 
-					<v-btn text :color="what_type ? '#000' : '#fff'">
+					<v-btn v-if="item.customer.instagram!=null" :href="'https://instagram.com/'+item.customer.instagram" target="_BLANK" icon class="ml-2" :color="what_type ? '#000' : '#fff'">
 						<v-icon class="mr-2">mdi-instagram</v-icon>
 					</v-btn>
 				</div>
 			</div>
 
 			<div>
-				<v-btn v-if="what_type" color="deep-orange" block small>Cek Detail</v-btn>
-				<v-btn v-else color="deep-orange" block small>Vote</v-btn>
+				<v-btn v-if="what_type" color="deep-orange" block small @click="$router.push('/sing/video/'+item.id)">Lihat</v-btn>
+				<v-btn v-else color="deep-orange" block small @click="$router.push('/sing/video/'+item.id)">
+					{{ stillrunning ? 'Vote' : 'Lihat' }}
+				</v-btn>
 			</div>
 		</div>
 
-		<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9"></v-img>
+		<v-img :src="item.video.thumbnail_url" :aspect-ratio="16/9" @click="$router.push('/sing/video/'+item.id)"></v-img>
 
-		<div class="d-flex justify-space-between">
+		<div class="d-flex justify-space-between" @click="$router.push('/sing/video/'+item.id)">
 			<div>
 				<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
 					<v-icon :color="item.is_star ? '#FFC107': '#f6f6f6'">mdi-star</v-icon>
@@ -90,11 +91,13 @@ export default {
 	name:"SingItem",
 	props: {
 		item: Object,
-		cardtype: String
+		cardtype: String,
+		isrunning: Boolean
 	},
 	data() {
 		return {
-			what_type: this.cardtype
+			what_type: this.cardtype,
+			stillrunning: this.isrunning
 		}
 	}
 }

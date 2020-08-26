@@ -19,7 +19,7 @@
 				<div class="d-inline-block ml-2 text-14">
 					{{content2.customer.name}}
 
-					<v-btn text color="#000">
+					<v-btn :href="'https://instagram.com/'+content2.customer.instagram" target="_BLANK" text color="#000">
 						<v-icon class="mr-2">mdi-instagram</v-icon>
 					</v-btn>
 				</div>
@@ -29,7 +29,9 @@
 				<v-btn
 				v-if="maintab == 0"
 				block
+				light
 				color="deep-orange"
+				:disabled="!isrunning"
 				@click="sendVote(content2.id);"
 				>Vote</v-btn>
 			</div>
@@ -482,6 +484,7 @@ export default {
 	  type: null,
 	  voterspaging: 1,
 	  votersismore: false,
+	  isrunning: true,
     };
   },
   watch: {
@@ -609,6 +612,7 @@ export default {
 		if( ig_video ) {
 			this.fetchIGVIDEO(ig_video);
 		}
+		this.isrunning = res.data.full_stage.isRunning
       } catch (error) {
         console.log(error);
       }

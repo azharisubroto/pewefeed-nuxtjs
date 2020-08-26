@@ -15,13 +15,13 @@
 					</v-toolbar-title>
 				</v-col>
 				<v-col cols="3" class="pb-2 text-right">
-					 <v-img src="/img/peweicon.svg" width="20" class="d-inline-block"></v-img>
+					 <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20" class="d-inline-block"></v-img>
 				</v-col>
 			</v-row>
 		</v-app-bar>
 
 		<v-container v-if="userid != null" class="hero pb-10">
-			<v-row align-center v-if="pesertaloop == null">
+			<v-row v-if="pesertaloop == null" align-center>
 				<v-col cols="8">
 					<v-avatar size="30">
 						<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
@@ -38,20 +38,12 @@
 
 			<div v-if="pesertaloop != null && userid != null">
 				<template v-for="(item, i) in pesertaloop">
-					<v-container v-if="item.customer.id == userid && i == 0 && !uploaded" :key="i+'-abcd'" class="text-center py-0">
-						<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-					</v-container>
 					<div v-if="item.customer.id == userid" class="pesertalist mx-0 px-0" :key="'peserta-'+i">
-						<SingItem cardtype="light" :item="item" />
+						<SingItem :isrunning="content.stage.isRunning" cardtype="light" :item="item" />
 					</div>
 				</template>
 			</div>
-			<div v-if="userid != null && uploadallowed">
-				<v-btn block :disabled="!uploadallowed" color="deep-orange" class="px-5" dark @click="uploadVisible=!uploadVisible">Upload Video Kamu</v-btn>
-			</div>
-			<div v-else-if="userid == null">
-				<v-btn block color="deep-orange" class="px-5" dark @click="loginModalVisible = true">Upload Video Kamu</v-btn>
-			</div>
+
 			<div class="devider-small" style="background-color: #000"></div>
 
 			<v-row class="text-14 mt-4" style="color:#000">
@@ -194,14 +186,14 @@
 			</v-sheet>
 		</v-bottom-sheet>
 
-		<div v-if="pesertaloop !=null && pesertaloop.length > 0" style="margin-top:-30px">
-			<div class="pesertalist mx-4" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
-				<SingItem :item="item"/>
+		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0" style="margin-top:-30px">
+			<div class="pesertalist" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
+				<SingItem :isrunning="content.stage.isRunning" :item="item"/>
 			</div>
-		</div>
-		<div v-else class="text-center pa-10">
+		</v-container>
+		<v-container v-else class="text-center pa-10">
 			Tidak Ada Data
-		</div>
+		</v-container>
 
 		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<v-pagination

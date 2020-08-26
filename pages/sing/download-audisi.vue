@@ -11,7 +11,7 @@
 
 				<v-container>
 					<v-card color="#404040" class="px-4 py-4 my-3">
-						<a target="blank" download :href="download">
+						<a @click="downloadVideo(download)">
 							<div class="d-flex align-center justify-space-between">
 								<div>
 									<strong class="text-16">
@@ -25,17 +25,17 @@
 						</a>
 					</v-card>
 					<v-card color="#404040" class="px-4 py-4 my-3">
-						<a :href="lirikdownload" target="_BLANK">
-						<div class="d-flex align-center justify-space-between">
-							<div>
-								<strong class="text-16">
-									Download Lirik
-								</strong>
+						<a :href="lirikdownload">
+							<div class="d-flex align-center justify-space-between">
+								<div>
+									<strong class="text-16">
+										Download Lirik
+									</strong>
+								</div>
+								<div style="width:20px">
+									<v-icon size="30">mdi-chevron-right</v-icon>
+								</div>
 							</div>
-							<div style="width:20px">
-								<v-icon size="30">mdi-chevron-right</v-icon>
-							</div>
-						</div>
 						</a>
 					</v-card>
 

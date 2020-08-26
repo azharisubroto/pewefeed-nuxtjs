@@ -29,7 +29,8 @@ export default {
 			content: null,
 			peserta: null,
 			isloading: true,
-			type: 'default'
+			type: 'default',
+			isrunning: null,
 		}
 	},
 	methods: {
