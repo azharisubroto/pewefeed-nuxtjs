@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<SingAppBar :title="$store.state.judge_num + ' Judges Winner'" :back="true"/>
+		<SingAppBar :title="'Juara '+$store.state.judge_num " :back="true"/>
 		<v-container class="sing-herowinners pt-5" style="color: #000" v-if="winners != null && winners.length > 0">
 			<v-avatar class="mr-3">
 				<v-img :src="winners[0].customer.avatar ? winners[0].customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>

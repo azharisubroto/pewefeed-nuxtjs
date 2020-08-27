@@ -44,10 +44,10 @@
 									</div>
 								</v-col>
 								<v-col cols="4">
-									<ShareButton2 independent>
+									<ShareButton2 tipe="Sing" independent>
 										<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 										<div class="mt-2 text-12">
-											Share
+											Prizes
 										</div>
 									</ShareButton2>
 								</v-col>

@@ -57,7 +57,9 @@
 				<v-container v-if="sheet">
 					<v-row>
 					<v-col v-if="sharingImage" cols="8">
-						<strong v-if="tipe == 'Sing'" class="subtitle-1">Dukung video saya di '{{tipe}}' klik disini untuk vote</strong>
+						<strong v-if="tipe == 'Sing'" class="subtitle-1">
+							Hey kamu! Yuk ikutan Duet bareng '{{tipe}}' dan raih hadiah puluhan juta rupiah.
+						</strong>
 						<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
 						<br />
 						<strong class="caption grey--text">{{ sharingTime }}</strong>

@@ -9,11 +9,11 @@
 					<v-col cols="3">
 						<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
 					</v-col>
-					<v-col cols="9" class="pt-3">
-						<div class="text-16">
-							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;" class="mr-1"/> <strong>Juara {{i+1}}</strong>
+					<v-col cols="9" class="pt-3 ">
+						<div class="text-16" style="margin-top:4px">
+							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;margin-left:1px" class="mr-1"/> <strong>Juara {{i+1}}</strong>
 						</div>
-						<div class="text-14 mt-4" >
+						<div class="text-16 mt-4" >
 							{{item.redeem.title}}
 						</div>
 						<!-- <h3 class="text-18 mt-2" >
@@ -33,11 +33,11 @@
 					<v-col cols="3">
 						<v-img v-if="item.redeem" :src="item.redeem.image"></v-img>
 					</v-col>
-					<v-col cols="9" class="pt-3">
-						<div class="text-16">
-							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;" class="mr-1"/> <strong>Juara {{i+1}}</strong>
+					<v-col cols="9" class="pt-3 ">
+						<div class="text-16" style="margin-top:4px">
+							<img src="/img/trophy.svg" alt="" width="16" style="vertical-align:middle;margin-left:1px" class="mr-1"/> <strong>Juara {{i+1}}</strong>
 						</div>
-						<div class="text-14 mt-4" >
+						<div class="text-16 mt-4" >
 							{{item.redeem.title}}
 						</div>
 						<!-- <h3 class="text-18 mt-2" >
