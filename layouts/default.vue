@@ -612,13 +612,11 @@ export default {
         const res = await UserService.checkDailyPoint();
         const data = res.data.get_point;
         // console.log(JSON.parse(JSON.stringify(data)));
-        setTimeout(() => {
 			if (data) {
 			this.dailyPointModalVisible = true;
 			} else {
 			this.dailyPointModalVisible = false;
 			}
-		}, 5000);
         //this.loading = false
       } catch (error) {
         console.log(error);

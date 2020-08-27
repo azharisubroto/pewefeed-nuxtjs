@@ -29,7 +29,6 @@
 				<v-btn
 				v-if="maintab == 0"
 				block
-				light
 				color="deep-orange"
 				:disabled="!isrunning"
 				@click="sendVote(content2.id);"
@@ -395,7 +394,7 @@
           </v-toolbar>
 
           <div class="px-5 pt-1 text-center">
-            <div class="mt-3 mb-5 pb-10 text-14">
+            <div class="mt-3 pb-5 pb-10 text-14">
               <recaptcha
                 :key="recaptchaKey"
                 class="mx-5 my-5"

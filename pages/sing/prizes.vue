@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<SingAppBar :back="true" :title="'Sing with Latinka'"/>
+		<SingAppBar :back="true" title='Prizes'/>
 
 		<div class="hero-singprizes" style="padding-bottom: 100px">
 			<v-container>
@@ -17,12 +17,13 @@
 <script>
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
+
 export default {
 	name: "SingPrizesPage",
 	components: {
 		SingAppBar,
 		SingPrizes
-	}
+	},
 }
 </script>
 

@@ -9,7 +9,7 @@
 		<v-container style="margin-top: -180px;">
 			<h4 class="mb-4 text-18" style="color: #000">Juara Pilihan Juri</h4>
 			<template v-for="(item, i) in prizeswithpemenang">
-				<v-card color="#404040" class="" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', '#'+parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
+				<v-card color="#404040" class="" v-if="i<3" :key="'winner-'+i" @click="$store.commit('SET_JUDGE_NUMBER', parseFloat(i+1));$router.push('/sing/winner/'+item.winner_id)">
 					<div class="px-4 pt-4">
 						<img src="/img/trophy.svg" alt="" width="16">	<strong>Juara {{i+1}}</strong>
 					</div>
