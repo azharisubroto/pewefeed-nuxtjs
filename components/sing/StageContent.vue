@@ -32,7 +32,7 @@
 					</div>
 				</v-col>
 				<v-col cols="4">
-					<v-btn color="deep-orange" @click="decideAction();" block :disabled="!uploadallowed">Upload</v-btn>
+					<v-btn light color="deep-orange" @click="decideAction();" block :disabled="!uploadallowed">Upload</v-btn>
 				</v-col>
 			</v-row>
 
