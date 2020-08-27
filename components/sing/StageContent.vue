@@ -32,7 +32,7 @@
 					</div>
 				</v-col>
 				<v-col cols="4">
-					<v-btn color="deep-orange" @click="uploadVisible=!uploadVisible" block :disabled="!uploadallowed">Upload</v-btn>
+					<v-btn color="deep-orange" @click="decideAction();" block :disabled="!uploadallowed">Upload</v-btn>
 				</v-col>
 			</v-row>
 
@@ -46,7 +46,7 @@
 
 			<div class="devider-small" style="background-color: #000"></div>
 
-			<v-row v-if="pesertalist != null" class="text-14 mt-4" style="color:#000">
+			<v-row class="text-14 mt-4" style="color:#000">
 				<v-col cols="5">
 					<div @click="opensearch = true">
 						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
@@ -362,6 +362,13 @@ export default {
 		},
 	},
 	methods: {
+		decideAction() {
+			if( this.userdata.data.vip == true ) {
+				this.uploadVisible = true
+			} else {
+				this.notVipDialogVisible = true
+			}
+		},
 		setSorter(i) {
 			localStorage.setItem('sing_sorter', JSON.stringify(i));
 		},
