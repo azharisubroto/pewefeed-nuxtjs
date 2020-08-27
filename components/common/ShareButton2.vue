@@ -65,10 +65,15 @@
 						<strong class="caption grey--text">{{ sharingTime }}</strong>
 					</v-col>
 					<v-col v-else cols="8">
-						<strong class="subtitle-1">{{ sharingTitle }}</strong>
+						<strong v-if="tipe == 'Sing'" class="subtitle-1">
+							Hey kamu! Yuk ikutan Duet bareng '{{tipe}}' dan raih hadiah puluhan juta rupiah.
+						</strong>
+						<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
 						<br />
-						<strong class="caption grey--text">{{ domainTitle }}</strong>
+						<strong class="caption grey--text">{{ sharingTime }}</strong>
 					</v-col>
+
+
 					<v-col v-if="sharingImage" cols="4">
 						<img width="100%" :src="sharingImage" alt />
 					</v-col>
@@ -160,7 +165,8 @@ export default {
   props: {
 		item: String,
 		customimage: String,
-		independent: Boolean
+		independent: Boolean,
+		tipe: String
 	},
   //props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
   components: {

@@ -46,7 +46,7 @@
 
 			<div class="devider-small" style="background-color: #000"></div>
 
-			<v-row class="text-14 mt-4" style="color:#000">
+			<v-row v-if="pesertalist != null" class="text-14 mt-4" style="color:#000">
 				<v-col cols="5">
 					<div @click="opensearch = true">
 						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
@@ -75,24 +75,6 @@
 						<v-img src="/img/icons/sorter.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
 						Urutkan Peserta
 					</div>
-				</v-col>
-			</v-row>
-		</v-container>
-
-		<v-container class="d-none">
-			<v-row align="center">
-				<v-col cols="5">
-					<div class="text-uppercase text-15">seluruh peserta</div>
-				</v-col>
-				<v-col cols="7" class="text-right">
-					<v-btn small text @click="sortopen=true">
-						<v-icon>mdi-sort-ascending</v-icon>
-						<span class="text-10">Urutkan</span>
-					</v-btn>
-					<v-btn small text @click="opensearch = true">
-						<v-icon>mdi-magnify</v-icon>
-						<span class="text-10">Cari</span>
-					</v-btn>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -204,7 +186,7 @@
 			></v-pagination>
 		</v-container>
 
-		<UploadVideo :dialogVisible="uploadVisible" :stage="stage"/>
+		<UploadVideo :dialogVisible="uploadVisible" :stage="content.stage"/>
 
 		<!-- BOTTOM NAVIGATION -->
 		<!-- <br><br><br><br>
@@ -319,7 +301,7 @@ export default {
 					slug: 'azhari'
 				}
 			],
-			pagination: this.content.paginations.current_page,
+			pagination: this.content ? this.content.paginations.current_page : 1,
 			dialogVisible: false,
 			uploadVisible: false,
 			sorter: [

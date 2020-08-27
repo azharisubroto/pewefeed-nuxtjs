@@ -1,6 +1,6 @@
 <template>
 	<section class="sing-stage">
-		<StageContent v-if="!isloading && content != null" :type="type" :content="content" :pesertaloop="peserta" :stage="content.stage.id" title="STAGE 1: Audisi ini berakhir tanggal 30 Agustus 2020"/>
+		<StageContent v-if="!isloading" :type="type" :content="content" :pesertaloop="peserta" title="STAGE 1: Audisi ini berakhir tanggal 30 Agustus 2020"/>
 		<div v-else-if="isloading && content == null" class="text-center pa-10">
 			<v-progress-circular indeterminate size="64"></v-progress-circular>
 			<div class="mt-4">
@@ -38,8 +38,8 @@ export default {
 			try {
 				const res =  await SingService.getStageDetail(slug, page)
 				const data = await res.data
+				this.content = data
 				if( data.video_customer.length > 0 ) {
-					this.content = data
 					this.peserta = data.video_customer;
 				} else {
 					this.peserta = null;

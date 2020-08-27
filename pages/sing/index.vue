@@ -47,7 +47,7 @@
 									<ShareButton2 tipe="Sing" independent>
 										<v-img src="/img/icons/lucu-share.svg" width="20" max-width="20" class="d-inline-block"></v-img>
 										<div class="mt-2 text-12">
-											Prizes
+											Share
 										</div>
 									</ShareButton2>
 								</v-col>
