@@ -21,7 +21,7 @@
 		</v-app-bar>
 		<!-- <pre>{{pesertaloop}}</pre> -->
 		<v-container v-if="userid != null" class="hero pb-10">
-			<v-row v-if="!uploaded" align-center>
+			<v-row v-if="!uploaded" align="center">
 				<v-col cols="8">
 					<v-avatar size="30">
 						<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
@@ -32,7 +32,7 @@
 					</div>
 				</v-col>
 				<v-col cols="4">
-					<v-btn color="deep-orange" @click="decideAction();" block :disabled="!uploadallowed">Upload</v-btn>
+					<v-btn light color="deep-orange" @click="decideAction();" block :disabled="!uploadallowed">Upload</v-btn>
 				</v-col>
 			</v-row>
 
