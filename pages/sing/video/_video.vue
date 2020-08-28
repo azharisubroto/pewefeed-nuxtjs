@@ -27,7 +27,6 @@
 
 			<div class="text-14 d-flex align-center justify-content-end metasing">
 				<v-btn
-				v-if="maintab == 0"
 				block
 				color="deep-orange"
 				:disabled="!isrunning"
@@ -202,7 +201,7 @@
 		</v-container>
 
       <v-container v-if="comment_tab==0">
-        <v-alert class="mt-0 text-12" color="#0057FF" prominent>
+        <v-alert class="mt-0 text-14" color="#0057FF" prominent>
 			<template v-slot:prepend>
 				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 			</template>
@@ -306,7 +305,7 @@
           height="20"
         />
       </v-btn>
-      <ShareButton2 tipe="Sing" :customimage="content2.video.thumbnail_url"/>
+      <ShareButton2 tipe="Sing" shareSingTitle='Dukung video saya di "Duet" klik disini untuk vote' :customimage="content2.video.thumbnail_url"/>
     </v-bottom-navigation>
 
 	<!-- Dapet bonus -->
