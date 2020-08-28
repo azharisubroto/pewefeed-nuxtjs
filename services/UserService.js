@@ -144,4 +144,8 @@ export default {
 		return AuthApi().get('/member/purchase-status/sms?page='+n, )
 	},
 
+	fetchBanner(slug) {
+		return Api().get('/static/banner/'+slug);
+	}
+
 }

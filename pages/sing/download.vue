@@ -6,7 +6,7 @@
 
 			<template v-if="maintab == 0">
 				<v-container>
-					<div class="singbanner">BANNER</div>
+					<BannerStatic slug="sing"/>
 				</v-container>
 
 				<v-container>
@@ -61,7 +61,8 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
-import SingService from '@/services/SingService'
+import SingService from '@/services/SingService';
+import BannerStatic from '@/components/common/BannerStatic'
 
 export default {
 	name:"Sing",
@@ -69,7 +70,8 @@ export default {
 		ShareButton2,
 		SingAppBar,
 		SingPrizes,
-		Video
+		Video,
+		BannerStatic
 	},
 	data(){
 		return {

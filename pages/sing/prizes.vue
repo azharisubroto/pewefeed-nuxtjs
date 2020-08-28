@@ -4,7 +4,7 @@
 
 		<div class="hero-singprizes" style="padding-bottom: 100px">
 			<v-container>
-				<div class="singbanner">BANNER</div>
+				<BannerStatic slug="sing"/>
 			</v-container>
 		</div>
 
@@ -17,12 +17,14 @@
 <script>
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
+import BannerStatic from '@/components/common/BannerStatic'
 
 export default {
 	name: "SingPrizesPage",
 	components: {
 		SingAppBar,
-		SingPrizes
+		SingPrizes,
+		BannerStatic
 	},
 }
 </script>
