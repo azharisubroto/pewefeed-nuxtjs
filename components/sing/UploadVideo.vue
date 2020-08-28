@@ -15,34 +15,51 @@
           </v-btn>
 
           <!-- Title -->
-          <div class="flex-grow-1"></div>
-          <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text pl-0 text-uppercase" style="margin-left:-10px;">Upload Video Kamu</v-btn>
+          <v-toolbar-items class="ml-2">
+            <v-btn dark text class="white--text pl-0 text-uppercase" style="margin-left:-10px;">Upload</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
 
         <div class="mx-2">
-          <v-container class="text-center">
+          <v-container class="text-left">
 			<template v-if="uploadStatus == 'start'">
-				<v-alert
-					outlined
-					type="warning"
-					color="white"
-					prominent
-					border="left"
-					class="text-12 text-left"
-					>
-						Pastikan video sudah kamu upload ke FEED Instagram kamu. Dan pastikan akun instagram kamu tidak digembok.
-				</v-alert>
+				<div class="text-12 mb-2">Di platform manakah video di upload?</div>
 
+				<v-btn-toggle
+					v-model="uploadType"
+					group
+					color="deep-orange"
+					active-class="deep-orange"
+					dark
+					dense
+					mandatory
+					class="uploadtypechoice"
+				>
+					<v-btn value="instagram" style="border-left-width:1px!important;margin-left:0;">
+						Instagram
+					</v-btn>
+					<v-btn value="youtube" style="border-left-width:1px!important">
+						Youtube
+					</v-btn>
+					<v-btn value="tiktok" style="border-left-width:1px!important">
+						TikTok
+					</v-btn>
+				</v-btn-toggle>
+
+				<div class="text-12 mb-2 mt-4">Paste URL yang kamu dapatkan dari IG, Youtube atau Tiktok</div>
 				<v-text-field
-					label="tempelkan URL video dari feed instagram kamu di sini"
+					label="Ketikan URL disini"
 					solo
+					outlined
+					dense
+					background-color="transparent"
 					v-model="ig_url"
 				></v-text-field>
 
-				<v-btn color="deep-orange" dark block large @click="uploadVideo();uploadStatus=='loading'">UPLOAD</v-btn>
+				<div class="text-center">
+					<v-btn color="deep-orange" dark large @click="uploadVideo();uploadStatus=='loading'">Submit</v-btn>
+				</div>
 			</template>
 
 			<template v-if="uploadStatus == 'success'">
@@ -62,6 +79,7 @@
 				<v-btn color="deep-orange" dark block large @click="uploadVideo()">Lihat jumlah vote</v-btn>
 			</template>
 		  </v-container>
+		  <div class="py-4"></div>
         </div>
       </v-sheet>
     </v-bottom-sheet>
@@ -81,7 +99,8 @@ export default {
 		logo: 'https://vtcheckout-production-assets.s3.amazonaws.com/snap/logos/M003796/thumb_retina_snap_2Flogos_2FM003796_2F04571408-807d-4315-af80-df2dfbba9ce3_2FPlayworld.png',
 		uploadStatus: 'start',
 		ig_url: null,
-		thisVisible: this.dialogVisible
+		thisVisible: this.dialogVisible,
+		uploadType: 'instagram',
     }
   },
   watch: {
@@ -106,8 +125,9 @@ export default {
 	},
 	async uploadVideo() {
 		const data = {
+			'type': this.uploadType,
 			'url' : this.ig_url,
-			'program_video_id' : this.$store.state.promoted_video_id
+			'program_video_id' : this.$store.state.promoted_video_id,
 		}
 		try {
 			const res = await SingService.uploadVideo(data);
@@ -152,5 +172,18 @@ export default {
   .modalloading {
 	  cursor: none!important;
 	  opacity: .5;
+  }
+  .uploadtypechoice {
+	  &.v-btn-toggle--group > .v-btn.v-btn {
+		  border-radius: 4px;
+		  background: #404040!important;
+		  text-transform: capitalize!important;
+	  }
+	  .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active {
+		  background: transparent!important;
+	  }
+	  .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
+		  opacity: 0!important;
+	  }
   }
 </style>
