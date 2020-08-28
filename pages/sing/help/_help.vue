@@ -9,7 +9,7 @@
 			<template v-if="maintab == 0">
 				<v-container>
 					<div class="text-center mb-4">
-						<div class="singbanner">BANNER</div>
+						<BannerStatic slug="sing"/>
 					</div>
 					<section class="helpexpandable" v-if="help">
 						<v-expansion-panels v-model="helppanel" :accordion="true" focusable>
@@ -38,6 +38,8 @@ import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
 import SingService from '@/services/SingService'
+import UserService from '~/services/UserService';
+import BannerStatic from '@/components/common/BannerStatic'
 
 export default {
 	name:"Sing",
@@ -45,7 +47,8 @@ export default {
 		ShareButton2,
 		SingAppBar,
 		SingPrizes,
-		Video
+		Video,
+		BannerStatic
 	},
 	data(){
 		return {
@@ -55,7 +58,7 @@ export default {
 			label: null,
 			singcontent: [],
 			help: [],
-			prizes: null
+			prizes: null,
 		}
 	},
 	methods: {
@@ -88,7 +91,7 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
-		}
+		},
 	},
 	mounted() {
 		this.getHelp();

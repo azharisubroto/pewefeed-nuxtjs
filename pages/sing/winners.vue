@@ -3,7 +3,7 @@
 		<SingAppBar title="WINNER" :back="true"/>
 
 		<v-container class="sing-herowinners">
-			<div class="singbanner">BANNER KHURUS WINNERS</div>
+			<BannerStatic slug="sing-winner"/>
 		</v-container>
 
 		<v-container style="margin-top: -180px;">
@@ -130,12 +130,14 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import Video from "@/components/sing/Video";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingService from "@/services/SingService";
+import BannerStatic from '@/components/common/BannerStatic'
 export default {
 	name: "WinnersPage",
 	components: {
 		Video,
 		SingAppBar,
-		ShareButton2
+		ShareButton2,
+		BannerStatic
 	},
 	mounted(){
 		this.getWinners()
