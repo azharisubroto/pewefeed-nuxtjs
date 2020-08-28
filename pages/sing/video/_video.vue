@@ -36,36 +36,41 @@
 		</div>
 
 		<div v-if="content2!= null" class="mt-4">
-			<div v-if="videoutama!=null && playnow!==false" >
-			<video width="400" controls autoPlay style="margin-bottom: -8px">
-				<source :src="videoutama" type="video/mp4">
-			</video>
-			</div>
-			<div v-else>
-			<v-img
-				:src="content2.video.thumbnail_url"
-				position="center"
-				:aspect-ratio="16/9"
-				class="position-relative"
-				@click="playnow = true"
-			>
-				<!-- <div class="singstarstatus">
-					<img v-if="content2.is_star" src="/img/icons/star-yellow.svg" alt="">
-					<img v-else src="/img/icons/star-default.svg" alt="">
-				</div> -->
-				<template v-slot:default>
-					<v-row
-					class="ma-0"
-					align="center"
-					justify="center"
-					style="height:100%;"
+			<template v-if="!videoutama_is_iframe">
+				<div v-if="videoutama!=null && playnow!==false" >
+					<video width="400" controls autoPlay style="margin-bottom: -8px">
+						<source :src="videoutama" type="video/mp4">
+					</video>
+				</div>
+				<div v-else>
+					<v-img
+						:src="content2.video.thumbnail_url"
+						position="center"
+						:aspect-ratio="16/9"
+						class="position-relative"
+						@click="playnow = true"
 					>
-						<v-icon size="100" v-if="videoutama!=null">mdi-play-circle</v-icon>
-						<v-progress-circular v-else indeterminate size="64"></v-progress-circular>
-					</v-row>
-				</template>
-			</v-img>
-			</div>
+						<!-- <div class="singstarstatus">
+							<img v-if="content2.is_star" src="/img/icons/star-yellow.svg" alt="">
+							<img v-else src="/img/icons/star-default.svg" alt="">
+						</div> -->
+						<template v-slot:default>
+							<v-row
+							class="ma-0"
+							align="center"
+							justify="center"
+							style="height:100%;"
+							>
+								<v-icon size="100" v-if="videoutama!=null">mdi-play-circle</v-icon>
+								<v-progress-circular v-else indeterminate size="64"></v-progress-circular>
+							</v-row>
+						</template>
+					</v-img>
+				</div>
+			</template>
+			<template v-else>
+				<iframe :src="videoutama" frameborder="0" height="300" style="width:100%"></iframe>
+			</template>
 
 			<div class="d-flex justify-space-between">
 				<div style="background:#000;border-radius: 0 0 5px 5px;color:#fff" class="px-2 py-2">
@@ -479,6 +484,7 @@ export default {
       commentIsPosting: false,
 	  moreLoadingComment: false,
 	  videoutama: null,
+	  videoutama_is_iframe: false,
 	  type: null,
 	  voterspaging: 1,
 	  votersismore: false,
@@ -606,10 +612,17 @@ export default {
       try {
         const res = await SingService.getDetailVideo(slug);
         const data = res.data;
-		let ig_video = data.video_url;
-		if( ig_video ) {
-			this.fetchIGVIDEO(ig_video);
+		let video = data.video;
+		if( video.type == 'instagram' ) {
+			this.fetchIGVIDEO(video.video_url+'&__a=1');
+		} else if( video.type == 'tiktok' ) {
+			this.videoutama = video.video_url
+		} else {
+			this.videoutama = video.video_url
+			this.videoutama_is_iframe = true
 		}
+
+
 		this.isrunning = res.data.full_stage.isRunning
       } catch (error) {
         console.log(error);
