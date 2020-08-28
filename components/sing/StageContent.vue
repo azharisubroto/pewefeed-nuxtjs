@@ -186,7 +186,7 @@
 			></v-pagination>
 		</v-container>
 
-		<UploadVideo :dialogVisible="uploadVisible" :stage="content.stage"/>
+		<UploadVideo :dialogVisible="uploadVisible" :stage="content.stage.id"/>
 
 		<!-- BOTTOM NAVIGATION -->
 		<!-- <br><br><br><br>

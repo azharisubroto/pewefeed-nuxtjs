@@ -56,88 +56,86 @@
 
 				<v-container v-if="sheet">
 					<v-row>
-					<v-col v-if="sharingImage" cols="8">
-						<strong v-if="tipe == 'Sing'" class="subtitle-1">
-							Hey kamu! Yuk ikutan Duet bareng '{{tipe}}' dan raih hadiah puluhan juta rupiah.
-						</strong>
-						<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
-						<br />
-						<strong class="caption grey--text">{{ sharingTime }}</strong>
-					</v-col>
-					<v-col v-else cols="8">
-						<strong v-if="tipe == 'Sing'" class="subtitle-1">
-							Hey kamu! Yuk ikutan Duet bareng '{{tipe}}' dan raih hadiah puluhan juta rupiah.
-						</strong>
-						<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
-						<br />
-						<strong class="caption grey--text">{{ sharingTime }}</strong>
-					</v-col>
+						<v-col cols="8">
+							<strong v-if="tipe == 'Sing'" class="subtitle-1">
+								{{shareSingTitle}}
+								<template v-if="shareSingTitle">
+									{{_shareSingTitle}}
+								</template>
+
+								<template v-else>
+									Hey kamu! Yuk ikutan program "Duet" dan raih hadiah puluhan juta rupiah.
+								</template>
+							</strong>
+							<strong v-else class="subtitle-1">{{ sharingTitle }}</strong>
+							<br />
+							<strong class="caption grey--text">{{ sharingTime }}</strong>
+						</v-col>
 
 
-					<v-col v-if="sharingImage" cols="4">
-						<img width="100%" :src="sharingImage" alt />
-					</v-col>
-					<v-col v-else cols="4">
-						<img width="100%" src="/img/pw-icon.png" alt />
-					</v-col>
-					<v-col cols="12">
-						<v-row align="center" no-gutters>
-						<v-col cols="9">
-							<socialSharing
-							:url="sharingUrl"
-							:title="sharingTitle"
-							:description="sharingDescription"
-							:twitter-user="twitterEnv"
-							inline-template
-							>
-							<div>
-								<network network="facebook">
-								<i
-									style="font-size:40px"
-									aria-hidden="true"
-									class="v-icon notranslate mdi mdi-facebook theme--light white--text"
-								></i>
-								</network>
-								<network network="twitter">
-								<i
-									style="font-size:40px"
-									aria-hidden="true"
-									class="v-icon notranslate mdi mdi-twitter theme--light white--text"
-								></i>
-								</network>
-								<network network="whatsapp">
-								<i
-									style="font-size:40px"
-									aria-hidden="true"
-									class="v-icon notranslate mdi mdi-whatsapp theme--light white--text"
-								></i>
-								</network>
-								<network network="telegram">
-								<i
-									style="font-size:40px"
-									aria-hidden="true"
-									class="v-icon notranslate mdi mdi-telegram theme--light white--text"
-								></i>
-								</network>
-								<network network="skype">
-								<i
-									style="font-size:40px"
-									aria-hidden="true"
-									class="v-icon notranslate mdi mdi-skype theme--light white--text"
-								></i>
-								</network>
-							</div>
-							</socialSharing>
+						<v-col  cols="4">
+							<img v-if="sharingImage" width="100%" :src="sharingImage" alt />
+							<img v-else width="100%" src="/img/pw-icon.png" alt />
 						</v-col>
-						<v-col cols="3">
-							<v-icon
-							@click="copyToClipBoard()"
-							size="30"
-							style="margin-left: 3px;"
-							>mdi-content-copy</v-icon>
+
+						<v-col cols="12">
+							<v-row align="center" no-gutters>
+							<v-col cols="9">
+								<socialSharing
+								:url="sharingUrl"
+								:title="sharingTitle"
+								:description="sharingDescription"
+								:twitter-user="twitterEnv"
+								inline-template
+								>
+								<div>
+									<network network="facebook">
+									<i
+										style="font-size:40px"
+										aria-hidden="true"
+										class="v-icon notranslate mdi mdi-facebook theme--light white--text"
+									></i>
+									</network>
+									<network network="twitter">
+									<i
+										style="font-size:40px"
+										aria-hidden="true"
+										class="v-icon notranslate mdi mdi-twitter theme--light white--text"
+									></i>
+									</network>
+									<network network="whatsapp">
+									<i
+										style="font-size:40px"
+										aria-hidden="true"
+										class="v-icon notranslate mdi mdi-whatsapp theme--light white--text"
+									></i>
+									</network>
+									<network network="telegram">
+									<i
+										style="font-size:40px"
+										aria-hidden="true"
+										class="v-icon notranslate mdi mdi-telegram theme--light white--text"
+									></i>
+									</network>
+									<network network="skype">
+									<i
+										style="font-size:40px"
+										aria-hidden="true"
+										class="v-icon notranslate mdi mdi-skype theme--light white--text"
+									></i>
+									</network>
+								</div>
+								</socialSharing>
+							</v-col>
+							<v-col cols="3">
+								<v-icon
+								@click="copyToClipBoard()"
+								size="30"
+								style="margin-left: 3px;"
+								>mdi-content-copy</v-icon>
+							</v-col>
+							</v-row>
 						</v-col>
-						</v-row>
-					</v-col>
 					</v-row>
 				</v-container>
 				</div>
@@ -166,7 +164,8 @@ export default {
 		item: String,
 		customimage: String,
 		independent: Boolean,
-		tipe: String
+		tipe: String,
+		shareSingTitle: String
 	},
   //props: ["sharingUrl","sharingTitle","sharingDescription","sharingImage","sharingTime"],
   components: {
@@ -176,6 +175,7 @@ export default {
   data() {
 	  return {
 		isFlexible: this.independent,
+		_shareSingTitle: this.shareSingTitle,
 		recaptchaDialogVisible: false,
 		recaptchaToken: null,
 		recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
