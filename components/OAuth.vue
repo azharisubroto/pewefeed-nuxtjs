@@ -1,7 +1,7 @@
 <template>
   <!-- @click="Auth(provider);" -->
   <v-btn
-    @click="Auth(provider);"
+    @click="Auth(provider, redirect);"
     block
     large
     depressed
@@ -47,7 +47,8 @@ export default {
     notloading() {
       this.$emit("notloading", false);
     },
-    Auth(provider) {
+    Auth(provider, redirect) {
+        // return console.log(redirect);
       // var vm = this;
       // vm.makeloading();
       // OAuth.popup(this.provider).done(res => {
@@ -66,7 +67,7 @@ export default {
         var route = this.$route.path
       }
 
-      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route + '&next=' + this.redirectPath
+      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route + '&next=' + redirect
     },
     async PWLogin(data, provider) {
       let vm = this;

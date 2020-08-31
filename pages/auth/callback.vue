@@ -11,7 +11,8 @@ export default {
     name: 'callback',
     data() {
         return {
-            token: this.$route.query.token ? this.$route.query.token : null
+            token: this.$route.query.token ? this.$route.query.token : null,
+            redirect: this.$route.query.next ? this.$route.query.next : null,
         }
     },
     mounted() {
@@ -29,7 +30,11 @@ export default {
 				localStorage.removeItem('sing_to_login');
 				return this.$router.push('/sing/')
 			} else {
-				return this.$router.push('/')
+                if (this.redirect != null && this.redirect !== undefined) {
+                    return window.location.href(this.redirect);
+                } else {
+                    return this.$router.push('/')
+                }
 			}
         }).catch((e) => {
             this.$auth.logout()

@@ -123,7 +123,7 @@ import VoucherService from "@/services/VoucherService";
 import Login from "@/components/Login";
 import UserService from "@/services/UserService";
 export default {
-  middleware: 'auth',
+//   middleware: 'auth',
   name: "CodePWComponent",
   components: {
     Login
