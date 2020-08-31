@@ -106,7 +106,7 @@
 			</v-row>
 			<v-row align="center" justify="center" class="mx-4">
 			<div>
-				<v-btn @click="lanjutkan()" dark color="deep-orange">Lanjutkan</v-btn>
+				<v-btn href='/?tab=3' dark color="deep-orange">Lanjutkan</v-btn>
 			</div>
 			</v-row>
 		            <br />
@@ -280,7 +280,6 @@ export default {
         vm.snackbar = false;
         vm.dialog = true;
         vm.responsemessage = res.data.message;
-        vm.responselink = res.data.link;
       } catch (err) {
         console.log(err);
         this.notloading();
@@ -288,12 +287,12 @@ export default {
         vm.responsemessage = "Kode PW tidak ditemukan atau sudah expired";
       }
     },
-    lanjutkan() {
-      window.location.href = this.responselink;
-    }
+    // lanjutkan() {
+    //   window.location.href = this.responselink;
+    // }
   },
   mounted() {
-    this.fetchContent();
+	this.fetchContent();
   }
 };
 </script>
