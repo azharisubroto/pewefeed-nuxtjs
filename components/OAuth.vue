@@ -20,11 +20,12 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["provider", "btnclass"],
+  props: ["provider", "btnclass", "redirect"],
   data() {
     return {
       class1: this.provider,
-      class2: this.provider,
+	  class2: this.provider,
+	  redirectPath: this.redirect ? this.redirect : '/',
       isloading: false
     };
   },
@@ -65,7 +66,7 @@ export default {
         var route = this.$route.path
       }
 
-      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route
+      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route + '&next=' + this.redirectPath
     },
     async PWLogin(data, provider) {
       let vm = this;
@@ -113,14 +114,18 @@ export default {
         // var userdata = JSON.stringify(response.data.data);
         //console.log(userdata);
         localStorage.setItem("access-token", token);
-        localStorage.setItem("loggedin", true);
-        if (
-          window.location.pathname == "/member/login" ||
-          window.location.pathname == "/login"
-        ) {
-          window.location.href = "/";
-        } else {
-          window.location.href = window.location.pathname;
+		localStorage.setItem("loggedin", true);
+		if( this.redirectPath ) {
+			window.location.href = this.redirectPath;
+		} else {
+			if (
+			window.location.pathname == "/member/login" ||
+			window.location.pathname == "/login"
+			) {
+				window.location.href = "/";
+			} else {
+				window.location.href = window.location.pathname;
+			}
         }
         // } else {
         //     vm.notloading();

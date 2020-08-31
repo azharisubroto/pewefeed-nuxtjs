@@ -5,7 +5,8 @@
     </v-overlay>
 
     <div v-if="formsignin">
-      <Login />
+      <Login :redirect="'https://m.pewefeed.com/c/'+formdata.code"/>
+	  <!-- /c/{{formdata.code}} -->
     </div>
 
     <div v-else>

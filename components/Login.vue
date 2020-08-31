@@ -1,15 +1,18 @@
 <template>
   <div class="container">
     <h3 class="my-3 text-center" id="loginhead">Join / Sign in</h3>
+	<!-- {{redirect}} -->
     <OAuth
       provider="facebook"
       btnclass="indigo darken-1 "
+	  :redirect="redirect"
       @makeloading="setloading"
       @notloading="notloading"
     />
     <OAuth
       provider="google"
       btnclass="red darken-1"
+	  :redirect="redirect"
       @makeloading="setloading"
       @notloading="notloading"
     />
@@ -51,13 +54,14 @@ import OAuth from "@/components/OAuth";
 
 export default {
   name: "Login",
+  props: ['redirect'],
   components: {
     OAuth
   },
   data() {
     return {
       overlay: false,
-      fail: false
+      fail: false,
     };
   },
   methods: {
