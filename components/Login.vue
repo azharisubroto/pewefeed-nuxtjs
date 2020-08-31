@@ -5,14 +5,14 @@
     <OAuth
       provider="facebook"
       btnclass="indigo darken-1 "
-	  :redirect="redirect"
+	  :redirect="redirect ? redirect : '#'"
       @makeloading="setloading"
       @notloading="notloading"
     />
     <OAuth
       provider="google"
       btnclass="red darken-1"
-	  :redirect="redirect"
+	  :redirect="redirect ? redirect : '#'"
       @makeloading="setloading"
       @notloading="notloading"
     />

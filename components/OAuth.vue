@@ -48,7 +48,7 @@ export default {
       this.$emit("notloading", false);
     },
     Auth(provider, redirect) {
-        // return console.log(redirect);
+        // return console.log(redirect ? redirect : null);
       // var vm = this;
       // vm.makeloading();
       // OAuth.popup(this.provider).done(res => {

@@ -30,22 +30,25 @@ export default {
 				localStorage.removeItem('sing_to_login');
 				return this.$router.push('/sing/')
 			} else {
-                if (this.redirect != null && this.redirect !== undefined) {
-                    return window.location.href(this.redirect);
+                if (this.redirect != '#') {
+                    var code = this.redirect.split('/');
+                    return this.$router.push('/c/' + code[code.length - 1]);
                 } else {
+                    console.log('loggedin')
                     return this.$router.push('/')
                 }
 			}
         }).catch((e) => {
-            this.$auth.logout()
-            localStorage.removeItem("loggedin");
-            localStorage.removeItem("access-token");
-            localStorage.removeItem("userdata");
-            localStorage.removeItem("auth._token.local");
-            localStorage.removeItem("auth.strategy");
-            localStorage.removeItem("useres");
-            this.$emit('notloading', true)
-            return this.$router.push('/')
+            console.log(e)
+            // this.$auth.logout()
+            // localStorage.removeItem("loggedin");
+            // localStorage.removeItem("access-token");
+            // localStorage.removeItem("userdata");
+            // localStorage.removeItem("auth._token.local");
+            // localStorage.removeItem("auth.strategy");
+            // localStorage.removeItem("useres");
+            // this.$emit('notloading', true)
+            // return this.$router.push('/')
         })
     }
 }
