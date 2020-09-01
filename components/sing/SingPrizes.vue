@@ -4,7 +4,7 @@
 			<div class="text-18" style="color: #000"><strong>Pemenang Pilihan Juri</strong></div>
 		</v-container>
 		<template v-for="(item, i) in prizes">
-			<v-img :key="'prizeup-'+i" class="px-2 my-4 mx-3" v-if="i<3" :src="'/img/banner/JOGED-CHALLENGE-PRIZES-'+parseInt(i+1)+'.jpg'"></v-img>
+			<v-img :key="'prizeup-'+i" class="px-2 my-4 mx-3" v-if="i<3" :src="item.redeem.image"></v-img>
 			<!-- <v-card color="#404040" class="px-2 my-4 mx-3" v-if="i<3"  :key="'prize-'+i">
 				<v-row>
 					<v-col cols="3">
@@ -25,8 +25,8 @@
 		<v-container class="py-3">
 			<div class="text-18"><strong>Pemenang Vote Terbanyak</strong></div>
 		</v-container>
-		<template v-for="i in 3">
-			<v-img :key="'prizebot-'+i" class="px-2 my-4 mx-3" :src="'/img/banner/JOGED-CHALLENGE-PRIZES-'+parseInt(i+3)+'.jpg'"></v-img>
+		<template v-for="(item, i) in prizes">
+			<v-img :key="'prizebot-'+i" v-if="i>=3" class="px-2 my-4 mx-3" :src="item.redeem.image"></v-img>
 		</template>
 	</div>
 </template>
