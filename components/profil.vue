@@ -1,6 +1,6 @@
 <template>
   <div class="profile-page">
-    <template v-if="login">
+    <template v-if="login && !loading">
       <v-stepper v-model="profileStep">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
@@ -150,6 +150,17 @@
         </v-stepper-content>
       </v-stepper>
     </template>
+	<template v-else-if="loading && !login">
+		<div class="text-center pa-10">
+			<v-progress-circular
+				indeterminate
+				:size="80"
+				:width="8"
+				color="deep-orange"
+				class="mt-5">
+			</v-progress-circular>
+		</div>
+	</template>
     <template v-else>
       <Login class="pt-10" />
     </template>
@@ -167,6 +178,7 @@ export default {
   name: "profil",
   data() {
     return {
+	  loading: true,
       profileStep: 1,
       profile: null,
       token: null,
@@ -308,12 +320,11 @@ export default {
     setProfile() {
       let vm = this;
       this.$auth.fetchUser().then(() => {
-        localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-      });
-      // this.$auth.fetchUser();
-      if (localStorage.getItem("userdata")) {
-        var res = [];
-        res.data = JSON.parse(localStorage.getItem("userdata"));
+		localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+		//console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
+
+		var res = [];
+		res.data = vm.$auth.user;
 
         this.usermentah = res.data;
         this.userdata = res.data.data;
@@ -340,8 +351,9 @@ export default {
         if (res.data.data.status_expired == 1) {
           this.isActive = true;
         }
-        this.login = true;
-      }
+		this.login = true;
+		this.loading = false
+      });
     },
     percentage(partialValue, totalValue) {
       return (100 * partialValue) / totalValue;
