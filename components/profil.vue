@@ -353,7 +353,9 @@ export default {
         }
 		this.login = true;
 		this.loading = false
-      });
+      }).catch(()=>{
+		  this.loading = false
+	  });
     },
     percentage(partialValue, totalValue) {
       return (100 * partialValue) / totalValue;
