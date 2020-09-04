@@ -42,7 +42,7 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="12">
-          <v-img @click="$router.push('/toppoin')" src="https://cdn.pewefeed.com/containers/pewefeed/news/007268a8-761a-43c2-8849-517daba96017_1596515421.2159.png"></v-img>
+          <BannerStatic slug="toppoin"/>
         </v-col>
         <v-col cols="12">
           <RedeemCard />
@@ -158,6 +158,7 @@ import NewsLoop from "@/components/common/NewsLoop";
 import NewsLoop2 from "@/components/common/NewsLoop2";
 import ShareButton from "@/components/common/ShareButton";
 import RedeemCard from "@/components/common/RedeemCard";
+import BannerStatic from '@/components/common/BannerStatic';
 export default {
   name: "HomePage",
   props: ["items"],
@@ -166,6 +167,7 @@ export default {
     NewsLoop,
     NewsLoop2,
     RedeemCard,
+    BannerStatic,
     ShareButton
   },
   data() {

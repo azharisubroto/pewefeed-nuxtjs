@@ -132,7 +132,7 @@
 				</v-row>
 			</v-col>
 			<v-col cols="12">
-				<v-img @click="$router.push('/toppoin')" src="https://cdn.pewefeed.com/containers/pewefeed/news/007268a8-761a-43c2-8849-517daba96017_1596515421.2159.png"></v-img>
+				<BannerStatic slug="toppoin"/>
 			</v-col>
       	</v-row>
 	  </v-container>
@@ -349,12 +349,14 @@ import TukarPoinService from "@/services/TukarPoinService";
 import UserService from "@/services/UserService";
 import LoginModal from "@/components/modal/LoginModal";
 import ShareButton2 from "@/components/common/ShareButton2";
+import BannerStatic from '@/components/common/BannerStatic';
 
 export default {
   name: "RedeemDetail",
   components: {
     LoginModal,
-    ShareButton2
+    ShareButton2,
+    BannerStatic
   },
   head() {
     return {

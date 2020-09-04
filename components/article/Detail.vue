@@ -56,7 +56,7 @@
             <div class="devider-small mt-5"></div>
 
             <div class="mb-1 mt-5" id="banner-between">
-              <v-img @click="$router.push('/toppoin')" src="https://cdn.pewefeed.com/containers/pewefeed/news/007268a8-761a-43c2-8849-517daba96017_1596515421.2159.png"></v-img>
+              <BannerStatic slug="toppoin"/>
             </div>
 
             <!-- CONTENT -->
@@ -608,6 +608,7 @@ import ShareButton from "@/components/common/ShareButton";
 import NotVip from "@/components/modal/NotVip";
 import RedeemCard from "@/components/common/RedeemCard";
 import ShareButton2 from "@/components/common/ShareButton2";
+import BannerStatic from '@/components/common/BannerStatic';
 
 export default {
   components: {
@@ -620,6 +621,7 @@ export default {
     LoginModal,
     RedeemCard,
     ShareButton2,
+    BannerStatic
   },
   props: ["respon"],
   data() {
