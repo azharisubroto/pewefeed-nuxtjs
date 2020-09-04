@@ -25,7 +25,7 @@ export default {
 				const res = await UserService.fetchBanner(slug);
 				console.log('banner', res.data)
 				this.banner_img = res.data.image
-				this.banner_url = res.data.mobile_url
+				this.banner_url = res.data.url
 			} catch (error) {
 				console.log(error)
 			}
