@@ -9,7 +9,9 @@
             <v-container>
                 <v-row>
                     <v-col cols="12"><h4>TOP POIN</h4></v-col>
-                    <v-img :src="toppoinbanner"></v-img>
+                    <v-col cols="12">
+                        <BannerStatic slug="toppoin"/>
+                    </v-col>
                 </v-row>
             </v-container>
             <v-list three-line>
@@ -78,9 +80,13 @@
 </template>
 
 <script>
-import ArticleService from '@/services/ArticleService.js'
+import ArticleService from '@/services/ArticleService.js';
+import BannerStatic from '@/components/common/BannerStatic';
 export default {
     name:"PwPoin",
+    components: {
+        BannerStatic,
+    },
     data() {
         return {
             toppoinbanner: 'http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg',

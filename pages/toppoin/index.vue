@@ -8,7 +8,7 @@
 	<template v-if="periode != null && isloading == false">
 		<!-- BANNER -->
 		<template v-if="tptab == 0 || tptab == 1">
-			<v-img :src="periode.banner.desktop"></v-img>
+			<BannerStatic slug="toppoin"/>
 			<div class="py-3 text-center">
 				Periode:
 				{{ [periode.periode.start_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM') }} -
@@ -158,7 +158,7 @@
 		<!-- WINNERS TAB -->
 		<template v-if="tptab == 2">
 			<div v-if="winnersFeatured!=null">
-				<v-img :src="winnersFeatured.banner.desktop"></v-img>
+				<BannerStatic slug="toppoin"/>
 				<div class="py-3 text-center">
 					Periode:
 					{{ [winnersFeatured.periode.start_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM') }} -
@@ -261,6 +261,7 @@
 
 <script>
 import TopPoin from "@/services/TopPoin";
+import BannerStatic from '@/components/common/BannerStatic';
 export default {
   head() {
     return {
@@ -274,7 +275,9 @@ export default {
       ]
     };
   },
-  components: {},
+  components: {
+      BannerStatic,
+  },
   watch:{
 		tptab: function (newVal, oldVal) {
 			localStorage.setItem('tptab', this.tptab);
