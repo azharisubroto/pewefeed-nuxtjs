@@ -181,7 +181,7 @@
 							<v-row>
 								<v-col cols="4">
 									<div class="jeruk">
-										<v-img :src="item.banner.desktop"></v-img>
+										<BannerStatic slug="toppoin"/>
 									</div>
 								</v-col>
 								<v-col cols="8">

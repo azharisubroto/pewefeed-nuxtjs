@@ -6,7 +6,7 @@
 			</div>
 		</template>
 		<section v-if="detail!=null && isloading == false">
-			<v-img :src="detail.banner.desktop"></v-img>
+			<BannerStatic slug="toppoin"/>
 			<div class="py-3">
 				<div class="text-center">
 					Periode:
@@ -131,8 +131,12 @@
 
 <script>
 import TopPoin from '@/services/TopPoin'
+import BannerStatic from '@/components/common/BannerStatic';
 export default {
-	name:"topPoinDetail",
+    name:"topPoinDetail",
+    components: {
+        BannerStatic
+    },
 	data(){
 		return {
 			tptab: 0,
