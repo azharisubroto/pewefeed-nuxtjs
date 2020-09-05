@@ -130,13 +130,19 @@
         ooooooooooooooooooooooooooooooooooooo-->
 		<div class="ghost-page" :class="[wowtab >= 1 ? 'd-block' : 'd-none']" v-if="$route.name == 'index'">
 			<div :class="[wowtab == 1 ? 'd-block' : 'd-none']">
-				<categories/>
+				<TukarPoin v-if="wowtab == 1" keep-alive/>
 			</div>
 			<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
-				<help/>
+				<tantangan/>
 			</div>
 			<div :class="[wowtab == 3 ? 'd-block' : 'd-none']">
-				<profil v-if="wowtab == 3"/>
+				<v-container>
+					<h4>Netizen</h4>
+					<p>Coming soon</p>
+				</v-container>
+			</div>
+			<div :class="[wowtab == 4 ? 'd-block' : 'd-none']">
+				<profil v-if="wowtab == 4"/>
 			</div>
 		</div>
 		<br><br><br>
@@ -154,13 +160,25 @@
 		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
             <span>Feeds</span>
-            <img src="/img/icons/feeds.svg" class="mb-1 d-block" width="20" height="20" />
+            <img :src="wowtab == 0 ? '/img/icons/nav-1-color.svg' : '/img/icons/nav-1-white.svg'" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
           <v-btn>
-            <span>Categories</span>
-            <img src="/img/icons/icon-category-2.png" class="mb-1 d-block" width="20" height="20" />
+            <span>Tukar Poin</span>
+            <img :src="wowtab == 1 ? '/img/icons/nav-2-color.svg' : '/img/icons/nav-2-white.svg'" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
-          <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />
+		  <v-btn>
+			<span>Tantangan</span>
+            <img :src="wowtab == 2 ? '/img/icons/nav-3-color.svg' : '/img/icons/nav-3-white.svg'" class="mb-1 d-block" width="20" height="20" />
+		  </v-btn>
+		  <v-btn>
+			<span>Netizen</span>
+            <img :src="wowtab == 3 ? '/img/icons/nav-4-color.svg' : '/img/icons/nav-4-white.svg'" class="mb-1 d-block" width="20" height="20" />
+		  </v-btn>
+		  <v-btn>
+			<span>Me</span>
+            <img :src="wowtab == 4 ? '/img/icons/nav-5-color.svg' : '/img/icons/nav-5-white.svg'" class="mb-1 d-block" width="20" height="20" />
+		  </v-btn>
+          <!-- <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />
 
           <v-btn>
             <span>Help</span>
@@ -174,7 +192,7 @@
           <v-btn>
             <span>Me</span>
             <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
-          </v-btn>
+          </v-btn> -->
         </v-bottom-navigation>
       </v-content>
       <!-- CONTENT -->
@@ -260,6 +278,8 @@ import DrawerWelcome from "@/components/common/DrawerWelcome";
 import categories from "@/components/categories"
 import help from "@/components/help"
 import profil from "@/components/profil"
+import tantangan from "@/components/tantangan"
+import TukarPoin from '@/components/TukarPoin/TukarPoin';
 
 export default {
   name: "App",
@@ -272,7 +292,9 @@ export default {
 	DrawerWelcome,
 	categories,
 	help,
-	profil
+	profil,
+	tantangan,
+	TukarPoin
   },
   data() {
     return {
@@ -669,7 +691,7 @@ export default {
       //console.log("mobile version");
 	}
 	if( this.$route.name=='member-daily-limit' || this.$route.name=='member-purchase-daily' || this.$route.name == 'about-daily-limit' || this.$route.name == 'purchase' ) {
-		this.wowtab = 3
+		this.wowtab = 4
 	}
 
   },
@@ -678,7 +700,7 @@ export default {
 		let vm = this
 	  this.fetchUser();
       if (from.name == 'auth-callback' || from.name == 'member-otp') {
-        this.wowtab = 3
+        this.wowtab = 4
         this.fetchDaily()
 	  }
 	  if (from.name == 'member-barang_yang_didapat' || from.name == 'member-pengaturan-daftar-nomor') {

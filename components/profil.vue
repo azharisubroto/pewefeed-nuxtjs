@@ -134,6 +134,17 @@
                 </v-list-item>
                 <div :key="'dvdr-'+i" class="devider-small"></div>
               </template>
+			  <v-list-item class="py-3" @click="profileStep = 2">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <strong>Bantuan</strong>
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+			  <div class="devider-small"></div>
               <v-list-item class="py-3" @click="logout()">
                 <v-list-item-content>
                   <v-list-item-title class="red--text">
@@ -147,6 +158,9 @@
               <div class="devider-small"></div>
             </v-list-item-group>
           </v-list>
+        </v-stepper-content>
+		<v-stepper-content background="transparent" step="2" class="pa-0">
+          <help/>
         </v-stepper-content>
       </v-stepper>
     </template>
@@ -171,6 +185,7 @@ import UserService from "@/services/UserService";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 import Login from "@/components/Login";
+import help from "@/components/help"
 import { mapState } from "vuex";
 
 export default {
@@ -271,7 +286,8 @@ export default {
   },
   components: {
     BuyVip,
-    Login,
+	Login,
+	help,
   },
   filters: {
     thousand(value) {
