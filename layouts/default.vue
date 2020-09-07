@@ -69,7 +69,11 @@
 				<strong>Total Points</strong>
 			</template>
 			<template v-else>
-				<v-img v-if="$route.name != 'purchase'" :src="mainlogo" width="130" class="mainlogo"></v-img>
+				<v-img v-if="$route.name != 'purchase' && wowtab == 0" :src="mainlogo" width="130" class="mainlogo"></v-img>
+				<strong v-else-if="$route.name != 'purchase' && wowtab == 1">Tukar Poin</strong>
+				<strong v-else-if="$route.name != 'purchase' && wowtab == 2">Tantangan</strong>
+				<strong v-else-if="$route.name != 'purchase' && wowtab == 3">Netizen</strong>
+				<strong v-else-if="$route.name != 'purchase' && wowtab == 4">Me</strong>
 			</template>
 
           <!-- {{$route.name}} -->
@@ -129,17 +133,14 @@
 		    BOTTOM NAVIGATION
         ooooooooooooooooooooooooooooooooooooo-->
 		<div class="ghost-page" :class="[wowtab >= 1 ? 'd-block' : 'd-none']" v-if="$route.name == 'index'">
-			<div :class="[wowtab == 1 ? 'd-block' : 'd-none']">
+			<div :class="[wowtab == 1 ? 'd-block mt-3' : 'd-none']">
 				<TukarPoin v-if="wowtab == 1" keep-alive/>
 			</div>
 			<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
 				<tantangan/>
 			</div>
 			<div :class="[wowtab == 3 ? 'd-block' : 'd-none']">
-				<v-container>
-					<h4>Netizen</h4>
-					<p>Coming soon</p>
-				</v-container>
+				<v-img src="https://cdn.pewefeed.com/containers/pewefeed/homework/NETIZEN-BANNER.png"></v-img>
 			</div>
 			<div :class="[wowtab == 4 ? 'd-block' : 'd-none']">
 				<profil v-if="wowtab == 4"/>
@@ -155,27 +156,27 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name=='index' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
+          v-if="$route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
         >
 		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
-            <span>Feeds</span>
+            <span class="text-11 d-inline-block mt-1">Feeds</span>
             <img :src="wowtab == 0 ? '/img/icons/nav-1-color.svg' : '/img/icons/nav-1-white.svg'" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
           <v-btn>
-            <span>Tukar Poin</span>
+            <span class="text-11 d-inline-block mt-1">Tukar Poin</span>
             <img :src="wowtab == 1 ? '/img/icons/nav-2-color.svg' : '/img/icons/nav-2-white.svg'" class="mb-1 d-block" width="20" height="20" />
           </v-btn>
 		  <v-btn>
-			<span>Tantangan</span>
+			<span class="text-11 d-inline-block mt-1">Tantangan</span>
             <img :src="wowtab == 2 ? '/img/icons/nav-3-color.svg' : '/img/icons/nav-3-white.svg'" class="mb-1 d-block" width="20" height="20" />
 		  </v-btn>
 		  <v-btn>
-			<span>Netizen</span>
+			<span class="text-11 d-inline-block mt-1">Netizen</span>
             <img :src="wowtab == 3 ? '/img/icons/nav-4-color.svg' : '/img/icons/nav-4-white.svg'" class="mb-1 d-block" width="20" height="20" />
 		  </v-btn>
 		  <v-btn>
-			<span>Me</span>
+			<span class="text-11 d-inline-block mt-1">Me</span>
             <img :src="wowtab == 4 ? '/img/icons/nav-5-color.svg' : '/img/icons/nav-5-white.svg'" class="mb-1 d-block" width="20" height="20" />
 		  </v-btn>
           <!-- <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />

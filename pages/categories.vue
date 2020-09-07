@@ -45,7 +45,6 @@
 
       <!-- BANTUAN -->
       <v-container class="d-none">
-        <h4 class="deep-orange--text text-20">Help</h4>
         <v-row>
           <v-col cols="12">
             <a class="pl-0" small text dark to="/bantuan/?tab=2">Point &amp; Rewards</a>
