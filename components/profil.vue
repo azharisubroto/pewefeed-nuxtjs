@@ -137,7 +137,7 @@
 			  <v-list-item class="py-3" @click="profileStep = 2">
                 <v-list-item-content>
                   <v-list-item-title>
-                    <strong>Bantuan</strong>
+                    Bantuan
                   </v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>

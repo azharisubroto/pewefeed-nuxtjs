@@ -73,11 +73,7 @@
 		</client-only>
 
 		<v-container>
-			<v-row>
-				<v-col cols="12" class="py-0">
-				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
-				</v-col>
-			</v-row>
+
 			<v-row
 				class="topview-item py-4"
 				style="border-bottom:1px solid #FFECEC"
@@ -85,14 +81,6 @@
 				:key="'topview-'+article.id+'-'+i"
 				@click="$router.push('/tukarpoin/redeem/'+article.id)"
 			>
-				<v-col cols="12" v-if="i%5 == 0">
-					<!-- ADSENSE -->
-					<InFeedAdsense
-						data-ad-layout-key="-fb+5w+4e-db+86"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="7916120444"
-					></InFeedAdsense>
-					</v-col>
 					<v-col cols="4" :class="article.expired ? 'expired': 'active'">
 						<v-img contain :src="article.image" aspect-ratio="1"></v-img>
 					</v-col>
@@ -125,6 +113,20 @@
 			<v-row class="mt-4">
 				<v-col>
 				<v-pagination v-model="page" :length="totalpage" color="orange" @input="next"></v-pagination>
+				</v-col>
+			</v-row>
+
+			<v-row>
+				<v-col cols="12" class="py-0">
+				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
+				</v-col>
+				<v-col cols="12">
+					<!-- ADSENSE -->
+					<InFeedAdsense
+						data-ad-layout-key="-fb+5w+4e-db+86"
+						data-ad-client="ca-pub-6581994114503986"
+						data-ad-slot="7916120444"
+					></InFeedAdsense>
 				</v-col>
 			</v-row>
 		</v-container>
