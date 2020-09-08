@@ -73,7 +73,11 @@
 		</client-only>
 
 		<v-container>
-
+			<v-row>
+				<v-col cols="12" class="py-0">
+				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
+				</v-col>
+			</v-row>
 			<v-row
 				class="topview-item py-4"
 				style="border-bottom:1px solid #FFECEC"
@@ -117,9 +121,6 @@
 			</v-row>
 
 			<v-row>
-				<v-col cols="12" class="py-0">
-				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
-				</v-col>
 				<v-col cols="12">
 					<!-- ADSENSE -->
 					<InFeedAdsense

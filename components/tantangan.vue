@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<template v-if="!loading && banners.length > 0 && banners != null">
-			<v-card color="transparent" v-for="(item, i) in banners" :key="'ad-'+i" :to="item.link">
-				<v-img :src="item.image"></v-img>
+			<v-card class="chall" color="transparent" v-for="(item, i) in banners" :key="'ad-'+i" :href="item.link">
+				<v-img :src="item.image" :class="[item.status != true ? 'coming' : 'active' ]"></v-img>
 			</v-card>
 		</template>
 		<template v-else>
@@ -49,3 +49,38 @@ export default {
 	}
 }
 </script>
+<style lang="scss">
+	.chall {
+		.coming {
+			&:before {
+				content:"";
+				background: #fff;
+				opacity: .7;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				z-index: 1;
+			}
+			&:after {
+				content:"Coming Soon";
+				width: 170px;
+				height: 50px;
+				background: #fa4203;
+				color: #fff;
+				line-height: 50px;
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				border-radius: 4px;
+				text-align: center;
+			}
+		}
+	}
+</style>
