@@ -132,8 +132,8 @@
 		</div>
 
 		<div v-else-if="content == null && loading" class="text-center pa-10">
-			<v-progress-circular color="#000" indeterminate size="64"></v-progress-circular>
-			<div class="mt-4 black--text" style="color:#000">
+			<v-progress-circular color="deep-orange" indeterminate size="64"></v-progress-circular>
+			<div class="mt-4 white--text" style="color:#fff">
 				Loading...
 			</div>
 		</div>
@@ -280,7 +280,7 @@ export default {
 			width: 100%;
 			z-index: -1;
 			height: 50vh;
-			background: #C6C6C6;
+			//background: #C6C6C6;
 			position:absolute;
 		}
 		iframe {
