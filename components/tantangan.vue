@@ -1,9 +1,14 @@
 <template>
 	<div>
 		<template v-if="!loading && banners.length > 0 && banners != null">
-			<v-card class="chall" color="transparent" v-for="(item, i) in banners" :key="'ad-'+i" :href="item.link">
-				<v-img :src="item.image" :class="[item.status != true ? 'coming' : 'active' ]"></v-img>
-			</v-card>
+			<template v-for="(item, i) in banners">
+				<v-card v-if="item.status == true" tile class="chall" color="transparent" :key="'ad-'+i" :href="item.link">
+					<v-img :src="item.image" :class="[item.status != true ? 'coming' : 'active' ]"></v-img>
+				</v-card>
+				<v-card v-else tile class="chall" color="transparent" :key="'ad-'+i">
+					<v-img :src="item.image" :class="[item.status != true ? 'coming' : 'active' ]"></v-img>
+				</v-card>
+			</template>
 		</template>
 		<template v-else>
 			<div class="text-center pa-10">
