@@ -132,10 +132,7 @@
 		</div>
 
 		<div v-else-if="content == null && loading" class="text-center pa-10">
-			<v-progress-circular color="deep-orange" indeterminate size="64"></v-progress-circular>
-			<div class="mt-4 white--text" style="color:#fff">
-				Loading...
-			</div>
+			<LoadingBar/>
 		</div>
 
 		<div v-else class="pa-10 text-center">
@@ -171,6 +168,7 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
+import LoadingBar from "@/components/sing/LoadingBar";
 import SingService from '@/services/SingService'
 
 export default {
@@ -179,7 +177,8 @@ export default {
 		ShareButton2,
 		SingAppBar,
 		Video,
-		SingPrizes
+		SingPrizes,
+		LoadingBar
 	},
 	data(){
 		return {

@@ -1,6 +1,6 @@
 <template>
 	<section class="sing-helphero">
-		<div v-if="label != null" >
+		<div v-if="label != null && !loading" >
 
 			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
@@ -29,6 +29,9 @@
 				<SingPrizes/>
 			</template>
 		</div>
+		<div v-else>
+			<LoadingBar/>
+		</div>
 	</section>
 </template>
 
@@ -37,6 +40,7 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
+import LoadingBar from "@/components/sing/LoadingBar";
 import SingService from '@/services/SingService'
 import UserService from '~/services/UserService';
 import BannerStatic from '@/components/common/BannerStatic'
@@ -48,7 +52,8 @@ export default {
 		SingAppBar,
 		SingPrizes,
 		Video,
-		BannerStatic
+		BannerStatic,
+		LoadingBar
 	},
 	data(){
 		return {
@@ -59,6 +64,7 @@ export default {
 			singcontent: [],
 			help: [],
 			prizes: null,
+			loading: true
 		}
 	},
 	methods: {
@@ -76,8 +82,9 @@ export default {
 					});
 				});
 				this.help = tempHelp;
+				this.loading = false
 			} catch (error) {
-
+				this.loading = false
 			}
 		},
 		formatText( text ) {

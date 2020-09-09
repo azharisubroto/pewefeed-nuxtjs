@@ -1,6 +1,6 @@
 <template>
 	<section class="sing-herodownload">
-		<div v-if="label != null" >
+		<div v-if="label != null && !loading" >
 
 			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
@@ -56,16 +56,16 @@
 				<SingPrizes/>
 			</template>
 		</div>
+		<div v-else>
+			<LoadingBar/>
+		</div>
 
 		<v-overlay
           :opacity="1"
           :value="downloadOverlay"
         >
           <div class="text-center">
-			  <v-progress-circular indeterminate size="64"></v-progress-circular>
-				<div class="mt-4">
-					Downloading Video File...
-				</div>
+			  <LoadingBar/>
 		  </div>
         </v-overlay>
 	</section>
@@ -76,6 +76,7 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
+import LoadingBar from "@/components/sing/LoadingBar";
 import SingService from '@/services/SingService'
 import axios from 'axios'
 import BannerStatic from '@/components/common/BannerStatic'
@@ -86,10 +87,12 @@ export default {
 		ShareButton2,
 		SingAppBar,
 		Video,
-		BannerStatic
+		BannerStatic,
+		LoadingBar
 	},
 	data(){
 		return {
+			loading: true,
 			singtab: 0,
 			maintab: 0,
 			label: 'Download',
@@ -111,8 +114,10 @@ export default {
 				this.lirik = data.lirik
 				this.download = data.download_video
 				this.videoName = data.promoted_video
+				this.loading = false
 			} catch (error) {
 				console.log(error)
+				this.loading = false
 			}
 		},
 		reqListener () {
