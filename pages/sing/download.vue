@@ -1,6 +1,6 @@
 <template>
 	<section class="sing-herodownload">
-		<div v-if="label != null" >
+		<div v-if="label != null && !loading" >
 
 			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
 
@@ -53,6 +53,9 @@
 				<SingPrizes/>
 			</template>
 		</div>
+		<div v-else>
+			<LoadingBar/>
+		</div>
 	</section>
 </template>
 
@@ -61,6 +64,7 @@ import ShareButton2 from "@/components/common/ShareButton2";
 import SingAppBar from "@/components/sing/SingAppBar";
 import SingPrizes from "@/components/sing/SingPrizes";
 import Video from "@/components/sing/Video";
+import LoadingBar from "@/components/sing/LoadingBar";
 import SingService from '@/services/SingService';
 import BannerStatic from '@/components/common/BannerStatic'
 
@@ -71,10 +75,12 @@ export default {
 		SingAppBar,
 		SingPrizes,
 		Video,
-		BannerStatic
+		BannerStatic,
+		LoadingBar
 	},
 	data(){
 		return {
+			loading: true,
 			singtab: 0,
 			maintab: 0,
 			label: 'Download',
@@ -91,8 +97,10 @@ export default {
 				console.log(JSON.parse(JSON.stringify(data)));
 				this.lirik = data.lirik
 				this.download = data.download_video
+				this.loading = false
 			} catch (error) {
 				console.log(error)
+				this.loading = false
 			}
 		},
 	},
