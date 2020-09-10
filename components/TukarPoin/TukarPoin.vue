@@ -1,7 +1,7 @@
 <template>
   <section class="pb-5">
 	<template v-if="tukarpointab">
-		<v-container>
+		<!-- <v-container>
 			<v-row align="center" v-if="discounts">
 				<v-col cols="6" class="py-0">
 				<h4 class="text-uppercase deep-orange--text">Rewards Terbatas</h4>
@@ -12,11 +12,11 @@
 				</no-ssr>
 				</v-col>
 			</v-row>
-		</v-container>
+		</v-container> -->
 
 		<!-- LATEST -->
 		<client-only>
-			<div class="slidewrapper  my-5">
+			<div class="slidewrapper  mt-5 mb-0">
 				<flickity
 				class="tukarpoinslide"
 				v-if="discounts"
@@ -29,12 +29,16 @@
 					class="featured-item-2"
 					@click="$router.push('/tukarpoin/redeem/'+item.id)"
 				>
-					<div class="pt-5 px-3 jeruk">
+					<div class="pt-5 px-3" :style="'color:#000!important;background: radial-gradient(circle, '+item.category.color_base_1+' 0%, '+item.category.color_base_2+' 100%);'">
 						<v-row>
 							<v-col cols="5" class="pt-0 pr-0">
 								<img :src="item.image ? item.image : ''" alt=""/>
 							</v-col>
 							<v-col cols="7">
+								<!-- Title -->
+								<div class="mb-2 text-20"><strong>{{item.title}}</strong></div>
+								
+								<!-- Poin needed -->
 								<v-row no-gutters>
 									<v-col cols="2" clas="pr-4">
 										<img
@@ -53,15 +57,13 @@
 										<strong class="text-18" style="line-height:1">{{item.price}} Poin</strong>
 									</v-col>
 								</v-row>
-								<div class="devider-small my-3" style="border-color:#000"></div>
 
-								<div class="mb-2 text-20">{{item.title}}</div>
+								<!-- Button -->
 								<v-btn
 								color="deep-orange"
+								class="mt-4"
 								depressed
 								dark
-								block
-								small
 								@click="$router.push('/tukarpoin/redeem/'+item.id)"
 								>Tukar Poin</v-btn>
 							</v-col>
@@ -72,7 +74,47 @@
 			</div>
 		</client-only>
 
-		<v-container>
+		<template v-if="groupedItems!=null">
+			<template v-for="(item, i) in groupedItems">
+				<div 
+				v-if="item.item.length>0"
+				:key="'sectiontp-'+i"
+				:style="'height:237px;color:#000!important;background: radial-gradient(at top left, '+item.attributes.color_base_1+' 0%, '+item.attributes.color_base_2+' 100%);overflow:hidden;'"
+				class="py-5"
+				>
+					<flickity
+					v-if="discounts"
+					:ref="'groupslide-'+i"
+					:options="flickityOptions2"
+					>
+						<div class="pt-4 text-18 lh-21 px-4" style="width: 103px;height:200px">
+							<strong>{{item.category}}</strong>
+							<div class="mt-2" style="width:27px;height:4px;background:#FF4200"></div>
+						</div>
+
+						<div
+						v-for="cool in item.item"
+						:key="'insideoout-'+cool.id"
+						style="color:#fff;width: 103px;height: 192px;background:#000;padding:10px;margin:0 5px;border-radius:5px"
+						@click="$router.push('/tukarpoin/redeem/'+cool.id)"
+						>
+							<v-img :src="cool.image" alt="" color="deep-orange" height="125"></v-img>
+							<div class="text-8 mt-1" style="height:24px">
+								{{cool.title}}
+							</div>
+							<div class="mt-1 text-10">
+								<img src="/img/icons/poin-p.svg" alt="" class="mr-1" width="10" style="vertical-align:middle"/>
+								<strong>{{cool.point}}</strong>
+							</div>
+						</div>
+					</flickity>
+				</div>
+			</template>
+		</template>
+		
+		<!-- <v-container>
+
+
 			<v-row>
 				<v-col cols="12" class="py-0">
 				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
@@ -122,7 +164,6 @@
 
 			<v-row>
 				<v-col cols="12">
-					<!-- ADSENSE -->
 					<InFeedAdsense
 						data-ad-layout-key="-fb+5w+4e-db+86"
 						data-ad-client="ca-pub-6581994114503986"
@@ -130,7 +171,7 @@
 					></InFeedAdsense>
 				</v-col>
 			</v-row>
-		</v-container>
+		</v-container> -->
 	</template>
 
 	<template v-if="syarattab">
@@ -201,17 +242,37 @@ export default {
         groupCells: 1,
         prevNextButtons: false,
         pageDots: true,
-        wrapAround: true
+        wrapAround: false
+	  },
+	  flickityOptions2: {
+        groupCells: 4,
+        prevNextButtons: false,
+        pageDots: false,
+		wrapAround: false,
+		cellAlign: 'left'
       },
       labels: {
         days: "Days",
         hours: "Hr",
         minutes: "Min",
         seconds: "Sec"
-      }
+	  },
+	  groupedItems: null
     };
   },
   methods: {
+	async fetchGrouped(){
+		try {
+			const res = await TukarPoinService.getGrouped()
+
+			if( res.data.data != null && res.data.data.length > 0 ) {
+				this.groupedItems = res.data.data
+			}
+			//var data = res.data.data
+		} catch (error) {
+			console.log(error)
+		}
+	},
     async fetchRedeemItems(n) {
       var n = n ? n : 1;
       var params = {
@@ -257,9 +318,10 @@ export default {
     },
   },
   mounted() {
-    this.fetchRedeemItems();
+    //this.fetchRedeemItems();
 	this.fetchDiscounts();
 	this.fetchDetail();
+	this.fetchGrouped();
   },
   beforeRouteLeave (from, to, next) {
 	const slider = this.$refs.tukarpointslideeee.$el
@@ -274,22 +336,31 @@ export default {
 
 <style lang="scss">
 .slidewrapper {
-	height: 280px;
+	height: 330px;
 	overflow: hidden;
 	position: relative;
 }
 .tukarpoinslide {
-  height: 280px !important;
-  background: #FE9800;
+  background: #1C1C1C;
   .featured-item-2 {
     width: 100%;
     height: 280px !important;
-    .jeruk {
-      height: 280px !important;
-    }
   }
   .flickity-page-dots {
-	  bottom: 16px !important;
+	  bottom: 0 !important;
+	  position: relative!important;
+	  background: transparent;
+	  height: 48px;
+	  line-height: 48px;
+	  padding: 0 10px!important;
+	  text-align: left;
+
+	  .dot {
+		  width: 10px!important;
+		  height: 10px!important;
+		  border-radius: 90px!important;
+		  opacity: 1!important;
+	  }
   }
 }
 .flip-card__top[data-v-72281230], .flip-card__bottom[data-v-72281230], .flip-card__back-bottom[data-v-72281230], .flip-card__back[data-v-72281230]::before, .flip-card__back[data-v-72281230]::after{

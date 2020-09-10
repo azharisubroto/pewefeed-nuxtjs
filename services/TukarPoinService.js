@@ -17,4 +17,7 @@ export default {
 	getDiscount() {
 		return Api().get('/redeem/discount')
 	},
+	getGrouped() {
+		return Api().get('/store/items/categories')
+	},
 }

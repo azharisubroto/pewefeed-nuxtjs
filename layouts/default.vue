@@ -1,7 +1,7 @@
 <template>
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
-      <v-app-bar v-if="$route.name != 'purchase' && !$route.name.includes('sing')" dark color="dark" flat fixed tile class="main-app-bar">
+      <v-app-bar v-if="wowtab != 1 && $route.name != 'purchase' && !$route.name.includes('sing')" dark color="dark" flat fixed tile class="main-app-bar">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
         <template v-if="$route.name != 'index' && $route.name != 'tukarpoin' && $route.name != 'toppoin'">
           <v-btn @click="historyBack()" small icon>
@@ -133,7 +133,7 @@
 		    BOTTOM NAVIGATION
         ooooooooooooooooooooooooooooooooooooo-->
 		<div class="ghost-page" :class="[wowtab >= 1 ? 'd-block' : 'd-none']" v-if="$route.name == 'index'">
-			<div :class="[wowtab == 1 ? 'd-block mt-3' : 'd-none']">
+			<div :class="[wowtab == 1 ? 'd-block' : 'd-none']" style="margin-top:-70px">
 				<TukarPoin v-if="wowtab == 1" keep-alive/>
 			</div>
 			<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
