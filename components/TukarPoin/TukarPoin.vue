@@ -80,7 +80,7 @@
 				v-if="item.item.length>0"
 				:key="'sectiontp-'+i"
 				:style="'height:237px;color:#000!important;background: radial-gradient(at top left, '+item.attributes.color_base_1+' 0%, '+item.attributes.color_base_2+' 100%);overflow:hidden;'"
-				class="py-5"
+				class="py-5 mb-4"
 				>
 					<flickity
 					v-if="discounts"
@@ -96,10 +96,11 @@
 						v-for="cool in item.item"
 						:key="'insideoout-'+cool.id"
 						style="color:#fff;width: 103px;height: 192px;background:#000;padding:10px;margin:0 5px;border-radius:5px"
+						:class="[cool.expired == true ? 'expired' : '']"
 						@click="$router.push('/tukarpoin/redeem/'+cool.id)"
 						>
-							<v-img :src="cool.image" alt="" color="deep-orange" height="125"></v-img>
-							<div class="text-8 mt-1" style="height:24px">
+							<v-img :src="cool.image" alt="" contain color="deep-orange" height="125"></v-img>
+							<div class="text-10 mt-1" style="height:30px">
 								{{cool.title}}
 							</div>
 							<div class="mt-1 text-10">
@@ -334,6 +335,12 @@ export default {
 };
 </script>
 
+
+<style lang="scss" scoped>
+	.expired {
+		filter: grayscale(1)
+	}
+</style>
 <style lang="scss">
 .slidewrapper {
 	height: 330px;
@@ -344,7 +351,7 @@ export default {
   background: #1C1C1C;
   .featured-item-2 {
     width: 100%;
-    height: 280px !important;
+    height: 270px !important;
   }
   .flickity-page-dots {
 	  bottom: 0 !important;
