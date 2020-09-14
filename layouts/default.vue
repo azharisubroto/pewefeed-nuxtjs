@@ -69,7 +69,7 @@
 				<strong>Total Points</strong>
 			</template>
 			<template v-else>
-				<v-img v-if="$route.name != 'purchase' && wowtab == 0" :src="mainlogo" width="130" class="mainlogo"></v-img>
+				<img v-if="$route.name != 'purchase' && wowtab == 0" :src="mainlogo" width="130" class="mainlogo"/>
 				<strong v-else-if="$route.name != 'purchase' && wowtab == 1">Tukar Poin</strong>
 				<strong v-else-if="$route.name != 'purchase' && wowtab == 2">Tantangan</strong>
 				<strong v-else-if="$route.name != 'purchase' && wowtab == 3">Netizen</strong>
@@ -81,7 +81,7 @@
         <div class="flex-grow-1"></div>
 
         <div @click="$router.push('/');clearStorage();" class="pr-1" v-if="$route.name != 'index'">
-          <v-img src="/img/peweicon.svg" width="20"></v-img>
+          <img src="/img/peweicon.svg" width="20"/>
         </div>
 
         <div v-else @click="opensearch = true" class="pr-1">
@@ -693,7 +693,9 @@ export default {
 	}
 	if( this.$route.name=='member-daily-limit' || this.$route.name=='member-purchase-daily' || this.$route.name == 'about-daily-limit' || this.$route.name == 'purchase' ) {
 		this.wowtab = 4
-	}
+	} else {
+    this.wowtab = 0
+  }
 
   },
   watch: {

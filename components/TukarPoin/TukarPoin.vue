@@ -79,7 +79,7 @@
 				<div 
 				v-if="item.item.length>0"
 				:key="'sectiontp-'+i"
-				:style="'height:237px;color:#000!important;background: radial-gradient(at top left, '+item.attributes.color_base_1+' 0%, '+item.attributes.color_base_2+' 100%);overflow:hidden;'"
+				:style="'height:auto;padding-bottom:30px;color:#000!important;background: radial-gradient(at top left, '+item.attributes.color_base_1+' 0%, '+item.attributes.color_base_2+' 100%);overflow:hidden;'"
 				class="py-5 mb-4"
 				>
 					<flickity
@@ -95,15 +95,15 @@
 						<div
 						v-for="cool in item.item"
 						:key="'insideoout-'+cool.id"
-						style="color:#fff;width: 103px;height: 192px;background:#000;padding:10px;margin:0 5px;border-radius:5px"
+						style="color:#fff;width: 123px;height: 232px;background:#000;padding:10px;margin:0 5px;border-radius:5px"
 						:class="[cool.expired == true ? 'expired' : '']"
 						@click="$router.push('/tukarpoin/redeem/'+cool.id)"
 						>
-							<v-img :src="cool.image" alt="" contain color="deep-orange" height="125"></v-img>
-							<div class="text-10 mt-1" style="height:30px">
+							<v-img :src="cool.image" alt="" contain color="deep-orange" height="145"></v-img>
+							<div class="text-12 mt-1" style="height:40px">
 								{{cool.title}}
 							</div>
-							<div class="mt-1 text-10">
+							<div class="mt-1 text-12">
 								<img src="/img/icons/poin-p.svg" alt="" class="mr-1" width="10" style="vertical-align:middle"/>
 								<strong>{{cool.point}}</strong>
 							</div>
