@@ -20,4 +20,7 @@ export default {
 	getGrouped() {
 		return Api().get('/store/items/categories')
 	},
+	getHelp() {
+		return Api().get('/help/store');
+	}
 }

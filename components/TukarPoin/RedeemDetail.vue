@@ -1,5 +1,192 @@
 <template>
   <section class="tukarpoin-content">
+    <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+      <v-btn @click="historyBack()" small icon>
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <div class="flex-grow-1"></div>
+
+      <v-toolbar-title
+        @click="$router.push('/'); drawer = false"
+        class="px-0"
+        style="opacity:0.8"
+      >{{detail.title ? detail.title : 'Loading...'}}</v-toolbar-title>
+      <div class="flex-grow-1"></div>
+
+      <div v-if="$route.name != 'index'">
+        <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20"></v-img>
+      </div>
+    </v-app-bar>
+
+    <v-tabs
+      v-model="redeemtab"
+      background-color="transparent"
+      color="white"
+      slider-color="deep-orange"
+      grow
+    >
+      <!-- Menu -->
+      <v-tab class="text-10">
+        Tukar
+      </v-tab>
+      <v-tab class="text-10">
+        Penukar
+      </v-tab>
+      <v-tab class="text-10">
+        Cara Tukar
+      </v-tab>
+      <v-tab class="text-10">
+          <ShareButton2 independent>Bagikan</ShareButton2>
+      </v-tab>
+      
+      <!-- Content -->
+      <v-tabs-items v-model="redeemtab">
+
+        <v-tab-item>
+          <!-- DETAIL REWWARD -->
+          <template>
+            <div v-if="detail" class="py-4 px-3" style="background: #1C1C1C;color: #fff">
+              <v-row>
+                <v-col cols="4" class="pr-0">
+                  <img :src="detail.image" alt />
+                </v-col>
+                <v-col cols="8" class="pr-4">
+                  <!-- DeSCRIPTION -->
+                  <div class="deep-orange--text text-12">
+                    Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
+                    <br />
+                    Tersisa {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
+                  </div>
+                  <div v-html="detail.description" class="pt-2 mb-0 text-12"></div>
+
+                  <!-- ACTION -->
+                  <v-btn-toggle color="deep-orange">
+                    <v-btn
+                      color="deep-orange"
+                      :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                      :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                      @click="buyconfirm = !buyconfirm"
+                    >Tukar Poin</v-btn>
+
+                    <v-btn color="deep-orange">
+                      <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
+                      {{detail.discount > 0 ? detail.point - detail.discount : detail.point}}
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </v-row>
+            </div>
+            <v-container></v-container>
+          </template>
+
+          <div style="border-top: 10px solid #000000;"></div>
+
+          <v-container>
+            <h4 class="text-16 lh-20">Rewards Lainnya</h4>
+            
+            <template v-if="others != null && others.length > 0">
+              <v-row >
+                <v-col cols="6" v-for="(item, i) in others" :key="'others-'+i">
+                  <v-card :to="'/tukarpoin/redeem/'+item.id" color="#404040" class="px-3 py-3" style="height: 100%">
+                    <v-row>
+                      <v-col cols="5" class="pr-0">
+                        <v-img :src="item.image" contain></v-img>
+                      </v-col>
+                      <v-col cols="7">
+                        <div class="text-12">
+                          {{ item.title }}
+                          <br>
+                          <v-btn text class="pl-0" small>
+                            <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
+                            {{detail.discount > 0 ? detail.point - detail.discount : detail.point}}
+                          </v-btn>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </template>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <!-- HISTORY -->
+          <template>
+            <v-container>
+              <template v-if="histories && histories.length > 0">
+                <v-row>
+                  <v-col
+                  cols="6"
+                  v-for="(history, i) in histories"
+                  :key="history.id+'-'+i"
+                  >
+                    <v-card
+                      color="#404040"
+                      class="pa-3 comment-item mb-2"
+                      style="height:100%"
+                      :id="'history'+history.redeem_id"
+                    >
+                      <v-row dense>
+                        <v-col cols="3" class="pr-0">
+                          <v-avatar size="30" >
+                            <img
+                              :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
+                              onerror="this.src='/img/user.jpeg';"
+                            />
+                          </v-avatar>
+                        </v-col>
+                        <v-col cols="9">
+                          <strong class="text-12">{{ history.customer.name }}</strong>
+                          <div class="mt-0 text--gray text-10">{{history.created_at}}</div>
+                        </v-col>
+                      </v-row>
+                    </v-card>
+                  </v-col>
+                </v-row>
+                
+                <v-btn
+                  block
+                  dark
+                  depressed
+                  :loading="moreLoading"
+                  color="deep-orange"
+                  class="mt-3"
+                  @click="moreHistory(historyNext)"
+                >Load More</v-btn>
+              </template>
+              <template v-else>
+                <div class="py-10 caption grey--text text-center">Loading...</div>
+              </template>
+              <br />
+              <br />
+            </v-container>
+          </template>
+        </v-tab-item>
+
+        <v-tab-item>
+          <!-- SYARAT -->
+          <v-container>
+            <!-- <div v-html="detail.term"></div> -->
+            <section class="toppoin-accx" v-if="helps != null && helps.length > 0">
+              <v-expansion-panels v-for="(item,index) in helps" :key="index">
+                <v-expansion-panel class="mb-3" style="border-radius:5px">
+                  <v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
+                  <v-expansion-panel-content class="caption">
+                    <div v-html="item.content"></div>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </section>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          
+        </v-tab-item>
+      </v-tabs-items>
+    </v-tabs>
+
     <!-- SNACKBAR SUKSES ATAU FAIL -->
     <v-snackbar v-model="snackbar" :multi-line="true" top>
       {{ tukarmsg }}
@@ -17,196 +204,83 @@
       type="list-item-avatar-three-line, image, article"
     ></v-skeleton-loader>
 
-    <!-- DETAIL REWWARD -->
-    <template v-if="detailtab">
-      <div v-if="detail" class="py-4 px-3" style="background: #ff9800">
-        <v-row align="center">
-          <v-col cols="5" class="pr-0">
-            <img :src="detail.image" alt=""/>
-          </v-col>
-          <v-col cols="7" class="pr-4">
-				<v-row no-gutters class="mx-0">
-					<v-col cols="2" class="pr-2">
-						<img
-						src="/img/icons/poin-black.svg"
-						alt
-						class="mr-1 mt-1"
-						style="vertical-align:top"
-						/>
-					</v-col>
-					<v-col cols="10">
-						<strong
-						style="text-decoration:line-through"
-						class="text-16 black--text"
-						v-if="detail.discount > 0"
-						>{{detail.point}} POIN</strong>
-						<div :class="[detail.discount == 0 ? 'mb-1' : '']"></div>
-						<strong class="text-20 black--text" style="line-height:1">{{detail.point - detail.discount}} Poin</strong>
-					</v-col>
-				</v-row>
-				<div class="devider-small my-3" style="border-color:#000"></div>
-
-				<div class="mb-2 text-20 black--text">{{detail.title}}</div>
-			</v-col>
-        </v-row>
-      </div>
-      <v-container>
-		<v-row>
-			<v-col>
-				<v-row class="pb-4">
-					<v-col cols="3" class="pt-0">
-					<strong>Status</strong>
-					<div class="caption"></div>
-					</v-col>
-					<v-col
-					cols="9"
-					class="text-right pt-0"
-					>Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</v-col>
-				</v-row>
-				<div class="devider-small"></div>
-				<v-row class="py-4">
-					<v-col cols="6">
-					<strong>Poin Diperlukan</strong>
-					</v-col>
-					<v-col cols="6" class="text-right">
-					<img
-						src="/img/icons/poin-p.svg"
-						alt
-						width="20"
-						class="mr-1"
-						style="position:relative;top:5px;"
-					/>
-					<strong class="">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</strong>
-					</v-col>
-				</v-row>
-				<div class="devider-small"></div>
-				<v-row class="py-4">
-					<v-col cols="6">
-					<strong>Sisa Hadiah</strong>
-					</v-col>
-					<v-col
-					cols="6"
-					class="text-right"
-					>{{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}</v-col>
-				</v-row>
-				<div class="devider-small"></div>
-				<v-row class="py-4">
-					<v-col cols="12">
-						<v-expansion-panels v-model="panel" class="nocard">
-							<v-expansion-panel>
-							<v-expansion-panel-header>
-								<div class="text-16 font-weight-bold">Deskripsi</div>
-							</v-expansion-panel-header>
-							<v-expansion-panel-content>
-								<div v-html="detail.description" class="py-3 text-14"></div>
-							</v-expansion-panel-content>
-							</v-expansion-panel>
-						</v-expansion-panels>
-
-						<div class="devider-small mt-7"></div>
-					</v-col>
-					<v-col cols="12">
-						<v-btn
-							v-if="detail.stock"
-							block
-							dark
-							depressed
-							large
-							color="deep-orange"
-							:disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-							:style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-							@click="buyconfirm = !buyconfirm"
-						>Tukarkan Poin</v-btn>
-						<v-btn
-							v-else
-							block
-							dark
-							depressed
-							large
-							:disabled="detail.expired ? true : false"
-							color="deep-orange"
-							style="background-color: grey !important;"
-							@click="buyconfirm = !buyconfirm"
-						>Tukarkan Poin</v-btn>
-					</v-col>
-				</v-row>
-			</v-col>
-			<v-col cols="12">
-				<BannerStatic slug="toppoin"/>
-			</v-col>
-      	</v-row>
-	  </v-container>
-    </template>
-
+    
+    
     <!-- BUY CONFIRM -->
-	<v-bottom-sheet v-model="buyconfirm">
-		<v-sheet height="100%" color="transparent">
-		<v-card style="border-radius: 0!important;">
-			<v-toolbar :elevation="1" style="border-top: 2px solid #fff;border-bottom:3px solid #000">
-				<v-row class="pa-0" align="center">
-					<v-col cols="2">
-						<v-btn
-							dark
-							icon
-							tile
-							style="border-right: 0px solid #717171"
-							light
-							@click="buyconfirm = false;"
-						>
-							<v-icon>mdi-close</v-icon>
-						</v-btn>
-					</v-col>
-					<v-col cols="8" class="deep-orange--text text-center">
-						{{(buystep == 1) ? 'INFORMATION' : 'VERIFICATION'}}
-					</v-col>
-				</v-row>
-			</v-toolbar>
+    <v-bottom-sheet v-model="buyconfirm">
+      <v-sheet height="100%" color="transparent">
+        <v-card style="border-radius: 0!important;">
+          <v-toolbar :elevation="1" style="border-top: 2px solid #fff;border-bottom:3px solid #000">
+            <v-row class="pa-0" align="center">
+              <v-col cols="2">
+                <v-btn
+                  dark
+                  icon
+                  tile
+                  style="border-right: 0px solid #717171"
+                  light
+                  @click="buyconfirm = false;"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col
+                cols="8"
+                class="deep-orange--text text-center"
+              >{{(buystep == 1) ? 'INFORMATION' : 'VERIFICATION'}}</v-col>
+            </v-row>
+          </v-toolbar>
 
-			<div class="px-0 pt-10 text-center">
-				<template v-if="buystep == 1">
-					Anda akan menukarkan
-					<div class="mt-2 text-18" style="line-height:1">
-						<strong>{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</strong> Poin<br>
-					</div>
+          <div class="px-0 pt-10 text-center">
+            <template v-if="buystep == 1">
+              Anda akan menukarkan
+              <div class="mt-2 text-18" style="line-height:1">
+                <strong>{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</strong> Poin
+                <br />
+              </div>
 
-					<div class="mt-3">
-						Dengan reward
-						<div class="text-18"><strong>{{detail.title}}</strong></div>
-					</div>
-					<v-card-actions class="pb-10">
-						<v-spacer></v-spacer>
-						<v-btn
-						:loading="pending"
-						block
-						dark
-						depressed
-						color="deep-orange"
-						@click="buystep = 2"
-						><strong>LANJUTKAN</strong></v-btn>
-						<br><br><br>
-						<v-spacer></v-spacer>
-					</v-card-actions>
-				</template>
+              <div class="mt-3">
+                Dengan reward
+                <div class="text-18">
+                  <strong>{{detail.title}}</strong>
+                </div>
+              </div>
+              <v-card-actions class="pb-10">
+                <v-spacer></v-spacer>
+                <v-btn
+                  :loading="pending"
+                  block
+                  dark
+                  depressed
+                  color="deep-orange"
+                  @click="buystep = 2"
+                >
+                  <strong>LANJUTKAN</strong>
+                </v-btn>
+                <br />
+                <br />
+                <br />
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </template>
 
+            <template v-if="buystep == 2">
+              <recaptcha @error="onError()" @success="onSuccess()" @expired="onExpired()" />
+              <br />
+              <br />
+              <br />
+            </template>
+          </div>
 
-				<template v-if="buystep == 2">
-					<recaptcha @error="onError()" @success="onSuccess()" @expired="onExpired()" />
-					<br>
-					<br>
-					<br>
-				</template>
-			</div>
+          <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+          </v-overlay>
+        </v-card>
+      </v-sheet>
+    </v-bottom-sheet>
 
-
-			<v-overlay :value="overlay">
-				<v-progress-circular indeterminate size="64"></v-progress-circular>
-			</v-overlay>
-		</v-card>
-		</v-sheet>
-	</v-bottom-sheet>
-
-	<!-- AFTER PURCHASE -->
-	<v-bottom-sheet v-model="afterSaveModal">
+    <!-- AFTER PURCHASE -->
+    <v-bottom-sheet v-model="afterSaveModal">
       <v-sheet height="100%">
         <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <!-- Arrow -->
@@ -229,93 +303,52 @@
           <div class="flex-grow-1"></div>
         </v-toolbar>
 
-		<div class="px-4 pt-10 text-center">
+        <div class="px-4 pt-10 text-center">
           <div class="mt-5 mb-0 text-16">
             <template v-if="infotype == 'error'">
-				<v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img>
-
-				{{tukarmsg}}
+              <v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img>
+              {{tukarmsg}}
             </template>
-			<template v-else-if="infotype == 'success'">
-				<v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img>
-
-				Poin Sukses Ditukar
-			</template>
+            <template v-else-if="infotype == 'success'">
+              <v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img>Poin Sukses Ditukar
+            </template>
           </div>
         </div>
-		<v-card-actions class="pb-10">
+        <v-card-actions class="pb-10">
           <v-spacer></v-spacer>
 
-          <v-btn v-if="infotype == 'error'" to="/member/histori_penggunaan_poin/" color="deep-orange" block class="mt-2"><strong>Cek Poin</strong></v-btn>
-          <v-btn v-else-if="infotype == 'success'" to="/member/rewards-status/" color="deep-orange" block class="mt-2"><strong>Cek Status Rewards</strong></v-btn>
+          <v-btn
+            v-if="infotype == 'error'"
+            to="/member/histori_penggunaan_poin/"
+            color="deep-orange"
+            block
+            class="mt-2"
+          >
+            <strong>Cek Poin</strong>
+          </v-btn>
+          <v-btn
+            v-else-if="infotype == 'success'"
+            to="/member/rewards-status/"
+            color="deep-orange"
+            block
+            class="mt-2"
+          >
+            <strong>Cek Status Rewards</strong>
+          </v-btn>
 
-		  <br><br><br>
+          <br />
+          <br />
+          <br />
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-sheet>
     </v-bottom-sheet>
 
-    <!-- HISTORY -->
-    <template v-if="hitoritab">
-      <v-container>
-		  <template v-if="histories && histories.length > 0">
-        <div
-          class="comment-item mb-2"
-          v-for="(history, i) in histories"
-          :key="history.id+'-'+i"
-          :id="'history'+history.redeem_id"
-        >
-          <v-row>
-            <v-col cols="2">
-              <v-avatar size="30">
-                <img
-                  :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
-                  onerror="this.src='/img/user.jpeg';"
-                />
-              </v-avatar>
-            </v-col>
-            <v-col cols="10">
-              <strong>{{ history.customer.name }}</strong>
-              <br />
-              <div class="mt-2 caption text--gray">{{history.date}}</div>
-            </v-col>
-          </v-row>
-        </div>
-        <v-btn
-          block
-          dark
-          depressed
-          :loading="moreLoading"
-          color="deep-orange"
-          @click="moreHistory(historyNext)"
-        >Load More</v-btn>
-      </template>
-      <template v-else>
-        <div class="py-10 caption grey--text text-center">Loading...</div>
-      </template>
-      <br />
-      <br />
-	  </v-container>
-    </template>
-
-    <!-- SYARAT -->
-    <template v-if="syarattab">
-      <!-- <div v-html="detail.term"></div> -->
-      <section class="toppoin-acc" v-if="detail.term">
-        <v-expansion-panels v-for="(item,index) in detail.term" :key="index">
-          <v-expansion-panel class="mb-0">
-            <v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
-            <v-expansion-panel-content class="caption">
-              <div v-html="item.content"></div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </section>
-    </template>
+    
     <br />
     <br />
 
-    <v-bottom-navigation
+    <!-- <v-bottom-navigation
       fixed
       dark
       grow
@@ -338,7 +371,7 @@
         <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="25" height="25" />
       </v-btn>
       <ShareButton2 />
-    </v-bottom-navigation>
+    </v-bottom-navigation> -->
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
   </section>
@@ -349,7 +382,7 @@ import TukarPoinService from "@/services/TukarPoinService";
 import UserService from "@/services/UserService";
 import LoginModal from "@/components/modal/LoginModal";
 import ShareButton2 from "@/components/common/ShareButton2";
-import BannerStatic from '@/components/common/BannerStatic';
+import BannerStatic from "@/components/common/BannerStatic";
 
 export default {
   name: "RedeemDetail",
@@ -371,9 +404,20 @@ export default {
       ]
     };
   },
+  watch: {
+    redeemtab: function(newval, old) {
+      let vm = this
+      setTimeout(() => {
+        if( newval == 3 ) {
+          vm.redeemtab = old
+        }
+      }, 100);
+    }
+  },
   data() {
     return {
       tptab: 0,
+      redeemtab: 0,
       snackbar: false,
       tukarmsg: "",
       overlay: false,
@@ -388,21 +432,26 @@ export default {
       panel: 0,
       loginModalVisible: false,
       buyconfirm: false,
-	  pending: false,
-	  buystep: 1,
-	  recaptchaToken: null,
-	  afterSaveModal: false,
-	  infotype: null
+      pending: false,
+      buystep: 1,
+      recaptchaToken: null,
+      afterSaveModal: false,
+      infotype: null,
+      others: null,
+      helps: null,
     };
   },
   methods: {
-	/* Recaptcha */
+    historyBack() {
+      this.$router.back();
+    },
+    /* Recaptcha */
     onError(error) {
       console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
-      this.tukarPoin()
+      this.tukarPoin();
     },
     onExpired() {
       console.log("Expired");
@@ -415,6 +464,7 @@ export default {
         );
         this.detail = res.data.data;
         this.title = res.data.data.title;
+        this.others = res.data.others
         // console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
         console.log(error);
@@ -472,8 +522,8 @@ export default {
 
         // console.log(res);
         this.overlay = false;
-		this.afterSaveModal = true
-		this.infotype = 'success'
+        this.afterSaveModal = true;
+        this.infotype = "success";
         this.pending = false;
         this.buyconfirm = false;
       } catch (error) {
@@ -482,19 +532,17 @@ export default {
         if (error.response.status == 401) {
           this.openModalLogin();
         } else if (error.response.status == 404) {
-          this.tukarmsg =
-            "Poin Anda Tidak Cukup";
+          this.tukarmsg = "Poin Anda Tidak Cukup";
         } else if (error.response.status == 422) {
           this.tukarmsg =
             "Maaf, Reward ini hanya dapat ditukar dengan POIN satu kali per hari.";
         } else {
-		  this.tukarmsg =
-            "An Error Occured";
+          this.tukarmsg = "An Error Occured";
         }
         this.pending = false;
-		this.buyconfirm = false;
-		this.afterSaveModal = true
-		this.infotype = 'error'
+        this.buyconfirm = false;
+        this.afterSaveModal = true;
+        this.infotype = "error";
       }
     },
     openModalLogin() {
@@ -514,10 +562,20 @@ export default {
       var tanggal = detailtanggal.replace("00:00:00", "");
       tanggal = tanggal.replace(" ", "");
       return tanggal;
+    },
+    async fetchHelp() {
+      try {
+        const res = await TukarPoinService.getHelp()
+        this.helps = res.data.data
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   mounted() {
     this.fetchDetail();
+    this.fetchHelp()
+    this.fetchHistory()
   }
 };
 </script>
@@ -554,6 +612,15 @@ export default {
   font-size: 16px !important;
 }
 .nocard p:only-of-type {
-	margin-bottom: 0;
+  margin-bottom: 0;
+}
+.theme--dark.v-tabs .v-tab--active:hover::before, .theme--dark.v-tabs .v-tab--active::before {
+    opacity: 0 !important
+}
+.theme--dark.v-tabs .v-tab:hover::before {
+    opacity: 0 !important
+}
+.v-slide-group__wrapper {
+  box-shadow: inset 0 -2px 0 0 #AFAFAF
 }
 </style>

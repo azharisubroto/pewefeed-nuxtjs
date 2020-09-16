@@ -156,7 +156,7 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
-          v-if="$route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
+          v-if="$route.name=='tukarpoin-redeem-detail' || $route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
         >
 		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/')">
@@ -693,7 +693,9 @@ export default {
 	}
 	if( this.$route.name=='member-daily-limit' || this.$route.name=='member-purchase-daily' || this.$route.name == 'about-daily-limit' || this.$route.name == 'purchase' ) {
 		this.wowtab = 4
-	} else {
+  } else if( this.$route.name=='tukarpoin-redeem-detail' )  {
+    this.wowtab = 1
+  } else {
     this.wowtab = 0
   }
 
