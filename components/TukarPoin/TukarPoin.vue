@@ -1,18 +1,6 @@
 <template>
   <section class="pb-5">
 	<template v-if="tukarpointab">
-		<!-- <v-container>
-			<v-row align="center" v-if="discounts">
-				<v-col cols="6" class="py-0">
-				<h4 class="text-uppercase deep-orange--text">Rewards Terbatas</h4>
-				</v-col>
-				<v-col cols="6" class="text-right py-0" v-if="expire">
-				<no-ssr>
-					<flip-countdown :deadline="expire" :labels="labels"></flip-countdown>
-				</no-ssr>
-				</v-col>
-			</v-row>
-		</v-container> -->
 
 		<!-- LATEST -->
 		<client-only>
@@ -82,97 +70,36 @@
 				:style="'height:auto;padding-bottom:30px;color:#000!important;background: radial-gradient(at top left, '+item.attributes.color_base_1+' 0%, '+item.attributes.color_base_2+' 100%);overflow:hidden;'"
 				class="py-5 mb-4"
 				>
-					<flickity
-					v-if="discounts"
-					:ref="'groupslide-'+i"
-					:options="flickityOptions2"
-					>
-						<div class="pt-4 text-18 lh-21 px-4" style="width: 103px;height:200px">
-							<strong>{{item.category}}</strong>
-							<div class="mt-2" style="width:27px;height:4px;background:#FF4200"></div>
-						</div>
-
+					<div class="plainslide-wrapper">
 						<div
-						v-for="cool in item.item"
-						:key="'insideoout-'+cool.id"
-						style="color:#fff;width: 123px;height: 232px;background:#000;padding:10px;margin:0 5px;border-radius:5px"
-						:class="[cool.expired == true ? 'expired' : '']"
-						@click="$router.push('/tukarpoin/redeem/'+cool.id)"
+						class="plainslide"
+						v-if="discounts"
 						>
-							<v-img :src="cool.image" alt="" contain color="deep-orange" height="145"></v-img>
-							<div class="text-12 mt-1" style="height:40px">
-								{{cool.title}}
+							<div class="pt-4 text-18 lh-21 px-4" style="width: 103px;height:200px;background:transparent;">
+								<strong>{{item.category}}</strong>
+								<div class="mt-2" style="width:27px;height:4px;background:#FF4200"></div>
 							</div>
-							<div class="mt-1 text-12">
-								<img src="/img/icons/poin-p.svg" alt="" class="mr-1" width="10" style="vertical-align:middle"/>
-								<strong>{{cool.point}}</strong>
+
+							<div
+							v-for="cool in item.item"
+							:key="'insideoout-'+cool.id"
+							:class="[cool.expired == true ? 'expired' : '']"
+							@click="$router.push('/tukarpoin/redeem/'+cool.id)"
+							>
+								<v-img :src="cool.image" alt="" contain color="deep-orange" height="145"></v-img>
+								<div class="text-12 mt-2" style="height:40px;word-wrap: break-all">
+									{{cool.title}}
+								</div>
+								<div class="mt-1 text-12">
+									<img src="/img/icons/poin-p.svg" alt="" class="mr-1" width="10" style="vertical-align:middle"/>
+									<strong>{{cool.point}}</strong>
+								</div>
 							</div>
 						</div>
-					</flickity>
+					</div>
 				</div>
 			</template>
 		</template>
-		
-		<!-- <v-container>
-
-
-			<v-row>
-				<v-col cols="12" class="py-0">
-				<h4 class="text-uppercase mt-4 deep-orange--text">Rewards Lainnya</h4>
-				</v-col>
-			</v-row>
-			<v-row
-				class="topview-item py-4"
-				style="border-bottom:1px solid #FFECEC"
-				v-for="(article, i) in redeems"
-				:key="'topview-'+article.id+'-'+i"
-				@click="$router.push('/tukarpoin/redeem/'+article.id)"
-			>
-					<v-col cols="4" :class="article.expired ? 'expired': 'active'">
-						<v-img contain :src="article.image" aspect-ratio="1"></v-img>
-					</v-col>
-					<v-col
-					cols="8"
-					:class="article.expired ? 'expired': 'active'"
-					class="d-flex align-content-space-between flex-wrap"
-					>
-					<div class="d-block mb-2 w-100">
-						<img src="/img/icons/poin-p.svg" alt width="20" class="mr-1 mt-0" style="vertical-align:top" />
-						<strong class="text-18" style="line-height:1">{{article.point}} Poin</strong>
-
-						<div class="devider-small my-4"></div>
-
-						<h2 class="mb-2" style="width:100%;">{{article.reward}}</h2>
-					</div>
-					<div class="d-block w-100">
-						<v-btn
-						color="deep-orange"
-						depressed
-						dark
-						block
-						small
-						@click="$router.push('/tukarpoin/redeem/'+article.id)"
-						>{{article.expired ? 'Lihat' : 'Tukar Poin'}}</v-btn>
-					</div>
-				</v-col>
-			</v-row>
-
-			<v-row class="mt-4">
-				<v-col>
-				<v-pagination v-model="page" :length="totalpage" color="orange" @input="next"></v-pagination>
-				</v-col>
-			</v-row>
-
-			<v-row>
-				<v-col cols="12">
-					<InFeedAdsense
-						data-ad-layout-key="-fb+5w+4e-db+86"
-						data-ad-client="ca-pub-6581994114503986"
-						data-ad-slot="7916120444"
-					></InFeedAdsense>
-				</v-col>
-			</v-row>
-		</v-container> -->
 	</template>
 
 	<template v-if="syarattab">
@@ -354,7 +281,7 @@ export default {
     height: 270px !important;
   }
   .flickity-page-dots {
-	  bottom: 0 !important;
+	  bottom: 3px !important;
 	  position: relative!important;
 	  background: transparent;
 	  height: 48px;
@@ -414,5 +341,27 @@ export default {
 }
 .tukarpoin-content p {
   font-size: 16px !important;
+}
+
+.plainslide-wrapper {
+	overflow-x: hidden;
+}
+.plainslide {
+	overflow-x: scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+	display: flex;
+	padding-right: 10px;
+
+	& > div {
+		white-space: initial;
+		height: 235px;
+		color:#fff;
+		width: 123px;
+		background:#000;
+		padding:10px;
+		margin:0 5px;
+		border-radius:5px;
+	}
 }
 </style>
