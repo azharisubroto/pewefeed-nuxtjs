@@ -1,27 +1,27 @@
 <template>
   <section class="tukarpoin-content">
-    <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
-      <v-btn @click="historyBack()" small icon>
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-      <div class="flex-grow-1"></div>
+    <div class="main-app-bar fixed top" style="background:#2c2c2d;height:auto;min-height:56px;position:fixed;top:0;left:0;right:0;z-index:999">
+      <v-row align="center" class="pt-1">
+        <v-col cols="2" class="text-center">
+          <v-btn @click="historyBack()" small icon>
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+        </v-col>
 
-      <v-toolbar-title
-        @click="$router.push('/'); drawer = false"
-        class="px-0"
-        style="opacity:0.8"
-      >{{detail.title ? detail.title : 'Loading...'}}</v-toolbar-title>
-      <div class="flex-grow-1"></div>
+        <v-col cols="8" class="text-center">
+          <strong>{{detail.title ? detail.title : 'Loading...'}}</strong>
+        </v-col>
 
-      <div v-if="$route.name != 'index'">
-        <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20"></v-img>
-      </div>
-    </v-app-bar>
+        <v-col cols="2">
+          &nbsp;
+        </v-col>
+      </v-row>
+    </div>
 
     <v-tabs
       v-model="redeemtab"
-      background-color="transparent"
-      color="white"
+      background-color="#2c2c2d"
+      color="deep-orange"
       slider-color="deep-orange"
       grow
     >
@@ -30,13 +30,13 @@
         Tukar
       </v-tab>
       <v-tab class="text-10">
-        Penukar
+        Penukar ({{ histories!= null ? histories.length : '0' }})
       </v-tab>
       <v-tab class="text-10">
         Cara Tukar
       </v-tab>
       <v-tab class="text-10">
-          <ShareButton2 independent>Bagikan</ShareButton2>
+          <ShareButton2 independent>Bagikan<br>(+1 Poin)</ShareButton2>
       </v-tab>
       
       <!-- Content -->
@@ -47,30 +47,30 @@
           <template>
             <div v-if="detail" class="py-4 px-3" style="background: #1C1C1C;color: #fff">
               <v-row>
-                <v-col cols="4" class="pr-0">
+                <v-col cols="4">
                   <img :src="detail.image" alt />
                 </v-col>
                 <v-col cols="8" class="pr-4">
-                  <!-- DeSCRIPTION -->
-                  <div class="deep-orange--text text-12">
+                  <!-- DESCRIPTION -->
+                  <div class="deep-orange--text text-16">
                     Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
-                    <br />
+                    <div></div>
                     Tersisa {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
                   </div>
-                  <div v-html="detail.description" class="pt-2 mb-0 text-12"></div>
+                  <div v-html="detail.description"></div>
 
                   <!-- ACTION -->
                   <v-btn-toggle color="deep-orange">
                     <v-btn
-                      color="deep-orange"
+                      color="#FF4200"
                       :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
                       :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
                       @click="buyconfirm = !buyconfirm"
-                    >Tukar Poin</v-btn>
+                    ><span style="color:#fff!important">Tukar Poin</span></v-btn>
 
-                    <v-btn color="deep-orange">
+                    <v-btn color="#FF4200" @click="buyconfirm = !buyconfirm">
                       <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
-                      {{detail.discount > 0 ? detail.point - detail.discount : detail.point}}
+                      <span style="color:#fff!important">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</span>
                     </v-btn>
                   </v-btn-toggle>
                 </v-col>
@@ -114,7 +114,7 @@
           <!-- HISTORY -->
           <template>
             <v-container>
-              <template v-if="histories && histories.length > 0">
+              <template v-if="histories != null && !historyLoading">
                 <v-row>
                   <v-col
                   cols="6"
@@ -155,8 +155,11 @@
                   @click="moreHistory(historyNext)"
                 >Load More</v-btn>
               </template>
-              <template v-else>
+              <template v-else-if="historyLoading && histories == null">
                 <div class="py-10 caption grey--text text-center">Loading...</div>
+              </template>
+              <template v-else-if="!historyLoading && histories == null">
+                <div class="py-10 caption grey--text text-center">NO DATA</div>
               </template>
               <br />
               <br />
@@ -169,8 +172,8 @@
           <v-container>
             <!-- <div v-html="detail.term"></div> -->
             <section class="toppoin-accx" v-if="helps != null && helps.length > 0">
-              <v-expansion-panels v-for="(item,index) in helps" :key="index">
-                <v-expansion-panel class="mb-3" style="border-radius:5px">
+              <v-expansion-panels v-model="panel">
+                <v-expansion-panel v-for="(item,i) in helps" :key="i" class="mb-3" style="border-radius:5px">
                   <v-expansion-panel-header class="py-5 text-uppercase">{{item.title}}</v-expansion-panel-header>
                   <v-expansion-panel-content class="caption">
                     <div v-html="item.content"></div>
@@ -407,11 +410,11 @@ export default {
   watch: {
     redeemtab: function(newval, old) {
       let vm = this
-      setTimeout(() => {
+      //setTimeout(() => {
         if( newval == 3 ) {
           vm.redeemtab = old
         }
-      }, 100);
+      //}, 50);
     }
   },
   data() {
@@ -439,6 +442,7 @@ export default {
       infotype: null,
       others: null,
       helps: null,
+      historyLoading: true,
     };
   },
   methods: {
@@ -476,10 +480,12 @@ export default {
           this.$route.params.detail,
           1
         );
-        this.histories = res.data.data;
+        this.histories = res.data.data.length > 0 ? res.data.data : null;
+        this.historyLoading = false;
         //console.log(JSON.parse(JSON.stringify(res.data.data)))
       } catch (error) {
         console.log(error);
+        this.historyLoading = false;
       }
     },
     async moreHistory(n) {
@@ -541,7 +547,7 @@ export default {
         }
         this.pending = false;
         this.buyconfirm = false;
-        this.afterSaveModal = true;
+        //this.afterSaveModal = true;
         this.infotype = "error";
       }
     },

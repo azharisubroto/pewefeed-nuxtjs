@@ -75,9 +75,11 @@
 						class="plainslide"
 						v-if="discounts"
 						>
-							<div class="pt-4 text-18 lh-21 px-4" style="width: 103px;height:200px;background:transparent;">
-								<strong>{{item.category}}</strong>
-								<div class="mt-2" style="width:27px;height:4px;background:#FF4200"></div>
+							<div class="pt-4 text-18 lh-21 px-4" style="display: block; white-space: inherit; min-width: 123px;max-width:123px;height:200px;background:transparent;">
+								<div class="d-block" style="width:100%;white-space: unset;break-word:break-all;white-space: break-spaces;">
+									<strong>{{item.category}}</strong>
+									<div class="mt-2" style="width:27px;height:4px;background:#FF4200"></div>
+								</div>
 							</div>
 
 							<div
