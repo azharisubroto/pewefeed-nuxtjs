@@ -36,7 +36,7 @@
         Cara Tukar
       </v-tab>
       <v-tab class="text-10">
-          <ShareButton2 independent>Bagikan<br>(+1 Poin)</ShareButton2>
+          <ShareButton2 tipe="Sing" :customimage="detail.image" :shareSingTitle="'Saya mendapat '+ detail.title +' dari pewefeed.com dengan cara share, comment dan jawab quiz. Gampang banget!'" independent>Bagikan<br>(+1 Poin)</ShareButton2>
       </v-tab>
       
       <!-- Content -->
@@ -68,7 +68,9 @@
                       @click="buyconfirm = !buyconfirm"
                     ><span style="color:#fff!important">Tukar Poin</span></v-btn>
 
-                    <v-btn color="#FF4200" @click="buyconfirm = !buyconfirm">
+                    <v-btn 
+                    :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                    color="#FF4200" @click="buyconfirm = !buyconfirm" :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''">
                       <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
                       <span style="color:#fff!important">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</span>
                     </v-btn>
@@ -98,7 +100,7 @@
                           <br>
                           <v-btn text class="pl-0" small>
                             <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
-                            {{detail.discount > 0 ? detail.point - detail.discount : detail.point}}
+                            {{ item.point }}
                           </v-btn>
                         </div>
                       </v-col>
@@ -248,11 +250,10 @@
                   <strong>{{detail.title}}</strong>
                 </div>
               </div>
-              <v-card-actions class="pb-10">
+              <v-card-actions class="pb-10 text-center">
                 <v-spacer></v-spacer>
                 <v-btn
                   :loading="pending"
-                  block
                   dark
                   depressed
                   color="deep-orange"
