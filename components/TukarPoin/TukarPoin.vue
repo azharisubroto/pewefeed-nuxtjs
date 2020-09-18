@@ -20,7 +20,7 @@
 					<div class="pt-5 px-3" :style="'color:#000!important;background: radial-gradient(circle, '+item.category.color_base_1+' 0%, '+item.category.color_base_2+' 100%);'">
 						<v-row>
 							<v-col cols="5" class="pt-0 pr-0">
-								<img :src="item.image ? item.image : ''" alt=""/>
+								<v-img contain :src="item.image ? item.image : ''" alt="" max-height="200"></v-img>
 							</v-col>
 							<v-col cols="7">
 								<!-- Title -->
@@ -272,7 +272,6 @@ export default {
 </style>
 <style lang="scss">
 .slidewrapper {
-	height: 330px;
 	overflow: hidden;
 	position: relative;
 }
@@ -280,10 +279,10 @@ export default {
   background: #1C1C1C;
   .featured-item-2 {
     width: 100%;
-    height: 270px !important;
+    height: 230px !important;
   }
   .flickity-page-dots {
-	  bottom: 3px !important;
+	  bottom: 0px !important;
 	  position: relative!important;
 	  background: transparent;
 	  height: 48px;

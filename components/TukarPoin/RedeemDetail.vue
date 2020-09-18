@@ -60,17 +60,20 @@
                   <div v-html="detail.description"></div>
 
                   <!-- ACTION -->
-                  <v-btn-toggle color="deep-orange">
+                  <v-btn-toggle class="belibuttongroup" color="deep-orange">
                     <v-btn
                       color="#FF4200"
+                      retain-focus-on-click
                       :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
                       :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
                       @click="buyconfirm = !buyconfirm"
                     ><span style="color:#fff!important">Tukar Poin</span></v-btn>
 
                     <v-btn 
-                    :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-                    color="#FF4200" @click="buyconfirm = !buyconfirm" :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''">
+                      :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                      color="#FF4200" 
+                      @click="buyconfirm = !buyconfirm" :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                    >
                       <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
                       <span style="color:#fff!important">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</span>
                     </v-btn>
@@ -629,5 +632,10 @@ export default {
 }
 .v-slide-group__wrapper {
   box-shadow: inset 0 -2px 0 0 #AFAFAF
+}
+.belibuttongroup {
+  .v-btn {
+    opacity:1!important;
+  }
 }
 </style>
