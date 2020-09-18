@@ -8,18 +8,16 @@
       <v-toolbar-title
         @click="$router.push('/'); drawer = false"
         class="px-0"
-      >
-        {{article.type == 'LAGU' ? 'MUSIK' : article.type}}
-      </v-toolbar-title>
+      >{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</v-toolbar-title>
       <div class="flex-grow-1"></div>
 
       <div v-if="$route.name != 'index'">
         <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20"></v-img>
       </div>
     </v-app-bar>
-	  <!-- <a href="https://instagram.com/pewefeed">
+    <!-- <a href="https://instagram.com/pewefeed">
 		  <v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
-	  </a> -->
+    </a>-->
     <v-skeleton-loader
       v-if="article==''"
       class="mx-auto mt-5"
@@ -46,7 +44,8 @@
           <v-col cols="12">
             <div class="article-thumb">
               <div class="partnership" v-if="article.partnership!=null">
-                In Partnership with {{article.partnership.title}} <img :src="article.partnership.avatar" width="20" alt=""/>
+                In Partnership with {{article.partnership.title}}
+                <img :src="article.partnership.avatar" width="20" alt />
               </div>
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
@@ -54,15 +53,15 @@
             <!-- CONTENT -->
             <!-- <div id="redeem-between">
               <RedeemCard class="mb-5" />
-            </div> -->
-            
+            </div>-->
+
             <div class="article-readmore" :class="[ hidden == true ? '' : 'expanded' ]">
               <div v-html="article.content"></div>
               <v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
             </div>
 
             <div class="mb-1 mt-5">
-              <BannerStatic slug="toppoin"/>
+              <BannerStatic slug="toppoin" />
             </div>
 
             <div class="devider-small my-4"></div>
@@ -207,7 +206,12 @@
           <v-tab-item value="kasihkomen">
             <v-alert class="mt-4" color="#0057FF" prominent>
               <template v-slot:prepend>
-                <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+                <v-img
+                  src="/img/icons/info.svg"
+                  width="35"
+                  max-width="35"
+                  class="mr-3 infoarticleicon"
+                ></v-img>
               </template>
               Dapatkan
               2 Poin atas setiap komentar dengan minimum 20 kata
@@ -291,7 +295,12 @@
             <v-tab-item value="jawab" background-color="transparent">
               <v-alert v-if="!sudahpernah" class="mt-4" color="#0057FF" prominent>
                 <template v-slot:prepend>
-                  <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+                  <v-img
+                    src="/img/icons/info.svg"
+                    width="35"
+                    max-width="35"
+                    class="mr-3 infoarticleicon"
+                  ></v-img>
                 </template>
                 Dapatkan 20 Points jika seluruh jawaban kamu benar
               </v-alert>
@@ -371,7 +380,12 @@
               <div v-if="sudahpernah">
                 <v-alert class="mt-4" color="#0057FF" prominent>
                   <template v-slot:prepend>
-                    <v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
+                    <v-img
+                      src="/img/icons/info.svg"
+                      width="35"
+                      max-width="35"
+                      class="mr-3 infoarticleicon"
+                    ></v-img>
                   </template>
                   Kamu sudah menjawab Quiz ini
                 </v-alert>
@@ -444,7 +458,7 @@
     <br />
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
-    
+
     <v-bottom-navigation
       fixed
       dark
@@ -455,7 +469,10 @@
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span>Read<br></span>
+        <span>
+          Read
+          <br />
+        </span>
         <img
           :src=" active_tab == 0 ? '/img/icons/articles/sedangdibaca-o.svg' : '/img/icons/articles/sedangdibaca-w.svg' "
           class="mb-1 d-block"
@@ -463,9 +480,25 @@
           height="20"
           alt
         />
-      </v-btn> 
-      <v-btn  class="harusaktif" v-if="article.is_like || liked">
-        <span class="text-10">Menyukai<br>(+1 Poin)</span>
+      </v-btn>
+      <v-btn class="harusaktif" v-if="article.is_like">
+        <span class="text-10">
+          Menyukai
+          <br />(+1 Poin)
+        </span>
+        <img
+          src="/img/icons/articles/menyukai-o.svg"
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
+      </v-btn>
+      <v-btn class="harusaktif" v-else-if="liked" @click="likeModal=true;likestatus = false">
+        <span class="text-10">
+          Menyukai
+          <br />(+1 Poin)
+        </span>
         <img
           src="/img/icons/articles/menyukai-o.svg"
           class="mb-1 d-block"
@@ -475,7 +508,10 @@
         />
       </v-btn>
       <v-btn class="tidakbolehaktif" v-else @click="recaptchalikemodal = true">
-        <span class="text-10">Menyukai<br>(+1 Poin)</span>
+        <span class="text-10">
+          Menyukai
+          <br />(+1 Poin)
+        </span>
         <img
           src="/img/icons/articles/menyukai-w.svg"
           class="mb-1 d-block"
@@ -515,7 +551,6 @@
 
       <v-btn>
         <ShareButton2 class="text-center" independent>
-          
           <img
             :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
             width="20"
@@ -530,7 +565,6 @@
           </span>
         </ShareButton2>
       </v-btn>
-      
     </v-bottom-navigation>
 
     <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
@@ -666,6 +700,52 @@
         </v-card>
       </v-sheet>
     </v-bottom-sheet>
+
+    <!-- LIKE MODAL -->
+    <v-bottom-sheet v-model="likeModal">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="likeModal = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn
+              dark
+              text
+              class="deep-orange--text pl-0"
+              style="margin-left:-10px;"
+            >INFORMATION</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
+        <div v-if="likestatus == true" class="px-4 pt-10 text-center">
+          <v-img src="/img/success.svg" max-width="60" class="mx-auto"></v-img>
+          <div class="mt-5 mb-0 text-14">
+            Selamat! Kamu dapat 1 Poin.
+          </div>
+        </div>
+        <div v-else class="px-4 pt-10 text-center">
+          <v-img src="/img/error.svg" max-width="60" class="mx-auto"></v-img>
+          <div class="mt-5 mb-0 text-14">
+            Anda sudah menyukai artikel ini sebelumnya
+          </div>
+        </div>
+        <br>
+        <br>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
@@ -681,7 +761,7 @@ import ShareButton from "@/components/common/ShareButton";
 import NotVip from "@/components/modal/NotVip";
 import RedeemCard from "@/components/common/RedeemCard";
 import ShareButton2 from "@/components/common/ShareButton2";
-import BannerStatic from '@/components/common/BannerStatic';
+import BannerStatic from "@/components/common/BannerStatic";
 
 export default {
   components: {
@@ -694,11 +774,13 @@ export default {
     LoginModal,
     RedeemCard,
     ShareButton2,
-    BannerStatic
+    BannerStatic,
   },
   props: ["respon"],
   data() {
     return {
+      likeModal: false,
+      likestatus: false,
       domainTitle: process.env.domainTitle,
       active_tab: 0,
       tab: null,
@@ -773,7 +855,7 @@ export default {
       total_poin: null,
       notLogin: null,
       recaptchaToken: null,
-      recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
+      recaptchaKey: "66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q",
       dailyLimitNotice: false,
       recaptchaPreSend: false,
       recaptchalikemodal: false,
@@ -805,6 +887,20 @@ export default {
       }
       console.log("fetch latest..");
       this.fetchLatest(this.respon.article.slug);
+
+      if( this.id ) {
+        this.checkLike(this.id);
+      }
+    },
+    async checkLike(id) {
+      try {
+        const res = await ArticleService.checkLike(id)
+        if( res.data ) {
+          this.liked = res.data.is_like
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     async fetchQuiz() {
       try {
@@ -963,18 +1059,18 @@ export default {
       //this.validate();
     },
     async onSuccessLike(token) {
-      if( this.recaptchatrigger == 0) {
-        this.recaptchatrigger = 1
-        console.log('onshare success')
+      if (this.recaptchatrigger == 0) {
+        this.recaptchatrigger = 1;
+        console.log("onshare success");
         try {
-          const token = await this.$recaptcha.getResponse()
-          console.log('ReCaptcha token:', token)
+          const token = await this.$recaptcha.getResponse();
+          console.log("ReCaptcha token:", token);
           this.recaptchaToken = token;
           this.recaptcha = false;
           this.recaptchalikemodal = false;
-          this.postLike()
+          this.postLike();
         } catch (error) {
-          console.log('Login error:', error)
+          console.log("Login error:", error);
         }
       }
     },
@@ -995,7 +1091,7 @@ export default {
       }
     },
     async postLike() {
-      let vm = this
+      let vm = this;
 
       var bcrypt = require("bcryptjs");
       var salt = bcrypt.genSaltSync(10);
@@ -1011,7 +1107,7 @@ export default {
 
         this.$auth.fetchUser().then(() => {
           //vm.$auth.user
-        })
+        });
 
         // console.log(res)
         if (res.data.point == 1) {
@@ -1019,9 +1115,11 @@ export default {
           this.SharePoinVisible = true;
           this.recaptchaDialogVisible = false;
         }
-        this.liked = true
+        this.liked = true;
         this.recaptchaToken = null;
-        await this.$recaptcha.reset()
+        this.likeModal = true
+        this.likestatus = true
+        await this.$recaptcha.reset();
       } catch (error) {
         //console.log(error.response.status)
         this.commentIsPosting = false;
@@ -1298,12 +1396,12 @@ export default {
       width: auto !important;
       height: auto !important;
     }
-	.infoarticleicon {
-		margin-top: -5px;
-	}
+    .infoarticleicon {
+      margin-top: -5px;
+    }
   }
   .v-input--selection-controls.v-input .v-label {
-	  color: #fff!important;
+    color: #fff !important;
   }
 }
 .container {
@@ -1377,28 +1475,31 @@ export default {
   font-weight: bold;
 }
 .partnership {
-	position: absolute;
-	top: 20px;
-	left: 0;
-	z-index: 11;
-	background: #000;
-	border-radius: 0 90px 90px 0;
-	color: #fff;
-	border: 1px solid #fff;
-	padding: 0 15px;
-	line-height: 44px;
-	height: 44px;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  z-index: 11;
+  background: #000;
+  border-radius: 0 90px 90px 0;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0 15px;
+  line-height: 44px;
+  height: 44px;
 
-	img {
-		vertical-align: middle;
-		display: inline-block;
-		margin-left: 10px;
-	}
+  img {
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 10px;
+  }
 }
 .harusaktif * {
-  color: #FF4200!important;
+  color: #ff4200 !important;
+  img {
+    filter: none!important;
+  }
 }
 .tidakbolehaktif * {
-  color: #fff!important;
+  color: #fff !important;
 }
 </style>
