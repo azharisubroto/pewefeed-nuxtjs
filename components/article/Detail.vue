@@ -34,7 +34,7 @@
             {{article.total_view}} Melihat &bull;
             {{article.total_like}} Menyukai &bull;
             {{article.total_comment ? article.total_comment : 0}} Komentar &bull;
-            {{article.total_comment ? article.total_comment : 0}} Kuis
+            {{article.total_quiz ? article.total_quiz : 0}} Kuis
           </div>
         </v-col>
       </v-row>
