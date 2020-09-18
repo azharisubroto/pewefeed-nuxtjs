@@ -1,5 +1,22 @@
 <template>
   <section>
+    <v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+      <v-btn @click="$router.back()" small icon>
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <div class="flex-grow-1"></div>
+      <v-toolbar-title
+        @click="$router.push('/'); drawer = false"
+        class="px-0"
+      >
+        {{article.type == 'LAGU' ? 'MUSIK' : article.type}}
+      </v-toolbar-title>
+      <div class="flex-grow-1"></div>
+
+      <div v-if="$route.name != 'index'">
+        <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20"></v-img>
+      </div>
+    </v-app-bar>
 	  <!-- <a href="https://instagram.com/pewefeed">
 		  <v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
 	  </a> -->
@@ -13,6 +30,14 @@
         <v-col>
           <!-- TITLE -->
           <h2 class="mb-0 text-center maintitle">{{article.title}}</h2>
+
+          <div class="mt-4 text-12 text-center">
+            {{article.created_at}} &bull;
+            {{article.total_view}} Melihat &bull;
+            {{article.total_like}} Menyukai &bull;
+            {{article.total_comment ? article.total_comment : 0}} Komentar &bull;
+            {{article.total_comment ? article.total_comment : 0}} Kuis
+          </div>
         </v-col>
       </v-row>
       <!-- ARTICLE -->
@@ -20,52 +45,24 @@
         <v-row class="pb-5">
           <v-col cols="12">
             <div class="article-thumb">
-				<div class="partnership" v-if="article.partnership!=null">
-					In Partnership with {{article.partnership.title}} <img :src="article.partnership.avatar" width="20" alt=""/>
-				</div>
+              <div class="partnership" v-if="article.partnership!=null">
+                In Partnership with {{article.partnership.title}} <img :src="article.partnership.avatar" width="20" alt=""/>
+              </div>
               <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
 
-            <!-- META 1 -->
-            <div class="mt-2 d-flex justify-space-between align-center mt-5">
-              <div
-                class="mr-2"
-                style="line-height:1;font-size:12px"
-              >{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</div>
-
-              <div style="font-size:12px">
-                <!-- <div class="d-inline-block mr-3 text--small">
-						<v-icon small size="12">mdi-clock-outline</v-icon>
-						{{article.published_at}}
-                </div>-->
-                <div class="d-inline-block mr-3 text--small">
-                  <v-icon small size="12">mdi-calendar-blank</v-icon>
-                  {{article.created_at}}
-                </div>
-                <div class="d-inline-block mr-3 text--small">
-                  <v-icon small size="12">mdi-eye-outline</v-icon>
-                  {{article.total_view}}
-                </div>
-                <div class="d-inline-block text--small">
-                  <v-icon small size="12">mdi-message-text-outline</v-icon>
-                  {{article.total_comment ? article.total_comment : 0}}
-                </div>
-              </div>
-            </div>
-
-            <div class="devider-small mt-5"></div>
-
-            <div class="mb-1 mt-5" id="banner-between">
-              <BannerStatic slug="toppoin"/>
-            </div>
-
             <!-- CONTENT -->
-            <div id="redeem-between">
+            <!-- <div id="redeem-between">
               <RedeemCard class="mb-5" />
-            </div>
+            </div> -->
+            
             <div class="article-readmore" :class="[ hidden == true ? '' : 'expanded' ]">
               <div v-html="article.content"></div>
               <v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
+            </div>
+
+            <div class="mb-1 mt-5">
+              <BannerStatic slug="toppoin"/>
             </div>
 
             <div class="devider-small my-4"></div>
@@ -445,11 +442,9 @@
       </template>
     </v-container>
     <br />
-    <br />
-    <br />
 
     <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
-
+    
     <v-bottom-navigation
       fixed
       dark
@@ -460,9 +455,29 @@
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span>Read</span>
+        <span>Read<br></span>
         <img
-          src="/img/icons/read.svg"
+          :src=" active_tab == 0 ? '/img/icons/articles/sedangdibaca-o.svg' : '/img/icons/articles/sedangdibaca-w.svg' "
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
+      </v-btn> 
+      <v-btn  class="harusaktif" v-if="article.is_like || liked">
+        <span class="text-10">Menyukai<br>(+1 Poin)</span>
+        <img
+          src="/img/icons/articles/menyukai-o.svg"
+          class="mb-1 d-block"
+          width="20"
+          height="20"
+          alt
+        />
+      </v-btn>
+      <v-btn class="tidakbolehaktif" v-else @click="recaptchalikemodal = true">
+        <span class="text-10">Menyukai<br>(+1 Poin)</span>
+        <img
+          src="/img/icons/articles/menyukai-w.svg"
           class="mb-1 d-block"
           width="20"
           height="20"
@@ -476,7 +491,7 @@
           <br />(+2 Poin)
         </span>
         <img
-          src="/img/icons/icon-comment-orange-v3.png"
+          :src=" active_tab == 2 ? '/img/icons/articles/komentar-o.svg' : '/img/icons/articles/komentar-w.svg' "
           class="mb-1 d-block"
           width="20"
           height="20"
@@ -490,14 +505,32 @@
           <br />(+20 Poin)
         </span>
         <img
-          src="/img/icons/icon-quiz-orange-v3.png"
+          :src=" active_tab == 3 ? '/img/icons/articles/kuis-o.svg' : '/img/icons/articles/kuis-w.svg' "
           class="mb-1 d-block"
           width="20"
           height="20"
           alt
         />
       </v-btn>
-      <ShareButton2 />
+
+      <v-btn>
+        <ShareButton2 class="text-center" independent>
+          
+          <img
+            :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
+            width="20"
+            height="20"
+            style="display:inline-block"
+            alt
+          />
+          <div></div>
+          <span style="font-size:10px;">
+            Bagikan
+            <br />(+20 Poin)
+          </span>
+        </ShareButton2>
+      </v-btn>
+      
     </v-bottom-navigation>
 
     <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
@@ -593,6 +626,46 @@
         </v-card>
       </v-sheet>
     </v-bottom-sheet>
+
+    <!-- RECAPTCHA LIKE -->
+    <v-bottom-sheet v-model="recaptchalikemodal">
+      <v-sheet height="100%" color="transparent">
+        <v-card style="border-radius: 0!important;">
+          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+            <!-- Arrow -->
+            <v-btn
+              dark
+              icon
+              tile
+              style="border-right: 0px solid #717171"
+              light
+              @click="recaptchalikemodal = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <!-- Title -->
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+              <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
+            </v-toolbar-items>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+
+          <div class="px-5 pt-1 text-center">
+            <div class="mt-3 mb-5 pb-10 text-14">
+              <recaptcha
+                key="66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q"
+                class="mx-5 my-5"
+                @error="onError()"
+                @success="onSuccessLike()"
+                @expired="onExpired()"
+              />
+            </div>
+          </div>
+        </v-card>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
@@ -666,6 +739,7 @@ export default {
       loginModalVisible: false,
       notVipDialogVisible: false,
       KomentarPoinVisible: false,
+      liked: false,
       items: [
         {
           text: this.$route.params.cat,
@@ -699,9 +773,11 @@ export default {
       total_poin: null,
       notLogin: null,
       recaptchaToken: null,
-      recaptchaKey: 1,
+      recaptchaKey: '66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q',
       dailyLimitNotice: false,
       recaptchaPreSend: false,
+      recaptchalikemodal: false,
+      recaptchatrigger: 0,
     };
   },
   // computed: {
@@ -886,6 +962,22 @@ export default {
       //this.validate();
       //this.validate();
     },
+    async onSuccessLike(token) {
+      if( this.recaptchatrigger == 0) {
+        this.recaptchatrigger = 1
+        console.log('onshare success')
+        try {
+          const token = await this.$recaptcha.getResponse()
+          console.log('ReCaptcha token:', token)
+          this.recaptchaToken = token;
+          this.recaptcha = false;
+          this.recaptchalikemodal = false;
+          this.postLike()
+        } catch (error) {
+          console.log('Login error:', error)
+        }
+      }
+    },
     onExpired() {
       console.log("Expired");
       this.recaptchaToken = null;
@@ -899,6 +991,49 @@ export default {
         } else {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";
+        }
+      }
+    },
+    async postLike() {
+      let vm = this
+
+      var bcrypt = require("bcryptjs");
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(window.location.href, salt);
+      let payload = {
+        key: hash,
+        url: window.location.href,
+        token: vm.recaptchaToken,
+      };
+
+      try {
+        const res = await ArticleService.setLike(payload);
+
+        this.$auth.fetchUser().then(() => {
+          //vm.$auth.user
+        })
+
+        // console.log(res)
+        if (res.data.point == 1) {
+          console.log("dapat poin");
+          this.SharePoinVisible = true;
+          this.recaptchaDialogVisible = false;
+        }
+        this.liked = true
+        this.recaptchaToken = null;
+        await this.$recaptcha.reset()
+      } catch (error) {
+        //console.log(error.response.status)
+        this.commentIsPosting = false;
+        if (error.response && error.response.status == 422) {
+          alert(error.response.data.message);
+        } else if (error.response && error.response.status == 500) {
+          alert("an error occured");
+        } else if (error.response && error.response.status == 401) {
+          //alert('Mohon Maaf :(, Anda harus login')
+          this.openModalLogin();
+        } else {
+          alert("error! " + error.message);
         }
       }
     },
@@ -1259,5 +1394,11 @@ export default {
 		display: inline-block;
 		margin-left: 10px;
 	}
+}
+.harusaktif * {
+  color: #FF4200!important;
+}
+.tidakbolehaktif * {
+  color: #fff!important;
 }
 </style>

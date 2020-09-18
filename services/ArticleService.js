@@ -1,4 +1,5 @@
 import Api from './Api'
+import AuthApi from './AuthApi'
 // import ApiLocal from './ApiLocal'
 
 export default {
@@ -77,5 +78,8 @@ export default {
 	},
 	aboutDailyLimit() {
 		return Api().get('/help/sub/apa-itu-vip-daily-limit');
-	}
+	},
+	setLike(params) {
+		return AuthApi().post('/member/articles/mobile/likes', params);
+	},
 }
