@@ -80,7 +80,7 @@ export default {
 		return Api().get('/help/sub/apa-itu-vip-daily-limit');
 	},
 	setLike(params) {
-		return AuthApi().post('/member/articles/mobile/likes', params);
+		return AuthApi().post('/member/articles/likes', params);
 	},
 	checkLike(id) {
 		return AuthApi().get('/member/articles/check/likes/'+ id);
