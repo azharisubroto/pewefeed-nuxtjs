@@ -29,6 +29,10 @@
           <!-- TITLE -->
           <h2 class="mb-0 text-center maintitle">{{article.title}}</h2>
 
+          <div class="mt-3 text-center">
+            {{article.type}}
+          </div>
+
           <div class="mt-4 text-12 text-center">
             {{article.created_at}} &bull;
             {{article.total_view}} Melihat &bull;
