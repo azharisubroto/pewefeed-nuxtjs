@@ -2,7 +2,7 @@
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
       <v-app-bar
-        v-if="wowtab != 1 && $route.name != 'purchase' && !$route.name.includes('sing')"
+        v-if="wowtab != 1 && $route.name != 'cat-subcat-articleslug' && $route.name != 'purchase' && !$route.name.includes('sing')"
         dark
         color="dark"
         flat
