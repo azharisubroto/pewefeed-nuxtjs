@@ -110,18 +110,18 @@ export default {
         localStorage.setItem("access-token", token);
         localStorage.setItem("loggedin", true);
 
-        if (this.redirectPath) {
-          window.location.href = this.redirectPath;
-        } else {
-          if (
-            window.location.pathname == "/member/login" ||
-            window.location.pathname == "/login"
-          ) {
-            window.location.href = "/";
-          } else {
-            window.location.href = window.location.pathname;
-          }
-        }
+        // if (this.redirectPath) {
+        //   window.location.href = this.redirectPath;
+        // } else {
+        //   if (
+        //     window.location.pathname == "/member/login" ||
+        //     window.location.pathname == "/login"
+        //   ) {
+        //     window.location.href = "/";
+        //   } else {
+        //     window.location.href = window.location.pathname;
+        //   }
+        // }
         // } else {
         //     vm.notloading();
         // }

@@ -31,11 +31,13 @@ export default {
 				return this.$router.push('/sing/')
 			} else {
                 if (this.redirect != '#') {
-                    // var code = this.redirect.split('/');
-                    // return this.$router.push('/c/' + code[code.length - 1]);
-                    window.location.href = this.redirect;
+                    var routePath = this.redirect.replace('https://m.pewefeed.com', '');
+
+                    // return console.log(routePath);
+                    return this.$router.push(routePath);
+                    // window.location.replace(this.redirect);
                 } else {
-                    console.log('loggedin')
+                    // return console.log('loggedin')
                     return this.$router.push('/')
                 }
 			}
