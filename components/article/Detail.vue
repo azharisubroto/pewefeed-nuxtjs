@@ -457,7 +457,7 @@
     </v-container>
     <br />
 
-    <LoginModal :redirect="redirecturl" :dialogVisible="loginModalVisible" @close="myDialogClose" />
+    <LoginModal :redirect="dataUrl" :dialogVisible="loginModalVisible" @close="myDialogClose" />
 
     <v-bottom-navigation
       fixed
