@@ -67,7 +67,7 @@ export default {
         var route = this.$route.path
       }
 
-      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route + '&next=' + redirectPath
+      window.location.href = 'https://s1.playworld.id/api/auth/login-social/' + provider + '?origin=' + route + '&next=' + this.redirectPath
     },
     async PWLogin(data, provider) {
       let vm = this;
