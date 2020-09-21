@@ -2,7 +2,7 @@
 	<section class="sing">
 		<div v-if="content != null && !loading" >
 
-			<SingAppBar :back="false" :title="content ? content.title : 'Sing with Latinka'"/>
+			<SingAppBar :back="true" :title="content ? content.title : 'Sing with Latinka'"/>
 
 			<template v-if="maintab == 0">
 				<v-container class="mb-2">
