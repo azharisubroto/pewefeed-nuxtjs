@@ -12,7 +12,7 @@
       >
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
         <template
-          v-if="$route.name != 'index' && $route.name != 'tukarpoin' && $route.name != 'toppoin'"
+          v-if="$route.name != 'index' && $route.name != 'tukarpoin'"
         >
           <v-btn @click="historyBack()" small icon>
             <v-icon>mdi-chevron-left</v-icon>
