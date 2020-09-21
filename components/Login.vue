@@ -5,14 +5,14 @@
     <OAuth
       provider="facebook"
       btnclass="indigo darken-1 "
-	  :redirect="redirect ? redirect : '#'"
+	    :redirect="redirecturl"
       @makeloading="setloading"
       @notloading="notloading"
     />
     <OAuth
       provider="google"
       btnclass="red darken-1"
-	  :redirect="redirect ? redirect : '#'"
+	    :redirect="redirecturl"
       @makeloading="setloading"
       @notloading="notloading"
     />
@@ -62,6 +62,7 @@ export default {
     return {
       overlay: false,
       fail: false,
+      redirecturl: this.redirect ? this.redirect : '/'
     };
   },
   methods: {

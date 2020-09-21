@@ -457,7 +457,7 @@
     </v-container>
     <br />
 
-    <LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
+    <LoginModal :redirect="redirecturl" :dialogVisible="loginModalVisible" @close="myDialogClose" />
 
     <v-bottom-navigation
       fixed
@@ -858,6 +858,7 @@ export default {
       recaptchaPreSend: false,
       recaptchalikemodal: false,
       recaptchatrigger: 0,
+      redirecturl: null
     };
   },
   // computed: {
@@ -1313,6 +1314,8 @@ export default {
     this.fetchQuiz();
     this.fetchComment();
     this.fetchUserdata();
+
+    this.redirecturl = window.location.href;
     //this.fetchLatest();
   },
   updated() {
