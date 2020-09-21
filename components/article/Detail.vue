@@ -8,7 +8,7 @@
       <v-toolbar-title
         @click="$router.push('/'); drawer = false"
         class="px-0"
-      >{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</v-toolbar-title>
+      ><strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong></v-toolbar-title>
       <div class="flex-grow-1"></div>
 
       <div v-if="$route.name != 'index'">
@@ -28,10 +28,6 @@
         <v-col>
           <!-- TITLE -->
           <h2 class="mb-0 text-center maintitle">{{article.title}}</h2>
-
-          <div class="mt-3 text-center">
-            {{article.type}}
-          </div>
 
           <div class="mt-4 text-12 text-center">
             {{article.created_at}} &bull;
@@ -473,9 +469,9 @@
       v-model="active_tab"
     >
       <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span>
-          Read
-          <br />
+        <span class="text-10">
+          Sedang
+          <br />Dibaca
         </span>
         <img
           :src=" active_tab == 0 ? '/img/icons/articles/sedangdibaca-o.svg' : '/img/icons/articles/sedangdibaca-w.svg' "
@@ -527,13 +523,12 @@
 
       <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
         <span style="font-size:10px;">
-          Comments
+          Komentar
           <br />(+2 Poin)
         </span>
         <img
           :src=" active_tab == 2 ? '/img/icons/articles/komentar-o.svg' : '/img/icons/articles/komentar-w.svg' "
           class="mb-1 d-block"
-          width="20"
           height="20"
           alt
         />
@@ -541,14 +536,14 @@
 
       <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
         <span style="font-size:10px;">
-          Quiz
+          Kuis
           <br />(+20 Poin)
         </span>
         <img
           :src=" active_tab == 3 ? '/img/icons/articles/kuis-o.svg' : '/img/icons/articles/kuis-w.svg' "
-          class="mb-1 d-block"
-          width="20"
-          height="20"
+          class="d-block"
+          style="margin-bottom:7px"
+          height="18"
           alt
         />
       </v-btn>
@@ -557,15 +552,14 @@
         <ShareButton2 class="text-center" independent>
           <img
             :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
-            width="20"
-            height="20"
-            style="display:inline-block"
+            height="18"
+            style="display:inline-block;position:relative;top:2px"
             alt
           />
           <div></div>
           <span style="font-size:10px;">
             Bagikan
-            <br />(+20 Poin)
+            <br />(+1 Poin)
           </span>
         </ShareButton2>
       </v-btn>
@@ -691,7 +685,7 @@
           </v-toolbar>
 
           <div class="px-5 pt-1 text-center">
-            <div class="mt-3 mb-5 pb-10 text-14">
+            <div class="mt-3 pb-10 text-14">
               <recaptcha
                 key="66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q"
                 class="mx-5 my-5"
@@ -735,7 +729,7 @@
         </v-toolbar>
 
         <div v-if="likestatus == true" class="px-4 pt-10 text-center">
-          <v-img src="/img/success.svg" max-width="60" class="mx-auto"></v-img>
+          <v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
           <div class="mt-5 mb-0 text-14">
             Selamat! Kamu dapat 1 Poin.
           </div>
@@ -1499,11 +1493,13 @@ export default {
 }
 .harusaktif * {
   color: #ff4200 !important;
+  font-weight: bold;
   img {
     filter: none!important;
   }
 }
 .tidakbolehaktif * {
   color: #fff !important;
+  font-weight: normal;
 }
 </style>
