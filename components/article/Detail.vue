@@ -224,7 +224,8 @@
               label="Komentar"
               rows="3"
               auto-grow
-              :value="comment_message"
+              id="komentarcoy"
+              ref="komentarcoy"
               @keyup="comment_message = $event.target.value"
             ></v-textarea>
             <div
@@ -234,7 +235,7 @@
             >Counter : {{ total_counter }}</div>
             <div class="d-block"></div>
 
-            <v-btn block dark depressed large color="deep-orange" @click="recaptchaPreSend = true">
+            <v-btn block dark depressed large color="deep-orange" @click="processComment()">
               <template v-if="!commentIsPosting">Kirim Komentar</template>
               <template v-else>Mengirim Komentar...</template>
             </v-btn>
@@ -1134,6 +1135,17 @@ export default {
         }
       }
     },
+    processComment() {
+      var isUrl = this.urlify(this.comment_message);
+      console.log('is url?',isUrl);
+      if (this.total_counter < 20 && !isUrl) {
+        alert("Komentar harus mengandung minimal 20 kata");
+      } else if( this.total_counter >= 20 && !isUrl ) {
+        this.recaptchaPreSend = true
+      } else if( this.total_counter > 20 && isUrl ) {
+        alert("Komentar tidak boleh mengandung tautan");
+      }
+    },
     async postComment() {
       let vm = this;
       this.commentIsPosting = true;
@@ -1142,30 +1154,17 @@ export default {
         type: "news",
       };
 
-      if (this.total_counter < 20) {
-        var isUrl = this.urlify(this.comment_message);
-
-        this.commentIsPosting = false;
-
-        if (isUrl) {
-          return alert("Comments tidak boleh mengandung tautan");
-        }
-
-        return alert("Comments harus mengandung minimal 20 kata");
-      }
-
       try {
         const res = await UserService.postComment(
           this.$route.params.articleslug,
           params
         );
-        this.$auth.fetchUser().then(() => {
-          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-        });
         // console.log(res.data.poin);
         this.fetchComment();
         this.commentIsPosting = false;
-        this.comment_message = null;
+        this.comment_message = '';
+        var komentarcoy = this.$refs['komentarcoy'];
+        komentarcoy.value = ''
         this.recaptchaToken = null;
         if (res.data.poin > 0) {
           this.KomentarPoinVisible = true;
@@ -1304,12 +1303,13 @@ export default {
   },
   watch: {
     comment_message: function (newval, oldval) {
-      setTimeout(() => {
-        var words = newval.split(' ')
-            .filter(function(n) { return n != '' })
-            .length;
-        this.total_counter = words
-      }, 3000);
+      if( newval != oldval ) {
+        setTimeout(() => {
+          var regex = /\s+/gi;
+          var words = newval.trim().replace(regex, ' ').split(' ').length;
+          this.total_counter = words
+        }, 500);
+      }
     },
   },
   mounted() {
