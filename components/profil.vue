@@ -116,7 +116,7 @@
 
               <template v-for="(item, i) in personmenu">
                 <div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-                <v-list-item class="py-3" :key="'persmenu-'+i" to="/member/rewards-status/">
+                <v-list-item class="py-3" :key="'persmenu-'+i" href="/member/rewards-status/">
                   <v-list-item-content>
                     <v-list-item-title>
                       {{item.name}}

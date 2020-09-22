@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="myDialogVisible" fullscreen hide-overlay transition="dialog-bottom-transition" style="background:#fff">
-    <v-card style="background:#fff">
+    <v-card style="background:#fff" light>
       <!-- Header -->
       <v-toolbar light color="white">
         <!-- Arrow -->

@@ -326,7 +326,7 @@
 
           <v-btn
             v-if="infotype == 'error'"
-            to="/member/histori_penggunaan_poin/"
+            href="/member/histori_penggunaan_poin/"
             color="deep-orange"
             block
             class="mt-2"
@@ -335,7 +335,7 @@
           </v-btn>
           <v-btn
             v-else-if="infotype == 'success'"
-            to="/member/rewards-status/"
+            href="/member/rewards-status/"
             color="deep-orange"
             block
             class="mt-2"
@@ -526,9 +526,9 @@ export default {
         const res = await UserService.tukarPoin(params);
 
         let vm = this;
-        this.$auth.fetchUser().then(() => {
-          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-        });
+        // this.$auth.fetchUser().then(() => {
+        //   localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+        // });
 
         // console.log(res);
         this.overlay = false;
@@ -543,16 +543,25 @@ export default {
           this.openModalLogin();
         } else if (error.response.status == 404) {
           this.tukarmsg = "Poin Anda Tidak Cukup";
+          this.pending = false;
+          this.buyconfirm = false;
+          this.afterSaveModal = true;
+          this.infotype = "error";
         } else if (error.response.status == 422) {
           this.tukarmsg =
             "Maaf, Reward ini hanya dapat ditukar dengan POIN satu kali per hari.";
+          this.pending = false;
+          this.buyconfirm = false;
+          this.afterSaveModal = true;
+          this.infotype = "error";
         } else {
           this.tukarmsg = "An Error Occured";
+          this.pending = false;
+          this.buyconfirm = false;
+          this.afterSaveModal = true;
+          this.infotype = "error";
         }
-        this.pending = false;
-        this.buyconfirm = false;
-        //this.afterSaveModal = true;
-        this.infotype = "error";
+
       }
     },
     openModalLogin() {
