@@ -647,7 +647,7 @@
           <div class="px-5 pt-1 text-center">
             <div class="mt-3 mb-0 pb-10 text-14">
               <recaptcha
-                :key="recaptchaKey"
+                key="commentcaptcha"
                 class="mx-5 my-5"
                 @error="onError()"
                 @success="onSuccess()"
@@ -660,7 +660,7 @@
     </v-bottom-sheet>
 
     <!-- RECAPTCHA LIKE -->
-    <v-bottom-sheet v-model="recaptchalikemodal">
+    <v-bottom-sheet v-if="recaptchalikemodal" v-model="recaptchalikemodal">
       <v-sheet height="100%" color="transparent">
         <v-card style="border-radius: 0!important;">
           <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
@@ -687,7 +687,7 @@
           <div class="px-5 pt-1 text-center">
             <div class="mt-3 pb-10 text-14">
               <recaptcha
-                key="66Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q"
+                key="likecaptcha"
                 class="mx-5 my-5"
                 @error="onError()"
                 @success="onSuccessLike()"
@@ -700,7 +700,7 @@
     </v-bottom-sheet>
 
     <!-- LIKE MODAL -->
-    <v-bottom-sheet v-model="likeModal">
+    <v-bottom-sheet v-if="likeModal" v-model="likeModal">
       <v-sheet height="100%">
         <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
           <!-- Arrow -->
