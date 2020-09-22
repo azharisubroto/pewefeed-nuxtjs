@@ -95,6 +95,9 @@
           <template v-else-if="$route.name.includes('member-rewards-status')">
             <strong>REWARDS</strong>
           </template>
+          <template v-else-if="$route.name == 'member-otp'">
+            <strong>Activate VIP Membership</strong>
+          </template>
           <template v-else>
             <img
               v-if="$route.name != 'purchase' && wowtab == 0"
