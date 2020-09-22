@@ -1163,7 +1163,7 @@ export default {
         this.fetchComment();
         this.commentIsPosting = false;
         this.comment_message = '';
-        var komentarcoy = document.body.getElementById('komentarcoy');;
+        var komentarcoy = document.getElementById('komentarcoy');;
         komentarcoy.value = ''
         this.recaptchaToken = null;
         if (res.data.poin > 0) {
