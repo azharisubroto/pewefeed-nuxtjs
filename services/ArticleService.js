@@ -85,4 +85,7 @@ export default {
 	checkLike(id) {
 		return AuthApi().get('/member/articles/check/likes/'+ id);
 	},
+	checkAnswered(type,slug) {
+		return AuthApi().get('https://s1.playworld.id/api/member/check-answered-multiple-quiz/'+type+'/'+slug);
+	},
 }

@@ -18,8 +18,8 @@
       >{{appBarLabel ? appBarLabel : 'VIP Membership'}}</v-toolbar-title>
       <div class="flex-grow-1"></div>
 
-      <div @click="$router.push('/')" v-if="$route.name != 'index'">
-        <v-img src="/img/icons/icon-home-white.png" width="20"></v-img>
+      <div @click="$router.push('/')" v-if="$route.name != 'index'" class="pt-2">
+        <img src="/img/peweicon.svg" width="20" />
       </div>
     </v-app-bar>
 

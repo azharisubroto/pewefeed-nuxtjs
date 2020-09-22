@@ -86,6 +86,15 @@
           <template v-else-if="$route.name.includes('member-mypoints')">
             <strong>Total Points</strong>
           </template>
+          <template v-else-if="$route.name.includes('member-purchase-daily')">
+            <strong>Purchase Daily</strong>
+          </template>
+          <template v-else-if="$route.name.includes('about-daily-limit')">
+            <strong>HELP</strong>
+          </template>
+          <template v-else-if="$route.name.includes('member-rewards-status')">
+            <strong>REWARDS</strong>
+          </template>
           <template v-else>
             <img
               v-if="$route.name != 'purchase' && wowtab == 0"

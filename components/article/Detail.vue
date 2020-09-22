@@ -222,15 +222,15 @@
               outlined
               color="deep-orange"
               label="Komentar"
-              value
               rows="3"
               auto-grow
-              v-model="comment_message"
+              :value="comment_message"
+              @keyup="comment_message = $event.target.value"
             ></v-textarea>
             <div
               class="counter mb-3"
               align="end"
-              style="margin-top: -20px !important;"
+              style="margin-top: -20px"
             >Counter : {{ total_counter }}</div>
             <div class="d-block"></div>
 
@@ -645,7 +645,7 @@
           </v-toolbar>
 
           <div class="px-5 pt-1 text-center">
-            <div class="mt-3 mb-5 pb-10 text-14">
+            <div class="mt-3 mb-0 pb-10 text-14">
               <recaptcha
                 :key="recaptchaKey"
                 class="mx-5 my-5"
@@ -798,7 +798,7 @@ export default {
       latests: [],
       commentIsPosting: false,
       comments: [],
-      comment_message: null,
+      comment_message: '',
       quizzes: null,
       quizstatistic: null,
       jawabanQuiz: [],
@@ -873,7 +873,7 @@ export default {
       //console.log(this.$route.params.articleslug)
       this.id = this.respon.article.id;
       this.article = this.respon.article;
-      this.moveRedeemBeforeRelated();
+      //this.moveRedeemBeforeRelated();
       this.title = this.respon.article.title;
       this.writer = this.respon.article.writer;
       this.items[2].href = this.respon.article.title;
@@ -1271,56 +1271,60 @@ export default {
       this.KomentarPoinVisible = false;
       // other code
     },
-    moveRedeemBeforeRelated() {
-      //alert("move");
-      //   const redeembetween = document.getElementById("redeem-between");
-      //   const newsrelated = document.getElementsByClassName("news-related");
-      //while (redeembetween.length > 0) {
-      //newsrelated.appendChild(redeembetween.childNodes[0]);
-      //redeembetween.before(newsrelated);
-      //}
-      setTimeout(() => {
-        var newParent = document.getElementById("redeem-between");
-        var oldParent = document.getElementsByClassName("news-related")[0];
+    async checkQuizStatus() {
+      try {
+        const res = await ArticleService.checkAnswered('article',this.$route.params.articleslug);
+        //console.log('quiz status', res.data.data.answered)
+        this.sudahpernah = res.data.data.answered
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    // moveRedeemBeforeRelated() {
+    //   //alert("move");
+    //   //   const redeembetween = document.getElementById("redeem-between");
+    //   //   const newsrelated = document.getElementsByClassName("news-related");
+    //   //while (redeembetween.length > 0) {
+    //   //newsrelated.appendChild(redeembetween.childNodes[0]);
+    //   //redeembetween.before(newsrelated);
+    //   //}
+    //   setTimeout(() => {
+    //     var newParent = document.getElementById("redeem-between");
+    //     var oldParent = document.getElementsByClassName("news-related")[0];
 
-        var bannerParent = document.getElementsByTagName("em")[0];
+    //     var bannerParent = document.getElementsByTagName("em")[0];
 
-        bannerParent.appendChild(document.getElementById("banner-between"));
+    //     bannerParent.appendChild(document.getElementById("banner-between"));
 
-        //while (oldParent.childNodes.length > 0) {
-        oldParent.prepend(newParent);
-        //}
-      }, 1000);
-    },
+    //     //while (oldParent.childNodes.length > 0) {
+    //     oldParent.prepend(newParent);
+    //     //}
+    //   }, 1000);
+    // },
   },
   watch: {
-    comment_message: function (value) {
-      if (value) {
-        if (value.length == 0) {
-          return (this.total_counter = 0);
-        }
-
-        var regex = /\s+/gi;
-        var wordCount = value.trim().replace(regex, " ").split(" ").length;
-
-        return (this.total_counter = wordCount);
-      } else {
-        return (this.total_counter = 0);
-      }
+    comment_message: function (newval, oldval) {
+      setTimeout(() => {
+        var words = newval.split(' ')
+            .filter(function(n) { return n != '' })
+            .length;
+        this.total_counter = words
+      }, 3000);
     },
   },
   mounted() {
     this.fetchContent();
     this.fetchQuiz();
     this.fetchComment();
+    this.checkQuizStatus();
     this.fetchUserdata();
 
     this.redirecturl = window.location.href;
     //this.fetchLatest();
   },
-  updated() {
-    this.moveRedeemBeforeRelated();
-  },
+  // updated() {
+  //   this.moveRedeemBeforeRelated();
+  // },
 };
 </script>
 
