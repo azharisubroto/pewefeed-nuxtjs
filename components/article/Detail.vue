@@ -1061,13 +1061,11 @@ export default {
     async onSuccessLike(token) {
       if (this.recaptchatrigger == 0) {
         this.recaptchatrigger = 1;
-        console.log("onshare success");
+        //console.log("onshare success");
         try {
           const token = await this.$recaptcha.getResponse();
           console.log("ReCaptcha token:", token);
           this.recaptchaToken = token;
-          this.recaptcha = false;
-          this.recaptchalikemodal = false;
           this.postLike();
         } catch (error) {
           console.log("Login error:", error);
@@ -1105,10 +1103,6 @@ export default {
       try {
         const res = await ArticleService.setLike(payload);
 
-        this.$auth.fetchUser().then(() => {
-          //vm.$auth.user
-        });
-
         // console.log(res)
         if (res.data.point == 1) {
           console.log("dapat poin");
@@ -1116,10 +1110,14 @@ export default {
           this.recaptchaDialogVisible = false;
         }
         this.liked = true;
-        this.recaptchaToken = null;
         this.likeModal = true
         this.likestatus = true
         await this.$recaptcha.reset();
+
+        setTimeout(() => {
+          this.recaptcha = false;
+          this.recaptchalikemodal = false;
+        }, 200);
       } catch (error) {
         //console.log(error.response.status)
         this.commentIsPosting = false;
