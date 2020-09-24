@@ -825,8 +825,7 @@ export default {
       try {
         const res = await UserService.eWalletBuy(data);
         this.ewalletOverlay = false;
-        this.ewalletIframe = true;
-        this.ewalletIframeUrl = res.data.invoice_url;
+        window.location.href = res.data.invoice_url
       } catch (error) {
         console.log(error);
         this.ewalletOverlay = false;
