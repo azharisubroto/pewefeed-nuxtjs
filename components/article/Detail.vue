@@ -214,7 +214,7 @@
                 ></v-img>
               </template>
               Dapatkan
-              2 Poin atas setiap komentar dengan minimum 20 kata
+              5 Poin atas setiap komentar dengan minimum 20 kata
             </v-alert>
             <!-- TEXT AREA -->
             <v-textarea

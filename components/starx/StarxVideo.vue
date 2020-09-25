@@ -366,7 +366,7 @@
                         </v-btn>
 
                         <v-btn text color="orange ancent-4" @click="komentar=true;video_latest=false;video_winners=false">
-                            <span>Komentar <br>(+2 Poin)</span>
+                            <span>Komentar <br>(+5 poin)</span>
                         </v-btn>
                     </v-bottom-navigation>
                 </v-tab-item>

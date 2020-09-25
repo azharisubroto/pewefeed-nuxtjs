@@ -210,7 +210,7 @@
 			<template v-slot:prepend>
 				<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 			</template>
-			Dapatkan 2 Poin atas setiap komentar dengan minimum 20 kata
+			Dapatkan 5 poin atas setiap komentar dengan minimum 20 kata
 		</v-alert>
 
         <!-- TEXT AREA -->
@@ -301,7 +301,7 @@
 		<span style="font-size:10px!important;">
 			Comments
 			<br />
-			<span>(+2 Poin)</span>
+			<span>(+5 Poin)</span>
 		</span>
         <img
           src="/img/icons/icon-comment-orange-v3.png"
@@ -334,7 +334,7 @@
           <v-toolbar-items>
             <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">
 				<span v-if="type=='vote'">You've got {{ type == 'vote' ? 5 : 2 }} Point!</span>
-				<span v-if="type=='alreadyvote' || type=='komen'">You've got 2 Point</span>
+				<span v-if="type=='alreadyvote' || type=='komen'">You've got 5 Point</span>
 			</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
@@ -353,7 +353,7 @@
 		  <v-container v-if="type == 'komen'" class="text-center">
 			  <img src="/img/poinextra.png" width="40" class="mt-0"/>
 			  <br>
-			  Kamu mendapat 2 Point karena sudah<br>
+			  Kamu mendapat 5 point karena sudah<br>
 			  Memberikan komentar
 			  <br>
 			  <v-btn to="/member/histori_penggunaan_poin" color="green" class="mt-2">Check Total Point</v-btn>

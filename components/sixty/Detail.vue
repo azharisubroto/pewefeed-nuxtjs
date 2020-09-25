@@ -108,7 +108,7 @@
               style="border-top: 1px solid #2095F3; border-bottom: 1px solid #2095F3; border-right: 1px solid #2095F3;"
             >
               Dapatkan
-              <label class="orange--text text--accent-4">2 Poin</label> atas setiap komentar dengan minimum 20 kata
+              <label class="orange--text text--accent-4">5 Poin</label> atas setiap komentar dengan minimum 20 kata
             </v-alert>
             <!-- TEXT AREA -->
             <v-textarea
@@ -386,7 +386,7 @@
       <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
         <span>
           Komentar
-          <br />(+2 Poin)
+          <br />(+5 Poin)
         </span>
       </v-btn>
 

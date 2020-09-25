@@ -17,7 +17,7 @@
           <!-- Title -->
           <div class="flex-grow-1"></div>
           <v-toolbar-items>
-            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">You've got 2 Point!</v-btn>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">You've got 5 Point!</v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
         </v-toolbar>
@@ -25,7 +25,7 @@
 		<div class="px-4 pt-10 text-center">
           <v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
           <div class="mt-5 mb-0 text-14">
-            Kamu mendapat 2 Point karena sudah<br>
+            Kamu mendapat 5 Poin karena sudah<br>
 			Komentar di Artikel
           </div>
         </div>

@@ -311,7 +311,7 @@
       </v-btn>
 
       <v-btn @click="isArticle=false;isComment=true;isReview=false">
-        <span>Komentar<br>(+2 Poin)</span>
+        <span>Komentar<br>(+5 poin)</span>
       </v-btn>
     </v-bottom-navigation>
 
