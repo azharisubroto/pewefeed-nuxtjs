@@ -16,5 +16,11 @@ export default {
 	},
 	periodeDetail(slug){
 		return Api().get('/poin/top/winner-detail/'+slug)
+	},
+	getTopThree() {
+		return AuthApi().get('/poin/top/v2/me');
+	},
+	hadiahPeriodeIni() {
+		return Api().get('/poin/top/reward');
 	}
 }
