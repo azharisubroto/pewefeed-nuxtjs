@@ -525,7 +525,7 @@
       <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
         <span style="font-size:10px;">
           Komentar
-          <br />(+2 Poin)
+          <br />(+5 Poin)
         </span>
         <img
           :src=" active_tab == 2 ? '/img/icons/articles/komentar-o.svg' : '/img/icons/articles/komentar-w.svg' "
@@ -560,7 +560,7 @@
           <div></div>
           <span style="font-size:10px;">
             Bagikan
-            <br />(+5 Poin)
+            <br />(+1 Poin)
           </span>
         </ShareButton2>
       </v-btn>
