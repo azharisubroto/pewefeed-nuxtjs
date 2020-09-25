@@ -162,7 +162,8 @@
 					<template v-slot:prepend>
 						<v-img src="/img/icons/info.svg" width="35" max-width="35" class="mr-3 infoarticleicon"></v-img>
 					</template>
-					Hadiah TOP POIN Periode 01 Oktober 2020 s/d 31 Desember 2020
+					Hadiah TOP POIN Periode {{ [periode.periode.start_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM') }} s/d
+				{{ [periode.periode.end_at, 'YYYY-MM-DD HH:mm:ss'] | moment('DD MMM YYYY') }}
 				</v-alert>
 			</v-container>
 
@@ -287,7 +288,7 @@
 		</v-btn>
 		<v-btn>
 			<span class="text-10">Info & Cara<br>Bermain</span>
-			<img src="/img/tukarpoin/icon-winner-orange.png" class="mb-1 d-block" width="20" height="20" />
+			<img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="20" height="20" />
 		</v-btn>
 		<v-btn>
 			<ShareButton2 
@@ -580,12 +581,12 @@ export default {
 		margin: 10px 0;
 	}
 	.outinebtn {
-		font-size: 12px;
+		font-size: 14px;
 		border: 1px solid #000;
 		border-radius: 90px;
 		display: inline-block;
-		height: 23px;
-		line-height: 21px;
+		height: 26px;
+		line-height: 24px;
 		padding: 0 5px;
 		img {
 			width: 10px;
