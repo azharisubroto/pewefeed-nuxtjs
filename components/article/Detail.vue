@@ -560,7 +560,7 @@
           <div></div>
           <span style="font-size:10px;">
             Bagikan
-            <br />(+1 Poin)
+            <br />(+10 Poin)
           </span>
         </ShareButton2>
       </v-btn>
