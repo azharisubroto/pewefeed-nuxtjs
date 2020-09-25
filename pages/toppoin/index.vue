@@ -184,7 +184,7 @@
 								<img src="/img/icons/toppoin/piala.svg" style="vertical-align:middle;line-height:1" class="mr-1" alt="">
 								<strong class="deep-orange--text">Juara {{ i+1 }}</strong>
 							</div>
-							<h4 class="text-18 mb-2">{{ item.redeem.name }}</h4>
+							<h4 class="text-20 mb-2">{{ item.redeem.name }}</h4>
 
 							<div class="outinebtn">
 								<img src="/img/icons/poin-black.svg" style="vertical-align:middle;line-height:1" class="mr-1" alt="">
@@ -580,7 +580,7 @@ export default {
 		margin: 10px 0;
 	}
 	.outinebtn {
-		font-size: 10px;
+		font-size: 12px;
 		border: 1px solid #000;
 		border-radius: 90px;
 		display: inline-block;
