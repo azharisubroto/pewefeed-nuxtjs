@@ -84,7 +84,7 @@
 													<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'" width="23"></v-img>
 												</v-avatar>
 											</v-col>
-											<v-col cols="9" class="pl-2 py-0">
+											<v-col cols="9" class="pl-2 py-0 text-13">
 												{{item.customer.username ? item.customer.username : 'No Data'}}
 											</v-col>
 										</v-row>
@@ -97,7 +97,7 @@
 			</v-container>
 
 			<!-- MAIN PRIZES -->
-			<h4 class="tp-head mt-5">Peringkat Lainnya</h4>
+			<h4 class="tp-head mt-5">Peringkat Lainnya ({{totalRanked}} Peserta)</h4>
 			<div></div>
 			<v-container v-if="lastRanked!=null">
 				<v-row>
@@ -117,11 +117,11 @@
 												</v-avatar>
 											</v-col>
 											<v-col cols="10" class="pl-1">
-												<div class="text-10">
+												<div class="text-13">
 													{{item.customer.username}}
 												</div>
 												<div class="text-10">
-													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-1" width="13"/> 
+													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="13"/> 
 													{{item.poin.grand_total}}
 												</div>
 											</v-col>
@@ -133,14 +133,23 @@
 					</template>
 				</v-row>
 				<v-container>
-					<v-pagination
+					<div class="text-center">
+						<v-btn
+						color="deep-orange"
+						class="px-4"
+						@click="next"
+						>
+						Show More
+						</v-btn>
+					</div>
+					<!-- <v-pagination
 						class="mt-4"
 						color="deep-orange"
 						v-model="paged"
 						:length="totalPage"
 						:total-visible="totalVisible"
 						@input="next"
-					></v-pagination>
+					></v-pagination> -->
 				</v-container>
 				<v-overlay v-if="pagingload"></v-overlay>
 			</v-container>
@@ -339,6 +348,7 @@ export default {
 	  prizeswithpemenang: null,
 	  prizewithoutpemenang: null,
 	  lastRanked: null,
+	  totalRanked: 0,
 	  paged: 1,
 	  totalVisible: 7,
 	  totalPage: 5,
@@ -380,7 +390,26 @@ export default {
 		//console.log(res);
 		this.lastRanked = res.data.data.ranked
 		this.totalPage = res.data.pagination.last_page
+		this.totalRanked = res.data.pagination.total
 		this.pagingload = false
+      } catch (error) {
+		console.log(error);
+		this.isloading = false
+      }
+	},
+	async moreLastRanked(n) {
+      try {
+        const res = await TopPoin.lastRanked(parseInt(this.paged+1));
+		//console.log(res);
+		if( res.data.data.ranked != null && res.data.data.ranked && res.data.data.ranked.length > 0 ) {
+			var loop = res.data.data.ranked 
+			loop.forEach(el => {
+				this.lastRanked.push(el);
+			});
+			this.pagingload = false
+			this.paged++
+		}
+		
       } catch (error) {
 		console.log(error);
 		this.isloading = false
@@ -437,7 +466,7 @@ export default {
         );
     },
 	next(num) {
-		this.fetchLastRanked(num);
+		this.moreLastRanked(num);
 		this.pagingload = true
 	},
 	nextwinner(num){
