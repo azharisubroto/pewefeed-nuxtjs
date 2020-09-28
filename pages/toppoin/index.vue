@@ -172,20 +172,19 @@
 				<v-card
 				v-for="(item, i) in hadiahPeriode"
 				:key="'prizeperiode'+i"
-				:class="[i <= 2 ? 'gold' : 'silver']"
+				:class="['px-5',i <= 2 ? 'gold' : 'silver']"
 				>
 					<v-row
-					no-gutters
 					>
-						<v-col cols="3">
+						<v-col cols="3" class="pt-7">
 							<v-img :src="item.redeem.image"></v-img>
 						</v-col>
-						<v-col cols="9" class="py-6 pl-4">
+						<v-col cols="9" class="py-6 pl-2">
 							<div class="mb-2">
 								<img src="/img/icons/toppoin/piala.svg" style="vertical-align:middle;line-height:1" class="mr-1" alt="">
 								<strong class="deep-orange--text">Juara {{ i+1 }}</strong>
 							</div>
-							<h4 class="text-20 mb-2">{{ item.redeem.name }}</h4>
+							<h4 class="text-20 mb-2" style='width:70%'>{{ item.redeem.name }}</h4>
 
 							<div class="outinebtn">
 								<img src="/img/icons/poin-black.svg" style="vertical-align:middle;line-height:1" class="mr-1" alt="">
