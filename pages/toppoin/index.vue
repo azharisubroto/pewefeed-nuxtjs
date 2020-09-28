@@ -87,7 +87,7 @@
 											<v-col cols="9" class="pl-2 py-0 text-13">
 												{{item.customer.username ? item.customer.username : 'No Data'}} 
 
-												<div class="text-10 mt-0">
+												<div class="text-10 mt-0" v-if="item.customer.id != ''">
 													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="10"/> 
 													{{item.redeem.min_point}}
 												</div>
