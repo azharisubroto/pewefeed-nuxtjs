@@ -78,14 +78,19 @@
 									<v-col cols="8" class="pl-0 py-0 text-12">
 										<h4 class="text-12 mb-1">{{item.redeem.name}}</h4>
 
-										<v-row align="center" class="pa-0 py-0">
+										<v-row class="pa-0 py-0">
 											<v-col cols="3" class="py-0">
 												<v-avatar size="23">
 													<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'" width="23"></v-img>
 												</v-avatar>
 											</v-col>
 											<v-col cols="9" class="pl-2 py-0 text-13">
-												{{item.customer.username ? item.customer.username : 'No Data'}}
+												{{item.customer.username ? item.customer.username : 'No Data'}} 
+
+												<div class="text-10 mt-0">
+													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="10"/> 
+													{{item.redeem.min_point}}
+												</div>
 											</v-col>
 										</v-row>
 									</v-col>
@@ -120,8 +125,8 @@
 												<div class="text-13">
 													{{item.customer.username}}
 												</div>
-												<div class="text-10">
-													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="13"/> 
+												<div class="text-10 mt-1">
+													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="10"/> 
 													{{item.poin.grand_total}}
 												</div>
 											</v-col>
