@@ -53,10 +53,11 @@
 
 			<!-- TOP 10 -->
 
-			<h4 class="tp-head mt-5">Peringkat Top 10 Sementara</h4>
+			<h4 class="tp-head mt-5">Peringkat Top Poin Sementara</h4>
 			<div></div>
 
 			<v-container>
+				<!-- <pre>{{prizeswithpemenang}}</pre> -->
 				<v-row v-if="prizeswithpemenang != null">
 					<v-col 
 					v-for="(item, i) in prizeswithpemenang" 
@@ -89,7 +90,7 @@
 
 												<div class="text-10 mt-0" v-if="item.customer.id != ''">
 													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="10"/> 
-													{{item.redeem.min_point}}
+													{{item.customer.point}}
 												</div>
 											</v-col>
 										</v-row>
