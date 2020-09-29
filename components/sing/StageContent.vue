@@ -20,7 +20,7 @@
 			</v-row>
 		</v-app-bar>
 		<!-- <pre>{{pesertaloop}}</pre> -->
-		<v-container v-if="userid != null" class="hero pb-10">
+		<v-container v-if="userid != null" class="hero pb-5">
 			<v-row v-if="!uploaded" align="center">
 				<v-col cols="8">
 					<v-avatar size="30">
@@ -40,12 +40,51 @@
 			<div v-if="pesertaloop != null && userid != null">
 				<template v-for="(item, i) in pesertaloop">
 					<div v-if="item.customer.id == userid" class="pesertalist mx-0 px-0" :key="'peserta-'+i">
-						<SingItem :isrunning="content.stage.isRunning" cardtype="light" :item="item" />
+						<v-card
+						color="#FFC107"
+						class="px-4 py-1"
+						light
+						>
+							<v-row>
+								<v-col cols="2">
+									<v-avatar size="30">
+										<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+									</v-avatar>
+								</v-col>
+								<v-col cols="7" class="pl-0">
+									<strong class="text-14">{{item.customer.name}}</strong>
+
+									<div class="text-12 mt-1">
+										{{item.viewers}} Melihat &bull;
+										{{item.total_vote ? item.total_vote : '0'}} Vote &bull;
+										{{item.total_comments ? item.total_comments : '0'}} Komentar
+									</div>
+								</v-col>
+								<v-col cols="3">
+									<v-card
+									tile
+									color="#000"
+									class="py-1 px-2 text-center text-14"
+									dark
+									elevation="0"
+									>
+										<div class="d-flex align-center justify-space-between">
+											<div>{{item.ranking}}</div>
+
+											<div>
+												<v-icon size="16" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
+												<v-icon size="16" v-else color="#fff">mdi-star-outline</v-icon>
+											</div>
+										</div>
+									</v-card>
+								</v-col>
+							</v-row>
+						</v-card>
 					</div>
 				</template>
 			</div>
 
-			<div class="devider-small" style="background-color: #000"></div>
+			<!-- <div class="devider-small" style="background-color: #000"></div>
 
 			<v-row class="text-14 mt-4" style="color:#000">
 				<v-col cols="5">
@@ -60,10 +99,10 @@
 						Urutkan Peserta
 					</div>
 				</v-col>
-			</v-row>
+			</v-row> -->
 		</v-container>
 
-		<v-container v-else class="hero" style="padding-bottom: 40px;">
+		<!-- <v-container v-else class="hero" style="padding-bottom: 40px;">
 			<v-row class="text-14 mt-4" style="color:#000">
 				<v-col cols="5">
 					<div @click="opensearch = true">
@@ -78,7 +117,7 @@
 					</div>
 				</v-col>
 			</v-row>
-		</v-container>
+		</v-container> -->
 
 		<!-- SORTER -->
 		<v-bottom-sheet v-model="sortopen">
@@ -190,27 +229,26 @@
 		<UploadVideo :dialogVisible="uploadVisible" :stage="content.stage.id"/>
 
 		<!-- BOTTOM NAVIGATION -->
-		<!-- <br><br><br><br>
+		<br><br><br><br>
 		<v-bottom-navigation
 			fixed
 			dark
 			grow
 			color="white"
 			background-color="#2C2C2D"
-			v-model="singtab"
 			height="80"
 			class="pwmenubottom"
 		>
-			<v-btn @click="maintab = 0">
-				<span>Contestant</span>
-				<img src="/img/icons/contestant.svg" class="mb-1 d-block" width="20" height="20" />
+			<v-btn @click="sortopen = true">
+				<span class="text-12" style="color:#fff!important">Urutkan<br>Data</span>
+				<img src="/img/icons/icon-sort.svg" class="mb-2 d-block" width="20" height="20" />
 			</v-btn>
-			<v-btn @click="maintab = 1">
-				<span>Prizes</span>
-				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
+			<v-btn @click="opensearch = true">
+				<span class="text-12" style="color:#fff!important">Cari<br>Peserta</span>
+				<img src="/img/icons/icon-search.svg" class="mb-2 d-block" width="20" height="20" />
 			</v-btn>
-			<ShareButton2/>
-		</v-bottom-navigation> -->
+		</v-bottom-navigation>
+		
 		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
 
@@ -460,9 +498,6 @@ export default {
 }
 </script>
 <style lang="scss">
-	.hero {
-		background: #C6C6C6;
-	}
 	.stagesing {
 		.v-toolbar__content {
 			padding-left: 0!important;

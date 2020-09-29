@@ -274,14 +274,6 @@ export default {
 	.sing {
 		position:relative;
 		z-index: 1;
-		&:before{
-			content:"";
-			width: 100%;
-			z-index: -1;
-			height: 50vh;
-			//background: #C6C6C6;
-			position:absolute;
-		}
 		iframe {
 			width: 100%;
 			height: 300px;
