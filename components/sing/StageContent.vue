@@ -20,104 +20,106 @@
 			</v-row>
 		</v-app-bar>
 		<!-- <pre>{{pesertaloop}}</pre> -->
-		<v-container v-if="userid != null" class="hero pb-5">
-			<v-row v-if="!uploaded" align="center">
-				<v-col cols="8">
-					<v-avatar size="30">
-						<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
-					</v-avatar>
-					<div class="d-inline-block ml-2 text-14" style="color:#000">
-						{{userdata.data.first_name ? userdata.data.first_name : ''}}
-						{{userdata.data.last_name ? userdata.data.last_name : ''}}
-					</div>
-				</v-col>
-				<v-col cols="4">
-					<v-btn v-if="uploadallowed" color="deep-orange" @click="decideAction();" block>Upload</v-btn>
-					<v-btn v-else color="deep-orange" disabled light block>Upload</v-btn>
-				</v-col>
-			</v-row>
 
+
+		<v-container v-if="userid != null" class="hero pb-0">
+
+			<!-- Loggedin but not uploaded any -->
+			<v-card
+			v-if="!uploaded"
+			color="#FFC107"
+			class="px-4 mb-0 py-4"
+			elevation="0"
+			light
+			>
+				<div class="d-flex justify-space-between align-center">
+					<div>
+						<v-avatar size="30">
+							<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+						</v-avatar>
+						<div class="d-inline-block ml-2 text-14">
+							<strong>{{userdata.data.first_name ? userdata.data.first_name : ''}}</strong>
+						</div>
+					</div>
+					<div class="text-right">
+						<v-btn v-if="uploadallowed" color="deep-orange" @click="decideAction();" small dark depressed>
+							<img src="/img/icons/upload.svg" class="mr-1" alt="upload">  Upload
+						</v-btn>
+						<v-btn v-else color="deep-orange" disabled light smallk dark depressed>
+							<img src="/img/icons/upload.svg" class="mr-1" alt="upload">  Upload
+						</v-btn>
+					</div>
+				</div>
+			</v-card>
+
+			<!-- Logged in, has items -->
 			<div v-if="pesertaloop != null && userid != null">
 				<template v-for="(item, i) in pesertaloop">
-					<div v-if="item.customer.id == userid" class="pesertalist mx-0 px-0" :key="'peserta-'+i">
+					<div v-if="item.customer.id == userid" class="mx-0 px-0" :key="'peserta-'+i">
 						<v-card
 						color="#FFC107"
-						class="px-4 py-1"
+						class="px-4 py-4"
 						light
 						>
-							<v-row>
-								<v-col cols="2">
-									<v-avatar size="30">
-										<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
-									</v-avatar>
-								</v-col>
-								<v-col cols="7" class="pl-0">
-									<strong class="text-14">{{item.customer.name}}</strong>
+							<div class="d-flex justify-space-between align-center">
+								<div>
+									<div class="d-flex">
+										<v-avatar size="30">
+											<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+										</v-avatar>
+										<div class="ml-3 text-14">
+											<strong class="text-14">{{item.customer.name}}</strong>
 
-									<div class="text-12 mt-1">
-										{{item.viewers}} Melihat &bull;
-										{{item.total_vote ? item.total_vote : '0'}} Vote &bull;
-										{{item.total_comments ? item.total_comments : '0'}} Komentar
+											<div class="text-12 mt-1">
+												{{item.viewers}} Melihat &bull;
+												{{item.total_vote ? item.total_vote : '0'}} Vote &bull;
+												{{item.total_comments ? item.total_comments : '0'}} Komentar
+											</div>
+										</div>
 									</div>
-								</v-col>
-								<v-col cols="3">
+								</div>
+								<div class="ml-2">
 									<v-card
 									tile
 									color="#000"
-									class="py-1 px-2 text-center text-14"
+									class="py-2 px-3 text-center text-14"
 									dark
 									elevation="0"
 									>
 										<div class="d-flex align-center justify-space-between">
-											<div>{{item.ranking}}</div>
+											<div class="mr-4"><strong>{{item.ranking}}</strong></div>
 
-											<div>
-												<v-icon size="16" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
-												<v-icon size="16" v-else color="#fff">mdi-star-outline</v-icon>
+											<div class="ml-4">
+												<v-icon size="25" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
+												<v-icon size="25" v-else color="#fff">mdi-star-outline</v-icon>
 											</div>
 										</div>
 									</v-card>
-								</v-col>
-							</v-row>
+								</div>
+							</div>
 						</v-card>
 					</div>
 				</template>
 			</div>
-
-			<!-- <div class="devider-small" style="background-color: #000"></div>
-
-			<v-row class="text-14 mt-4" style="color:#000">
-				<v-col cols="5">
-					<div @click="opensearch = true">
-						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
-						Cari Peserta
-					</div>
-				</v-col>
-				<v-col cols="6">
-					<div @click="sortopen = true">
-						<v-img src="/img/icons/sorter.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
-						Urutkan Peserta
-					</div>
-				</v-col>
-			</v-row> -->
 		</v-container>
 
-		<!-- <v-container v-else class="hero" style="padding-bottom: 40px;">
-			<v-row class="text-14 mt-4" style="color:#000">
-				<v-col cols="5">
-					<div @click="opensearch = true">
-						<v-img src="/img/icons/magnifier.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
-						Cari Peserta
-					</div>
-				</v-col>
-				<v-col cols="6">
-					<div @click="sortopen = true">
-						<v-img src="/img/icons/sorter.svg" width="20" max-width="20" class="mr-3 d-inline-block" style="vertical-align:middle"></v-img>
-						Urutkan Peserta
-					</div>
-				</v-col>
-			</v-row>
-		</v-container> -->
+		<!-- NOT LOGIN -->
+		<v-container v-else class="hero" style="padding-bottom: 40px;">
+			<v-card
+			color="#FFC107"
+			dark
+			class="text-center pa-5"
+			elevation="0"
+			>
+				<v-btn 
+				color="#FF4200"
+				depressed
+				@click="loginModalVisible = true"
+				class="px-8">
+					<img src="/img/icons/upload.svg" class="mr-1" alt="upload"> Upload
+				</v-btn>
+			</v-card>
+		</v-container>
 
 		<!-- SORTER -->
 		<v-bottom-sheet v-model="sortopen">
@@ -208,7 +210,7 @@
 			</v-sheet>
 		</v-bottom-sheet>
 
-		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0" style="margin-top:-30px">
+		<v-container v-if="pesertaloop !=null && pesertaloop.length > 0">
 			<div class="pesertalist" v-for="(item, i) in pesertaloop" :key="'peserta-'+i">
 				<SingItem :isrunning="content.stage.isRunning" :item="item"/>
 			</div>
@@ -241,11 +243,11 @@
 		>
 			<v-btn @click="sortopen = true">
 				<span class="text-12" style="color:#fff!important">Urutkan<br>Data</span>
-				<img src="/img/icons/icon-sort.svg" class="mb-2 d-block" width="20" height="20" />
+				<img src="/img/icons/icon-sort.svg" class="mb-2 d-block" width="16" height="16" />
 			</v-btn>
 			<v-btn @click="opensearch = true">
 				<span class="text-12" style="color:#fff!important">Cari<br>Peserta</span>
-				<img src="/img/icons/icon-search.svg" class="mb-2 d-block" width="20" height="20" />
+				<img src="/img/icons/icon-search.svg" class="mb-2 d-block" width="16" height="16" />
 			</v-btn>
 		</v-bottom-navigation>
 		

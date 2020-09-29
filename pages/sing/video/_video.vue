@@ -4,7 +4,7 @@
 
     <v-container class="hero-detailsing pb-5">
       <!-- ALERT -->
-      <v-alert class="mt-4 text-14" color="#0057FF" prominent>
+      <v-alert class="mt-1 text-14" color="#0057FF" prominent>
         <template v-slot:prepend>
           <v-img
             src="/img/icons/info.svg"
@@ -51,7 +51,7 @@
             small 
             @click="sendVote(content2.id)"
             >
-              Vote
+              <img src="/img/icons/vote-w.svg" class="mr-1" alt=""> Vote
             </v-btn>
           </div>
         </div>
@@ -107,16 +107,16 @@
 
         <div class="d-flex justify-space-between pr-4 align-center">
           <div>
-            <div class="text-20 float-left text-center px-4" style="line-height:40px">
+            <div class="text-20 float-left text-center px-4" style="line-height:41px">
               <strong>{{content2.ranking}}</strong>
             </div>
             <div style="background:#000;border-radius: 0;color:#fff" class="px-3 py-2 float-left">
-              <v-icon size="16" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
-              <v-icon size="16" v-else color="#fff">mdi-star-outline</v-icon>
+              <v-icon size="25" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
+              <v-icon size="25" v-else color="#fff">mdi-star-outline</v-icon>
             </div>
           </div>
 
-          <div class="singmetaicons text-12 d-flex align-center justify-content-end metasing pt-1">
+          <div class="singmetaicons text-12 d-flex align-center justify-content-end metasing">
             {{content2.viewers}} Melihat &nbsp;&bull;&nbsp;
             {{content2.total_vote ? content2.total_vote : '0'}} Vote &nbsp;&bull;&nbsp;
             {{content2.total_comments ? content2.total_comments : '0'}} Komentar
@@ -131,7 +131,7 @@
       <v-container class="px-0">
         <!-- TAB HEAD -->
         <div
-          class="statusquo text-center row text-18"
+          class="statusquo text-center row mx-0 text-18"
           style="background-color: #000;border-top:2px solid #fff;border-bottom:2px solid #fff"
         >
           <v-col cols="6">
@@ -241,7 +241,7 @@
     <template v-if="maintab == 1">
       <v-container class="px-0">
         <div
-          class="statusquo text-center row text-18"
+          class="statusquo text-center row mx-0 text-18"
           style="background-color: #000;border-top:2px solid #fff;border-bottom:2px solid #fff"
         >
           <v-col cols="6">

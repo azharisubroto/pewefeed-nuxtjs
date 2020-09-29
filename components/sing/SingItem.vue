@@ -2,24 +2,24 @@
 	<v-card
 	:elevation="0"
 	:color="what_type ? '#fff' : '#404040'"
-	:class="what_type ? 'cardtype' : 'dark pt-5 px-0'">
+	:class="what_type ? 'cardtype' : 'dark pt-3 px-0'">
 		<div class="d-flex justify-space-between align-center mb-3 px-4">
 			<div>
 				<v-avatar size="30" @click="$router.push('/sing/video/'+item.id)">
 					<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 				</v-avatar>
 				<div class="d-inline-block ml-2 text-14">
-					{{item.customer.name ? item.customer.name : 'n/a'}}
+					{{item.customer.name ? capitalize(item.customer.name) : 'n/a'}}
 				</div>
 			</div>
 
 			<div>
-				<v-btn v-if="item.customer.instagram!=null" :href="'https://instagram.com/'+item.customer.instagram" target="_BLANK" class="ml-2" small color="deep-orange">
+				<v-btn v-if="item.customer.instagram!=null" :href="'https://instagram.com/'+item.customer.instagram" target="_BLANK" class="ml-2" small color="#ff4200">
 					<v-icon>mdi-instagram</v-icon>
 				</v-btn>
-				<v-btn v-if="what_type" color="deep-orange" small @click="$router.push('/sing/video/'+item.id)">Lihat</v-btn>
-				<v-btn v-else color="deep-orange" small @click="$router.push('/sing/video/'+item.id)">
-					<img src="" alt=""> {{ stillrunning ? 'Vote' : 'Lihat' }}
+				<v-btn v-if="what_type" color="#ff4200" small @click="$router.push('/sing/video/'+item.id)">Lihat</v-btn>
+				<v-btn v-else color="#ff4200" small @click="$router.push('/sing/video/'+item.id)">
+					<img src="/img/icons/vote-w.svg" class="mr-1" alt=""> {{ stillrunning ? 'Vote' : 'Lihat' }}
 				</v-btn>
 			</div>
 		</div>
@@ -33,16 +33,16 @@
 
 		<div class="d-flex justify-space-between pr-4" @click="$router.push('/sing/video/'+item.id)">
 			<div>
-				<div class="text-20 float-left text-center px-4" style="line-height:40px">
-					<strong>{{item.ranking}}</strong>
+				<div class="text-20 float-left text-center px-4" style="line-height:41px">
+					<strong style="position:relative;top:2px">{{item.ranking}}</strong>
 				</div>
 				<div style="background:#000;border-radius: 0;color:#fff" class="px-3 py-2 float-left">
-					<v-icon size="16" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
-					<v-icon size="16" v-else color="#fff">mdi-star-outline</v-icon>
+					<v-icon size="25" v-if="item.is_star" color="#FFC107">mdi-star</v-icon>
+					<v-icon size="25" v-else color="#fff">mdi-star-outline</v-icon>
 				</div>
 			</div>
 
-			<div class="singmetaicons text-12 d-flex align-center justify-content-end metasing pt-1">
+			<div class="singmetaicons text-12 d-flex align-center justify-content-end metasing">
 				{{item.viewers}} Melihat &nbsp;&bull;&nbsp;
 				{{item.total_vote ? item.total_vote : '0'}} Vote &nbsp;&bull;&nbsp;
 				{{item.total_comments ? item.total_comments : '0'}} Komentar
@@ -58,6 +58,18 @@ export default {
 		item: Object,
 		cardtype: String,
 		isrunning: Boolean
+	},
+	methods:{
+		capitalize(str) {
+			var splitStr = str.toLowerCase().split(' ');
+			for (var i = 0; i < splitStr.length; i++) {
+				// You do not need to check if i is larger than splitStr length, as your for does that for you
+				// Assign it back to the array
+				splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+			}
+			// Directly return the joined string
+			return splitStr.join(' '); 
+		}
 	},
 	data() {
 		return {
