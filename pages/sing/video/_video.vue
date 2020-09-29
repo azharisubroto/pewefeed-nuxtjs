@@ -224,16 +224,18 @@
       </template>
 
       <template v-if="votetab == 1">
-        Untuk ikut mendukung kontestan favoritmu kebabak selanjutnya berikan
-        vote dengan cara: <br /><br />
+        <v-container>
+          Untuk ikut mendukung kontestan favoritmu kebabak selanjutnya berikan
+          vote dengan cara: <br /><br />
 
-        1. Pastikan kamu sudah memiliki VIP Pewefeed<br />
-        2. Silakan pilih penyanyi favorit kamu dan berikan Vote
-        sebanyak-banyaknya <br />
-        3. Satu Vote berlaku hanya berlaku untuk satu kontestan dalam satu
-        hari <br />
-        4. Jika Vote memenuhi syarat maka penyanyi favorit kamu bisa melangkah
-        ke babak selanjutnya
+          1. Pastikan kamu sudah memiliki VIP Pewefeed<br />
+          2. Silakan pilih penyanyi favorit kamu dan berikan Vote
+          sebanyak-banyaknya <br />
+          3. Satu Vote berlaku hanya berlaku untuk satu kontestan dalam satu
+          hari <br />
+          4. Jika Vote memenuhi syarat maka penyanyi favorit kamu bisa melangkah
+          ke babak selanjutnya
+        </v-container>
       </template>
 
     </template>
