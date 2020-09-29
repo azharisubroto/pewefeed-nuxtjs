@@ -6,15 +6,24 @@
         <v-stepper-content background="transparent" step="1" class="pa-0">
           <v-container class="pb-0">
             <v-row align="center" class="profile-bag pb-0">
-              <v-col cols="3" @click="$router.push('/member/pengaturan/');drawer = false">
+              <v-col
+                cols="3"
+                @click="
+                  $router.push('/member/pengaturan/');
+                  drawer = false;
+                "
+              >
                 <v-avatar
-                  @click="$router.push('/member/pengaturan/profil');drawer = false"
+                  @click="
+                    $router.push('/member/pengaturan/profil');
+                    drawer = false;
+                  "
                   size="70"
                   color="grey"
                 >
                   <v-img
                     :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"
-                    :aspect-ratio="1/1"
+                    :aspect-ratio="1 / 1"
                   ></v-img>
                 </v-avatar>
               </v-col>
@@ -23,10 +32,15 @@
                   <v-col
                     cols="10"
                     class="pr-0"
-                    @click="$router.push('/member/pengaturan/'); drawer = false"
+                    @click="
+                      $router.push('/member/pengaturan/');
+                      drawer = false;
+                    "
                   >
-                    <strong class="subheading text-18">{{ userdata.first_name }}</strong>
-                    <div class="text-14">PEWE ID: {{userdata.msisdn}}</div>
+                    <strong class="subheading text-18">{{
+                      userdata.first_name
+                    }}</strong>
+                    <div class="text-14">PEWE ID: {{ userdata.msisdn }}</div>
                     <v-btn
                       v-if="!usermentah.verified"
                       class="mt-2 text-10"
@@ -34,7 +48,8 @@
                       dark
                       block
                       small
-                    >Verify phone number (+100 POINT)</v-btn>
+                      >Verify phone number (+100 POINT)</v-btn
+                    >
                   </v-col>
                   <v-col cols="2" class="text-right">
                     <v-btn to="/member/pengaturan/" icon dark depressed small>
@@ -57,8 +72,17 @@
                     <span>VIP Membership Status</span>
                     <span
                       class="d-block mt-3"
-                      :class="[userdata.status_expired == 1 ? 'green--text' : 'red--text']"
-                    >VIP {{userdata.status_expired == 1 ? 'Active' : 'Inactive'}} Until {{userdata.expire}}</span>
+                      :class="[
+                        userdata.status_expired == 1
+                          ? 'green--text'
+                          : 'red--text',
+                      ]"
+                      >VIP
+                      {{
+                        userdata.status_expired == 1 ? "Active" : "Inactive"
+                      }}
+                      Until {{ userdata.expire }}</span
+                    >
                   </v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
@@ -73,7 +97,7 @@
                     Total Points
                     <br />
                     <span class="text-20 mt-2 d-inline-block">
-                      <strong>{{mypoint | thousand}}</strong>
+                      <strong>{{ mypoint | thousand }}</strong>
                     </span>
                   </v-list-item-title>
                 </v-list-item-content>
@@ -89,8 +113,8 @@
                     <v-list-item-title>
                       <span class="text-16 d-inline-block">
                         VIP Daily Limit:
-                        <span class="green--text">{{sekarang}}</span>
-                        / {{batas}}
+                        <span class="green--text">{{ sekarang }}</span>
+                        / {{ batas }}
                       </span>
                     </v-list-item-title>
                   </v-list-item-content>
@@ -115,15 +139,23 @@
               </template>
 
               <template v-for="(item, i) in personmenu">
-                <div v-if="i==0" :key="'dvdri-'+i" class="devider-small"></div>
-                <v-list-item class="py-3" :key="'persmenu-'+i" href="/member/rewards-status/">
+                <div
+                  v-if="i == 0"
+                  :key="'dvdri-' + i"
+                  class="devider-small"
+                ></div>
+                <v-list-item
+                  class="py-3"
+                  :key="'persmenu-' + i"
+                  href="/member/rewards-status/"
+                >
                   <v-list-item-content>
                     <v-list-item-title>
-                      {{item.name}}
+                      {{ item.name }}
                       <template v-if="item.poin">
                         <br />
                         <span class="text-20 mt-2 d-inline-block">
-                          <strong>{{mypoint | thousand}}</strong>
+                          <strong>{{ mypoint | thousand }}</strong>
                         </span>
                       </template>
                     </v-list-item-title>
@@ -132,19 +164,17 @@
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-list-item-icon>
                 </v-list-item>
-                <div :key="'dvdr-'+i" class="devider-small"></div>
+                <div :key="'dvdr-' + i" class="devider-small"></div>
               </template>
-			  <v-list-item class="py-3" @click="profileStep = 2">
+              <v-list-item class="py-3" @click="profileStep = 2">
                 <v-list-item-content>
-                  <v-list-item-title>
-                    Bantuan
-                  </v-list-item-title>
+                  <v-list-item-title> Bantuan </v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
                   <v-icon>mdi-chevron-right</v-icon>
                 </v-list-item-icon>
               </v-list-item>
-			  <div class="devider-small"></div>
+              <div class="devider-small"></div>
               <v-list-item class="py-3" @click="logout()">
                 <v-list-item-content>
                   <v-list-item-title class="red--text">
@@ -159,22 +189,23 @@
             </v-list-item-group>
           </v-list>
         </v-stepper-content>
-		<v-stepper-content background="transparent" step="2" class="pa-0">
-          <help/>
+        <v-stepper-content background="transparent" step="2" class="pa-0">
+          <help />
         </v-stepper-content>
       </v-stepper>
     </template>
-	<template v-else-if="loading && !login">
-		<div class="text-center pa-10">
-			<v-progress-circular
-				indeterminate
-				:size="80"
-				:width="8"
-				color="deep-orange"
-				class="mt-5">
-			</v-progress-circular>
-		</div>
-	</template>
+    <template v-else-if="loading && !login">
+      <div class="text-center pa-10">
+        <v-progress-circular
+          indeterminate
+          :size="80"
+          :width="8"
+          color="deep-orange"
+          class="mt-5"
+        >
+        </v-progress-circular>
+      </div>
+    </template>
     <template v-else>
       <Login class="pt-10" />
     </template>
@@ -185,7 +216,7 @@ import UserService from "@/services/UserService";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 import Login from "@/components/Login";
-import help from "@/components/help"
+import help from "@/components/help";
 import { mapState } from "vuex";
 
 export default {
@@ -193,7 +224,7 @@ export default {
   name: "profil",
   data() {
     return {
-	  loading: true,
+      loading: true,
       profileStep: 1,
       profile: null,
       token: null,
@@ -282,12 +313,12 @@ export default {
     },
     storehelpStepRewards(newValue, oldValue) {
       this.profileStep = newValue;
-    }
+    },
   },
   components: {
     BuyVip,
-	Login,
-	help,
+    Login,
+    help,
   },
   filters: {
     thousand(value) {
@@ -335,43 +366,46 @@ export default {
     },
     setProfile() {
       let vm = this;
-      this.$auth.fetchUser().then(() => {
-		localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-		////console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
+      this.$auth
+        .fetchUser()
+        .then(() => {
+          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
+          ////console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
 
-		var res = [];
-		res.data = vm.$auth.user;
+          var res = [];
+          res.data = vm.$auth.user;
 
-        this.usermentah = res.data;
-        this.userdata = res.data.data;
-        this.mypoint = res.data.point_total;
-        this.profile = res.data.data;
+          this.usermentah = res.data;
+          this.userdata = res.data.data;
+          this.mypoint = res.data.point_total;
+          this.profile = res.data.data;
 
-        var limit = res.data.point_limit;
-        limit = limit.split("/");
-        this.sekarang = limit[0];
-        this.batas = limit[1];
-        this.remaining = this.percentage(limit[0], limit[1]);
+          var limit = res.data.point_limit;
+          limit = limit.split("/");
+          this.sekarang = limit[0];
+          this.batas = limit[1];
+          this.remaining = this.percentage(limit[0], limit[1]);
 
-        this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
-        this.avatar_preview = res.data.data.avatar;
-        this.data.first_name = res.data.data.first_name;
-        this.data.last_name = res.data.data.last_name;
-        this.data.username = res.data.data.username;
-        this.data.msisdn = res.data.data.msisdn;
-        this.data.no_telp = res.data.data.no_telp;
-        this.data.instagram = res.data.data.instagram;
-        this.data.email = res.data.data.email;
-        this.data.expire = res.data.data.expire;
-        this.expire_date = this.data.expire;
-        if (res.data.data.status_expired == 1) {
-          this.isActive = true;
-        }
-		this.login = true;
-		this.loading = false
-      }).catch(()=>{
-		  this.loading = false
-	  });
+          this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
+          this.avatar_preview = res.data.data.avatar;
+          this.data.first_name = res.data.data.first_name;
+          this.data.last_name = res.data.data.last_name;
+          this.data.username = res.data.data.username;
+          this.data.msisdn = res.data.data.msisdn;
+          this.data.no_telp = res.data.data.no_telp;
+          this.data.instagram = res.data.data.instagram;
+          this.data.email = res.data.data.email;
+          this.data.expire = res.data.data.expire;
+          this.expire_date = this.data.expire;
+          if (res.data.data.status_expired == 1) {
+            this.isActive = true;
+          }
+          this.login = true;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     percentage(partialValue, totalValue) {
       return (100 * partialValue) / totalValue;
@@ -414,21 +448,21 @@ export default {
   mounted() {
     this.setProfile();
     this.dailypoint();
-	this.isLoggedIn = true;
+    this.isLoggedIn = true;
 
-	this.$bus.$on('profilestep', () => {
-		this.profileStep = 2
-	})
+    this.$bus.$on("profilestep", () => {
+      this.profileStep = 2;
+    });
   },
 };
 </script>
 
 <style lang="sass">
 .v-item-group.v-bottom-navigation .v-btn .v-btn__content
-	color: #fff
-	opacity: 1
-	.v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
-		color: var(--primary)!important
+  color: #fff
+  opacity: 1
+  .v-item-group.v-bottom-navigation .v-btn.v-btn--active .v-btn__content
+    color: var(--primary)!important
 </style>
 
 <style lang="scss">
@@ -445,8 +479,8 @@ export default {
   }
 }
 .rewardhelpback {
-	position: absolute;
-	top: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
