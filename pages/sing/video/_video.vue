@@ -2,6 +2,9 @@
   <div>
     <SingAppBar :title="content2 != null ? content2.stage : ''" :back="true" />
 
+    <!-- <pre>{{item}}</pre> -->
+    <!-- <div v-html="parsehtml(item.video.video_url)"></div> -->
+
     <v-container class="hero-detailsing pb-5">
       <!-- ALERT -->
       <v-alert class="mt-1 text-14" color="#0057FF" prominent>
@@ -24,7 +27,7 @@
 
       <!-- CONTENT CARD HEAD -->
       <v-card
-      v-if="content2 != null"
+      v-if="item"
       color="#404040"
       class="pt-3"
       >
@@ -56,10 +59,10 @@
           </div>
         </div>
 
-        <div style="line-height:0;">
+        <div v-if="item.video.type != 'tiktok'" style="line-height:0;">
           <template v-if="!videoutama_is_iframe">
             <div v-if="videoutama != null && playnow !== false">
-              <video width="400" controls autoPlay style="margin-bottom: -8px">
+              <video v-if="!istiktok" width="400" controls autoPlay style="margin-bottom: -8px">
                 <source :src="videoutama" type="video/mp4" />
               </video>
             </div>
@@ -103,6 +106,9 @@
               style="width: 100%"
             ></iframe>
           </template>
+        </div>
+        <div v-else class="light">
+          <div v-html="parsehtml(item.video.video_url)"></div>
         </div>
 
         <div class="d-flex justify-space-between pr-4 align-center">
@@ -568,6 +574,7 @@ export default {
       loginModalVisible: false,
       apakahbetul: false,
       ispaging: false,
+      istiktok: false,
       howto: [
         {
           title: "cara vote",
@@ -712,6 +719,10 @@ export default {
     };
   },
   methods: {
+    parsehtml(string) {
+      const regExp = /\\"/g;
+      return string.replace(regExp, '"');
+    },
     async sendVote(id) {
       //console.log("sendVote");
       try {
@@ -762,10 +773,13 @@ export default {
         const res = await SingService.getDetailVideo(slug);
         const data = res.data;
         let video = data.video;
+        //console.log(JSON.parse(JSON.stringify(data)))
         if (video.type == "instagram") {
           this.fetchIGVIDEO(video.video_url + "&__a=1");
         } else if (video.type == "tiktok") {
-          this.videoutama = video.video_url;
+          const regExp = /\\"/g;
+          this.videoutama = video.video_url.replace(regExp, '"')
+          this.istiktok = true
         } else {
           this.videoutama = video.video_url;
           this.videoutama_is_iframe = true;

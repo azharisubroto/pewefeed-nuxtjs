@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       item: this.$store.state.item,
-	  origin: this.$store.state.host,
+	    origin: this.$store.state.host,
     }
   },
 

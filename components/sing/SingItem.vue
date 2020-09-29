@@ -5,7 +5,7 @@
 	:class="what_type ? 'cardtype' : 'dark pt-3 px-0'">
 		<div class="d-flex justify-space-between align-center mb-3 px-4">
 			<div>
-				<v-avatar size="30" @click="$router.push('/sing/video/'+item.id)">
+				<v-avatar size="30" :href="'/sing/video/'+item.id">
 					<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 				</v-avatar>
 				<div class="d-inline-block ml-2 text-14">
@@ -17,21 +17,22 @@
 				<v-btn v-if="item.customer.instagram!=null" :href="'https://instagram.com/'+item.customer.instagram" target="_BLANK" class="ml-2" small color="#ff4200">
 					<v-icon>mdi-instagram</v-icon>
 				</v-btn>
-				<v-btn v-if="what_type" color="#ff4200" small @click="$router.push('/sing/video/'+item.id)">Lihat</v-btn>
-				<v-btn v-else color="#ff4200" small @click="$router.push('/sing/video/'+item.id)">
+				<v-btn v-if="what_type" color="#ff4200" small :href="'/sing/video/'+item.id">Lihat</v-btn>
+				<v-btn v-else color="#ff4200" small :href="'/sing/video/'+item.id">
 					<img src="/img/icons/vote-w.svg" class="mr-1" alt=""> {{ stillrunning ? 'Vote' : 'Lihat' }}
 				</v-btn>
 			</div>
 		</div>
 
+		<a :href="'/sing/video/'+item.id">
 		<v-img 
 		class="deep-orange lighten-3" 
 		:src="item.video.thumbnail_url ? item.video.thumbnail_url : 'https://via.placeholder.com/415x250'" 
 		:aspect-ratio="16/9" 
-		@click="$router.push('/sing/video/'+item.id)"
 		></v-img>
+		</a>
 
-		<div class="d-flex justify-space-between pr-4" @click="$router.push('/sing/video/'+item.id)">
+		<div class="d-flex justify-space-between pr-4" :href="'/sing/video/'+item.id">
 			<div>
 				<div class="text-20 float-left text-center px-4" style="line-height:41px">
 					<strong style="position:relative;top:2px">{{item.ranking}}</strong>

@@ -358,7 +358,6 @@ export default {
 			let pagenum = parseInt(num) + 1
 
 			this.moreloading = true;
-			console.log(pagenum)
 			if( this.type == 'search' ) {
 				this.search(key, pagenum, ismore);
 			} else if( this.type == 'sort' ){
