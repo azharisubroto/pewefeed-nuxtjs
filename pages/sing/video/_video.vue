@@ -42,12 +42,12 @@
           </div>
 
           <div>
-            <v-btn v-if="content2.customer.instagram!=null" :href="'https://instagram.com/'+content2.customer.instagram" target="_BLANK" class="ml-2" small color="deep-orange">
+            <v-btn v-if="content2.customer.instagram!=null" :href="'https://instagram.com/'+content2.customer.instagram" target="_BLANK" class="ml-2" small color="#ff4200">
               <v-icon>mdi-instagram</v-icon>
             </v-btn>
 
             <v-btn 
-            color="deep-orange" 
+            color="#ff4200" 
             small 
             @click="sendVote(content2.id)"
             >
@@ -215,7 +215,7 @@
 
         <div class="text-center mt-3" v-if="votersismore">
           <v-btn
-            color="deep-orange"
+            color="#ff4200"
             class="mt-4"
             @click="loadVoters(voterspaging)"
             >Show More</v-btn
@@ -283,7 +283,7 @@
         <v-textarea
           class="mt-4"
           outlined
-          color="deep-orange"
+          color="#ff4200"
           label="Komentar"
           value
           rows="3"
@@ -298,7 +298,7 @@
           {{ total_counter }}
         </div>
         <div class="d-block"></div>
-        <v-btn block dark color="deep-orange" @click="recaptchaPreSend = true">
+        <v-btn block dark color="#ff4200" @click="recaptchaPreSend = true">
           <template v-if="!commentIsPosting">Kirim Komentar</template>
           <template v-else>Mengirim Komentar...</template>
         </v-btn>
@@ -327,7 +327,7 @@
           block
           depressed
           dark
-          color="deep-orange"
+          color="#ff4200"
           @click="loadMoreComment(nextComment)"
           >Load More</v-btn
         >
@@ -397,7 +397,7 @@
         :customimage="content2.video.thumbnail_url"
         >
           <img
-            :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
+            :src=" singtab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
             height="18"
             style="display:inline-block;position:relative;top:2px"
             alt
@@ -436,12 +436,7 @@
               class="deep-orange--text pl-0"
               style="margin-left: -10px"
             >
-              <span v-if="type == 'vote'"
-                >You've got {{ type == "vote" ? 5 : 2 }} Point!</span
-              >
-              <span v-if="type == 'alreadyvote' || type == 'komen'"
-                >You've got 5 Point</span
-              >
+              <span>Information</span>
             </v-btn>
           </v-toolbar-items>
           <div class="flex-grow-1"></div>
@@ -456,7 +451,7 @@
             <br />
             <v-btn
               to="/member/histori_penggunaan_poin"
-              color="green"
+              color="#ff4200"
               class="mt-2"
               >Check Total Point</v-btn
             >
@@ -470,7 +465,7 @@
             <br />
             <v-btn
               to="/member/histori_penggunaan_poin"
-              color="green"
+              color="#ff4200"
               class="mt-2"
               >Check Total Point</v-btn
             >
@@ -484,7 +479,7 @@
             <br />
             <v-btn
               to="/member/histori_penggunaan_poin"
-              color="green"
+              color="#ff4200"
               class="mt-2"
               >Check Total Point</v-btn
             >

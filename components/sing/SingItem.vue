@@ -26,7 +26,7 @@
 
 		<v-img 
 		class="deep-orange lighten-3" 
-		:src="item.video.thumbnail_url" 
+		:src="item.video.thumbnail_url ? item.video.thumbnail_url : 'https://via.placeholder.com/415x250'" 
 		:aspect-ratio="16/9" 
 		@click="$router.push('/sing/video/'+item.id)"
 		></v-img>

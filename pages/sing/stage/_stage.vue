@@ -52,40 +52,41 @@ export default {
 		},
 	},
 	mounted() {
+		let vm = this;
 		this.stageDetail(this.$route.params.stage, 1);
 		this.$bus.$on('singSearchLoading', () => {
-			this.content = null
-			this.peserta = null
-			this.isloading = true
+			vm.content = null
+			vm.peserta = null
+			vm.isloading = true
 		});
 		this.$bus.$on('singReplaceData', (data) => {
-			this.content = data
+			vm.content = data
 			let vide = data.video_customer
 			if( vide.length > 0 ) {
-				this.peserta = data.video_customer;
+				vm.peserta = data.video_customer;
 			} else {
-				this.peserta = null;
+				vm.peserta = null;
 			}
-			this.isloading = false
-			this.type = 'search'
+			vm.isloading = false
+			vm.type = 'search'
 		});
 		this.$bus.$on('refetchPaginate', (num) => {
-			this.content = null
-			this.peserta = null
-			this.isloading = true
-			this.stageDetail(this.$route.params.stage, num);
-			this.type = 'default'
+			vm.content = null
+			vm.peserta = null
+			vm.isloading = true
+			vm.stageDetail(vm.$route.params.stage, num);
+			vm.type = 'default'
 		});
 		this.$bus.$on('singSortItem', (data) => {
-			this.content = data
+			vm.content = data
 			let vide = data.video_customer
 			if( vide.length > 0 ) {
-				this.peserta = data.video_customer;
+				vm.peserta = data.video_customer;
 			} else {
-				this.peserta = null;
+				vm.peserta = null;
 			}
-			this.isloading = false
-			this.type = 'sort'
+			vm.isloading = false
+			vm.type = 'sort'
 		});
 	}
 }

@@ -104,16 +104,17 @@
 		</v-container>
 
 		<!-- NOT LOGIN -->
-		<v-container v-else class="hero" style="padding-bottom: 40px;">
+		<v-container v-else class="hero">
 			<v-card
 			color="#FFC107"
 			dark
-			class="text-center pa-5"
+			class="text-center pa-4"
 			elevation="0"
 			>
 				<v-btn 
 				color="#FF4200"
 				depressed
+				small
 				@click="loginModalVisible = true"
 				class="px-8">
 					<img src="/img/icons/upload.svg" class="mr-1" alt="upload"> Upload
@@ -391,7 +392,7 @@ export default {
 					let userid = userdata.data.id
 					for (let index = 0; index < val.length; index++) {
 						const el = val[index];
-						console.log(el.customer.id, userid);
+						//console.log(el.customer.id, userid);
 						if( el.customer.id == userid ) {
 							this.uploaded = true
 							console.log('exists');
@@ -427,7 +428,7 @@ export default {
 		async checkUploadAvailablity(stage) {
 			try {
 				const res = await SingService.checkAvail(stage);
-				console.log(res.data);
+				//console.log(res.data);
 				this.uploadallowed = res.data.upload_available
 			} catch (error) {
 				console.log(error)
@@ -491,7 +492,7 @@ export default {
 		})
 		if (localStorage.getItem('userdata')) {
 			var userdata = JSON.parse(localStorage.getItem('userdata'));
-			console.log(userdata)
+			//console.log(userdata)
 			this.userdata = userdata
 			this.userid = userdata.data.id
 			this.checkUploadAvailablity(this.$route.params.stage);

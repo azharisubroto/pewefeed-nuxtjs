@@ -711,7 +711,7 @@ export default {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
