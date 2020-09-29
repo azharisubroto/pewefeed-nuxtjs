@@ -68,7 +68,7 @@ export default {
 				//this.list = null
 				this.totalpage = res.data.meta.last_page
 				this.loading = false
-				//console.log(JSON.parse(JSON.stringify(res.data)))
+				////console.log(JSON.parse(JSON.stringify(res.data)))
 			} catch (error) {
 				console.log(error)
 				this.loading = false
@@ -89,7 +89,7 @@ export default {
 		this.$bus.$on('refetchRewards', () => {
 			this.fetchWait()
 		})
-		//console.log(JSON.parse(JSON.stringify(this.addresses)))
+		////console.log(JSON.parse(JSON.stringify(this.addresses)))
 	}
 }
 </script>

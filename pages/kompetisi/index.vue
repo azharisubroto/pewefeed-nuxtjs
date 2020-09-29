@@ -68,7 +68,7 @@ export default {
 			try {
 				const res = await ProgramService.getProgram()
 				this.programs = res.data.data
-				// console.log(this.programs)
+				// //console.log(this.programs)
 				if (this.programs.length > 0) {
 					this.isAvailable = true
 				} else {

@@ -728,7 +728,7 @@ export default {
   },
   watch: {
     "formdata.nomorhandphone": function (baru, lama) {
-      //console.log(baru)
+      ////console.log(baru)
       setTimeout(() => {
         let phonenumber = this.formdata.nomorhandphone;
         var zero = phonenumber.substring(0, 1);
@@ -787,7 +787,7 @@ export default {
         try {
           const res = await PurchaseService.midtrans(sendvoucher);
           if (res.status == 200) {
-            // console.log(res.data)
+            // //console.log(res.data)
             var url = res.data.snap_url;
             window.location.href = url
             this.ewalletOverlay = false;
@@ -805,7 +805,7 @@ export default {
         try {
           const res = await PurchaseService.xendit(sendvoucher);
           if (res.status == 200) {
-            console.log(res.data);
+            //console.log(res.data);
             this.invoiceUrl = res.data.invoice_url;
             this.iframeDialogVisible = true;
             this.ewalletOverlay = false;
@@ -832,7 +832,7 @@ export default {
       }
     },
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
@@ -840,7 +840,7 @@ export default {
       this.finalbuttondisabled = false;
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -848,7 +848,7 @@ export default {
     prev() {
       if (this.e1 == 1) {
         this.$router.push("/");
-        console.log(this.e1);
+        //console.log(this.e1);
       }
       if (this.e1 != 0) {
         this.e1--;
@@ -873,7 +873,7 @@ export default {
         try {
           const res = await PurchaseService.xendit(sendvoucher);
           if (res.status == 200) {
-            console.log(res.data);
+            //console.log(res.data);
             this.invoiceUrl = res.data.invoice_url;
             this.iframeDialogVisible = true;
           }
@@ -888,7 +888,7 @@ export default {
         try {
           const res = await PurchaseService.midtrans(sendvoucher);
           if (res.status == 200) {
-            // console.log(res.data)
+            // //console.log(res.data)
             var url = res.data.snap_url;
             window.open(url, "_blank");
           }
@@ -899,7 +899,7 @@ export default {
         this.itemname = label;
         this.sublabel = sublabel;
         this.itemprice = price;
-        // console.log(this.wap)
+        // //console.log(this.wap)
 
         var hari = "";
         if (price == "Rp 2.200") {
@@ -958,7 +958,7 @@ export default {
     /* Submit Form */
     async submit() {
       let vm = this;
-      console.log(this.prechoice.voucher_id);
+      //console.log(this.prechoice.voucher_id);
       if (this.useWap) {
         var wapchosen = null;
         wapchosen = this.getWapType;
@@ -979,8 +979,8 @@ export default {
             "http://150.107.148.9/app/wap/playworld/jayadata/isat/pw";
         }
 
-        console.log(wapchosen);
-        console.log(urltoOpen);
+        //console.log(wapchosen);
+        //console.log(urltoOpen);
 
         setTimeout(() => {
           window.open(urltoOpen);

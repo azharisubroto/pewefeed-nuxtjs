@@ -90,7 +90,7 @@ export default {
     async getCategory() {
       try {
         const res = await FaktaService.getCategory()
-        //console.log(res.data.data.category)
+        ////console.log(res.data.data.category)
         this.categories = res.data.data.category
       } catch (error) {
         console.log(error)
@@ -100,7 +100,7 @@ export default {
       try {
         const res = await FaktaService.getSlide()
         const items = res.data.data.content
-        //console.log(res.data.data.content)
+        ////console.log(res.data.data.content)
         if( items ) {
           var itemArr = []
           items.forEach(el => {
@@ -127,7 +127,7 @@ export default {
       var category = cat ? cat : 0
       try {
         const res = await FaktaService.getLatest(cat)
-        console.log(res.data.data.content)
+        //console.log(res.data.data.content)
         const articles = res.data.data.content
 
         var latests = []

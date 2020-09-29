@@ -148,7 +148,7 @@ export default {
 				const res = await SingService.winnersHome()
 				const data = res.data.winners
 				this.prizeswithpemenang = data
-				console.log(JSON.parse(JSON.stringify(data)));
+				//console.log(JSON.parse(JSON.stringify(data)));
 			} catch (error) {
 				console.log(error)
 			}

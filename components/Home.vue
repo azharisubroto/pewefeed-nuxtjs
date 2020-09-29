@@ -268,7 +268,7 @@ export default {
     async loadMore(n) {
       try {
         const res = await ArticleService.getTopViews(n);
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
         const items = res.data.data;
         items.forEach(element => {
           var link = element.link;
@@ -288,7 +288,7 @@ export default {
           this.topviews.push(obj);
         });
         this.next += 1;
-        // console.log(res.data.meta)
+        // //console.log(res.data.meta)
         if (res.data.meta.current_page == res.data.meta.last_page) {
           this.isMore = false;
         }
@@ -300,7 +300,7 @@ export default {
       try {
         const res = await ArticleService.getSixty();
         this.sixty = res.data.data.sixty;
-        //console.log(JSON.parse(JSON.stringify(res.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data)))
       } catch (error) {
         console.log(error);
       }
@@ -308,7 +308,7 @@ export default {
     async fetchPromotedNews() {
       try {
         const res = await ArticleService.getLatest();
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.articles = res.data.data;
         // if (res.data.data.length > 0) {
         this.$nextTick(function() {
@@ -322,7 +322,7 @@ export default {
     async fetchTopPoin() {
       try {
         const res = await ArticleService.getTopPoin();
-        //console.log(JSON.parse(JSON.stringify(res.data.data.ranked.garfik)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data.ranked.garfik)))
         this.toppoinbanner = res.data.data.periode.banner.desktop;
         this.garfik = res.data.data.ranked.garfik;
       } catch (error) {
@@ -353,10 +353,10 @@ export default {
     setTimeout(() => {
       vm.activebg = document.getElementById("bg-0").value;
       vm.$refs.flickity2.on("change", event => {
-        //console.log(vm.$refs.flickity2.selectedIndex());
+        ////console.log(vm.$refs.flickity2.selectedIndex());
         let index = vm.$refs.flickity2.selectedIndex();
         vm.activebg = document.getElementById("bg-" + index).value;
-        console.log(vm.activebg);
+        //console.log(vm.activebg);
       });
     }, 3000);
   }

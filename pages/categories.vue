@@ -253,7 +253,7 @@ export default {
       try {
         const res = await MenuService.getHighlight();
         const data = res.data.data;
-        // console.log("Highlights", JSON.parse(JSON.stringify(data)));
+        // //console.log("Highlights", JSON.parse(JSON.stringify(data)));
         this.highlights = data;
       } catch (error) {
         console.log(error);

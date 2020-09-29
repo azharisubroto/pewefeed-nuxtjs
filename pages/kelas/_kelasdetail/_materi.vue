@@ -71,7 +71,7 @@ export default {
 					} else {
 						this.fetchDetail();
 					}
-					//console.log('vip', res.data.vip)
+					////console.log('vip', res.data.vip)
 				} else {
 					this.loggedin = false
 					this.isVIP = false

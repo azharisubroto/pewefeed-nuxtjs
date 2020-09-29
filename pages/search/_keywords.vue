@@ -20,7 +20,7 @@ export default {
       return res.data.data
     })
     store.commit('SET_META', meta)
-    // console.log(meta)
+    // //console.log(meta)
   },
   head() {
     return{

@@ -55,7 +55,7 @@ export default {
     async getRedeem() {
       try {
         const res = await RedeemService.getRedeem();
-        // console.log(res.data.data.redeem)
+        // //console.log(res.data.data.redeem)
         this.data = res.data.data;
       } catch (error) {
         console.log(error);

@@ -110,7 +110,7 @@ export default {
 				const res = await SingService.getPromoted()
 				const data = await res.data.data
 				this.lirikdownload = res.data.dlLyrics
-				console.log(JSON.parse(JSON.stringify(data)));
+				//console.log(JSON.parse(JSON.stringify(data)));
 				this.lirik = data.lirik
 				this.download = data.download_video
 				this.videoName = data.promoted_video
@@ -121,12 +121,12 @@ export default {
 			}
 		},
 		reqListener () {
-			console.log(this.responseText);
+			//console.log(this.responseText);
 		},
 		async downloadVideo(url){
 			//let blob = await fetch(url).then(r => r.blob());
 			// let file = await fetch(url).then(r => r.blob()).then(blobFile => new File([blobFile], this.videoName, { type: "video/mp4" }));
-			// console.log(file);
+			// //console.log(file);
 			this.downloadOverlay = true
 
 			axios({

@@ -280,7 +280,7 @@ export default {
 		async getSchools () {
             try {
                 const response = await SchoolsService.getSchools()
-                //console.log(response.data.data);
+                ////console.log(response.data.data);
                 this.schools = response.data.data;
             } catch (error) {
                 console.log(error)
@@ -290,7 +290,7 @@ export default {
             this.$refs.dropzone.removeAllFiles();
         },
         afterComplete(file, response) {
-            //console.log(response.link);
+            ////console.log(response.link);
             this.bandData.avatarband = response.link;
         },
         // Tambah personel
@@ -299,7 +299,7 @@ export default {
             this.bandData.instagram.push(Vue.util.extend(""));
             this.bandData.avatar.push(Vue.util.extend(""));
             this.bandData.personil_posisi.push(Vue.util.extend(""));
-            //console.log(JSON.parse(JSON.stringify(this.personels)));
+            ////console.log(JSON.parse(JSON.stringify(this.personels)));
         },
         // hapus personel
         removePersonel: function (index) {
@@ -313,13 +313,13 @@ export default {
             Vue.set(this.bandData.avatar, i, "");
         },
         selesai(file, response, i) {
-            // console.log(i);
+            // //console.log(i);
             Vue.set(this.bandData.avatar, i, response.link)
         },
         async saveForm() {
             let vm = this
             var formdata = JSON.parse(JSON.stringify(vm.bandData))
-            //console.log(formdata);
+            ////console.log(formdata);
             try {
                 const res = await StarxIzinService.submitBand(formdata)
                 vm.snackbar = true;
@@ -331,7 +331,7 @@ export default {
 			let vm = this
             try {
                 const response = await StarxIzinService.checkIzin()
-                console.log(JSON.parse(JSON.stringify(response.data.data.band.band)));
+                //console.log(JSON.parse(JSON.stringify(response.data.data.band.band)));
                 var band = response.data.data.band.band;
                 if( band ) {
                     vm.bandData.name_band = band.band_name
@@ -339,7 +339,7 @@ export default {
 					vm.bandData.avatarband = band.avatar
 					vm.bandData.asal_sekolah = band.school
                     var band_detail = band.band_detail
-                    //console.log(band_detail);
+                    ////console.log(band_detail);
                     for(var i = 0, j = band_detail.length; i < j; ++i) {
                         vm.bandData.nama_personil.push(Vue.util.extend(band_detail[i].personnel_name));
                         vm.bandData.instagram.push(Vue.util.extend(band_detail[i].instagram));
@@ -352,7 +352,7 @@ export default {
             }
 		},
 		getPosisi(posisi) {
-			console.log('posisi: '+posisi)
+			//console.log('posisi: '+posisi)
 			if( posisi == 15 ) {
 				var position = 'Other';
 			} else if( posisi == 13 ) {

@@ -17,14 +17,14 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    //console.log('fetch this')
-    //console.log(params.articleslug)
+    ////console.log('fetch this')
+    ////console.log(params.articleslug)
     let item = await ComicService.getDetail(params.detail)
     .then(res => {
       return res.data.data
     })
     store.commit('SET_ITEM', item)
-    console.log(JSON.parse(JSON.stringify(item)))
+    //console.log(JSON.parse(JSON.stringify(item)))
   },
   head () {
     let host = this.origin

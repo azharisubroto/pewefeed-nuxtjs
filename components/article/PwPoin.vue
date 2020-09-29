@@ -99,7 +99,7 @@ export default {
       async fetchTopPoin() {
         try {
             const res = await ArticleService.getTopPoin()
-            //console.log(JSON.parse(JSON.stringify(res.data.data.ranked.garfik)))
+            ////console.log(JSON.parse(JSON.stringify(res.data.data.ranked.garfik)))
             this.toppoinbanner = res.data.data.periode.banner.desktop
             this.garfik = res.data.data.ranked.garfik
         } catch (error) {
@@ -109,7 +109,7 @@ export default {
       async fetchTukarPoin() {
         try {
           const res = await ArticleService.getTukarPoin()
-          console.log(JSON.parse(JSON.stringify(res.data.data.redeem)))
+          //console.log(JSON.parse(JSON.stringify(res.data.data.redeem)))
           this.tukarpoin = res.data.data.redeem
         } catch (error) {
           console.log(error)

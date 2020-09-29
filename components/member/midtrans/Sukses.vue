@@ -55,9 +55,9 @@ export default {
                     this.list = true;
                 }
                 this.loading = false;
-                //console.log(res);
+                ////console.log(res);
                 this.datamidtrans = res.data.data.finish;
-                console.log(JSON.parse(JSON.stringify(this.datamidtrans)));
+                //console.log(JSON.parse(JSON.stringify(this.datamidtrans)));
             } catch (error) {
                 console.log(error);
             }

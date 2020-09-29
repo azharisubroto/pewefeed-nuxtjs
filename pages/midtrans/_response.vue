@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted() {
-      console.log('redirect . . .')
+      //console.log('redirect . . .')
       this.$router.push('/member/status_transfer')
   }
 };

@@ -66,7 +66,7 @@ export default {
 				const res = await UserService.getAddresses()
 				var items = res.data.data
 				if( items && items.length > 0 ) {
-				//console.log(JSON.parse(JSON.stringify(items)))
+				////console.log(JSON.parse(JSON.stringify(items)))
 				this.addresses = items
 				}
 			} catch (error) {
@@ -79,11 +79,11 @@ export default {
 				const res = await UserService.getContacts()
 				var items = res.data.data
 				if( items && items.length > 0 ) {
-					//console.log(JSON.parse(JSON.stringify(items)))
+					////console.log(JSON.parse(JSON.stringify(items)))
 					this.contact = items
 				}
 			} catch (error) {
-				console.log(res)
+				//console.log(res)
 
 			}
 		},

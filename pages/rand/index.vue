@@ -19,7 +19,7 @@ export default {
 		async doRand() {
 			try {
 				const res = await ArticleService.getRand()
-				console.log(res);
+				//console.log(res);
 				if( res.data.data ) {
 					var article = res.data.data.article
 					var link = article.link
@@ -27,7 +27,7 @@ export default {
 					var reaction = article.reaction.toLowerCase().replace(' ', '-')
 					var slug = article.slug
 					var articlepath = '/'+ type +'/'+ reaction +'/'+ slug
-					console.log(articlepath)
+					//console.log(articlepath)
 					this.$router.push(articlepath)
 				}
 			} catch (error) {

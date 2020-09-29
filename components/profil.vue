@@ -323,7 +323,7 @@ export default {
       this.$refs.dropzone.removeAllFiles();
     },
     afterComplete(file, response) {
-      console.log(response.file_name);
+      //console.log(response.file_name);
       this.data.avatar = response.file_name;
       this.avatar_preview =
         "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/" +
@@ -337,7 +337,7 @@ export default {
       let vm = this;
       this.$auth.fetchUser().then(() => {
 		localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-		//console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
+		////console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
 
 		var res = [];
 		res.data = vm.$auth.user;
@@ -405,7 +405,7 @@ export default {
     async dailypoint() {
       try {
         const res = await UserService.voucherDailyPoint();
-        console.log("daily", res.data.data);
+        //console.log("daily", res.data.data);
       } catch (error) {
         console.log(error);
       }

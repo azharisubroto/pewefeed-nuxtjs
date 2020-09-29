@@ -412,7 +412,7 @@ export default {
                 this.band = this.wholeResponse.band;
                 this.prizes = this.wholeResponse.prizes;
                 this.school = this.wholeResponse.school
-                console.log(JSON.parse(JSON.stringify(response.data)))
+                //console.log(JSON.parse(JSON.stringify(response.data)))
             } catch (error) {
                 console.log(error)
             }

@@ -196,7 +196,7 @@ export default {
       this.overlay = true;
       try {
         const res = await UserService.getCodePW(page);
-        console.log(res);
+        //console.log(res);
 
         if (res.data.data.length > 0) {
           this.notFound = false;
@@ -228,14 +228,14 @@ export default {
 
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -270,7 +270,7 @@ export default {
         this.isHistory = false;
       } catch (err) {
         this.isNotValid = true;
-        console.log(err);
+        //console.log(err);
         this.overlay = false;
         this.isHistory = false;
         this.isPurchased = false;

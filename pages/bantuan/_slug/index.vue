@@ -85,7 +85,7 @@ export default {
 		async fetchHelp() {
 			try {
 				const res = await ArticleService.bantuandetail(this.$route.params.slug)
-				console.log(JSON.parse(JSON.stringify(res)))
+				//console.log(JSON.parse(JSON.stringify(res)))
 
 				this.content = res.data.data
 				this.others = res.data.other
@@ -99,7 +99,7 @@ export default {
 	},
 	mounted() {
 		this.fetchHelp();
-		console.log('BantuanDetail');
+		//console.log('BantuanDetail');
 	}
 }
 </script>

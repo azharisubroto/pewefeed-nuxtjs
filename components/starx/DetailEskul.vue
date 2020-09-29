@@ -92,7 +92,7 @@ export default {
     methods: {
         fetchContent() {
             this.article = this.respon.eskuls
-            console.log(this.respon)
+            //console.log(this.respon)
         }
     },
     mounted() {

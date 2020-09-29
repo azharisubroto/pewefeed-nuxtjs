@@ -56,13 +56,13 @@ export default {
   },
   methods: {
     numberWithCommas(x) {
-      // console.log(x)
+      // //console.log(x)
       // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     async getRedeem() {
       try {
         const res = await RedeemService.getRedeem();
-        // console.log(res.data.data.redeem)
+        // //console.log(res.data.data.redeem)
         this.data = res.data.data.redeem;
       } catch (error) {
         console.log(error);

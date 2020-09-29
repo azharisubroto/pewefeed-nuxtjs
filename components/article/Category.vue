@@ -186,7 +186,7 @@ export default {
         async fetchArticle() {
             try {
                 const res = await ArticleService.getListArticleByCategory(this.$route.params.cat)
-                // console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
@@ -212,7 +212,7 @@ export default {
         async loadMore(n) {
           try {
                 const res = await ArticleService.getListArticleByCategory(this.$route.params.cat + '?page=' + n)
-                // console.log(JSON.parse(JSON.stringify(res.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data)))
                 const items = res.data.data.article
                 items.forEach(article => {
                     var slug = article.link
@@ -237,7 +237,7 @@ export default {
         async fetchTrending() {
             try {
                 const res = await ArticleService.getTrendingArticleByCategory(this.$route.params.cat)
-                // console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 this.articles = res.data.data.article
                 // if (res.data.data.length > 0) {
                   this.$nextTick(function() {

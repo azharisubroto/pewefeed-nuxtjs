@@ -168,8 +168,8 @@ export default {
 
         try {
           const user = await UserService.getReward();
-          console.log("User data");
-          // console.log(user);
+          //console.log("User data");
+          // //console.log(user);
 
           if (user.data.data != null) {
             this.reward = user.data.data;
@@ -188,7 +188,7 @@ export default {
             this.newuser = true;
           }
         } catch (err) {
-          console.log(err.response.data);
+          //console.log(err.response.data);
         }
       } else {
         this.formsignin = true;
@@ -198,14 +198,14 @@ export default {
 
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -227,14 +227,14 @@ export default {
       } else {
         try {
           const res = await VoucherService.getCodePw(this.$route.params.codepw);
-          console.log(res.data.code);
+          //console.log(res.data.code);
           this.notloading();
           this.recaptchaToken = null;
           this.status_code = true;
           this.message_code = "Ini Kode PW Anda " + res.data.code.trx;
           this.formdata.code = res.data.code.trx;
         } catch (err) {
-          console.log(err.response.data);
+          //console.log(err.response.data);
           this.notloading();
           this.status_code = true;
           this.message_code = err.response.data.message;
@@ -276,13 +276,13 @@ export default {
 
         this.notloading();
         this.recaptchaToken = null;
-        // console.log(res);
+        // //console.log(res);
         this.status_code = false;
         vm.snackbar = false;
         vm.dialog = true;
         vm.responsemessage = res.data.message;
       } catch (err) {
-        console.log(err);
+        //console.log(err);
         this.notloading();
         vm.snackbar = true;
         vm.responsemessage = "Kode PW tidak ditemukan atau sudah expired";

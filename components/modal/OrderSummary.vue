@@ -199,7 +199,7 @@ export default {
       try {
         const res = await PurchaseService.xlMedia(sendform);
         vm.responsemessage = res.data.message;
-        console.log(res);
+        //console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -208,10 +208,10 @@ export default {
     },
     fetchProgram() {
       let vm = this;
-      console.log(vm);
+      //console.log(vm);
       // StarxIzinService.checkIzin()
       // .then( response => {
-      //     console.log(response.data.data);
+      //     //console.log(response.data.data);
       //     var data = response.data.data;
       //     vm.participant = data.participant;
       //     localStorage.setItem('participant', JSON.stringify(data.participant));

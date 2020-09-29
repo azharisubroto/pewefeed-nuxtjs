@@ -157,11 +157,11 @@ export default {
 				customer_redeem_id: id_redeem,
 				contact_id: id_tujuan
 			}
-			console.log(params)
+			//console.log(params)
 
 			try {
 				const res = await UserService.claimDigital(params)
-				console.log(res)
+				//console.log(res)
 				if(res.status == 200) {
 					this.$bus.$emit('refetchRewards')
 					this.loading[i] = false
@@ -178,11 +178,11 @@ export default {
 				customer_redeem_id: id_redeem,
 				contact_id: id_tujuan
 			}
-			console.log(params)
+			//console.log(params)
 
 			try {
 				const res = await UserService.claimFisik(params)
-				console.log(res)
+				//console.log(res)
 				if(res.status == 200) {
 					this.$bus.$emit('refetchRewards')
 					this.loading[i] = false
@@ -194,11 +194,11 @@ export default {
 		},
 		prosesReward(id_barang, id_redeem, id_tujuan, type, i) {
 			this.loading[i] = true
-			//console.log('type: '+type+' | ID: '+id+' | redeem ID: '+id_barang)
-			console.log('Item ID: '+ id_barang)
-			console.log('Redeem ID: '+ id_redeem)
-			console.log('Type Redeem: '+ type)
-			console.log('ID Tujuan: '+ id_tujuan)
+			////console.log('type: '+type+' | ID: '+id+' | redeem ID: '+id_barang)
+			//console.log('Item ID: '+ id_barang)
+			//console.log('Redeem ID: '+ id_redeem)
+			//console.log('Type Redeem: '+ type)
+			//console.log('ID Tujuan: '+ id_tujuan)
 
 			if( type == 'Non Fisik' ) {
 				this.claimDigital(id_barang, id_redeem, id_tujuan)
@@ -211,11 +211,11 @@ export default {
 				id: id,
 				customer_redeem_id: customer_redeem_id,
 			}
-			console.log(params)
+			//console.log(params)
 
 			try {
 				const res = await UserService.confirmReward(params)
-				console.log(res)
+				//console.log(res)
 				if(res.status == 200) {
 					this.$bus.$emit('refetchDiterima')
 					alert('Anda telah mengkonfirmasi penerimaan reward')
@@ -226,8 +226,8 @@ export default {
 		}
 	},
 	mounted() {
-		// console.log(JSON.parse(JSON.stringify(this.addresses)))
-		// console.log(JSON.parse(JSON.stringify(this.contact)))
+		// //console.log(JSON.parse(JSON.stringify(this.addresses)))
+		// //console.log(JSON.parse(JSON.stringify(this.contact)))
 		const theList = this.list
 		theList.forEach(element => {
 			this.id_tujuan.push(null)

@@ -871,7 +871,7 @@ export default {
   // },
   methods: {
     async fetchContent() {
-      //console.log(this.$route.params.articleslug)
+      ////console.log(this.$route.params.articleslug)
       this.id = this.respon.article.id;
       this.article = this.respon.article;
       //this.moveRedeemBeforeRelated();
@@ -885,7 +885,7 @@ export default {
         this.quiz_id = this.respon.quiz.id;
         this.answered = this.respon.quiz.answered;
       }
-      console.log("fetch latest..");
+      //console.log("fetch latest..");
       this.fetchLatest(this.respon.article.slug);
 
       if( this.id ) {
@@ -908,7 +908,7 @@ export default {
           this.$route.params.articleslug
         );
         const data = await res.data.data;
-        // console.log("statistik", data[0].statistic);
+        // //console.log("statistik", data[0].statistic);
         this.quizstatistic = res.data.statistic;
         this.quizzes = data;
         data.forEach((el) => {
@@ -921,7 +921,7 @@ export default {
     async fetchLatest(slug) {
       try {
         const res = await ArticleService.getRelated(slug);
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
         var articles = res.data.data.article;
         articles.forEach((element) => {
           var link = element.link;
@@ -950,7 +950,7 @@ export default {
           this.$route.params.articleslug,
           n
         );
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
         var articles = res.data.data.article;
         articles.forEach((element) => {
           var link = element.link;
@@ -985,7 +985,7 @@ export default {
 
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
     async fetchComment() {
@@ -995,7 +995,7 @@ export default {
           this.$route.params.articleslug,
           1
         );
-        // console.log(res)
+        // //console.log(res)
         this.comments = res.data.data.comments;
         this.totalComment = res.data.pagination.total;
 
@@ -1049,7 +1049,7 @@ export default {
     },
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
@@ -1061,19 +1061,19 @@ export default {
     async onSuccessLike(token) {
       if (this.recaptchatrigger == 0) {
         this.recaptchatrigger = 1;
-        //console.log("onshare success");
+        ////console.log("onshare success");
         try {
           const token = await this.$recaptcha.getResponse();
-          console.log("ReCaptcha token:", token);
+          //console.log("ReCaptcha token:", token);
           this.recaptchaToken = token;
           this.postLike();
         } catch (error) {
-          console.log("Login error:", error);
+          //console.log("Login error:", error);
         }
       }
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -1103,9 +1103,9 @@ export default {
       try {
         const res = await ArticleService.setLike(payload);
 
-        // console.log(res)
+        // //console.log(res)
         if (res.data.point == 1) {
-          console.log("dapat poin");
+          //console.log("dapat poin");
           this.SharePoinVisible = true;
           this.recaptchaDialogVisible = false;
         }
@@ -1119,7 +1119,7 @@ export default {
           this.recaptchalikemodal = false;
         }, 200);
       } catch (error) {
-        //console.log(error.response.status)
+        ////console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response && error.response.status == 422) {
           alert(error.response.data.message);
@@ -1135,7 +1135,7 @@ export default {
     },
     processComment() {
       var isUrl = this.urlify(this.comment_message);
-      console.log('is url?',isUrl);
+      //console.log('is url?',isUrl);
       if (this.total_counter < 20 && !isUrl) {
         alert("Komentar harus mengandung minimal 20 kata");
       } else if( this.total_counter >= 20 && !isUrl ) {
@@ -1157,7 +1157,7 @@ export default {
           this.$route.params.articleslug,
           params
         );
-        // console.log(res.data.poin);
+        // //console.log(res.data.poin);
         this.fetchComment();
         this.commentIsPosting = false;
         this.comment_message = '';
@@ -1169,7 +1169,7 @@ export default {
         }
         this.recaptchaPreSend = false;
       } catch (error) {
-        //console.log(error.response.status)
+        ////console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response && error.response.status == 422) {
           alert(error.response.data.message);
@@ -1187,10 +1187,10 @@ export default {
     async submitAnswer() {
       var userdata = JSON.parse(localStorage.getItem("userdata"));
       if (userdata) {
-        console.log(userdata);
+        //console.log(userdata);
         var limit = userdata.point_limit;
         limit = limit.split("/");
-        console.log(limit[0]);
+        //console.log(limit[0]);
         if (limit[0] == 0) {
           this.dailyLimitNotice = true;
         } else {
@@ -1236,7 +1236,7 @@ export default {
             //this.notLogin = true;
             this.sending = false;
             this.sudahpernah = true;
-            // console.log('Hasil', JSON.parse(JSON.stringify(data)))
+            // //console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
             console.log(error);
             if (error.response.status == 410) {
@@ -1271,7 +1271,7 @@ export default {
     async checkQuizStatus() {
       try {
         const res = await ArticleService.checkAnswered('article',this.$route.params.articleslug);
-        //console.log('quiz status', res.data.data.answered)
+        ////console.log('quiz status', res.data.data.answered)
         this.sudahpernah = res.data.data.answered
       } catch (error) {
         console.log(error)

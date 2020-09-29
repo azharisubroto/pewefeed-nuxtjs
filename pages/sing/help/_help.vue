@@ -73,7 +73,7 @@ export default {
 				const res = await SingService.getHelpDetail(this.$route.params.help);
 				const help =  await res.data.data.subhelps
 				this.label = res.data.data.label
-				console.log(help)
+				//console.log(help)
 				let tempHelp = []
 				help.forEach(el => {
 					tempHelp.push({

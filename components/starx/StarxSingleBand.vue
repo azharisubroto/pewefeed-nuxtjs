@@ -648,7 +648,7 @@ export default {
         async getBandDetail () {
             try {
                 const response = await StarxService.BandDetail( this.$route.params.bandslug )
-                console.log(JSON.parse(JSON.stringify(response)));
+                //console.log(JSON.parse(JSON.stringify(response)));
                 this.band = response.data.data.band
                 if (response.data.data.band.avatar) {
                     this.avatar = response.data.data.band.avatar
@@ -663,7 +663,7 @@ export default {
                 this.band = this.wholeResponse.band;
                 this.prizes = this.wholeResponse.prizes;
                 this.school = this.wholeResponse.band.school;
-                // console.log(JSON.parse(JSON.stringify(response.data)))
+                // //console.log(JSON.parse(JSON.stringify(response.data)))
             } catch (error) {
                 console.log(error)
             }

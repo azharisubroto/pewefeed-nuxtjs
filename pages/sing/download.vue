@@ -94,7 +94,7 @@ export default {
 			try {
 				const res = await SingService.getPromoted()
 				const data = await res.data.data
-				console.log(JSON.parse(JSON.stringify(data)));
+				//console.log(JSON.parse(JSON.stringify(data)));
 				this.lirik = data.lirik
 				this.download = data.download_video
 				this.loading = false

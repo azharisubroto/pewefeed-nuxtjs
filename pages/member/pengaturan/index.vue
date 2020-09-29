@@ -220,7 +220,7 @@ export default {
       this.$refs.dropzone.removeAllFiles();
     },
     afterComplete(file, response) {
-      console.log(response.file_name);
+      //console.log(response.file_name);
       this.data.avatar = response.file_name;
       this.avatar_preview =
         "https://cdn.pewefeed.com/containers/pewefeed/avatars/" +
@@ -236,7 +236,7 @@ export default {
 		vm.usermentah = res.data;
 		vm.user_id = res.data.data.id;
 		vm.profile = res.data.data;
-		// console.log(JSON.parse(JSON.stringify(res.data.data)))
+		// //console.log(JSON.parse(JSON.stringify(res.data.data)))
 		vm.dropOptions.headers.Authorization = "Bearer " + res.data.token;
 		vm.avatar_preview = res.data.data.avatar;
 		vm.data.first_name = res.data.data.first_name;
@@ -248,7 +248,7 @@ export default {
 		vm.data.email = res.data.data.email;
 		vm.data.expire = res.data.data.expire;
 		vm.expire_date = vm.data.expire;
-		// console.log(vm.data)
+		// //console.log(vm.data)
 		if (res.data.data.status_expired == 1) {
 			vm.isActive = true;
 		}

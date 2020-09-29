@@ -193,7 +193,7 @@ export default {
 	},
 	methods: {
 		async getPromotedVideo() {
-			console.log('fetching promoted video...')
+			//console.log('fetching promoted video...')
 			try {
 				const res = await SingService.getPromoted()
 				const data = await res.data.data
@@ -201,13 +201,13 @@ export default {
 				this.$store.commit('SET_SING_VIDEO', data.full_video)
 				localStorage.setItem('SING_VIDEO', data.full_video)
 				this.$store.commit('SET_SING_PROMOTED', data.id)
-				console.log(data)
+				//console.log(data)
 			} catch (error) {
 				console.log(error)
 			}
 		},
 		async getStages() {
-			console.log('getting stages');
+			//console.log('getting stages');
 			try {
 				const res = await SingService.getStage();
 				const data = await res.data.data
@@ -230,7 +230,7 @@ export default {
 			try {
 				const res = await SingService.getHelp();
 				const help =  await res.data.data
-				console.log(help)
+				//console.log(help)
 				let tempHelp = []
 				help.forEach(el => {
 					tempHelp.push({

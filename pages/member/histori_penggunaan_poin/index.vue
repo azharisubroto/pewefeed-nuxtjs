@@ -116,7 +116,7 @@ export default {
         const res = await UserService.mutasiPoin(n, fil);
         const items = res.data.data;
         this.last_page = res.data.paginations.last_page;
-        console.log(items);
+        //console.log(items);
         var arrays = [];
         items.forEach(el => {
           var link = el.link;
@@ -143,9 +143,9 @@ export default {
           behavior: "smooth"
         });
 
-        // console.log(JSON.parse(JSON.stringify(res)))
+        // //console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
-        console.log("error");
+        //console.log("error");
         //this.fethMutasi(1, "all");
 	  }
     },

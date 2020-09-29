@@ -131,7 +131,7 @@ export default {
         async loadMore(n) {
           try {
                 const res = await ArticleService.getSixty('bottom', n)
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                ////console.log(JSON.parse(JSON.stringify(res.data.data)))
                 var newData = res.data.data
                 newData.forEach(element => {
                   var obj = {
@@ -155,8 +155,8 @@ export default {
             try {
                 const res = await ArticleService.getSixty('up')
                 const items = res.data.data
-                // console.log('sixty:')
-                // console.log(JSON.parse(JSON.stringify(res.data)))
+                // //console.log('sixty:')
+                // //console.log(JSON.parse(JSON.stringify(res.data)))
                 items.forEach(element => {
                   var obj = {
                     id: element.id,
@@ -200,8 +200,8 @@ export default {
                     vm.getRandomVideo()
                   });
                 // }
-                console.log('sixty bottom:')
-                console.log(JSON.parse(JSON.stringify(res)))
+                //console.log('sixty bottom:')
+                //console.log(JSON.parse(JSON.stringify(res)))
             } catch (error) {
                 console.log(error)
             }
@@ -209,7 +209,7 @@ export default {
         async getRandomVideo() {
           try {
             const res = await ArticleService.getRandomVideo()
-            //console.log(res.data.data.content)
+            ////console.log(res.data.data.content)
             const items = res.data.data.content
             items.forEach(article => {
               var obj = {
@@ -226,7 +226,7 @@ export default {
               this.sixtybottom.splice(2, 0, obj);
             });
           } catch (error) {
-            console.log()
+            //console.log()
           }
         },
         link(article) {

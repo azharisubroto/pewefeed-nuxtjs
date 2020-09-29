@@ -160,14 +160,14 @@ import FaktaService from '@/services/FaktaService';
         },
         /* Recaptcha */
         onError (error) {
-            console.log('Error happened:', error)
+            //console.log('Error happened:', error)
             this.recaptchaToken = null
         },
         onSuccess (token) {
             this.recaptchaToken = 'success'
         },
         onExpired () {
-            console.log('Expired')
+            //console.log('Expired')
             this.recaptchaToken = null
         },
         /* Validasi Form */
@@ -196,7 +196,7 @@ import FaktaService from '@/services/FaktaService';
                 const res = await FaktaService.addReview(sendform)
                 this.notloading();
                 this.recaptchaToken = null;
-                console.log(res)
+                //console.log(res)
                 vm.snackbar = true
                 vm.responsemessage = 'Sukses memberikan rating'
                 this.$nextTick(function() {
@@ -206,7 +206,7 @@ import FaktaService from '@/services/FaktaService';
                   }, 3000);
                 });
             } catch (err) {
-                console.log(err)
+                //console.log(err)
                 this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Maaf, Kamu hanya dapat memberi RATING hanya satu kali.'

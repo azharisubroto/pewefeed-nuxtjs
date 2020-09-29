@@ -410,10 +410,10 @@ export default {
     checkVip() {
         if (!this.$auth.user) {
             this.loginModalVisible = true
-            console.log('not login')
+            //console.log('not login')
         } else {
             this.buyVipDialogVisible = true
-            console.log('not vip');
+            //console.log('not vip');
         }
     },
     getrating(num) {
@@ -426,7 +426,7 @@ export default {
       try {
         const res = await FaktaService.getReview(this.$route.params.slug, page)
         const items = res.data.data.review
-        //console.log(res)
+        ////console.log(res)
         const reviewitems = []
         items.forEach(el => {
           var obj = {
@@ -442,18 +442,18 @@ export default {
           this.isMore = false;
         }
         this.reviews = reviewitems
-        console.log(JSON.parse(JSON.stringify(this.reviews)))
+        //console.log(JSON.parse(JSON.stringify(this.reviews)))
       } catch (error) {
         console.log(error)
       }
     },
     async moreReview() {
-      console.log(this.reviewPaging)
+      //console.log(this.reviewPaging)
       try {
         const res = await FaktaService.getReview(this.$route.params.slug, this.reviewPaging)
         const items = res.data.data.review
-        //console.log(items);
-        //console.log(res)
+        ////console.log(items);
+        ////console.log(res)
         const reviewitems = []
         if( items.length > 0 ) {
           this.reviewPaging++
@@ -481,8 +481,8 @@ export default {
       try {
         const res = await FaktaService.getComment(this.$route.params.slug, 1)
         const items = res.data.data
-        //console.log(items);
-        console.log(res)
+        ////console.log(items);
+        //console.log(res)
         const commentItems = []
         if( items.length > 0 ) {
           this.reviewPaging++
@@ -512,7 +512,7 @@ export default {
 
       try {
         const res = await FaktaService.postComment(params)
-        console.log(res.data.poin)
+        //console.log(res.data.poin)
         this.fetchComment()
         this.commentIsPosting = false;
         this.comment_message = null;
@@ -520,7 +520,7 @@ export default {
           this.KomentarPoinVisible = true
         }
       } catch (error) {
-        //console.log(error.response.status)
+        ////console.log(error.response.status)
         this.commentIsPosting = false;
         if( error.response && error.response.status == 422 ) {
           alert('Mohon tulis komentar minimal 50 karakter')
@@ -549,7 +549,7 @@ export default {
     makeRating() {
       if (!this.$auth.user) {
         this.loginModalVisible = true
-        console.log('not login')
+        //console.log('not login')
       } else {
         if (this.isVip) {
           this.openReviewModal()
@@ -569,20 +569,20 @@ export default {
         this.user_id = res.data.data.id
         this.profile = res.data.data
         this.isVip = res.data.data.vip
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
 
     /* Recaptcha */
     onError (error) {
-        console.log('Error happened:', error)
+        //console.log('Error happened:', error)
         this.recaptchaToken = null
     },
     onSuccess (token) {
         this.recaptchaToken = 'success'
     },
     onExpired () {
-        console.log('Expired')
+        //console.log('Expired')
         this.recaptchaToken = null
     },
 
@@ -612,7 +612,7 @@ export default {
             const res = await FaktaService.addReview(sendform)
             this.notloading();
             this.recaptchaToken = null;
-            console.log(res)
+            //console.log(res)
             vm.snackbar = true
             vm.responsemessage = 'Sukses memberikan rating'
             this.$nextTick(function() {
@@ -622,7 +622,7 @@ export default {
             });
             this.getReviews()
         } catch (err) {
-            console.log(err)
+            //console.log(err)
             this.notloading();
             vm.snackbar = true;
             vm.responsemessage = 'Maaf, Kamu hanya dapat memberi RATING hanya satu kali.'
@@ -643,7 +643,7 @@ export default {
     this.getReviews()
     this.fetchComment()
     this.eventListener()
-    // console.log(JSON.parse(JSON.stringify(this.article)))
+    // //console.log(JSON.parse(JSON.stringify(this.article)))
   }
 }
 </script>

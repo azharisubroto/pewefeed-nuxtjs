@@ -56,7 +56,7 @@ export default {
 	},
 	methods: {
 		async fetchWait(n) {
-			console.log()
+			//console.log()
 			this.loading = true
 			var page = n ? n : 1
 			try {
@@ -68,7 +68,7 @@ export default {
 				} else {
 					this.list = null
 				}
-				console.log(JSON.parse(JSON.stringify(res.data.data)))
+				//console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.loading = false
 			} catch (error) {
 				console.log(error)

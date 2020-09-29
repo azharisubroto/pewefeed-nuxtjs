@@ -174,7 +174,7 @@ export default {
         async getSchools () {
             try {
                 const response = await SchoolsService.getSchools()
-                //console.log(response.data.data);
+                ////console.log(response.data.data);
                 this.schools = response.data.data;
             } catch (error) {
                 console.log(error)
@@ -184,7 +184,7 @@ export default {
             this.$refs.dropzone.removeAllFiles();
         },
         afterComplete(file, response) {
-            // console.log(response.link.replace(' ', '-'));
+            // //console.log(response.link.replace(' ', '-'));
             this.pdfdownload = encodeURI(response.link);
         },
         async submitform () {
@@ -194,14 +194,14 @@ export default {
                 "asal_sekolah": vm.namasekolah,
                 "skp": vm.pdfdownload
             }
-            // console.log(formdata);
+            // //console.log(formdata);
 
             try {
                 // Send data
                 const response = await StarxIzinService.submitIzin(formdata)
-                console.log(response.data.status);
+                //console.log(response.data.status);
                 // var res = response;
-                // console.log(res);
+                // //console.log(res);
                 vm.loading = false
                 vm.snackbar = true
                 vm.izinexists = true
@@ -226,12 +226,12 @@ export default {
             const usertoken = this.$auth.user.data.token;
             if( usertoken ) {
                 this.usertoken = usertoken;
-                // console.log(this.usertoken);
+                // //console.log(this.usertoken);
             }
 
             try {
                 const response = await StarxIzinService.checkIzin()
-                // console.log(response.data.data);
+                // //console.log(response.data.data);
                 var data = response.data.data;
                 var band = data.band.band;
                 if( band ) {

@@ -384,7 +384,7 @@ export default {
     async fetchMyRank() {
       try {
         const res = await TopPoin.lastRankedMe();
-		console.log('myrank',res.data.current);
+		//console.log('myrank',res.data.current);
 		this.myrank.push(res.data.current);
       } catch (error) {
 		console.log(error);
@@ -393,7 +393,7 @@ export default {
     async fetchLastRanked(n) {
       try {
         const res = await TopPoin.lastRanked(n);
-		//console.log(res);
+		////console.log(res);
 		this.lastRanked = res.data.data.ranked
 		this.totalPage = res.data.pagination.last_page
 		this.totalRanked = res.data.pagination.total
@@ -406,7 +406,7 @@ export default {
 	async moreLastRanked(n) {
       try {
         const res = await TopPoin.lastRanked(parseInt(this.paged+1));
-		//console.log(res);
+		////console.log(res);
 		if( res.data.data.ranked != null && res.data.data.ranked && res.data.data.ranked.length > 0 ) {
 			var loop = res.data.data.ranked 
 			loop.forEach(el => {

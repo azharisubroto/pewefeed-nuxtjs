@@ -121,7 +121,7 @@ export default {
 			try {
 				const res = await SingService.winnersDetail(this.$route.params.winner);
 				this.winners = res.data.data
-				console.log(JSON.parse(JSON.stringify(res.data.data)));
+				//console.log(JSON.parse(JSON.stringify(res.data.data)));
 			} catch (error) {
 				console.log(error)
 			}

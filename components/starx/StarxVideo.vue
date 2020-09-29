@@ -533,12 +533,12 @@ export default {
         async StarxVideo () {
             try {
 				const response = await StarxService.VideoDetail( this.$route.params.detail )
-				console.log('RESPON');
-                console.log(JSON.parse(JSON.stringify(response.data.data)))
+				//console.log('RESPON');
+                //console.log(JSON.parse(JSON.stringify(response.data.data)))
                 this.wholeResponse = response.data.data;
 				var res = response.data.data;
-				console.log('BAND');
-				console.log(JSON.parse(JSON.stringify(res.finalist)))
+				//console.log('BAND');
+				//console.log(JSON.parse(JSON.stringify(res.finalist)))
 				this.band = res.band;
 				this.latests = res.latests;
 				this.id = res.latests ? res.latests.id : '';
@@ -564,7 +564,7 @@ export default {
                         videoId = url.match(regExp);
 
                     if (videoId && videoId[1].length === 11) {
-                        //console.log(videoId[1]);
+                        ////console.log(videoId[1]);
                         //return videoId[1];
                         return 'https://img.youtube.com/vi/'+ videoId[1] +'/mqdefault.jpg';
                     }
@@ -603,7 +603,7 @@ export default {
 
                 try {
                     const res = await UserService.postComment(params)
-                    console.log(res.data.poin)
+                    //console.log(res.data.poin)
                     this.fetchComment()
                     this.commentIsPosting = false;
                     this.comment_message = null;
@@ -611,7 +611,7 @@ export default {
                         this.KomentarPoinVisible = true
                     }
                 } catch (error) {
-                    //console.log(error.response.status)
+                    ////console.log(error.response.status)
                     this.commentIsPosting = false;
                     if( error.response && error.response.status == 422 ) {
                         alert('Mohon tulis komentar minimal 50 karakter')

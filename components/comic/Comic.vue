@@ -145,7 +145,7 @@ export default {
                 var res = await ComicService.getAll(id)
                 var items = res.data.data.content
                 this.total = res.data.pagination.total
-                // console.log(JSON.parse(JSON.stringify(res.data.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data.data)))
                 items.forEach(comic => {
                     var slug = comic.slug
                     var obj = {
@@ -175,8 +175,8 @@ export default {
               created_at: "2019-05-02"
             }
             this.categories.push(obj)
-            console.log('ini respon : ')
-            console.log(this.categories)
+            //console.log('ini respon : ')
+            //console.log(this.categories)
           } catch (error) {
             console.log(error)
           }
@@ -184,7 +184,7 @@ export default {
         async loadMore(n) {
           try {
                 const res = await ComicService.getAll(this.category + '?page=' + n)
-                // console.log(JSON.parse(JSON.stringify(res.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data)))
                 var newData = res.data.data.content
                 newData.forEach(comic => {
                   var slug = comic.slug

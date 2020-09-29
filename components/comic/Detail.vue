@@ -432,7 +432,7 @@ export default {
         const res = await ComicService.getImages(this.$route.params.detail);
         this.images = res.data.data;
         this.dataImage = this.images.image;
-        // console.log(this.images);
+        // //console.log(this.images);
       } catch (error) {
         console.log(error);
       }
@@ -448,13 +448,13 @@ export default {
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
         this.isVip = this.profile.vip;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
     async fetchContent() {
       try {
         let res = await ComicService.getDetail(this.$route.params.detail);
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.id = res.data.data.content.id;
         this.comic = res.data.data.content;
         this.title = res.data.data.content.title;
@@ -468,7 +468,7 @@ export default {
         this.ratings = res.data.data.review;
         this.total_review = res.data.data.total_review;
         this.totalRating = res.data.data.rate / 20;
-        // console.log(JSON.parse(JSON.stringify(res.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data)))
         if (res.data.pagination.current_page == res.data.pagination.last_page) {
           this.isMore = false;
         }
@@ -481,7 +481,7 @@ export default {
         const res = await ComicService.getRating(
           this.$route.params.detail + "?page=" + n
         );
-        // console.log(JSON.parse(JSON.stringify(res.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data)))
         var newData = res.data.data.review;
         newData.forEach(element => {
           this.ratings.push(element);
@@ -501,7 +501,7 @@ export default {
           this.$route.params.detail,
           1
         );
-        // console.log(res)
+        // //console.log(res)
         this.comments = res.data.data.comments;
         this.totalComment = res.data.pagination.total;
 
@@ -583,7 +583,7 @@ export default {
         this.$auth.fetchUser().then(() => {
           localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         });
-        // console.log(res.data)
+        // //console.log(res.data)
         this.fetchComment();
         if (res.data.poin > 0) {
           this.KomentarPoinVisible = true;
@@ -592,7 +592,7 @@ export default {
         this.comment_message = null;
         this.recaptchaToken = null;
       } catch (error) {
-        // console.log(error.response.status)
+        // //console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response.status == 422) {
           alert(error.response.data.message);
@@ -623,7 +623,7 @@ export default {
         });
         this.notloading();
         this.recaptchaToken = null;
-        // console.log(res);
+        // //console.log(res);
         vm.snackbar = true;
         vm.responsemessage = "Sukses memberikan rating";
         this.$nextTick(function() {
@@ -633,7 +633,7 @@ export default {
         });
         this.fetchRating();
       } catch (err) {
-        console.log(err);
+        //console.log(err);
         this.notloading();
         vm.snackbar = true;
         vm.responsemessage = "Maaf, Kamu hanya dapat memberi RATING satu kali.";
@@ -659,10 +659,10 @@ export default {
     checkVip() {
       if (!this.$auth.user) {
         this.loginModalVisible = true;
-        // console.log("not login");
+        // //console.log("not login");
       } else {
         this.buyVipDialogVisible = true;
-        // console.log("not vip");
+        // //console.log("not vip");
       }
     },
 
@@ -670,14 +670,14 @@ export default {
     makeRating() {
       if (!this.$auth.user) {
         this.loginModalVisible = true;
-        // console.log("not login");
+        // //console.log("not login");
       } else {
         if (this.isVip) {
           this.ratingModal = true;
         } else {
           this.buyVipDialogVisible = true;
         }
-        // console.log("not vip");
+        // //console.log("not vip");
       }
     },
 
@@ -691,14 +691,14 @@ export default {
 
     /* Recaptcha */
     onError(error) {
-      // console.log("Error happened:", error);
+      // //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      // console.log("Expired");
+      // //console.log("Expired");
       this.recaptchaToken = null;
     },
 

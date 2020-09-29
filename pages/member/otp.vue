@@ -134,14 +134,14 @@ export default {
 	methods: {
 		/* Recaptcha */
 		onError(error) {
-			console.log("Error happened:", error);
+			//console.log("Error happened:", error);
 			this.recaptchaToken = null;
 		},
 		onSuccess(token) {
 			this.verifydisabled = false
 		},
 		onExpired() {
-			console.log("Expired");
+			//console.log("Expired");
 			this.recaptchaToken = null;
 		},
 		fetchUserdata() {
@@ -167,11 +167,11 @@ export default {
 			this.overlay = true
 			try {
 				const res = await UserService.sendOTP();
-				console.log(res.data);
+				//console.log(res.data);
 				alert('Kode OTP telah terkirim')
 				this.overlay = false
 			} catch (error) {
-				console.log(JSON.parse(JSON.stringify(error)))
+				//console.log(JSON.parse(JSON.stringify(error)))
 				if (error.response && error.response.status == 422) {
 					this.otpmodal = true
 					this.verifyStatus = 'limited'
@@ -191,7 +191,7 @@ export default {
 				this.verifyStatus = 'success'
 				this.overlay = false
 			} catch (error) {
-				console.log('gagal');
+				//console.log('gagal');
 				this.otpmodal = true
 				this.verifyStatus = 'fail'
 				this.overlay = false

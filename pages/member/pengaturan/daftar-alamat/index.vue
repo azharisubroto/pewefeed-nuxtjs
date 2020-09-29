@@ -285,7 +285,7 @@ export default {
         const res = await UserService.getAddresses()
         var items = res.data.data
         if( items && items.length > 0 ) {
-          //console.log(JSON.parse(JSON.stringify(items)))
+          ////console.log(JSON.parse(JSON.stringify(items)))
           this.addresses = items
         }
         this.isLoading = false
@@ -300,7 +300,7 @@ export default {
         const res = await UserService.addAddress(params)
         this.snackbar = true
         this.responseMessage = 'Data Sukses Ditambahkan'
-        //console.log(res.data.data)
+        ////console.log(res.data.data)
         this.addressForm = false
         this.getAddresses()
         this.dataAddress.title = ''
@@ -344,11 +344,11 @@ export default {
         village: this.dataAddress.village,
         zip_code: zip_code
       }
-      // console.log(JSON.parse(JSON.stringify(params)))
+      // //console.log(JSON.parse(JSON.stringify(params)))
 
       try {
         const res = await UserService.editAddress(params)
-        // console.log(res)
+        // //console.log(res)
         this.snackbar = true
         this.responseMessage = 'Data Sukses Ditambahkan'
         this.getAddresses()
@@ -361,7 +361,7 @@ export default {
     async provinsi() {
       try {
         const res = await UserService.provinsi()
-        //console.log(res.data.data)
+        ////console.log(res.data.data)
         this.source.provinsi = res.data.data
       } catch (error) {
 
@@ -370,7 +370,7 @@ export default {
     async kota(provinceID) {
       try {
         const res = await UserService.kota(provinceID)
-        console.log(JSON.parse(JSON.stringify(res.data.data)))
+        //console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.source.kota = res.data.data
       } catch (error) {
 
@@ -379,7 +379,7 @@ export default {
     async kecamatan(kotaID) {
       try {
         const res = await UserService.kecamatan(kotaID)
-        console.log(res.data.data)
+        //console.log(res.data.data)
         this.source.kecamatan = res.data.data
       } catch (error) {
 
@@ -388,7 +388,7 @@ export default {
     async kelurahan(kecamatanID) {
       try {
         const res = await UserService.kelurahan(kecamatanID)
-        console.log(res.data.data)
+        //console.log(res.data.data)
         this.source.kelurahan = res.data.data
       } catch (error) {
 

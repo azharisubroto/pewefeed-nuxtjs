@@ -18,8 +18,8 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    //console.log('fetch this')
-    //console.log(params.articleslug)
+    ////console.log('fetch this')
+    ////console.log(params.articleslug)
     let item = await ArticleService.getDetail(params.articleslug)
     .then(res => {
       return res.data.data

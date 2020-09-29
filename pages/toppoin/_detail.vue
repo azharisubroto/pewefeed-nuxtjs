@@ -227,7 +227,7 @@ export default {
 		if( localStorage.getItem('tptab') ) {
 			this.tptab = parseInt(localStorage.getItem('tptab'))
 		}
-		//console.log(this.$route.params.detail)
+		////console.log(this.$route.params.detail)
 	}
 }
 </script>

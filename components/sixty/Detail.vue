@@ -511,14 +511,14 @@ export default {
 
         this.user_id = res.data.data.id;
         this.profile = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
       }
     },
     async fetchQuiz() {
       try {
         const res = await ArticleService.getQuiz(this.$route.params.sixty);
         const data = await res.data.data;
-        // console.log("statistik", data[0].statistic);
+        // //console.log("statistik", data[0].statistic);
         this.quizstatistic = res.data.statistic;
         this.quizzes = data;
         data.forEach(el => {
@@ -529,10 +529,10 @@ export default {
       }
     },
     async fetchContent() {
-      // console.log(this.$route.params.sixty)
+      // //console.log(this.$route.params.sixty)
       try {
         let res = await ArticleService.getSixtyDetail(this.$route.params.sixty);
-        // console.log(JSON.parse(JSON.stringify(res.data.data)))
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)))
         this.id = res.data.data.detail.id;
         this.article = res.data.data;
         this.selengkapnya = res.data.data.article;
@@ -555,8 +555,8 @@ export default {
     async fetchLatest() {
       try {
         const res = await ArticleService.getSixty("bottom");
-        // console.log(JSON.parse(JSON.stringify(res.data)))
-        // console.log('bottom')
+        // //console.log(JSON.parse(JSON.stringify(res.data)))
+        // //console.log('bottom')
         var articles = res.data.data;
         var i = 1;
         articles.forEach(element => {
@@ -564,7 +564,7 @@ export default {
           var link = element.link;
           link = link.replace("http://m.playworld.id", "");
 
-          // console.log(element)
+          // //console.log(element)
           var obj = {
             id: element.id,
             image: {
@@ -587,7 +587,7 @@ export default {
     async loadMore(n) {
       try {
         const res = await ArticleService.getSixty("bottom", n);
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
         var articles = res.data.data;
         var i = 1;
         articles.forEach(element => {
@@ -624,7 +624,7 @@ export default {
           this.$route.params.sixty,
           1
         );
-        // console.log(res)
+        // //console.log(res)
         this.comments = res.data.data.comments;
         this.totalComment = res.data.pagination.total;
 
@@ -678,14 +678,14 @@ export default {
 	},
 	/* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -728,14 +728,14 @@ export default {
         this.$auth.fetchUser().then(() => {
           localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         });
-        // console.log(res)
+        // //console.log(res)
         this.fetchComment();
         this.KomentarPoinVisible = true;
         this.commentIsPosting = false;
         this.comment_message = null;
         this.recaptchaToken = null;
       } catch (error) {
-        // console.log(error.response.status)
+        // //console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response.status == 422) {
           alert(error.response.data.message);
@@ -775,7 +775,7 @@ export default {
             this.ispoin = true;
             this.profile = false;
             this.notLogin = true;
-            // console.log('Hasil', JSON.parse(JSON.stringify(data)))
+            // //console.log('Hasil', JSON.parse(JSON.stringify(data)))
           } catch (error) {
             console.log(error);
             if (error.response.status == 410) {

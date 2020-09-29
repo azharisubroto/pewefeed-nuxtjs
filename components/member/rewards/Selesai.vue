@@ -60,12 +60,12 @@ export default {
 			try {
 				const res = await UserService.rewardsFinished(page)
 				const items = res.data.data
-				console.log(JSON.parse(JSON.stringify(items)))
+				//console.log(JSON.parse(JSON.stringify(items)))
 				this.totalpage = res.data.meta.last_page
 				if( items.length > 0 ){
 					this.list = res.data.data
 				}
-				console.log(JSON.parse(JSON.stringify(res.data.data)))
+				//console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.loading = false
 			} catch (error) {
 				console.log(error)

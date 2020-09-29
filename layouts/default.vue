@@ -609,7 +609,7 @@ export default {
       if (localStorage.getItem("loggedin")) {
         if (this.$auth.user) {
           var useres = localStorage.getItem("userdata");
-          // console.log(JSON.parse(useres))
+          // //console.log(JSON.parse(useres))
           // this.$auth.fetchUser();
           if (useres != null) {
             let userdata = JSON.parse(useres);
@@ -667,7 +667,7 @@ export default {
       try {
         const res = await ArticleService.getBantuan();
         const data = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(data)));
+        // //console.log(JSON.parse(JSON.stringify(data)));
         this.bantuanMenu = data;
         //this.loading = false
       } catch (error) {
@@ -678,7 +678,7 @@ export default {
       try {
         const res = await MenuService.getHighlight();
         const data = res.data.data;
-        // console.log("Highlights", JSON.parse(JSON.stringify(data)));
+        // //console.log("Highlights", JSON.parse(JSON.stringify(data)));
         this.highlights = data;
       } catch (error) {
         console.log(error);
@@ -700,7 +700,7 @@ export default {
       try {
         const res = await UserService.checkDailyPoint();
         const data = res.data.get_point;
-        // console.log(JSON.parse(JSON.stringify(data)));
+        // //console.log(JSON.parse(JSON.stringify(data)));
         if (data) {
           this.dailyPointModalVisible = true;
         } else {
@@ -752,10 +752,10 @@ export default {
     //   if (location.host == "m." + process.env.domainTitle.toLowerCase()) {
     //     window.location.href = desktopUrl;
     //   } else {
-    //     //console.log("desktop version");
+    //     ////console.log("desktop version");
     //   }
     // } else {
-    //   //console.log("mobile version");
+    //   ////console.log("mobile version");
     // }
     if (
       this.$route.name == "member-daily-limit" ||
@@ -780,7 +780,7 @@ export default {
         from.name == "member-barang_yang_didapat" ||
         from.name == "member-pengaturan-daftar-nomor"
       ) {
-        console.log("dari rewards");
+        //console.log("dari rewards");
         this.$bus.$emit("profilestep", 2);
       }
     }

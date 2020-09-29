@@ -516,7 +516,7 @@ export default {
     const data = item;
 	store.commit("SET_SING_SINGLE", item);
 	store.commit('SET_ITEM', item);
-    console.log(JSON.parse(JSON.stringify(item)));
+    //console.log(JSON.parse(JSON.stringify(item)));
   },
   head () {
     let host = this.origin
@@ -550,7 +550,7 @@ export default {
   },
   methods: {
     async sendVote(id) {
-      console.log("sendVote");
+      //console.log("sendVote");
       try {
         const res = await SingService.sendVote({
           customer_video_id: id
@@ -558,7 +558,7 @@ export default {
 		const data = res.data;
 		this.apakahbetul = true;
 		this.type = 'vote'
-		console.log(data);
+		//console.log(data);
 		setTimeout(() => {
 			window.location.reload(true);
 		}, 1000);
@@ -586,14 +586,14 @@ export default {
 	async fetchIGVIDEO(url) {
 		try {
 			const res = await SingService.igVideo(url);
-			//console.log('ig video', res);
+			////console.log('ig video', res);
 			this.videoutama = res.data.graphql.shortcode_media.video_url ? res.data.graphql.shortcode_media.video_url : null
 		} catch (error) {
 			console.log(error)
 		}
 	},
     async getVideoDetail(slug) {
-      console.log("getVideoDetail");
+      //console.log("getVideoDetail");
       try {
         const res = await SingService.winnerVideoDetail(slug);
         const data = res.data;
@@ -609,7 +609,7 @@ export default {
     async fetchComment() {
       try {
         const res = await SingService.getComments(this.$route.params.video);
-        //console.log(res.data.data)
+        ////console.log(res.data.data)
         this.comments = res.data.data.comments;
         this.starcomments = res.data.data.artist_comments;
         this.totalComment = res.data.pagination.total;
@@ -675,7 +675,7 @@ export default {
 	},
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
@@ -683,7 +683,7 @@ export default {
       this.postComment();
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
     urlify(text) {
@@ -735,7 +735,7 @@ export default {
         this.$auth.fetchUser().then(() => {
           localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         });
-        // console.log(res.data.poin);
+        // //console.log(res.data.poin);
         this.fetchComment();
         this.commentIsPosting = false;
         this.comment_message = null;
@@ -746,7 +746,7 @@ export default {
 			this.type = 'komen'
         }
       } catch (error) {
-        //console.log(error.response.status)
+        ////console.log(error.response.status)
         this.commentIsPosting = false;
         if (error.response && error.response.status == 422) {
           alert(error.response.data.message);

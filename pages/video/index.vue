@@ -26,7 +26,7 @@ export default {
 			short_title: meta.description,
 		}
 	})
-    console.log(JSON.parse(JSON.stringify(meta)))
+    //console.log(JSON.parse(JSON.stringify(meta)))
   },
   head () {
     let host = this.origin

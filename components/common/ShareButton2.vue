@@ -200,7 +200,7 @@ export default {
   methods: {
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
       this.recaptchaDialogVisible = true;
       this.sheet = false;
@@ -208,21 +208,21 @@ export default {
     async onShareSuccess(token) {
 		if( this.recaptchatrigger == 0) {
 			this.recaptchatrigger = 1
-			console.log('onshare success')
+			//console.log('onshare success')
 			try {
 				const token = await this.$recaptcha.getResponse()
-				console.log('ReCaptcha token:', token)
+				//console.log('ReCaptcha token:', token)
 				this.recaptchaToken = token;
 				this.recaptcha = false;
 				this.sheet = true;
 				await this.$recaptcha.reset()
 			} catch (error) {
-				console.log('Login error:', error)
+				//console.log('Login error:', error)
 			}
 		}
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaDialogVisible = true;
       this.recaptchaToken = null;
       this.sheet = false;
@@ -243,9 +243,9 @@ export default {
 				localStorage.setItem('userdata', JSON.stringify(vm.$auth.user))
 			})
 
-			// console.log(res)
+			// //console.log(res)
 			if (res.data.point == 1) {
-				console.log("dapat poin");
+				//console.log("dapat poin");
 				this.SharePoinVisible = true;
 				this.recaptchaDialogVisible = false;
 			}

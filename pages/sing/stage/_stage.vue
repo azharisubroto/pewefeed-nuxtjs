@@ -44,7 +44,7 @@ export default {
 					this.peserta = null;
 				}
 				this.isloading = false
-				//console.log(JSON.parse(JSON.stringify(this.peserta)))
+				////console.log(JSON.parse(JSON.stringify(this.peserta)))
 			} catch (error) {
 				console.log(error)
 				this.isloading = false

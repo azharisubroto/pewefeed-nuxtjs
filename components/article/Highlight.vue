@@ -93,7 +93,7 @@ export default {
 		async loadMore(n) {
           	try {
                 const res = await ArticleService.searchHighlightMore(this.$route.params.keywords, n)
-                //console.log(JSON.parse(JSON.stringify(res.data.data)))
+                ////console.log(JSON.parse(JSON.stringify(res.data.data)))
                 var newData = res.data.data
                 newData.forEach(element => {
                   this.articles.push(element)

@@ -455,14 +455,14 @@ export default {
     },
     /* Recaptcha */
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.tukarPoin();
     },
     onExpired() {
-      console.log("Expired");
+      //console.log("Expired");
       this.recaptchaToken = null;
     },
     async fetchDetail() {
@@ -473,7 +473,7 @@ export default {
         this.detail = res.data.data;
         this.title = res.data.data.title;
         this.others = res.data.others
-        // console.log(JSON.parse(JSON.stringify(res.data.data)));
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
         console.log(error);
       }
@@ -486,7 +486,7 @@ export default {
         );
         this.histories = res.data.data.length > 0 ? res.data.data : null;
         this.historyLoading = false;
-        //console.log(JSON.parse(JSON.stringify(res.data.data)))
+        ////console.log(JSON.parse(JSON.stringify(res.data.data)))
       } catch (error) {
         console.log(error);
         this.historyLoading = false;
@@ -510,7 +510,7 @@ export default {
 
         this.historyNext += 1;
         this.moreLoading = false;
-        // console.log(JSON.parse(JSON.stringify(res.data.data)));
+        // //console.log(JSON.parse(JSON.stringify(res.data.data)));
       } catch (error) {
         console.log(error);
       }
@@ -521,7 +521,7 @@ export default {
       };
       this.overlay = true;
       this.pending = true;
-      // console.log(params);
+      // //console.log(params);
       try {
         const res = await UserService.tukarPoin(params);
 
@@ -530,14 +530,14 @@ export default {
         //   localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         // });
 
-        // console.log(res);
+        // //console.log(res);
         this.overlay = false;
         this.afterSaveModal = true;
         this.infotype = "success";
         this.pending = false;
         this.buyconfirm = false;
       } catch (error) {
-        console.log(error.response.status);
+        //console.log(error.response.status);
         this.overlay = false;
         if (error.response.status == 401) {
           this.openModalLogin();

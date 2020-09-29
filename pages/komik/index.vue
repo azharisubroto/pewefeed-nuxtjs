@@ -19,8 +19,8 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    //console.log('fetch this')
-    //console.log(params.articleslug)
+    ////console.log('fetch this')
+    ////console.log(params.articleslug)
     let item = await ComicService.getAll(0)
     .then(res => {
       return res.data.data
@@ -36,7 +36,7 @@ export default {
 		}
 	})
     store.commit('SET_META', meta)
-    console.log(JSON.parse(JSON.stringify(item)))
+    //console.log(JSON.parse(JSON.stringify(item)))
   },
   head () {
     let host = this.origin

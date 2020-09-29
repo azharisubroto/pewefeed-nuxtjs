@@ -33,16 +33,16 @@ export default {
                 if (this.redirect != '#') {
                     var routePath = this.redirect.replace('https://m.pewefeed.com', '');
 
-                    // return console.log(routePath);
+                    // return //console.log(routePath);
                     return this.$router.push(routePath);
                     // window.location.replace(this.redirect);
                 } else {
-                    // return console.log('loggedin')
+                    // return //console.log('loggedin')
                     return this.$router.push('/')
                 }
 			}
         }).catch((e) => {
-            console.log(e)
+            //console.log(e)
             // this.$auth.logout()
             // localStorage.removeItem("loggedin");
             // localStorage.removeItem("access-token");

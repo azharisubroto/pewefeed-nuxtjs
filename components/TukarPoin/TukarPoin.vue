@@ -210,7 +210,7 @@ export default {
       };
       try {
         const res = await TukarPoinService.getRedeemItems(n);
-        // console.log(JSON.parse(JSON.stringify(res)));
+        // //console.log(JSON.parse(JSON.stringify(res)));
         this.redeems = res.data.data;
         this.totalpage = res.data.pagination.last_page;
       } catch (error) {
@@ -222,7 +222,7 @@ export default {
         const res = await TukarPoinService.getDiscount();
         const items = res.data.redeem_discount.item;
         this.expire = res.data.redeem_discount.expire;
-        //console.log("kontol", JSON.parse(JSON.stringify(items)));
+        ////console.log("kontol", JSON.parse(JSON.stringify(items)));
         if (items) {
           this.discounts = items;
         }

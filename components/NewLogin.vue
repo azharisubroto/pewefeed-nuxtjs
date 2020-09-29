@@ -53,14 +53,14 @@ export default {
                     provider : this.provider,
                     provider_id : this.personalID
                 })
-                //console.log(response.data);
+                ////console.log(response.data);
                 var data = response.data.data;
-                console.log(data);
+                //console.log(data);
 
                 // if( data.username ) {
                 var token = response.data.access_token;
                 // var userdata = JSON.stringify(response.data.data);
-                //console.log(userdata);
+                ////console.log(userdata);
                 localStorage.setItem('access-token', token);
                 localStorage.setItem('loggedin', true);
                 this.loading = false
@@ -81,7 +81,7 @@ export default {
 		sdkLoaded(payload) {
             this.FB = payload.FB
             this.FB.logout(function(response) {
-                console.log('logout')
+                //console.log('logout')
                 this.isConnected = false
                 if (window.location.pathname == '/member/login') {
                     window.location.href = '/'
@@ -110,14 +110,14 @@ export default {
         /* Google */
         onSuccess(googleUser) {
             this.loading = false
-            console.log(googleUser);
+            //console.log(googleUser);
     
             // This only gets the user information: id, name, imageUrl and email
-            console.log(googleUser.getBasicProfile());
+            //console.log(googleUser.getBasicProfile());
         },
         onFailure() {
             this.loading = false
-            console.log('error')
+            //console.log('error')
         },
         loadingGoogle() {
             this.loading = true

@@ -704,14 +704,14 @@ export default {
   },
   methods: {
     onError(error) {
-      console.log("Error happened:", error);
+      //console.log("Error happened:", error);
       this.recaptchaToken = null;
     },
     onSuccess(token) {
       this.recaptchaToken = "success";
     },
     onExpired() {
-      //console.log("Expired");
+      ////console.log("Expired");
       this.recaptchaToken = null;
     },
 
@@ -727,16 +727,16 @@ export default {
             if (this.current == "xl") {
               this.e1 = this.e1 - 2;
               this.current = 0;
-              console.log(this.e1);
+              //console.log(this.e1);
             } else if (this.current == "indosat") {
               this.e1 = 3;
               this.current = 0;
             } else {
-              console.log(this.current);
+              //console.log(this.current);
             }
           } else {
             this.e1 = 1;
-            console.log(this.current);
+            //console.log(this.current);
           }
         }
       }
@@ -753,7 +753,7 @@ export default {
         try {
           const res = await PurchaseService.xendit(sendvoucher);
           if (res.status == 200) {
-            console.log(res.data);
+            //console.log(res.data);
             this.invoiceUrl = res.data.invoice_url;
             this.iframeDialogVisible = true;
           }
@@ -768,7 +768,7 @@ export default {
         try {
           const res = await PurchaseService.midtrans(sendvoucher);
           if (res.status == 200) {
-            // console.log(res.data)
+            // //console.log(res.data)
             var url = res.data.snap_url;
             window.open(url, "_blank");
           }
@@ -811,7 +811,7 @@ export default {
       if (this.$refs.form.validate()) {
         if (this.recaptchaToken != null) {
           //this.submit();
-          // console.log('nggak');
+          // //console.log('nggak');
         } else {
           this.snackbar = true;
           this.responsemessage = "Mohon Centang Recaptha";

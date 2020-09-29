@@ -233,7 +233,7 @@ export default {
         try {
           const res = await PurchaseService.xendit(sendvoucher);
           if (res.status == 200) {
-            console.log(res.data);
+            //console.log(res.data);
             this.invoiceUrl = res.data.invoice_url;
 			this.iframeDialogVisible = true;
 			this.ewalletOverlay = false
@@ -250,7 +250,7 @@ export default {
         try {
           const res = await PurchaseService.midtrans(sendvoucher);
           if (res.status == 200) {
-            // console.log(res.data)
+            // //console.log(res.data)
             var url = res.data.snap_url;
 			window.open(url, "_blank");
 			this.ewalletOverlay = false
@@ -269,7 +269,7 @@ export default {
 		}
 		try {
 			const res = await UserService.eWalletBuy(data);
-			console.log(res.data.invoice_url);
+			//console.log(res.data.invoice_url);
 			window.open(res.data.invoice_url, '_blank');
 			this.ewalletOverlay = false
 		} catch (error) {

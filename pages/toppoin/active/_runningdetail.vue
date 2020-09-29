@@ -155,7 +155,7 @@ export default {
         		const res = await TopPoin.periodeDetail(this.$route.params.runningdetail);
 				this.detail = res.data.data.periode
 				this.howto = res.data.data.periode.howto
-				console.log(JSON.parse(JSON.stringify(this.howto)))
+				//console.log(JSON.parse(JSON.stringify(this.howto)))
 				this.prizewithoutpemenang = res.data.data.reward
 				this.prizeswithpemenang = res.data.data.ranking
 				this.isloading = false
@@ -170,7 +170,7 @@ export default {
 		if( localStorage.getItem('tptab') ) {
 			this.tptab = parseInt(localStorage.getItem('tptab'))
 		}
-		//console.log(this.$route.params.detail)
+		////console.log(this.$route.params.detail)
 	}
 }
 </script>

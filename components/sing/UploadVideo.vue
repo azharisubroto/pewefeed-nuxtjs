@@ -131,7 +131,7 @@ export default {
 		}
 		try {
 			const res = await SingService.uploadVideo(data);
-			console.log('status',res);
+			//console.log('status',res);
 			if( res.status == 200 ) {
 				//this.$bus.$emit('uploadclose');
 				this.uploadStatus = 'success'

@@ -860,7 +860,7 @@ export default {
                 this.loading = false;
                 this.total = response.data.data.latests.last_page;
                 this.page = response.data.data.latests.current_page;
-                console.log(JSON.parse(JSON.stringify(response.data)));
+                //console.log(JSON.parse(JSON.stringify(response.data)));
             } catch (error) {
 				console.log(error)
 				this.loading = false
@@ -868,9 +868,9 @@ export default {
 
             try {
                 const response = await StarxService.finalist()
-                // console.log(response)
+                // //console.log(response)
                 this.finalists = response.data.data.finalist;
-                //console.log(JSON.parse(JSON.stringify(this.finalists)))
+                ////console.log(JSON.parse(JSON.stringify(this.finalists)))
             } catch (error) {
                 console.log(error)
             }
@@ -879,8 +879,8 @@ export default {
 			try {
                 const response = await StarxService.winners()
 				this.winners = response.data.data.winners;
-				console.log('winners')
-                console.log(JSON.parse(JSON.stringify(response)))
+				//console.log('winners')
+                //console.log(JSON.parse(JSON.stringify(response)))
             } catch (error) {
                 console.log(error)
             }
@@ -899,7 +899,7 @@ export default {
                 this.loading = false;
                 this.total = response.data.data.latests.last_page;
                 this.page = response.data.data.latests.current_page;
-				console.log(JSON.parse(JSON.stringify(response.data)));
+				//console.log(JSON.parse(JSON.stringify(response.data)));
 				this.notloading()
             } catch (error) {
 				console.log(error)
@@ -911,7 +911,7 @@ export default {
                 const response = await StarxService.getStarx()
                 const results = response.data.data
                 this.eskuls = results.eskuls
-                console.log(JSON.parse(JSON.stringify(this.eskuls)))
+                //console.log(JSON.parse(JSON.stringify(this.eskuls)))
             } catch (error) {
                 console.log(error)
             }

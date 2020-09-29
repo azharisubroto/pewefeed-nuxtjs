@@ -64,7 +64,7 @@ export default {
 				if( items.length > 0 ){
 					this.list = res.data.data
 				}
-				console.log(JSON.parse(JSON.stringify(res.data.data)))
+				//console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.loading = false
 			} catch (error) {
 				console.log(error)

@@ -92,7 +92,7 @@ export default {
 				if( res ) {
 					this.loggedin = true
 					this.isVIP = res.data.vip
-					//console.log('vip', res.data.vip)
+					////console.log('vip', res.data.vip)
 				} else {
 					this.loggedin = false
 					this.isVIP = false

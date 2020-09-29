@@ -176,7 +176,7 @@ export default {
                     videoId = url.match(regExp);
 
                 if (videoId && videoId[1].length === 11) {
-                    //console.log(videoId[1]);
+                    ////console.log(videoId[1]);
                     //return videoId[1];
                     return 'https://img.youtube.com/vi/'+ videoId[1] +'/mqdefault.jpg';
                 }
@@ -217,7 +217,7 @@ export default {
             const sendform = vm.formdata
             try {
                 const res = await StarxIzinService.submitVideo(sendform)
-                console.log(res.data.message)
+                //console.log(res.data.message)
                 vm.responsemessage = res.data.message
                 if( res.data.message == 'Video Already Exist' ) {
                     vm.snackbar = true
@@ -232,11 +232,11 @@ export default {
             }
         },
         async fetchProgram() {
-			console.log('fetchProgram')
+			//console.log('fetchProgram')
             let vm = this
             try {
                 const response = await StarxIzinService.checkIzin()
-				//console.log(JSON.parse(JSON.stringify(response)))
+				////console.log(JSON.parse(JSON.stringify(response)))
 				vm.participant = response.data.data.participant
                 // participantarr.forEach(el => {
                 //     var obj = {

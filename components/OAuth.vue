@@ -99,14 +99,14 @@ export default {
           "https://s1.playworld.id/api/auth/signin",
           datasend
         );
-        //console.log(response.data);
+        ////console.log(response.data);
         var data = response.data.data;
-        // console.log(data);
+        // //console.log(data);
 
         // if( data.username ) {
         var token = response.data.access_token;
         // var userdata = JSON.stringify(response.data.data);
-        //console.log(userdata);
+        ////console.log(userdata);
         localStorage.setItem("access-token", token);
         localStorage.setItem("loggedin", true);
 

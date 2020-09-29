@@ -159,14 +159,14 @@ import ComicService from '../../services/ComicService';
         },
         /* Recaptcha */
         onError (error) {
-            console.log('Error happened:', error)
+            //console.log('Error happened:', error)
             this.recaptchaToken = null
         },
         onSuccess (token) {
             this.recaptchaToken = 'success'
         },
         onExpired () {
-            console.log('Expired')
+            //console.log('Expired')
             this.recaptchaToken = null
         },
         /* Validasi Form */
@@ -195,7 +195,7 @@ import ComicService from '../../services/ComicService';
                 const res = await ComicService.makeRating(sendform)
                 this.notloading();
                 this.recaptchaToken = null;
-                console.log(res)
+                //console.log(res)
                 vm.snackbar = true
                 vm.responsemessage = 'Sukses memberikan rating'
                 this.$nextTick(function() {
@@ -205,7 +205,7 @@ import ComicService from '../../services/ComicService';
                 });
                 this.fetchRating()
             } catch (err) {
-                console.log(err)
+                //console.log(err)
                 this.notloading();
                 vm.snackbar = true;
                 vm.responsemessage = 'Maaf, Kamu hanya dapat memberi RATING hanya satu kali.'
@@ -218,7 +218,7 @@ import ComicService from '../../services/ComicService';
                 this.ratings = res.data.data.review
                 this.total_review = res.data.data.total_review
                 this.totalRating = res.data.data.rate / 20
-                // console.log(JSON.parse(JSON.stringify(res.data)))
+                // //console.log(JSON.parse(JSON.stringify(res.data)))
                 if (res.data.pagination.current_page == res.data.pagination.last_page) {
                     this.isMore = false;
                 }

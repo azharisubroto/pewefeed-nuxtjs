@@ -157,7 +157,7 @@ export default {
                         videoId = url.match(regExp);
 
                     if (videoId && videoId[1].length === 11) {
-                        //console.log(videoId[1]);
+                        ////console.log(videoId[1]);
                         //return videoId[1];
                         return 'https://img.youtube.com/vi/'+ videoId[1] +'/mqdefault.jpg';
                     }

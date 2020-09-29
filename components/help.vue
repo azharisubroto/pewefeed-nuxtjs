@@ -270,7 +270,7 @@ export default {
   computed: mapState(["storehelpStep"]),
   created() {
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
-      //console.log("subscribed");
+      ////console.log("subscribed");
     });
   },
   beforeDestroy() {
@@ -289,7 +289,7 @@ export default {
       try {
         const res = await ArticleService.getBantuan();
         const data = res.data.data;
-        // console.log(JSON.parse(JSON.stringify(data)));
+        // //console.log(JSON.parse(JSON.stringify(data)));
 		this.bantuanMenu = data;
 		setTimeout(() => {
 			if( this.$router.currentRoute.query['tab'] ) {

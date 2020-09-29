@@ -154,7 +154,7 @@ export default {
       this.$refs.dropzone.removeAllFiles();
     },
     afterComplete(file, response) {
-      console.log(response.file_name);
+      //console.log(response.file_name);
       this.data.avatar = response.file_name;
       this.avatar_preview =
         "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/" +
@@ -170,7 +170,7 @@ export default {
       this.usermentah = res.data;
       this.user_id = res.data.data.id;
       this.profile = res.data.data;
-      // console.log(JSON.parse(JSON.stringify(res.data.data)))
+      // //console.log(JSON.parse(JSON.stringify(res.data.data)))
       this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
       this.avatar_preview = res.data.data.avatar;
       this.data.first_name = res.data.data.first_name;
@@ -182,7 +182,7 @@ export default {
       this.data.email = res.data.data.email;
       this.data.expire = res.data.data.expire;
       this.expire_date = this.data.expire;
-      // console.log(this.data)
+      // //console.log(this.data)
       if (res.data.data.status_expired == 1) {
         this.isActive = true;
       }

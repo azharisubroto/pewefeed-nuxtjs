@@ -24,11 +24,11 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    //console.log('fetch this')
-    //console.log(params.slug)
+    ////console.log('fetch this')
+    ////console.log(params.slug)
     let item = await FaktaService.getDetail(params.slug)
     .then(res => {
-      console.log(JSON.parse(JSON.stringify(res.data.data)))
+      //console.log(JSON.parse(JSON.stringify(res.data.data)))
       return res.data.data.content
     })
     store.commit('SET_ITEM', item)

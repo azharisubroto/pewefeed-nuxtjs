@@ -64,7 +64,7 @@ export default {
         }
         this.loading = false;
         this.datamidtrans = res.data.data.pending;
-        console.log(JSON.parse(JSON.stringify(this.datamidtrans)));
+        //console.log(JSON.parse(JSON.stringify(this.datamidtrans)));
       } catch (error) {
         console.log(error);
       }

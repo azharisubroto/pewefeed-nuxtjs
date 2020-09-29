@@ -386,16 +386,16 @@ export default {
 		pesertaloop: {
 			immediate: true,
 			handler (val, oldVal) {
-				//console.log(val);
+				////console.log(val);
 				if (localStorage.getItem('userdata') && val != null ) {
 					var userdata = JSON.parse(localStorage.getItem('userdata'));
 					let userid = userdata.data.id
 					for (let index = 0; index < val.length; index++) {
 						const el = val[index];
-						//console.log(el.customer.id, userid);
+						////console.log(el.customer.id, userid);
 						if( el.customer.id == userid ) {
 							this.uploaded = true
-							console.log('exists');
+							//console.log('exists');
 							return false;
 						}
 					}
@@ -428,21 +428,21 @@ export default {
 		async checkUploadAvailablity(stage) {
 			try {
 				const res = await SingService.checkAvail(stage);
-				//console.log(res.data);
+				////console.log(res.data);
 				this.uploadallowed = res.data.upload_available
 			} catch (error) {
 				console.log(error)
 			}
 		},
 		async search(key, page) {
-			console.log('searching...');
+			//console.log('searching...');
 			this.$bus.$emit('singSearchLoading');
 			this.opensearch = false
 			var n = page ? page : 1;
 			localStorage.setItem('singkeyword', this.searchModel);
 			try {
 				const res = await SingService.searchItem(this.$route.params.stage, key, n);
-				console.log(res.data)
+				//console.log(res.data)
 				this.$bus.$emit('singReplaceData', res.data);
 			} catch (error) {
 				console.log(error)
@@ -460,7 +460,7 @@ export default {
 			}
 		},
 		next(num) {
-			console.log(num)
+			//console.log(num)
 			if( this.type == 'search' ) {
 				var key = localStorage.getItem('singkeyword');
 				this.search(key, num);
@@ -492,7 +492,7 @@ export default {
 		})
 		if (localStorage.getItem('userdata')) {
 			var userdata = JSON.parse(localStorage.getItem('userdata'));
-			//console.log(userdata)
+			////console.log(userdata)
 			this.userdata = userdata
 			this.userid = userdata.data.id
 			this.checkUploadAvailablity(this.$route.params.stage);

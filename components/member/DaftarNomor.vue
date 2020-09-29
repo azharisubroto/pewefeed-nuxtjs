@@ -195,7 +195,7 @@ export default {
 					this.isLoading = false
 				}
 			} catch (error) {
-				console.log(res)
+				//console.log(res)
 				this.isLoading = false
 
 			}
@@ -203,7 +203,7 @@ export default {
 		async getVoucherType() {
 			try {
 				const res = await UserService.getVoucherType()
-				//console.log(JSON.parse(JSON.stringify(res.data.data)))
+				////console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.voucherTypes = res.data.data.type
 			} catch (error) {
 
@@ -212,7 +212,7 @@ export default {
 		async getBank() {
 			try {
 				const res = await UserService.getBank()
-				//console.log(JSON.parse(JSON.stringify(res.data.data.bank)))
+				////console.log(JSON.parse(JSON.stringify(res.data.data.bank)))
 				this.banks = res.data.data.bank
 			} catch (error) {
 
@@ -258,7 +258,7 @@ export default {
 				number: this.payload.number,
 				bank: this.payload.bank
 			}
-				// console.log(JSON.parse(JSON.stringify(params)))
+				// //console.log(JSON.parse(JSON.stringify(params)))
 
 			try {
 				const res = await UserService.editNumber(params)

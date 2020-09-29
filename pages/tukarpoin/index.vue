@@ -27,7 +27,7 @@ export default {
 			short_title: meta.description,
 		}
 	})
-    // console.log(meta)
+    // //console.log(meta)
   },
   head() {
     return{

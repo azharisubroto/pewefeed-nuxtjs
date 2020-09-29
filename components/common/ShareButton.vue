@@ -130,12 +130,12 @@ export default {
         async saveShare(data) {
             try {
                 const res = await UserService.share(data)
-                // console.log(res)
+                // //console.log(res)
                 if(res.data.point == 1) {
-                    console.log('dapat poin')
+                    //console.log('dapat poin')
                     this.SharePoinVisible = true
                 } else {
-                    console.log('tidak dapat poin')
+                    //console.log('tidak dapat poin')
                     this.SharePoinVisible = false
                 }
             } catch (error) {

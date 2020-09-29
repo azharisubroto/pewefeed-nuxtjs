@@ -121,7 +121,7 @@ export default {
                 const response = await StarxService.getStarx()
                 const results = response.data.data
                 this.eskuls = results.eskuls
-                // console.log(JSON.parse(JSON.stringify(this.eskuls)))
+                // //console.log(JSON.parse(JSON.stringify(this.eskuls)))
             } catch (error) {
                 console.log(error)
             }
