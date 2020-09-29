@@ -242,11 +242,11 @@
 			class="pwmenubottom"
 		>
 			<v-btn @click="sortopen = true">
-				<span class="text-12" style="color:#fff!important">Urutkan<br>Data</span>
+				<span class="text-10" style="color:#fff!important">Urutkan<br>Data</span>
 				<img src="/img/icons/icon-sort.svg" class="mb-2 d-block" width="16" height="16" />
 			</v-btn>
 			<v-btn @click="opensearch = true">
-				<span class="text-12" style="color:#fff!important">Cari<br>Peserta</span>
+				<span class="text-10" style="color:#fff!important">Cari<br>Peserta</span>
 				<img src="/img/icons/icon-search.svg" class="mb-2 d-block" width="16" height="16" />
 			</v-btn>
 		</v-bottom-navigation>
