@@ -2,7 +2,7 @@
   <section>
 	<template v-if="periode == null && isloading == true">
 		<div class="text-center pa-10">
-			<v-progress-circular :width="3" color="deep-orange" indeterminate></v-progress-circular>
+			<LoadingBar/>
 		</div>
 	</template>
 	<template v-if="periode != null && isloading == false">
@@ -39,7 +39,7 @@
 								<v-avatar width="23" color="#000">
 									<v-img :src="item.customer.avatar"></v-img>
 								</v-avatar>
-								<div class="mt-3 text-10">
+								<div class="mt-3 text-13 text-truncate">
 									{{capitalize(item.customer.username)}}
 								</div>
 								<div class="mt-1 text-10">
@@ -123,7 +123,7 @@
 												</v-avatar>
 											</v-col>
 											<v-col cols="10" class="pl-1">
-												<div class="text-13">
+												<div class="text-12 text-uppercase text-truncate">
 													{{item.customer.username}}
 												</div>
 												<div class="text-10 mt-1">
@@ -143,9 +143,9 @@
 						<v-btn
 						color="deep-orange"
 						class="px-4"
-						@click="next"
+						@click="moreLastRanked();bottomloading=true"
 						>
-						Show More
+						{{bottomloading ? 'Loading' : 'Show More'}}
 						</v-btn>
 					</div>
 					<!-- <v-pagination
@@ -157,7 +157,9 @@
 						@input="next"
 					></v-pagination> -->
 				</v-container>
-				<v-overlay v-if="pagingload"></v-overlay>
+			</v-container>
+			<v-container v-else class="text-center">
+				Loading data...
 			</v-container>
 		</template>
 
@@ -258,6 +260,10 @@
 		</template>
 	</template>
 
+	<template v-if="bottomloading">
+		<LoadingBar/>
+	</template>
+
 
 	<div class="py-10 mb-10"></div>
 
@@ -322,6 +328,7 @@
 <script>
 import TopPoin from "@/services/TopPoin";
 import ShareButton2 from "@/components/common/ShareButton2";
+import LoadingBar from "@/components/sing/LoadingBar";
 
 export default {
   head() {
@@ -337,7 +344,8 @@ export default {
     };
   },
   components: {
-	  ShareButton2
+	  ShareButton2,
+	  LoadingBar
   },
   watch:{
 		tptab: function (newVal, oldVal) {
@@ -366,6 +374,7 @@ export default {
 	  topthree: null,
 	  hadiahPeriode: null,
 	  shareText: 'Yuk join di TOP POIN pewefeed.com kejar hadiah jutaan rupiah dengan klik pewefeed.com',
+	  bottomloading: false,
     };
   },
   methods: {
@@ -398,27 +407,30 @@ export default {
 		this.totalPage = res.data.pagination.last_page
 		this.totalRanked = res.data.pagination.total
 		this.pagingload = false
+		this.paged = res.data.pagination.current_page
       } catch (error) {
 		console.log(error);
 		this.isloading = false
       }
 	},
-	async moreLastRanked(n) {
+	async moreLastRanked() {
+		let target = parseInt(this.paged + 1);
       try {
-        const res = await TopPoin.lastRanked(parseInt(this.paged+1));
+		const res = await TopPoin.lastRanked(target);
+		this.paged = await res.data.pagination.current_page
 		////console.log(res);
 		if( res.data.data.ranked != null && res.data.data.ranked && res.data.data.ranked.length > 0 ) {
 			var loop = res.data.data.ranked 
 			loop.forEach(el => {
 				this.lastRanked.push(el);
 			});
-			this.pagingload = false
 			this.paged++
 		}
+		this.bottomloading = false
 		
       } catch (error) {
 		console.log(error);
-		this.isloading = false
+		this.bottomloading = false
       }
 	},
     async fetchWinners(n) {
@@ -473,7 +485,6 @@ export default {
     },
 	next(num) {
 		this.moreLastRanked(num);
-		this.pagingload = true
 	},
 	nextwinner(num){
 		this.fetchWinners(num);

@@ -42,7 +42,7 @@
           </div>
           <div>
             <a
-              class="blue--text"
+              class="deep-orange--text"
               v-if="item.link"
               @click="$router.push(item.link)"
             >Article</a>
@@ -64,16 +64,26 @@
       </v-row>
 
       <v-row>
-        <v-col cols="12">
-          <v-pagination v-model="page" class="my-4" :length="last_page" @input="next"></v-pagination>
+        <v-col cols="12" class="text-center">
+          <v-btn
+          color="#ff4200"
+          @click="next(page);moreloading=true"
+          dark
+          v-if="page != last_page"
+          >
+            {{ moreloading ? 'Loading...' : 'Show More' }}
+          </v-btn>
+          <!-- <v-pagination v-model="page" class="my-4" :length="last_page" @input="next"></v-pagination> -->
         </v-col>
       </v-row>
     </v-container>
-    <v-skeleton-loader
-      v-else-if="mutasi.length == 0 && available == false"
-      class="mb-6"
-      type="list-item-three-line,list-item-three-line,list-item-three-line"
-    ></v-skeleton-loader>
+    
+    <v-container v-else-if="mutasi.length == 0 && available == false">
+      <v-skeleton-loader
+        class="mb-6"
+        type="list-item-three-line,list-item-three-line,list-item-three-line"
+      ></v-skeleton-loader>
+    </v-container>
 
     <div v-else>
       <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
@@ -92,8 +102,9 @@ export default {
       page: 1,
       last_page: 1,
       available: false,
-	  overlay: false,
-	  position: 'all'
+      overlay: false,
+      position: 'all',
+      moreloading: false,
     };
   },
   methods: {
@@ -106,42 +117,52 @@ export default {
 
       this.userdata = res.data;
     },
-    async fethMutasi(page, filter) {
+    async fethMutasi(page, filter, ismore) {
 		this.position = filter;
-      this.mutasi = [];
+      
+      if( !ismore ) {
+        this.mutasi = [];
+        this.available = false;
+      }
+
       var n = page ? page : 1;
       var fil = filter;
-      this.available = false;
+      
       try {
         const res = await UserService.mutasiPoin(n, fil);
         const items = res.data.data;
+        this.page = res.data.paginations.current_page;
         this.last_page = res.data.paginations.last_page;
         //console.log(items);
-        var arrays = [];
-        items.forEach(el => {
-          var link = el.link;
-          var path = link.replace(process.env.baseUrl, "/");
-          var obj = {
-            status: el.status,
-            created_at: el.created_at,
-            type: el.type,
-            description: el.description,
-            point: el.point,
-            link: path,
-            daily_point: el.daily_point
-          };
-          arrays.push(obj);
-        });
-
-        this.mutasi = arrays;
+        if( items.length > 0 ) {
+          var arrays = [];
+          items.forEach(el => {
+            var link = el.link;
+            var path = link.replace(process.env.baseUrl, "/");
+            var obj = {
+              status: el.status,
+              created_at: el.created_at,
+              type: el.type,
+              description: el.description,
+              point: el.point,
+              link: path,
+              daily_point: el.daily_point
+            };
+            this.mutasi.push(obj)
+            //arrays.push(obj);
+          });
+          if( ismore ) {
+            this.moreloading = false
+          }
+        }
 
         this.available = true;
 
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-        });
+        // window.scrollTo({
+        //   top: 0,
+        //   left: 0,
+        //   behavior: "smooth"
+        // });
 
         // //console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
@@ -150,7 +171,9 @@ export default {
 	  }
     },
     next(num) {
-      this.fethMutasi(num);
+      let pos = this.position
+      let target = parseInt(num + 1);
+      this.fethMutasi(target, pos, true);
     },
     kFormatter(number, decPlaces) {
       decPlaces = Math.pow(10, decPlaces);
