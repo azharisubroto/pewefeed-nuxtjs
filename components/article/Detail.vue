@@ -741,6 +741,13 @@
             Anda sudah menyukai artikel ini sebelumnya
           </div>
         </div>
+        <v-container class="text-center">
+          <v-btn
+          to="/member/histori_penggunaan_poin"
+          color="#ff4200"
+          class="mt-2"
+          >Check Total Point</v-btn>
+        </v-container>
         <br>
         <br>
       </v-sheet>

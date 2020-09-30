@@ -91,7 +91,7 @@
               </v-list-item>
 
               <div class="devider-small"></div>
-              <v-list-item class="py-3" to="/member/mypoints">
+              <v-list-item class="py-3" to="/member/histori_penggunaan_poin">
                 <v-list-item-content>
                   <v-list-item-title>
                     Total Points
@@ -195,16 +195,7 @@
       </v-stepper>
     </template>
     <template v-else-if="loading && !login">
-      <div class="text-center pa-10">
-        <v-progress-circular
-          indeterminate
-          :size="80"
-          :width="8"
-          color="deep-orange"
-          class="mt-5"
-        >
-        </v-progress-circular>
-      </div>
+        <LoadingBar/>
     </template>
     <template v-else>
       <Login class="pt-10" />
@@ -217,6 +208,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 import Login from "@/components/Login";
 import help from "@/components/help";
+import LoadingBar from "@/components/sing/LoadingBar";
 import { mapState } from "vuex";
 
 export default {
@@ -319,6 +311,7 @@ export default {
     BuyVip,
     Login,
     help,
+    LoadingBar
   },
   filters: {
     thousand(value) {

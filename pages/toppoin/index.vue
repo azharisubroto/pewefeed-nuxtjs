@@ -39,8 +39,11 @@
 								<v-avatar width="23" color="#000">
 									<v-img :src="item.customer.avatar"></v-img>
 								</v-avatar>
-								<div class="mt-3 text-13 text-truncate">
-									{{capitalize(item.customer.username)}}
+								<div 
+								class="mt-3 text-truncate text-uppercase"
+								:class="[item.active ? 'text-16' : 'text-13']"
+								>
+									{{item.customer.username}}
 								</div>
 								<div class="mt-1 text-10">
 									<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-1" width="13"/> {{item.poin.grand_total}}
@@ -85,7 +88,7 @@
 													<v-img :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/48/?text=No+Data'" width="23"></v-img>
 												</v-avatar>
 											</v-col>
-											<v-col cols="9" class="pl-2 py-0 text-13">
+											<v-col cols="9" class="pl-2 py-0 text-13 text-uppercase text-truncate">
 												{{item.customer.username ? item.customer.username : 'No Data'}} 
 
 												<div class="text-10 mt-0" v-if="item.customer.id != ''">

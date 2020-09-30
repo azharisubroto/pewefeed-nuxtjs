@@ -77,7 +77,7 @@ export default {
 	mutasiPoin(page, filter) {
 		var n = page ? page : 1
 		var fil = filter ? filter : 'all'
-		return AuthApi().get('/member/mutasi-poin/' + fil + '?page=' + n + '&filter_poin=' + fil)
+		return AuthApi().get('/member/mutasi-poin/' + fil + '?page=' + n)
 	},
 	rewardsWait(n) {
 		return AuthApi().get('/member/transaction/wait/?page=' + n)

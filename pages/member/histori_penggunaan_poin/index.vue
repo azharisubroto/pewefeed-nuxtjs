@@ -77,26 +77,29 @@
         </v-col>
       </v-row>
     </v-container>
-    
-    <v-container v-else-if="mutasi.length == 0 && available == false">
-      <v-skeleton-loader
-        class="mb-6"
-        type="list-item-three-line,list-item-three-line,list-item-three-line"
-      ></v-skeleton-loader>
-    </v-container>
 
-    <div v-else>
+    <div v-else-if="mutasi.length == 0 && mutasi != null && !mainloading">
       <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
     </div>
+    
+    <v-container v-if="mainloading">
+      <LoadingBar/>
+    </v-container>
   </section>
 </template>
 <script>
 import UserService from "@/services/UserService";
+import LoadingBar from "@/components/sing/LoadingBar";
+
 export default {
   middleware: "auth",
   name: "historiPoinPage",
+  components: {
+    LoadingBar
+  },
   data() {
     return {
+      mainloading: true,
       userdata: null,
       mutasi: [],
       page: 1,
@@ -157,6 +160,7 @@ export default {
         }
 
         this.available = true;
+        this.mainloading = false
 
         // window.scrollTo({
         //   top: 0,
@@ -166,6 +170,8 @@ export default {
 
         // //console.log(JSON.parse(JSON.stringify(res)))
       } catch (error) {
+        this.mainloading = false
+        this.available = false
         //console.log("error");
         //this.fethMutasi(1, "all");
 	  }
@@ -230,8 +236,8 @@ export default {
   },
   mounted() {
     this.fetchUserdata();
-	this.fethMutasi();
-	this.position = 'all'
+	  this.fethMutasi();
+	  this.position = 'all'
   }
 };
 </script>
