@@ -8,7 +8,7 @@
       <v-toolbar-title
         @click="$router.push('/'); drawer = false"
         class="px-0"
-      ><strong>{{article.type == 'LAGU' ? 'MUSIK' : article.type}}</strong></v-toolbar-title>
+      ><strong>{{respon.article.type == 'LAGU' ? 'MUSIK' : respon.article.type}}</strong></v-toolbar-title>
       <div class="flex-grow-1"></div>
 
       <div v-if="$route.name != 'index'">
@@ -18,23 +18,20 @@
     <!-- <a href="https://instagram.com/pewefeed">
 		  <v-img src="https://cdn.pewefeed.com/containers/pewefeed/news/0d0bec49-2d74-4092-90c3-433a39aae9da_1597133121.028.png"></v-img>
     </a>-->
-    <v-skeleton-loader
-      v-if="article==''"
-      class="mx-auto mt-5"
-      type="list-item-avatar-three-line, image, article"
-    ></v-skeleton-loader>
-    <v-container v-if="article" class="mb-5 pb-5 articlewrapper">
+    
+    <!-- SSR -->
+    <v-container class="mb-5 pb-5 articlewrapper">
       <v-row>
         <v-col>
           <!-- TITLE -->
-          <h2 class="mb-0 text-center maintitle">{{article.title}}</h2>
+          <h1 class="mb-0 text-27 lh-37 text-center maintitle">{{respon.article.title}}</h1>
 
           <div class="mt-4 text-12 text-center">
-            {{article.created_at}} &bull;
-            {{article.total_view}} Melihat &bull;
-            {{article.total_like}} Menyukai &bull;
-            {{article.total_comment ? article.total_comment : 0}} Komentar &bull;
-            {{article.total_quiz ? article.total_quiz : 0}} Kuis
+            {{respon.article.created_at}} &bull;
+            {{respon.article.total_view}} Melihat &bull;
+            {{respon.article.total_like}} Menyukai &bull;
+            {{respon.article.total_comment ? respon.article.total_comment : 0}} Komentar &bull;
+            {{respon.article.total_quiz ? respon.article.total_quiz : 0}} Kuis
           </div>
         </v-col>
       </v-row>
@@ -43,11 +40,11 @@
         <v-row class="pb-5">
           <v-col cols="12">
             <div class="article-thumb">
-              <div class="partnership" v-if="article.partnership!=null">
-                In Partnership with {{article.partnership.title}}
-                <img :src="article.partnership.avatar" width="20" alt />
+              <div class="partnership" v-if="respon.article.partnership!=null">
+                In Partnership with {{respon.article.partnership.title}}
+                <img :src="respon.article.partnership.avatar" width="20" alt />
               </div>
-              <v-img :src="article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
+              <v-img :src="respon.article.image.small" :aspect-ratio="4/3" class="thumbnailmain mb-4"></v-img>
             </div>
 
             <!-- CONTENT -->
@@ -56,7 +53,7 @@
             </div>-->
 
             <div class="article-readmore" :class="[ hidden == true ? '' : 'expanded' ]">
-              <div v-html="article.content"></div>
+              <div v-html="respon.article.content"></div>
               <v-btn @click="hidden = !hidden" color="deep-orange" dark>Read More</v-btn>
             </div>
 
@@ -456,123 +453,256 @@
         />
       </template>
     </v-container>
+    <!-- SSR -->
     <br />
 
-    <LoginModal :redirect="dataUrl" :dialogVisible="loginModalVisible" @close="myDialogClose" />
+    <client-only>
+      <LoginModal :redirect="dataUrl" :dialogVisible="loginModalVisible" @close="myDialogClose" />
 
-    <v-bottom-navigation
-      fixed
-      dark
-      grow
-      color="white"
-      class="pwmenubottom"
-      background-color="#2C2C2D"
-      v-model="active_tab"
-    >
-      <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
-        <span class="text-10">
-          Sedang
-          <br />Dibaca
-        </span>
-        <img
-          :src=" active_tab == 0 ? '/img/icons/articles/sedangdibaca-o.svg' : '/img/icons/articles/sedangdibaca-w.svg' "
-          class="mb-1 d-block"
-          width="20"
-          height="20"
-          alt
-        />
-      </v-btn>
-      <v-btn class="harusaktif" v-if="article.is_like">
-        <span class="text-10">
-          Menyukai
-          <br />(+1 Poin)
-        </span>
-        <img
-          src="/img/icons/articles/menyukai-o.svg"
-          class="mb-1 d-block"
-          width="20"
-          height="20"
-          alt
-        />
-      </v-btn>
-      <v-btn class="harusaktif" v-else-if="liked" @click="likeModal=true;likestatus = false">
-        <span class="text-10">
-          Menyukai
-          <br />(+1 Poin)
-        </span>
-        <img
-          src="/img/icons/articles/menyukai-o.svg"
-          class="mb-1 d-block"
-          width="20"
-          height="20"
-          alt
-        />
-      </v-btn>
-      <v-btn class="tidakbolehaktif" v-else @click="recaptchalikemodal = true">
-        <span class="text-10">
-          Menyukai
-          <br />(+1 Poin)
-        </span>
-        <img
-          src="/img/icons/articles/menyukai-w.svg"
-          class="mb-1 d-block"
-          width="20"
-          height="20"
-          alt
-        />
-      </v-btn>
-
-      <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
-        <span style="font-size:10px;">
-          Komentar
-          <br />(+5 Poin)
-        </span>
-        <img
-          :src=" active_tab == 2 ? '/img/icons/articles/komentar-o.svg' : '/img/icons/articles/komentar-w.svg' "
-          class="mb-1 d-block"
-          height="20"
-          alt
-        />
-      </v-btn>
-
-      <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
-        <span style="font-size:10px;">
-          Kuis
-          <br />(+20 Poin)
-        </span>
-        <img
-          :src=" active_tab == 3 ? '/img/icons/articles/kuis-o.svg' : '/img/icons/articles/kuis-w.svg' "
-          class="d-block"
-          style="margin-bottom:7px"
-          height="18"
-          alt
-        />
-      </v-btn>
-
-      <v-btn>
-        <ShareButton2 class="text-center" independent>
+      <v-bottom-navigation
+        fixed
+        dark
+        grow
+        color="white"
+        class="pwmenubottom"
+        background-color="#2C2C2D"
+        v-model="active_tab"
+      >
+        <v-btn @click="isArticle=true;isComment=false;isQuiz=false">
+          <span class="text-10">
+            Sedang
+            <br />Dibaca
+          </span>
           <img
-            :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
-            height="18"
-            style="display:inline-block;position:relative;top:2px"
+            :src=" active_tab == 0 ? '/img/icons/articles/sedangdibaca-o.svg' : '/img/icons/articles/sedangdibaca-w.svg' "
+            class="mb-1 d-block"
+            width="20"
+            height="20"
             alt
           />
-          <div></div>
-          <span style="font-size:10px;">
-            Bagikan
+        </v-btn>
+        <v-btn class="harusaktif" v-if="respon.article.is_like">
+          <span class="text-10">
+            Menyukai
             <br />(+1 Poin)
           </span>
-        </ShareButton2>
-      </v-btn>
-    </v-bottom-navigation>
+          <img
+            src="/img/icons/articles/menyukai-o.svg"
+            class="mb-1 d-block"
+            width="20"
+            height="20"
+            alt
+          />
+        </v-btn>
+        <v-btn class="harusaktif" v-else-if="liked" @click="likeModal=true;likestatus = false">
+          <span class="text-10">
+            Menyukai
+            <br />(+1 Poin)
+          </span>
+          <img
+            src="/img/icons/articles/menyukai-o.svg"
+            class="mb-1 d-block"
+            width="20"
+            height="20"
+            alt
+          />
+        </v-btn>
+        <v-btn class="tidakbolehaktif" v-else @click="recaptchalikemodal = true">
+          <span class="text-10">
+            Menyukai
+            <br />(+1 Poin)
+          </span>
+          <img
+            src="/img/icons/articles/menyukai-w.svg"
+            class="mb-1 d-block"
+            width="20"
+            height="20"
+            alt
+          />
+        </v-btn>
 
-    <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
+        <v-btn @click="isArticle=false;isComment=true;isQuiz=false">
+          <span style="font-size:10px;">
+            Komentar
+            <br />(+5 Poin)
+          </span>
+          <img
+            :src=" active_tab == 2 ? '/img/icons/articles/komentar-o.svg' : '/img/icons/articles/komentar-w.svg' "
+            class="mb-1 d-block"
+            height="20"
+            alt
+          />
+        </v-btn>
 
-    <!-- DAILY LIMIT NOTIF -->
-    <v-bottom-sheet v-model="dailyLimitNotice">
-      <v-sheet height="100%" color="transparent">
-        <v-card style="border-radius: 0!important;">
-          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+        <v-btn @click="isArticle=false;isComment=false;isQuiz=true">
+          <span style="font-size:10px;">
+            Kuis
+            <br />(+20 Poin)
+          </span>
+          <img
+            :src=" active_tab == 3 ? '/img/icons/articles/kuis-o.svg' : '/img/icons/articles/kuis-w.svg' "
+            class="d-block"
+            style="margin-bottom:7px"
+            height="18"
+            alt
+          />
+        </v-btn>
+
+        <v-btn>
+          <ShareButton2 class="text-center" independent>
+            <img
+              :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
+              height="18"
+              style="display:inline-block;position:relative;top:2px"
+              alt
+            />
+            <div></div>
+            <span style="font-size:10px;">
+              Bagikan
+              <br />(+1 Poin)
+            </span>
+          </ShareButton2>
+        </v-btn>
+      </v-bottom-navigation>
+
+      <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
+
+      <!-- DAILY LIMIT NOTIF -->
+      <v-bottom-sheet v-model="dailyLimitNotice">
+        <v-sheet height="100%" color="transparent">
+          <v-card style="border-radius: 0!important;">
+            <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+              <!-- Arrow -->
+              <v-btn
+                dark
+                icon
+                tile
+                style="border-right: 0px solid #717171"
+                light
+                @click="dailyLimitNotice = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+
+              <!-- Title -->
+              <div class="flex-grow-1"></div>
+              <v-toolbar-items>
+                <v-btn dark text class="deep-orange--text">VIP Daily Limit</v-btn>
+              </v-toolbar-items>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+
+            <div class="px-5 pt-10 text-center">
+              <v-img src="/img/icons/batre.svg" max-width="100" class="rotate-90 mx-auto"></v-img>
+              <div class="mt-5 mb-0 text-14">
+                Daily VIP Limit Kamu Sudah Habis
+                <br />
+                <br />
+                <v-btn
+                  to="/about-daily-limit"
+                  color="green"
+                  dark
+                  block
+                  class="mb-3"
+                >apa itu vip daily limit</v-btn>
+                <v-btn
+                  to="/member/purchase-daily/"
+                  color="green"
+                  dark
+                  block
+                >tambahkan extra daily limit</v-btn>
+                <br />
+                <br />
+              </div>
+            </div>
+          </v-card>
+        </v-sheet>
+      </v-bottom-sheet>
+
+      <!-- RECAPTCHA POPUP -->
+      <v-bottom-sheet v-model="recaptchaPreSend">
+        <v-sheet height="100%" color="transparent">
+          <v-card style="border-radius: 0!important;">
+            <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+              <!-- Arrow -->
+              <v-btn
+                dark
+                icon
+                tile
+                style="border-right: 0px solid #717171"
+                light
+                @click="recaptchaPreSend = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+
+              <!-- Title -->
+              <div class="flex-grow-1"></div>
+              <v-toolbar-items>
+                <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
+              </v-toolbar-items>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+
+            <div class="px-5 pt-1 text-center">
+              <div class="mt-3 mb-0 pb-10 text-14">
+                <recaptcha
+                  key="commentcaptcha"
+                  class="mx-5 my-5"
+                  @error="onError()"
+                  @success="onSuccess()"
+                  @expired="onExpired()"
+                />
+              </div>
+            </div>
+          </v-card>
+        </v-sheet>
+      </v-bottom-sheet>
+
+      <!-- RECAPTCHA LIKE -->
+      <v-bottom-sheet v-if="recaptchalikemodal" v-model="recaptchalikemodal">
+        <v-sheet height="100%" color="transparent">
+          <v-card style="border-radius: 0!important;">
+            <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
+              <!-- Arrow -->
+              <v-btn
+                dark
+                icon
+                tile
+                style="border-right: 0px solid #717171"
+                light
+                @click="recaptchalikemodal = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+
+              <!-- Title -->
+              <div class="flex-grow-1"></div>
+              <v-toolbar-items>
+                <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
+              </v-toolbar-items>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+
+            <div class="px-5 pt-1 text-center">
+              <div class="mt-3 pb-10 text-14">
+                <recaptcha
+                  key="likecaptcha"
+                  class="mx-5 my-5"
+                  @error="onError()"
+                  @success="onSuccessLike()"
+                  @expired="onExpired()"
+                />
+              </div>
+            </div>
+          </v-card>
+        </v-sheet>
+      </v-bottom-sheet>
+
+      <!-- LIKE MODAL -->
+      <v-bottom-sheet v-if="likeModal" v-model="likeModal">
+        <v-sheet height="100%">
+          <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
             <!-- Arrow -->
             <v-btn
               dark
@@ -580,7 +710,7 @@
               tile
               style="border-right: 0px solid #717171"
               light
-              @click="dailyLimitNotice = false"
+              @click="likeModal = false;"
             >
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -588,170 +718,40 @@
             <!-- Title -->
             <div class="flex-grow-1"></div>
             <v-toolbar-items>
-              <v-btn dark text class="deep-orange--text">VIP Daily Limit</v-btn>
+              <v-btn
+                dark
+                text
+                class="deep-orange--text pl-0"
+                style="margin-left:-10px;"
+              >INFORMATION</v-btn>
             </v-toolbar-items>
             <div class="flex-grow-1"></div>
           </v-toolbar>
 
-          <div class="px-5 pt-10 text-center">
-            <v-img src="/img/icons/batre.svg" max-width="100" class="rotate-90 mx-auto"></v-img>
+          <div v-if="likestatus == true" class="px-4 pt-10 text-center">
+            <v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
             <div class="mt-5 mb-0 text-14">
-              Daily VIP Limit Kamu Sudah Habis
-              <br />
-              <br />
-              <v-btn
-                to="/about-daily-limit"
-                color="green"
-                dark
-                block
-                class="mb-3"
-              >apa itu vip daily limit</v-btn>
-              <v-btn
-                to="/member/purchase-daily/"
-                color="green"
-                dark
-                block
-              >tambahkan extra daily limit</v-btn>
-              <br />
-              <br />
+              Selamat! Kamu dapat 1 Poin.
             </div>
           </div>
-        </v-card>
-      </v-sheet>
-    </v-bottom-sheet>
-
-    <!-- RECAPTCHA POPUP -->
-    <v-bottom-sheet v-model="recaptchaPreSend">
-      <v-sheet height="100%" color="transparent">
-        <v-card style="border-radius: 0!important;">
-          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
-            <!-- Arrow -->
-            <v-btn
-              dark
-              icon
-              tile
-              style="border-right: 0px solid #717171"
-              light
-              @click="recaptchaPreSend = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-
-            <!-- Title -->
-            <div class="flex-grow-1"></div>
-            <v-toolbar-items>
-              <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
-            </v-toolbar-items>
-            <div class="flex-grow-1"></div>
-          </v-toolbar>
-
-          <div class="px-5 pt-1 text-center">
-            <div class="mt-3 mb-0 pb-10 text-14">
-              <recaptcha
-                key="commentcaptcha"
-                class="mx-5 my-5"
-                @error="onError()"
-                @success="onSuccess()"
-                @expired="onExpired()"
-              />
+          <div v-else class="px-4 pt-10 text-center">
+            <v-img src="/img/error.svg" max-width="60" class="mx-auto"></v-img>
+            <div class="mt-5 mb-0 text-14">
+              Anda sudah menyukai artikel ini sebelumnya
             </div>
           </div>
-        </v-card>
-      </v-sheet>
-    </v-bottom-sheet>
-
-    <!-- RECAPTCHA LIKE -->
-    <v-bottom-sheet v-if="recaptchalikemodal" v-model="recaptchalikemodal">
-      <v-sheet height="100%" color="transparent">
-        <v-card style="border-radius: 0!important;">
-          <v-toolbar :elevation="1" style="border-top:2px solid #fff;">
-            <!-- Arrow -->
+          <v-container class="text-center">
             <v-btn
-              dark
-              icon
-              tile
-              style="border-right: 0px solid #717171"
-              light
-              @click="recaptchalikemodal = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-
-            <!-- Title -->
-            <div class="flex-grow-1"></div>
-            <v-toolbar-items>
-              <v-btn dark text class="deep-orange--text">VERIFICATION</v-btn>
-            </v-toolbar-items>
-            <div class="flex-grow-1"></div>
-          </v-toolbar>
-
-          <div class="px-5 pt-1 text-center">
-            <div class="mt-3 pb-10 text-14">
-              <recaptcha
-                key="likecaptcha"
-                class="mx-5 my-5"
-                @error="onError()"
-                @success="onSuccessLike()"
-                @expired="onExpired()"
-              />
-            </div>
-          </div>
-        </v-card>
-      </v-sheet>
-    </v-bottom-sheet>
-
-    <!-- LIKE MODAL -->
-    <v-bottom-sheet v-if="likeModal" v-model="likeModal">
-      <v-sheet height="100%">
-        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
-          <!-- Arrow -->
-          <v-btn
-            dark
-            icon
-            tile
-            style="border-right: 0px solid #717171"
-            light
-            @click="likeModal = false;"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-
-          <!-- Title -->
-          <div class="flex-grow-1"></div>
-          <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              class="deep-orange--text pl-0"
-              style="margin-left:-10px;"
-            >INFORMATION</v-btn>
-          </v-toolbar-items>
-          <div class="flex-grow-1"></div>
-        </v-toolbar>
-
-        <div v-if="likestatus == true" class="px-4 pt-10 text-center">
-          <v-img src="/img/poinextra.png" max-width="60" class="mx-auto"></v-img>
-          <div class="mt-5 mb-0 text-14">
-            Selamat! Kamu dapat 1 Poin.
-          </div>
-        </div>
-        <div v-else class="px-4 pt-10 text-center">
-          <v-img src="/img/error.svg" max-width="60" class="mx-auto"></v-img>
-          <div class="mt-5 mb-0 text-14">
-            Anda sudah menyukai artikel ini sebelumnya
-          </div>
-        </div>
-        <v-container class="text-center">
-          <v-btn
-          to="/member/histori_penggunaan_poin"
-          color="#ff4200"
-          class="mt-2"
-          >Check Total Point</v-btn>
-        </v-container>
-        <br>
-        <br>
-      </v-sheet>
-    </v-bottom-sheet>
+            to="/member/histori_penggunaan_poin"
+            color="#ff4200"
+            class="mt-2"
+            >Check Total Point</v-btn>
+          </v-container>
+          <br>
+          <br>
+        </v-sheet>
+      </v-bottom-sheet>
+    </client-only>
   </section>
 </template>
 
@@ -1318,7 +1318,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchContent();
+    //this.fetchContent();
     this.fetchQuiz();
     this.fetchComment();
     this.checkQuizStatus();

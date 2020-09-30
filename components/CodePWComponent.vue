@@ -1,7 +1,7 @@
 <template>
   <v-container class="CodePW">
     <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
     <div v-if="formsignin">

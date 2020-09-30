@@ -7,7 +7,7 @@
 				indeterminate
 				:size="80"
 				:width="8"
-				color="deep-orange">
+				color="green">
 			</v-progress-circular>
 			</div>
 		</v-container>

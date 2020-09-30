@@ -52,7 +52,7 @@
 					style="height:100%;"
 					>
 						<v-icon size="100" v-if="videoutama!=null">mdi-play-circle</v-icon>
-						<v-progress-circular v-else indeterminate size="64"></v-progress-circular>
+						<v-progress-circular v-else indeterminate color="green" size="64"></v-progress-circular>
 					</v-row>
 				</template>
 			</v-img>

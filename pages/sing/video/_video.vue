@@ -92,6 +92,7 @@
                       v-else
                       indeterminate
                       size="64"
+                      color="green"
                     ></v-progress-circular>
                   </v-row>
                 </template>

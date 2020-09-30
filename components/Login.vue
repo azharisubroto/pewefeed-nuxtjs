@@ -18,7 +18,7 @@
     />
 
     <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
     <v-dialog v-model="fail" max-width="290">

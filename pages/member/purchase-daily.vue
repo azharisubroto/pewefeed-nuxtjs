@@ -90,7 +90,7 @@
 		:value="ewalletOverlay"
 	>
 		<div class="text-center">
-			<v-progress-circular indeterminate size="64" color="deep-orange"></v-progress-circular>
+			<v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
 			<div class="mt-4">
 				Connecting Provider...
 			</div>

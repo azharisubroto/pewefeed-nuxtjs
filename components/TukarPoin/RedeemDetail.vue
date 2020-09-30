@@ -203,7 +203,7 @@
       </v-btn>
     </v-snackbar>
     <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
     <v-skeleton-loader
@@ -280,7 +280,7 @@
           </div>
 
           <v-overlay :value="overlay">
-            <v-progress-circular indeterminate size="64"></v-progress-circular>
+            <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
           </v-overlay>
         </v-card>
       </v-sheet>

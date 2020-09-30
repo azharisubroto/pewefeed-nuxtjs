@@ -195,7 +195,15 @@
       </v-stepper>
     </template>
     <template v-else-if="loading && !login">
-        <LoadingBar/>
+        <div class="text-center d-flex align-center justify-center" style="height:80vh">
+          <v-progress-circular
+            indeterminate
+            :size="80"
+            :width="8"
+            color="green"
+          >
+          </v-progress-circular>
+        </div>
     </template>
     <template v-else>
       <Login class="pt-10" />
@@ -208,7 +216,6 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import BuyVip from "@/components/modal/BuyVip";
 import Login from "@/components/Login";
 import help from "@/components/help";
-import LoadingBar from "@/components/sing/LoadingBar";
 import { mapState } from "vuex";
 
 export default {
@@ -311,7 +318,6 @@ export default {
     BuyVip,
     Login,
     help,
-    LoadingBar
   },
   filters: {
     thousand(value) {

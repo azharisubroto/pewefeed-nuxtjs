@@ -241,7 +241,7 @@
     <!-- Make Rating -->
     <v-dialog v-model="ratingModal" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-overlay :value="overlay">
-        <v-progress-circular indeterminate size="64"></v-progress-circular>
+        <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
       </v-overlay>
       <v-card class="grey lighten-3" @makeloading="setloading" @notloading="notloading">
         <!-- Header -->

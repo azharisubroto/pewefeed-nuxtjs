@@ -8,7 +8,7 @@
 				indeterminate
 				:size="80"
 				:width="8"
-				color="deep-orange"
+				color="green"
 				class="mt-5">
 			</v-progress-circular>
 		</div>

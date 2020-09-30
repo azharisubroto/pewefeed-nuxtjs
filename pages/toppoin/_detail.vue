@@ -2,7 +2,7 @@
 	<section>
 		<template v-if="detail == null && isloading == true">
 			<div class="text-center pa-10">
-				<v-progress-circular :width="3" color="deep-orange" indeterminate></v-progress-circular>
+				<v-progress-circular color="green" :width="3" indeterminate></v-progress-circular>
 			</div>
 		</template>
 		<section v-if="detail!=null && isloading == false">

@@ -112,7 +112,7 @@
       </v-col>
     </v-row>
 	<div v-else class="pa-10 text-center">
-		<v-progress-circular indeterminate size="64" color="deep-orange"></v-progress-circular>
+		<v-progress-circular indeterminate size="64" color="green"></v-progress-circular>
 	</div>
     <!-- /FORM -->
 

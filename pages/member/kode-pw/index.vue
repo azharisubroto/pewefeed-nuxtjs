@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
     </v-overlay>
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in tabItems" :key="item">

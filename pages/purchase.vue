@@ -536,7 +536,7 @@
         <v-progress-circular
           indeterminate
           size="64"
-          color="deep-orange"
+          color="green"
         ></v-progress-circular>
         <div class="mt-4">Connecting Provider...</div>
       </div>

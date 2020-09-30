@@ -18,7 +18,7 @@
 			</v-container>
 		</template>
 		<div v-else-if="detail==null && loading" class="text-center pa-10">
-			<v-progress-circular :width="3" color="deep-orange" indeterminate></v-progress-circular>
+			<v-progress-circular color="green" :width="3" indeterminate></v-progress-circular>
 		</div>
 		<div v-else class="text-center pa-10">
 			Data unavailable

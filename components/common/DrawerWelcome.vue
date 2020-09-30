@@ -36,7 +36,7 @@
           <v-spacer></v-spacer>
         </v-card-actions>
         <v-overlay :value="overlay">
-          <v-progress-circular indeterminate size="64"></v-progress-circular>
+          <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
         </v-overlay>
       </v-card>
     </v-sheet>
