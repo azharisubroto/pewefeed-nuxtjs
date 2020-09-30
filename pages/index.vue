@@ -38,6 +38,8 @@
       </v-container>
     </client-only>
 
+    <h1 style="text-indent:-9999px;height:0;font-size:0;">{{ meta.og_title }}</h1>
+
     <div v-if="topviews">
       <!-- PLAIN NEWS LOOP -->
       <div class>
