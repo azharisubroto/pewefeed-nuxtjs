@@ -445,7 +445,7 @@ export default {
     return {
       title: this.detail.title,
       meta: [
-        {hid: 'description', property: 'description', content: strippedString},
+        {hid: 'description', name: 'description', content: strippedString},
       ]
     }
   },

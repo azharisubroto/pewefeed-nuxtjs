@@ -524,7 +524,7 @@ export default {
     return {
       title: this.item.video.title,
       meta: [
-        {hid: 'description', property: 'description', content: this.item.video.title},
+        {hid: 'description', name: 'description', content: this.item.video.title},
         // Facebok
         {hid: 'og:title', property: 'og:title', content: this.item.video.title},
         {hid: 'og:description', property: 'og:description', content: this.item.video.title},
