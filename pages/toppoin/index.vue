@@ -1,9 +1,13 @@
 <template>
   <section>
 	<template v-if="periode == null && isloading == true">
-		<div class="text-center pa-10">
-			<LoadingBar/>
-		</div>
+		<v-overlay>
+			<v-progress-circular
+				indeterminate
+				color="green"
+				size="64"
+			></v-progress-circular>
+		</v-overlay>
 	</template>
 	<template v-if="periode != null && isloading == false">
 		<!-- BANNER -->

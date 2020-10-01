@@ -789,6 +789,9 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  background: #1c1c1c!important;
+}
 body {
   --primary: #ff4200;
   --VIRAL: #46c0ef;

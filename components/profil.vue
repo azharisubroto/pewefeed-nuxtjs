@@ -166,7 +166,7 @@
                 </v-list-item>
                 <div :key="'dvdr-' + i" class="devider-small"></div>
               </template>
-              <v-list-item class="py-3" @click="profileStep = 2">
+              <v-list-item class="py-3" @click="$router.push('/bantuan')">
                 <v-list-item-content>
                   <v-list-item-title> Bantuan </v-list-item-title>
                 </v-list-item-content>

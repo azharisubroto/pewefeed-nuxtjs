@@ -82,9 +82,13 @@
       <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
     </div>
     
-    <v-container v-if="mainloading">
-      <LoadingBar/>
-    </v-container>
+    <v-overlay v-if="mainloading">
+			<v-progress-circular
+				indeterminate
+				color="green"
+				size="64"
+			></v-progress-circular>
+		</v-overlay>
   </section>
 </template>
 <script>

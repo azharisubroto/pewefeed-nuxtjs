@@ -879,10 +879,6 @@ export default {
   methods: {
     async fetchContent() {
       ////console.log(this.$route.params.articleslug)
-      this.id = this.respon.article.id;
-      this.article = this.respon.article;
-      //this.moveRedeemBeforeRelated();
-      this.title = this.respon.article.title;
       this.writer = this.respon.article.writer;
       this.items[2].href = this.respon.article.title;
       this.comments = this.respon.article.comments;
@@ -894,9 +890,9 @@ export default {
       }
       //console.log("fetch latest..");
       this.fetchLatest(this.respon.article.slug);
-
-      if( this.id ) {
-        this.checkLike(this.id);
+      let artid = this.respon.article.id
+      if( artid ) {
+        this.checkLike(artid);
       }
     },
     async checkLike(id) {
@@ -1318,7 +1314,7 @@ export default {
     },
   },
   mounted() {
-    //this.fetchContent();
+    this.fetchContent();
     this.fetchQuiz();
     this.fetchComment();
     this.checkQuizStatus();

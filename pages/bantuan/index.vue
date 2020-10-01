@@ -21,7 +21,7 @@
         <h4 class="deep-orange--text text-20">Contact</h4>
         <v-row class="pt-0">
           <v-col cols="12">
-            <v-list two-line color="#232323" dark class="pt-0">
+            <v-list two-line color="transparent" dark class="pt-0">
               <v-list-item-group v-model="contact">
                 <v-list-item class="pl-0" v-for="(con, i) in contacts" :key="'consdf-'+i">
                   <v-list-item-content class="pt-0 menu">
@@ -44,7 +44,7 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-            <v-list two-line color="#232323" dark class="pt-0 pb-0">
+            <v-list two-line color="transparent" dark class="pt-0 pb-0">
               <v-list-item-group v-model="contacttwo">
                 <v-list-item class="pl-0" v-for="(con, i) in contactstwo" :key="'cons-'+i">
                   <v-list-item-content class="pt-0 menu">
@@ -62,7 +62,7 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-            <v-list two-line color="#232323" dark class="pt-0">
+            <v-list two-line color="transparent" dark class="pt-0">
               <v-list-item-group v-model="contactmail">
                 <v-list-item class="pl-0" v-for="(con, i) in contactsmail" :key="'email-'+i">
                   <v-list-item-content class="pt-0 menu">
