@@ -44,7 +44,7 @@
             <a
               class="deep-orange--text"
               v-if="item.link"
-              @click="$router.push(item.link)"
+              :href="item.link"
             >Article</a>
             <span v-else>{{item.description}}</span>
           </div>
