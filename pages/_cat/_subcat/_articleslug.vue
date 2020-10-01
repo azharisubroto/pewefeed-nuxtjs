@@ -30,7 +30,7 @@ export default {
     let host = this.origin
     var url = 'https://' + host + '/' + this.item.article.type.toLowerCase() + '/' + this.item.article.reaction.toLowerCase() + '/' + this.item.article.slug
     return {
-      title: this.item.article.title,
+      title: this.item.article.title.substring(0, 65),
       meta: [
         {hid: 'description', name: 'description', content: this.item.article.short_content},
         // Facebok

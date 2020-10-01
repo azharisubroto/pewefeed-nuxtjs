@@ -346,7 +346,7 @@ export default {
   },
   head() {
     return {
-      title: this.meta.og_title,
+      title: this.meta.og_title.substring(0, 65),
       meta: [
         {
           hid: "description",
