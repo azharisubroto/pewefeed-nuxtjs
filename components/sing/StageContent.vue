@@ -25,7 +25,7 @@
 							<img src="/img/icons/upload.svg" class="mr-1" alt="upload">  Upload
 						</v-btn>
 						<v-btn v-else color="deep-orange" disabled light smallk dark depressed>
-							<img src="/img/icons/upload.svg" class="mr-1" alt="upload">  Upload coy
+							<img src="/img/icons/upload.svg" class="mr-1" alt="upload">  Upload
 						</v-btn>
 					</div>
 				</div>
@@ -166,6 +166,7 @@ export default {
 		}
 
 		this.$bus.$on('toggleUpload', (userid) => {
+			console.log(userid);
 			let vm = this
 			if( userid ) {
 				vm.uploadVisible = true
