@@ -32,10 +32,10 @@
 			<!-- PERINGKAT SAYYAAA -->
 			<h4 v-if="topthree" class="tp-head">Peringkat Saya</h4>
 
-			<v-row v-if="topthree" no-gutters align="center" justify="center" class="mt-10">
+			<v-row v-if="topthree" no-gutters align="center" justify="center" :class="'mt-10 position-'+whereisme">
 				<template v-for="(item, i) in topthree">
-					<v-col :cols="i !=1 ? '3' : '4'" :class="'item-'+ parseInt(i+1) " :key="'topthree-'+i">
-						<div :class="['rankbox', i ==  1 ? 'is_me' : 'notme']">
+					<v-col :cols="!item.active ? '3' : '4'" :class="'item-'+ parseInt(i+1) " :key="'topthree-'+i">
+						<div :class="['rankbox', item.active ? 'is_me' : 'notme']">
 							<div class="rb-head text-center" :ref="item.active == true ? 'ismeloh' : 'bukan'">
 								{{ item.customer.ranked }}
 							</div>
@@ -267,9 +267,9 @@
 		</template>
 	</template>
 
-	<template v-if="bottomloading">
-		<LoadingBar/>
-	</template>
+	<v-overlay :value="bottomloading">
+      <v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
+    </v-overlay>
 
 
 	<div class="py-10 mb-10"></div>
@@ -382,6 +382,7 @@ export default {
 	  hadiahPeriode: null,
 	  shareText: 'Yuk join di TOP POIN pewefeed.com kejar hadiah jutaan rupiah dengan klik pewefeed.com',
 	  bottomloading: false,
+	  whereisme: ''
     };
   },
   methods: {
@@ -467,6 +468,10 @@ export default {
 						return false;
 					} 
 				});
+
+				let whereisme = loop.findIndex(x => x.active === true);
+				this.whereisme = parseInt(whereisme + 1)
+				console.log(whereisme)
 			}
 		} catch (error) {
 			console.log(error);
@@ -542,6 +547,19 @@ export default {
 			background: #FF4200;
 		}
 	}
+
+	.position-3 {
+		.item-1 {
+			.rankbox {
+				.rb-body {
+					padding: 10px 10px 8px;
+					text-align: center;
+					opacity: .6
+				}
+			}
+		}
+	}
+	
 	.rankbox {
 		background: #404040;
 		color: #fff;
@@ -562,10 +580,11 @@ export default {
 			opacity: .6
 		}
 	}
-	.item-1 .rankbox {
+	.item-1 .rankbox:not(.is_me) {
 		border-right: 0;
 	}
-	.item-2 .rankbox {
+	
+	.is_me.rankbox {
 		border-color: #FF4200;
 		.rb-head {
 			background: #FF4200;
@@ -578,7 +597,7 @@ export default {
 			opacity: 1;
 		}
 	}
-	.item-3 .rankbox {
+	.item-3 .rankbox:not(.is_me) {
 		border-left: 0;
 	}
 
