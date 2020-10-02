@@ -87,7 +87,7 @@
         </div>
       </template>
     </v-container>
-    <v-container class="pb-0" v-if="showupload && !userid">
+    <v-container class="pb-0" v-if="showupload && userid == '' && userid">
       <v-card color="#FFC107" dark class="text-center pa-4" elevation="0">
         <v-btn
           color="#FF4200"
