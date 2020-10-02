@@ -879,6 +879,7 @@ export default {
   methods: {
     async fetchContent() {
       ////console.log(this.$route.params.articleslug)
+      this.id = this.respon.article.id
       this.writer = this.respon.article.writer;
       this.items[2].href = this.respon.article.title;
       this.comments = this.respon.article.comments;
@@ -1258,6 +1259,7 @@ export default {
           this.notVipDialogVisible = true;
         }
       }
+      this.fetchQuiz()
     },
     openModalLogin() {
       this.loginModalVisible = true;

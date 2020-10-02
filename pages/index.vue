@@ -427,4 +427,57 @@ export default {
 .v-slide-group__prev {
   display: none !important;
 }
+.flickity-viewport {
+  transition: height 0.2s;
+}
+.special {
+  .flickity-page-dots {
+    bottom: -10px !important;
+  }
+}
+.dark {
+  color: #fff;
+}
+.specuavg {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  .thebg {
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: -1;
+    background-color: #000;
+    transform: skewY(-5deg);
+    overflow: hidden;
+    background-size: cover !important;
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      background: #000;
+      //backdrop-filter: blur(10px);
+      background-image: inherit;
+      background-size: cover !important;
+      filter: blur(20px);
+      transform: scale(1.2);
+    }
+    &:after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
 </style>
