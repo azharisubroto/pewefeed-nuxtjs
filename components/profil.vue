@@ -13,7 +13,7 @@
             <v-list-item-group color="transparent" style="background: transparent">
               <!-- WHATSAPP -->
 
-              <v-list-item href="/member/pengaturan/" style="border: 2px solid red">
+              <v-list-item to="/member/pengaturan/" style="border: 2px solid red">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-img src="/img/icons/warning.svg"></v-img>
                 </v-list-item-icon>
@@ -29,7 +29,7 @@
               </v-list-item>
 
               <!-- PROFILE DETAIL -->
-              <v-list-item href="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
+              <v-list-item to="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-avatar
                     @click="
@@ -56,7 +56,7 @@
                 </v-list-item-icon>
               </v-list-item>
               
-              <v-list-item href="/purchase/">
+              <v-list-item to="/purchase/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/vip.svg"></v-img>
                 </v-list-item-icon>
@@ -84,7 +84,7 @@
               </v-list-item>
 
               
-              <v-list-item href="/member/histori_penggunaan_poin">
+              <v-list-item to="/member/histori_penggunaan_poin">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/poin-new.svg"></v-img>
                 </v-list-item-icon>
@@ -134,7 +134,7 @@
                 </v-list-item>
               </template>
 
-              <v-list-item href="/member/rewards-status/">
+              <v-list-item to="/member/rewards-status/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/rewards-saya.svg"></v-img>
                 </v-list-item-icon>
@@ -148,7 +148,7 @@
                 </v-list-item-icon>
               </v-list-item>
 
-              <v-list-item @click="$router.push('/bantuan')">
+              <v-list-item to="/bantuan/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/help-new.svg"></v-img>
                 </v-list-item-icon>
@@ -541,7 +541,7 @@ export default {
     overflow: hidden;
     margin: 10px;
     &.v-list-item--active {
-      color: #fff;
+      color: #fff!important;
     }
   }
 }
