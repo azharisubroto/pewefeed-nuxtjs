@@ -1,16 +1,18 @@
 <template>
   <div class="profile-page">
+    <div class="bg-profile"></div>
+    <div class="profile-space"></div>
     <template v-if="login && !loading">
-      <v-stepper v-model="profileStep">
+      <v-stepper v-model="profileStep" style="background: transparent">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
-          <v-container class="pb-0">
+         <!-- <v-container class="pb-0">
             <v-row align="center" class="profile-bag pb-0">
               <v-col
                 cols="3"
                 @click="
                   $router.push('/member/pengaturan/');
-                  drawer = false;
+                  drawer = false;c
                 "
               >
                 <v-avatar
@@ -59,14 +61,60 @@
                 </v-row>
               </v-col>
             </v-row>
-          </v-container>
+          </v-container> -->
 
           <!-- USER MENU -->
-          <v-list color="transparent" class="mb-10">
+          <v-list color="transparent" class="mb-10 profile-menus">
             <v-list-item-group color="dark">
-              <!-- VIP MEMBERSHIP STATUS -->
-              <div class="devider-small"></div>
-              <v-list-item class="py-3" to="/purchase/">
+              <!-- WHATSAPP -->
+
+              <v-list-item to="/member/pengaturan/" style="border: 2px solid red">
+                <v-list-item-icon class="mr-5 align-self-center">
+                  <v-img src="/img/icons/warning.svg"></v-img>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <strong>Aktifkan Notifikasi Whatsapp</strong>
+                    <span class="d-block mt-3">Dapatkan +100 Poin</span>
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon class="align-self-center">
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <!-- PROFILE DETAIL -->
+              <v-list-item to="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
+                <v-list-item-icon class="mr-5 align-self-center">
+                  <v-avatar
+                    @click="
+                      $router.push('/member/pengaturan/profil');
+                      drawer = false;
+                    "
+                    size="50"
+                    color="grey"
+                  >
+                    <v-img
+                      :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"
+                      :aspect-ratio="1 / 1"
+                    ></v-img>
+                  </v-avatar>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <strong class="text-uppercase">{{userdata.first_name + ' ' + userdata.last_name}}</strong>
+                    <span class="d-block mt-3">PEWE ID: {{ userdata.msisdn }}</span>
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon class="align-self-center">
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              
+              <v-list-item to="/purchase/">
+                <v-list-item-icon class="align-self-center mr-5">
+                  <v-img src="/img/icons/vip.svg"></v-img>
+                </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>
                     <span>VIP Membership Status</span>
@@ -85,30 +133,33 @@
                     >
                   </v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-icon>
+                <v-list-item-icon class="align-self-center">
                   <v-icon>mdi-chevron-right</v-icon>
                 </v-list-item-icon>
               </v-list-item>
 
-              <div class="devider-small"></div>
-              <v-list-item class="py-3" to="/member/histori_penggunaan_poin">
+              
+              <v-list-item to="/member/histori_penggunaan_poin">
+                <v-list-item-icon class="align-self-center mr-5">
+                  <v-img src="/img/icons/poin-new.svg"></v-img>
+                </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>
-                    Total Points
+                    Total Poin Saya
                     <br />
-                    <span class="text-20 mt-2 d-inline-block">
+                    <span class="text-20 mt-2 d-inline-block" style="color:#ff4200">
                       <strong>{{ mypoint | thousand }}</strong>
                     </span>
                   </v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-icon>
+                <v-list-item-icon class="align-self-center">
                   <v-icon>mdi-chevron-right</v-icon>
                 </v-list-item-icon>
               </v-list-item>
 
               <template v-if="userdata.status_expired == 1">
-                <div class="devider-small"></div>
-                <v-list-item class="pt-3 pb-0" to="/member/daily-limit">
+                
+                <v-list-item class="pt-3 pb-0 mb-0" to="/member/daily-limit" style="border-radius: 4px 4px 0 0">
                   <v-list-item-content class="py-0">
                     <v-list-item-title>
                       <span class="text-16 d-inline-block">
@@ -122,7 +173,7 @@
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-list-item-icon>
                 </v-list-item>
-                <v-list-item class="pt-0" to="/member/daily-limit">
+                <v-list-item class="pt-0 mt-0" to="/member/daily-limit" style="border-radius: 0 0 4px 4px">
                   <v-list-item-content class="pt-0">
                     <v-list-item-title>
                       <v-progress-linear
@@ -138,54 +189,57 @@
                 </v-list-item>
               </template>
 
-              <template v-for="(item, i) in personmenu">
-                <div
-                  v-if="i == 0"
-                  :key="'dvdri-' + i"
-                  class="devider-small"
-                ></div>
-                <v-list-item
-                  class="py-3"
-                  :key="'persmenu-' + i"
-                  href="/member/rewards-status/"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ item.name }}
-                      <template v-if="item.poin">
-                        <br />
-                        <span class="text-20 mt-2 d-inline-block">
-                          <strong>{{ mypoint | thousand }}</strong>
-                        </span>
-                      </template>
-                    </v-list-item-title>
-                  </v-list-item-content>
-                  <v-list-item-icon>
-                    <v-icon>mdi-chevron-right</v-icon>
-                  </v-list-item-icon>
-                </v-list-item>
-                <div :key="'dvdr-' + i" class="devider-small"></div>
-              </template>
-              <v-list-item class="py-3" @click="$router.push('/bantuan')">
+              <v-list-item to="/member/rewards-status/">
+                <v-list-item-icon class="align-self-center mr-5">
+                  <v-img src="/img/icons/rewards-saya.svg"></v-img>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    Rewards saya
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon class="align-self-center">
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <v-list-item @click="$router.push('/bantuan')">
+                <v-list-item-icon class="align-self-center mr-5">
+                  <v-icon color="#ff4200" size="30">mdi-help-circle-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    Bantuan
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon class="align-self-center">
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <v-list-item @click="logout()">
+                <v-list-item-icon class="align-self-center mr-5">
+                  <v-img src="/img/icons/logout.svg"></v-img>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    Keluar
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon class="align-self-center">
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <!-- <v-list-item @click="$router.push('/bantuan')">
                 <v-list-item-content>
                   <v-list-item-title> Bantuan </v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-icon>
+                <v-list-item-icon class="align-self-center">
                   <v-icon>mdi-chevron-right</v-icon>
                 </v-list-item-icon>
-              </v-list-item>
-              <div class="devider-small"></div>
-              <v-list-item class="py-3" @click="logout()">
-                <v-list-item-content>
-                  <v-list-item-title class="red--text">
-                    <strong>Sign Out</strong>
-                  </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-chevron-right</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-              <div class="devider-small"></div>
+              </v-list-item> -->
+              
             </v-list-item-group>
           </v-list>
         </v-stepper-content>
@@ -206,7 +260,26 @@
         </div>
     </template>
     <template v-else>
-      <Login class="pt-10" />
+      <v-container>
+        <v-card color="#404040" class="px-4 pt-4 mb-5" style="border-radius: 5px">
+          <Login class="pt-0" />
+        </v-card>
+
+        <div class="text-center pewesocials">
+          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+            <v-icon size="24">mdi-facebook</v-icon>
+          </v-btn>
+          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+            <v-icon>mdi-instagram</v-icon>
+          </v-btn>
+          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+            <v-icon>mdi-twitter</v-icon>
+          </v-btn>
+          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+            <v-icon>mdi-youtube</v-icon>
+          </v-btn>
+        </div>
+      </v-container>
     </template>
   </div>
 </template>
@@ -481,5 +554,50 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.profile-space {
+  margin-top: 150px;
+}
+
+.bg-profile {
+  background: url('/img/profil-bg.png') no-repeat center top!important;
+  background-size: 100% auto!important;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: -1;
+  height: 100vh;
+}
+
+.profile-menus {
+  .v-list-item {
+    border-radius: 4px;
+    background: #404040;
+    overflow: hidden;
+    margin: 10px;
+  }
+}
+.pewesocials {
+  .v-btn {
+    padding: 0!important;
+    min-width: unset!important;
+    width: 30px!important;
+    height: 30px!important;
+    line-height: 30px!important;
+    border-radius: 8px!important;
+    margin: 0 5px!important;
+    display: inline-block!important;
+
+    .v-btn__content {
+      line-height: 29px;
+      display: block;
+    }
+    .v-icon {
+      font-size: 20px;
+    }
+  }
 }
 </style>
