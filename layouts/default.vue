@@ -124,45 +124,12 @@
         </div>
       </v-app-bar>
 
-      <!-- MEMBER MENU -->
-      <!-- <v-tabs
-        v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program')"
-        grow
-        color="deep-orange"
-        center-active
-        class="pw-tab"
-      >
-        <v-tab v-for="menu in memberMenu" :key="menu.loc" :to="menu.loc">{{menu.name}}</v-tab>
-      </v-tabs>-->
-
-      <!-- PROFIL MENU -->
-      <!-- <v-bottom-navigation
-        v-if="$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('program') &&!$nuxt.$route.name.includes('barang_yang_didapat') && !$nuxt.$route.name.includes('kode-pw')"
-        fixed
-        dark
-        grow
-        color="white"
-        background-color="black"
-      >
-        <v-btn v-for="menu in profileMenu" :key="menu.loc" :to="menu.loc">
-          <span>{{menu.name}}</span>
-        </v-btn>
-      </v-bottom-navigation>-->
-
       <!-- CONTENT -->
       <v-content class="maincontent">
-        <!-- <a
-          v-if="!$nuxt.$route.name.includes('categories') && !$nuxt.$route.name.includes('purchase') && !$nuxt.$route.name.includes('login') && !$nuxt.$route.name.includes('member') && !$nuxt.$route.name.includes('help') && !$nuxt.$route.name.includes('bantuan')"
-          style="line-height:1;display:block;margin-bottom:-4px"
-          href="https://www.instagram.com/tv/B_vLd92JPmv/?igshid=bqnq34q1fikx"
-        >
-          <img
-            src="http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/RB-WEB-MOBILE.png"
-            alt="promo banner"
-          />
-        </a>-->
-        <nuxt />
-        <div class="mb-5 pb-5"></div>
+        <div :class="[ wowtab == 0 ? 'd-block' : 'd-none' ]">
+          <nuxt />
+          <div class="mb-5 pb-5"></div>
+        </div>
 
         <!-- oooooooooooooooooooooooooooooooooooo
 		    BOTTOM NAVIGATION
@@ -1122,15 +1089,10 @@ a,
   background-color: #1d1d1d;
 }
 .ghost-page {
-  background: #000;
-  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
-  padding-top: 50px;
-  padding-bottom: 80px;
   z-index: 2;
 }
 .theme--dark.v-divider {
