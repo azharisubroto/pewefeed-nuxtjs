@@ -1,8 +1,10 @@
 <template>
-  <div class="profile-page">
-    <div class="bg-profile"></div>
-    <div class="profile-space"></div>
+  <div class="profile-page" :class="[!login ? 'movetop' : '']">
+    <div class="bg-profile" ref="profilebg" :style="'opacity:'+profleOpacity">
+      <v-img src="/img/profil-bg.png"></v-img>
+    </div>
     <template v-if="login && !loading">
+      <div class="profile-space"></div>
       <v-stepper v-model="profileStep" style="background: transparent">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
@@ -205,7 +207,7 @@
 
               <v-list-item @click="$router.push('/bantuan')">
                 <v-list-item-icon class="align-self-center mr-5">
-                  <v-icon color="#ff4200" size="30">mdi-help-circle-outline</v-icon>
+                  <v-img src="/img/icons/help-new.svg"></v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>
@@ -260,22 +262,23 @@
         </div>
     </template>
     <template v-else>
+      <div class="profile-space"></div>
       <v-container>
         <v-card color="#404040" class="px-4 pt-4 mb-5" style="border-radius: 5px">
           <Login class="pt-0" />
         </v-card>
 
         <div class="text-center pewesocials">
-          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+          <v-btn href="https://www.facebook.com/pewefeeds" small color="#fff" light>
             <v-icon size="24">mdi-facebook</v-icon>
           </v-btn>
-          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+          <v-btn href="https://www.instagram.com/pewefeed/" small color="#fff" light>
             <v-icon>mdi-instagram</v-icon>
           </v-btn>
-          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+          <v-btn href="https://twitter.com/pewefeed" small color="#fff" light>
             <v-icon>mdi-twitter</v-icon>
           </v-btn>
-          <v-btn href="https://facebook.com/pewefeed" small color="#fff" light>
+          <v-btn href="https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw" small color="#fff" light>
             <v-icon>mdi-youtube</v-icon>
           </v-btn>
         </div>
@@ -362,6 +365,7 @@ export default {
       batas: 0,
       sekarang: 0,
       remaining: 0,
+      profleOpacity: 1,
       rewardsmenu: [
         {
           name: "Rewards Status",
@@ -516,6 +520,12 @@ export default {
         console.log(error);
       }
     },
+    handleScroll (e) {
+      //let targetHeight = this.$refs.profilebg.clientHeight;
+      let targetHeight = 200;
+      let opacityFormula = (targetHeight - window.scrollY) / targetHeight;
+      this.profleOpacity = opacityFormula;
+    }
   },
   mounted() {
     this.setProfile();
@@ -525,6 +535,12 @@ export default {
     this.$bus.$on("profilestep", () => {
       this.profileStep = 2;
     });
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>
@@ -557,19 +573,21 @@ export default {
 }
 
 .profile-space {
-  margin-top: 150px;
+  width: 100%;
+  padding-bottom: 36%;
 }
 
 .bg-profile {
-  background: url('/img/profil-bg.png') no-repeat center top!important;
-  background-size: 100% auto!important;
   position: fixed;
   top: 56px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: -1;
-  height: 100vh;
+  z-index: 0;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .profile-menus {
@@ -598,6 +616,18 @@ export default {
     .v-icon {
       font-size: 20px;
     }
+  }
+}
+
+.movetop {
+  margin-top: -56px;
+  .bg-profile {
+    top: 0;
+    z-index: 11;
+  }
+  .container {
+    position: relative;
+    z-index: 12
   }
 }
 </style>
