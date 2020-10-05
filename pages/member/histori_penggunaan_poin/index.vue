@@ -78,7 +78,7 @@
       </v-row>
     </v-container>
 
-    <div v-else-if="mutasi.length == 0 && mutasi != null && !mainloading">
+    <div v-else-if="mutasi.length == 0 && mutasi != null && !mainloading && !processClaim">
       <v-alert prominent text type="info" success>Tidak ada data yang tersedia</v-alert>
     </div>
     
@@ -104,6 +104,7 @@ export default {
   data() {
     return {
       mainloading: true,
+      processClaim: false,
       userdata: null,
       mutasi: [],
       page: 1,
@@ -216,6 +217,7 @@ export default {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     async claim() {
+      this.processClaim = true;
       this.overlay = true;
       let vm = this
       try {
