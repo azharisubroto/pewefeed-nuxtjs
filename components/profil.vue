@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page" :class="[!login ? 'movetop' : '']">
+  <div class="profile-page movetop">
     <div class="bg-profile" ref="profilebg" :style="'opacity:'+profleOpacity">
       <v-img src="/img/profil-bg.png"></v-img>
     </div>
