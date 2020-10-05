@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 class="my-3 text-center" id="loginhead">Join / Sign in</h3>
+    <h3 class="my-3 text-center" id="loginhead">Daftar / Login</h3>
 	<!-- {{redirect}} -->
     <OAuth
       provider="facebook"
