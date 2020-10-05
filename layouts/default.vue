@@ -125,8 +125,8 @@
       </v-app-bar>
 
       <!-- CONTENT -->
-      <v-content class="maincontent">
-        <div :class="[ wowtab == 0 ? 'd-block' : 'd-none' ]">
+      <v-content class="maincontent" :class="$route.name">
+        <div class="base-app" :class="[wowtab == 0 ? 'home-show' : 'home-hide']">
           <nuxt />
           <div class="mb-5 pb-5"></div>
         </div>
@@ -1173,6 +1173,15 @@ ol.flickity-page-dots {
   line-height: 147px;
   text-align: center;
   font-weight: bold;
+}
+
+.maincontent.index {
+  .home-show {
+    display: block;
+  }
+  .home-hide {
+    display: none;
+  }
 }
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
