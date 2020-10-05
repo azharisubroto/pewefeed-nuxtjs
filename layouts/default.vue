@@ -1070,6 +1070,7 @@ a,
   }
 }
 .pwmenubottom {
+  z-index: 14;
   .v-btn {
     img {
       filter: brightness(0) invert(1);
