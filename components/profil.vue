@@ -1,76 +1,19 @@
 <template>
   <div class="profile-page movetop">
-    <div class="bg-profile" ref="profilebg" :style="'opacity:'+profleOpacity">
-      <v-img src="/img/profil-bg.png"></v-img>
+    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d">
+      <v-img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"></v-img>
     </div>
     <template v-if="login && !loading">
       <div class="profile-space"></div>
       <v-stepper v-model="profileStep" style="background: transparent;z-index:11;box-shadow:none!important">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
-         <!-- <v-container class="pb-0">
-            <v-row align="center" class="profile-bag pb-0">
-              <v-col
-                cols="3"
-                @click="
-                  $router.push('/member/pengaturan/');
-                  drawer = false;c
-                "
-              >
-                <v-avatar
-                  @click="
-                    $router.push('/member/pengaturan/profil');
-                    drawer = false;
-                  "
-                  size="70"
-                  color="grey"
-                >
-                  <v-img
-                    :src="userdata.avatar ? userdata.avatar : '/img/user.jpeg'"
-                    :aspect-ratio="1 / 1"
-                  ></v-img>
-                </v-avatar>
-              </v-col>
-              <v-col cols="9">
-                <v-row align="center">
-                  <v-col
-                    cols="10"
-                    class="pr-0"
-                    @click="
-                      $router.push('/member/pengaturan/');
-                      drawer = false;
-                    "
-                  >
-                    <strong class="subheading text-18">{{
-                      userdata.first_name
-                    }}</strong>
-                    <div class="text-14">PEWE ID: {{ userdata.msisdn }}</div>
-                    <v-btn
-                      v-if="!usermentah.verified"
-                      class="mt-2 text-10"
-                      color="red"
-                      dark
-                      block
-                      small
-                      >Verify phone number (+100 POINT)</v-btn
-                    >
-                  </v-col>
-                  <v-col cols="2" class="text-right">
-                    <v-btn to="/member/pengaturan/" icon dark depressed small>
-                      <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-container> -->
-
           <!-- USER MENU -->
-          <v-list color="transparent" class="mb-10 profile-menus">
-            <v-list-item-group color="dark">
+          <v-list color="transparent" class="mb-10 profile-menus" style="background: transparent">
+            <v-list-item-group color="transparent" style="background: transparent">
               <!-- WHATSAPP -->
 
-              <v-list-item to="/member/pengaturan/" style="border: 2px solid red">
+              <v-list-item href="/member/pengaturan/" style="border: 2px solid red">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-img src="/img/icons/warning.svg"></v-img>
                 </v-list-item-icon>
@@ -86,7 +29,7 @@
               </v-list-item>
 
               <!-- PROFILE DETAIL -->
-              <v-list-item to="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
+              <v-list-item href="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-avatar
                     @click="
@@ -113,7 +56,7 @@
                 </v-list-item-icon>
               </v-list-item>
               
-              <v-list-item to="/purchase/">
+              <v-list-item href="/purchase/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/vip.svg"></v-img>
                 </v-list-item-icon>
@@ -141,7 +84,7 @@
               </v-list-item>
 
               
-              <v-list-item to="/member/histori_penggunaan_poin">
+              <v-list-item href="/member/histori_penggunaan_poin">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/poin-new.svg"></v-img>
                 </v-list-item-icon>
@@ -191,7 +134,7 @@
                 </v-list-item>
               </template>
 
-              <v-list-item to="/member/rewards-status/">
+              <v-list-item href="/member/rewards-status/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/rewards-saya.svg"></v-img>
                 </v-list-item-icon>
@@ -591,11 +534,15 @@ export default {
 }
 
 .profile-menus {
+  background: transparent;
   .v-list-item {
     border-radius: 4px;
     background: #404040;
     overflow: hidden;
     margin: 10px;
+    &.v-list-item--active {
+      color: #fff;
+    }
   }
 }
 .pewesocials {
