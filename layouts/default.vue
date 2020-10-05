@@ -164,6 +164,7 @@
           v-model="wowtab"
           height="80"
           class="pwmenubottom"
+          style="z-index: 14!important;"
           v-if="$route.name=='tukarpoin-redeem-detail' || $route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
         >
           <!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->

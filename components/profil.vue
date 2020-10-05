@@ -5,7 +5,7 @@
     </div>
     <template v-if="login && !loading">
       <div class="profile-space"></div>
-      <v-stepper v-model="profileStep" style="background: transparent">
+      <v-stepper v-model="profileStep" style="background: transparent;z-index:11;box-shadow:none!important">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
          <!-- <v-container class="pb-0">
