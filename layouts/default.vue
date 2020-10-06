@@ -2,7 +2,7 @@
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
       <v-app-bar
-        v-if="wowtab != 1 && $route.name != 'cat-subcat-articleslug' && $route.name != 'purchase' && !$route.name.includes('sing')"
+        v-if="wowtab != 4 && wowtab != 1 && $route.name != 'cat-subcat-articleslug' && $route.name != 'purchase' && !$route.name.includes('sing')"
         dark
         color="dark"
         flat
@@ -134,12 +134,10 @@
         <!-- oooooooooooooooooooooooooooooooooooo
 		    BOTTOM NAVIGATION
         ooooooooooooooooooooooooooooooooooooo-->
-        <div
-          class="ghost-page"
-          :class="[wowtab >= 1 ? 'd-block' : 'd-none']"
+        <template
           v-if="$route.name == 'index'"
         >
-          <div :class="[wowtab == 1 ? 'd-block' : 'd-none']" style="margin-top:-70px">
+          <div :class="[wowtab == 1 ? 'd-block' : 'd-none']" style="margin-top:-77px">
             <TukarPoin v-if="wowtab == 1" keep-alive />
           </div>
           <div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
@@ -149,9 +147,9 @@
             <v-img src="https://cdn.pewefeed.com/containers/pewefeed/homework/NETIZEN-BANNER.png"></v-img>
           </div>
           <div :class="[wowtab == 4 ? 'd-block' : 'd-none']">
-            <profil v-if="wowtab == 4" />
+            <profil/>
           </div>
-        </div>
+        </template>
         <br />
         <br />
         <br />
@@ -698,6 +696,12 @@ export default {
       }
     }
   },
+  created(){
+    //console.log(this.$router.currentRoute.query["tab"])
+    if (this.$router.currentRoute.query["tab"]) {
+      this.wowtab = parseInt(this.$router.currentRoute.query["tab"]);
+    }
+  },  
   mounted() {
     if (localStorage.getItem("loggedin")) {
       this.generateDaily();
@@ -740,6 +744,14 @@ export default {
     $route(to, from) {
       let vm = this;
       this.fetchUser();
+      
+      //console.log('to:', to);
+      if( to.name != "index" ) {
+        this.wowtab = 0
+      } else if( to.name == "index" ) {
+        this.wowtab = parseInt(this.$router.currentRoute.query["tab"]);
+      }
+      
       if (from.name == "auth-callback" || from.name == "member-otp") {
         this.wowtab = 4;
         this.fetchDaily();
