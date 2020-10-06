@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page movetop">
-    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d">
-      <v-img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"></v-img>
+    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:30vh">
+      <img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"/>
     </div>
     <template v-if="login && !loading">
       <div class="profile-space"></div>
@@ -194,7 +194,7 @@
       </v-stepper>
     </template>
     <template v-else-if="loading && !login">
-        <div class="text-center d-flex align-center justify-center" style="height:80vh">
+        <div class="text-center d-flex align-center justify-center" style="height:80vh;position:relative;z-index:20;">
           <v-progress-circular
             indeterminate
             :size="80"
@@ -465,7 +465,7 @@ export default {
     },
     handleScroll (e) {
       //let targetHeight = this.$refs.profilebg.clientHeight;
-      let targetHeight = 200;
+      let targetHeight = 100;
       let opacityFormula = (targetHeight - window.scrollY) / targetHeight;
       this.profleOpacity = opacityFormula;
     }
@@ -478,10 +478,11 @@ export default {
     this.$bus.$on("profilestep", () => {
       this.profileStep = 2;
     });
-  },
-  created () {
     window.addEventListener('scroll', this.handleScroll);
   },
+  // created () {
+  //   window.addEventListener('scroll', this.handleScroll);
+  // },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
   },

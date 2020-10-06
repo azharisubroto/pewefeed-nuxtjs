@@ -86,6 +86,7 @@
 							v-for="cool in item.item"
 							:key="'insideoout-'+cool.id"
 							:class="[cool.expired == true ? 'expired' : '']"
+							style="min-width: 123px;max-width:123px"
 							@click="$router.push('/tukarpoin/redeem/'+cool.id)"
 							>
 								<v-img :src="cool.image" alt="" contain color="deep-orange" height="145"></v-img>

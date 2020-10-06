@@ -118,22 +118,22 @@
 						<v-col cols="6" class="pa-1" :key="'ranks-'+i">
 							<v-card class="pa-0" color="#404040" style="overflow:hidden">
 								<v-row no-gutters align="center">
-									<v-col cols="3" class="text-center py-3 px-2" style="background: #AFAFAF">
+									<v-col cols="4" class="text-center py-3 px-1 text-truncate" style="background: #AFAFAF">
 										<img src="/img/icons/rank-b.svg" width="10" class="mr-0" style="vertical-align: center;"/>
 										<strong style="color:#000" class="text-12">{{item.ranked}}</strong>
 									</v-col>
-									<v-col cols="9" class="pl-2">
+									<v-col cols="8" class="pl-2 pr-2">
 										<v-row no-gutters>
 											<v-col cols="2">
-												<v-avatar size="20">
+												<v-avatar size="15" class="adjustava">
 													<v-img :src="item.customer.avatar"></v-img>
 												</v-avatar>
 											</v-col>
-											<v-col cols="10" class="pl-1">
-												<div class="text-12 text-uppercase text-truncate">
+											<v-col cols="10" class="pl-2">
+												<div class="text-10 text-uppercase text-truncate">
 													{{item.customer.username}}
 												</div>
-												<div class="text-10 mt-1">
+												<div class="text-10 mt-0">
 													<img src="/img/icons/poin-p.svg" style="vertical-align:middle;line-height:1" class="mr-0" width="10"/> 
 													{{item.poin.grand_total}}
 												</div>
@@ -635,5 +635,9 @@ export default {
 			display: inline-block;
 			margin-right: 5px;
 		}
+	}
+	.adjustava {
+		position: relative;
+		top: -2px
 	}
 </style>
