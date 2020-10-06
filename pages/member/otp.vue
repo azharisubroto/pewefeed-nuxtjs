@@ -16,13 +16,13 @@
 
 			<div class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap">
 				6 Digit OTP Code
-				<v-btn small @click="sendOTP()" color="deep-orange">Send OTP</v-btn>
+				<v-btn small @click="sendOTP()" color="deep-orange">KIRIM OTP</v-btn>
 			</div>
 			<v-text-field
 			class="giveline"
 			solo
 			single-line
-			placeholder="Masukkan kode OTP dari sms yang anda terima"
+			placeholder="Klik tombol KIRIM OTP, dan cek Whatsapp anda"
 			filled
 			v-model="otp"
 			></v-text-field>
