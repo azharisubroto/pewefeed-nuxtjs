@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page movetop">
-    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:30vh">
-      <img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"/>
+    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
+      <img :src="cover_preview" :style="'opacity:'+profleOpacity"/>
     </div>
     <template v-if="login && !loading">
       <div class="profile-space"></div>
@@ -243,6 +243,7 @@ export default {
   data() {
     return {
       loading: true,
+      cover_preview: '/img/profil-bg.png',
       profileStep: 1,
       profile: null,
       token: null,
@@ -407,6 +408,7 @@ export default {
 
           this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
           this.avatar_preview = res.data.data.avatar;
+          this.cover_preview = res.data.data.cover_image;
           this.data.first_name = res.data.data.first_name;
           this.data.last_name = res.data.data.last_name;
           this.data.username = res.data.data.username;
