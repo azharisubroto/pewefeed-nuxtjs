@@ -96,7 +96,7 @@
             <strong>REWARDS</strong>
           </template>
           <template v-else-if="$route.name == 'member-otp'">
-            <strong>Activate VIP Membership</strong>
+            <strong>AKTIVASI WHATSAPP</strong>
           </template>
           <template v-else>
             <img
