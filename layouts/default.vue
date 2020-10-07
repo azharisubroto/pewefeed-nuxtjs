@@ -127,7 +127,7 @@
       <!-- CONTENT -->
       <v-content class="maincontent" :class="$route.name">
         <div class="base-app" :class="[wowtab == 0 ? 'home-show' : 'home-hide']">
-          <nuxt />
+          <nuxt keep-alive/>
           <div class="mb-5 pb-5"></div>
         </div>
 
@@ -163,7 +163,7 @@
           height="80"
           class="pwmenubottom"
           style="z-index: 14!important;"
-          v-if="$route.name=='tukarpoin-redeem-detail' || $route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
+          v-if="$route.name=='index' || $route.name=='bantuan' || $route.name=='member-daily-limit' || $route.name=='member-purchase-daily' || $route.name == 'about-daily-limit' || $route.name == 'purchase'"
         >
           <!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
           <v-btn @click="$router.push('/');wowtab= 0">
@@ -749,7 +749,7 @@ export default {
       if( to.name != "index" ) {
         this.wowtab = 0
       } else if( to.name == "index" ) {
-        this.wowtab = parseInt(this.$router.currentRoute.query["tab"]);
+        this.wowtab = parseInt(this.$router.currentRoute.query["tab"]) ? parseInt(this.$router.currentRoute.query["tab"]) : 0;
       }
       
       if (from.name == "auth-callback" || from.name == "member-otp") {

@@ -45,7 +45,7 @@
                     ></v-img>
                   </v-avatar>
                   <div class="ml-3 text-14">
-                    <strong class="text-14">{{ item.customer.name }}</strong>
+                    <strong class="text-14 text-uppercase">{{ item.customer.name }}</strong>
 
                     <div class="text-12 mt-1">
                       {{ item.viewers }} Melihat &bull;
