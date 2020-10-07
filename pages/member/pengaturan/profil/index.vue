@@ -220,7 +220,7 @@
     />
     <input
       type="file"
-      ref="avaupload"
+      ref="coverupload"
       style="opacity: 0"
       @change="handleCoverUpload"
     />
@@ -274,7 +274,7 @@ export default {
   },
   methods: {
     handleAvaUpload(e) {
-      console.log(e.target.files);
+      //console.log(e.target.files);
       let file = e.target.files[0];
       this.doUpload(file);
     },
@@ -301,7 +301,7 @@ export default {
         });
     },
     handleCoverUpload(e) {
-      console.log(e.target.files);
+      //console.log(e.target.files);
       let file = e.target.files[0];
       this.doCoverUpload(file);
     },
@@ -312,7 +312,7 @@ export default {
       var formData = new FormData();
       formData.append("cover_image", file);
       axios
-        .post("https:/s1.playworld.id/api/member/cover-image", formData, {
+        .post("https://s1.playworld.id/api/member/cover-image", formData, {
           headers: {
             Authorization: "Bearer " + bearer,
           },
@@ -328,7 +328,7 @@ export default {
         });
     },
     openCoverUpload() {
-      this.$refs.avaupload.click();
+      this.$refs.coverupload.click();
     },
     openUpload() {
       this.$refs.file.click();
@@ -363,7 +363,7 @@ export default {
           // //console.log(JSON.parse(JSON.stringify(res.data.data)))
           this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
           this.avatar_preview = res.data.data.avatar;
-          this.cover_preview = res.data.data.cover_image;
+          if(res.data.data.cover_image) this.cover_preview = res.data.data.cover_image;
           this.data.first_name = res.data.data.first_name;
           this.data.last_name = res.data.data.last_name;
           this.data.username = res.data.data.username;
