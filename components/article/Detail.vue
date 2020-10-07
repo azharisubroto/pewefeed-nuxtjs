@@ -553,11 +553,10 @@
             <img
               :src=" active_tab == 4 ? '/img/icons/articles/bagikan-o.svg' : '/img/icons/articles/bagikan-w.svg' "
               height="18"
-              style="display:inline-block;position:relative;top:2px"
+              style="display:inline-block;position:relative;top:1px"
               alt
             />
-            <div></div>
-            <span style="font-size:10px;">
+            <span class="d-block text-10">
               Bagikan
               <br />(+1 Poin)
             </span>

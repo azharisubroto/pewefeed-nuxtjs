@@ -4,12 +4,14 @@
 	:color="what_type ? '#fff' : '#404040'"
 	:class="what_type ? 'cardtype' : 'dark pt-3 px-0'">
 		<div class="d-flex justify-space-between align-center mb-3 px-4">
-			<div>
-				<v-avatar size="30" :href="'/sing/video/'+item.id">
-					<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
-				</v-avatar>
-				<div class="d-inline-block ml-2 text-14">
-					{{item.customer.name ? capitalize(item.customer.name) : 'n/a'}}
+			<div style="width:54%" class="d-flex align-center">
+				<div style="width: 20%">
+					<v-avatar size="30" :href="'/sing/video/'+item.id">
+						<v-img cover :src="item.customer.avatar ? item.customer.avatar : 'https://via.placeholder.com/350x150'"></v-img>
+					</v-avatar>
+				</div>
+				<div style="width:80%" class="d-inline-block ml-2 text-14 text-uppercase">
+					<div class="text-truncate">{{item.customer.name ? capitalize(item.customer.name) : 'n/a'}}</div>
 				</div>
 			</div>
 

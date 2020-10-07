@@ -13,7 +13,7 @@
             <v-list-item-group color="transparent" style="background: transparent">
               <!-- WHATSAPP -->
 
-              <v-list-item to="/member/otp" style="border: 2px solid red">
+              <v-list-item v-if="!usermentah.verified" href="/member/otp" style="border: 2px solid red">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-img src="/img/icons/warning.svg"></v-img>
                 </v-list-item-icon>

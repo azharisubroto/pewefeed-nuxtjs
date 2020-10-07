@@ -16,8 +16,12 @@
 						<v-avatar size="30">
 							<v-img cover :src="userdata.data.avatar ? userdata.data.avatar : 'https://via.placeholder.com/350x150'"></v-img>
 						</v-avatar>
-						<div class="d-inline-block ml-2 text-14">
-							<strong>{{userdata.data.first_name ? userdata.data.first_name : ''}}</strong>
+						<div class="d-inline-block ml-2 text-14 text-uppercase">
+							<strong v-if="!userdata.data.username" class="text-truncate">
+								{{userdata.data.first_name ? userdata.data.first_name : ''}}
+								{{userdata.data.last_name ? userdata.data.last_name : ''}}
+							</strong>
+							<strong v-else class="text-truncate">{{userdata.data.username}}</strong>
 						</div>
 					</div>
 					<div class="text-right">

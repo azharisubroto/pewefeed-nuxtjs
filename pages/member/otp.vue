@@ -197,14 +197,14 @@ export default {
 				var res = [];
 				res.data = vm.$auth.user;
 
-				this.usermentah = res.data;
-				this.userdata = res.data.data;
-				this.otp_sent = res.data.qouta_otp
+				vm.usermentah = res.data;
+				vm.userdata = res.data.data;
+				if(res.data.qouta_otp) vm.otp_sent = res.data.qouta_otp
 				if( res.data.data.no_telp ) {
-					this.phone = res.data.data.no_telp
+					vm.phone = res.data.data.no_telp
 				} else {
-					this.otpmodal = true
-					this.verifyStatus = 'nophone'
+					vm.otpmodal = true
+					vm.verifyStatus = 'nophone'
 				}
 			});
 		},

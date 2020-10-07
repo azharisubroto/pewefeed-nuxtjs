@@ -295,7 +295,7 @@ export default {
 			if( this.$router.currentRoute.query['tab'] ) {
 				document.getElementById("help-2").click();
 				setTimeout(() => {
-					document.getElementById("help-73").click();
+					//document.getElementById("help-73").click();
 				}, 100);
 			}
 		}, 2000);
