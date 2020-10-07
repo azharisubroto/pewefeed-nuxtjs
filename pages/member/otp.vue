@@ -8,7 +8,7 @@
 			class="giveline"
 			solo
 			single-line
-			:placeholder="userdata.no_telp"
+			:placeholder="phone"
 			filled
 			readonly
 			v-model="phone"
@@ -102,7 +102,7 @@
 								<br><br>
 								Kami tidak menemukan data<br>Nomor Ponsel anda
 								<br><br>
-								<v-btn block to="/member/pengaturan/profil" height="46" color="#ff4200">Perbaharui Data Akun Saya</v-btn>
+								<v-btn block href="/member/pengaturan/profil" height="46" color="#ff4200">Perbaharui Data Akun Saya</v-btn>
 							</div>
 
 						</template>
@@ -187,13 +187,12 @@ export default {
 		},
 		fetchUserdata() {
 			this.setProfile();
-			this.isLoggedIn = true;
 		},
 		setProfile() {
 			let vm = this
 			this.$auth.fetchUser().then(() => {
 				localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-				
+				this.isLoggedIn = true;
 				var res = [];
 				res.data = vm.$auth.user;
 
@@ -202,29 +201,34 @@ export default {
 				if(res.data.qouta_otp) vm.otp_sent = res.data.qouta_otp
 				if( res.data.data.no_telp ) {
 					vm.phone = res.data.data.no_telp
-				} else {
-					vm.otpmodal = true
-					vm.verifyStatus = 'nophone'
 				}
 			});
 		},
 		async sendOTP(){
-			this.overlay = true
-			this.otpsending = true
-			this.otp_sent++
-			try {
-				const res = await UserService.sendOTP();
-				//console.log(res.data);
-				//alert('Kode OTP telah terkirim')
-				this.overlay = false
-			} catch (error) {
-				//console.log(JSON.parse(JSON.stringify(error)))
-				if (error.response && error.response.status == 422) {
-					this.otpmodal = true
-					this.verifyStatus = 'limited'
+
+			if( this.phone == null || this.phone == '' || !this.phone ) {
+				this.otpmodal = true
+				this.verifyStatus = 'nophone'
+			} else {
+				try {
+					const res = await UserService.sendOTP();
+					//console.log(res.data);
+					//alert('Kode OTP telah terkirim')
+					this.overlay = false
+					this.otpsending = true
+					this.otp_sent++
+					this.overlay = true
+				} catch (error) {
+					//console.log(JSON.parse(JSON.stringify(error)))
+					if (error.response && error.response.status == 422) {
+						this.otpmodal = true
+						this.verifyStatus = 'limited'
+					}
+					this.overlay = false
+					this.otpsending = false
+					this.otp_sent = 3
+					//alert('Nomor ponsel telah terverifikasi')
 				}
-				this.overlay = false
-				//alert('Nomor ponsel telah terverifikasi')
 			}
 		},
 		async verifyOTP(){
