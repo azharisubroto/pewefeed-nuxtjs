@@ -408,9 +408,9 @@ export default {
 
           this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
           this.avatar_preview = res.data.data.avatar;
-          this.cover_preview = res.data.data.cover_image;
-          this.data.first_name = res.data.data.first_name;
-          this.data.last_name = res.data.data.last_name;
+          if(res.data.data.cover_image) this.cover_preview = res.data.data.cover_image;
+          this.data.first_name = res.data.data.first_name ? res.data.data.first_name : '';
+          this.data.last_name = res.data.data.last_name ? res.data.data.last_name : '';
           this.data.username = res.data.data.username;
           this.data.msisdn = res.data.data.msisdn;
           this.data.no_telp = res.data.data.no_telp;
