@@ -14,15 +14,24 @@
 			v-model="phone"
 			></v-text-field>
 
-			<div class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap">
-				6 Digit OTP Code
-				<v-btn small @click="sendOTP()" color="deep-orange">KIRIM OTP</v-btn>
+			<v-container class="mb-4">
+				<v-btn block @click="sendOTP()" :disabled="otpsending" height="52" color="deep-orange" class="otpbtn">
+					<span v-if="!otpsending">Kirim Kode OTP ke Whatsapp</span>
+					<span v-else>Tunggu ({{ countdown }}s)</span>
+				</v-btn>
+				<div class="text-right mt-3 text-14">
+					Request OTP ke-{{otp_sent}} dari 3
+				</div>
+			</v-container>
+
+			<div class="mb-2 px-3">
+				Kode OTP dari Whatsapp
 			</div>
 			<v-text-field
 			class="giveline"
 			solo
 			single-line
-			placeholder="Klik tombol KIRIM OTP, dan cek Whatsapp anda"
+			placeholder=""
 			filled
 			v-model="otp"
 			></v-text-field>
@@ -32,7 +41,9 @@
 			</v-container>
 
 			<v-container>
-				<v-btn block @click="verifyOTP()" large color="deep-orange" :disabled="verifydisabled">VERIFY</v-btn>
+				<v-btn block height="52" @click="verifyOTP()" large color="deep-orange" :disabled="verifydisabled">
+					Aktifkan Notifikasi Whatsapp
+				</v-btn>
 			</v-container>
 		</div>
 
@@ -84,13 +95,23 @@
 							</div>
 
 						</template>
+						<template v-if="verifyStatus == 'nophone'">
+
+							<div class="py-8 text-center">
+								<img src="/img/error.svg" width="50" height="50">
+								<br><br>
+								Kami tidak menemukan data<br>Nomor Ponsel anda
+								<br><br>
+								<v-btn block to="/member/pengaturan/profil" height="46" color="#ff4200">Perbaharui Data Akun Saya</v-btn>
+							</div>
+
+						</template>
 						<template v-if="verifyStatus == 'limited'">
 
 							<div class="py-8 text-center">
 								<img src="/img/error.svg" width="50" height="50">
 								<br><br>
-								Anda telah mencapai limit OTP harian,
-								silahkan coba lagi besok.
+								Request OTP anda sudah habis,<br>coba lagi besok
 								<br><br>
 								<v-btn block @click="otpmodal=false" color="deep-orange">Tutup</v-btn>
 							</div>
@@ -121,13 +142,33 @@ export default {
 			otpmodal: false,
 			verifyStatus: null,
 			overlay: false,
-			verifydisabled: true
+			verifydisabled: true,
+			otpsending: false,
+			countdown: 60,
+			otp_sent: 0
 		}
 	},
 	watch: {
 		otpmodal: function(newVal, oldval) {
 			if( newVal !== true && this.verifyStatus == 'success' ) {
 				this.$router.push('/');
+			}
+		},
+		otpsending: function(newVal, oldVal) {
+			let vm = this
+			if( newVal == true ) {
+				setInterval(() => {
+					vm.countdown--
+				}, 1000);
+			} else {
+				vm.countdown = 60
+			}
+		},
+		countdown: function(newVal, oldVal) {
+			let vm = this
+			if( newVal == 0 ) {
+				vm.otpsending = false
+				vm.countdown = 60
 			}
 		}
 	},
@@ -152,23 +193,29 @@ export default {
 			let vm = this
 			this.$auth.fetchUser().then(() => {
 				localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-			});
-			// this.$auth.fetchUser();
-			if( localStorage.getItem('userdata') ) {
+				
 				var res = [];
-				res.data = JSON.parse(localStorage.getItem('userdata'));
+				res.data = vm.$auth.user;
 
 				this.usermentah = res.data;
 				this.userdata = res.data.data;
-				this.phone = res.data.data.no_telp
-			}
+				this.otp_sent = res.data.qouta_otp
+				if( res.data.data.no_telp ) {
+					this.phone = res.data.data.no_telp
+				} else {
+					this.otpmodal = true
+					this.verifyStatus = 'nophone'
+				}
+			});
 		},
 		async sendOTP(){
 			this.overlay = true
+			this.otpsending = true
+			this.otp_sent++
 			try {
 				const res = await UserService.sendOTP();
 				//console.log(res.data);
-				alert('Kode OTP telah terkirim')
+				//alert('Kode OTP telah terkirim')
 				this.overlay = false
 			} catch (error) {
 				//console.log(JSON.parse(JSON.stringify(error)))
@@ -222,5 +269,11 @@ export default {
 		border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 		border-top: 1px solid rgba(255, 255, 255, 0.5);
 		border-radius: 0!important;
+	}
+	.otpbtn {
+		.v-btn__content {
+			text-transform: capitalize!important;
+			letter-spacing: 0;
+		}
 	}
 </style>

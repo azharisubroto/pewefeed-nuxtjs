@@ -1,11 +1,45 @@
 <template>
   <div>
-    <v-snackbar v-model="snackbar" top color="green">
-      Data telah tersimpan
-      <v-btn color="green lighten-2" text @click="snackbar = false"
-        >Close</v-btn
-      >
-    </v-snackbar>
+    <v-bottom-sheet v-model="snackbar">
+      <v-sheet height="100%">
+        <v-toolbar :elevation="1" style="border-top: 2px solid #fff;">
+          <!-- Arrow -->
+          <v-btn
+            dark
+            icon
+            tile
+            style="border-right: 0px solid #717171"
+            light
+            @click="snackbar = false;"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+          <!-- Title -->
+          <div class="flex-grow-1"></div>
+          <v-toolbar-items>
+            <v-btn dark text class="deep-orange--text pl-0" style="margin-left:-10px;">Information</v-btn>
+          </v-toolbar-items>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
+        <v-container class="text-center">
+          <div v-if="savestatus" class="py-3 text-center">
+            <v-img src="/img/success.svg" max-width="60" class="mx-auto mb-4"></v-img> Data Sukses Tersimpan
+            <v-btn block color="#ff4200" to="/?tab=4" class="mt-3">
+              Ke Halaman Akun
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img> Nomor Ponsel Wajib Diisi
+            <v-btn @click="snackbar = false" block color="#ff4200" class="mt-3">
+              Tutup
+            </v-btn>
+          </div>
+          <br />
+        </v-container>
+      </v-sheet>
+    </v-bottom-sheet>
 
     <v-overlay :value="uploadloading">
       <v-progress-circular
@@ -93,16 +127,15 @@
                 <div
                   class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap"
                 >
-                  <div>Nomor Ponesel</div>
-                  <v-btn
+                  <div>Nomor Ponsel</div>
+                  <!-- <v-btn
                     v-if="!usermentah.verified"
                     to="/member/otp"
                     class="mt-2 text-10"
                     color="red"
                     dark
                     small
-                    >Verify phone number (+100 POINT)</v-btn
-                  >
+                    >Verify phone number (+100 POINT)</v-btn> -->
                 </div>
                 <v-text-field
                   solo
@@ -110,7 +143,27 @@
                   placeholder="Phone"
                   filled
                   v-model="data.no_telp"
-                ></v-text-field>
+                >
+                  <template v-slot:append>
+                    <img
+                      width="16"
+                      height="16"
+                      src="/img/icons/checkbadge.svg"
+                      alt=""
+                      style="vertical-align:middle;"
+                      class="mr-2"
+                      :class="[!usermentah.verified && 'grayscale']"
+                    >
+                    
+                    <span 
+                      class="text-12 d-inline-block" 
+                      :class="[usermentah.verified ? 'deep-orange--text' : 'grey--text gray--text']"
+                      style="line-height:1.4"
+                    >
+                      {{ usermentah.verified ? 'Verified' : 'Not Verified' }}
+                    </span>
+                  </template>
+                </v-text-field>
                 <div class="mb-2 px-3">Instagram</div>
                 <v-text-field
                   solo
@@ -138,9 +191,9 @@
                     dark
                     block
                     color="#FF4200"
-                    @click="Simpan"
+                    @click="save()"
                     class="mb-3"
-                    >Save</v-btn
+                    >Simpan</v-btn
                   >
                   <v-btn
                     depressed
@@ -216,6 +269,7 @@ export default {
       usermentah: [],
       avatar_img: "",
       uploadloading: false,
+      savestatus: null
     };
   },
   methods: {
@@ -346,8 +400,11 @@ export default {
           localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
         });
         vm.snackbar = true;
+        vm.savestatus = true
         this.fetchUserdata();
       } catch (error) {
+        vm.snackbar = true
+        vm.savestatus = false
         console.log(error);
       }
     },
@@ -379,5 +436,8 @@ export default {
 }
 .profile-avatar {
   transform: translateY(-50%);
+}
+.grayscale {
+  filter: grayscale(1)
 }
 </style>
