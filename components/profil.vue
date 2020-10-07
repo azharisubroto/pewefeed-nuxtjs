@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page movetop">
-    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:30vh">
-      <img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"/>
+    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
+      <img :src="cover_preview" :style="'opacity:'+profleOpacity"/>
     </div>
     <template v-if="login && !loading">
       <div class="profile-space"></div>
@@ -13,7 +13,7 @@
             <v-list-item-group color="transparent" style="background: transparent">
               <!-- WHATSAPP -->
 
-              <v-list-item to="/member/pengaturan/" style="border: 2px solid red">
+              <v-list-item to="/member/otp" style="border: 2px solid red">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-img src="/img/icons/warning.svg"></v-img>
                 </v-list-item-icon>
@@ -243,6 +243,7 @@ export default {
   data() {
     return {
       loading: true,
+      cover_preview: '/img/profil-bg.png',
       profileStep: 1,
       profile: null,
       token: null,
@@ -407,6 +408,7 @@ export default {
 
           this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
           this.avatar_preview = res.data.data.avatar;
+          this.cover_preview = res.data.data.cover_image;
           this.data.first_name = res.data.data.first_name;
           this.data.last_name = res.data.data.last_name;
           this.data.username = res.data.data.username;
