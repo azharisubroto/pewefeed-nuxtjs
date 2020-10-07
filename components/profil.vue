@@ -47,7 +47,8 @@
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>
-                    <strong class="text-uppercase">{{userdata.first_name + ' ' + userdata.last_name}}</strong>
+                    <strong v-if="!userdata.username" class="text-uppercase">{{userdata.first_name + ' ' + userdata.last_name}}</strong>
+                    <strong v-else class="text-uppercase">{{userdata.username}}</strong>
                     <span class="d-block mt-3">PEWE ID: {{ userdata.msisdn }}</span>
                   </v-list-item-title>
                 </v-list-item-content>
