@@ -210,6 +210,7 @@ export default {
 				this.otpmodal = true
 				this.verifyStatus = 'nophone'
 			} else {
+				this.overlay = true
 				try {
 					const res = await UserService.sendOTP();
 					//console.log(res.data);
@@ -217,7 +218,6 @@ export default {
 					this.overlay = false
 					this.otpsending = true
 					this.otp_sent++
-					this.overlay = true
 				} catch (error) {
 					//console.log(JSON.parse(JSON.stringify(error)))
 					if (error.response && error.response.status == 422) {

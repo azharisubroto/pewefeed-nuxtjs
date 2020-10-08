@@ -29,7 +29,7 @@
               </v-list-item>
 
               <!-- PROFILE DETAIL -->
-              <v-list-item to="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
+              <v-list-item href="/member/pengaturan/profil" color="#ff4200" style="background: #ff4200">
                 <v-list-item-icon class="mr-5 align-self-center">
                   <v-avatar
                     @click="
@@ -57,7 +57,7 @@
                 </v-list-item-icon>
               </v-list-item>
               
-              <v-list-item to="/purchase/">
+              <v-list-item href="/purchase/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/vip.svg"></v-img>
                 </v-list-item-icon>
@@ -85,7 +85,7 @@
               </v-list-item>
 
               
-              <v-list-item to="/member/histori_penggunaan_poin">
+              <v-list-item href="/member/histori_penggunaan_poin">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/poin-new.svg"></v-img>
                 </v-list-item-icon>
@@ -105,7 +105,7 @@
 
               <template v-if="userdata.status_expired == 1">
                 
-                <v-list-item class="pt-3 pb-0 mb-0" to="/member/daily-limit" style="border-radius: 4px 4px 0 0">
+                <v-list-item class="pt-3 pb-0 mb-0" href="/member/daily-limit" style="border-radius: 4px 4px 0 0">
                   <v-list-item-content class="py-0">
                     <v-list-item-title>
                       <span class="text-16 d-inline-block">
@@ -119,7 +119,7 @@
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-list-item-icon>
                 </v-list-item>
-                <v-list-item class="pt-0 mt-0" to="/member/daily-limit" style="border-radius: 0 0 4px 4px">
+                <v-list-item class="pt-0 mt-0" href="/member/daily-limit" style="border-radius: 0 0 4px 4px">
                   <v-list-item-content class="pt-0">
                     <v-list-item-title>
                       <v-progress-linear
@@ -135,7 +135,7 @@
                 </v-list-item>
               </template>
 
-              <v-list-item to="/member/rewards-status/">
+              <v-list-item href="/member/rewards-status/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/rewards-saya.svg"></v-img>
                 </v-list-item-icon>
@@ -149,7 +149,7 @@
                 </v-list-item-icon>
               </v-list-item>
 
-              <v-list-item to="/bantuan/">
+              <v-list-item href="/bantuan/">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/help-new.svg"></v-img>
                 </v-list-item-icon>
@@ -244,7 +244,7 @@ export default {
   data() {
     return {
       loading: true,
-      cover_preview: '/img/profil-bg.png',
+      cover_preview: '',
       profileStep: 1,
       profile: null,
       token: null,
@@ -409,7 +409,7 @@ export default {
 
           this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
           this.avatar_preview = res.data.data.avatar;
-          if(res.data.data.cover_image) this.cover_preview = res.data.data.cover_image;
+          this.cover_preview = res.data.data.cover_image ? res.data.data.cover_image : '/img/profil-bg.png';
           this.data.first_name = res.data.data.first_name ? res.data.data.first_name : '';
           this.data.last_name = res.data.data.last_name ? res.data.data.last_name : '';
           this.data.username = res.data.data.username;
