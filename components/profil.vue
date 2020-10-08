@@ -1,10 +1,10 @@
 <template>
   <div class="profile-page movetop">
-    <div class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
+    <div v-if="profileStep == 1" class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
       <img :src="cover_preview" :style="'opacity:'+profleOpacity"/>
     </div>
     <template v-if="login && !loading">
-      <div class="profile-space"></div>
+      <div v-if="profileStep == 1" class="profile-space"></div>
       <v-stepper v-model="profileStep" style="background: transparent;z-index:11;box-shadow:none!important">
         <!-- PROFILE -->
         <v-stepper-content background="transparent" step="1" class="pa-0">
@@ -149,7 +149,7 @@
                 </v-list-item-icon>
               </v-list-item>
 
-              <v-list-item href="/bantuan/">
+              <v-list-item @click="profileStep = 2">
                 <v-list-item-icon class="align-self-center mr-5">
                   <v-img src="/img/icons/help-new.svg"></v-img>
                 </v-list-item-icon>
@@ -190,6 +190,31 @@
           </v-list>
         </v-stepper-content>
         <v-stepper-content background="transparent" step="2" class="pa-0">
+          <v-app-bar
+            dark
+            color="dark"
+            flat
+            fixed
+            tile
+            class="main-app-bar"
+          >
+            <v-btn v-if="$store.state.storehelpStep > 1" @click="helpBack()" small icon>
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-btn v-else-if="$store.state.storehelpStep == 1" @click="profileStep = 1" small icon>
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <div class="flex-grow-1"></div>
+            <v-toolbar-title>
+              <strong>BANTUAN</strong>
+            </v-toolbar-title>
+            <div class="flex-grow-1"></div>
+
+            <div @click="$router.push('/');clearStorage();" class="pr-1">
+              <img src="/img/peweicon.svg" width="20" />
+            </div>
+          </v-app-bar>
+          <div class="pt-10"></div>
           <help />
         </v-stepper-content>
       </v-stepper>
@@ -347,6 +372,10 @@ export default {
     },
   },
   methods: {
+    helpBack() {
+      var toStep = parseFloat(this.$store.state.storehelpStep - 1);
+      this.$store.commit("SET_HELP", toStep);
+    },
     logout() {
       let vm = this;
       localStorage.removeItem("loggedin");
