@@ -210,6 +210,7 @@ export default {
 				this.otpmodal = true
 				this.verifyStatus = 'nophone'
 			} else {
+				this.overlay = true
 				try {
 					const res = await UserService.sendOTP();
 					//console.log(res.data);
