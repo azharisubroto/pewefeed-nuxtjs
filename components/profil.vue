@@ -1,9 +1,10 @@
 <template>
   <div class="profile-page movetop">
-    <div v-if="profileStep == 1" class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
-      <img :src="cover_preview" :style="'opacity:'+profleOpacity"/>
-    </div>
+    
     <template v-if="login && !loading">
+      <div v-if="profileStep == 1" class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
+        <img :src="cover_preview" :style="'opacity:'+profleOpacity"/>
+      </div>
       <div v-if="profileStep == 1" class="profile-space"></div>
       <v-stepper v-model="profileStep" style="background: transparent;z-index:11;box-shadow:none!important">
         <!-- PROFILE -->
@@ -231,6 +232,9 @@
         </div>
     </template>
     <template v-else>
+      <div v-if="profileStep == 1" class="bg-profile" ref="profilebg" style="background: #1d1d1d;height:50vw;overflow:hidden">
+        <img src="/img/profil-bg.png" :style="'opacity:'+profleOpacity"/>
+      </div>
       <div class="profile-space"></div>
       <v-container>
         <v-card color="#404040" class="px-4 pt-4 mb-5" style="border-radius: 5px">
