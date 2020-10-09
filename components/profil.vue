@@ -198,6 +198,7 @@
             fixed
             tile
             class="main-app-bar"
+            style="z-index:20"
           >
             <v-btn v-if="$store.state.storehelpStep > 1" @click="helpBack()" small icon>
               <v-icon>mdi-chevron-left</v-icon>
