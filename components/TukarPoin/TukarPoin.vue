@@ -1,10 +1,12 @@
 <template>
   <section class="pb-5">
+	<WaNotif/>
+	
 	<template v-if="tukarpointab">
 
 		<!-- LATEST -->
 		<client-only>
-			<div class="slidewrapper  mt-5 mb-0">
+			<div class="slidewrapper mb-0">
 				<flickity
 				class="tukarpoinslide"
 				v-if="discounts"
@@ -146,11 +148,13 @@
 import TukarPoinService from "@/services/TukarPoinService";
 import FlipCountdown from "vue2-flip-countdown";
 import ShareButton2 from "@/components/common/ShareButton2";
+import WaNotif from "@/components/WaNotif";
 export default {
   name: "TukarPoin",
   components: {
     FlipCountdown,
-    ShareButton2
+	ShareButton2,
+	WaNotif
   },
   data() {
     return {

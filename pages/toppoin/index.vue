@@ -1,5 +1,6 @@
 <template>
   <section>
+	<WaNotif/>
 	<template v-if="periode == null && isloading == true">
 		<v-overlay>
 			<v-progress-circular
@@ -336,6 +337,7 @@
 import TopPoin from "@/services/TopPoin";
 import ShareButton2 from "@/components/common/ShareButton2";
 import LoadingBar from "@/components/sing/LoadingBar";
+import WaNotif from "@/components/WaNotif";
 
 export default {
   head() {
@@ -352,7 +354,8 @@ export default {
   },
   components: {
 	  ShareButton2,
-	  LoadingBar
+	  LoadingBar,
+	  WaNotif
   },
   watch:{
 		tptab: function (newVal, oldVal) {
