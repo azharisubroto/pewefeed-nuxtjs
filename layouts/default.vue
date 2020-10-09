@@ -137,7 +137,7 @@
         <template
           v-if="$route.name == 'index'"
         >
-          <div :class="[wowtab == 1 ? 'd-block' : 'd-none']" style="margin-top:-77px">
+          <div :class="[wowtab == 1 ? 'd-block' : 'd-none']" style="margin-top:-56px">
             <TukarPoin v-if="wowtab == 1" keep-alive />
           </div>
           <div :class="[wowtab == 2 ? 'd-block' : 'd-none']">

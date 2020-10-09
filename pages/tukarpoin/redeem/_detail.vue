@@ -43,46 +43,44 @@
       <v-tabs-items v-model="redeemtab">
 
         <v-tab-item>
+          <WaNotif class="mb-0"/>
           <!-- DETAIL REWWARD -->
-          <template>
-            <div v-if="detail" class="py-4 px-3" style="background: #1C1C1C;color: #fff">
-              <v-row>
-                <v-col cols="4">
-                  <img :src="detail.image" alt />
-                </v-col>
-                <v-col cols="8" class="pr-4">
-                  <!-- DESCRIPTION -->
-                  <div class="deep-orange--text text-16">
-                    Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}
-                    <div></div>
-                    Tersisa {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
-                  </div>
-                  <div v-html="detail.description"></div>
+          <div v-if="detail" class="pb-4 px-3" style="background: #1C1C1C;color: #fff">
+            <v-row>
+              <v-col cols="4">
+                <img :src="detail.image" alt />
+              </v-col>
+              <v-col cols="8" class="pr-4">
+                <!-- DESCRIPTION -->
+                <div class="deep-orange--text text-16">
+                  <client-only>Tersedia hingga {{ [getTanggal(detail), 'YYYY-MM-DD'] | moment('DD MMM YYYY') }}</client-only>
+                  <div></div>
+                  Tersisa {{detail.stock ? detail.stock.remaining : '-'}} dari {{detail.stock ? detail.stock.qty : '-'}}
+                </div>
+                <div v-html="detail.description"></div>
 
-                  <!-- ACTION -->
-                  <v-btn-toggle class="belibuttongroup" color="deep-orange">
-                    <v-btn
-                      color="#FF4200"
-                      retain-focus-on-click
-                      :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-                      :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-                      @click="buyconfirm = !buyconfirm"
-                    ><span style="color:#fff!important">Tukar Poin</span></v-btn>
+                <!-- ACTION -->
+                <v-btn-toggle class="belibuttongroup" color="deep-orange">
+                  <v-btn
+                    color="#FF4200"
+                    retain-focus-on-click
+                    :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                    :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                    @click="buyconfirm = !buyconfirm"
+                  ><span style="color:#fff!important">Tukar Poin</span></v-btn>
 
-                    <v-btn 
-                      :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
-                      color="#FF4200" 
-                      @click="buyconfirm = !buyconfirm" :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
-                    >
-                      <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
-                      <span style="color:#fff!important">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</span>
-                    </v-btn>
-                  </v-btn-toggle>
-                </v-col>
-              </v-row>
-            </div>
-            <v-container></v-container>
-          </template>
+                  <v-btn 
+                    :disabled="detail.stock.remaining == 0 || detail.expired ? true : false"
+                    color="#FF4200" 
+                    @click="buyconfirm = !buyconfirm" :style="detail.stock.remaining == 0 ? 'background-color: grey !important;' : ''"
+                  >
+                    <v-img max-width="18" src="/img/icons/poin-p.svg" class="mr-1"></v-img>
+                    <span style="color:#fff!important">{{detail.discount > 0 ? detail.point - detail.discount : detail.point}}</span>
+                  </v-btn>
+                </v-btn-toggle>
+              </v-col>
+            </v-row>
+          </div>
 
           <div style="border-top: 10px solid #000000;"></div>
 
@@ -116,63 +114,64 @@
         </v-tab-item>
 
         <v-tab-item>
+          <WaNotif/>
           <!-- HISTORY -->
-          <template>
-            <v-container>
-              <template v-if="histories != null && !historyLoading">
-                <v-row>
-                  <v-col
-                  cols="6"
-                  v-for="(history, i) in histories"
-                  :key="history.id+'-'+i"
+          <v-container class="my-0">
+            <template v-if="histories != null && !historyLoading">
+              <v-row>
+                <v-col
+                cols="6"
+                v-for="(history, i) in histories"
+                class="pt-0"
+                :key="history.id+'-'+i"
+                >
+                  <v-card
+                    color="#404040"
+                    class="pa-3 comment-item mb-2"
+                    style="height:100%"
+                    :id="'history'+history.redeem_id"
                   >
-                    <v-card
-                      color="#404040"
-                      class="pa-3 comment-item mb-2"
-                      style="height:100%"
-                      :id="'history'+history.redeem_id"
-                    >
-                      <v-row dense>
-                        <v-col cols="3" class="pr-0">
-                          <v-avatar size="30" >
-                            <img
-                              :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
-                              onerror="this.src='/img/user.jpeg';"
-                            />
-                          </v-avatar>
-                        </v-col>
-                        <v-col cols="9">
-                          <strong class="text-12">{{ history.customer.name }}</strong>
-                          <div class="mt-0 text--gray text-10">{{history.created_at}}</div>
-                        </v-col>
-                      </v-row>
-                    </v-card>
-                  </v-col>
-                </v-row>
-                
-                <v-btn
-                  block
-                  dark
-                  depressed
-                  :loading="moreLoading"
-                  color="deep-orange"
-                  class="mt-3"
-                  @click="moreHistory(historyNext)"
-                >Load More</v-btn>
-              </template>
-              <template v-else-if="historyLoading && histories == null">
-                <div class="py-10 caption grey--text text-center">Loading...</div>
-              </template>
-              <template v-else-if="!historyLoading && histories == null">
-                <div class="py-10 caption grey--text text-center">NO DATA</div>
-              </template>
-              <br />
-              <br />
-            </v-container>
-          </template>
+                    <v-row dense>
+                      <v-col cols="3" class="pr-0">
+                        <v-avatar size="30" >
+                          <img
+                            :src="history.customer.avatar ? history.customer.avatar : '/img/user.jpeg'"
+                            onerror="this.src='/img/user.jpeg';"
+                          />
+                        </v-avatar>
+                      </v-col>
+                      <v-col cols="9">
+                        <strong class="text-12">{{ history.customer.name }}</strong>
+                        <div class="mt-0 text--gray text-10">{{history.created_at}}</div>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-col>
+              </v-row>
+              
+              <v-btn
+                block
+                dark
+                depressed
+                :loading="moreLoading"
+                color="deep-orange"
+                class="mt-3"
+                @click="moreHistory(historyNext)"
+              >Load More</v-btn>
+            </template>
+            <template v-else-if="historyLoading && histories == null">
+              <div class="py-10 caption grey--text text-center">Loading...</div>
+            </template>
+            <template v-else-if="!historyLoading && histories == null">
+              <div class="py-10 caption grey--text text-center">NO DATA</div>
+            </template>
+            <br />
+            <br />
+          </v-container>
         </v-tab-item>
 
         <v-tab-item>
+          <WaNotif/>
           <!-- SYARAT -->
           <v-container>
             <!-- <div v-html="detail.term"></div> -->
@@ -189,9 +188,7 @@
           </v-container>
         </v-tab-item>
 
-        <v-tab-item>
-          
-        </v-tab-item>
+        <v-tab-item></v-tab-item>
       </v-tabs-items>
     </v-tabs>
 
@@ -390,13 +387,15 @@ import UserService from "@/services/UserService";
 import LoginModal from "@/components/modal/LoginModal";
 import ShareButton2 from "@/components/common/ShareButton2";
 import BannerStatic from "@/components/common/BannerStatic";
+import WaNotif from "@/components/WaNotif";
 
 export default {
   name: "RedeemDetail",
   components: {
     LoginModal,
     ShareButton2,
-    BannerStatic
+    BannerStatic,
+    WaNotif
   },
   async fetch ({ store, params }) {
     ////console.log('fetch this')
