@@ -1,8 +1,8 @@
 <template>
   <section class="tukarpoin-content">
     <div class="main-app-bar fixed top" style="background:#2c2c2d;height:auto;min-height:56px;position:fixed;top:0;left:0;right:0;z-index:999">
-      <v-row align="center" class="pt-1">
-        <v-col cols="2" class="text-center">
+      <v-row align="center" class="pt-1 mx-0">
+        <v-col cols="2">
           <v-btn @click="historyBack()" small icon>
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
@@ -12,8 +12,8 @@
           <h1 class="text-16 text-truncate">{{detail.title ? detail.title : 'Loading...'}}</h1>
         </v-col>
 
-        <v-col cols="2">
-          &nbsp;
+        <v-col cols="2" class="text-right">
+          <a href="/"><img src="/img/peweicon.svg" width="20" /></a>
         </v-col>
       </v-row>
     </div>
