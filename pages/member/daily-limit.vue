@@ -23,7 +23,7 @@
             </div>
         </v-app-bar>
 
-		<div class="profile-page" style="margin-top: 57px!important">
+		<div class="profile-page">
 			<div class="text-center pt-8 px-5">
 				<span class="text-16 mb-3 d-inline-block">
 					<span class="green--text">{{sekarang}}</span> / {{batas}}

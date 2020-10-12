@@ -853,7 +853,7 @@ a,
   z-index: 2;
 }
 
-.v-content__wrap {
+.v-main__wrap {
   padding-top: 56px;
 }
 
