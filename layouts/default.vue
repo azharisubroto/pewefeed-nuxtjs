@@ -2,7 +2,7 @@
   <v-app :class="[drawer ? 'open' : 'closed']">
     <v-sheet>
       <v-app-bar
-        v-if="wowtab != 4 && wowtab != 1 && $route.name != 'cat-subcat-articleslug' && $route.name != 'purchase' && !$route.name.includes('sing')"
+        v-if="wowtab != 4 && wowtab != 1 && $route.name != 'cat-subcat-articleslug' && $route.name != 'purchase' && $route.name != 'member-daily-limit' && $route.name != 'member-purchase-daily' && !$route.name.includes('sing')"
         dark
         color="dark"
         flat
@@ -125,7 +125,7 @@
       </v-app-bar>
 
       <!-- CONTENT -->
-      <v-content class="maincontent" :class="$route.name">
+      <v-main class="maincontent" :class="$route.name">
         <div class="base-app" :class="[wowtab == 0 ? 'home-show' : 'home-hide']">
           <nuxt keep-alive/>
           <div class="mb-5 pb-5"></div>
@@ -227,7 +227,7 @@
             <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
           </v-btn>-->
         </v-bottom-navigation>
-      </v-content>
+      </v-main>
       <!-- CONTENT -->
     </v-sheet>
 
