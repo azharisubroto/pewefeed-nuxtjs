@@ -1,45 +1,70 @@
 <template>
-	<div class="profile-page ">
-		<div class="text-center pt-8 px-5">
-			<span class="text-16 mb-3 d-inline-block">
-				<span class="green--text">{{sekarang}}</span> / {{batas}}
-			</span>
-			<v-progress-linear
-			:value="remaining"
-			color="green"
-			height="25"
-			reactive
-			rounded
-			></v-progress-linear>
+	<div>
+		<v-app-bar
+            dark
+            color="dark"
+            flat
+            fixed
+            tile
+            class="main-app-bar"
+            style="z-index:20"
+          >
+            <v-btn @click="$router.go(-1)" small icon>
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <div class="flex-grow-1"></div>
+            <v-toolbar-title>
+              <strong>VIP Daily Limit</strong>
+            </v-toolbar-title>
+            <div class="flex-grow-1"></div>
+
+            <div @click="$router.push('/');clearStorage();" class="pr-1">
+              <img src="/img/peweicon.svg" width="20" />
+            </div>
+        </v-app-bar>
+
+		<div class="profile-page" style="margin-top: 57px!important">
+			<div class="text-center pt-8 px-5">
+				<span class="text-16 mb-3 d-inline-block">
+					<span class="green--text">{{sekarang}}</span> / {{batas}}
+				</span>
+				<v-progress-linear
+				:value="remaining"
+				color="green"
+				height="25"
+				reactive
+				rounded
+				></v-progress-linear>
+			</div>
+
+			<v-list-item-group color="dark" class="mt-10">
+				<div  class="devider-small"></div>
+				<v-list-item class="py-3" to="/about-daily-limit">
+					<v-list-item-content>
+						<v-list-item-title>
+							Apa itu Daily Limit?
+						</v-list-item-title>
+					</v-list-item-content>
+					<v-list-item-icon>
+						<v-icon>mdi-chevron-right</v-icon>
+					</v-list-item-icon>
+				</v-list-item>
+
+				<div  class="devider-small"></div>
+				<v-list-item class="py-3" to="/member/purchase-daily" :disabled="batas >= 600">
+					<v-list-item-content>
+						<v-list-item-title style="line-height:26px">
+							Purchase Extra 300 VIP Daily Limit<br>
+							Rp. 10.000 (exclude PPN 10%)
+						</v-list-item-title>
+					</v-list-item-content>
+					<v-list-item-icon>
+						<v-icon>mdi-chevron-right</v-icon>
+					</v-list-item-icon>
+				</v-list-item>
+				<div  class="devider-small"></div>
+			</v-list-item-group>
 		</div>
-
-		<v-list-item-group color="dark" class="mt-10">
-			<div  class="devider-small"></div>
-			<v-list-item class="py-3" to="/about-daily-limit">
-				<v-list-item-content>
-					<v-list-item-title>
-						Apa itu Daily Limit?
-					</v-list-item-title>
-				</v-list-item-content>
-				<v-list-item-icon>
-					<v-icon>mdi-chevron-right</v-icon>
-				</v-list-item-icon>
-			</v-list-item>
-
-			<div  class="devider-small"></div>
-			<v-list-item class="py-3" to="/member/purchase-daily" :disabled="batas >= 600">
-				<v-list-item-content>
-					<v-list-item-title style="line-height:26px">
-						Purchase Extra 300 VIP Daily Limit<br>
-						Rp. 10.000 (exclude PPN 10%)
-					</v-list-item-title>
-				</v-list-item-content>
-				<v-list-item-icon>
-					<v-icon>mdi-chevron-right</v-icon>
-				</v-list-item-icon>
-			</v-list-item>
-			<div  class="devider-small"></div>
-		</v-list-item-group>
 	</div>
 </template>
 
