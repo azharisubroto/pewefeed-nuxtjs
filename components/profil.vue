@@ -200,10 +200,13 @@
             class="main-app-bar"
             style="z-index:20"
           >
-            <v-btn v-if="$store.state.storehelpStep > 1" @click="helpBack()" small icon>
+            <v-btn v-if="$store.state.storehelpStep && $store.state.storehelpStep > 1" @click="helpBack()" small icon>
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-            <v-btn v-else-if="$store.state.storehelpStep == 1" @click="profileStep = 1" small icon>
+            <v-btn v-else-if="$store.state.storehelpStep && $store.state.storehelpStep == 1" @click="profileStep = 1" small icon>
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-btn v-else-if="!$store.state.storehelpStep" @click="profileStep = 1" small icon>
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
             <div class="flex-grow-1"></div>
@@ -421,47 +424,42 @@ export default {
     },
     setProfile() {
       let vm = this;
-      this.$auth
-        .fetchUser()
-        .then(() => {
-          localStorage.setItem("userdata", JSON.stringify(vm.$auth.user));
-          ////console.log('fetchuser', JSON.parse(JSON.stringify(vm.$auth.user)));
 
-          var res = [];
-          res.data = vm.$auth.user;
+      if( this.$auth.user ) {
+        var res = [];
+        res.data = vm.$auth.user;
 
-          this.usermentah = res.data;
-          this.userdata = res.data.data;
-          this.mypoint = res.data.point_total;
-          this.profile = res.data.data;
+        this.usermentah = res.data;
+        this.userdata = res.data.data;
+        this.mypoint = res.data.point_total;
+        this.profile = res.data.data;
 
-          var limit = res.data.point_limit;
-          limit = limit.split("/");
-          this.sekarang = limit[0];
-          this.batas = limit[1];
-          this.remaining = this.percentage(limit[0], limit[1]);
+        var limit = res.data.point_limit;
+        limit = limit.split("/");
+        this.sekarang = limit[0];
+        this.batas = limit[1];
+        this.remaining = this.percentage(limit[0], limit[1]);
 
-          this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
-          this.avatar_preview = res.data.data.avatar;
-          this.cover_preview = res.data.data.cover_image ? res.data.data.cover_image : '/img/profil-bg.png';
-          this.data.first_name = res.data.data.first_name ? res.data.data.first_name : '';
-          this.data.last_name = res.data.data.last_name ? res.data.data.last_name : '';
-          this.data.username = res.data.data.username;
-          this.data.msisdn = res.data.data.msisdn;
-          this.data.no_telp = res.data.data.no_telp;
-          this.data.instagram = res.data.data.instagram;
-          this.data.email = res.data.data.email;
-          this.data.expire = res.data.data.expire;
-          this.expire_date = this.data.expire;
-          if (res.data.data.status_expired == 1) {
-            this.isActive = true;
-          }
-          this.login = true;
-          this.loading = false;
-        })
-        .catch(() => {
-          this.loading = false;
-        });
+        this.dropOptions.headers.Authorization = "Bearer " + res.data.token;
+        this.avatar_preview = res.data.data.avatar;
+        this.cover_preview = res.data.data.cover_image ? res.data.data.cover_image : '/img/profil-bg.png';
+        this.data.first_name = res.data.data.first_name ? res.data.data.first_name : '';
+        this.data.last_name = res.data.data.last_name ? res.data.data.last_name : '';
+        this.data.username = res.data.data.username;
+        this.data.msisdn = res.data.data.msisdn;
+        this.data.no_telp = res.data.data.no_telp;
+        this.data.instagram = res.data.data.instagram;
+        this.data.email = res.data.data.email;
+        this.data.expire = res.data.data.expire;
+        this.expire_date = this.data.expire;
+        if (res.data.data.status_expired == 1) {
+          this.isActive = true;
+        }
+        this.login = true;
+        this.loading = false;
+      } else {
+        this.loading = false;
+      }
     },
     percentage(partialValue, totalValue) {
       return (100 * partialValue) / totalValue;

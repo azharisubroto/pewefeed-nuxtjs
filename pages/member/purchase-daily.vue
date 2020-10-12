@@ -1,39 +1,67 @@
 <template>
-  <div class="paymentpage">
-	<div
-		style="background: #757575;color:#fff"
-		class="text-center px-5 py-10 mb-4"
-	>
-		<strong class="text-18">Extra 300 VIP Daily Limit</strong>
-		<div class="text-16">Rp. 10.000 (exclude PPN 10%)</div>
-	</div>
+  <div class="paymentpage" style="padding-top: 57px">
+    <v-app-bar
+      dark
+      color="dark"
+      flat
+      fixed
+      tile
+      class="main-app-bar"
+      style="z-index: 20"
+    >
+      <v-btn @click="$router.go(-1)" small icon>
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <div class="flex-grow-1"></div>
+      <v-toolbar-title>
+        <strong>VIP Daily Limit</strong>
+      </v-toolbar-title>
+      <div class="flex-grow-1"></div>
+
+      <div
+        @click="
+          $router.push('/');
+          clearStorage();
+        "
+        class="pr-1"
+      >
+        <img src="/img/peweicon.svg" width="20" />
+      </div>
+    </v-app-bar>
+    <div
+      style="background: #757575; color: #fff"
+      class="text-center px-5 py-10 mb-4"
+    >
+      <strong class="text-18">Extra 300 VIP Daily Limit</strong>
+      <div class="text-16">Rp. 10.000 (exclude PPN 10%)</div>
+    </div>
 
     <template v-if="step == 1">
-		<!-- SMS  -->
-		<v-container class="mb-3 mt-5">
-			<strong class="deep-orange--text text-18">SMS Method</strong>
-		</v-container>
-		<v-list-item-group>
-			<template v-for="(item, i) in smspayment">
-				<div v-if="i==0" class="devider-small" :key="'purchase-menu-devider-1'+i"></div>
-				<v-list-item
-				class="py-3"
-				:key="'purchase-menu'+i"
-				disabled
-				>
-				<v-list-item-content>
-					<v-list-item-title style="line-height:23px">
-					<strong class="d-block text-18">{{item.label}}</strong>
-					<span class="d-block text-14">{{item.desc}}</span>
-					</v-list-item-title>
-				</v-list-item-content>
-				<v-list-item-icon>
-					<v-icon size="30">mdi-chevron-right</v-icon>
-				</v-list-item-icon>
-				</v-list-item>
-				<div class="devider-small" :key="'purchase-menu-devider'+i"></div>
-			</template>
-		</v-list-item-group>
+      <!-- SMS  -->
+      <v-container class="mb-3 mt-5">
+        <strong class="deep-orange--text text-18">SMS Method</strong>
+      </v-container>
+      <v-list-item-group>
+        <template v-for="(item, i) in smspayment">
+          <div
+            v-if="i == 0"
+            class="devider-small"
+            :key="'purchase-menu-devider-1' + i"
+          ></div>
+          <v-list-item class="py-3" :key="'purchase-menu' + i" disabled>
+            <v-list-item-content>
+              <v-list-item-title style="line-height: 23px">
+                <strong class="d-block text-18">{{ item.label }}</strong>
+                <span class="d-block text-14">{{ item.desc }}</span>
+              </v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+              <v-icon size="30">mdi-chevron-right</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <div class="devider-small" :key="'purchase-menu-devider' + i"></div>
+        </template>
+      </v-list-item-group>
       <v-container class="pt-8">
         <v-row>
           <v-col cols="12" class="deep-orange--text text-18">
@@ -43,10 +71,14 @@
       </v-container>
       <v-list-item-group color="dark" class="mt-0">
         <template v-for="(item, i) in menu">
-          <div class="devider-small" :key="'div-'+i"></div>
-          <v-list-item class="py-3" @click="purchaseLink(item.to)" :key="'list-'+i">
+          <div class="devider-small" :key="'div-' + i"></div>
+          <v-list-item
+            class="py-3"
+            @click="purchaseLink(item.to)"
+            :key="'list-' + i"
+          >
             <v-list-item-content class="text-18">
-              <v-list-item-title>{{item.title}}</v-list-item-title>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-icon>
               <v-icon>mdi-chevron-right</v-icon>
@@ -56,7 +88,7 @@
         <div class="devider-small"></div>
       </v-list-item-group>
 
-	  <v-container class="pt-8">
+      <v-container class="pt-8">
         <v-row>
           <v-col cols="12" class="deep-orange--text text-18">
             <strong>eWallets</strong>
@@ -65,10 +97,14 @@
       </v-container>
       <v-list-item-group color="dark" class="mt-0">
         <template v-for="(item, i) in ewalletsmenu">
-          <div class="devider-small" :key="'div-'+i"></div>
-          <v-list-item class="py-3" @click="eWalletPurchase(item.merchant)" :key="'list-'+i">
+          <div class="devider-small" :key="'div-' + i"></div>
+          <v-list-item
+            class="py-3"
+            @click="eWalletPurchase(item.merchant)"
+            :key="'list-' + i"
+          >
             <v-list-item-content class="text-18">
-              <v-list-item-title>{{item.title}}</v-list-item-title>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-icon>
               <v-icon>mdi-chevron-right</v-icon>
@@ -85,17 +121,16 @@
       @close="iframeClose()"
     />
 
-	<v-overlay
-		:opacity="1"
-		:value="ewalletOverlay"
-	>
-		<div class="text-center">
-			<v-progress-circular color="green" indeterminate size="64"></v-progress-circular>
-			<div class="mt-4">
-				Connecting Provider...
-			</div>
-		</div>
-	</v-overlay>
+    <v-overlay :opacity="1" :value="ewalletOverlay">
+      <div class="text-center">
+        <v-progress-circular
+          color="green"
+          indeterminate
+          size="64"
+        ></v-progress-circular>
+        <div class="mt-4">Connecting Provider...</div>
+      </div>
+    </v-overlay>
   </div>
 </template>
 
@@ -111,8 +146,8 @@ export default {
   },
   data() {
     return {
-	  step: 1,
-	  ewalletOverlay: false,
+      step: 1,
+      ewalletOverlay: false,
       merchant: null,
       invoiceUrl: "",
       iframeDialogVisible: false,
@@ -136,7 +171,7 @@ export default {
           title: "LINKAJA",
           merchant: "linkaja",
         },
-	  ],
+      ],
       menu: [
         {
           title: "BCA",
@@ -164,7 +199,7 @@ export default {
           merchant: "xendit",
         },
       ],
-	  smspayment: [
+      smspayment: [
         {
           key: "xl",
           label: "XL",
@@ -223,7 +258,7 @@ export default {
       }
     },
     async purchaseLink(merchant) {
-		this.ewalletOverlay = true
+      this.ewalletOverlay = true;
       if (merchant != "bca") {
         const sendvoucher = {
           voucher_id: 204,
@@ -235,12 +270,12 @@ export default {
           if (res.status == 200) {
             //console.log(res.data);
             this.invoiceUrl = res.data.invoice_url;
-			this.iframeDialogVisible = true;
-			this.ewalletOverlay = false
+            this.iframeDialogVisible = true;
+            this.ewalletOverlay = false;
           }
         } catch (error) {
-		  console.log(error);
-		  this.ewalletOverlay = false
+          console.log(error);
+          this.ewalletOverlay = false;
         }
       } else if (merchant == "bca") {
         const sendvoucher = {
@@ -252,31 +287,31 @@ export default {
           if (res.status == 200) {
             // //console.log(res.data)
             var url = res.data.snap_url;
-			window.open(url, "_blank");
-			this.ewalletOverlay = false
+            window.open(url, "_blank");
+            this.ewalletOverlay = false;
           }
         } catch (error) {
-		  console.log(error);
-		  this.ewalletOverlay = false
+          console.log(error);
+          this.ewalletOverlay = false;
         }
       }
-	},
-	async eWalletPurchase(provider) {
-		this.ewalletOverlay = true
-		let data = {
-			provider: provider,
-			voucher_id: 204
-		}
-		try {
-			const res = await UserService.eWalletBuy(data);
-			//console.log(res.data.invoice_url);
-			window.open(res.data.invoice_url, '_blank');
-			this.ewalletOverlay = false
-		} catch (error) {
-			console.log(error);
-			this.ewalletOverlay = false
-		}
-	},
+    },
+    async eWalletPurchase(provider) {
+      this.ewalletOverlay = true;
+      let data = {
+        provider: provider,
+        voucher_id: 204,
+      };
+      try {
+        const res = await UserService.eWalletBuy(data);
+        //console.log(res.data.invoice_url);
+        window.open(res.data.invoice_url, "_blank");
+        this.ewalletOverlay = false;
+      } catch (error) {
+        console.log(error);
+        this.ewalletOverlay = false;
+      }
+    },
     closeDialog() {
       this.e1 = 1;
       this.intDialogVisible = false;
@@ -313,6 +348,7 @@ export default {
       padding: 8px 12px;
       font-size: 10px;
       font-style: italic;
+      min-height: unset;
     }
   }
 }
