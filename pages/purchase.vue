@@ -1121,6 +1121,7 @@ export default {
       padding: 8px 12px;
       font-size: 10px;
       font-style: italic;
+      min-height: unset;
     }
   }
 }

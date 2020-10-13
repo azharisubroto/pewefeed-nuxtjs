@@ -1,5 +1,5 @@
 <template>
-  <div class="paymentpage" style="padding-top: 57px">
+  <div class="paymentpage">
     <v-app-bar
       dark
       color="dark"
@@ -287,7 +287,8 @@ export default {
           if (res.status == 200) {
             // //console.log(res.data)
             var url = res.data.snap_url;
-            window.open(url, "_blank");
+            //window.open(url, "_blank");
+            window.location.href = url
             this.ewalletOverlay = false;
           }
         } catch (error) {
@@ -305,7 +306,8 @@ export default {
       try {
         const res = await UserService.eWalletBuy(data);
         //console.log(res.data.invoice_url);
-        window.open(res.data.invoice_url, "_blank");
+        //window.open(res.data.invoice_url, "_blank");
+        window.location.href = res.data.invoice_url
         this.ewalletOverlay = false;
       } catch (error) {
         console.log(error);
