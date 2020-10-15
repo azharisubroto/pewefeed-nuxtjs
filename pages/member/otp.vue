@@ -80,7 +80,7 @@
 							<div class="py-8 text-center">
 								<img src="/img/success.svg" width="50" height="50">
 								<br><br>
-								Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu
+								{{otp_message}}
 							</div>
 
 						</template>
@@ -145,7 +145,8 @@ export default {
 			verifydisabled: true,
 			otpsending: false,
 			countdown: 60,
-			otp_sent: 0
+      otp_sent: 0,
+      otp_message: 'Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu'
 		}
 	},
 	watch: {
@@ -214,7 +215,12 @@ export default {
 				try {
 					const res = await UserService.sendOTP();
 					//console.log(res.data);
-					//alert('Kode OTP telah terkirim')
+          //alert('Kode OTP telah terkirim')
+          if( res.status == 200) {
+            this.otp_message = 'Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu'
+          } else {
+            this.otp_message = 'Nomor Ponsel anda sukses terverifikasi'
+          }
 					this.overlay = false
 					this.otpsending = true
 					this.otp_sent++
