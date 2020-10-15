@@ -150,12 +150,11 @@
 				</section>
 			</div>
 		</section>
+		<!-- <br>
 		<br>
 		<br>
 		<br>
 		<br>
-		<br>
-		<!-- BOTTOM NAVIGATION -->
 		<v-bottom-navigation
 			fixed
 			dark
@@ -166,7 +165,6 @@
 			height="80"
 			class="pwmenubottom"
 		>
-		<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
 			<v-btn @click="$router.push('/toppoin')">
 				<span>Prizes</span>
 				<img src="/img/tukarpoin/tukarpoin-orange.png" class="mb-1 d-block" width="20" height="20" />
@@ -183,7 +181,7 @@
 				<span>How To</span>
 				<img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="20" height="20" />
 			</v-btn>
-		</v-bottom-navigation>
+		</v-bottom-navigation> -->
 	</section>
 </template>
 

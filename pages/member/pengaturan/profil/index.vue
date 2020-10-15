@@ -30,8 +30,24 @@
               Ke Halaman Akun
             </v-btn>
           </div>
-          <div v-else>
-            <v-img src="/img/error.svg" max-width="60" class="mx-auto mb-4"></v-img> Nomor Ponsel Wajib Diisi
+          <div v-else class="py-4">
+            <v-img
+              src="/img/error.svg"
+              max-width="60"
+              class="mx-auto mb-4"
+            ></v-img>
+
+            <template v-if="fielderrors != null">
+              <div
+                class="mb-1"
+                v-for="(item, val, i) in fielderrors"
+                :key="'error-' + i"
+              >
+                <template v-if="i == 0">
+                  {{ item[0] }}
+                </template>
+              </div>
+            </template>
             <v-btn @click="snackbar = false" block color="#ff4200" class="mt-3">
               Tutup
             </v-btn>
@@ -269,7 +285,8 @@ export default {
       usermentah: [],
       avatar_img: "",
       uploadloading: false,
-      savestatus: null
+      savestatus: null,
+      fielderrors: null
     };
   },
   methods: {
@@ -403,9 +420,11 @@ export default {
         vm.savestatus = true
         this.fetchUserdata();
       } catch (error) {
-        vm.snackbar = true
-        vm.savestatus = false
-        console.log(error);
+        if (error.response.status == 422) {
+          this.snackbar =  true
+          this.fielderrors = error.response.data.errors;
+          this.savestatus = false
+        }
       }
     },
   },
