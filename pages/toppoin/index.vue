@@ -13,8 +13,8 @@
     <template v-if="periode != null && isloading == false">
       <!-- BANNER -->
       <template v-if="tptab == 0 || tptab == 2">
-        <v-img :src="periode.banner.desktop" class="mb-5"></v-img>
         <BannerStatic slug="article-detail" />
+        <v-img :src="periode.banner.desktop" class="mb-5"></v-img>
         <div class="d-none pb-7 text-center">
           Periode:
           {{
