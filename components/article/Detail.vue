@@ -20,13 +20,13 @@
     </a>-->
     
     <!-- SSR -->
+    <div class="mb-1">
+      <BannerStatic slug="article-detail" />
+    </div>
     <v-container class="mb-5 pb-5 articlewrapper">
       <v-row>
         <v-col>
           <!-- TITLE -->
-          <div class="mb-1">
-            <BannerStatic slug="article-detail" />
-          </div>
           <h1 class="mb-0 text-27 lh-37 text-center maintitle">{{respon.article.title}}</h1>
 
           <div class="mt-4 text-12 text-center">
