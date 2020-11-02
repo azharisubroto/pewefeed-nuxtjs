@@ -1,5 +1,5 @@
 <template>
-	<a :href="banner_url">
+	<a :target="is_link ? 'blank' : ''" :href="banner_url">
 		<img v-if="banner_url && banner_img"
 		:src="banner_img" alt="">
 		<div v-else class="singbanner">BANNER</div>
@@ -17,6 +17,7 @@ export default {
 		return {
 			banner_img: null,
 			banner_url: null,
+			is_link: false,
 		}
 	},
 	methods: {
@@ -26,6 +27,7 @@ export default {
 				//console.log('banner', res.data)
 				this.banner_img = res.data.image
 				this.banner_url = res.data.url
+				this.is_link = res.data.is_link
 			} catch (error) {
 				console.log(error)
 			}

@@ -14,6 +14,7 @@
       <!-- BANNER -->
       <template v-if="tptab == 0 || tptab == 2">
         <v-img :src="periode.banner.desktop" class="mb-5"></v-img>
+        <BannerStatic slug="article-detail" />
         <div class="d-none pb-7 text-center">
           Periode:
           {{
@@ -502,6 +503,7 @@ import TopPoin from "@/services/TopPoin";
 import ShareButton2 from "@/components/common/ShareButton2";
 import LoadingBar from "@/components/sing/LoadingBar";
 import WaNotif from "@/components/WaNotif";
+import BannerStatic from '@/components/common/BannerStatic';
 
 export default {
   head() {
@@ -520,6 +522,7 @@ export default {
     ShareButton2,
     LoadingBar,
     WaNotif,
+    BannerStatic,
   },
   watch: {
     tptab: function (newVal, oldVal) {

@@ -24,6 +24,9 @@
       <v-row>
         <v-col>
           <!-- TITLE -->
+          <div class="mb-1 mt-10">
+            <BannerStatic slug="article-detail" />
+          </div>
           <h1 class="mb-0 text-27 lh-37 text-center maintitle">{{respon.article.title}}</h1>
 
           <div class="mt-4 text-12 text-center">
