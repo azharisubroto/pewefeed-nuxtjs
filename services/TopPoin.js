@@ -1,26 +1,26 @@
-import Api from '@/services/Api'
-import AuthApi from '@/services/AuthApi'
+import Api from "@/services/Api"
+import AuthApi from "@/services/AuthApi"
 
 export default {
-    topPoinAll() {
-        return Api().get('/poin/top/all');
+	topPoinAll() {
+		return Api().get("/poin/top/all")
 	},
 	lastRankedMe() {
-		return AuthApi().get('/poin/top/me');
+		return AuthApi().get("/poin/top/me")
 	},
 	lastRanked(n) {
-		return Api().get('/poin/top/last-ranked?page='+n);
+		return Api().get("/poin/top/last-ranked?page=" + n)
 	},
 	winners(n) {
-		return Api().get('/poin/top/winner-previous?page='+n);
+		return Api().get("/poin/top/winner-previous?page=" + n)
 	},
-	periodeDetail(slug){
-		return Api().get('/poin/top/winner-detail/'+slug)
+	periodeDetail(slug) {
+		return Api().get("/poin/top/winner-detail/" + slug)
 	},
 	getTopThree() {
-		return AuthApi().get('/poin/top/v2/me');
+		return AuthApi().get("/poin/top/v2/me")
 	},
 	hadiahPeriodeIni() {
-		return Api().get('/poin/top/reward');
-	}
+		return Api().get("/poin/top/reward")
+	},
 }

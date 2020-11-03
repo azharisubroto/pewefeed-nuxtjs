@@ -7,56 +7,60 @@
 					<h3>Menunggu Respon</h3>
 				</v-col>
 			</v-row>
-			<v-row v-if="list!=null && !loading">
+			<v-row v-if="list != null && !loading">
 				<v-col>
 					<RewardCard
-					:addresses="addresses"
-					:contact="contact"
-					:list="list"
-					:actionable="true"/>
+						:addresses="addresses"
+						:contact="contact"
+						:list="list"
+						:actionable="true"
+					/>
 
 					<v-pagination
-					v-if="list && list.length"
-					v-model="page"
-					:length="totalpage"
-					color="orange"
-					@input="next"
+						v-if="list && list.length"
+						v-model="page"
+						:length="totalpage"
+						color="orange"
+						@input="next"
 					></v-pagination>
-					<br>
-					<br>
-					<br>
-					<br>
+					<br />
+					<br />
+					<br />
+					<br />
 				</v-col>
 			</v-row>
-			<v-row v-else-if="list==null && !loading">
+			<v-row v-else-if="list == null && !loading">
 				<v-col>
 					<div class="text-center pa-5">
-						<v-btn rounded color="#7D7D7D" class="text--italic px-5">no data</v-btn>
+						<v-btn rounded color="#7D7D7D" class="text--italic px-5"
+							>no data</v-btn
+						>
 					</div>
 				</v-col>
 			</v-row>
-			<v-skeleton-loader v-else
-			class="mx-auto mt-5"
-			type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
+			<v-skeleton-loader
+				v-else
+				class="mx-auto mt-5"
+				type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
 			></v-skeleton-loader>
 		</v-container>
 	</section>
 </template>
 <script>
-import RewardCard from './RewardCard'
-import UserService from '@/services/UserService'
+import RewardCard from "./RewardCard"
+import UserService from "@/services/UserService"
 export default {
-	name:"Menunggu",
-	props: ['addresses', 'contact'],
+	name: "Menunggu",
+	props: ["addresses", "contact"],
 	components: {
-		RewardCard
+		RewardCard,
 	},
 	data() {
 		return {
-			loading:true,
+			loading: true,
 			list: null,
 			page: 1,
-			totalpage: 30
+			totalpage: 30,
 		}
 	},
 	methods: {
@@ -80,16 +84,16 @@ export default {
 			window.scrollTo({
 				top: 0,
 				left: 0,
-				behavior: 'smooth'
-			});
-		}
+				behavior: "smooth",
+			})
+		},
 	},
 	mounted() {
 		this.fetchWait()
-		this.$bus.$on('refetchRewards', () => {
+		this.$bus.$on("refetchrewards", () => {
 			this.fetchWait()
 		})
 		////console.log(JSON.parse(JSON.stringify(this.addresses)))
-	}
+	},
 }
 </script>

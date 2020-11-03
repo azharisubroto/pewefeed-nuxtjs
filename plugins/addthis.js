@@ -1,4 +1,4 @@
-import Vue from 'vue';
-import AddThis from 'vue-simple-addthis-share'
+import Vue from "vue"
+import AddThis from "vue-simple-addthis-share"
 
-Vue.component('AddThis', AddThis);
+Vue.component("AddThis", AddThis)

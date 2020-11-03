@@ -1,10 +1,10 @@
 const history = {
-	name: 'Test',
+	name: "Test",
 	back() {
-		this.$router.back();
-	}
-  }
+		this.$router.back()
+	},
+}
 
-  export default ({ app }, inject) => {
-	inject('test', history)
-  }
+export default ({ app }, inject) => {
+	inject("test", history)
+}

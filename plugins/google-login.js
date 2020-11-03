@@ -1,4 +1,4 @@
-import Vue from 'vue';
-import GoogleLogin from 'vue-google-login';
+import Vue from "vue"
+import GoogleLogin from "vue-google-login"
 
-Vue.component('GoogleLogin', GoogleLogin);
+Vue.component("GoogleLogin", GoogleLogin)

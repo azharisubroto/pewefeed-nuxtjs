@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from "vuetify/es5/util/colors"
 
 export default {
 	// server: {
@@ -6,42 +6,58 @@ export default {
 	// 	host: '0.0.0.0', // default: localhost
 	// },
 	env: {
-		baseUrl: process.env.BASE_URL || 'https://pewefeed.com/',
-		mobileUrl: process.env.MOBILE_URL || 'https://m.pewefeed.com/',
-		domainTitle: process.env.DOMAIN_TITLE || 'PEWEFEED.COM',
-		title: process.env.TITLE || 'PEWEFEED',
-		facebook: process.env.FACEBOOK || 'pewefeeds',
-		instagram: process.env.INSTAGRAM || 'pewefeed',
-		twitter: process.env.TWITTER || 'pewefeed',
-		youtube: process.env.YOUTUBE || 'pewefeed',
-		youtubeUrl: process.env.YOUTUBE_URL || 'https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw',
-		email: process.env.EMAIL || 'halo@lagipewe.com',
+		baseUrl: process.env.BASE_URL || "https://pewefeed.com/",
+		mobileUrl: process.env.MOBILE_URL || "https://m.pewefeed.com/",
+		domainTitle: process.env.DOMAIN_TITLE || "PEWEFEED.COM",
+		title: process.env.TITLE || "PEWEFEED",
+		facebook: process.env.FACEBOOK || "pewefeeds",
+		instagram: process.env.INSTAGRAM || "pewefeed",
+		twitter: process.env.TWITTER || "pewefeed",
+		youtube: process.env.YOUTUBE || "pewefeed",
+		youtubeUrl:
+			process.env.YOUTUBE_URL ||
+			"https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw",
+		email: process.env.EMAIL || "halo@lagipewe.com",
 	},
 	// server: {
 	//   host: '0.0.0.0',
 	//   port: 8000
 	// },
-	mode: 'universal',
+	mode: "universal",
 	pwa: {
 		manifest: {
-			name: 'PEWEFEED.COM',
-			short_name: 'PEWEFEED',
-			lang: 'id'
-		}
+			name: "PEWEFEED.COM",
+			short_name: "PEWEFEED",
+			lang: "id",
+		},
 	},
 	/*
-	** Headers of the page
-	*/
+	 ** Headers of the page
+	 */
 	head: {
-		titleTemplate: '%s',
+		titleTemplate: "%s",
 		meta: [
-			{ charset: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-			{ name: 'theme-color', content: '#FF9800' },
-			{ name: 'apple-mobile-web-app-capable', content: 'yes' },
-			{ name: 'apple-mobile-web-app-status-bar-style', content: '#FF9800' },
-			{ name: 'google-site-verification', content: 'GBGSbmO6dIV5P18M0oBdihBDH26dvWzYrvOulDlWVzw' },
-			{ hid: 'description', name: 'description', content: 'Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!' }
+			{ charset: "utf-8" },
+			{
+				name: "viewport",
+				content: "width=device-width, initial-scale=1",
+			},
+			{ name: "theme-color", content: "#FF9800" },
+			{ name: "apple-mobile-web-app-capable", content: "yes" },
+			{
+				name: "apple-mobile-web-app-status-bar-style",
+				content: "#FF9800",
+			},
+			{
+				name: "google-site-verification",
+				content: "GBGSbmO6dIV5P18M0oBdihBDH26dvWzYrvOulDlWVzw",
+			},
+			{
+				hid: "description",
+				name: "description",
+				content:
+					"Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
+			},
 		],
 		// noscript: [
 		// 	{
@@ -59,53 +75,48 @@ export default {
 		// 	}
 		// ],
 		// __dangerouslyDisableSanitizers: ['script'],
-		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
-		]
+		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
 	},
 	/*
-	** Customize the progress-bar color
-	*/
-	loading: { color: '#fff' },
+	 ** Customize the progress-bar color
+	 */
+	loading: { color: "#fff" },
 	/*
-	** Global CSS
-	*/
-	css: [
-	],
+	 ** Global CSS
+	 */
+	css: [],
 	/*
-	** Plugins to load before mounting the App
-	*/
+	 ** Plugins to load before mounting the App
+	 */
 	plugins: [
-		{ src: '~/plugins/flickity', ssr: false },
-		{ src: '~/plugins/oauthio-web', ssr: false },
-		{ src: '~/plugins/vue2-dropzone', ssr: false },
-		{ src: '~/plugins/facebook-login', ssr: false },
-		{ src: '~/plugins/recaptcha', ssr: false },
-		{ src: '~/plugins/google-login', ssr: false },
-		{ src: '~/plugins/moment', ssr: false },
-		{ src: '~/plugins/bus' },
-		{ src: '~/plugins/ga', mode: 'client' },
-		{ src: '~/plugins/vue-google-adsense', ssr: false }
+		{ src: "~/plugins/flickity", ssr: false },
+		{ src: "~/plugins/oauthio-web", ssr: false },
+		{ src: "~/plugins/vue2-dropzone", ssr: false },
+		{ src: "~/plugins/facebook-login", ssr: false },
+		{ src: "~/plugins/recaptcha", ssr: false },
+		{ src: "~/plugins/google-login", ssr: false },
+		{ src: "~/plugins/moment", ssr: false },
+		{ src: "~/plugins/bus" },
+		{ src: "~/plugins/ga", mode: "client" },
+		{ src: "~/plugins/vue-google-adsense", ssr: false },
 	],
 	/*
-	** Nuxt.js dev-modules
-	*/
-	buildModules: [
-		'@nuxtjs/vuetify',
-	],
+	 ** Nuxt.js dev-modules
+	 */
+	buildModules: ["@nuxtjs/vuetify"],
 	/*
-	** Nuxt.js modules
-	*/
+	 ** Nuxt.js modules
+	 */
 	modules: [
 		// Doc: https://axios.nuxtjs.org/usage
-		'@nuxtjs/axios',
-		'@nuxtjs/pwa',
-		'@nuxtjs/auth',
-		'@nuxtjs/recaptcha',
+		"@nuxtjs/axios",
+		"@nuxtjs/pwa",
+		"@nuxtjs/auth",
+		"@nuxtjs/recaptcha",
 		// '@nuxtjs/onesignal',
 		// '@nuxtjs/google-adsense',
-		'@nuxtjs/google-gtag',
-		'@nuxtjs/robots',
+		"@nuxtjs/google-gtag",
+		"@nuxtjs/robots",
 		// '@nuxtjs/sitemap'
 	],
 
@@ -114,18 +125,30 @@ export default {
 		strategies: {
 			local: {
 				endpoints: {
-					login: { url: 'https://s1.playworld.id/api/auth/login', method: 'post', propertyName: 'token' },
-					logout: { url: 'https://s1.playworld.id/api/auth/logout', method: 'get' },
-					user: { url: 'https://s1.playworld.id/api/member/get-single-member', method: 'get', propertyName: 'users' }
+					login: {
+						url: "https://s1.playworld.id/api/auth/login",
+						method: "post",
+						propertyName: "token",
+					},
+					logout: {
+						url: "https://s1.playworld.id/api/auth/logout",
+						method: "get",
+					},
+					user: {
+						url:
+							"https://s1.playworld.id/api/member/get-single-member",
+						method: "get",
+						propertyName: "users",
+					},
 				},
 				// tokenRequired: true,
-				tokenType: 'Bearer'
+				tokenType: "Bearer",
 				// autoFetchUser: true
 			},
 			redirect: {
-				login: '/login',
-				home: '/'
-			}
+				login: "/login",
+				home: "/",
+			},
 		},
 	},
 
@@ -140,8 +163,8 @@ export default {
 	 * Robots.txt
 	 */
 	robots: {
-		UserAgent: '*',
-		Disallow: ''
+		UserAgent: "*",
+		Disallow: "",
 	},
 
 	/**
@@ -163,8 +186,8 @@ export default {
 	/**
 	 * Google Tag
 	 */
-	'google-gtag': {
-		id: 'UA-163238276-1',
+	"google-gtag": {
+		id: "UA-163238276-1",
 		config: {
 			anonymize_ip: true, // anonymize IP
 			send_page_view: true, // might be necessary to avoid duplicated page track on page reload
@@ -192,23 +215,21 @@ export default {
 	 */
 	recaptcha: {
 		hideBadge: true, // Hide badge element
-		version: 2,     // Version
-		siteKey: '6Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q' // Site key for requests
+		version: 2, // Version
+		siteKey: "6Le1VugUAAAAAJsM8s6P8P4jbTKuS2IleefluH5Q", // Site key for requests
 	},
 
-
 	/*
-	** Axios module configuration
-	** See https://axios.nuxtjs.org/options
-	*/
-	axios: {
-	},
+	 ** Axios module configuration
+	 ** See https://axios.nuxtjs.org/options
+	 */
+	axios: {},
 	/*
-	** vuetify module configuration
-	** https://github.com/nuxt-community/vuetify-module
-	*/
+	 ** vuetify module configuration
+	 ** https://github.com/nuxt-community/vuetify-module
+	 */
 	vuetify: {
-		customVariables: ['~/assets/variables.scss'],
+		customVariables: ["~/assets/variables.scss"],
 		options: {
 			customProperties: true,
 		},
@@ -223,22 +244,22 @@ export default {
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
 					success: colors.green.accent3,
-					background: '#1d1d1d'
-				}
-			}
-		}
+					background: "#1d1d1d",
+				},
+			},
+		},
 	},
 	/*
-	** Build configuration
-	*/
+	 ** Build configuration
+	 */
 	build: {
 		/*
-		** You can extend webpack config here
-		*/
+		 ** You can extend webpack config here
+		 */
 		extend(config, { isClient }) {
 			if (isClient) {
-				config.devtool = 'source-map'
+				config.devtool = "source-map"
 			}
-		}
-	}
+		},
+	},
 }

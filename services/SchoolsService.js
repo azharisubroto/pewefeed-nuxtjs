@@ -1,7 +1,7 @@
-import Api from '@/services/Api'
+import Api from "@/services/Api"
 
 export default {
-    getSchools() {
-        return Api().get('/master/schools')
-    },
+	getSchools() {
+		return Api().get("/master/schools")
+	},
 }

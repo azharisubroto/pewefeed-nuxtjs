@@ -1,14 +1,10 @@
 <template>
 	<v-card v-if="obj" :elevation="0" style="border: 1px solid #757575">
 		<v-card-text class="caption">
-			<v-icon small size="12" class="mr-1">
-				mdi-calendar-blank
-			</v-icon>
-			{{obj.created_at}}
+			<v-icon small size="12" class="mr-1"> mdi-calendar-blank </v-icon>
+			{{ obj.created_at }}
 
-			<v-icon small size="12" class="mr-1 ml-2">
-				mdi-eye-outline
-			</v-icon>
+			<v-icon small size="12" class="mr-1 ml-2"> mdi-eye-outline </v-icon>
 			123
 
 			<v-icon small size="12" class="mr-1 ml-2">
@@ -35,22 +31,26 @@
 			</v-row> -->
 		</v-card-text>
 
-		<div v-if="obj.video && obj.video.includes('iframe')" v-html="obj.video"></div>
+		<div
+			v-if="obj.video && obj.video.includes('iframe')"
+			v-html="obj.video"
+		></div>
 		<div v-else>
 			<div v-html="renderVideo(obj.video)"></div>
 		</div>
 
 		<v-row class="sm px-3" align="center">
 			<v-col cols="2" class="caption">
-				<span :id="'starcount-' + obj.id">{{obj.star}}</span>/<span style="color: blue">100</span>
+				<span :id="'starcount-' + obj.id">{{ obj.star }}</span
+				>/<span style="color: blue">100</span>
 			</v-col>
 			<v-col cols="5">
 				<v-progress-linear
-				:value="obj.star"
-				color="light-blue"
-				height="10"
-				reactive
-				rounded
+					:value="obj.star"
+					color="light-blue"
+					height="10"
+					reactive
+					rounded
 				></v-progress-linear>
 			</v-col>
 			<v-col cols="5">
@@ -62,7 +62,7 @@
 					color="orange accent-4"
 				>
 					<v-icon left dark>mdi-star</v-icon>
-					Kirim Star<br>
+					Kirim Star<br />
 					(+5 Poin)
 				</v-btn>
 			</v-col>
@@ -71,12 +71,16 @@
 </template>
 <script>
 export default {
-	name:"VideoLoopBig",
-	props: ['obj', 'band'],
+	name: "VideoLoopBig",
+	props: ["obj", "band"],
 	methods: {
-		renderVideo(code){
-			return '<iframe height="180" src="https://www.youtube.com/embed/'+code+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:180px" allowfullscreen></iframe>';
+		renderVideo(code) {
+			return (
+				'<iframe height="180" src="https://www.youtube.com/embed/' +
+				code +
+				'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:180px" allowfullscreen></iframe>'
+			)
 		},
-	}
+	},
 }
 </script>

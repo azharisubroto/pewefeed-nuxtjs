@@ -1,151 +1,162 @@
-import AuthApi from '@/services/AuthApi'
-import Api from './Api'
+import AuthApi from "@/services/AuthApi"
+import Api from "./Api"
 // import AuthApiLocal from '@/services/AuthApiLocal'
 
 export default {
 	getSingleUser() {
-		return AuthApi().get('/member/get-single-member')
+		return AuthApi().get("/member/get-single-member")
 	},
 	getReward() {
-		return AuthApi().get('/member/reward')
+		return AuthApi().get("/member/reward")
 	},
 	postComment(slug, params) {
-		return AuthApi().post('/member/comment/' + slug, params)
+		return AuthApi().post("/member/comment/" + slug, params)
 	},
 	answerQuiz(params) {
-		return AuthApi().post('/member/post-quiz', params)
+		return AuthApi().post("/member/post-quiz", params)
 	},
 	answerMultiple(params) {
-		return AuthApi().post('member/multiple-quiz', params)
+		return AuthApi().post("member/multiple-quiz", params)
 	},
 	/**
 	 * TUKAR POIN
 	 * @param {redeem_id,target_point} params
 	 */
 	tukarPoin(params) {
-		return AuthApi().post('/member/change-point', params)
+		return AuthApi().post("/member/change-point", params)
 	},
 	getHistoryVip() {
-		return AuthApi().get('/member/vip-history')
+		return AuthApi().get("/member/vip-history")
 	},
 	updateProfile(data) {
-		return AuthApi().put('/member/profile', data)
+		return AuthApi().put("/member/profile", data)
 	},
 	getAddresses() {
-		return AuthApi().get('/member/address')
+		return AuthApi().get("/member/address")
 	},
 	addAddress(params) {
-		return AuthApi().post('/member/address', params)
+		return AuthApi().post("/member/address", params)
 	},
 	editAddress(params) {
-		return AuthApi().put('/member/address', params)
+		return AuthApi().put("/member/address", params)
 	},
 	deleteAddress(id) {
-		return AuthApi().delete('/member/address', { data: { id: id } })
+		return AuthApi().delete("/member/address", { data: { id: id } })
 	},
 	provinsi() {
-		return Api().get('/master/address/province')
+		return Api().get("/master/address/province")
 	},
 	kota(provinsi) {
-		return Api().get('/master/address/district/' + provinsi)
+		return Api().get("/master/address/district/" + provinsi)
 	},
 	kecamatan(kota) {
-		return Api().get('/master/address/district-sub/' + kota)
+		return Api().get("/master/address/district-sub/" + kota)
 	},
 	kelurahan(kecamatan) {
-		return Api().get('/master/address/village/' + kecamatan)
+		return Api().get("/master/address/village/" + kecamatan)
 	},
 	// Voucher
 	getContacts() {
-		return AuthApi().get('/member/contact')
+		return AuthApi().get("/member/contact")
 	},
 	getVoucherType() {
-		return AuthApi().get('/static/number')
+		return AuthApi().get("/static/number")
 	},
 	getBank() {
-		return AuthApi().get('/static/banks')
+		return AuthApi().get("/static/banks")
 	},
 	addNumber(params) {
-		return AuthApi().post('/member/contact', params)
+		return AuthApi().post("/member/contact", params)
 	},
 	editNumber(params) {
-		return AuthApi().put('/member/contact', params)
+		return AuthApi().put("/member/contact", params)
 	},
 	deleteNumber(id) {
-		return AuthApi().delete('/member/contact', { data: { id: id } })
+		return AuthApi().delete("/member/contact", { data: { id: id } })
 	},
 	mutasiPoin(page, filter) {
 		var n = page ? page : 1
-		var fil = filter ? filter : 'all'
-		return AuthApi().get('/member/mutasi-poin/' + fil + '?page=' + n)
+		var fil = filter ? filter : "all"
+		return AuthApi().get("/member/mutasi-poin/" + fil + "?page=" + n)
 	},
 	rewardsWait(n) {
-		return AuthApi().get('/member/transaction/wait/?page=' + n)
+		return AuthApi().get("/member/transaction/wait/?page=" + n)
 	},
 	rewardsSent(n) {
-		return AuthApi().get('/member/transaction/process/?page=' + n)
+		return AuthApi().get("/member/transaction/process/?page=" + n)
 	},
 	rewardsReceived(n) {
-		return AuthApi().get('/member/transaction/confirmation/?page=' + n)
+		return AuthApi().get("/member/transaction/confirmation/?page=" + n)
 	},
 	rewardsFinished(n) {
-		return AuthApi().get('/member/transaction/finish?page=' + n)
+		return AuthApi().get("/member/transaction/finish?page=" + n)
 	},
 
 	claimDigital(params) {
-		return AuthApi().post('/member/transaction/process/redeem-non-physical', params)
+		return AuthApi().post(
+			"/member/transaction/process/redeem-non-physical",
+			params
+		)
 	},
 	claimFisik(params) {
-		return AuthApi().post('/member/transaction/process/redeem-physical', params)
+		return AuthApi().post(
+			"/member/transaction/process/redeem-physical",
+			params
+		)
 	},
 	confirmReward(params) {
-		return AuthApi().post('/member/transaction/process/confirmation', params)
+		return AuthApi().post(
+			"/member/transaction/process/confirmation",
+			params
+		)
 	},
 	statusTransfer() {
-		return AuthApi().get('/member/status-transfer')
+		return AuthApi().get("/member/status-transfer")
 	},
 	getCodePW(page) {
-		return AuthApi().get('/member/history-payment?page=' + page)
+		return AuthApi().get("/member/history-payment?page=" + page)
 	},
 
 	share(data) {
-		return AuthApi().post('/member/share-social', data)
+		return AuthApi().post("/member/share-social", data)
 	},
 
 	claimDailyPoint(data = null) {
-		return AuthApi().post('/member/daily-point', data)
+		return AuthApi().post("/member/daily-point", data)
 	},
 
 	checkDailyPoint() {
-		return AuthApi().get('/member/check-daily-point')
+		return AuthApi().get("/member/check-daily-point")
 	},
 
 	generateDailyPoint(data) {
-		return AuthApi().post('/member/check-daily-point', data)
+		return AuthApi().post("/member/check-daily-point", data)
 	},
 
 	voucherDailyPoint() {
-		return AuthApi().get('master/voucher/daily-point');
+		return AuthApi().get("master/voucher/daily-point")
 	},
 
-	sendOTP(){
-		return AuthApi().get('/member/otp');
+	sendOTP() {
+		return AuthApi().get("/member/otp")
 	},
 
 	verifyOTP(params) {
-		return AuthApi().post('/member/otp', params)
+		return AuthApi().post("/member/otp", params)
 	},
 
 	eWalletBuy(params) {
-		return AuthApi().post('https://s1.playworld.id/api/xendit/e-wallets', params)
+		return AuthApi().post(
+			"https://s1.playworld.id/api/xendit/e-wallets",
+			params
+		)
 	},
 
 	fetchStatusSms(n) {
-		return AuthApi().get('/member/purchase-status/sms?page='+n, )
+		return AuthApi().get("/member/purchase-status/sms?page=" + n)
 	},
 
 	fetchBanner(slug) {
-		return Api().get('/static/banner/'+slug);
-	}
-
+		return Api().get("/static/banner/" + slug)
+	},
 }

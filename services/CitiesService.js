@@ -1,7 +1,7 @@
-import AuthApi from '@/services/AuthApi'
+import AuthApi from "@/services/AuthApi"
 
 export default {
-    getCities() {
-        return AuthApi().get('/all')
-    },
+	getCities() {
+		return AuthApi().get("/all")
+	},
 }

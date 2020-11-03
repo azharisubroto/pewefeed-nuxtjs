@@ -1,10 +1,10 @@
-import Api from '@/services/Api'
+import Api from "@/services/Api"
 
 export default {
-    getProgram() {
-        return Api().get('/program')
+	getProgram() {
+		return Api().get("/program")
 	},
 	getChallange() {
-		return Api().get('/static/challenges')
-	}
+		return Api().get("/static/challenges")
+	},
 }

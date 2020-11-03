@@ -1,10 +1,17 @@
 <template>
-	<div v-if="prizes!==null">
+	<div v-if="prizes !== null">
 		<v-container class="pt-3 pb-0">
-			<div class="text-18" style="color: #000"><strong>Pemenang Pilihan Juri</strong></div>
+			<div class="text-18" style="color: #000">
+				<strong>Pemenang Pilihan Juri</strong>
+			</div>
 		</v-container>
 		<template v-for="(item, i) in prizes">
-			<v-img :key="'prizeup-'+i" class="px-2 my-4 mx-3" v-if="i<3" :src="item.redeem.image"></v-img>
+			<v-img
+				:key="'prizeup-' + i"
+				class="px-2 my-4 mx-3"
+				v-if="i < 3"
+				:src="item.redeem.image"
+			></v-img>
 			<!-- <v-card color="#404040" class="px-2 my-4 mx-3" v-if="i<3"  :key="'prize-'+i">
 				<v-row>
 					<v-col cols="3">
@@ -26,32 +33,37 @@
 			<div class="text-18"><strong>Pemenang Vote Terbanyak</strong></div>
 		</v-container>
 		<template v-for="(item, i) in prizes">
-			<v-img :key="'prizebot-'+i" v-if="i>=3" class="px-2 my-4 mx-3" :src="item.redeem.image"></v-img>
+			<v-img
+				:key="'prizebot-' + i"
+				v-if="i >= 3"
+				class="px-2 my-4 mx-3"
+				:src="item.redeem.image"
+			></v-img>
 		</template>
 	</div>
 </template>
 
 <script>
-import SingService from '@/services/SingService'
+import SingService from "@/services/SingService"
 export default {
-	name:"SingPrizes",
-	data(){
+	name: "SingPrizes",
+	data() {
 		return {
-			prizes: null
+			prizes: null,
 		}
 	},
 	methods: {
 		async fetchPrizes() {
 			try {
-				const res = await SingService.getPrizes();
-				this.prizes = await res.data.data;
+				const res = await SingService.getPrizes()
+				this.prizes = await res.data.data
 			} catch (error) {
 				console.log(error)
 			}
-		}
+		},
 	},
-	mounted(){
+	mounted() {
 		this.fetchPrizes()
-	}
+	},
 }
 </script>

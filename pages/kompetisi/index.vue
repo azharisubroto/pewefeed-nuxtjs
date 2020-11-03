@@ -44,11 +44,9 @@
 				</v-col> -->
 				<!-- <v-col cols="12" v-else> -->
 				<v-col cols="12">
-					<v-alert
-						prominent
-						text
-						type="info"
-						success>Belum ada kompetisi yang tersedia</v-alert>
+					<v-alert prominent text type="info" success
+						>Belum ada kompetisi yang tersedia</v-alert
+					>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -56,12 +54,12 @@
 </template>
 
 <script>
-import ProgramService from "@/services/ProgramService";
+import ProgramService from "@/services/ProgramService"
 export default {
 	name: "kompetisi",
 	data: () => ({
 		programs: [],
-		isAvailable: false
+		isAvailable: false,
 	}),
 	methods: {
 		async fetchProgram() {
@@ -77,7 +75,7 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
-		}
+		},
 	},
 	// mounted() {
 	// 	this.fetchProgram()

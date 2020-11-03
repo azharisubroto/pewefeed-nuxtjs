@@ -1,12 +1,9 @@
 <template>
 	<section>
-		<v-tabs-items style="background:#000!important" v-model="tab">
-			<v-tab-item
-				v-for="item in tabItems"
-				:key="item"
-			>
+		<v-tabs-items style="background: #000 !important" v-model="tab">
+			<v-tab-item v-for="item in tabItems" :key="item">
 				<template v-if="item == 'Menunggu'">
-					<Menunggu :addresses="addresses" :contact="contact"/>
+					<Menunggu :addresses="addresses" :contact="contact" />
 				</template>
 				<template v-if="item == 'Diproses'">
 					<Dikirim />
@@ -22,41 +19,38 @@
 
 		<!-- PROFIL MENU -->
 		<v-bottom-navigation
-		fixed
-		dark
-		grow
-		color="white"
-		background-color="#2c2c2d"
-		v-model="tab"
+			fixed
+			dark
+			grow
+			color="white"
+			background-color="#2c2c2d"
+			v-model="tab"
 		>
-			<v-btn
-			v-for="item in tabItems"
-			:key="item"
-			>
-				<span>{{item}}</span>
+			<v-btn v-for="item in tabItems" :key="item">
+				<span>{{ item }}</span>
 			</v-btn>
 		</v-bottom-navigation>
 	</section>
 </template>
 <script>
-import Dikirim from '@/components/member/rewards/Dikirim'
-import Diterima from '@/components/member/rewards/Diterima'
-import Menunggu from '@/components/member/rewards/Menunggu'
-import Selesai from '@/components/member/rewards/Selesai'
-import UserService from '@/services/UserService'
+import Dikirim from "@/components/member/rewards/Dikirim"
+import Diterima from "@/components/member/rewards/Diterima"
+import Menunggu from "@/components/member/rewards/Menunggu"
+import Selesai from "@/components/member/rewards/Selesai"
+import UserService from "@/services/UserService"
 export default {
 	components: {
 		Dikirim,
 		Diterima,
 		Menunggu,
-		Selesai
+		Selesai,
 	},
 	data() {
 		return {
-			tab:0,
+			tab: 0,
 			addresses: null,
 			contact: null,
-			tabItems: ['Menunggu','Diproses','Dikirim','Diterima']
+			tabItems: ["Menunggu", "Diproses", "Dikirim", "Diterima"],
 		}
 	},
 	methods: {
@@ -65,9 +59,9 @@ export default {
 			try {
 				const res = await UserService.getAddresses()
 				var items = res.data.data
-				if( items && items.length > 0 ) {
-				////console.log(JSON.parse(JSON.stringify(items)))
-				this.addresses = items
+				if (items && items.length > 0) {
+					////console.log(JSON.parse(JSON.stringify(items)))
+					this.addresses = items
 				}
 			} catch (error) {
 				console.log(error)
@@ -78,13 +72,12 @@ export default {
 			try {
 				const res = await UserService.getContacts()
 				var items = res.data.data
-				if( items && items.length > 0 ) {
+				if (items && items.length > 0) {
 					////console.log(JSON.parse(JSON.stringify(items)))
 					this.contact = items
 				}
 			} catch (error) {
 				//console.log(res)
-
 			}
 		},
 	},
@@ -92,10 +85,10 @@ export default {
 		let _self = this
 		this.getAddresses()
 		this.getNumbers()
-		this.$bus.$on('claimed', () => {
+		this.$bus.$on("claimed", () => {
 			_self.tab = 1
 		})
-	}
+	},
 }
 </script>
 <!-- <style lang="scss">
