@@ -1,13 +1,13 @@
 <template>
-    <CodePWComponent />
+	<CodePWComponent />
 </template>
 
 <script>
-import CodePWComponent from "@/components/CodePWComponent";
+import CodePWComponent from "@/components/CodePWComponent"
 export default {
-    name: 'CodePW',
-    components: {
-        CodePWComponent
-    }
+	name: "CodePW",
+	components: {
+		CodePWComponent,
+	},
 }
 </script>

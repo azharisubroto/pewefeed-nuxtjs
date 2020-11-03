@@ -1,47 +1,61 @@
 <template>
 	<section class="sing-herodownload">
-		<div v-if="label != null && !loading" >
-
-			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
+		<div v-if="label != null && !loading">
+			<SingAppBar
+				:back="true"
+				:title="label ? label : 'Sing with Latinka'"
+			/>
 
 			<template v-if="maintab == 0">
 				<v-container>
-					<BannerStatic slug="sing"/>
+					<BannerStatic slug="sing" />
 				</v-container>
 
 				<v-container>
-					<v-card to="/sing/download-audisi/" color="#404040" class="px-4 py-4 my-3" >
+					<v-card
+						to="/sing/download-audisi/"
+						color="#404040"
+						class="px-4 py-4 my-3"
+					>
 						<div class="d-flex align-center justify-space-between">
 							<div>
-								<strong class="text-16">
-									Video Audisi
-								</strong>
+								<strong class="text-16"> Video Audisi </strong>
 							</div>
-							<div style="width:20px">
+							<div style="width: 20px">
 								<v-icon size="30">mdi-chevron-right</v-icon>
 							</div>
 						</div>
 					</v-card>
-					<v-card to="/sing/download-semifinal/" color="#404040" disabled class="px-4 py-4 my-3" >
+					<v-card
+						to="/sing/download-semifinal/"
+						color="#404040"
+						disabled
+						class="px-4 py-4 my-3"
+					>
 						<div class="d-flex align-center justify-space-between">
 							<div>
 								<strong class="text-16">
 									Video Semi Final
 								</strong>
 							</div>
-							<div style="width:20px">
+							<div style="width: 20px">
 								<v-icon size="30">mdi-chevron-right</v-icon>
 							</div>
 						</div>
 					</v-card>
-					<v-card to="/sing/download-final/" color="#404040" disabled class="px-4 py-4 my-3" >
+					<v-card
+						to="/sing/download-final/"
+						color="#404040"
+						disabled
+						class="px-4 py-4 my-3"
+					>
 						<div class="d-flex align-center justify-space-between">
 							<div>
 								<strong class="text-16">
 									Video Semi Final
 								</strong>
 							</div>
-							<div style="width:20px">
+							<div style="width: 20px">
 								<v-icon size="30">mdi-chevron-right</v-icon>
 							</div>
 						</div>
@@ -50,43 +64,39 @@
 			</template>
 
 			<template v-if="maintab == 1">
-				<SingPrizes/>
+				<SingPrizes />
 			</template>
 		</div>
 		<div v-else>
-			<LoadingBar/>
+			<LoadingBar />
 		</div>
 	</section>
 </template>
 
 <script>
-import ShareButton2 from "@/components/common/ShareButton2";
-import SingAppBar from "@/components/sing/SingAppBar";
-import SingPrizes from "@/components/sing/SingPrizes";
-import Video from "@/components/sing/Video";
-import LoadingBar from "@/components/sing/LoadingBar";
-import SingService from '@/services/SingService';
-import BannerStatic from '@/components/common/BannerStatic'
+import SingAppBar from "@/components/sing/SingAppBar"
+import SingPrizes from "@/components/sing/SingPrizes"
+import LoadingBar from "@/components/sing/LoadingBar"
+import SingService from "@/services/SingService"
+import BannerStatic from "@/components/common/BannerStatic"
 
 export default {
-	name:"Sing",
+	name: "Sing",
 	components: {
-		ShareButton2,
 		SingAppBar,
 		SingPrizes,
-		Video,
 		BannerStatic,
-		LoadingBar
+		LoadingBar,
 	},
-	data(){
+	data() {
 		return {
 			loading: true,
 			singtab: 0,
 			maintab: 0,
-			label: 'Download',
+			label: "Download",
 			singcontent: [],
 			download: null,
-			lirik: null
+			lirik: null,
 		}
 	},
 	methods: {
@@ -105,21 +115,21 @@ export default {
 		},
 	},
 	mounted() {
-		this.getPromotedVideo();
-	}
+		this.getPromotedVideo()
+	},
 }
 </script>
 
 <style lang="scss">
-	.sing {
-		iframe {
-			width: 100%;
-			height: 300px;
-		}
+.sing {
+	iframe {
+		width: 100%;
+		height: 300px;
 	}
-	.v-list-item--disabled {
-		.v-icon {
-			opacity: .5;
-		}
+}
+.v-list-item--disabled {
+	.v-icon {
+		opacity: 0.5;
 	}
+}
 </style>

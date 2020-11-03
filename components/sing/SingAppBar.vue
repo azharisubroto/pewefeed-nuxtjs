@@ -10,27 +10,34 @@
 			<div class="flex-grow-1"></div>
 		</template>
 		<v-toolbar-title
-			@click="$router.push('/'); drawer = false"
+			@click="
+				$router.push('/')
+				drawer = false
+			"
 			class="px-0"
 		>
-			{{title ? title : 'Sing with Latinka'}}
+			{{ title ? title : "Sing with Latinka" }}
 		</v-toolbar-title>
 		<div class="flex-grow-1"></div>
 
 		<div v-if="$route.name != 'index'">
-			 <v-img @click="$router.push('/')" src="/img/peweicon.svg" width="20"></v-img>
+			<v-img
+				@click="$router.push('/')"
+				src="/img/peweicon.svg"
+				width="20"
+			></v-img>
 		</div>
 	</v-app-bar>
 </template>
 
 <script>
 export default {
-	name:"SingAppBar",
-	props: ['title', 'back'],
+	name: "SingAppBar",
+	props: ["title", "back"],
 	methods: {
 		historyBack() {
-		this.$router.back();
+			this.$router.back()
 		},
-	}
+	},
 }
 </script>

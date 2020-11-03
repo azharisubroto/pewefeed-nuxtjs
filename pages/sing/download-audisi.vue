@@ -1,24 +1,28 @@
 <template>
 	<section class="sing-herodownload">
-		<div v-if="label != null && !loading" >
-
-			<SingAppBar :back="true" :title="label ? label : 'Sing with Latinka'"/>
+		<div v-if="label != null && !loading">
+			<SingAppBar
+				:back="true"
+				:title="label ? label : 'Sing with Latinka'"
+			/>
 
 			<template v-if="maintab == 0">
 				<v-container>
-					<BannerStatic slug="sing"/>
+					<BannerStatic slug="sing" />
 				</v-container>
 
 				<v-container>
 					<v-card color="#404040" class="px-4 py-4 my-3">
 						<a @click="downloadVideo(download)">
-							<div class="d-flex align-center justify-space-between">
+							<div
+								class="d-flex align-center justify-space-between"
+							>
 								<div>
 									<strong class="text-16">
 										Download Now
 									</strong>
 								</div>
-								<div style="width:20px">
+								<div style="width: 20px">
 									<v-icon size="30">mdi-chevron-right</v-icon>
 								</div>
 							</div>
@@ -26,13 +30,15 @@
 					</v-card>
 					<v-card color="#404040" class="px-4 py-4 my-3">
 						<a :href="lirikdownload">
-							<div class="d-flex align-center justify-space-between">
+							<div
+								class="d-flex align-center justify-space-between"
+							>
 								<div>
 									<strong class="text-16">
 										Download Lirik
 									</strong>
 								</div>
-								<div style="width:20px">
+								<div style="width: 20px">
 									<v-icon size="30">mdi-chevron-right</v-icon>
 								</div>
 							</div>
@@ -42,9 +48,17 @@
 					<section class="helpexpandable">
 						<v-expansion-panels :accordion="true" focusable>
 							<v-expansion-panel class="mb-3">
-								<v-expansion-panel-header class="pl-4 pr-3 py-3 text-16" style="line-height:28px;font-weight:bold">Lihat Lirik</v-expansion-panel-header>
+								<v-expansion-panel-header
+									class="pl-4 pr-3 py-3 text-16"
+									style="line-height: 28px; font-weight: bold"
+									>Lihat Lirik</v-expansion-panel-header
+								>
 								<v-expansion-panel-content>
-									<div v-html="lirik" class="text-14 py-4" style="line-height:30px"></div>
+									<div
+										v-html="lirik"
+										class="text-14 py-4"
+										style="line-height: 30px"
+									></div>
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 						</v-expansion-panels>
@@ -53,49 +67,42 @@
 			</template>
 
 			<template v-if="maintab == 1">
-				<SingPrizes/>
+				<SingPrizes />
 			</template>
 		</div>
 		<div v-else>
-			<LoadingBar/>
+			<LoadingBar />
 		</div>
 
-		<v-overlay
-          :opacity="1"
-          :value="downloadOverlay"
-        >
-          <div class="text-center">
-			  <LoadingBar/>
-		  </div>
-        </v-overlay>
+		<v-overlay :opacity="1" :value="downloadOverlay">
+			<div class="text-center">
+				<LoadingBar />
+			</div>
+		</v-overlay>
 	</section>
 </template>
 
 <script>
-import ShareButton2 from "@/components/common/ShareButton2";
-import SingAppBar from "@/components/sing/SingAppBar";
-import SingPrizes from "@/components/sing/SingPrizes";
-import Video from "@/components/sing/Video";
-import LoadingBar from "@/components/sing/LoadingBar";
-import SingService from '@/services/SingService'
-import axios from 'axios'
-import BannerStatic from '@/components/common/BannerStatic'
+import SingAppBar from "@/components/sing/SingAppBar"
+import SingPrizes from "@/components/sing/SingPrizes"
+import LoadingBar from "@/components/sing/LoadingBar"
+import SingService from "@/services/SingService"
+import axios from "axios"
+import BannerStatic from "@/components/common/BannerStatic"
 
 export default {
-	name:"Sing",
+	name: "Sing",
 	components: {
-		ShareButton2,
 		SingAppBar,
-		Video,
 		BannerStatic,
-		LoadingBar
+		LoadingBar,
 	},
-	data(){
+	data() {
 		return {
 			loading: true,
 			singtab: 0,
 			maintab: 0,
-			label: 'Download',
+			label: "Download",
 			singcontent: [],
 			download: null,
 			videoName: null,
@@ -120,10 +127,10 @@ export default {
 				this.loading = false
 			}
 		},
-		reqListener () {
+		reqListener() {
 			//console.log(this.responseText);
 		},
-		async downloadVideo(url){
+		async downloadVideo(url) {
 			//let blob = await fetch(url).then(r => r.blob());
 			// let file = await fetch(url).then(r => r.blob()).then(blobFile => new File([blobFile], this.videoName, { type: "video/mp4" }));
 			// //console.log(file);
@@ -131,20 +138,24 @@ export default {
 
 			axios({
 				url: url, //your url
-				method: 'GET',
-				responseType: 'arraybuffer', // important
-			}).then((response) => {
-				const url = window.URL.createObjectURL(new Blob([response.data]));
-				const link = document.createElement('a');
-				link.href = url;
-				link.setAttribute('download', this.videoName+'.mp4'); //or any other extension
-				document.body.appendChild(link);
-				link.click();
-				this.downloadOverlay = false
-			}).catch(function(error){
-				alert("Can't download video file")
-				this.downloadOverlay = false;
-			});
+				method: "GET",
+				responseType: "arraybuffer", // important
+			})
+				.then((response) => {
+					const url = window.URL.createObjectURL(
+						new Blob([response.data])
+					)
+					const link = document.createElement("a")
+					link.href = url
+					link.setAttribute("download", this.videoName + ".mp4") //or any other extension
+					document.body.appendChild(link)
+					link.click()
+					this.downloadOverlay = false
+				})
+				.catch(function (error) {
+					alert("Can't download video file")
+					this.downloadOverlay = false
+				})
 
 			// axios.get(url, {responseType: 'arraybuffer'})
 			// .then(function (response) {
@@ -157,35 +168,35 @@ export default {
 			// 	link.download = "Your_file_name";
 			// 	link.click();
 			// });
-		}
+		},
 	},
 	mounted() {
-		this.getPromotedVideo();
-	}
+		this.getPromotedVideo()
+	},
 }
 </script>
 
 <style lang="scss">
-	.sing {
-		iframe {
-			width: 100%;
-			height: 300px;
-		}
+.sing {
+	iframe {
+		width: 100%;
+		height: 300px;
 	}
-	.helpexpandable {
-		.v-expansion-panels {
-			.v-expansion-panel {
-				border-radius: 6px;
-				&:after {
-					opacity:0!important;
-				}
-				.v-expansion-panel-content__wrap {
-					border-top: 1px solid #000;
-				}
-				.v-expansion-panel-header::before {
-					opacity: 0!important
-				}
+}
+.helpexpandable {
+	.v-expansion-panels {
+		.v-expansion-panel {
+			border-radius: 6px;
+			&:after {
+				opacity: 0 !important;
+			}
+			.v-expansion-panel-content__wrap {
+				border-top: 1px solid #000;
+			}
+			.v-expansion-panel-header::before {
+				opacity: 0 !important;
 			}
 		}
 	}
+}
 </style>

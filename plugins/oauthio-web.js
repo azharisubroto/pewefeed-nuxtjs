@@ -1,4 +1,4 @@
-import Vue from 'vue';
-import { OAuth } from "oauthio-web";
+import Vue from "vue"
+import { OAuth } from "oauthio-web"
 
-Vue.component('OAuth', OAuth);
+Vue.component("OAuth", OAuth)

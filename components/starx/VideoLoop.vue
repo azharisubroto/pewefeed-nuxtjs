@@ -1,65 +1,81 @@
 <template>
-    <v-card
-        class="StarxVideoLoop mx-auto mb-3 py-2 px-2"
-        :elevation="isWinner == 1 ? 0 : 1"
-        :class="isWinner == 1 ? 'manual-border' : ''"
-    >
+	<v-card
+		class="StarxVideoLoop mx-auto mb-3 py-2 px-2"
+		:elevation="isWinner == 1 ? 0 : 1"
+		:class="isWinner == 1 ? 'manual-border' : ''"
+	>
 		<v-row no-gutters align="center">
 			<v-col cols="3" :class="isWinner == 1 ? 'pr-2 mr-5' : 'pr-2'">
-				<v-img :src="vidimg(latest.video)" :aspect-ratio="1" @click="$router.push( '/starx/band/video/'+latest.slug )">
-					<v-row class="fill-height ma-0" align="center" justify="center">
-						<v-icon
-						dark
-						size="35"
-						class="playbutton">
+				<v-img
+					:src="vidimg(latest.video)"
+					:aspect-ratio="1"
+					@click="$router.push('/starx/band/video/' + latest.slug)"
+				>
+					<v-row
+						class="fill-height ma-0"
+						align="center"
+						justify="center"
+					>
+						<v-icon dark size="35" class="playbutton">
 							mdi-play-circle-outline
 						</v-icon>
 					</v-row>
 				</v-img>
 			</v-col>
 			<v-col :cols="isWinner == 1 ? 7 : 9">
-				<span class="caption" v-if="isWinner != 1">{{ latest.created_at }}</span>
-				<h4 :class="isWinner == 1 ? 'mb-2' : ''" @click="$router.push( '/starx/band/video/'+latest.slug )">{{ latest.description }}</h4>
+				<span class="caption" v-if="isWinner != 1">{{
+					latest.created_at
+				}}</span>
+				<h4
+					:class="isWinner == 1 ? 'mb-2' : ''"
+					@click="$router.push('/starx/band/video/' + latest.slug)"
+				>
+					{{ latest.description }}
+				</h4>
 
 				<v-row v-if="latest.band" class="sm">
 					<v-col v-if="latest.band.image != ''" cols="2" class="py-0">
-                        <v-avatar
-                            size="25"
-                        >
-                            <img :src="latest.band.image" alt="alt">
-                        </v-avatar>
+						<v-avatar size="25">
+							<img :src="latest.band.image" alt="alt" />
+						</v-avatar>
 					</v-col>
-                    <v-col v-else cols="2" class="py-0">
-                        <v-avatar
-                            size="25"
-                        >
-                            <img src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png" alt="alt">
-                        </v-avatar>
+					<v-col v-else cols="2" class="py-0">
+						<v-avatar size="25">
+							<img
+								src="https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/member/avatar-fallback.png"
+								alt="alt"
+							/>
+						</v-avatar>
 					</v-col>
 					<v-col cols="10" class="py-0">
-						<strong style="font-size:14px;">{{ latest.band ? latest.band.name : '' }}</strong>
-						<div class="caption" v-if="latest.school">{{ latest.school }}</div>
+						<strong style="font-size: 14px">{{
+							latest.band ? latest.band.name : ""
+						}}</strong>
+						<div class="caption" v-if="latest.school">
+							{{ latest.school }}
+						</div>
 					</v-col>
 				</v-row>
 			</v-col>
-            <v-col class="text-center" v-if="isWinner == 1" cols="1">
-                <v-icon>mdi-chevron-right</v-icon>
-            </v-col>
+			<v-col class="text-center" v-if="isWinner == 1" cols="1">
+				<v-icon>mdi-chevron-right</v-icon>
+			</v-col>
 		</v-row>
 
-		<div v-if="action!='nope'" class="devider-small my-2"></div>
+		<div v-if="action != 'nope'" class="devider-small my-2"></div>
 
-		<v-row v-if="action!='nope'" class="sm" align="center">
+		<v-row v-if="action != 'nope'" class="sm" align="center">
 			<v-col cols="2" class="caption py-0 pr-0">
-				<span :id="'starcount-' + latest.id">{{latest.star}}</span>/<span style="color: blue">100</span>
+				<span :id="'starcount-' + latest.id">{{ latest.star }}</span
+				>/<span style="color: blue">100</span>
 			</v-col>
 			<v-col cols="5" class="py-0">
 				<v-progress-linear
-				:value="latest.star"
-				color="light-blue"
-				height="10"
-				reactive
-				rounded
+					:value="latest.star"
+					color="light-blue"
+					height="10"
+					reactive
+					rounded
 				></v-progress-linear>
 			</v-col>
 			<v-col cols="5" class="py-0">
@@ -71,88 +87,83 @@
 					color="orange accent-4"
 				>
 					<v-icon left dark>mdi-star</v-icon>
-					Kirim Star<br>
+					Kirim Star<br />
 					(+5 Poin)
 				</v-btn>
 			</v-col>
 		</v-row>
 
-        <!-- =====================================================================================
+		<!-- =====================================================================================
         ALERT
         ===================================================================================== -->
-        <v-snackbar
-            v-model="snackbar"
-            :timeout="timeout"
-            top
-        >
-            <img width="30" class="mr-2" :src="snacksrc" alt="">
-            {{ responsemessage }}
-            <v-btn
-                color="primary"
-                text
-                icon
-                @click="snackbar = false"
-            >
-            <v-icon color="white">mdi-close-circle-outline</v-icon>
-            </v-btn>
-        </v-snackbar>
+		<v-snackbar v-model="snackbar" :timeout="timeout" top>
+			<img width="30" class="mr-2" :src="snacksrc" alt="" />
+			{{ responsemessage }}
+			<v-btn color="primary" text icon @click="snackbar = false">
+				<v-icon color="white">mdi-close-circle-outline</v-icon>
+			</v-btn>
+		</v-snackbar>
 
-        <!-- =====================================================================================
+		<!-- =====================================================================================
         MODAL
         ===================================================================================== -->
-        <BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose"/>
-        <LoginModal :dialogVisible="pleaseLoginDialogVisible" @close="myDialogClose"/>
-        <NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose"/>
-    </v-card>
+		<BuyVip :dialogVisible="buyVipDialogVisible" @close="myDialogClose" />
+		<LoginModal
+			:dialogVisible="pleaseLoginDialogVisible"
+			@close="myDialogClose"
+		/>
+		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
+	</v-card>
 </template>
 
 <script>
-import StarxService from '@/services/StarxService'
-import UserService from '@/services/UserService'
-import BuyVip from '@/components/modal/BuyVip'
-import LoginModal from '@/components/modal/LoginModal'
-import NotVip from '@/components/modal/NotVip'
+import StarxService from "@/services/StarxService"
+import UserService from "@/services/UserService"
+import BuyVip from "@/components/modal/BuyVip"
+import LoginModal from "@/components/modal/LoginModal"
+import NotVip from "@/components/modal/NotVip"
 export default {
-    name:"VideoLoop",
-    // props: {
-    //     latest: Array,
-    //     filtering: [],
-    //     activeBtn: Number,
-    //     hiddendetail: Boolean
-    // },
-    props: [
-        "latest",
-        "filtering",
-        "activeBtn",
+	name: "VideoLoop",
+	// props: {
+	//     latest: Array,
+	//     filtering: [],
+	//     activeBtn: Number,
+	//     hiddendetail: Boolean
+	// },
+	props: [
+		"latest",
+		"filtering",
+		"activeBtn",
 		"hiddendetail",
-        "action",
-        "isWinner"
-    ],
-    components: {
-        BuyVip,
-        LoginModal,
-        NotVip,
-    },
-    data: () => ({
-        buyVipDialogVisible: false,
-        pleaseLoginDialogVisible: false,
-        notVipDialogVisible: false,
-        is_star: 'grey',
-        userdata: [],
-        snackbar: false,
-        snacksrc : 'https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png',
-        timeout: 3000,
-        responsemessage: '',
-        isLoggedIn: false
-    }),
-    methods: {
-        vidimg(iframe) {
-            if( typeof iframe == 'undefined' ) {
-                return 'https://img.youtube.com/vi/'+ iframe +'/mqdefault.jpg';
-            } else {
-                if( iframe.includes('iframe') ) {
-                    var url = iframe,
-                        /* eslint-disable */
+		"action",
+		"isWinner",
+	],
+	components: {
+		BuyVip,
+		LoginModal,
+		NotVip,
+	},
+	data: () => ({
+		buyVipDialogVisible: false,
+		pleaseLoginDialogVisible: false,
+		notVipDialogVisible: false,
+		is_star: "grey",
+		userdata: [],
+		snackbar: false,
+		snacksrc:
+			"https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/redeemicon/poinekstra222.png",
+		timeout: 3000,
+		responsemessage: "",
+		isLoggedIn: false,
+	}),
+	methods: {
+		vidimg(iframe) {
+			if (typeof iframe == "undefined") {
+				return "https://img.youtube.com/vi/" + iframe + "/mqdefault.jpg"
+			} else {
+				if (iframe.includes("iframe")) {
+					var url = iframe,
+						/* eslint-disable */
                         regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/,
                         videoId = url.match(regExp);
 
