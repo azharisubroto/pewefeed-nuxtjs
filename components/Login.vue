@@ -2,13 +2,13 @@
 	<div class="container">
 		<h3 class="my-3 text-center" id="loginhead">Daftar / Login</h3>
 		<!-- {{redirect}} -->
-		<!-- <OAuth
+		<OAuth
 			provider="facebook"
 			btnclass="indigo darken-1 "
 			:redirect="redirecturl"
 			@makeloading="setloading"
 			@notloading="notloading"
-		/> -->
+		/>
 		<OAuth
 			provider="google"
 			btnclass="red darken-1"
