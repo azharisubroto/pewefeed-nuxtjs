@@ -63,7 +63,7 @@ export default {
 		async loginProcess() {
 			try {
 				const response = await axios.post(
-					"https://s1.playworld.id/api/auth/signin",
+					"https://api.pewefeed.com/api/auth/signin",
 					{
 						email: this.email,
 						provider: this.provider,

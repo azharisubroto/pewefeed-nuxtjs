@@ -305,7 +305,7 @@ export default {
 			},
 			snackbar: false,
 			dropOptions: {
-				url: "https://s1.playworld.id/api/member/avatar",
+				url: "https://api.pewefeed.com/api/member/avatar",
 				headers: {
 					Authorization: "",
 					"Cache-Control": "",
@@ -338,7 +338,7 @@ export default {
 			formData.append("avatar", file)
 			vm.uploadloading = true
 			axios
-				.post("https://s1.playworld.id/api/member/avatar", formData, {
+				.post("https://api.pewefeed.com/api/member/avatar", formData, {
 					headers: {
 						Authorization: "Bearer " + bearer,
 					},
@@ -366,7 +366,7 @@ export default {
 			formData.append("cover_image", file)
 			axios
 				.post(
-					"https://s1.playworld.id/api/member/cover-image",
+					"https://api.pewefeed.com/api/member/cover-image",
 					formData,
 					{
 						headers: {

@@ -228,7 +228,7 @@ export default {
 	},
 	async asyncData({ query, error }) {
 		let data = await axios.get(
-			"https://s1.playworld.id/api/article/top-views/?page=1"
+			"https://api.pewefeed.com/api/article/top-views/?page=1"
 		)
 		return {
 			topviews: data.data.data,

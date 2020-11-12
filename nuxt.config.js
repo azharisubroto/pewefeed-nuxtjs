@@ -126,17 +126,17 @@ export default {
 			local: {
 				endpoints: {
 					login: {
-						url: "https://s1.playworld.id/api/auth/login",
+						url: "https://api.pewefeed.com/api/auth/login",
 						method: "post",
 						propertyName: "token",
 					},
 					logout: {
-						url: "https://s1.playworld.id/api/auth/logout",
+						url: "https://api.pewefeed.com/api/auth/logout",
 						method: "get",
 					},
 					user: {
 						url:
-							"https://s1.playworld.id/api/member/get-single-member",
+							"https://api.pewefeed.com/api/member/get-single-member",
 						method: "get",
 						propertyName: "users",
 					},

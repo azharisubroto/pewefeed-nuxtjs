@@ -134,7 +134,7 @@ export default {
 			pdfdownload: "",
 			dropOptions: {
 				url:
-					"https://s1.playworld.id/api/member/program/starx/band/upload/document",
+					"https://api.pewefeed.com/api/member/program/starx/band/upload/document",
 				headers: {
 					Authorization: "Bearer " + this.$auth.user.data.token,
 					"Cache-Control": "",

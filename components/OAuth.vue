@@ -55,7 +55,7 @@ export default {
 			}
 
 			window.location.href =
-				"https://s1.playworld.id/api/auth/login-social/" +
+				"https://api.pewefeed.com/api/auth/login-social/" +
 				provider +
 				"?origin=" +
 				route +
@@ -96,7 +96,7 @@ export default {
 				}
 
 				const response = await axios.post(
-					"https://s1.playworld.id/api/auth/signin",
+					"https://api.pewefeed.com/api/auth/signin",
 					datasend
 				)
 				////console.log(response.data);

@@ -87,7 +87,7 @@ export default {
 	},
 	checkAnswered(type, slug) {
 		return AuthApi().get(
-			"https://s1.playworld.id/api/member/check-answered-multiple-quiz/" +
+			"https://api.pewefeed.com/api/member/check-answered-multiple-quiz/" +
 				type +
 				"/" +
 				slug

@@ -147,7 +147,7 @@ export default {
 
 	eWalletBuy(params) {
 		return AuthApi().post(
-			"https://s1.playworld.id/api/xendit/e-wallets",
+			"https://api.pewefeed.com/api/xendit/e-wallets",
 			params
 		)
 	},

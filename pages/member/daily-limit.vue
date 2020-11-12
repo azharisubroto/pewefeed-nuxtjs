@@ -105,7 +105,7 @@ export default {
 			mypoint: null,
 			snackbar: false,
 			dropOptions: {
-				url: "https://s1.playworld.id/api/member/avatar",
+				url: "https://api.pewefeed.com/api/member/avatar",
 				headers: {
 					Authorization: "",
 					"Cache-Control": "",

@@ -258,7 +258,7 @@ export default {
 			timeout: 5000,
 			dropOptions: {
 				url:
-					"https://s1.playworld.id/api/member/program/starx/band/upload/photo",
+					"https://api.pewefeed.com/api/member/program/starx/band/upload/photo",
 				headers: {
 					Authorization: "Bearer " + this.$auth.user.data.token,
 					"Cache-Control": "",
