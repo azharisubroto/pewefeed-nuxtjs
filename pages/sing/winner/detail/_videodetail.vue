@@ -433,9 +433,9 @@
 			</v-btn>
 			<v-btn @click="maintab = 1">
 				<span style="font-size: 10px !important">
-					Comments
+					Komentar
 					<br />
-					<span>(+5 poin)</span>
+					<span>(+{{ comment_point }} poin)</span>
 				</span>
 				<img
 					src="/img/icons/icon-comment-orange-v3.png"
@@ -593,6 +593,7 @@ import ShareButton2 from "@/components/common/ShareButton2"
 import SingAppBar from "@/components/sing/SingAppBar"
 import Video from "@/components/sing/Video"
 import ArticleService from "@/services/ArticleService"
+import StaticService from "@/services/StaticService"
 import CommentList from "@/components/common/CommentList"
 import SingService from "@/services/SingService"
 import LoginModal from "@/components/modal/LoginModal"
@@ -659,6 +660,7 @@ export default {
 			voterspaging: 1,
 			votersismore: false,
 			isrunning: true,
+			comment_point: 0,
 		}
 	},
 	watch: {
@@ -688,6 +690,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.fetchPoint()
 		this.getVideoDetail(this.$route.params.videodetail)
 		this.loadVoters(this.voterspaging)
 		localStorage.setItem("sing_to_login", "yes")
@@ -794,6 +797,16 @@ export default {
 		}
 	},
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		async sendVote(id) {
 			//console.log("sendVote");
 			try {

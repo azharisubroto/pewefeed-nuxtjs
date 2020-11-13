@@ -472,7 +472,7 @@
 			<v-btn @click="maintab = 1">
 				<span style="font-size: 10px">
 					Komentar
-					<br />(+5 Poin)
+					<br />(+{{ comment_point }} Poin)
 				</span>
 				<img
 					:src="
@@ -654,6 +654,7 @@ import Video from "@/components/sing/Video"
 import ArticleService from "@/services/ArticleService"
 import CommentList from "@/components/common/CommentList"
 import SingService from "@/services/SingService"
+import StaticService from "@/services/StaticService"
 import LoginModal from "@/components/modal/LoginModal"
 import NotVip from "@/components/modal/NotVip"
 
@@ -720,6 +721,7 @@ export default {
 			voterspaging: 1,
 			votersismore: false,
 			isrunning: true,
+			comment_point: 0,
 		}
 	},
 	watch: {
@@ -749,6 +751,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.fetchPoint()
 		this.getVideoDetail(this.$route.params.video)
 		this.loadVoters(this.voterspaging)
 		localStorage.setItem("sing_to_login", "yes")
@@ -855,6 +858,16 @@ export default {
 		}
 	},
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		parsehtml(string) {
 			const regExp = /\\"/g
 			return string.replace(regExp, '"')

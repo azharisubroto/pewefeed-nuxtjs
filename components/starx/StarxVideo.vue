@@ -561,7 +561,12 @@
 								video_winners = false
 							"
 						>
-							<span>Komentar <br />(+5 poin)</span>
+							<span
+								>Komentar <br />(+{{
+									comment_point
+								}}
+								poin)</span
+							>
 						</v-btn>
 					</v-bottom-navigation>
 				</v-tab-item>
@@ -670,6 +675,7 @@
 
 <script>
 import StarxService from "@/services/StarxService"
+import StaticService from "@/services/StaticService"
 import StarxDesc from "@/components/starx/StarxDesc"
 import KomentarPoin from "@/components/modal/KomentarPoin"
 import CommentList from "@/components/common/CommentList"
@@ -721,6 +727,7 @@ export default {
 			isLoggedIn: false,
 			bandImage: "",
 			expandTeam: false,
+			comment_point: 0,
 		}
 	},
 	components: {
@@ -741,6 +748,16 @@ export default {
 		},
 	},
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		propername(name) {
 			var propername = name.replace("-", " ")
 			return propername
@@ -910,9 +927,10 @@ export default {
 		},
     },
     mounted () {
-		this.StarxVideo();
-		this.fetchUserdata();
-		this.fetchComment();
+      this.fetchPoint();
+      this.StarxVideo();
+      this.fetchUserdata();
+      this.fetchComment();
     }
 }
 </script>

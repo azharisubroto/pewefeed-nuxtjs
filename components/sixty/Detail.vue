@@ -588,7 +588,7 @@
 			>
 				<span>
 					Komentar
-					<br />(+5 Poin)
+					<br />(+{{ comment_point }} Poin)
 				</span>
 			</v-btn>
 
@@ -613,6 +613,7 @@
 <script>
 import ArticleService from "@/services/ArticleService"
 import UserService from "@/services/UserService"
+import StaticService from "@/services/StaticService"
 import NewsLoop from "@/components/common/NewsLoop"
 import CommentList from "@/components/common/CommentList"
 import LoginModal from "@/components/modal/LoginModal"
@@ -698,6 +699,7 @@ export default {
 			notLogin: null,
 			recaptchaToken: null,
 			recaptchaKey: 1,
+			comment_point: 0,
 		}
 	},
 	// computed: {
@@ -708,6 +710,16 @@ export default {
 	//   }
 	// },
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		fetchUserdata() {
 			var res = []
 
@@ -1046,6 +1058,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.fetchPoint()
 		this.fetchContent()
 		this.fetchComment()
 		this.fetchUserdata()

@@ -464,7 +464,7 @@
 			>
 				<span>
 					Komentar
-					<br />(+5 poin)
+					<br />(+{{ comment_point }} poin)
 				</span>
 			</v-btn>
 		</v-bottom-navigation>
@@ -476,6 +476,7 @@
 <script>
 import ComicService from "@/services/ComicService"
 import UserService from "@/services/UserService"
+import StaticService from "@/services/StaticService"
 import CommentList from "@/components/common/CommentList"
 import LoginModal from "@/components/modal/LoginModal"
 import KomentarPoin from "@/components/modal/KomentarPoin"
@@ -547,6 +548,7 @@ export default {
 			nextComment: 2,
 			moreLoadingComment: false,
 			total_counter: 0,
+			comment_point: 0,
 		}
 	},
 	// computed: {
@@ -557,6 +559,16 @@ export default {
 	//   }
 	// },
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		/* Get Data */
 		rate(rating) {
 			const hasil = rating / 20
@@ -892,6 +904,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.fetchPoint()
 		this.fetchImage()
 		this.fetchContent()
 		this.fetchUserdata()

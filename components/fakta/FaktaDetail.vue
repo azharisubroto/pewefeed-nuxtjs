@@ -399,7 +399,7 @@
 					isReview = false
 				"
 			>
-				<span>Komentar<br />(+5 poin)</span>
+				<span>Komentar<br />(+{{ comment_point }} poin)</span>
 			</v-btn>
 		</v-bottom-navigation>
 
@@ -415,6 +415,7 @@ import BuyVip from "@/components/modal/BuyVip"
 import KomentarPoin from "@/components/modal/KomentarPoin"
 import FaktaService from "@/services/FaktaService"
 import UserService from "@/services/UserService"
+import StaticService from "@/services/StaticService"
 
 export default {
 	name: "FaktaDetail",
@@ -468,6 +469,7 @@ export default {
 				process.env.mobileUrl +
 				"fakta/detail/" +
 				this.$route.params.slug,
+			comment_point: 0,
 		}
 	},
 	computed: {
@@ -478,6 +480,16 @@ export default {
 		},
 	},
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		rate(rating) {
 			const hasil = rating / 20
 			return hasil
@@ -740,6 +752,7 @@ export default {
 	},
 
 	mounted() {
+		this.fetchPoint()
 		this.fetchUserdata()
 		this.getReviews()
 		this.fetchComment()

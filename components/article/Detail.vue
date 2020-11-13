@@ -307,8 +307,8 @@
 									class="mr-3 infoarticleicon"
 								></v-img>
 							</template>
-							Dapatkan 3 Poin atas setiap komentar dengan minimum
-							20 kata
+							Dapatkan {{ comment_point }} Poin atas setiap
+							komentar dengan minimum 20 kata
 						</v-alert>
 						<!-- TEXT AREA -->
 						<v-textarea
@@ -793,7 +793,7 @@
 				>
 					<span style="font-size: 10px">
 						Komentar
-						<br />(+5 Poin)
+						<br />(+{{ comment_point }} Poin)
 					</span>
 					<img
 						:src="
@@ -1091,6 +1091,7 @@
 
 <script>
 import ArticleService from "@/services/ArticleService"
+import StaticService from "@/services/StaticService"
 import UserService from "@/services/UserService"
 import NewsLoop from "@/components/common/NewsLoop"
 import LoginModal from "@/components/modal/LoginModal"
@@ -1148,7 +1149,6 @@ export default {
 			sending: false,
 			answered: false,
 			ispoin: false,
-			quiz_id: null,
 			dialog: false,
 			answerResult: null,
 			already: false,
@@ -1199,6 +1199,7 @@ export default {
 			recaptchalikemodal: false,
 			recaptchatrigger: 0,
 			redirecturl: null,
+			comment_point: 0,
 		}
 	},
 	// computed: {
@@ -1209,6 +1210,16 @@ export default {
 	//   }
 	// },
 	methods: {
+		async fetchPoint() {
+			try {
+				const res = await StaticService.getPoint()
+				if (res.data) {
+					this.comment_point = res.data.data.comment_point
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		async fetchContent() {
 			////console.log(this.$route.params.articleslug)
 			this.id = this.respon.article.id
@@ -1669,6 +1680,7 @@ export default {
 		this.fetchComment()
 		this.checkQuizStatus()
 		this.fetchUserdata()
+		this.fetchPoint()
 
 		this.redirecturl = window.location.href
 		//this.fetchLatest();
