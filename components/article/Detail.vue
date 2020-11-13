@@ -393,7 +393,7 @@
 
 			<!-- QUIZ -->
 			<template v-if="isQuiz">
-				<div v-if="quiz">
+				<div v-if="quizzes != null">
 					<v-tabs
 						grow
 						hide-slider
@@ -1140,6 +1140,8 @@ export default {
 			quizzes: null,
 			quizstatistic: null,
 			jawabanQuiz: [],
+			quiz: null,
+			quiz_id: null,
 			quiz_ids: [],
 			quizs: "",
 			sudahpernah: false,
