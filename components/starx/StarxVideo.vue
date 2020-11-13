@@ -667,6 +667,7 @@
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />
 		<KomentarPoin
 			:dialogVisible="KomentarPoinVisible"
+			:comment_point="comment_point"
 			@close="myDialogClose"
 		/>
 		<NotVip :dialogVisible="notVipDialogVisible" @close="myDialogClose" />

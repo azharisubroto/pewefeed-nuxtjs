@@ -22,7 +22,7 @@
 						text
 						class="deep-orange--text pl-0"
 						style="margin-left: -10px"
-						>You've got 5 Point!</v-btn
+						>You've got {{ comment_point }} Point!</v-btn
 					>
 				</v-toolbar-items>
 				<div class="flex-grow-1"></div>
@@ -35,7 +35,7 @@
 					class="mx-auto"
 				></v-img>
 				<div class="mt-5 mb-0 text-14">
-					Kamu mendapat 5 Poin karena sudah<br />
+					Kamu mendapat {{ comment_point }} Poin karena sudah<br />
 					Komentar di Artikel
 				</div>
 			</div>
@@ -62,6 +62,7 @@ export default {
 		dialogVisible: Boolean,
 		jawaban: Boolean,
 		already: Boolean,
+		comment_point: String,
 	},
 	data() {
 		return {

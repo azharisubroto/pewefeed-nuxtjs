@@ -309,6 +309,7 @@
 
 				<KomentarPoin
 					:dialogVisible="KomentarPoinVisible"
+					:comment_point="comment_point"
 					@close="myDialogClose"
 				/>
 			</template>
