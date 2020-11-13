@@ -357,7 +357,7 @@
 							class="mr-3 infoarticleicon"
 						></v-img>
 					</template>
-					Dapatkan 5 poin atas setiap komentar dengan minimum 20 kata
+					Dapatkan 3 poin atas setiap komentar dengan minimum 20 kata
 				</v-alert>
 
 				<!-- TEXT AREA -->
