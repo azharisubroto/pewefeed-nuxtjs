@@ -417,6 +417,13 @@
 				</div>
 			</v-container>
 		</template>
+
+		<DrawerPurchaseStatus
+			:dialogVisible="openPurchaseStatus"
+			:expireDate="expire_date"
+			:statusPurchase="userdata.vip"
+			@close="myDialogClose()"
+		/>
 	</div>
 </template>
 <script>
@@ -424,6 +431,7 @@ import UserService from "@/services/UserService"
 import "vue2-dropzone/dist/vue2Dropzone.min.css"
 import Login from "@/components/Login"
 import help from "@/components/help"
+import DrawerPurchaseStatus from "@/components/common/DrawerPurchaseStatus"
 import { mapState } from "vuex"
 
 export default {
@@ -469,6 +477,8 @@ export default {
 			expire_date: "",
 			dialog: false,
 			buyVipDialogVisible: false,
+			openPurchaseStatus: false,
+			statusPurchase: false,
 			personmenu: [
 				// {
 				//   name: "Total Points",
@@ -527,6 +537,7 @@ export default {
 	components: {
 		Login,
 		help,
+		DrawerPurchaseStatus,
 	},
 	filters: {
 		thousand(value) {
@@ -644,6 +655,7 @@ export default {
 		},
 		myDialogClose() {
 			this.buyVipDialogVisible = false
+			this.openPurchaseStatus = false
 			// other code
 		},
 		buyVip() {
@@ -670,6 +682,12 @@ export default {
 		this.setProfile()
 		this.dailypoint()
 		this.isLoggedIn = true
+
+		if (localStorage.getItem("onpurchasevip")) {
+			localStorage.removeItem("onpurchasevip")
+			this.statusPurchase = this.userdata.vip
+			this.openPurchaseStatus = true
+		}
 
 		this.$bus.$on("profilestep", () => {
 			this.profileStep = 2

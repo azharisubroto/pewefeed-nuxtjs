@@ -1153,8 +1153,10 @@ export default {
 		},
 
 		iframeClose() {
+			localStorage.setItem("onpurchasevip", true)
+			this.$router.push("/?tab=4")
 			this.iframeDialogVisible = false
-			this.$router.push("/member/status_transfer")
+			// this.$router.push("/member/status_transfer")
 			// other code
 		},
 		iframePreview() {
