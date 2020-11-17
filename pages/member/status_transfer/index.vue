@@ -224,6 +224,7 @@ export default {
 			thirdhelpdata: null,
 			openPurchaseStatus: false,
 			statusPurchase: false,
+			expire_date: "",
 		}
 	},
 	methods: {
@@ -279,6 +280,14 @@ export default {
 				console.log(error)
 			}
 		},
+		getParameterByName(name, url = window.location.href) {
+			name = name.replace(/[\[\]]/g, "\\$&")
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url)
+			if (!results) return null
+			if (!results[2]) return ""
+			return decodeURIComponent(results[2].replace(/\+/g, " "))
+		},
 	},
 	mounted() {
 		this.fetchBantuan()
@@ -287,6 +296,17 @@ export default {
 		} else {
 			this.getAddresses()
 			this.getNumbers()
+		}
+
+		var queryURL = this.getParameterByName("transaction_status")
+
+		if (queryURL) {
+			if (queryURL == "pending") {
+				this.openPurchaseStatus = true
+			} else {
+				this.$router.push("/?tab=4")
+				localStorage.setItem("onpurchasevip", true)
+			}
 		}
 
 		if (localStorage.getItem("onpurchasevip")) {
