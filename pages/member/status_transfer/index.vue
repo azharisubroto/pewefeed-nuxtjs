@@ -174,6 +174,13 @@
 		</v-bottom-navigation>
 
 		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
+
+		<DrawerPurchaseStatus
+			:dialogVisible="openPurchaseStatus"
+			:expireDate="expire_date"
+			:statusPurchase="userdata.vip"
+			@close="myDialogClose()"
+		/>
 	</section>
 </template>
 <script>
@@ -182,11 +189,13 @@ import Sukses from "@/components/member/midtrans/Sukses"
 import UserService from "@/services/UserService"
 import ArticleService from "@/services/ArticleService"
 import LoginModal from "@/components/modal/LoginModal"
+import DrawerPurchaseStatus from "@/components/common/DrawerPurchaseStatus"
 export default {
 	components: {
 		Pending,
 		Sukses,
 		LoginModal,
+		DrawerPurchaseStatus,
 	},
 	data() {
 		return {
@@ -213,6 +222,8 @@ export default {
 			secondahelpdata: null,
 			thirdhelptitle: null,
 			thirdhelpdata: null,
+			openPurchaseStatus: false,
+			statusPurchase: false,
 		}
 	},
 	methods: {
@@ -247,6 +258,7 @@ export default {
 		},
 		myDialogClose() {
 			this.loginModalVisible = false
+			this.openPurchaseStatus = false
 		},
 		async fetchBantuan() {
 			try {
@@ -275,6 +287,12 @@ export default {
 		} else {
 			this.getAddresses()
 			this.getNumbers()
+		}
+
+		if (localStorage.getItem("onpurchasevip")) {
+			localStorage.removeItem("onpurchasevip")
+			this.statusPurchase = false
+			this.openPurchaseStatus = true
 		}
 	},
 }

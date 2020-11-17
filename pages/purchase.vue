@@ -1153,11 +1153,21 @@ export default {
 		},
 
 		iframeClose() {
-			localStorage.setItem("onpurchasevip", true)
-			this.$router.push("/?tab=4")
+			this.$auth.fetchUser().then(() => {
+				localStorage.setItem("userdata", JSON.stringify(vm.$auth.user))
+				this.fetchUser()
+			})
+
+			if (this.userdata.vip) {
+				localStorage.setItem("onpurchasevip", true)
+				this.$router.push("/?tab=4")
+				// other code
+			} else {
+				localStorage.setItem("onpurchasevip", true)
+				this.$router.push("/member/status_transfer")
+			}
+
 			this.iframeDialogVisible = false
-			// this.$router.push("/member/status_transfer")
-			// other code
 		},
 		iframePreview() {
 			this.iframeDialogVisible = true
