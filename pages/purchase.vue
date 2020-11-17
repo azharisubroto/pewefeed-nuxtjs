@@ -1138,6 +1138,10 @@ export default {
 		},
 
 		fetchUser() {
+			let vm = this
+			this.$auth.fetchUser().then(() => {
+				localStorage.setItem("userdata", JSON.stringify(vm.$auth.user))
+			})
 			var res = []
 			if (this.$auth.user) {
 				// this.$auth.fetchUser()
@@ -1153,10 +1157,8 @@ export default {
 		},
 
 		iframeClose() {
-			this.$auth.fetchUser().then(() => {
-				localStorage.setItem("userdata", JSON.stringify(vm.$auth.user))
-				this.fetchUser()
-			})
+			let vm = this
+			vm.fetchUser()
 
 			if (this.userdata.vip) {
 				localStorage.setItem("onpurchasevip", true)
