@@ -28,8 +28,19 @@
 						<div>
 							{{ mid.voucher.price ? mid.voucher.price : "n/a" }}
 						</div>
+						<!-- <a
+							:href="mid.invoice_url"
+							target="_blank"
+							color="deep-orange"
+							block
+							large
+							class="mt-4"
+						>
+							Selesaikan Pembayaran
+						</a> -->
 						<v-btn
-							@click="openIframe(mid.invoice_url)"
+							:href="mid.invoice_url"
+							target="_blank"
 							color="deep-orange"
 							block
 							large
