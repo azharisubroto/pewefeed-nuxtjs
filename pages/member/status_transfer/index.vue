@@ -178,7 +178,7 @@
 		<DrawerPurchaseStatus
 			:dialogVisible="openPurchaseStatus"
 			:expireDate="expire_date"
-			:statusPurchase="userdata.vip"
+			:statusPurchase="statusPurchase"
 			@close="myDialogClose()"
 		/>
 	</section>
