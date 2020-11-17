@@ -25,7 +25,7 @@
 					<span v-else>Tunggu ({{ countdown }}s)</span>
 				</v-btn>
 				<div class="text-right mt-3 text-14">
-					Request OTP ke-{{ otp_sent }} dari 2
+					Request OTP ke-{{ otp_sent }} dari 1
 				</div>
 			</v-container>
 
@@ -283,7 +283,7 @@ export default {
 					}
 					this.overlay = false
 					this.otpsending = false
-					this.otp_sent = 2
+					this.otp_sent = 1
 					//alert('Nomor ponsel telah terverifikasi')
 				}
 			}
