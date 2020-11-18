@@ -39,10 +39,12 @@
 			<!-- PRIZES TAB -->
 			<template v-if="tptab == 0">
 				<!-- PERINGKAT SAYYAAA -->
-				<h4 v-if="topthree" class="tp-head">Peringkat Saya</h4>
+				<h4 v-if="topthree && currentPoint > 0" class="tp-head">
+					Peringkat Saya
+				</h4>
 
 				<v-row
-					v-if="topthree"
+					v-if="topthree && currentPoint > 0"
 					no-gutters
 					align="center"
 					justify="center"
@@ -84,7 +86,10 @@
 									>
 										{{ item.customer.username }}
 									</div>
-									<div class="mt-1 text-10">
+									<div
+										v-if="item.poin.grand_total > 0"
+										class="mt-1 text-10"
+									>
 										<img
 											src="/img/icons/poin-p.svg"
 											style="
@@ -638,6 +643,7 @@ export default {
 				"Yuk join di TOP POIN pewefeed.com kejar hadiah jutaan rupiah dengan klik pewefeed.com",
 			bottomloading: false,
 			whereisme: "",
+			currentPoint: 0,
 		}
 	},
 	methods: {
@@ -720,6 +726,7 @@ export default {
 					var loop = res.data.current
 					loop.forEach((el) => {
 						if (el.active == true) {
+							this.currentPoint = el.poin.grand_total
 							var currentRank = el.customer.ranked
 							this.shareText =
 								"Saya peringkat ke-" +

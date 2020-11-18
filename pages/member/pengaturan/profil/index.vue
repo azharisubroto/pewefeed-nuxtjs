@@ -175,7 +175,7 @@
                     color="red"
                     dark
                     small
-                    >Verify phone number (+100 POINT)</v-btn> -->
+                    >Verify phone number (+50 POINT)</v-btn> -->
 								</div>
 								<v-text-field
 									solo

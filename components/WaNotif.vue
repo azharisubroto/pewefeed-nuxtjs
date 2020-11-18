@@ -22,7 +22,7 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<strong>Aktifkan Notifikasi Whatsapp</strong>
-							<span class="d-block mt-3">Dapatkan +100 Poin</span>
+							<span class="d-block mt-3">Dapatkan +50 Poin</span>
 						</v-list-item-title>
 					</v-list-item-content>
 					<v-list-item-icon class="align-self-center">

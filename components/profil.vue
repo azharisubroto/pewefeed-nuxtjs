@@ -53,7 +53,7 @@
 											Whatsapp</strong
 										>
 										<span class="d-block mt-3"
-											>Dapatkan +100 Poin</span
+											>Dapatkan +50 Poin</span
 										>
 									</v-list-item-title>
 								</v-list-item-content>
