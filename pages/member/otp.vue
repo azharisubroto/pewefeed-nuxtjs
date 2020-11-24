@@ -21,7 +21,7 @@
 					color="deep-orange"
 					class="otpbtn"
 				>
-					<span v-if="!otpsending">Kirim Kode OTP ke Whatsapp</span>
+					<span v-if="!otpsending">Kirim Kode OTP</span>
 					<span v-else>Tunggu ({{ countdown }}s)</span>
 				</v-btn>
 				<div class="text-right mt-3 text-14">
@@ -29,7 +29,7 @@
 				</div>
 			</v-container>
 
-			<div class="mb-2 px-3">Kode OTP dari Whatsapp</div>
+			<div class="mb-2 px-3">Kode OTP</div>
 			<v-text-field
 				class="giveline"
 				solo
@@ -56,7 +56,7 @@
 					color="deep-orange"
 					:disabled="verifydisabled"
 				>
-					Aktifkan Notifikasi Whatsapp
+					VERIFIKASI NOMOR PONSEL SAYA
 				</v-btn>
 			</v-container>
 		</div>

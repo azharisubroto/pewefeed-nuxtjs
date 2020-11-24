@@ -49,8 +49,8 @@
 								<v-list-item-content>
 									<v-list-item-title>
 										<strong
-											>Aktifkan Notifikasi
-											Whatsapp</strong
+											>VERIFIKASI NOMOR PONSEL
+											SAYA</strong
 										>
 										<span class="d-block mt-3"
 											>Dapatkan +50 Poin</span

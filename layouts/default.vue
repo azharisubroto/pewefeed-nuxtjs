@@ -154,7 +154,7 @@
 						<strong>REWARDS</strong>
 					</template>
 					<template v-else-if="$route.name == 'member-otp'">
-						<strong>AKTIVASI WHATSAPP</strong>
+						<strong>VERIFIKASI NOMOR PONSEL</strong>
 					</template>
 					<template v-else>
 						<img

@@ -498,13 +498,22 @@
 					<v-spacer></v-spacer>
 
 					<v-btn
-						v-if="infotype == 'error'"
+						v-if="infotype == 'error' && verified"
 						href="/member/histori_penggunaan_poin/"
 						color="deep-orange"
 						block
 						class="mt-2"
 					>
 						<strong>Cek Poin</strong>
+					</v-btn>
+					<v-btn
+						v-if="infotype == 'error' && !verified"
+						href="/?tab=4"
+						color="deep-orange"
+						block
+						class="mt-2"
+					>
+						<strong>Verifikasi Sekarang</strong>
 					</v-btn>
 					<v-btn
 						v-else-if="infotype == 'success'"
@@ -733,6 +742,12 @@ export default {
 				} else if (error.response.status == 422) {
 					this.tukarmsg =
 						"Maaf, Reward ini hanya dapat ditukar dengan POIN satu kali per hari."
+					this.pending = false
+					this.buyconfirm = false
+					this.afterSaveModal = true
+					this.infotype = "error"
+				} else if (error.response.status == 403) {
+					this.tukarmsg = "Nomor Ponsel Anda Belum Terverfikasi."
 					this.pending = false
 					this.buyconfirm = false
 					this.afterSaveModal = true
