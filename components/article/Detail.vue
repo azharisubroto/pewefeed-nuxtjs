@@ -106,6 +106,16 @@
 
 						<div class="mb-1 mt-5">
 							<BannerStatic slug="toppoin" />
+							<v-row>
+								<v-col cols="12">
+									<!-- ADSENSE -->
+									<InFeedAdsense
+										data-ad-layout-key="-fb+5w+4e-db+86"
+										data-ad-client="ca-pub-6581994114503986"
+										data-ad-slot="2653891769"
+									></InFeedAdsense>
+								</v-col>
+							</v-row>
 						</div>
 
 						<div class="devider-small my-4"></div>
@@ -345,6 +355,17 @@
 							<template v-else>Mengirim Komentar...</template>
 						</v-btn>
 
+						<v-row>
+							<v-col cols="12">
+								<!-- ADSENSE -->
+								<InFeedAdsense
+									data-ad-layout-key="-fb+5w+4e-db+86"
+									data-ad-client="ca-pub-6581994114503986"
+									data-ad-slot="2653891769"
+								></InFeedAdsense>
+							</v-col>
+						</v-row>
+
 						<h4 class="mb-4 mt-5">{{ totalComment }} Comments</h4>
 
 						<!-- KOMEN LIST -->
@@ -508,6 +529,17 @@
 									@click="submitAnswer()"
 									>KIRIM JAWABAN</v-btn
 								>
+
+								<v-row>
+									<v-col cols="12">
+										<!-- ADSENSE -->
+										<InFeedAdsense
+											data-ad-layout-key="-fb+5w+4e-db+86"
+											data-ad-client="ca-pub-6581994114503986"
+											data-ad-slot="2653891769"
+										></InFeedAdsense>
+									</v-col>
+								</v-row>
 							</div>
 							<div
 								v-else-if="!sudahpernah && quizzes == null"
@@ -1258,7 +1290,12 @@ export default {
 				const data = await res.data.data
 				// //console.log("statistik", data[0].statistic);
 				this.quizstatistic = res.data.statistic
-				this.quizzes = data
+
+				if (data.length > 0) {
+					this.quizzes = data
+				} else {
+					this.quizzes = null
+				}
 				data.forEach((el) => {
 					this.quiz_ids.push(el.id)
 				})

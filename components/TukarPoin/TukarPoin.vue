@@ -193,6 +193,18 @@
 					</div>
 				</template>
 			</template>
+			<v-container class="py-0">
+				<v-row>
+					<v-col cols="12">
+						<!-- ADSENSE -->
+						<InFeedAdsense
+							data-ad-layout-key="-fb+5w+4e-db+86"
+							data-ad-client="ca-pub-6581994114503986"
+							data-ad-slot="2653891769"
+						></InFeedAdsense>
+					</v-col>
+				</v-row>
+			</v-container>
 		</template>
 
 		<template v-if="syarattab">
