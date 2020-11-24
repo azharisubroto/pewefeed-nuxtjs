@@ -49,8 +49,8 @@
 								<v-list-item-content>
 									<v-list-item-title>
 										<strong
-											>VERIFIKASI NOMOR PONSEL
-											SAYA</strong
+											>Verifikasi Nomor Ponsel
+											Saya</strong
 										>
 										<span class="d-block mt-3"
 											>Dapatkan +50 Poin</span

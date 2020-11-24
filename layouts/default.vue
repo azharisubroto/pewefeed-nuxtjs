@@ -154,7 +154,7 @@
 						<strong>REWARDS</strong>
 					</template>
 					<template v-else-if="$route.name == 'member-otp'">
-						<strong>VERIFIKASI NOMOR PONSEL</strong>
+						<strong>Verifikasi Nomor Ponsel</strong>
 					</template>
 					<template v-else>
 						<img

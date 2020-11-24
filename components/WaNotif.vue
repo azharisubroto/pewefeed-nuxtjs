@@ -21,7 +21,7 @@
 					</v-list-item-icon>
 					<v-list-item-content>
 						<v-list-item-title>
-							<strong>VERIFIKASI NOMOR PONSEL SAYA</strong>
+							<strong>Verifikasi Nomor Ponsel Saya</strong>
 							<span class="d-block mt-3">Dapatkan +50 Poin</span>
 						</v-list-item-title>
 					</v-list-item-content>

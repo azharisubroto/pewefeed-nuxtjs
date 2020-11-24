@@ -56,7 +56,7 @@
 					color="deep-orange"
 					:disabled="verifydisabled"
 				>
-					VERIFIKASI NOMOR PONSEL SAYA
+					Verifikasi Nomor Ponsel Saya
 				</v-btn>
 			</v-container>
 		</div>
