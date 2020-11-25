@@ -196,7 +196,7 @@ export default {
 			countdown: 60,
 			otp_sent: 0,
 			otp_message:
-				"Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu",
+				"Nomor Ponsel anda sukses terverifikasi, dan 50 POINT sudah ditambahkan ke akun kamu",
 		}
 	},
 	watch: {
@@ -267,7 +267,7 @@ export default {
 					//alert('Kode OTP telah terkirim')
 					if (res.status == 200) {
 						this.otp_message =
-							"Nomor Ponsel anda sukses terverifikasi, dan 100 POINT sudah ditambahkan ke akun kamu"
+							"Nomor Ponsel anda sukses terverifikasi, dan 50 POINT sudah ditambahkan ke akun kamu"
 					} else {
 						this.otp_message =
 							"Nomor Ponsel anda sukses terverifikasi"
