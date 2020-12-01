@@ -37,7 +37,11 @@
 							<!-- WHATSAPP -->
 
 							<v-list-item
-								v-if="!usermentah.verified"
+								v-if="
+									!usermentah.verified &&
+									usermentah.data.no_telp != null &&
+									usermentah.data.no_telp != ''
+								"
 								href="/member/otp"
 								style="border: 2px solid red"
 							>

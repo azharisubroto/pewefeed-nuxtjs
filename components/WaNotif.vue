@@ -1,5 +1,12 @@
 <template>
-	<div v-if="userdata != null && userdata.verified != true">
+	<div
+		v-if="
+			userdata != null &&
+			userdata.verified != true &&
+			userdata.data.no_telp != null &&
+			userdata.data.no_telp != ''
+		"
+	>
 		<v-list
 			color="transparent"
 			class="my-0 profile-menus"
