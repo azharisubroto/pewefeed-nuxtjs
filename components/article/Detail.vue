@@ -106,13 +106,6 @@
 
 						<div class="mb-1 mt-5">
 							<BannerStatic slug="toppoin" />
-							<TopPointMe
-								v-if="topthree && currentPoint > 0"
-								:topthree="topthree"
-								:currentPoint="currentPoint"
-								:whereisme="whereisme"
-								:withbutton="true"
-							/>
 							<v-row>
 								<v-col cols="12">
 									<!-- ADSENSE -->
@@ -1141,8 +1134,6 @@ import CommentList from "@/components/common/CommentList"
 import NotVip from "@/components/modal/NotVip"
 import ShareButton2 from "@/components/common/ShareButton2"
 import BannerStatic from "@/components/common/BannerStatic"
-import TopPoin from "@/services/TopPoin"
-import TopPointMe from "@/components/TopPointMe"
 
 export default {
 	components: {
@@ -1154,7 +1145,6 @@ export default {
 		LoginModal,
 		ShareButton2,
 		BannerStatic,
-		TopPointMe,
 	},
 	props: ["respon"],
 	data() {
@@ -1243,9 +1233,6 @@ export default {
 			recaptchatrigger: 0,
 			redirecturl: null,
 			comment_point: 0,
-			whereisme: "",
-			currentPoint: 0,
-			topthree: null,
 		}
 	},
 	// computed: {
@@ -1691,28 +1678,27 @@ export default {
 				console.log(error)
 			}
 		},
-		async fetchTopThree() {
-			try {
-				const res = await TopPoin.getTopThree()
-				this.topthree = res.data.current
-				if (res.data.current != null && res.data.current.length > 0) {
-					var loop = res.data.current
-					loop.forEach((el) => {
-						if (el.active == true) {
-							this.currentPoint = el.poin.grand_total
-							var currentRank = el.customer.ranked
-							return false
-						}
-					})
+		// moveRedeemBeforeRelated() {
+		//   //alert("move");
+		//   //   const redeembetween = document.getElementById("redeem-between");
+		//   //   const newsrelated = document.getElementsByClassName("news-related");
+		//   //while (redeembetween.length > 0) {
+		//   //newsrelated.appendChild(redeembetween.childNodes[0]);
+		//   //redeembetween.before(newsrelated);
+		//   //}
+		//   setTimeout(() => {
+		//     var newParent = document.getElementById("redeem-between");
+		//     var oldParent = document.getElementsByClassName("news-related")[0];
 
-					let whereisme = loop.findIndex((x) => x.active === true)
-					this.whereisme = parseInt(whereisme + 1)
-					console.log(whereisme)
-				}
-			} catch (error) {
-				console.log(error)
-			}
-		},
+		//     var bannerParent = document.getElementsByTagName("em")[0];
+
+		//     bannerParent.appendChild(document.getElementById("banner-between"));
+
+		//     //while (oldParent.childNodes.length > 0) {
+		//     oldParent.prepend(newParent);
+		//     //}
+		//   }, 1000);
+		// },
 	},
 	watch: {
 		comment_message: function (newval, oldval) {
@@ -1733,7 +1719,6 @@ export default {
 		this.checkQuizStatus()
 		this.fetchUserdata()
 		this.fetchPoint()
-		this.fetchTopThree()
 
 		this.redirecturl = window.location.href
 		//this.fetchLatest();

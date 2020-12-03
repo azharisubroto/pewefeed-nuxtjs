@@ -4,7 +4,7 @@
 			no-gutters
 			align="center"
 			justify="center"
-			:class="'mt-10 position-' + whereisme"
+			:class="'mt-3 position-' + whereisme"
 		>
 			<template v-for="(item, i) in topthree">
 				<v-col
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import TopPoin from "@/services/TopPoin"
 export default {
 	name: "toppointme",
 	props: ["topthree", "currentPoint", "whereisme", "withbutton"],
