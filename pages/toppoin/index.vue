@@ -43,69 +43,13 @@
 					Peringkat Saya
 				</h4>
 
-				<v-row
+				<TopPointMe
 					v-if="topthree && currentPoint > 0"
-					no-gutters
-					align="center"
-					justify="center"
-					:class="'mt-10 position-' + whereisme"
-				>
-					<template v-for="(item, i) in topthree">
-						<v-col
-							:cols="!item.active ? '3' : '4'"
-							:class="'item-' + parseInt(i + 1)"
-							:key="'topthree-' + i"
-						>
-							<div
-								:class="[
-									'rankbox',
-									item.active ? 'is_me' : 'notme',
-								]"
-							>
-								<div
-									class="rb-head text-center"
-									:ref="
-										item.active == true
-											? 'ismeloh'
-											: 'bukan'
-									"
-								>
-									{{ item.customer.ranked }}
-								</div>
-								<div class="rb-body">
-									<v-avatar width="23" color="#000">
-										<v-img
-											:src="item.customer.avatar"
-										></v-img>
-									</v-avatar>
-									<div
-										class="mt-3 text-truncate text-uppercase"
-										:class="[
-											item.active ? 'text-16' : 'text-13',
-										]"
-									>
-										{{ item.customer.username }}
-									</div>
-									<div
-										v-if="item.poin.grand_total > 0"
-										class="mt-1 text-10"
-									>
-										<img
-											src="/img/icons/poin-p.svg"
-											style="
-												vertical-align: middle;
-												line-height: 1;
-											"
-											class="mr-1"
-											width="13"
-										/>
-										{{ item.poin.grand_total }}
-									</div>
-								</div>
-							</div>
-						</v-col>
-					</template>
-				</v-row>
+					:topthree="topthree"
+					:currentPoint="currentPoint"
+					:whereisme="whereisme"
+					:withbutton="false"
+				/>
 
 				<!-- TOP 10 -->
 
@@ -594,6 +538,7 @@ import TopPoin from "@/services/TopPoin"
 import ShareButton2 from "@/components/common/ShareButton2"
 import WaNotif from "@/components/WaNotif"
 import BannerStatic from "@/components/common/BannerStatic"
+import TopPointMe from "@/components/TopPointMe"
 
 export default {
 	head() {
@@ -612,6 +557,7 @@ export default {
 		ShareButton2,
 		WaNotif,
 		BannerStatic,
+		TopPointMe,
 	},
 	watch: {
 		tptab: function (newVal, oldVal) {
@@ -657,15 +603,6 @@ export default {
 			} catch (error) {
 				console.log(error)
 				this.isloading = false
-			}
-		},
-		async fetchMyRank() {
-			try {
-				const res = await TopPoin.lastRankedMe()
-				//console.log('myrank',res.data.current);
-				this.myrank.push(res.data.current)
-			} catch (error) {
-				console.log(error)
 			}
 		},
 		async fetchLastRanked(n) {
@@ -774,7 +711,6 @@ export default {
 		this.fetchAll()
 		this.fetchLastRanked(1)
 		this.fetchWinners(1)
-		this.fetchMyRank()
 		this.fetchTopThree()
 		this.fetchHadiahPeriode()
 		if (localStorage.getItem("tptab")) {
