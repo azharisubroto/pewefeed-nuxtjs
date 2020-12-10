@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<a :target="is_link ? 'blank' : ''" :href="banner_url">
+		<a
+			v-if="!topthree && currentPoint == 0"
+			:target="is_link ? 'blank' : ''"
+			:href="banner_url"
+		>
 			<img v-if="banner_url && banner_img" :src="banner_img" alt="" />
 			<div v-else class="singbanner">BANNER</div>
 		</a>
