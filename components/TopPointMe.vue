@@ -111,6 +111,7 @@ export default {
 	background: #404040;
 	color: #fff;
 	border: 2px solid #afafaf;
+	border-radius: 10px;
 	.rb-head {
 		background: #afafaf;
 		color: #000;
@@ -129,6 +130,7 @@ export default {
 }
 .item-1 .rankbox:not(.is_me) {
 	border-right: 0;
+	border-radius: 10px 0 0 10px;
 }
 
 .is_me.rankbox {
@@ -146,6 +148,7 @@ export default {
 }
 .item-3 .rankbox:not(.is_me) {
 	border-left: 0;
+	border-radius: 0 10px 10px 0;
 }
 
 .top10-head {
