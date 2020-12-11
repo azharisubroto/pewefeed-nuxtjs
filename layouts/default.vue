@@ -296,18 +296,18 @@
 					</v-btn>
 					<v-btn
 						@click="
-							$router.push('/?tab=2')
+							$router.push('/toppoin')
 							wowtab = 2
 						"
 					>
 						<span class="text-11 d-inline-block mt-1"
-							>Tantangan</span
+							>Top Poin</span
 						>
 						<img
 							:src="
 								wowtab == 2
-									? '/img/icons/nav-3-color.svg'
-									: '/img/icons/nav-3-white.svg'
+									? '/img/icons/header/3-o.svg'
+									: '/img/icons/header/3-w.svg'
 							"
 							class="mb-1 d-block"
 							width="20"
@@ -320,12 +320,12 @@
 							wowtab = 3
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Netizen</span>
+						<span class="text-11 d-inline-block mt-1">Program</span>
 						<img
 							:src="
 								wowtab == 3
-									? '/img/icons/nav-4-color.svg'
-									: '/img/icons/nav-4-white.svg'
+									? '/img/icons/nav-3-color.svg'
+									: '/img/icons/nav-3-white.svg'
 							"
 							class="mb-1 d-block"
 							width="20"
@@ -338,7 +338,7 @@
 							wowtab = 4
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Me</span>
+						<span class="text-11 d-inline-block mt-1">Akun</span>
 						<img
 							:src="
 								wowtab == 4
