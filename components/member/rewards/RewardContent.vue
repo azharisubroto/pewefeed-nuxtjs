@@ -17,13 +17,26 @@
 						{{ item.created_at }}
 					</div>
 
-					<v-btn
-						v-if="type != 'finish'"
-						color="#ff4200"
-						depressed
-						small
-						class="mt-4"
+					<div
+						class="green--text text-12 mt-3"
+						v-if="type == 'finish'"
 					>
+						<v-row no-gutters>
+							<v-col cols="2" class="pr-1">
+								<div>
+									<img
+										src="/img/checklist.png"
+										width="20"
+										height="20"
+										alt=""
+									/>
+								</div>
+							</v-col>
+							<v-col> DITERIMA : {{ item.created_at }} </v-col>
+						</v-row>
+					</div>
+
+					<v-btn color="#ff4200" depressed small class="mt-4">
 						<template v-if="type == 'wait'">
 							Pilih Tujuan Penerima
 						</template>
@@ -32,6 +45,7 @@
 						>
 							Lacak
 						</template>
+						<template v-if="type == 'finish'"> Rincian </template>
 					</v-btn>
 				</v-col>
 			</v-row>

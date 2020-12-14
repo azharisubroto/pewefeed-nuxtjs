@@ -59,7 +59,7 @@
 			v-model="apply_drawer"
 			fixed
 			temporary
-			width="400"
+			width="100%"
 			:right="true"
 			color="#1C1C1C"
 		>
@@ -234,13 +234,16 @@
 					</v-btn>
 
 					<v-btn
-						v-if="type == 'process'"
+						v-if="type == 'process' || type == 'confirmation'"
 						color="#ff4200"
 						dark
 						block
 						depressed
 						large
-						@click="claimDigital()"
+						@click="
+							postProcess = true
+							pass_item_2 = pass_item
+						"
 					>
 						Lacak
 					</v-btn>
@@ -271,19 +274,51 @@
 			</v-toolbar>
 
 			<v-sheet color="#2C2C2D" class="px-4 py-10 text-center">
-				<v-img
-					:src="success ? '/img/checklist.png' : '/img/close.png'"
-					max-width="60"
-					class="mx-auto"
-				></v-img>
-				<div class="mt-5 mb-0 text-14">
-					{{
-						success
-							? "Rewards kamu telah masuk ke antrian kami untuk segera diproses"
-							: "Prosess gagal, silahkan coba beberapa saat lagi"
-					}}
+				<div class="mb-0 text-14">
+					<template v-if="type == 'wait'">
+						<v-img
+							:src="
+								success
+									? '/img/checklist.png'
+									: '/img/close.png'
+							"
+							max-width="60"
+							class="mx-auto mb-3"
+						></v-img>
+						{{
+							success
+								? "Rewards kamu telah masuk ke antrian kami untuk segera diproses"
+								: "Prosess gagal, silahkan coba beberapa saat lagi"
+						}}
+					</template>
+
+					<template v-if="type == 'process'">
+						<v-img
+							src="/img/icons/info.svg"
+							max-width="60"
+							class="mx-auto mb-3"
+						></v-img>
+						Data Rewards kamu dalam proses verifikasi, maksimal 3
+						hari kerja
+					</template>
+
+					<template
+						v-if="type == 'confirmation' && pass_item_2 != null"
+					>
+						<v-img
+							src="/img/icons/info.svg"
+							max-width="60"
+							class="mx-auto mb-3"
+						></v-img>
+						Rewards kamu dalam proses pengiriman oleh kurir
+						{{ pass_item_2.delivery.kurir }}<br />
+						<div class="text-20" v-if="pass_item_2 != null">
+							{{ pass_item_2.delivery.nomor_resi }}
+						</div>
+					</template>
 
 					<v-btn
+						v-if="type == 'wait'"
 						@click="
 							postProcess = !postProcess
 							$bus.$emit('rewardtabclick', redirect)
@@ -296,6 +331,33 @@
 						block
 					>
 						Cek Rewards
+					</v-btn>
+
+					<v-btn
+						v-if="type == 'process'"
+						@click="postProcess = !postProcess"
+						color="#ff4200"
+						class="mt-4"
+						dark
+						depressed
+						medium
+						block
+					>
+						Tutup
+					</v-btn>
+
+					<v-btn
+						v-if="type == 'confirmation'"
+						href="https://jne.co.id/"
+						target="_BLANK"
+						color="#ff4200"
+						class="mt-4"
+						dark
+						depressed
+						medium
+						block
+					>
+						Buka website kurir
 					</v-btn>
 				</div>
 			</v-sheet>
@@ -324,6 +386,7 @@ export default {
 			apply_form: null,
 			id_tujuan: null,
 			pass_item: null,
+			pass_item_2: null,
 			postProcess: false,
 			success: false,
 		}
