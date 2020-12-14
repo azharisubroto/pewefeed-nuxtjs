@@ -740,28 +740,28 @@ export default {
 			vipItems: [
 				{
 					voucher_id: 3,
-					label: "2 Hari VIP Membership",
+					label: "1 Hari VIP Membership",
 					price: "Rp 2.000",
 					code: "PW0",
 					payment: ["xl"],
 				},
 				{
 					voucher_id: 5,
-					label: "5 Hari VIP Membership",
+					label: "3 Hari VIP Membership",
 					price: "Rp 5.000",
 					code: "PW0",
 					payment: ["xl"],
 				},
 				{
 					voucher_id: 12,
-					label: "11 Hari VIP Membership",
+					label: "6 Hari VIP Membership",
 					price: "Rp 10.000",
 					code: "PW0",
 					payment: ["bank", "ewallets"],
 				},
 				{
 					voucher_id: 9,
-					label: "30 Hari VIP Membership",
+					label: "15 Hari VIP Membership",
 					price: "Rp 25.000",
 					code: "PW0",
 					payment: ["bank", "ewallets"],

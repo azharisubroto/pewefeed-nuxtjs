@@ -225,9 +225,7 @@
 						<tantangan />
 					</div>
 					<div :class="[wowtab == 3 ? 'd-block' : 'd-none']">
-						<v-img
-							src="https://cdn.pewefeed.com/containers/pewefeed/homework/NETIZEN-BANNER.png"
-						></v-img>
+						<tantangan />
 					</div>
 					<div :class="[wowtab == 4 ? 'd-block' : 'd-none']">
 						<profil />
