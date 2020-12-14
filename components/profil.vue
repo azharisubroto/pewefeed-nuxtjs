@@ -221,7 +221,7 @@
 								</v-list-item>
 							</template>
 
-							<v-list-item href="/member/rewards-status/">
+							<v-list-item href="/member/barang_yang_didapat/">
 								<v-list-item-icon
 									class="align-self-center mr-5"
 								>

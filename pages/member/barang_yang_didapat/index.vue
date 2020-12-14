@@ -1,18 +1,40 @@
 <template>
 	<section>
-		<v-tabs-items style="background: #000 !important" v-model="tab">
+		<v-tabs-items style="background: transparent !important" v-model="tab">
 			<v-tab-item v-for="item in tabItems" :key="item">
 				<template v-if="item == 'Menunggu'">
-					<Menunggu :addresses="addresses" :contact="contact" />
+					<Menunggu
+						type="wait"
+						:redirect="1"
+						:addresses="addresses"
+						:contact="contact"
+					/>
 				</template>
 				<template v-if="item == 'Diproses'">
-					<Dikirim />
+					<Menunggu
+						type="process"
+						:redirect="2"
+						:addresses="addresses"
+						:contact="contact"
+					/>
+					<!-- <Dikirim /> -->
 				</template>
 				<template v-if="item == 'Dikirim'">
-					<Diterima />
+					<Menunggu
+						type="confirmation"
+						:redirect="3"
+						:addresses="addresses"
+						:contact="contact"
+					/>
+					<!-- <Diterima /> -->
 				</template>
 				<template v-if="item == 'Diterima'">
-					<Selesai />
+					<Menunggu
+						type="finish"
+						:addresses="addresses"
+						:contact="contact"
+					/>
+					<!-- <Selesai /> -->
 				</template>
 			</v-tab-item>
 		</v-tabs-items>
@@ -33,17 +55,11 @@
 	</section>
 </template>
 <script>
-import Dikirim from "@/components/member/rewards/Dikirim"
-import Diterima from "@/components/member/rewards/Diterima"
 import Menunggu from "@/components/member/rewards/Menunggu"
-import Selesai from "@/components/member/rewards/Selesai"
 import UserService from "@/services/UserService"
 export default {
 	components: {
-		Dikirim,
-		Diterima,
 		Menunggu,
-		Selesai,
 	},
 	data() {
 		return {
@@ -85,8 +101,9 @@ export default {
 		let _self = this
 		this.getAddresses()
 		this.getNumbers()
-		this.$bus.$on("claimed", () => {
-			_self.tab = 1
+		this.$bus.$on("rewardtabclick", (tab) => {
+			console.log(tab)
+			_self.tab = tab
 		})
 	},
 }

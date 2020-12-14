@@ -79,8 +79,11 @@ export default {
 		var fil = filter ? filter : "all"
 		return AuthApi().get("/member/mutasi-poin/" + fil + "?page=" + n)
 	},
-	rewardsWait(n) {
-		return AuthApi().get("/member/transaction/wait/?page=" + n)
+	rewards(type = "wait", paged = 1, limit = 10) {
+		//return AuthApi().get("/member/transaction/wait/?page=" + n)
+		return AuthApi().get(
+			`/v2/member/transaction/status?type=${type}&limit=${limit}&page=${paged}`
+		)
 	},
 	rewardsSent(n) {
 		return AuthApi().get("/member/transaction/process/?page=" + n)
