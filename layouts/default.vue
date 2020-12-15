@@ -169,15 +169,15 @@
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 2"
-							>Tantangan</strong
+							>Top Poin</strong
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 3"
-							>Netizen</strong
+							>Program</strong
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 4"
-							>Me</strong
+							>Akun</strong
 						>
 					</template>
 
