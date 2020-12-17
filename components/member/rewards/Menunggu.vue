@@ -187,6 +187,7 @@
 									>
 
 									<v-select
+										v-if="pass_item.typeId == '2'"
 										v-model="id_tujuan"
 										:items="
 											contact
@@ -194,6 +195,25 @@
 												: ['Belum ada nomor']
 										"
 										placeholder="Pilih Nomor"
+										outlined
+										background-color="#404040"
+										dense
+										item-text="title"
+										item-value="id"
+										class="noborderexception"
+										color="#ff4200"
+										item-color="#ff4200"
+									/>
+
+									<v-select
+										v-if="pass_item.typeId == '1'"
+										v-model="id_tujuan"
+										:items="
+											addresses
+												? addresses
+												: ['Belum ada alamat']
+										"
+										placeholder="Pilih Alamat"
 										outlined
 										background-color="#404040"
 										dense
@@ -232,31 +252,16 @@
 									<h4
 										class="reward-title text-12 font-weight-normal mb-3"
 									>
-										<template v-if="pass_item.delivery">
-											{{
-												pass_item.delivery.name &&
-												"Nama: " +
-													pass_item.delivery.name
-											}}
+										<template v-if="pass_item.destination">
+											{{ pass_item.destination.name }}
 											<br />
-											{{
-												pass_item.delivery.kurir &&
-												"Kurir: " +
-													pass_item.delivery.kurir
-											}}
-											<br />
-											{{
-												pass_item.delivery.nomor_resi &&
-												"Nomor Resi: " +
-													pass_item.delivery
-														.nomor_resi
-											}}
-											<br />
-											{{
-												pass_item.delivery.nomor_hp &&
-												"Nomor HP: " +
-													pass_item.delivery.nomor_hp
-											}}
+											<div
+												v-html="
+													pass_item.destination
+														.description
+												"
+											></div>
+											{{ pass_item.destination.number }}
 										</template>
 										<template v-else>
 											Data not found (backend response
@@ -269,13 +274,25 @@
 					</v-card>
 
 					<v-btn
-						v-if="type == 'wait'"
+						v-if="type == 'wait' && pass_item.typeId == '2'"
 						color="#ff4200"
 						dark
 						block
 						depressed
 						large
 						@click="claimDigital()"
+					>
+						Process Reward
+					</v-btn>
+
+					<v-btn
+						v-if="type == 'wait' && pass_item.typeId == '1'"
+						color="#ff4200"
+						dark
+						block
+						depressed
+						large
+						@click="claimFisik()"
 					>
 						Process Reward
 					</v-btn>
@@ -534,6 +551,29 @@ export default {
 
 			try {
 				const res = await UserService.claimDigital(params)
+				// console.log(res);
+				if (res.status == 200) {
+					this.success = true
+				}
+				this.postProcess = true
+			} catch (error) {
+				console.log(error)
+				this.postProcess = true
+				this.success = false
+			}
+		},
+		async claimFisik() {
+			// id, customer_redeem_id, address_id
+			if (this.apply_form == null) return false
+			var params = {
+				id: this.apply_form.id,
+				customer_redeem_id: this.apply_form.customer_redeem.id,
+				contact_id: this.id_tujuan,
+			}
+			//console.log(params)
+
+			try {
+				const res = await UserService.claimFisik(params)
 				// console.log(res);
 				if (res.status == 200) {
 					this.success = true
