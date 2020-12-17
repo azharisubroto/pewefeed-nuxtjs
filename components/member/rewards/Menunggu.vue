@@ -7,51 +7,56 @@
 					<h3>Menunggu Respon</h3>
 				</v-col>
 			</v-row>
-			<v-row v-if="list != null && !loading">
-				<v-col>
-					<template v-if="list && list.length">
-						<v-card
-							v-for="item in list"
-							:key="item.id"
-							:elevation="2"
-							class="mb-4 bdr"
-							@click="
-								apply_drawer = !apply_drawer
-								apply_form = item
-								pass_item = item
-							"
-						>
-							<RewardContent :type="type" :item="item" />
-						</v-card>
-					</template>
-
-					<v-pagination
-						v-if="list && list.length"
-						v-model="page"
-						:length="totalpage"
-						color="orange"
-						@input="next"
-					></v-pagination>
-					<br />
-					<br />
-					<br />
-					<br />
-				</v-col>
-			</v-row>
-			<v-row v-else-if="list == null && !loading">
-				<v-col>
-					<div class="text-center pa-5">
-						<v-btn rounded color="#7D7D7D" class="text--italic px-5"
-							>no data</v-btn
-						>
-					</div>
-				</v-col>
-			</v-row>
 			<v-skeleton-loader
-				v-else
+				v-if="loading"
 				class="mx-auto mt-5"
 				type="list-item-avatar-three-line, list-item-avatar-three-line, list-item-avatar-three-line"
 			></v-skeleton-loader>
+			<template v-else>
+				<v-row v-if="list != null && list.length > 0">
+					<v-col>
+						<template v-if="list && list.length">
+							<v-card
+								v-for="item in list"
+								:key="item.id"
+								:elevation="2"
+								class="mb-4 bdr"
+								@click="
+									apply_drawer = !apply_drawer
+									apply_form = item
+									pass_item = item
+								"
+							>
+								<RewardContent :type="type" :item="item" />
+							</v-card>
+						</template>
+
+						<v-pagination
+							v-if="list && list.length"
+							v-model="page"
+							:length="totalpage"
+							color="orange"
+							@input="next"
+						></v-pagination>
+						<br />
+						<br />
+						<br />
+						<br />
+					</v-col>
+				</v-row>
+				<v-row v-else>
+					<v-col>
+						<div class="text-center pa-5">
+							<v-btn
+								rounded
+								color="#7D7D7D"
+								class="text--italic px-5"
+								>no data</v-btn
+							>
+						</div>
+					</v-col>
+				</v-row>
+			</template>
 		</v-container>
 
 		<!-- FORM DRAWER TAMBAH ALAMAT -->
@@ -89,6 +94,48 @@
 				<v-divider></v-divider>
 
 				<div class="px-3 mt-4">
+					<v-card
+						v-if="type == 'finish'"
+						style="border: 1px solid #d1d1d1 !important"
+						class="px-4 pt-4 pb-4 mb-4 text-center"
+						color="transparent"
+						outlined
+					>
+						<p>Apakah rewards di bawah ini sudah diterima?</p>
+
+						<v-btn
+							@click="
+								confirm(
+									pass_item.id,
+									pass_item.customer_redeem.id
+								)
+							"
+							height="42"
+							depressed
+							dark
+							block
+							color="#ff4200"
+							>Sudah Saya Terima</v-btn
+						>
+
+						<p class="mt-3">
+							Jika belum diterima silahkan kirim whatsapp ke nomor
+						</p>
+
+						<v-btn
+							height="42"
+							class="mb-3"
+							color="green"
+							dark
+							block
+							depressed
+							>0815-1906-0929</v-btn
+						>
+						<v-btn height="42" color="green" dark block depressed
+							>0858-8314-6646</v-btn
+						>
+					</v-card>
+
 					<v-card
 						style="border: 1px solid #fff !important"
 						class="px-4 pt-4 pb-0 mb-4"
@@ -302,6 +349,23 @@
 						hari kerja
 					</template>
 
+					<tempate v-if="type == 'finish'">
+						<v-img
+							:src="
+								success
+									? '/img/checklist.png'
+									: '/img/close.png'
+							"
+							max-width="60"
+							class="mx-auto mb-3"
+						></v-img>
+						{{
+							success
+								? "Terimakasih atas konfirmasi Anda"
+								: "Konfirmasi gagal, silahkan coba beberapa saat lagi"
+						}}
+					</tempate>
+
 					<template
 						v-if="type == 'confirmation' && pass_item_2 != null"
 					>
@@ -318,7 +382,7 @@
 					</template>
 
 					<v-btn
-						v-if="type == 'wait'"
+						v-if="type == 'wait' || type == 'finish'"
 						@click="
 							postProcess = !postProcess
 							$bus.$emit('rewardtabclick', redirect)
@@ -392,6 +456,35 @@ export default {
 		}
 	},
 	methods: {
+		async confirm(id, customer_redeem_id) {
+			if (
+				confirm("Apakah anda yakin bahwa item reward sudah diterima?")
+			) {
+				// Save it!
+				var params = {
+					id: id,
+					customer_redeem_id: customer_redeem_id,
+				}
+				// console.log(params)
+
+				try {
+					const res = await UserService.confirmReward(params)
+					// console.log(res)
+					if (res.status == 200) {
+						this.fetchRewards("confirmation", 1, 10, true)
+						this.postProcess = !this.postProcess
+						this.success = true
+					}
+				} catch (error) {
+					console.log(error)
+					this.postProcess = !this.postProcess
+					this.success = false
+				}
+			} else {
+				// Do nothing!
+				console.log("Thing was not saved to the database.")
+			}
+		},
 		async fetchWait(type, paged, limit, reset = false) {
 			try {
 				const res = await UserService.rewards(type, paged, limit)

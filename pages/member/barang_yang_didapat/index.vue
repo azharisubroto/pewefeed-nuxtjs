@@ -1,5 +1,5 @@
 <template>
-	<section>
+	<section class="rewards-home">
 		<v-tabs-items style="background: transparent !important" v-model="tab">
 			<v-tab-item v-for="item in tabItems" :key="item">
 				<template v-if="item == 'Menunggu'">
@@ -108,9 +108,15 @@ export default {
 	},
 }
 </script>
-<!-- <style lang="scss">
-	.v-content__wrap {
-		padding-top: 55px;
+<style lang="scss">
+.rewards-home {
+	.v-bottom-navigation {
+		.v-btn {
+			border-top: 5px solid #bababa !important;
+			&.v-btn--active {
+				border-color: #ff4200 !important;
+			}
+		}
 	}
+}
 </style>
--->
