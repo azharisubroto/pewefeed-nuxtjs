@@ -245,7 +245,8 @@
 								<template
 									v-if="
 										type == 'process' ||
-										type == 'confirmation'
+										type == 'confirmation' ||
+										type == 'finish'
 									"
 								>
 									<div class="text-12">Tujuan Penerima</div>
