@@ -1157,17 +1157,17 @@ export default {
 		},
 
 		iframeClose() {
-			let vm = this
-			vm.fetchUser()
+			// vm.fetchUser()
 
-			if (this.userdata.vip) {
-				localStorage.setItem("onpurchasevip", true)
-				this.$router.push("/?tab=4")
-				// other code
-			} else {
-				localStorage.setItem("onpurchasevip", true)
-				this.$router.push("/member/status_transfer")
-			}
+			// if (this.userdata.vip) {
+			// 	localStorage.setItem("onpurchasevip", true)
+			// 	this.$router.push("/?tab=4")
+			// 	// other code
+			// } else {
+			// 	localStorage.setItem("onpurchasevip", true)
+			// }
+
+			this.$router.push("/member/status_transfer")
 
 			this.iframeDialogVisible = false
 		},

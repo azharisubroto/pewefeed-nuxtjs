@@ -298,22 +298,22 @@ export default {
 			this.getNumbers()
 		}
 
-		var queryURL = this.getParameterByName("transaction_status")
+		// var queryURL = this.getParameterByName("transaction_status")
 
-		if (queryURL) {
-			if (queryURL == "pending") {
-				this.openPurchaseStatus = true
-			} else {
-				this.$router.push("/?tab=4")
-				localStorage.setItem("onpurchasevip", true)
-			}
-		}
+		// if (queryURL) {
+		// 	if (queryURL == "pending") {
+		// 		this.openPurchaseStatus = true
+		// 	} else {
+		// 		this.$router.push("/?tab=4")
+		// 		localStorage.setItem("onpurchasevip", true)
+		// 	}
+		// }
 
-		if (localStorage.getItem("onpurchasevip")) {
-			localStorage.removeItem("onpurchasevip")
-			this.statusPurchase = false
-			this.openPurchaseStatus = true
-		}
+		// if (localStorage.getItem("onpurchasevip")) {
+		// 	localStorage.removeItem("onpurchasevip")
+		// 	this.statusPurchase = false
+		// 	this.openPurchaseStatus = true
+		// }
 	},
 }
 </script>
