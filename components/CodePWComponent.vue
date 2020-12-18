@@ -16,7 +16,7 @@
 		</div>
 
 		<div v-else>
-			<div v-if="newuser">
+			<div v-if="reward">
 				<v-alert color="#0057FF" prominent>
 					<template v-slot:prepend>
 						<v-img
@@ -50,7 +50,7 @@
 				</v-row>
 			</div>
 
-			<div v-if="newuser" class="devider-big stretchout my-5"></div>
+			<div v-if="reward" class="devider-big stretchout my-5"></div>
 
 			<v-card
 				class="pa-0"
