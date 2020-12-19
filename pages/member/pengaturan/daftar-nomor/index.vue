@@ -81,19 +81,46 @@
 						:key="i"
 						outlined
 						class="px-3 py-3 mb-3"
-						@click="openForm = true"
 					>
-						<div>
-							<strong style="color: #ffaa8c">{{
-								contact.title
-							}}</strong>
-						</div>
-						<div class="mb-2">
-							{{ contact.type }}
-						</div>
-						<div>
-							{{ contact.number }}
-						</div>
+						<v-row no-gutters align="center">
+							<v-col cols="9">
+								<div>
+									<strong style="color: #ffaa8c">{{
+										contact.title
+									}}</strong>
+								</div>
+								<div class="mb-2">
+									{{ contact.type }}
+								</div>
+								<div>
+									{{ contact.number }}
+								</div>
+							</v-col>
+							<v-col cols="3" class="text-right">
+								<v-btn
+									small
+									color="deep-orange"
+									width="30"
+									height="30"
+									class="px-0"
+									min-width="30"
+									@click="openForm = true"
+								>
+									<v-icon>mdi-pencil</v-icon>
+								</v-btn>
+								<v-btn
+									small
+									color="deep-orange"
+									width="30"
+									height="30"
+									class="px-0"
+									min-width="30"
+									@click="deleteNumber(contact.id)"
+								>
+									<v-icon>mdi-close</v-icon>
+								</v-btn>
+							</v-col>
+						</v-row>
 					</v-card>
 				</template>
 
@@ -107,9 +134,9 @@
 			v-model="openForm"
 			fixed
 			:stateless="false"
-			width="400"
+			width="100%"
 			:right="true"
-			style="margin-top: 56px"
+			style="margin-top: 56px; background: #1c1c1c"
 		>
 			<v-row class="px-4 py-5">
 				<v-col cols="12">

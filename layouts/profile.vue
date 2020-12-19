@@ -45,7 +45,6 @@
 				grow
 				color="white"
 				background-color="#2c2c2d"
-				v-model="tab"
 			>
 				<v-btn
 					small
@@ -204,7 +203,6 @@
 export default {
 	data() {
 		return {
-			tab: 0,
 			tabItems: [
 				{
 					name: "Profile Saya",
