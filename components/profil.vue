@@ -56,7 +56,9 @@
 											>Verifikasi Nomor Ponsel
 											Saya</strong
 										>
-										<span class="d-block mt-3"
+										<span
+											class="d-block mt-3"
+											style="color: #ffaa8c"
 											>Dapatkan +50 Poin</span
 										>
 									</v-list-item-title>
@@ -67,11 +69,7 @@
 							</v-list-item>
 
 							<!-- PROFILE DETAIL -->
-							<v-list-item
-								href="/member/pengaturan/profil"
-								color="#ff4200"
-								style="background: #ff4200"
-							>
+							<v-list-item href="/member/pengaturan/profil">
 								<v-list-item-icon
 									class="mr-5 align-self-center"
 								>
@@ -109,7 +107,9 @@
 										<strong v-else class="text-uppercase">{{
 											userdata.username
 										}}</strong>
-										<span class="d-block mt-3"
+										<span
+											class="d-block mt-3"
+											style="color: #ffaa8c"
 											>PEWE ID:
 											{{ userdata.msisdn }}</span
 										>
@@ -128,21 +128,17 @@
 								</v-list-item-icon>
 								<v-list-item-content>
 									<v-list-item-title>
-										<span>VIP Membership Status</span>
+										<span>Keanggotaan VIP</span>
 										<span
 											class="d-block mt-3"
-											:class="[
-												userdata.status_expired == 1
-													? 'green--text'
-													: 'red--text',
-											]"
-											>VIP
+											color="#FFAA8C"
+										>
 											{{
 												userdata.status_expired == 1
-													? "Active"
-													: "Inactive"
+													? "Aktif Hingga"
+													: "Tidak aktif sejak"
 											}}
-											Until {{ userdata.expire }}</span
+											{{ userdata.expire }}</span
 										>
 									</v-list-item-title>
 								</v-list-item-content>
@@ -165,7 +161,7 @@
 										<br />
 										<span
 											class="text-20 mt-2 d-inline-block"
-											style="color: #ff4200"
+											style="color: #ffaa8c"
 										>
 											<strong>{{
 												mypoint | thousand
@@ -184,16 +180,26 @@
 									href="/member/daily-limit"
 									style="border-radius: 4px 4px 0 0"
 								>
+									<v-list-item-icon
+										class="align-self-center mr-5"
+									>
+										<v-img
+											src="/img/bataspoint.svg"
+										></v-img>
+									</v-list-item-icon>
 									<v-list-item-content class="py-0">
 										<v-list-item-title>
 											<span
 												class="text-16 d-inline-block"
 											>
-												VIP Daily Limit:
-												<span class="green--text">{{
-													sekarang
-												}}</span>
-												/ {{ batas }}
+												Batas Poin VIP Harian<br />
+												<div class="d-block mt-1">
+													<span
+														style="color: #ffaa8c"
+														>{{ sekarang }}</span
+													>
+													dari {{ batas }}
+												</div>
 											</span>
 										</v-list-item-title>
 									</v-list-item-content>
@@ -206,6 +212,11 @@
 									href="/member/daily-limit"
 									style="border-radius: 0 0 4px 4px"
 								>
+									<v-list-item-icon
+										class="align-self-center mr-5"
+									>
+										&nbsp;
+									</v-list-item-icon>
 									<v-list-item-content class="pt-0">
 										<v-list-item-title>
 											<v-progress-linear
@@ -231,7 +242,13 @@
 								</v-list-item-icon>
 								<v-list-item-content>
 									<v-list-item-title>
-										Rewards saya
+										Rewards saya<br />
+										<span
+											class="d-block mt-1"
+											style="color: #ffaa8c"
+											>{{ rewards_count }} Rewards
+											Diterima</span
+										>
 									</v-list-item-title>
 								</v-list-item-content>
 								<v-list-item-icon class="align-self-center">
@@ -527,6 +544,7 @@ export default {
 					to: "/member/pengaturan/daftar-alamat",
 				},
 			],
+			rewards_count: 0,
 		}
 	},
 	computed: mapState(["storehelpStepRewards"]),
@@ -681,10 +699,25 @@ export default {
 			let opacityFormula = (targetHeight - window.scrollY) / targetHeight
 			this.profleOpacity = opacityFormula
 		},
+		async fetchRewards(
+			type = "finish",
+			paged = 1,
+			limit = 1,
+			reset = false
+		) {
+			try {
+				const res = await UserService.rewards(type, paged, limit)
+				this.rewards_count = res.data.pagination.total
+			} catch (error) {
+				console.log(error)
+				this.loading = false
+			}
+		},
 	},
 	mounted() {
 		this.setProfile()
 		this.dailypoint()
+		this.fetchRewards()
 		this.isLoggedIn = true
 
 		if (localStorage.getItem("onpurchasevip")) {

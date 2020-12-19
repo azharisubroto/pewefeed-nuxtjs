@@ -166,6 +166,8 @@
 import UserService from "@/services/UserService"
 export default {
 	name: "daftarNomorPage",
+	layout: "profile",
+
 	data() {
 		return {
 			isLoading: false,

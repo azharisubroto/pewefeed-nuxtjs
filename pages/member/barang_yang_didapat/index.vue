@@ -108,15 +108,3 @@ export default {
 	},
 }
 </script>
-<style lang="scss">
-.rewards-home {
-	.v-bottom-navigation {
-		.v-btn {
-			border-top: 5px solid #bababa !important;
-			&.v-btn--active {
-				border-color: #ff4200 !important;
-			}
-		}
-	}
-}
-</style>

@@ -162,4 +162,20 @@ export default {
 	fetchBanner(slug) {
 		return Api().get("/static/banner/" + slug)
 	},
+
+	addPin(params) {
+		return AuthApi().post(`/member/pin/create`, params)
+	},
+
+	updatePin(params) {
+		return AuthApi().post(`/member/pin/update`, params)
+	},
+
+	resetPin(params) {
+		return AuthApi().get(`/member/pin/reset`)
+	},
+
+	checkPinToken(token) {
+		return AuthApi().get(`/member/pin/check-token/${token}`)
+	},
 }

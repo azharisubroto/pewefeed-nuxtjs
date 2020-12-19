@@ -262,6 +262,8 @@
 import UserService from "@/services/UserService"
 export default {
 	name: "daftarAlamatPage",
+	layout: "profile",
+
 	data() {
 		return {
 			isLoading: true,
