@@ -1,53 +1,10 @@
 <template>
 	<v-app>
-		<v-app-bar
-			v-if="
-				wowtab != 4 &&
-				wowtab != 1 &&
-				$route.name != 'cat-subcat-articleslug' &&
-				$route.name != 'purchase' &&
-				$route.name != 'member-daily-limit' &&
-				$route.name != 'member-purchase-daily' &&
-				!$route.name.includes('sing')
-			"
-			dark
-			color="dark"
-			flat
-			fixed
-			tile
-			class="main-app-bar"
-		>
-			<!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-			<template
-				v-if="$route.name != 'index' && $route.name != 'tukarpoin'"
-			>
-				<v-btn @click="historyBack()" small icon>
-					<v-icon>mdi-chevron-left</v-icon>
-				</v-btn>
-				<div class="flex-grow-1"></div>
-			</template>
-			<template v-else>
-				<template v-if="wowtab == 2 && $store.state.storehelpStep > 1">
-					<v-btn @click="helpBack()" small icon>
-						<v-icon>mdi-chevron-left</v-icon>
-					</v-btn>
-					<div class="flex-grow-1"></div>
-				</template>
-				<template
-					v-else-if="
-						wowtab == 3 && $store.state.storehelpStepRewards > 1
-					"
-				>
-					<v-btn @click="reWardsHelpBack()" small icon>
-						<v-icon>mdi-chevron-left</v-icon>
-					</v-btn>
-					<div class="flex-grow-1"></div>
-				</template>
-				<template v-else>
-					<v-btn small icon>&nbsp;</v-btn>
-					<div class="flex-grow-1"></div>
-				</template>
-			</template>
+		<v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+			<v-btn @click="$router.back()" small icon>
+				<v-icon>mdi-chevron-left</v-icon>
+			</v-btn>
+			<v-flex grow></v-flex>
 
 			<v-toolbar-title
 				@click="
@@ -56,109 +13,7 @@
 				"
 				class="px-0"
 			>
-				<!-- {{$route.name}} -->
-				<template
-					v-if="
-						$route.name == 'member-pengaturan' ||
-						$route.name == 'member-pengaturan-profil'
-					"
-				>
-					<strong>Profile</strong>
-				</template>
-				<template
-					v-else-if="$route.name == 'member-histori_penggunaan_poin'"
-				>
-					<strong>Total Points</strong>
-				</template>
-				<template v-else-if="$route.name == 'purchase'">
-					<strong>Purchase VIP Membership</strong>
-				</template>
-				<template
-					v-else-if="$route.name == 'member-barang_yang_didapat'"
-				>
-					<strong>Rewards Status</strong>
-				</template>
-				<template
-					v-else-if="$route.name == 'member-pengaturan-daftar-alamat'"
-				>
-					<strong>Address List for Rewards</strong>
-				</template>
-				<template
-					v-else-if="$route.name == 'member-pengaturan-daftar-nomor'"
-				>
-					<strong>Phone List for Rewards</strong>
-				</template>
-				<template v-else-if="$route.name == 'member-status_transfer'">
-					<strong>Purchase Status via Bank</strong>
-				</template>
-				<template v-else-if="$route.name == 'member-kode-pw'">
-					<strong>VIP Code from SMS</strong>
-				</template>
-				<template v-else-if="$route.name == 'bantuan'">
-					<strong>Help Desk</strong>
-				</template>
-				<template v-else-if="$route.name == 'member-daily-limit'">
-					<strong>VIP Daily Limit</strong>
-				</template>
-				<template
-					v-else-if="
-						$route.name == 'tukarpoin' ||
-						$route.name == 'tukarpoin-redeem-detail'
-					"
-				>
-					<strong>Tukar Poin</strong>
-				</template>
-				<template v-else-if="$route.name.includes('toppoin')">
-					<strong>TOP POIN</strong>
-				</template>
-				<template
-					v-else-if="
-						$route.name.includes('member-status_transfer-sms')
-					"
-				>
-					<strong>Purchase Status via SMS</strong>
-				</template>
-				<template v-else-if="$route.name.includes('member-mypoints')">
-					<strong>Total Points</strong>
-				</template>
-				<template
-					v-else-if="$route.name.includes('member-purchase-daily')"
-				>
-					<strong>Purchase Daily</strong>
-				</template>
-				<template v-else-if="$route.name.includes('about-daily-limit')">
-					<strong>HELP</strong>
-				</template>
-				<template
-					v-else-if="$route.name.includes('member-rewards-status')"
-				>
-					<strong>REWARDS</strong>
-				</template>
-				<template v-else-if="$route.name == 'member-otp'">
-					<strong>Verifikasi Nomor Ponsel</strong>
-				</template>
-				<template v-else>
-					<img
-						v-if="$route.name != 'purchase' && wowtab == 0"
-						:src="mainlogo"
-						width="130"
-						class="mainlogo"
-					/>
-					<strong v-else-if="$route.name != 'purchase' && wowtab == 1"
-						>Tukar Poin</strong
-					>
-					<strong v-else-if="$route.name != 'purchase' && wowtab == 2"
-						>Top Poin</strong
-					>
-					<strong v-else-if="$route.name != 'purchase' && wowtab == 3"
-						>Program</strong
-					>
-					<strong v-else-if="$route.name != 'purchase' && wowtab == 4"
-						>Akun</strong
-					>
-				</template>
-
-				<!-- {{$route.name}} -->
+				Profile
 			</v-toolbar-title>
 			<div class="flex-grow-1"></div>
 
@@ -177,10 +32,13 @@
 				<v-icon>mdi-magnify</v-icon>
 			</div>
 		</v-app-bar>
+
 		<v-main>
-			<div class="pb-10">
+			<div class="pb-10 mb-10">
 				<nuxt keep-alive />
 			</div>
+
+			<!-- NAVIGATION -->
 			<v-bottom-navigation
 				fixed
 				dark
@@ -193,7 +51,7 @@
 					small
 					class="text-center"
 					v-for="item in tabItems"
-					:key="item"
+					:key="item.name"
 					:to="item.to"
 				>
 					<span style="font-size: 8px" v-html="item.name"></span>
@@ -346,6 +204,7 @@
 export default {
 	data() {
 		return {
+			tab: 0,
 			tabItems: [
 				{
 					name: "Profile Saya",

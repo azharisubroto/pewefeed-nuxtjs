@@ -1,10 +1,7 @@
 <template>
-	<v-container>
+	<v-container v-if="mounted">
 		<v-row>
 			<v-col>
-				<!-- =====================================================================================
-		ALERT
-		===================================================================================== -->
 				<v-snackbar v-model="snackbar" :timeout="timeout" top>
 					{{ responseMessage }}
 					<v-btn color="primary" text icon @click="snackbar = false">
@@ -76,98 +73,226 @@
 			</v-col>
 		</v-row>
 		<v-row>
+			<!-- CARDS -->
 			<v-col cols="12">
-				<v-expansion-panels v-if="!isLoading" class="mb-3" focusable>
-					<v-expansion-panel
+				<template v-if="!isLoading">
+					<v-card
 						v-for="(contact, i) in contacts"
 						:key="i"
+						outlined
+						class="px-3 py-3 mb-3"
+						@click="openForm = true"
 					>
-						<v-expansion-panel-header>
-							<v-row no-gutters>
-								<v-col cols="6">{{ contact.title }}</v-col>
-								<v-col cols="6 text--secondary">{{
-									contact.type
-								}}</v-col>
-							</v-row>
-						</v-expansion-panel-header>
-						<v-expansion-panel-content class="pt-3">
-							<v-row>
-								<v-col>Jenis</v-col>
-								<v-col>{{ contact.type }}</v-col>
-							</v-row>
-							<v-row>
-								<v-col>Nama</v-col>
-								<v-col>{{ contact.title }}</v-col>
-							</v-row>
-							<v-row>
-								<v-col>Nomor</v-col>
-								<v-col>{{ contact.number }}</v-col>
-							</v-row>
-							<v-divider class="my-5"></v-divider>
-							<v-autocomplete
-								label="Type"
-								:items="voucherTypes"
-								item-text="name"
-								item-value="name"
-								v-model="payload.type"
-							></v-autocomplete>
-
-							<v-autocomplete
-								v-if="payload.type == 'Bank'"
-								label="Pilih Bank"
-								:items="banks"
-								item-text="name"
-								item-value="name"
-								v-model="payload.bank"
-							></v-autocomplete>
-
-							<v-text-field
-								label="Nama"
-								placeholder="Nama"
-								v-model="payload.name"
-							></v-text-field>
-
-							<v-text-field
-								label="Nomor"
-								placeholder="Nomor"
-								v-model="payload.number"
-							></v-text-field>
-
-							<v-btn
-								@click="editNumber(contact.id)"
-								color="deep-orange"
-								dark
-								depressed
-								>Save</v-btn
-							>
-
-							<v-btn
-								@click="deleteNumber(contact.id)"
-								color="red"
-								dark
-								depressed
-								class="float-right"
-							>
-								<v-icon>mdi-trash-can-outline</v-icon>
-								Hapus
-							</v-btn>
-						</v-expansion-panel-content>
-					</v-expansion-panel>
-				</v-expansion-panels>
+						<div>
+							<strong style="color: #ffaa8c">{{
+								contact.title
+							}}</strong>
+						</div>
+						<div class="mb-2">
+							{{ contact.type }}
+						</div>
+						<div>
+							{{ contact.number }}
+						</div>
+					</v-card>
+				</template>
 
 				<div v-if="isLoading" class="text-center pa-3">
 					Memuat Daftar Nomor...
 				</div>
 			</v-col>
 		</v-row>
+
+		<v-navigation-drawer
+			v-model="openForm"
+			fixed
+			:stateless="false"
+			width="400"
+			:right="true"
+			style="margin-top: 56px"
+		>
+			<v-row class="px-4 py-5">
+				<v-col cols="12">
+					<v-card
+						outlined
+						style="border: 1px solid #fff !important"
+						color="transparent"
+						class="px-4 py-4 mb-5"
+					>
+						<strong class="mb-2 d-block">Tipe</strong>
+						<v-autocomplete
+							v-model="formData.type"
+							outlined
+							background-color="#404040"
+							:items="voucherTypes"
+							item-text="name"
+							item-value="name"
+							placeholder="Tipe"
+						/>
+
+						<template
+							v-if="
+								formData.type == 'Pulsa' ||
+								formData.type == 'E-wallets' ||
+								formData.type == 'Listrik'
+							"
+						>
+							<strong class="mb-2 d-block">Provider</strong>
+							<v-autocomplete
+								v-model="formData.provider"
+								outlined
+								background-color="#404040"
+								:items="providers"
+								item-text="name"
+								item-value="name"
+							/>
+						</template>
+
+						<template v-if="formData.type == 'Bank'">
+							<strong class="mb-2 d-block">Bank</strong>
+							<v-autocomplete
+								v-model="formData.bank"
+								outlined
+								background-color="#404040"
+								:items="banks"
+								item-text="name"
+								item-value="name"
+							/>
+						</template>
+
+						<strong class="mb-2 d-block">Penerima</strong>
+						<v-text-field
+							v-model="formData.name"
+							outlined
+							background-color="#404040"
+							placeholder="Nama"
+						/>
+
+						<strong class="mb-2 d-block"
+							>NOMOR AKUN / E-WALLETS</strong
+						>
+						<v-text-field
+							v-model="formData.number"
+							outlined
+							background-color="#404040"
+							placeholder="Nomor"
+						/>
+					</v-card>
+				</v-col>
+				<v-col cols="12" style="margin-top: -30px">
+					<v-btn
+						v-if="!isEdit"
+						color="#ff4200"
+						dark
+						block
+						depressed
+						height="50"
+						@click="
+							pin_verification = !pin_verification
+							pin_action = 'add'
+						"
+					>
+						Simpan
+					</v-btn>
+
+					<v-btn
+						v-else
+						color="#ff4200"
+						dark
+						block
+						depressed
+						height="50"
+						@click="
+							pin_verification = !pin_verification
+							pin_action = 'edit'
+						"
+					>
+						Update
+					</v-btn>
+
+					<v-btn
+						color="grey"
+						class="dark mt-2"
+						block
+						depressed
+						height="50"
+						@click="openForm = !openForm"
+					>
+						Batalkan
+					</v-btn>
+				</v-col>
+			</v-row>
+		</v-navigation-drawer>
+
+		<v-bottom-sheet dark v-model="pin_verification">
+			<v-sheet height="100%">
+				<v-toolbar :elevation="1">
+					<!-- Arrow -->
+					<v-btn
+						dark
+						icon
+						tile
+						style="border-right: 0px solid #717171"
+						light
+						@click="pin_verification = !pin_verification"
+					>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Title -->
+					<v-toolbar-items class="ml-2">
+						<v-btn dark text class="pl-0" style="margin-left: -10px"
+							>KONFIRMASI</v-btn
+						>
+					</v-toolbar-items>
+					<div class="flex-grow-1"></div>
+				</v-toolbar>
+
+				<div class="px-4 py-10 text-center pindialog">
+					<strong>Masukan 6 digit PIN</strong>
+					<div class="my-3">
+						<PincodeInput
+							v-model="pin_code"
+							:length="6"
+							characterPreview
+							secure
+							:autofocus="true"
+						/>
+
+						<div class="mt-4">
+							<v-btn
+								@click="
+									pin_action == 'add'
+										? addNumber()
+										: editNumber(currentId)
+								"
+								color="#ff4200"
+								medium
+								height="40"
+								depressed
+							>
+								Lanjutkan
+							</v-btn>
+
+							<div class="mt-2">
+								Belum Punya PIN?
+								<v-btn text color="#ff4200" class="py-0"
+									>Klik Disini</v-btn
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</v-sheet>
+		</v-bottom-sheet>
 	</v-container>
 </template>
+
 <script>
 import UserService from "@/services/UserService"
 export default {
 	name: "daftarNomorPage",
 	layout: "profile",
-
 	data() {
 		return {
 			isLoading: false,
@@ -176,14 +301,29 @@ export default {
 			snackbar: false,
 			timeout: 3000,
 			responseMessage: "",
-			payload: {
+			voucherTypes: ["Pulsa", "E-wallets", "Listrik", "Bank"],
+			providers: [],
+			addressNotExist: false,
+			item: 2,
+			items: [
+				{ name: "ACCOUNT", loc: "/member/pengaturan/profil" },
+				{ name: "ADDRESS", loc: "/member/pengaturan/daftar-alamat" },
+				{ name: "PHONE", loc: "/member/pengaturan/daftar-nomor" },
+			],
+			formData: {
 				type: "",
 				bank: "",
 				name: "",
 				number: "",
+				provider: "",
 			},
-			voucherTypes: [],
+			openForm: false,
 			contacts: null,
+			pin_verification: false,
+			pin_code: "",
+			pin_action: "",
+			isEdit: false,
+			mounted: false,
 		}
 	},
 	methods: {
@@ -275,6 +415,9 @@ export default {
 		this.getNumbers()
 		this.getVoucherType()
 		this.getBank()
+		if (typeof document !== "undefined") {
+			this.mounted = true
+		}
 	},
 }
 </script>

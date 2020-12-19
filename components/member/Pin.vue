@@ -6,7 +6,7 @@
 					<v-col md="4">
 						<strong>Status PIN</strong>
 					</v-col>
-					<v-col md="8">
+					<v-col md="8" class="pt-1">
 						<v-icon
 							:color="$auth.user.data.pin ? 'green' : '#969696'"
 							size="20"
@@ -35,7 +35,7 @@
 					<v-col md="4">
 						<strong>PIN Lama</strong>
 					</v-col>
-					<v-col md="8">
+					<v-col md="8" class="pt-1">
 						<PincodeInput
 							v-model="old_pin"
 							:length="6"
@@ -49,7 +49,7 @@
 					<v-col md="4">
 						<strong>PIN Baru</strong>
 					</v-col>
-					<v-col md="8">
+					<v-col md="8" class="pt-1">
 						<PincodeInput
 							v-model="pin"
 							:length="6"
@@ -63,7 +63,7 @@
 					<v-col md="4" class="pt-6">
 						<strong>Ulangi PIN Baru</strong>
 					</v-col>
-					<v-col md="8">
+					<v-col md="8" class="pt-1">
 						<PincodeInput
 							v-model="pin_confirmation"
 							:length="6"
@@ -83,6 +83,7 @@
 							@click="handleSubmit()"
 							depressed
 							medium
+							block
 							width="179"
 							height="41"
 							:color="
@@ -285,7 +286,7 @@ export default {
 			width: 10vw;
 			max-width: 10vw;
 			height: 10vw;
-			background: #e8e8e8;
+			background: #404040;
 			border-radius: 5px;
 			box-shadow: none;
 			margin-right: 10px;

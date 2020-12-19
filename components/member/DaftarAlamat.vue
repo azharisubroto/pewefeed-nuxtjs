@@ -231,10 +231,13 @@
 							></v-text-field>
 
 							<v-btn
-								@click="editAddress(address.id)"
 								color="deep-orange"
 								dark
 								depressed
+								@click="
+									pin_verification = !pin_verification
+									pin_action = 'add'
+								"
 								>Save</v-btn
 							>
 
@@ -256,12 +259,79 @@
 				</div>
 			</v-col>
 		</v-row>
+
+		<v-bottom-sheet dark width="600px" v-model="pin_verification">
+			<v-sheet height="100%">
+				<v-toolbar :elevation="1">
+					<!-- Arrow -->
+					<v-btn
+						dark
+						icon
+						tile
+						style="border-right: 0px solid #717171"
+						light
+						@click="pin_verification = !pin_verification"
+					>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Title -->
+					<v-toolbar-items class="ml-2">
+						<v-btn dark text class="pl-0" style="margin-left: -10px"
+							>KONFIRMASI</v-btn
+						>
+					</v-toolbar-items>
+					<div class="flex-grow-1"></div>
+				</v-toolbar>
+
+				<div class="px-4 py-10 text-center pindialog">
+					<strong>Masukan 6 digit PIN</strong>
+					<div class="my-3">
+						<PincodeInput
+							v-model="pin_code"
+							:length="6"
+							characterPreview
+							secure
+							:autofocus="true"
+						/>
+
+						<div class="mt-4">
+							<v-btn
+								@click="
+									pin_action == 'add'
+										? addNumber()
+										: editNumber(currentId)
+								"
+								color="#ff4200"
+								width="451"
+								medium
+								height="40"
+								depressed
+							>
+								Lanjutkan
+							</v-btn>
+
+							<div class="mt-2">
+								Belum Punya PIN?
+								<v-btn text color="#ff4200" class="py-0"
+									>Klik Disini</v-btn
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</v-sheet>
+		</v-bottom-sheet>
 	</v-container>
 </template>
 <script>
 import UserService from "@/services/UserService"
+import PincodeInput from "vue-pincode-input"
 export default {
 	name: "DaftarAlamat",
+	components: {
+		PincodeInput,
+	},
 	data() {
 		return {
 			isLoading: true,
@@ -285,6 +355,9 @@ export default {
 				kecamatan: [],
 				kelurahan: [],
 			},
+			pin_verification: false,
+			pin_code: "",
+			pin_action: "",
 		}
 	},
 	methods: {
