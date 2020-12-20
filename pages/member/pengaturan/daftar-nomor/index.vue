@@ -9,60 +9,11 @@
 					</v-btn>
 				</v-snackbar>
 
-				<template v-if="numberForm">
-					<v-autocomplete
-						outlined
-						label="Type"
-						:items="voucherTypes"
-						item-text="name"
-						item-value="name"
-						v-model="payload.type"
-					></v-autocomplete>
-
-					<v-autocomplete
-						v-if="payload.type == 'Bank'"
-						outlined
-						label="Pilih Bank"
-						:items="banks"
-						item-text="name"
-						item-value="name"
-						v-model="payload.bank"
-					></v-autocomplete>
-
-					<v-text-field
-						label="Nama"
-						placeholder="Nama"
-						outlined
-						v-model="payload.name"
-					></v-text-field>
-
-					<v-text-field
-						label="Nomor"
-						placeholder="Nomor"
-						outlined
-						v-model="payload.number"
-					></v-text-field>
-
-					<v-btn
-						@click="numberForm = false"
-						color="grey"
-						dark
-						depressed
-						>Cancel</v-btn
-					>
-
-					<v-btn
-						@click="addNumber()"
-						color="deep-orange"
-						dark
-						depressed
-						>Save</v-btn
-					>
-				</template>
-
 				<v-btn
-					v-if="!numberForm"
-					@click="numberForm = true"
+					@click="
+						openForm = !openForm
+						resertFormData()
+					"
 					color="deep-orange"
 					dark
 					block
@@ -72,63 +23,62 @@
 				>
 			</v-col>
 		</v-row>
-		<v-row>
-			<!-- CARDS -->
-			<v-col cols="12">
-				<template v-if="!isLoading">
-					<v-card
-						v-for="(contact, i) in contacts"
-						:key="i"
-						outlined
-						class="px-3 py-3 mb-3"
-					>
-						<v-row no-gutters align="center">
-							<v-col cols="9">
-								<div>
-									<strong style="color: #ffaa8c">{{
-										contact.title
-									}}</strong>
-								</div>
-								<div class="mb-2">
-									{{ contact.type }}
-								</div>
-								<div>
-									{{ contact.number }}
-								</div>
-							</v-col>
-							<v-col cols="3" class="text-right">
-								<v-btn
-									small
-									color="deep-orange"
-									width="30"
-									height="30"
-									class="px-0"
-									min-width="30"
-									@click="openForm = true"
-								>
-									<v-icon>mdi-pencil</v-icon>
-								</v-btn>
-								<v-btn
-									small
-									color="deep-orange"
-									width="30"
-									height="30"
-									class="px-0"
-									min-width="30"
-									@click="deleteNumber(contact.id)"
-								>
-									<v-icon>mdi-close</v-icon>
-								</v-btn>
-							</v-col>
-						</v-row>
-					</v-card>
-				</template>
 
-				<div v-if="isLoading" class="text-center pa-3">
-					Memuat Daftar Nomor...
-				</div>
-			</v-col>
-		</v-row>
+		<template v-if="!isLoading">
+			<v-card
+				v-for="(contact, i) in contacts"
+				:key="i"
+				outlined
+				class="px-3 py-3 mb-3"
+			>
+				<v-row no-gutters align="center">
+					<v-col cols="9">
+						<div>
+							<strong style="color: #ffaa8c">{{
+								contact.title
+							}}</strong>
+						</div>
+						<div class="mb-2">
+							{{ contact.type }}
+						</div>
+						<div>
+							{{ contact.number }}
+						</div>
+					</v-col>
+					<v-col cols="3" class="text-right">
+						<v-btn
+							small
+							color="deep-orange"
+							width="30"
+							height="30"
+							class="px-0"
+							min-width="30"
+							@click="
+								openForm = true
+								openEdit(contact)
+							"
+						>
+							<v-icon>mdi-pencil</v-icon>
+						</v-btn>
+						<v-btn
+							small
+							color="deep-orange"
+							width="30"
+							height="30"
+							class="px-0"
+							min-width="30"
+							@click="deleteNumber(contact.id)"
+						>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+					</v-col>
+				</v-row>
+			</v-card>
+		</template>
+
+		<div v-if="isLoading" class="text-center pa-3">
+			Memuat Daftar Nomor...
+		</div>
 
 		<v-navigation-drawer
 			v-model="openForm"
@@ -292,6 +242,7 @@
 									pin_action == 'add'
 										? addNumber()
 										: editNumber(currentId)
+									pin_code = ''
 								"
 								color="#ff4200"
 								medium
@@ -353,6 +304,24 @@ export default {
 			mounted: false,
 		}
 	},
+	watch: {
+		"formData.type": function (newval) {
+			if (newval == "Pulsa") {
+				this.providers = [
+					"TELKOMSEL",
+					"INDOSAT",
+					"XL",
+					"AXIS",
+					"TRI",
+					"SMARTFREN",
+				]
+			} else if (newval == "E-wallets") {
+				this.providers = ["OVO", "GOPAY", "DANA", "LINKAJA"]
+			} else if (newval == "Listrik") {
+				this.providers = ["PLN"]
+			}
+		},
+	},
 	methods: {
 		async getNumbers() {
 			this.isLoading = true
@@ -373,9 +342,10 @@ export default {
 		async getVoucherType() {
 			try {
 				const res = await UserService.getVoucherType()
-				////console.log(JSON.parse(JSON.stringify(res.data.data)))
 				this.voucherTypes = res.data.data.type
-			} catch (error) {}
+			} catch (error) {
+				console.log(error)
+			}
 		},
 		async getBank() {
 			try {
@@ -385,56 +355,103 @@ export default {
 			} catch (error) {}
 		},
 		async addNumber() {
-			var params = this.payload
+			if (this.$auth.user.data.pin != this.pin_code) {
+				alert("Pin Salah")
+				return false
+			}
+			this.overlay = true
+			var params = this.formData
+			let vm = this
+
 			try {
 				const res = await UserService.addNumber(params)
-				this.snackbar = true
-				this.responseMessage = "Data Sukses Ditambahkan"
-				this.numberForm = false
-				this.getNumbers()
-				this.payload.type = ""
-				this.payload.bank = ""
-				this.payload.name = ""
-				this.payload.number = ""
+				if (res) {
+					this.postSaveDialog(true)
+				}
 			} catch (error) {
 				console.log(error)
-				this.snackbar = true
-				this.responseMessage = "Maaf Terdapat Kesalahan :("
+				this.postSaveDialog(false)
 			}
 		},
-		async deleteNumber(id) {
+		async deleteNumber(itemID) {
+			let vm = this
+			let formData = {
+				id: itemID,
+			}
 			try {
-				const res = await UserService.deleteNumber(id)
-				this.snackbar = true
-				this.responseMessage = "Nomor telah dihapus"
-				this.numberForm = false
-				this.getNumbers()
-				this.isLoading = false
+				const res = await UserService.deleteNumber(formData)
+				if (res) {
+					this.postSaveDialog(true)
+				}
 			} catch (error) {
 				console.log(error)
-				this.snackbar = true
-				this.responseMessage = "Maaf Terdapat Kesalahan :("
+				this.postSaveDialog(false)
 			}
 		},
 		async editNumber(id) {
+			if (this.$auth.user.data.pin != this.pin_code) {
+				alert("Pin Salah")
+				return false
+			}
+
+			this.overlay = true
+			let vm = this
 			var params = {
 				id: id,
-				type: this.payload.type,
-				name: this.payload.name,
-				number: this.payload.number,
-				bank: this.payload.bank,
+				type: this.formData.type,
+				name: this.formData.name,
+				number: this.formData.number,
+				bank: this.formData.bank,
+				provider: this.formData.provider,
 			}
-			// //console.log(JSON.parse(JSON.stringify(params)))
 
 			try {
 				const res = await UserService.editNumber(params)
-				this.snackbar = true
-				this.responseMessage = "Data Sukses Ditambahkan"
-				this.getNumbers()
+				this.postSaveDialog(true)
 			} catch (error) {
 				console.log(error)
-				this.snackbar = true
-				this.responseMessage = "Maaf Terdapat Kesalahan :("
+				this.postSaveDialog(false)
+			}
+		},
+		openEdit(item) {
+			this.currentId = item.id
+			this.isEdit = true
+			this.openForm = true
+			this.formData.type = item.type
+			this.formData.name = item.title
+			this.formData.number = item.number
+			this.formData.bank = item.bank
+		},
+		resertFormData() {
+			this.currentId = null
+			this.formData = {
+				type: "",
+				bank: "",
+				name: "",
+				number: "",
+				provider: "",
+			}
+		},
+		postSaveDialog(success) {
+			this.pin_code = ""
+			this.pin_verification = false
+			this.getNumbers()
+			this.resertFormData()
+
+			if (success == true) {
+				this.$store.commit("SET_PROFILE_DIALOG", true)
+				this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
+					success: true,
+					message: "Data sukses tersimpan",
+					button: false,
+				})
+			} else {
+				this.$store.commit("SET_PROFILE_DIALOG", true)
+				this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
+					success: false,
+					message: "Data gagal tersimpan",
+					button: false,
+				})
 			}
 		},
 	},

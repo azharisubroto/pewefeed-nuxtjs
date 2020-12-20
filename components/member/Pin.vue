@@ -280,28 +280,4 @@ export default {
 .dark-brd {
 	border-color: #fff !important;
 }
-.pincard {
-	.vue-pincode-input-wrapper {
-		.vue-pincode-input {
-			width: 10vw;
-			max-width: 10vw;
-			height: 10vw;
-			background: #404040;
-			border-radius: 5px;
-			box-shadow: none;
-			margin-right: 10px;
-			padding: 0;
-			text-align: center;
-			line-height: 10vw;
-			&[type="password"] {
-				-webkit-text-security: square;
-				font-size: 40px;
-				// font-size: 0;
-				// background: #e8e8e8 url("/img/icons/asterisk.svg") no-repeat center
-				//   center;
-				// background-size: 50% 50%;
-			}
-		}
-	}
-}
 </style>

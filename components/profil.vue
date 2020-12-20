@@ -730,6 +730,11 @@ export default {
 			this.profileStep = 2
 		})
 		window.addEventListener("scroll", this.handleScroll)
+
+		if (this.$route.query.token != null) {
+			const token = this.$route.query.token
+			this.$router.push("/member/pengaturan/pin?token=" + token)
+		}
 	},
 	// created () {
 	//   window.addEventListener('scroll', this.handleScroll);
