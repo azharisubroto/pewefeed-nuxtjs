@@ -1359,4 +1359,13 @@ ol.flickity-page-dots {
 // .mainlogo {
 // 	filter: grayscale(100%) invert(100%) brightness(100%)
 // }
+
+.v-bottom-navigation {
+	.v-btn {
+		border-top: 5px solid #bababa !important;
+		&.v-btn--active {
+			border-color: #ff4200 !important;
+		}
+	}
+}
 </style>

@@ -32,6 +32,10 @@ const createStore = () => {
 			sing_voters: null,
 			promoted_video_id: 4,
 			judge_num: null,
+			profileDialog: false,
+			dialog_content: null,
+			pin: false,
+			pin_code: "",
 		},
 		mutations: {
 			SET_USER(state, item) {
@@ -70,6 +74,18 @@ const createStore = () => {
 			},
 			SET_JUDGE_NUMBER(state, val) {
 				state.judge_num = val
+			},
+			SET_PROFILE_DIALOG(state, val) {
+				state.profileDialog = val
+			},
+			SET_PROFILE_DIALOG_CONTENT(state, val) {
+				state.dialog_content = val
+			},
+			SET_PIN(state, val) {
+				state.pin = val
+			},
+			SET_PIN_CODE(state, val) {
+				state.pin_code = val
 			},
 		},
 		actions: {

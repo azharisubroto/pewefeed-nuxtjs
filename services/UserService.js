@@ -40,8 +40,8 @@ export default {
 	editAddress(params) {
 		return AuthApi().put("/member/address", params)
 	},
-	deleteAddress(id) {
-		return AuthApi().delete("/member/address", { data: { id: id } })
+	deleteAddress(params) {
+		return AuthApi().post("/member/delete-address", params)
 	},
 	provinsi() {
 		return Api().get("/master/address/province")
@@ -71,8 +71,8 @@ export default {
 	editNumber(params) {
 		return AuthApi().put("/member/contact", params)
 	},
-	deleteNumber(id) {
-		return AuthApi().delete("/member/contact", { data: { id: id } })
+	deleteNumber(params) {
+		return AuthApi().post("/member/delete-contact", params)
 	},
 	mutasiPoin(page, filter) {
 		var n = page ? page : 1
@@ -161,5 +161,21 @@ export default {
 
 	fetchBanner(slug) {
 		return Api().get("/static/banner/" + slug)
+	},
+
+	addPin(params) {
+		return AuthApi().post(`/member/pin/create`, params)
+	},
+
+	updatePin(params) {
+		return AuthApi().post(`/member/pin/update`, params)
+	},
+
+	resetPin(params) {
+		return AuthApi().get(`/member/pin/reset`)
+	},
+
+	checkPinToken(token) {
+		return AuthApi().get(`/member/pin/check-token/${token}`)
 	},
 }

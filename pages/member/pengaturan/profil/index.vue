@@ -88,53 +88,64 @@
 				cover
 				:src="cover_preview"
 				gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-				@click="openCoverUpload()"
-			>
-				<v-row
-					style="height: 100%"
-					class="ma-0"
-					align="center"
-					justify="center"
-				>
-					<img src="/img/icons/camera.svg" width="30" />
-				</v-row>
-			</v-img>
+			></v-img>
+
+			<v-btn
+				@click="coverupload()"
+				color="transparent"
+				absolute
+				right
+				fab
+				style="transform: translateY(-40%)"
+				><v-img src="/img/icons/camera.svg" contain></v-img
+			></v-btn>
 
 			<v-avatar
-				size="80"
-				color="grey"
+				size="100"
+				color="#d1d1d1"
+				style="overflow: visible"
 				class="profile-avatar ml-4"
-				@click="openUpload()"
 			>
+				<v-progress-circular
+					:width="5"
+					size="100"
+					color="#ff4200"
+					indeterminate
+					class="absolute"
+					style="z-index: 1"
+					v-if="uploadloading"
+				></v-progress-circular>
 				<v-img
 					:src="avatar_preview"
-					:aspect-ratio="1 / 1"
-					gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+					width="100"
+					height="100"
+					cover
+				></v-img>
+				<v-btn
+					@click="openUpload()"
+					absolute
+					small
+					fab
+					depressed
+					color="transparent"
+					style="bottom: 0; right: 0"
 				>
-					<template v-slot:default>
-						<div
-							class="w-100 ma-0 align-center justify-center pa-7"
-						>
-							<img src="/img/icons/camera.svg" width="16" />
-						</div>
-					</template>
-				</v-img>
+					<v-img
+						src="/img/icons/camera.svg"
+						contain
+						width="55"
+					></v-img>
+				</v-btn>
 			</v-avatar>
 		</div>
 
 		<v-container class="pt-0">
 			<v-row class="pt-0 mt-0 profil-edit">
 				<v-col cols="12" class="pt-0">
-					<div>
+					<v-card outlined dark class="pa-4 mb-5">
 						<v-row class="pt-0">
-							<v-col
-								cols="12"
-								sm="9"
-								md="9"
-								lg="9"
-								class="px-0 hahaha pt-0"
-							>
-								<div class="mb-2 px-3">
+							<v-col cols="12" sm="9" md="9" lg="9" class="pt-0">
+								<div class="mb-2">
 									Nama Depan
 									<span class="red--text">(Wajib diisi)</span>
 								</div>
@@ -145,7 +156,7 @@
 									filled
 									v-model="data.first_name"
 								></v-text-field>
-								<div class="mb-2 px-3">
+								<div class="mb-2">
 									Nama Belakang
 									<span class="red--text">(Wajib diisi)</span>
 								</div>
@@ -156,7 +167,7 @@
 									filled
 									v-model="data.last_name"
 								></v-text-field>
-								<div class="mb-2 px-3">Username</div>
+								<div class="mb-2">Username</div>
 								<v-text-field
 									solo
 									single-line
@@ -165,7 +176,7 @@
 									v-model="data.username"
 								></v-text-field>
 								<div
-									class="mb-2 px-3 d-flex justify-space-between align-center flex-wrap"
+									class="mb-2 d-flex justify-space-between align-center flex-wrap"
 								>
 									<div>Nomor Ponsel</div>
 									<!-- <v-btn
@@ -215,15 +226,7 @@
 										</span>
 									</template>
 								</v-text-field>
-								<div class="mb-2 px-3">Instagram</div>
-								<v-text-field
-									solo
-									single-line
-									placeholder="@username"
-									filled
-									v-model="data.instagram"
-								></v-text-field>
-								<div class="mb-2 px-3">
+								<div class="mb-2">
 									Email
 									<span class="red--text">(Wajib diisi)</span>
 								</div>
@@ -236,30 +239,153 @@
 									disabled
 									v-model="data.email"
 								></v-text-field>
-
-								<div class="px-4">
-									<v-btn
-										depressed
-										dark
-										block
-										color="#FF4200"
-										@click="save()"
-										class="mb-3"
-										>Simpan</v-btn
-									>
-									<v-btn
-										depressed
-										dark
-										block
-										color="#FF0000"
-										class="mb-5"
-										@click="$router.go(-1)"
-										>Batalkan</v-btn
-									>
-								</div>
 							</v-col>
 						</v-row>
-					</div>
+					</v-card>
+
+					<v-card outlined dark class="pa-4 mb-4">
+						<!-- NOMOR HAPE -->
+						<v-alert
+							v-if="$auth.user.verified == false"
+							dark
+							color="#0057FF"
+							prominent
+							dense
+							class="text-14"
+						>
+							<template v-slot:prepend>
+								<v-img
+									src="/img/icons/info.svg"
+									width="20"
+									max-width="20"
+									class="mr-3 infoarticleicon"
+								></v-img>
+							</template>
+							Dapatkan 50 Poin Untuk Satu Kali Verifikasi Nomor
+							Ponsel Berhasil
+						</v-alert>
+
+						<div class="mb-1">
+							<span class="mr-2 font-weight-bold">
+								Nomor Ponsel
+								<span class="red--text">(wajib)</span></span
+							>
+
+							<span
+								class="text-14"
+								:class="[
+									$auth.user.verified
+										? 'green--text'
+										: 'grey--text',
+								]"
+								><v-icon
+									:color="
+										$auth.user.verified
+											? 'green'
+											: '#969696'
+									"
+									size="16"
+									>mdi-check-decagram</v-icon
+								>
+								{{
+									$auth.user.verified
+										? "Verified"
+										: "Not Verified"
+								}}</span
+							>
+						</div>
+						<v-row no-gutters>
+							<v-col md="10" class="pr-1">
+								<v-text-field
+									v-model="data.no_telp"
+									solo
+									single-line
+									placeholder="@username"
+									filled
+								/>
+							</v-col>
+							<v-col md="2">
+								<v-btn
+									@click="waotp = !waotp"
+									dark
+									depressed
+									block
+									color="#ff4200"
+									height="55"
+								>
+									<span class="white--text">Verifikasi</span>
+								</v-btn>
+							</v-col>
+						</v-row>
+
+						<!-- EMAIL -->
+
+						<div class="mb-1">
+							<span class="mr-2 font-weight-bold"
+								>E-mail
+								<span class="red--text">(wajib)</span></span
+							>
+						</div>
+						<v-row no-gutters>
+							<v-col md="12">
+								<v-text-field
+									v-model="data.email"
+									solo
+									single-line
+									placeholder="Last Name"
+									filled
+								/>
+							</v-col>
+						</v-row>
+					</v-card>
+
+					<v-card outlined dark class="pa-4 mb-4">
+						<template v-for="social in socmed">
+							<div class="mb-1" :key="'label-' + social">
+								<span
+									class="text-uppercase mr-2 font-weight-bold"
+									>{{ social }}</span
+								>
+								<span class="grey--text text-14"
+									><v-icon color="#969696" size="16"
+										>mdi-check-decagram</v-icon
+									>
+									Not Verified</span
+								>
+							</div>
+							<v-row no-gutters :key="'form-' + social">
+								<v-col md="9" class="pr-4">
+									<v-text-field
+										dense
+										:placeholder="social"
+										outlined
+										background-color="#404040"
+									/>
+								</v-col>
+								<v-col md="3">
+									<v-btn
+										dark
+										depressed
+										block
+										color="#ff4200"
+										height="40"
+									>
+										Hubungkan
+									</v-btn>
+								</v-col>
+							</v-row>
+						</template>
+					</v-card>
+
+					<v-btn
+						depressed
+						dark
+						block
+						color="#FF4200"
+						@click="save()"
+						class="mb-3"
+						>Simpan</v-btn
+					>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -286,6 +412,7 @@ import axios from "axios"
 export default {
 	middleware: "auth",
 	name: "pengaturanPage",
+	layout: "profile",
 	data() {
 		return {
 			profile: null,
@@ -303,6 +430,7 @@ export default {
 				instagram: "",
 				no_no_: "",
 			},
+			socmed: ["instagram", "facebook", "twitter", "tiktok"],
 			snackbar: false,
 			dropOptions: {
 				url: "https://api.pewefeed.com/api/member/avatar",
@@ -335,7 +463,7 @@ export default {
 			let vm = this
 			let bearer = localStorage.getItem("access-token")
 			var formData = new FormData()
-			formData.append("avatar", file)
+			data.append("avatar", file)
 			vm.uploadloading = true
 			axios
 				.post("https://api.pewefeed.com/api/member/avatar", formData, {
@@ -363,7 +491,7 @@ export default {
 			vm.uploadloading = true
 			let bearer = localStorage.getItem("access-token")
 			var formData = new FormData()
-			formData.append("cover_image", file)
+			data.append("cover_image", file)
 			axios
 				.post(
 					"https://api.pewefeed.com/api/member/cover-image",
@@ -495,12 +623,12 @@ export default {
 		border-bottom: 1px solid #fff;
 	}
 }
-.profil-edit {
-	.v-text-field--solo,
-	.v-text-field--solo * {
-		border-radius: 0 !important;
-	}
-}
+// .profil-edit {
+// 	.v-text-field--solo,
+// 	.v-text-field--solo * {
+// 		border-radius: 0 !important;
+// 	}
+// }
 .profile-avatar {
 	transform: translateY(-50%);
 }
