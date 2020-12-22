@@ -14,18 +14,45 @@
 			</v-alert>
 		</v-container>
 
-		<template v-if="smsstatuses != null && smsstatuses.length > 0">
-			<div class="status-item" v-for="(mid, i) in smsstatuses" :key="i">
-				<div class="deep-orange--text text-18">
-					<strong>{{ "#" + mid.order_id }}</strong>
+		<v-container v-if="smsstatuses != null && smsstatuses.length > 0">
+			<v-card
+				v-for="(mid, i) in smsstatuses"
+				:key="i"
+				style="border: 1px solid #fff"
+				outlined
+				class="mb-4"
+			>
+				<div style="background: #404040" class="px-3 py-1 text-16">
+					<v-row align="center" justify="space-between">
+						<v-col cols="6">
+							<strong>{{ "#" + mid.order_id }}</strong>
+						</v-col>
+						<v-col cols="6">
+							{{ mid.created_at }}
+						</v-col>
+					</v-row>
 				</div>
-				<div class="text-16">
-					<div>{{ mid.created_at ? mid.created_at : "n/a" }}</div>
-					<div>{{ mid.vip ? mid.vip : "n/a" }}</div>
+
+				<div class="devider-small"></div>
+
+				<div class="px-4 py-4">
+					<div class="font-weight-bold text-thirdary">
+						{{ mid.vip ? mid.vip : "n/a" }}
+					</div>
 					<div>{{ mid.price ? mid.price : "n/a" }}</div>
 				</div>
-			</div>
-		</template>
+			</v-card>
+
+			<v-btn
+				v-if="pagination.current_page < pagination.last_page"
+				color="#ff4200"
+				depressed
+				block
+				@click="fetchStatus(parseInt(pagination.current_page + 1))"
+			>
+				Show More
+			</v-btn>
+		</v-container>
 
 		<v-row v-else-if="smsstatuses != null && !loading">
 			<v-col>
@@ -46,10 +73,17 @@
 import UserService from "@/services/UserService"
 export default {
 	name: "SmsStatusPage",
+	layout: "payment",
 	data() {
 		return {
 			loading: true,
 			smsstatuses: null,
+			pagination: {
+				current_page: 1,
+				last_page: 1,
+				per_page: 10,
+				total: 1,
+			},
 		}
 	},
 	methods: {
@@ -58,6 +92,7 @@ export default {
 			try {
 				const res = await UserService.fetchStatusSms(n)
 				this.smsstatuses = res.data.data
+				this.pagination = res.data.paginate
 				this.loading = true
 			} catch (error) {
 				console.log(error)

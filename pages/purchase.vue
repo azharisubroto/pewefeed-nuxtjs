@@ -19,7 +19,7 @@
 				"
 				class="px-0"
 				>{{
-					appBarLabel ? appBarLabel : "VIP Membership"
+					appBarLabel ? appBarLabel : "KEANGGOTAAN VIP"
 				}}</v-toolbar-title
 			>
 			<div class="flex-grow-1"></div>
@@ -80,7 +80,7 @@
 							<v-list-item class="py-3" @click="e1 = 2">
 								<v-list-item-content>
 									<v-list-item-title>
-										<span>Purchase VIP Membership</span>
+										<span>Purchase KEANGGOTAAN VIP</span>
 									</v-list-item-title>
 								</v-list-item-content>
 								<v-list-item-icon>
@@ -113,130 +113,19 @@
 					</v-stepper-content>
 
 					<v-stepper-content step="2" class="px-0">
-						<!-- NON LANGGANAN  -->
-						<v-container class="mb-3">
-							<strong class="deep-orange--text text-18"
-								>Non Subscription - Package</strong
-							>
-						</v-container>
-						<v-list-item-group>
-							<template v-for="(item, i) in vipItems">
-								<div
-									v-if="i == 0"
-									class="devider-small"
-									:key="'purchase-menu-devider-1' + i"
-								></div>
-								<v-list-item
-									class="py-3"
-									:key="'purchase-menu' + i"
-									@click="
-										e1 = 3
-										setPrechoices(item)
-									"
-								>
-									<v-list-item-content>
-										<v-list-item-title
-											style="line-height: 23px"
-										>
-											<strong class="d-block text-18">{{
-												item.label
-											}}</strong>
-											<span class="d-block"
-												>{{ item.price }} (exclude PPN
-												10%)</span
-											>
-										</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-icon size="30"
-											>mdi-chevron-right</v-icon
-										>
-									</v-list-item-icon>
-								</v-list-item>
-								<div
-									class="devider-small"
-									:key="'purchase-menu-devider' + i"
-								></div>
-							</template>
-						</v-list-item-group>
-
-						<!-- LANGGANAN  -->
-						<v-container class="mb-3 mt-5">
-							<strong class="deep-orange--text text-18"
-								>Subscription - Package</strong
-							>
-						</v-container>
-						<v-list-item-group>
-							<template v-for="(item, i) in subsitems">
-								<div
-									v-if="i == 0"
-									class="devider-small"
-									:key="'purchase-menu-devider-xx' + i"
-								></div>
-								<v-list-item
-									class="py-3"
-									:key="'purchase-menu-asdfd' + i"
-									@click="
-										e1 = 3
-										setPrechoices(item)
-									"
-								>
-									<v-list-item-content>
-										<v-list-item-title
-											style="line-height: 23px"
-										>
-											<strong class="d-block text-18">{{
-												item.label
-											}}</strong>
-											<span class="d-block"
-												>{{ item.price }} (exclude PPN
-												10%)</span
-											>
-											<div class="d-block">
-												{{ item.desc }}
-											</div>
-										</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-icon size="30"
-											>mdi-chevron-right</v-icon
-										>
-									</v-list-item-icon>
-								</v-list-item>
-								<div
-									class="devider-small"
-									:key="'purchase-menu-deviderxxas' + i"
-								></div>
-							</template>
-						</v-list-item-group>
-					</v-stepper-content>
-
-					<v-stepper-content step="3" class="px-0 pt-0">
-						<div
-							v-if="userdata.status_expired == 1"
-							style="background: #757575; color: #fff"
-							class="text-center px-5 py-10 mb-4"
+						<v-card
+							outlined
+							class="mx-3 my-3 text-16"
+							style="border: 1px solid #fff !important"
 						>
-							<strong class="text-18" v-if="prechoice.label">{{
-								prechoice.label
-							}}</strong>
-							<div class="text-16" v-if="prechoice.price">
-								{{ prechoice.price }} (exclude PPN 10%)
+							<div
+								style="background: #404040"
+								class="px-4 py-5 text-16"
+							>
+								Paket Berlangganan
 							</div>
-							<div class="text-16" v-if="prechoice.desc">
-								{{ prechoice.desc }}
-							</div>
-						</div>
-
-						<!-- SMS  -->
-						<template v-if="prechoice.payment != null">
-							<v-container class="mb-3">
-								<strong class="deep-orange--text text-18"
-									>SMS Method</strong
-								>
-							</v-container>
 							<v-list-item-group>
-								<template v-for="(item, i) in smspayment">
+								<template v-for="(item, i) in vipItems">
 									<div
 										v-if="i == 0"
 										class="devider-small"
@@ -246,14 +135,8 @@
 										class="py-3"
 										:key="'purchase-menu' + i"
 										@click="
-											e1 = 4
-											guessVoucher(item)
-											getWapType = item.key
-										"
-										:disabled="
-											!prechoice.payment.includes(
-												item.key
-											)
+											e1 = 3
+											setPrechoices(item)
 										"
 									>
 										<v-list-item-content>
@@ -261,12 +144,13 @@
 												style="line-height: 23px"
 											>
 												<strong
-													class="d-block text-18"
+													class="d-block text-16 text-thirdary"
 													>{{ item.label }}</strong
 												>
-												<span class="d-block text-14">{{
-													item.desc
-												}}</span>
+												<span class="d-block text-16"
+													>{{ item.price }} (exclude
+													PPN 10%)</span
+												>
 											</v-list-item-title>
 										</v-list-item-content>
 										<v-list-item-icon>
@@ -281,302 +165,370 @@
 									></div>
 								</template>
 							</v-list-item-group>
-						</template>
+						</v-card>
 
-						<!-- Bank Transfer / Credit Card  -->
-						<v-container class="mb-3 mt-4">
-							<strong class="deep-orange--text text-18"
-								>Bank Transfer / Credit Card</strong
+						<v-card
+							outlined
+							class="mx-3 my-3 text-16"
+							style="border: 1px solid #fff !important"
+						>
+							<div
+								style="background: #404040"
+								class="px-4 py-5 text-16"
 							>
-						</v-container>
-						<v-list-item-group v-if="prechoice.payment != null">
-							<template v-for="(item, i) in transferpayment">
-								<div
-									v-if="i == 0"
-									class="devider-small"
-									:key="'purchase-menu-devider-1' + i"
-								></div>
-								<v-list-item
-									class="py-3"
-									:key="'purchase-menu' + i"
-									@click="guessBank(item.label)"
-									:disabled="
-										!prechoice.payment.includes('bank')
-									"
-								>
-									<v-list-item-content>
-										<v-list-item-title
-											style="line-height: 23px"
-										>
-											<strong class="d-block text-18">{{
-												item.label
-											}}</strong>
-										</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-icon size="30"
-											>mdi-chevron-right</v-icon
-										>
-									</v-list-item-icon>
-								</v-list-item>
-								<div
-									class="devider-small"
-									:key="'purchase-menu-devider' + i"
-								></div>
-							</template>
-						</v-list-item-group>
+								Paket Non-Berlangganan
+							</div>
 
-						<!-- EWALLETS  -->
-						<v-container class="mb-3 mt-4">
-							<strong class="deep-orange--text text-18"
-								>eWallets</strong
+							<v-list-item-group>
+								<template v-for="(item, i) in subsitems">
+									<div
+										v-if="i == 0"
+										class="devider-small"
+										:key="'purchase-menu-devider-xx' + i"
+									></div>
+									<v-list-item
+										class="py-3"
+										:key="'purchase-menu-asdfd' + i"
+										@click="
+											e1 = 3
+											setPrechoices(item)
+										"
+									>
+										<v-list-item-content>
+											<v-list-item-title
+												style="line-height: 23px"
+											>
+												<strong
+													class="d-block text-16 text-thirdary"
+													>{{ item.label }}</strong
+												>
+												<span class="d-block text-16"
+													>{{ item.price }} (exclude
+													PPN 10%)</span
+												>
+												<div class="d-block text-16">
+													{{ item.desc }}
+												</div>
+											</v-list-item-title>
+										</v-list-item-content>
+										<v-list-item-icon>
+											<v-icon size="30"
+												>mdi-chevron-right</v-icon
+											>
+										</v-list-item-icon>
+									</v-list-item>
+									<div
+										class="devider-small"
+										:key="'purchase-menu-deviderxxas' + i"
+									></div>
+								</template>
+							</v-list-item-group>
+						</v-card>
+					</v-stepper-content>
+
+					<v-stepper-content step="3" class="px-0 pt-0">
+						<v-container>
+							<v-card
+								outlined
+								class="text-16 mb-4"
+								style="border: 1px solid #fff !important"
 							>
-						</v-container>
-						<v-list-item-group v-if="prechoice.payment != null">
-							<template v-for="(item, i) in ewalletspayment">
-								<div
-									v-if="i == 0"
-									class="devider-small"
-									:key="'purchase-menu-devider-1' + i"
-								></div>
-								<v-list-item
-									class="py-3"
-									:key="'purchase-menu' + i"
-									@click="eWalletPurchase(item.key)"
-									:disabled="
-										!prechoice.payment.includes('ewallets')
-									"
+								<div class="pa-4" style="background: #404040">
+									via SMS
+								</div>
+								<!-- SMS  -->
+								<template v-if="prechoice.payment != null">
+									<v-list-item-group>
+										<template
+											v-for="(item, i) in smspayment"
+										>
+											<div
+												v-if="i == 0"
+												class="devider-small"
+												:key="
+													'purchase-menu-devider-1' +
+													i
+												"
+											></div>
+											<v-list-item
+												class="py-3"
+												:key="'purchase-menu' + i"
+												@click="
+													e1 = 4
+													guessVoucher(item)
+													getWapType = item.key
+												"
+												:disabled="
+													!prechoice.payment.includes(
+														item.key
+													)
+												"
+											>
+												<v-list-item-content>
+													<v-list-item-title
+														style="
+															line-height: 23px;
+														"
+													>
+														<strong
+															class="d-block text-thirdary"
+															>{{
+																item.label
+															}}</strong
+														>
+														<span class="d-block">{{
+															item.desc
+														}}</span>
+														<div class="text-10">
+															{{
+																!prechoice.payment.includes(
+																	item.key
+																)
+																	? "tidak tersedia"
+																	: ""
+															}}
+														</div>
+													</v-list-item-title>
+												</v-list-item-content>
+												<v-list-item-icon>
+													<v-icon size="30"
+														>mdi-chevron-right</v-icon
+													>
+												</v-list-item-icon>
+											</v-list-item>
+											<div
+												class="devider-small"
+												:key="
+													'purchase-menu-devider' + i
+												"
+											></div>
+										</template>
+									</v-list-item-group>
+								</template>
+							</v-card>
+
+							<v-card
+								outlined
+								class="text-16 mb-3"
+								style="border: 1px solid #fff !important"
+							>
+								<div class="pa-4" style="background: #404040">
+									via BANK / CREDIT CARD
+								</div>
+								<!-- Bank Transfer / Credit Card  -->
+								<v-list-item-group
+									v-if="prechoice.payment != null"
 								>
-									<v-list-item-content>
-										<v-list-item-title
-											style="line-height: 23px"
+									<template
+										v-for="(item, i) in transferpayment"
+									>
+										<div
+											v-if="i == 0"
+											class="devider-small"
+											:key="'purchase-menu-devider-1' + i"
+										></div>
+										<v-list-item
+											class="py-3"
+											:key="'purchase-menu' + i"
+											@click="guessBank(item.label)"
+											:disabled="
+												!prechoice.payment.includes(
+													'bank'
+												)
+											"
 										>
-											<strong class="d-block text-18">{{
-												item.label
-											}}</strong>
-										</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-icon size="30"
-											>mdi-chevron-right</v-icon
+											<v-list-item-content>
+												<v-list-item-title
+													style="line-height: 23px"
+												>
+													<strong
+														class="d-block text-16 text-thirdary"
+														>{{
+															item.label
+														}}</strong
+													>
+													<div>
+														{{ item.desc }}
+													</div>
+													<div class="text-10">
+														{{
+															!prechoice.payment.includes(
+																"bank"
+															)
+																? "tidak tersedia"
+																: ""
+														}}
+													</div>
+												</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-icon>
+												<v-icon size="30"
+													>mdi-chevron-right</v-icon
+												>
+											</v-list-item-icon>
+										</v-list-item>
+										<div
+											class="devider-small"
+											:key="'purchase-menu-devider' + i"
+										></div>
+									</template>
+								</v-list-item-group>
+							</v-card>
+
+							<v-card
+								outlined
+								class="text-16"
+								style="border: 1px solid #fff !important"
+							>
+								<div class="pa-4" style="background: #404040">
+									via E-WALLETS
+								</div>
+
+								<v-list-item-group
+									v-if="prechoice.payment != null"
+								>
+									<template
+										v-for="(item, i) in ewalletspayment"
+									>
+										<div
+											v-if="i == 0"
+											class="devider-small"
+											:key="'purchase-menu-devider-1' + i"
+										></div>
+										<v-list-item
+											class="py-3"
+											:key="'purchase-menu' + i"
+											@click="eWalletPurchase(item.key)"
+											:disabled="
+												!prechoice.payment.includes(
+													'ewallets'
+												)
+											"
 										>
-									</v-list-item-icon>
-								</v-list-item>
-								<div
-									class="devider-small"
-									:key="'purchase-menu-devider' + i"
-								></div>
-							</template>
-						</v-list-item-group>
+											<v-list-item-content>
+												<v-list-item-title
+													style="line-height: 23px"
+												>
+													<strong
+														class="d-block text-16 text-thirdary"
+														>{{
+															item.label
+														}}</strong
+													>
+													<div class="text-10">
+														{{
+															!prechoice.payment.includes(
+																"ewallets"
+															)
+																? "tidak tersedia"
+																: ""
+														}}
+													</div>
+												</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-icon>
+												<v-icon size="30"
+													>mdi-chevron-right</v-icon
+												>
+											</v-list-item-icon>
+										</v-list-item>
+										<div
+											class="devider-small"
+											:key="'purchase-menu-devider' + i"
+										></div>
+									</template>
+								</v-list-item-group>
+							</v-card>
+						</v-container>
 					</v-stepper-content>
 
 					<!-- SMS CHECKPOINT -->
 					<v-stepper-content step="4" class="px-0 pt-0">
-						<div
-							v-if="userdata.status_expired == 1"
-							style="background: #757575; color: #fff"
-							class="text-center px-5 py-10 mb-1"
-						>
-							<strong class="text-18" v-if="prechoice.label">{{
-								prechoice.label
-							}}</strong>
-							<div class="text-16" v-if="prechoice.price">
-								{{ prechoice.price }} (exclude PPN 10%)
-							</div>
-							<div class="text-16" v-if="prechoice.desc">
-								{{ prechoice.desc }}
-							</div>
-						</div>
-
-						<template
-							v-if="
-								prechoice.payment != null &&
-								(!prechoice.payment.includes('bank') ||
-									!prechoice.payment.includes('ewallets'))
+						<v-container
+							style="
+								position: fixed;
+								top: 50px;
+								bottom: 0;
+								z-index: 1000;
+								background: #1c1c1c;
 							"
 						>
-							<v-container class="pb-0">
-								<v-alert color="#0057FF" class="mb-1" prominent>
-									<template v-slot:prepend>
-										<v-img
-											src="/img/icons/info.svg"
-											width="35"
-											max-width="35"
-											class="mr-3 infoarticleicon"
-										></v-img>
-									</template>
-									Pilih salah satu metode pembelian, bisa
-									dengan SMS atau WAP (Instan)
-								</v-alert>
-							</v-container>
-
-							<v-container class="mt-0 card-trans px-0">
-								<v-row>
-									<v-col cols="12" class="pb-0 pt-0">
-										<v-card
-											class="mx-auto mb-0"
-											style="
-												background: #000 !important;
-												border-radius: 0 !important;
-											"
-										>
-											<v-tabs
-												grow
-												v-model="buymethod"
-												color="deep-orange"
-												background="#000000"
-											>
-												<v-tab
-													href="#sms"
-													class="hohoho text-18"
-													>SMS</v-tab
-												>
-												<v-tab
-													href="#wap"
-													class="hohoho text-18"
-													@click="useWap = true"
-													>WAP</v-tab
-												>
-												<!-- <v-tab href="#ussd" class="hohoho">USSD</v-tab> -->
-											</v-tabs>
-
-											<v-tabs-items
-												v-model="buymethod"
-												class="mt-4"
-											>
-												<v-tab-item
-													value="sms"
-													style="
-														background: #000 !important;
-													"
-												>
-													<v-form
-														ref="form"
-														v-model="valid"
-														lazy-validation
-													>
-														<v-container
-															class="pb-0"
-														>
-															<v-text-field
-																outlined
-																single-line
-																prepend-inner-icon
-																maxlength="12"
-																v-model="
-																	formdata.nomorhandphone
-																"
-																type="number"
-																required
-																hide-details
-																placeholder="Masukan nomor ponsel anda"
-																@keydown="
-																	filterKey
-																"
-																:rules="
-																	numberRules
-																"
-															></v-text-field>
-														</v-container>
-													</v-form>
-												</v-tab-item>
-												<v-tab-item
-													value="wap"
-													style="
-														background: #000 !important;
-													"
-												>
-													<v-container
-														class="text-center pt-4"
-														style="
-															padding-bottom: 40px;
-														"
-													>
-														<strong class="body-2"
-															>Pastikan anda tidak
-															menggunakan WiFi,
-															kemudian beri
-															centang pada Google
-															ReCaptcha dan tekan
-															tombol "Process",
-															dan anda akan
-															diarahkan ke halaman
-															pembayaran</strong
-														>
-													</v-container>
-												</v-tab-item>
-												<v-tab-item
-													value="ussd"
-													style="
-														background: #000 !important;
-													"
-												>
-													<v-container
-														class="text-center pt-4"
-														style="
-															padding-bottom: 40px;
-														"
-													>
-														<strong class="body-2"
-															>Pilihan Tidak
-															Tersedia</strong
-														>
-													</v-container>
-												</v-tab-item>
-											</v-tabs-items>
-										</v-card>
-									</v-col>
-								</v-row>
-
-								<v-snackbar
-									v-model="snackbar"
-									:timeout="timeout"
-									top
-									fixed
-								>
-									{{ responsemessage }}
-									<v-btn
-										color="primary"
-										text
-										icon
-										@click="snackbar = false"
-									>
-										<v-icon color="white"
-											>mdi-close-circle-outline</v-icon
-										>
-									</v-btn>
-								</v-snackbar>
-
-								<div
-									class="mt-0"
-									style="
-										text-align: center;
-										padding: 20px 10px 10px;
-										border-radius: 3px;
-										background: #000 !important;
-									"
-								>
-									<recaptcha
-										style="display: inline-block"
-										@error="onError()"
-										@success="onSuccess()"
-										@expired="onExpired()"
-									/>
-									<v-btn
-										@click="validate(prechoice.voucher_id)"
-										:disabled="finalbuttondisabled"
-										color="deep-orange"
-										large
-										block
-										class="white--text mt-2"
-										>PROCESS</v-btn
-									>
+							<v-card
+								outlined
+								class="text-16 mb-3"
+								style="border: 1px solid #fff !important"
+							>
+								<div class="pa-4" style="background: #404040">
+									Rincian Pembelian
 								</div>
-								<br />
-								<br />
-								<br />
-							</v-container>
-						</template>
+								<div class="pa-3">
+									<div class="text-thirdary">
+										<strong>{{ prechoice.label }}</strong>
+									</div>
+									<div>
+										{{ prechoice.price }} (exclude PPN 10%)
+									</div>
+								</div>
+							</v-card>
+
+							<v-card
+								outlined
+								class="text-16 mb-3"
+								style="border: 1px solid #fff !important"
+							>
+								<div class="pa-4" style="background: #404040">
+									Langkah Pembelian
+								</div>
+								<div class="py-3">
+									<v-list-item-group>
+										<v-list-item>
+											<v-list-item-icon>
+												<div class="iconnumer">1</div>
+											</v-list-item-icon>
+											<v-list-item-content>
+												Pastikan anda menggunakan nomor
+												ponsel dari XL Axiata
+											</v-list-item-content>
+										</v-list-item>
+										<div class="devider-small"></div>
+										<v-list-item>
+											<v-list-item-icon>
+												<div class="iconnumer">2</div>
+											</v-list-item-icon>
+											<v-list-item-content>
+												Ketik SMS dengan format
+												<div class="text-thirdary">
+													PW3
+												</div>
+											</v-list-item-content>
+										</v-list-item>
+										<div class="devider-small"></div>
+										<v-list-item>
+											<v-list-item-icon>
+												<div class="iconnumer">3</div>
+											</v-list-item-icon>
+											<v-list-item-content>
+												Kirim ke
+												<div class="text-thirdary">
+													97788
+												</div>
+											</v-list-item-content>
+										</v-list-item>
+										<div class="devider-small"></div>
+										<v-list-item>
+											<v-list-item-icon>
+												<div class="iconnumer">4</div>
+											</v-list-item-icon>
+											<v-list-item-content>
+												Selanjutnya tunggu SMS balasan
+												dari 97788 dan ikuti instruksi
+												selanjutnya
+											</v-list-item-content>
+										</v-list-item>
+									</v-list-item-group>
+								</div>
+							</v-card>
+						</v-container>
 					</v-stepper-content>
 				</v-stepper-items>
 			</v-stepper>
@@ -666,13 +618,14 @@ import IframePreview from "@/components/modal/IframePreview"
 export default {
 	middleware: "auth",
 	name: "PurchasePage",
+	layout: "payment",
 	props: {
 		dialogVisible: Boolean,
 	},
 	data() {
 		return {
 			appBarLabel: null,
-			e1: 1,
+			e1: 2,
 			dialog: false,
 			itemprice: null,
 			itemname: null,
@@ -693,7 +646,7 @@ export default {
 					to: "/member/status_transfer/sms",
 				},
 				{
-					title: "Activate VIP Membership - SMS Code",
+					title: "Activate KEANGGOTAAN VIP - SMS Code",
 					to: "/c/",
 				},
 			],
@@ -740,28 +693,28 @@ export default {
 			vipItems: [
 				{
 					voucher_id: 3,
-					label: "1 Hari VIP Membership",
+					label: "1 Hari KEANGGOTAAN VIP",
 					price: "Rp 2.000",
 					code: "PW0",
 					payment: ["xl"],
 				},
 				{
 					voucher_id: 5,
-					label: "3 Hari VIP Membership",
+					label: "3 Hari KEANGGOTAAN VIP",
 					price: "Rp 5.000",
 					code: "PW0",
 					payment: ["xl"],
 				},
 				{
 					voucher_id: 12,
-					label: "6 Hari VIP Membership",
+					label: "6 Hari KEANGGOTAAN VIP",
 					price: "Rp 10.000",
 					code: "PW0",
 					payment: ["bank", "ewallets"],
 				},
 				{
 					voucher_id: 9,
-					label: "15 Hari VIP Membership",
+					label: "15 Hari KEANGGOTAAN VIP",
 					price: "Rp 25.000",
 					code: "PW0",
 					payment: ["bank", "ewallets"],
@@ -769,7 +722,7 @@ export default {
 			],
 			subsitems: [
 				{
-					label: "6 Hari VIP Membership",
+					label: "6 Hari KEANGGOTAAN VIP",
 					price: "Rp 2.000",
 					desc: "3 SMS/Minggu - 1 SMS untuk 2 Hari VIP",
 					code: "PW0",
@@ -796,19 +749,14 @@ export default {
 			],
 			transferpayment: [
 				{
-					label: "BCA",
+					label: "Bank BRI / BNI / MANDIRI / PERMATA",
+					desc: "Menggunakan XENDIT payment gateway",
+					value: "xendit",
 				},
 				{
-					label: "BRI",
-				},
-				{
-					label: "BNI",
-				},
-				{
-					label: "MANDIRI",
-				},
-				{
-					label: "PERMATA",
+					label: "Bank BCA",
+					desc: "Menggunakan MIDTRANS payment gateway",
+					value: "midtrans",
 				},
 			],
 			ewalletspayment: [
@@ -1235,25 +1183,29 @@ export default {
 		.v-list-item__icon {
 			display: none;
 		}
-		&:after {
-			content: "not available" !important;
-			display: inline-block;
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 15px;
-			background: #7d7d7d;
-			color: #fff;
-			border-radius: 90px;
-			line-height: 1;
-			text-align: center;
-			padding: 8px 12px;
-			font-size: 10px;
-			font-style: italic;
-			min-height: unset;
-		}
+		// &:after {
+		// 	content: "not available" !important;
+		// 	position: relative;
+		// 	display: block;
+		// 	background: #7d7d7d;
+		// 	color: #fff;
+		// 	border-radius: 90px;
+		// 	line-height: 1;
+		// 	text-align: center;
+		// 	padding: 8px 12px;
+		// 	font-size: 10px;
+		// 	font-style: italic;
+		// 	min-height: unset;
+		// }
 	}
 }
+
+.v-list-item--disabled {
+	.text-thirdary {
+		opacity: 0.4;
+	}
+}
+
 .card-trans {
 	.v-tabs-bar {
 		height: 64px !important;
@@ -1267,5 +1219,14 @@ export default {
 			background: #000 !important;
 		}
 	}
+}
+.iconnumer {
+	width: 30px;
+	height: 30px;
+	background: #fff;
+	line-height: 30px;
+	text-align: center;
+	color: #000;
+	border-radius: 90px;
 }
 </style>

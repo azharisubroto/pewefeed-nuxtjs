@@ -67,46 +67,50 @@
 								class="mr-3 infoarticleicon"
 							></v-img> </template
 						>Masukan 32 Digit Kode yang kamu terima dari SMS untuk
-						menambah VIP Membership
+						menambah KEANGGOTAAN VIP
 					</v-alert>
-					<v-form ref="form" v-model="valid" lazy-validation>
-						<v-row no-gutters>
-							<v-col cols="12" class="d-none">
-								<v-text-field
-									label="PW ID"
-									v-model="formdata.msisdn"
-									:rules="pwIdRules"
-								></v-text-field>
-							</v-col>
-							<v-col cols="12" class="pb-0">
-								<v-text-field
-									class="mb-0"
-									outlined
-									v-model="formdata.code"
-									required
-									:rules="pwCodeRules"
-								></v-text-field>
-							</v-col>
-							<v-col cols="12" class="mt-0 pt-0 mb-5">
-								<recaptcha
-									@error="onError()"
-									@success="onSuccess()"
-									@expired="onExpired()"
-								/>
-							</v-col>
-							<v-col cols="12" class="mt-2">
-								<v-btn
-									@click="validate()"
-									color="deep-orange"
-									depressed
-									dark
-									large
-									width="100%"
-									>PROCESS</v-btn
-								>
-							</v-col>
-						</v-row>
-					</v-form>
+
+					<v-card
+						style="border: 1px solid #fff"
+						outlined
+						class="pa-4"
+					>
+						<div class="mb-3">Kode Keanggotaan VIP</div>
+						<v-form ref="form" v-model="valid" lazy-validation>
+							<v-row no-gutters>
+								<v-col cols="12" class="pb-0">
+									<v-text-field
+										label="PW ID"
+										v-model="formdata.msisdn"
+										:rules="pwIdRules"
+										class="d-none"
+									></v-text-field>
+
+									<v-text-field
+										class="mb-1"
+										outlined
+										v-model="formdata.code"
+										required
+										hide-detail
+										:rules="pwCodeRules"
+									></v-text-field>
+
+									<v-btn
+										@click="
+											pin_verification = !pin_verification
+										"
+										color="deep-orange"
+										depressed
+										dark
+										large
+										width="100%"
+										>Aktifkan</v-btn
+									>
+								</v-col>
+							</v-row>
+						</v-form>
+					</v-card>
+
 					<v-snackbar v-model="snackbar" :timeout="timeout" top>
 						{{ responsemessage }}
 						<v-btn
@@ -124,10 +128,10 @@
 			</v-card>
 		</div>
 
-		<!-- Dialog Success -->
-		<v-bottom-sheet v-model="dialog">
+		<!-- PIN -->
+		<v-bottom-sheet dark width="100%" v-model="pin_verification">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+				<v-toolbar :elevation="1">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -135,53 +139,56 @@
 						tile
 						style="border-right: 0px solid #717171"
 						light
-						@click="dialog = false"
+						@click="pin_verification = !pin_verification"
 					>
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 
 					<!-- Title -->
-					<div class="flex-grow-1"></div>
-					<v-toolbar-items>
-						<v-btn
-							dark
-							text
-							class="deep-orange--text pl-0"
-							style="margin-left: -10px"
-							>Information</v-btn
+					<v-toolbar-items class="ml-2">
+						<v-btn dark text class="pl-0" style="margin-left: -10px"
+							>KONFIRMASI</v-btn
 						>
 					</v-toolbar-items>
 					<div class="flex-grow-1"></div>
 				</v-toolbar>
 
-				<div class="mx-2">
-					<v-container class="text-center">
-						<v-row align="center" justify="center">
-							<v-icon color="green" class="display-3"
-								>mdi-check-circle</v-icon
+				<div class="px-4 py-10 text-center pindialog">
+					<strong>Masukan 6 digit PIN</strong>
+					<div class="my-3">
+						<PincodeInput
+							v-model="pin_code"
+							:length="6"
+							characterPreview
+							secure
+							:autofocus="true"
+						/>
+
+						<div class="mt-4">
+							<v-btn
+								@click="getCode()"
+								color="#ff4200"
+								medium
+								height="40"
+								depressed
 							>
-						</v-row>
-						<v-row align="center" justify="center">
-							<p class="title mt-4">{{ responsemessage }}</p>
-						</v-row>
-						<v-row align="center" justify="center" class="mx-4">
-							<p class="subtitle-1 text-center">
-								Silahkan klik tombol dibawah ini untuk
-								melanjutkan
-							</p>
-						</v-row>
-						<v-row align="center" justify="center" class="mx-4">
-							<div>
-								<v-btn href="/?tab=3" dark color="deep-orange"
-									>Lanjutkan</v-btn
+								Lanjutkan
+							</v-btn>
+
+							<div class="mt-2">
+								Belum Punya PIN?
+								<v-btn text color="#ff4200" class="py-0"
+									>Klik Disini</v-btn
 								>
 							</div>
-						</v-row>
-						<br />
-					</v-container>
+						</div>
+					</div>
 				</div>
 			</v-sheet>
 		</v-bottom-sheet>
+
+		<!-- Dialog Success -->
+		<BottomDialog />
 	</v-container>
 </template>
 
@@ -189,13 +196,18 @@
 import VoucherService from "@/services/VoucherService"
 import Login from "@/components/Login"
 import UserService from "@/services/UserService"
+import BottomDialog from "@/components/BottomDialog"
+
 export default {
 	middleware: "auth",
 	name: "CodePWComponent",
 	components: {
 		Login,
+		BottomDialog,
 	},
 	data: () => ({
+		pin_verification: false,
+		pin_code: "",
 		newuser: false,
 		reward: null,
 		snackbar: false,
@@ -225,29 +237,18 @@ export default {
 		async fetchContent() {
 			/* Init Data User to Customer Detail */
 
-			if (this.$auth.user) {
+			if (this.$auth.loggedIn) {
 				// this.$auth.fetchUser()
 				var res = []
 				// res.data = this.$auth.user
-				res.data = JSON.parse(localStorage.getItem("userdata"))
-				this.formdata.msisdn = res.data.data.msisdn
+				this.formdata.msisdn = this.$auth.user.data.msisdn
 
 				try {
 					const user = await UserService.getReward()
-					//console.log("User data");
-					// //console.log(user);
 
 					if (user.data.data != null) {
 						this.reward = user.data.data
 						this.newuser = true
-					} else {
-						// this.reward = {
-						// 	"id": 333,
-						// 	"title": "Pulsa All Operator Rp 5000",
-						// 	"point": 399,
-						// 	"image": "https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/news/1551879841.1851.jpg"
-						// }
-						// this.newuser = true
 					}
 
 					if (res.data.data.email_confirmed == 1) {
@@ -262,19 +263,6 @@ export default {
 			this.getCode()
 		},
 
-		/* Recaptcha */
-		onError(error) {
-			//console.log("Error happened:", error);
-			this.recaptchaToken = null
-		},
-		onSuccess(token) {
-			this.recaptchaToken = "success"
-		},
-		onExpired() {
-			//console.log("Expired");
-			this.recaptchaToken = null
-		},
-
 		/* Loader */
 		setloading() {
 			this.overlay = true
@@ -285,6 +273,17 @@ export default {
 
 		/* Get Code PW */
 		async getCode() {
+			if (
+				this.pin_code != "" &&
+				this.pin_code != this.$auth.user.data.pin
+			) {
+				alert("Kode Pin Salah")
+				this.pin_code == ""
+				return false
+			} else {
+				this.pin_verification = false
+			}
+
 			this.setloading()
 			if (this.$route.params.codepw == "fail") {
 				this.notloading()
@@ -301,11 +300,32 @@ export default {
 					this.status_code = true
 					this.message_code = "Ini Kode PW Anda " + res.data.code.trx
 					this.formdata.code = res.data.code.trx
+					this.pin_code == ""
+					this.pin_verification = false
+
+					this.$store.commit("SET_PROFILE_DIALOG", true)
+					this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
+						success: true,
+						message:
+							"Kode VIP Valid<br>Keanggotaan VIP Anda Bertambah",
+						button: {
+							text: "Lihat Akun Saya",
+							to: "/?tab=3",
+						},
+					})
 				} catch (err) {
 					//console.log(err.response.data);
 					this.notloading()
-					this.status_code = true
+					this.status_code = false
 					this.message_code = err.response.data.message
+					this.pin_code == ""
+					this.pin_verification = false
+					this.$store.commit("SET_PROFILE_DIALOG", true)
+					this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
+						success: false,
+						message: "Kode VIP Tidak Valid",
+						button: false,
+					})
 				}
 			}
 		},

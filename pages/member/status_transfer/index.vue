@@ -1,39 +1,42 @@
 <template>
 	<section class="statusbank">
+		<v-container>
+			<v-alert class="mt-4 text-14" color="#0057FF" prominent>
+				<template v-slot:prepend>
+					<v-img
+						src="/img/icons/info.svg"
+						width="35"
+						max-width="35"
+						class="mr-3 infoarticleicon"
+					></v-img>
+				</template>
+				Transaksi yang tidak dibayarkan dalam waktu 1 jam akan dihapus
+				otomatis
+			</v-alert>
+
+			<span class="white--text">Filter: </span>
+
+			<v-btn
+				v-for="(item, i) in tabItems"
+				:key="item.label"
+				class="text-uppercase ml-1"
+				outlined
+				small
+				:color="tab == i ? '#ff4200' : 'grey'"
+				@click="tab = i"
+			>
+				<span class="text-capitalize">{{ item.label }}</span>
+			</v-btn>
+		</v-container>
+
 		<template v-if="tab == 0">
-			<v-container>
-				<v-alert class="mt-4" color="#0057FF" prominent>
-					<template v-slot:prepend>
-						<v-img
-							src="/img/icons/info.svg"
-							width="35"
-							max-width="35"
-							class="mr-3 infoarticleicon"
-						></v-img>
-					</template>
-					Transaksi di bawah ini akan berakhir secara otomatis dalam
-					waktu 1 jam
-				</v-alert>
-			</v-container>
 			<Pending />
 		</template>
+
 		<template v-if="tab == 1">
-			<v-container>
-				<v-alert class="mt-4" color="#0057FF" prominent>
-					<template v-slot:prepend>
-						<v-img
-							src="/img/icons/info.svg"
-							width="35"
-							max-width="35"
-							class="mr-3 infoarticleicon"
-						></v-img>
-					</template>
-					Anda bisa mendownload Invoice atas transaksi sukses
-					pembelian VIP Membership di bawah ini
-				</v-alert>
-			</v-container>
 			<Sukses />
 		</template>
+
 		<template v-if="tab == 2">
 			<client-only>
 				<v-stepper class="stepperHelp" v-model="helpStep">
@@ -148,7 +151,7 @@
 		</template>
 
 		<!-- MENU -->
-		<v-bottom-navigation
+		<!-- <v-bottom-navigation
 			fixed
 			dark
 			grow
@@ -171,7 +174,7 @@
 					height="20"
 				/>
 			</v-btn>
-		</v-bottom-navigation>
+		</v-bottom-navigation> -->
 
 		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 
@@ -197,6 +200,7 @@ export default {
 		LoginModal,
 		DrawerPurchaseStatus,
 	},
+	layout: "payment",
 	data() {
 		return {
 			tab: 0,
@@ -204,17 +208,17 @@ export default {
 			contact: null,
 			tabItems: [
 				{
-					label: "Pending",
+					label: "Belum dibayar",
 					image: "pending.svg",
 				},
 				{
-					label: "Success",
+					label: "Sudah dibayar",
 					image: "success.svg",
 				},
-				{
-					label: "Info",
-					image: "transferinfo.svg",
-				},
+				// {
+				// 	label: "Info",
+				// 	image: "transferinfo.svg",
+				// },
 			],
 			loginModalVisible: false,
 			bantuanMenu: null,

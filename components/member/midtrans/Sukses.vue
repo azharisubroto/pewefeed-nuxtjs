@@ -7,18 +7,29 @@
 			></v-skeleton-loader>
 		</div>
 		<div v-else>
-			<template v-if="datamidtrans != null && datamidtrans.length > 0">
-				<div
-					class="status-item"
+			<v-container v-if="datamidtrans != null && datamidtrans.length > 0">
+				<v-card
 					v-for="(mid, i) in datamidtrans"
 					:key="i"
+					style="border: 1px solid #fff"
+					outlined
+					class="mb-4"
 				>
-					<div class="deep-orange--text text-18">
-						<strong>{{ "#" + mid.order_id }}</strong>
+					<div style="background: #404040" class="px-3 py-1 text-16">
+						<v-row align="center" justify="space-between">
+							<v-col cols="6">
+								<strong>{{ "#" + mid.order_id }}</strong>
+							</v-col>
+							<v-col cols="6">
+								{{ mid.created_at }}
+							</v-col>
+						</v-row>
 					</div>
-					<div class="text-16">
-						<div>{{ mid.created_at ? mid.created_at : "n/a" }}</div>
-						<div>
+
+					<div class="devider-small"></div>
+
+					<div class="px-4 py-4">
+						<div class="font-weight-bold text-thirdary">
 							{{
 								mid.voucher.description
 									? mid.voucher.description
@@ -28,16 +39,23 @@
 						<div>
 							{{ mid.voucher.price ? mid.voucher.price : "n/a" }}
 						</div>
+
 						<a
 							:href="downloadUrl(mid.order_id)"
 							target="blank"
 							style="text-decoration: none"
-							class="mt-5 v-btn v-btn--block v-btn--depressed v-size--large theme--dark v-size--default deep-orange"
-							>DOWNLOAD INVOICE</a
+							class="mt-5 v-btn v-btn--depressed theme--dark v-size--default deep-orange"
+							><span
+								style="
+									text-transform: initial !important;
+									letter-spacing: 0;
+								"
+								>Download Invoice</span
+							></a
 						>
 					</div>
-				</div>
-			</template>
+				</v-card>
+			</v-container>
 			<v-row class="mx-0" v-else>
 				<v-col cols="12">
 					<div class="text-center pa-5">
