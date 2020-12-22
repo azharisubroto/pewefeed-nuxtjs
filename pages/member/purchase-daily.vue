@@ -14,7 +14,7 @@
 			</v-btn>
 			<div class="flex-grow-1"></div>
 			<v-toolbar-title>
-				<strong>VIP Daily Limit</strong>
+				<strong>BATAS POIN VIP HARIAN</strong>
 			</v-toolbar-title>
 			<div class="flex-grow-1"></div>
 
@@ -28,107 +28,187 @@
 				<img src="/img/peweicon.svg" width="20" />
 			</div>
 		</v-app-bar>
-		<div
-			style="background: #757575; color: #fff"
-			class="text-center px-5 py-10 mb-4"
+
+		<v-main>
+			<template v-if="step == 1">
+				<v-container>
+					<v-tabs-items v-model="tab_state">
+						<v-tab-item key="Paket Pembelian">
+							<!-- VIA SMS -->
+							<ProductCard title="via SMS" class="mb-4">
+								<v-list-item-group>
+									<template v-for="(item, i) in smspayment">
+										<div
+											v-if="i == 0"
+											class="devider-small"
+											:key="'purchase-menu-devider-1' + i"
+										></div>
+										<v-list-item
+											class="py-1"
+											:key="'purchase-menu' + i"
+											disabled
+										>
+											<v-list-item-content>
+												<v-list-item-title
+													style="line-height: 23px"
+												>
+													<strong
+														class="d-block text-16 text-thirdary"
+														>{{
+															item.label
+														}}</strong
+													>
+													<span
+														class="d-block text-14"
+														>{{ item.desc }}</span
+													>
+													<div class="text-10">
+														tidak tersedia
+													</div>
+												</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-icon>
+												<v-icon size="30"
+													>mdi-chevron-right</v-icon
+												>
+											</v-list-item-icon>
+										</v-list-item>
+										<div
+											class="devider-small"
+											:key="'purchase-menu-devider' + i"
+										></div>
+									</template>
+								</v-list-item-group>
+							</ProductCard>
+
+							<!-- BANK -->
+							<ProductCard
+								title="via BANK / CREDIT CARD"
+								class="mb-4"
+							>
+								<v-list-item-group color="dark" class="mt-0">
+									<template v-for="(item, i) in menu">
+										<div
+											class="devider-small"
+											:key="'div-' + i"
+										></div>
+										<v-list-item
+											class="py-3"
+											@click="purchaseLink(item.to)"
+											:key="'list-' + i"
+										>
+											<v-list-item-content
+												class="text-16"
+											>
+												<v-list-item-title>
+													<div
+														class="text-thirdary text-16"
+													>
+														{{ item.title }}
+													</div>
+													<div class="text-14 mt-2">
+														Menggunakan
+														<span
+															class="text-uppercase"
+															>{{
+																item.merchant
+															}}</span
+														>
+														payment gateway
+													</div>
+												</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-icon>
+												<v-icon
+													>mdi-chevron-right</v-icon
+												>
+											</v-list-item-icon>
+										</v-list-item>
+									</template>
+									<div class="devider-small"></div>
+								</v-list-item-group>
+							</ProductCard>
+
+							<!-- e-wallet -->
+							<ProductCard title="via E-WALLETS">
+								<v-list-item-group color="dark" class="mt-0">
+									<template v-for="(item, i) in ewalletsmenu">
+										<div
+											class="devider-small"
+											:key="'div-' + i"
+										></div>
+										<v-list-item
+											class="py-3"
+											@click="
+												eWalletPurchase(item.merchant)
+											"
+											:key="'list-' + i"
+										>
+											<v-list-item-content
+												class="text-16"
+											>
+												<v-list-item-title>
+													<div class="text-thirdary">
+														{{ item.title }}
+													</div>
+													<div class="text-14 mt-2">
+														Menggunakan XENDIT
+														payment gateway
+													</div>
+												</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-icon>
+												<v-icon
+													>mdi-chevron-right</v-icon
+												>
+											</v-list-item-icon>
+										</v-list-item>
+									</template>
+									<div class="devider-small"></div>
+								</v-list-item-group>
+							</ProductCard>
+						</v-tab-item>
+
+						<v-tab-item key="Informas">
+							<v-expansion-panels v-model="info_state">
+								<v-expansion-panel
+									class="daily-info-card"
+									v-for="(item, i) in informasi"
+									:key="'info-' + i"
+								>
+									<v-expansion-panel-header>
+										{{ item.title }}
+									</v-expansion-panel-header>
+									<v-expansion-panel-content>
+										{{ item.content }}
+									</v-expansion-panel-content>
+								</v-expansion-panel>
+							</v-expansion-panels>
+						</v-tab-item>
+					</v-tabs-items>
+				</v-container>
+			</template>
+		</v-main>
+
+		<!-- NAVIGATION -->
+		<v-bottom-navigation
+			fixed
+			dark
+			grow
+			color="white"
+			class="makehalf"
+			background-color="#2c2c2d"
+			v-model="tab_state"
 		>
-			<strong class="text-18">Extra 300 VIP Daily Limit</strong>
-			<div class="text-16">Rp. 10.000 (exclude PPN 10%)</div>
-		</div>
-
-		<template v-if="step == 1">
-			<!-- SMS  -->
-			<v-container class="mb-3 mt-5">
-				<strong class="deep-orange--text text-18">SMS Method</strong>
-			</v-container>
-			<v-list-item-group>
-				<template v-for="(item, i) in smspayment">
-					<div
-						v-if="i == 0"
-						class="devider-small"
-						:key="'purchase-menu-devider-1' + i"
-					></div>
-					<v-list-item
-						class="py-3"
-						:key="'purchase-menu' + i"
-						disabled
-					>
-						<v-list-item-content>
-							<v-list-item-title style="line-height: 23px">
-								<strong class="d-block text-18">{{
-									item.label
-								}}</strong>
-								<span class="d-block text-14">{{
-									item.desc
-								}}</span>
-							</v-list-item-title>
-						</v-list-item-content>
-						<v-list-item-icon>
-							<v-icon size="30">mdi-chevron-right</v-icon>
-						</v-list-item-icon>
-					</v-list-item>
-					<div
-						class="devider-small"
-						:key="'purchase-menu-devider' + i"
-					></div>
-				</template>
-			</v-list-item-group>
-			<v-container class="pt-8">
-				<v-row>
-					<v-col cols="12" class="deep-orange--text text-18">
-						<strong>Bank Transfer / Credit Card</strong>
-					</v-col>
-				</v-row>
-			</v-container>
-			<v-list-item-group color="dark" class="mt-0">
-				<template v-for="(item, i) in menu">
-					<div class="devider-small" :key="'div-' + i"></div>
-					<v-list-item
-						class="py-3"
-						@click="purchaseLink(item.to)"
-						:key="'list-' + i"
-					>
-						<v-list-item-content class="text-18">
-							<v-list-item-title>{{
-								item.title
-							}}</v-list-item-title>
-						</v-list-item-content>
-						<v-list-item-icon>
-							<v-icon>mdi-chevron-right</v-icon>
-						</v-list-item-icon>
-					</v-list-item>
-				</template>
-				<div class="devider-small"></div>
-			</v-list-item-group>
-
-			<v-container class="pt-8">
-				<v-row>
-					<v-col cols="12" class="deep-orange--text text-18">
-						<strong>eWallets</strong>
-					</v-col>
-				</v-row>
-			</v-container>
-			<v-list-item-group color="dark" class="mt-0">
-				<template v-for="(item, i) in ewalletsmenu">
-					<div class="devider-small" :key="'div-' + i"></div>
-					<v-list-item
-						class="py-3"
-						@click="eWalletPurchase(item.merchant)"
-						:key="'list-' + i"
-					>
-						<v-list-item-content class="text-18">
-							<v-list-item-title>{{
-								item.title
-							}}</v-list-item-title>
-						</v-list-item-content>
-						<v-list-item-icon>
-							<v-icon>mdi-chevron-right</v-icon>
-						</v-list-item-icon>
-					</v-list-item>
-				</template>
-				<div class="devider-small"></div>
-			</v-list-item-group>
-		</template>
+			<v-btn
+				small
+				class="text-center"
+				v-for="item in tabItems"
+				:key="item"
+			>
+				<span class="text-16">{{ item }}</span>
+			</v-btn>
+		</v-bottom-navigation>
 
 		<IframePreview
 			:dialogVisible="iframeDialogVisible"
@@ -150,17 +230,35 @@
 </template>
 
 <script>
+import ProductCard from "@/components/ProductCard"
 import PurchaseService from "@/services/PurchaseService"
 import UserService from "@/services/UserService"
 import IframePreview from "@/components/modal/IframePreview"
 export default {
 	name: "PurcahsePage",
+	layout: "blank",
 	middleware: "auth",
 	components: {
 		IframePreview,
+		ProductCard,
 	},
 	data() {
 		return {
+			tab_state: 0,
+			tabItems: ["Paket Pembelian", "Informasi"],
+			info_state: 0,
+			informasi: [
+				{
+					title: "Tentang Batas Poin VIP Harian",
+					content:
+						'Setelah ia mencari maknanya di di literatur klasik, ia mendapatkan sebuah sumber yang tidak bisa diragukan. Lorem Ipsum berasal dari bagian 1.10.32 dan 1.10.33 dari naskah "de Finibus Bonorum et Malorum" (Sisi Ekstrim dari Kebaikan dan Kejahatan) karya Cicero, yang ditulis pada tahun 45 sebelum masehi.',
+				},
+				{
+					title: "Metode Pembelian",
+					content:
+						'Setelah ia mencari maknanya di di literatur klasik, ia mendapatkan sebuah sumber yang tidak bisa diragukan. Lorem Ipsum berasal dari bagian 1.10.32 dan 1.10.33 dari naskah "de Finibus Bonorum et Malorum" (Sisi Ekstrim dari Kebaikan dan Kejahatan) karya Cicero, yang ditulis pada tahun 45 sebelum masehi.',
+				},
+			],
 			step: 1,
 			ewalletOverlay: false,
 			merchant: null,
@@ -189,29 +287,14 @@ export default {
 			],
 			menu: [
 				{
-					title: "BCA",
+					title: "Bank BRI / BNI / MANDIRI / PERMATA",
+					to: "bca",
+					merchant: "xendit",
+				},
+				{
+					title: "Bank BCA",
 					to: "bca",
 					merchant: "midtrans",
-				},
-				{
-					title: "BRI",
-					to: "bri",
-					merchant: "xendit",
-				},
-				{
-					title: "BNI",
-					to: "bni",
-					merchant: "xendit",
-				},
-				{
-					title: "MANDIRI",
-					to: "mandiri",
-					merchant: "xendit",
-				},
-				{
-					title: "PERMATA",
-					to: "permata",
-					merchant: "xendit",
 				},
 			],
 			smspayment: [
@@ -223,7 +306,7 @@ export default {
 				{
 					key: "indosat",
 					label: "Indosat",
-					desc: "(Anda harus memiki nomor ponsel Indosat)",
+					desc: "(Anda harus memiki nomor ponsel INDOSAT)",
 				},
 			],
 		}
@@ -350,22 +433,36 @@ export default {
 		.v-list-item__icon {
 			display: none;
 		}
-		&:after {
-			content: "not available" !important;
-			display: inline-block;
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 15px;
-			background: #7d7d7d;
-			color: #fff;
-			border-radius: 90px;
-			line-height: 1;
-			text-align: center;
-			padding: 8px 12px;
-			font-size: 10px;
-			font-style: italic;
-			min-height: unset;
+	}
+}
+.theme--dark.v-expansion-panels {
+	.daily-info-card {
+		background: #1c1c1c;
+		border: 1px solid #fff;
+		color: #fff;
+		box-shadow: none !important;
+		overflow: hidden;
+		border-radius: 5px !important;
+		overflow: hidden !important;
+		.v-expansion-panel-header {
+			background: #404040;
+		}
+		.v-expansion-panel-content__wrap {
+			padding: 20px !important;
+		}
+		&.v-expansion-panel {
+			border-radius: 5px !important;
+			overflow: hidden !important;
+			margin: 5px 0 !important;
+		}
+		&.v-item--active.v-expansion-panel {
+			border-radius: 5px !important;
+			.v-expansion-panel-header--active {
+				border-bottom: 1px solid #bababa !important;
+			}
+			.v-expansion-panel-content__wrap {
+				padding: 20px !important;
+			}
 		}
 	}
 }

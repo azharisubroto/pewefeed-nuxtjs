@@ -113,11 +113,9 @@ export default {
 		"@nuxtjs/pwa",
 		"@nuxtjs/auth",
 		"@nuxtjs/recaptcha",
-		// '@nuxtjs/onesignal',
-		// '@nuxtjs/google-adsense',
 		"@nuxtjs/google-gtag",
 		"@nuxtjs/robots",
-		// '@nuxtjs/sitemap'
+		"@nuxtjs/style-resources",
 	],
 
 	/* Auth */
@@ -248,6 +246,9 @@ export default {
 				},
 			},
 		},
+	},
+	styleResources: {
+		scss: ["~/assets/variables.scss", "~/assets/global.scss"],
 	},
 	/*
 	 ** Build configuration
