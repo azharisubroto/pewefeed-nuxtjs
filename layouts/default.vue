@@ -76,7 +76,7 @@
 						<strong>Total Points</strong>
 					</template>
 					<template v-else-if="$route.name == 'purchase'">
-						<strong>Purchase VIP Membership</strong>
+						<strong>KEANGGOTAAN VIP</strong>
 					</template>
 					<template
 						v-else-if="$route.name == 'member-barang_yang_didapat'"
@@ -249,8 +249,7 @@
 						$route.name == 'bantuan' ||
 						$route.name == 'member-daily-limit' ||
 						$route.name == 'member-purchase-daily' ||
-						$route.name == 'about-daily-limit' ||
-						$route.name == 'purchase'
+						$route.name == 'about-daily-limit'
 					"
 				>
 					<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
@@ -1367,5 +1366,8 @@ ol.flickity-page-dots {
 			border-color: #ff4200 !important;
 		}
 	}
+}
+.text-thirdary {
+	color: #ffaa8c !important;
 }
 </style>

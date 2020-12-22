@@ -507,7 +507,7 @@ export default {
 				//   poin: true
 				// },
 				// {
-				//   name: "VIP Membership",
+				//   name: "KEANGGOTAAN VIP",
 				//   to: "/purchase"
 				// },
 				{

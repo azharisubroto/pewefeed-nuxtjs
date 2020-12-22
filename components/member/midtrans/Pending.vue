@@ -7,18 +7,29 @@
 			></v-skeleton-loader>
 		</div>
 		<div v-else>
-			<template v-if="datamidtrans != null && datamidtrans.length > 0">
-				<div
-					class="status-item"
+			<v-container v-if="datamidtrans != null && datamidtrans.length > 0">
+				<v-card
 					v-for="(mid, i) in datamidtrans"
 					:key="i"
+					style="border: 1px solid #fff"
+					outlined
+					class="mb-4"
 				>
-					<div class="deep-orange--text text-18">
-						<strong>{{ "#" + mid.order_id }}</strong>
+					<div style="background: #404040" class="px-3 py-1 text-16">
+						<v-row align="center" justify="space-between">
+							<v-col cols="6">
+								<strong>{{ "#" + mid.order_id }}</strong>
+							</v-col>
+							<v-col cols="6">
+								{{ mid.created_at }}
+							</v-col>
+						</v-row>
 					</div>
-					<div class="text-16">
-						<div>{{ mid.created_at ? mid.created_at : "n/a" }}</div>
-						<div>
+
+					<div class="devider-small"></div>
+
+					<div class="px-4 py-4">
+						<div class="font-weight-bold text-thirdary">
 							{{
 								mid.voucher.description
 									? mid.voucher.description
@@ -28,28 +39,24 @@
 						<div>
 							{{ mid.voucher.price ? mid.voucher.price : "n/a" }}
 						</div>
-						<!-- <v-btn
-							@click="openIframe(mid.invoice_url)"
-							color="deep-orange"
-							block
-							large
-							class="mt-4"
-						>
-							Selesaikan Pembayaran
-						</v-btn> -->
+
 						<v-btn
 							:href="mid.invoice_url"
 							target="_blank"
 							color="deep-orange"
-							block
-							large
 							class="mt-4"
 						>
-							Selesaikan Pembayaran
+							<span
+								style="
+									text-transform: initial !important;
+									letter-spacing: 0;
+								"
+								>Selesaikan Pembayaran</span
+							>
 						</v-btn>
 					</div>
-				</div>
-			</template>
+				</v-card>
+			</v-container>
 
 			<v-row class="mx-0" v-else>
 				<v-col cols="12">

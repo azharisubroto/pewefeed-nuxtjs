@@ -127,7 +127,7 @@ export default {
 					poin: true,
 				},
 				{
-					name: "Purchase VIP Membership",
+					name: "Purchase KEANGGOTAAN VIP",
 					to: "/purchase",
 				},
 				{
