@@ -31,7 +31,7 @@
 						<ProductItem
 							:dense="true"
 							label="Halaman"
-							:detail="item.description"
+							:detail="item.page"
 						/>
 						<ProductItem :dense="true" label="Tautan">
 							<template v-slot:action>
