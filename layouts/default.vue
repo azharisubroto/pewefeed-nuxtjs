@@ -73,7 +73,7 @@
 							$route.name == 'member-histori_penggunaan_poin'
 						"
 					>
-						<strong>Total Points</strong>
+						<strong>Total Poin Saya</strong>
 					</template>
 					<template v-else-if="$route.name == 'purchase'">
 						<strong>KEANGGOTAAN VIP</strong>
