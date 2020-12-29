@@ -26,7 +26,7 @@
 						<ProductItem
 							:dense="true"
 							label="Aktivitas"
-							:detail="item.activity"
+							:detail="item.type"
 						/>
 						<ProductItem
 							:dense="true"
@@ -42,15 +42,14 @@
 						</ProductItem>
 
 						<ProductItem
-							v-if="
-								item.type == 'POIN KUNJUNGAN HARIAN' &&
-								item.point > 0
-							"
+							v-if="item.activity == 'DailyPoint'"
 							:dense="true"
 							:detail="item.link"
 						>
 							<template v-slot:action>
 								<v-btn
+									v-if="item.daily_point == 'claim'"
+									@click="claim()"
 									small
 									color="#ff4200"
 									depressed
@@ -63,6 +62,40 @@
 										"
 									>
 										Klaim +10 Poin</span
+									>
+								</v-btn>
+								<v-btn
+									v-if="item.daily_point == 'success'"
+									small
+									color="#ff4200"
+									depressed
+									height="18"
+									disabled
+								>
+									<span
+										class="text-12"
+										style="
+											text-transform: initial !important;
+										"
+									>
+										Klaim Sukses</span
+									>
+								</v-btn>
+								<v-btn
+									v-if="item.daily_point == 'expire'"
+									small
+									color="#ff4200"
+									depressed
+									height="18"
+									disabled
+								>
+									<span
+										class="text-12"
+										style="
+											text-transform: initial !important;
+										"
+									>
+										Klaim Gagal</span
 									>
 								</v-btn>
 							</template>
