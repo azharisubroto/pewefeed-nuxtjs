@@ -520,7 +520,7 @@
 					</v-btn>
 					<v-btn
 						v-else-if="infotype == 'success'"
-						href="/member/rewards-status/"
+						href="/member/barang_yang_didapat"
 						color="deep-orange"
 						block
 						class="mt-2"

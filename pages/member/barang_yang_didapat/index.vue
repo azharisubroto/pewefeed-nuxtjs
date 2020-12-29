@@ -4,6 +4,7 @@
 			<v-tab-item v-for="item in tabItems" :key="item">
 				<template v-if="item == 'Menunggu'">
 					<Menunggu
+						key="wait"
 						type="wait"
 						:redirect="1"
 						:addresses="addresses"
@@ -12,6 +13,7 @@
 				</template>
 				<template v-if="item == 'Diproses'">
 					<Menunggu
+						key="process"
 						type="process"
 						:redirect="2"
 						:addresses="addresses"
@@ -21,6 +23,7 @@
 				</template>
 				<template v-if="item == 'Dikirim'">
 					<Menunggu
+						key="confirmation"
 						type="confirmation"
 						:redirect="3"
 						:addresses="addresses"
@@ -30,6 +33,7 @@
 				</template>
 				<template v-if="item == 'Diterima'">
 					<Menunggu
+						key="finish"
 						type="finish"
 						:addresses="addresses"
 						:contact="contact"
@@ -49,7 +53,22 @@
 			v-model="tab"
 		>
 			<v-btn v-for="item in tabItems" :key="item">
-				<span>{{ item }}</span>
+				<span
+					>{{ item }}
+					<br />
+					<template v-if="item == 'Menunggu'">
+						( {{ wait }} )
+					</template>
+					<template v-if="item == 'Diproses'">
+						( {{ process }} )
+					</template>
+					<template v-if="item == 'Dikirim'">
+						( {{ confirmation }} )
+					</template>
+					<template v-if="item == 'Diterima'">
+						( {{ finish }} )
+					</template>
+				</span>
 			</v-btn>
 		</v-bottom-navigation>
 	</section>
@@ -67,6 +86,10 @@ export default {
 			addresses: null,
 			contact: null,
 			tabItems: ["Menunggu", "Diproses", "Dikirim", "Diterima"],
+			wait: 0,
+			process: 0,
+			confirmation: 0,
+			finish: 0,
 		}
 	},
 	methods: {
@@ -96,11 +119,23 @@ export default {
 				//console.log(res)
 			}
 		},
+		async fetchRewards(type, paged, limit, reset = false) {
+			try {
+				const res = await UserService.rewards(type, paged, limit)
+				this[type] = res.data.pagination.total
+			} catch (error) {
+				console.log(error)
+			}
+		},
 	},
 	mounted() {
 		let _self = this
 		this.getAddresses()
 		this.getNumbers()
+		this.fetchRewards("wait", 1, 1)
+		this.fetchRewards("process", 1, 1)
+		this.fetchRewards("confirmation", 1, 1)
+		this.fetchRewards("finish", 1, 1)
 		this.$bus.$on("rewardtabclick", (tab) => {
 			console.log(tab)
 			_self.tab = tab
