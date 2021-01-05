@@ -166,7 +166,7 @@
 
 						<div class="mt-4">
 							<v-btn
-								@click="getCode()"
+								@click="submit()"
 								color="#ff4200"
 								medium
 								height="40"
@@ -273,19 +273,10 @@ export default {
 
 		/* Get Code PW */
 		async getCode() {
-			if (
-				this.pin_code != "" &&
-				this.pin_code != this.$auth.user.data.pin
-			) {
-				alert("Kode Pin Salah")
-				this.pin_code == ""
-				return false
-			} else {
-				this.pin_verification = false
-			}
-
 			this.setloading()
-			if (this.$route.params.codepw == "fail") {
+			if (this.$route.params.codepw == "aktivasi") {
+				return this.notloading()
+			} else if (this.$route.params.codepw == "fail") {
 				this.notloading()
 				this.status_code = true
 				this.message_code = "Kode Tidak Valid"
@@ -302,17 +293,6 @@ export default {
 					this.formdata.code = res.data.code.trx
 					this.pin_code == ""
 					this.pin_verification = false
-
-					this.$store.commit("SET_PROFILE_DIALOG", true)
-					this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
-						success: true,
-						message:
-							"Kode VIP Valid<br>Keanggotaan VIP Anda Bertambah",
-						button: {
-							text: "Lihat Akun Saya",
-							to: "/?tab=3",
-						},
-					})
 				} catch (err) {
 					//console.log(err.response.data);
 					this.notloading()
@@ -350,6 +330,16 @@ export default {
 
 		/* Submit Form */
 		async submit() {
+			if (
+				this.pin_code != "" &&
+				this.pin_code != this.$auth.user.data.pin
+			) {
+				alert("Kode Pin Salah")
+				this.pin_code == ""
+				return false
+			} else {
+				this.pin_verification = false
+			}
 			// send the form
 			let vm = this
 			const sendform = this.formdata
@@ -368,10 +358,16 @@ export default {
 				this.notloading()
 				this.recaptchaToken = null
 				// //console.log(res);
-				this.status_code = false
-				vm.snackbar = false
-				vm.dialog = true
-				vm.responsemessage = res.data.message
+				this.status_code = true
+				this.$store.commit("SET_PROFILE_DIALOG", true)
+				this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
+					success: true,
+					message: "Kode VIP Valid<br>Keanggotaan VIP Anda Bertambah",
+					button: {
+						text: "Lihat Akun Saya",
+						to: "/?tab=3",
+					},
+				})
 			} catch (err) {
 				//console.log(err);
 				this.notloading()

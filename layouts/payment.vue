@@ -71,16 +71,14 @@ export default {
 				},
 				{
 					name: "Aktivasi<br>32 Digit Kode VIP",
-					to: "/c/",
+					to: "/c/aktivasi",
 				},
 			],
 		}
 	},
 	methods: {
-		methods: {
-			historyBack() {
-				this.$router.back()
-			},
+		historyBack() {
+			this.$router.back()
 		},
 	},
 }
