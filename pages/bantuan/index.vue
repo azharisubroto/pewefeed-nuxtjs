@@ -123,7 +123,7 @@
 								:key="'bantuan-basic-' + i"
 							>
 								<v-card
-									:to="'/bantuan/' + item.slug"
+									:to="'/bantuan/menu?index=' + i"
 									color="#FFE4DB"
 									elevation="0"
 									light
@@ -157,8 +157,8 @@
 								border-bottom: 1px solid #fff;
 							"
 						>
-							<h4 class="pw-title white--text">
-								Kategori Bantuan
+							<h4 class="pw-title white--text text-14">
+								Informasi dasar yang perlu kamu ketahui
 							</h4>
 						</v-card-title>
 						<v-card-text class="px-0 pb-0">
@@ -170,7 +170,7 @@
 									color="#303030"
 									v-for="(item, i) in basic"
 									:key="'dasar-' + i"
-									:to="'/bantuan/' + item.slug"
+									:to="'/bantuan/detail/' + item.slug"
 								>
 									<v-list-item
 										two-line
@@ -199,120 +199,7 @@
 				</v-container>
 			</section>
 
-			<section style="background: #ffe4db" class="py-4">
-				<v-container>
-					<h4 class="pw-title black--text">Social Media</h4>
-					<v-row class="mt-5">
-						<v-col cols="6">
-							<v-card
-								color="#2E3A59"
-								dark
-								elevation="0"
-								class="py-2 px-2"
-								href="https://www.instagram.com/pewefeed"
-								target="_BLANK"
-							>
-								<div class="d-flex align-center text-12">
-									<v-icon class="mr-1">mdi-instagram</v-icon>
-									<div>pewefeed</div>
-								</div>
-							</v-card>
-						</v-col>
-						<v-col cols="6">
-							<v-card
-								color="#2E3A59"
-								dark
-								elevation="0"
-								class="py-2 px-2"
-								href="https://www.facebook.com/pewefeeds"
-								target="_BLANK"
-							>
-								<div class="d-flex align-center text-12">
-									<v-icon class="mr-1">mdi-facebook</v-icon>
-									<div>pewefeed</div>
-								</div>
-							</v-card>
-						</v-col>
-						<v-col cols="6">
-							<v-card
-								color="#2E3A59"
-								dark
-								elevation="0"
-								href="https://twitter.com/pewefeed"
-								target="_BLANK"
-								class="py-2 px-2"
-							>
-								<div class="d-flex align-center text-12">
-									<v-icon class="mr-1">mdi-twitter</v-icon>
-									<div>pewefeed</div>
-								</div>
-							</v-card>
-						</v-col>
-						<v-col cols="6">
-							<v-card
-								color="#2E3A59"
-								dark
-								elevation="0"
-								class="py-2 px-2"
-								href="https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw"
-								target="_BLANK"
-							>
-								<div class="d-flex align-center text-12">
-									<v-icon class="mr-1">mdi-youtube</v-icon>
-									<div>pewefeed</div>
-								</div>
-							</v-card>
-						</v-col>
-					</v-row>
-				</v-container>
-			</section>
-
-			<section style="background: #1c1c1c" class="py-4 white--text">
-				<v-container>
-					<h4 class="pw-title white--text">Hubungi Kami</h4>
-
-					<v-row class="mt-5" no-gutters>
-						<v-col cols="6" class="pr-1">
-							<a href="telp:02129385381">
-								<img
-									src="/img/help-telp.svg"
-									loading="lazy"
-									alt=""
-								/>
-							</a>
-						</v-col>
-						<v-col cols="6" class="pl-1">
-							<a
-								href="https://wa.me/6281519060929"
-								target="_BLANK"
-							>
-								<img
-									src="/img/help-wa.svg"
-									loading="lazy"
-									alt=""
-								/>
-							</a>
-						</v-col>
-						<v-col cols="12" class="pt-1">
-							<a href="mailto:halo@pewefeed.com">
-								<img
-									src="/img/help-email.svg"
-									loading="lazy"
-									alt=""
-								/>
-							</a>
-						</v-col>
-					</v-row>
-
-					<div class="mt-5">
-						<img
-							src="/img/bantuan-footer.svg"
-							loading="lazy"
-							alt=""
-						/>
-					</div>
-				</v-container>
-			</section>
+			<BantuanFooter />
 		</v-main>
 	</div>
 </template>
@@ -320,11 +207,15 @@
 <script>
 import MenuService from "@/services/MenuService"
 import ArticleService from "@/services/ArticleService"
+import BantuanFooter from "@/components/BantuanFooter"
 import axios from "axios"
 
 export default {
 	name: "categories",
 	layout: "blank",
+	components: {
+		BantuanFooter,
+	},
 	data() {
 		return {
 			slide_state: 0,
