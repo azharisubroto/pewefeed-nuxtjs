@@ -256,7 +256,7 @@
 								</v-list-item-icon>
 							</v-list-item>
 
-							<v-list-item @click="profileStep = 2">
+							<v-list-item to="/bantuan/">
 								<v-list-item-icon
 									class="align-self-center mr-5"
 								>
