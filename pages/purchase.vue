@@ -122,7 +122,7 @@
 								style="background: #404040"
 								class="px-4 py-5 text-16"
 							>
-								Paket Berlangganan
+								Paket Non-Berlangganan
 							</div>
 							<v-list-item-group>
 								<template v-for="(item, i) in vipItems">
@@ -176,7 +176,7 @@
 								style="background: #404040"
 								class="px-4 py-5 text-16"
 							>
-								Paket Non-Berlangganan
+								Paket Berlangganan
 							</div>
 
 							<v-list-item-group>
