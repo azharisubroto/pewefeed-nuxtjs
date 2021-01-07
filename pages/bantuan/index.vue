@@ -1,229 +1,250 @@
 <template>
 	<div class="bg-dark fill-height">
-		<client-only>
-			<!-- BANTUAN -->
-			<v-container>
-				<v-row v-if="bantuanMenu">
-					<v-col
-						cols="12"
-						class="py-0"
-						v-for="(bantuan, i) in bantuanMenu"
-						:key="'bantuan-' + i"
+		<v-app-bar
+			dark
+			color="dark"
+			flat
+			fixed
+			tile
+			class="main-app-bar"
+			style="z-index: 20"
+		>
+			<v-btn @click="$router.go(-1)" small icon>
+				<v-icon>mdi-chevron-left</v-icon>
+			</v-btn>
+			<div class="flex-grow-1"></div>
+			<v-toolbar-title>
+				<strong>BANTUAN</strong>
+			</v-toolbar-title>
+			<div class="flex-grow-1"></div>
+
+			<div
+				@click="
+					$router.push('/')
+					clearStorage()
+				"
+				class="pr-1"
+			>
+				<img src="/img/peweicon.svg" width="20" />
+			</div>
+		</v-app-bar>
+
+		<v-main>
+			<v-card elevation="0">
+				<v-img
+					class="white--text align-end"
+					src="/img/bantuan-cover.jpg"
+					gradient=""
+					height="289"
+				>
+					<v-card-title>
+						<v-avatar size="56">
+							<img alt="user" src="/img/peweicon.svg" />
+						</v-avatar>
+						<p class="ml-3 my-0">
+							Selamat hari {{ day }}<br />Ada yang bisa kami
+							bantu?
+						</p>
+					</v-card-title>
+				</v-img>
+			</v-card>
+
+			<section style="background: #ffe4db" class="py-4">
+				<v-container class="black--text">
+					<h4 class="pw-title">PeweFeed Secara Singkat</h4>
+
+					<v-carousel
+						class="bantuan-slide"
+						v-model="slide_state"
+						height="300"
+						:show-arrows="false"
 					>
-						<a
-							class="pl-0"
-							text
-							dark
-							@click="$router.push('/bantuan/?tab=' + bantuan.id)"
-							>{{ bantuan.title }}</a
+						<v-carousel-item
+							v-for="(item, i) in slides"
+							:key="'bnantuan-slide-' + i"
 						>
-						<div class="devider-small my-3"></div>
-					</v-col>
-				</v-row>
-			</v-container>
+							<v-row align="center" justify="center" class="mt-4">
+								<v-col cols="4">
+									<v-img :src="item.img" height="217"></v-img>
+								</v-col>
+								<v-col cols="8" class="black--text">
+									<div class="text-16 font-weight-bold">
+										{{ item.title }}
+									</div>
+									<p class="text-14">
+										{{ item.text }}
+									</p>
 
-			<!-- CONTACT -->
-			<v-container class="contaclist">
-				<h4 class="deep-orange--text text-20">Contact</h4>
-				<v-row class="pt-0">
-					<v-col cols="12">
-						<v-list two-line color="transparent" dark class="pt-0">
-							<v-list-item-group v-model="contact">
-								<v-list-item
-									class="pl-0"
-									v-for="(con, i) in contacts"
-									:key="'consdf-' + i"
+									<v-btn
+										color="#ff4200"
+										depressed
+										small
+										class="pl-0"
+										v-if="slide_state >= 1"
+										@click="
+											slide_state = parseInt(
+												slide_state - 1
+											)
+										"
+									>
+										<v-icon>mdi-chevron-left</v-icon>
+										<span class="text-10">Kembali</span>
+									</v-btn>
+									<v-btn
+										color="#ff4200"
+										depressed
+										small
+										class="pr-0"
+										@click="
+											slide_state = parseInt(
+												slide_state + 1
+											)
+										"
+									>
+										<span class="text-10">Selanjutnya</span>
+										<v-icon>mdi-chevron-right</v-icon>
+									</v-btn>
+								</v-col>
+							</v-row>
+						</v-carousel-item>
+					</v-carousel>
+				</v-container>
+			</section>
+
+			<section style="background: #2e3a59" class="white--text py-4">
+				<v-container>
+					<h4 class="pw-title white--text">Kategori Bantuan</h4>
+
+					<v-row no-gutters class="mt-5">
+						<template v-for="(item, i) in cat">
+							<v-col
+								class="px-1 mb-2"
+								cols="6"
+								:key="'bantuan-basic-' + i"
+							>
+								<v-card
+									:to="'/bantuan/menu?index=' + i"
+									color="#FFE4DB"
+									elevation="0"
+									light
+									class="pl-3 py-3"
+									height="100%"
 								>
-									<v-list-item-content class="pt-0 menu">
-										<v-list-item-title>
-											<a
-												v-if="con.isWhatsapp"
-												style="
-													text-decoration: none;
-													color: #fff;
-													font-size: 18px;
-												"
-												target="blank"
-												:href="
-													'https://api.whatsapp.com/send?phone=' +
-													con.phone
-												"
-												>{{ con.title }}</a
-											>
-											<a
-												v-else
-												style="
-													text-decoration: none;
-													color: #fff;
-													font-size: 18px;
-												"
-												:href="'tel:' + con.phone"
-												>{{ con.title }}</a
-											>
-										</v-list-item-title>
-										<v-list-item-subtitle
-											v-html="con.subtitle"
-											class="caption"
-										></v-list-item-subtitle>
-										<div class="devider-small mt-3"></div>
-									</v-list-item-content>
-								</v-list-item>
-							</v-list-item-group>
-						</v-list>
-						<v-list
-							two-line
-							color="transparent"
-							dark
-							class="pt-0 pb-0"
+									<div
+										class="d-flex align-center justify-space-between"
+									>
+										<div class="black--text text-12">
+											{{ item.name ? item.name : "" }}
+										</div>
+										<div>
+											<v-icon>mdi-chevron-right</v-icon>
+										</div>
+									</div>
+								</v-card>
+							</v-col>
+						</template>
+					</v-row>
+				</v-container>
+			</section>
+
+			<section style="background: #1c1c1c" class="white--text">
+				<v-container>
+					<v-card outlined color="#303030" style="border-color: #fff">
+						<v-card-title
+							primary-title
+							style="
+								background: #404040;
+								border-bottom: 1px solid #fff;
+							"
 						>
-							<v-list-item-group v-model="contacttwo">
-								<v-list-item
-									class="pl-0"
-									v-for="(con, i) in contactstwo"
-									:key="'cons-' + i"
+							<h4 class="pw-title white--text text-14">
+								Informasi dasar yang perlu kamu ketahui
+							</h4>
+						</v-card-title>
+						<v-card-text class="px-0 pb-0">
+							<template v-if="basic.length > 0">
+								<v-card
+									style="border-bottom: 1px solid #fff"
+									tile
+									elevation="0"
+									color="#303030"
+									v-for="(item, i) in basic"
+									:key="'dasar-' + i"
+									:to="'/bantuan/detail/' + item.slug"
 								>
-									<v-list-item-content class="pt-0 menu">
-										<v-list-item-title>
-											<a
-												v-if="con.isPhone"
-												style="
-													text-decoration: none;
-													color: #fff;
-													font-size: 18px;
-												"
-												target="blank"
-												:href="
-													'https://api.whatsapp.com/send?phone=' +
-													con.phone
-												"
-												>{{ con.title }}</a
+									<v-list-item
+										two-line
+										class="align-center d-flex"
+									>
+										<v-list-item-content>
+											<v-list-item-title class="mb-3">{{
+												item.name ? item.name : ""
+											}}</v-list-item-title>
+											<v-list-item-subtitle
+												v-html="item.content"
+											></v-list-item-subtitle>
+										</v-list-item-content>
+										<v-list-item-icon class="ml-4">
+											<v-icon
+												class="align-self-center my-0"
 											>
-										</v-list-item-title>
-										<v-list-item-subtitle
-											v-html="con.subtitle"
-											class="caption"
-										></v-list-item-subtitle>
-										<div class="devider-small mt-3"></div>
-									</v-list-item-content>
-								</v-list-item>
-							</v-list-item-group>
-						</v-list>
-						<v-list two-line color="transparent" dark class="pt-0">
-							<v-list-item-group v-model="contactmail">
-								<v-list-item
-									class="pl-0"
-									v-for="(con, i) in contactsmail"
-									:key="'email-' + i"
-								>
-									<v-list-item-content class="pt-0 menu">
-										<v-list-item-title>
-											<a
-												v-if="!con.isPhone"
-												style="
-													text-decoration: none;
-													color: #fff;
-													font-size: 18px;
-												"
-												:href="'mailto:' + con.mail"
-												>{{ con.title }}</a
-											>
-										</v-list-item-title>
-										<v-list-item-subtitle
-											v-html="con.subtitle"
-											class="caption"
-										></v-list-item-subtitle>
-									</v-list-item-content>
-									<div class="devider-small mt-3"></div>
-								</v-list-item>
-							</v-list-item-group>
-						</v-list>
-					</v-col>
-				</v-row>
-			</v-container>
+												mdi-chevron-right
+											</v-icon>
+										</v-list-item-icon>
+									</v-list-item>
+								</v-card>
+							</template>
+						</v-card-text>
+					</v-card>
+				</v-container>
+			</section>
 
-			<!-- SOCIAL -->
-			<v-container class="justify-space-between">
-				<h4 class="deep-orange--text text-20 mb-4">Social Media</h4>
-				<a
-					class="d-block py-4"
-					text
-					target="blank"
-					style="text-decoration: none"
-					:href="'https://www.facebook.com/' + facebook"
-				>
-					<img
-						src="/img/icons/icon-facebook.png"
-						width="20"
-						class="mr-2"
-						style="vertical-align: middle"
-						alt
-					/>
-					pewefeeds
-				</a>
-				<div class="devider-small"></div>
-				<a
-					class="d-block py-4"
-					text
-					target="blank"
-					style="text-decoration: none"
-					:href="'https://twitter.com/' + twitter"
-				>
-					<img
-						src="/img/icons/icon-twitter.png"
-						width="20"
-						class="mr-2"
-						style="vertical-align: middle"
-						alt
-					/>
-					pewefeeds
-				</a>
-				<div class="devider-small"></div>
-				<a
-					class="d-block py-4"
-					text
-					target="blank"
-					style="text-decoration: none"
-					:href="'https://www.instagram.com/' + instagram"
-				>
-					<img
-						src="/img/icons/icon-instagram.png"
-						width="20"
-						class="mr-2"
-						style="vertical-align: middle"
-						alt
-					/>
-					pewefeeds
-				</a>
-				<div class="devider-small"></div>
-				<a
-					class="d-block py-4"
-					text
-					target="blank"
-					style="text-decoration: none"
-					:href="youtubeUrl"
-				>
-					<img
-						src="/img/icons/icon-youtube.png"
-						width="20"
-						class="mr-2"
-						style="vertical-align: middle"
-						alt
-					/>
-					pewefeeds
-				</a>
-				<div class="devider-small"></div>
-			</v-container>
-		</client-only>
+			<BantuanFooter />
+		</v-main>
 	</div>
 </template>
 
 <script>
 import MenuService from "@/services/MenuService"
 import ArticleService from "@/services/ArticleService"
+import BantuanFooter from "@/components/BantuanFooter"
+import axios from "axios"
+
 export default {
 	name: "categories",
+	layout: "blank",
+	components: {
+		BantuanFooter,
+	},
 	data() {
 		return {
+			slide_state: 0,
+			slides: [
+				{
+					img: "/img/smartmockups_ki8cm2nw.png",
+					title: "Baca Terus",
+					text:
+						"Baca artikelnya, banyak informasi viral, menghibur dan tentunya bermanfaat",
+				},
+				{
+					img: "/img/bantuan-slide-2.png",
+					title: "Ikuti Interaksinya",
+					text:
+						"Lakukan Interaksi seperti memberi komentar atau bermain kuis di dalam artikel",
+				},
+				{
+					img: "/img/bantuan-slide-3.png",
+					title: "Kumpulkan Poinnya",
+					text:
+						"Setiap interaksi kamu yang berhasil akan diubah menjadi Poin yang bisa dikumpulkam",
+				},
+				{
+					img: "/img/bantuan-slide-4.png",
+					title: "Dapatkan Rewardsnya",
+					text:
+						"Poinnya bisa kamu tukar dengan rewards secara langsung tanpa diundi",
+				},
+			],
 			facebook: process.env.facebook,
 			instagram: process.env.instagram,
 			twitter: process.env.twitter,
@@ -255,6 +276,9 @@ export default {
 					subtitle: "(24 Hour)",
 				},
 			],
+			day: "",
+			cat: [],
+			basic: [],
 			contactsmail: [
 				{
 					title: "halo@pewefeed.com",
@@ -272,6 +296,42 @@ export default {
 		}
 	},
 	methods: {
+		showDay() {
+			var months = [
+				"Januari",
+				"Februari",
+				"Maret",
+				"April",
+				"Mei",
+				"Juni",
+				"Juli",
+				"Agustus",
+				"September",
+				"Oktober",
+				"November",
+				"Desember",
+			]
+
+			var myDays = [
+				"Minggu",
+				"Senin",
+				"Selasa",
+				"Rabu",
+				"Kamis",
+				"Jum&#39;at",
+				"Sabtu",
+			]
+
+			var date = new Date()
+
+			var day = date.getDate()
+
+			var month = date.getMonth()
+
+			var thisDay = date.getDay()
+
+			this.day = myDays[thisDay]
+		},
 		async fetchBantuan() {
 			try {
 				const res = await ArticleService.getBantuan()
@@ -283,9 +343,30 @@ export default {
 				console.log(error)
 			}
 		},
+		async basicInfo() {
+			try {
+				const response = await axios.get(
+					"https://api.pewefeed.com/api/v2/help/how-to-basic?limit=5"
+				)
+				const data = await response.data
+				this.basic = data.data
+			} catch (error) {}
+		},
+		async getCategory() {
+			try {
+				const response = await axios.get(
+					"https://api.pewefeed.com/api/v2/help/how-to"
+				)
+				const data = await response.data
+				this.cat = data.data
+			} catch (error) {}
+		},
 	},
 	mounted() {
+		this.showDay()
 		this.fetchBantuan()
+		this.getCategory()
+		this.basicInfo()
 	},
 }
 </script>
@@ -307,6 +388,42 @@ export default {
 	}
 	.v-ripple__container {
 		display: none !important;
+	}
+}
+
+.bantuan-slide {
+	.v-carousel__controls {
+		background: transparent;
+		button {
+			.v-icon {
+				color: #bababa;
+				opacity: 1 !important;
+			}
+			&.v-btn--active {
+				.v-icon:before {
+					color: #ff4200;
+				}
+			}
+		}
+	}
+}
+</style>
+
+<style lang="scss" scoped>
+.pw-title {
+	padding-left: 30px;
+	position: relative;
+	font-weight: bold;
+	color: #000;
+	line-height: 20px;
+	&:before {
+		content: "";
+		width: 20px;
+		height: 20px;
+		left: 0;
+		background: #ff4200;
+		position: absolute;
+		border-radius: 90px;
 	}
 }
 </style>

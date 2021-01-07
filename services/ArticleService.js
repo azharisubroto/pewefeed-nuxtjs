@@ -62,10 +62,10 @@ export default {
 		return Api().get("/meta/detail/" + slug)
 	},
 	getBantuan() {
-		return Api().get("/help/how-to")
+		return Api().get("/v2/help/how-to")
 	},
 	bantuandetail(slug) {
-		return Api().get("/help/sub/" + slug)
+		return Api().get("/v2/help/how-to-sub/" + slug)
 	},
 	searchHighlight(keywords) {
 		return Api().get("/article/highlight/" + keywords)
