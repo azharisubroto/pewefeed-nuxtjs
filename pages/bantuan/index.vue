@@ -1,33 +1,6 @@
 <template>
 	<div class="bg-dark fill-height">
-		<v-app-bar
-			dark
-			color="dark"
-			flat
-			fixed
-			tile
-			class="main-app-bar"
-			style="z-index: 20"
-		>
-			<v-btn @click="$router.go(-1)" small icon>
-				<v-icon>mdi-chevron-left</v-icon>
-			</v-btn>
-			<div class="flex-grow-1"></div>
-			<v-toolbar-title>
-				<strong>BANTUAN</strong>
-			</v-toolbar-title>
-			<div class="flex-grow-1"></div>
-
-			<div
-				@click="
-					$router.push('/')
-					clearStorage()
-				"
-				class="pr-1"
-			>
-				<img src="/img/peweicon.svg" width="20" />
-			</div>
-		</v-app-bar>
+		<BantuanNavBar />
 
 		<v-main>
 			<v-card elevation="0">
@@ -207,6 +180,7 @@
 <script>
 import MenuService from "@/services/MenuService"
 import ArticleService from "@/services/ArticleService"
+import BantuanNavBar from "@/components/BantuanNavBar"
 import BantuanFooter from "@/components/BantuanFooter"
 import axios from "axios"
 
@@ -215,6 +189,7 @@ export default {
 	layout: "blank",
 	components: {
 		BantuanFooter,
+		BantuanNavBar,
 	},
 	data() {
 		return {

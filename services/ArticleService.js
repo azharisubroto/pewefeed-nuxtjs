@@ -64,6 +64,9 @@ export default {
 	getBantuan() {
 		return Api().get("/v2/help/how-to")
 	},
+	bantuanSearch(keyword) {
+		return Api().get("/v2/help/how-to?search=" + keyword)
+	},
 	bantuandetail(slug) {
 		return Api().get("/v2/help/how-to-sub/" + slug)
 	},
