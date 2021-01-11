@@ -215,48 +215,13 @@
 					<div class="text-center mb-4 font-weight-bold">
 						ARTIKEL TERBARU LAINNYA
 					</div>
-					<NewsLoop
-						v-if="this.$route.params.cat == 'entertainment'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="3272838865"
-					/>
-					<NewsLoop
-						v-else-if="this.$route.params.cat == 'lagu'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="2144919011"
-					/>
-					<NewsLoop
-						v-else-if="this.$route.params.cat == 'nonton'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="5389550524"
-					/>
-					<NewsLoop
-						v-else-if="this.$route.params.cat == 'piknik'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="1538414350"
-					/>
-					<NewsLoop
-						v-else-if="this.$route.params.cat == 'tekno'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="5006407143"
-					/>
-					<NewsLoop
-						v-else-if="this.$route.params.cat == 'sport'"
-						:items="latests"
-						ADSlayoutKey="-fb+5w+4e-db+86"
-						ADSclient="ca-pub-6581994114503986"
-						ADSslot="4731074976"
-					/>
+
+					<template v-if="latests.length > 0">
+						<template v-for="(item, i) in latests">
+							<NewsLoop2 :key="'other-' + i" :article="item" />
+						</template>
+					</template>
+
 					<v-btn
 						tile
 						v-if="isMore"
@@ -1126,7 +1091,7 @@
 import ArticleService from "@/services/ArticleService"
 import StaticService from "@/services/StaticService"
 import UserService from "@/services/UserService"
-import NewsLoop from "@/components/common/NewsLoop"
+import NewsLoop2 from "@/components/common/NewsLoop2"
 import LoginModal from "@/components/modal/LoginModal"
 import QuizModal from "@/components/common/QuizModal"
 import KomentarPoin from "@/components/modal/KomentarPoin"
@@ -1137,7 +1102,7 @@ import BannerStatic from "@/components/common/BannerStatic"
 
 export default {
 	components: {
-		NewsLoop,
+		NewsLoop2,
 		QuizModal,
 		CommentList,
 		NotVip,
@@ -1304,6 +1269,7 @@ export default {
 			}
 		},
 		async fetchLatest(slug) {
+			const vm = this
 			try {
 				const res = await ArticleService.getRelated(slug)
 				////console.log(JSON.parse(JSON.stringify(res.data.data)))
@@ -1320,7 +1286,7 @@ export default {
 						type: element.reaction,
 						published_at: element.publish_at,
 					}
-					this.latests.push(obj)
+					vm.latests.push(obj)
 					//   if (element.id != this.id) {
 					//     this.latests.push(obj);
 					//   }
@@ -1721,7 +1687,7 @@ export default {
 		this.fetchPoint()
 
 		this.redirecturl = window.location.href
-		//this.fetchLatest();
+		this.fetchLatest()
 	},
 	// updated() {
 	//   this.moveRedeemBeforeRelated();
