@@ -99,7 +99,12 @@
 				</v-row>
 
 				<div class="mt-5">
-					<img src="/img/bantuan-footer.svg" loading="lazy" alt="" />
+					<img
+						src="/img/bantuan-footer.svg"
+						style="width: 100%"
+						loading="lazy"
+						alt=""
+					/>
 				</div>
 			</v-container>
 		</section>
@@ -111,3 +116,22 @@ export default {
 	name: "BantuanFooter",
 }
 </script>
+
+<style lang="scss" scoped>
+.pw-title {
+	padding-left: 30px;
+	position: relative;
+	font-weight: bold;
+	color: #000;
+	line-height: 20px;
+	&:before {
+		content: "";
+		width: 20px;
+		height: 20px;
+		left: 0;
+		background: #ff4200;
+		position: absolute;
+		border-radius: 90px;
+	}
+}
+</style>
