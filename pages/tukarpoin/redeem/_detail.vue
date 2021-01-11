@@ -1,5 +1,5 @@
 <template>
-	<section class="tukarpoin-content">
+	<section class="tukarpoin-content" style="padding-top: 57px">
 		<div class="main-app-bar fixed top">
 			<v-row align="center" class="pt-1 mx-0">
 				<v-col cols="2">
@@ -517,30 +517,7 @@
 		<br />
 		<br />
 
-		<!-- <v-bottom-navigation
-      fixed
-      dark
-      grow
-      color="white"
-      background-color="#2C2C2D"
-      height="80"
-      class="pwmenubottom"
-      v-model="tptab"
-    >
-      <v-btn @click="detailtab=true;hitoritab=false;syarattab=false">
-        <span class="text-13">Redeem</span>
-        <img src="/img/tukarpoin/redeem-orange.png" class="mb-1 d-block" width="25" height="25" />
-      </v-btn>
-      <v-btn @click="detailtab=false;hitoritab=true;syarattab=false;fetchHistory()">
-        <span class="text-13">Redeem History</span>
-        <img src="/img/tukarpoin/redeemer-orange.png" class="mb-1 d-block" width="25" height="25" />
-      </v-btn>
-      <v-btn @click="detailtab=false;hitoritab=false;syarattab=true">
-        <span class="text-13">How to</span>
-        <img src="/img/tukarpoin/howto-orange.png" class="mb-1 d-block" width="25" height="25" />
-      </v-btn>
-      <ShareButton2 />
-    </v-bottom-navigation> -->
+		<BottomNav :tab="1" />
 
 		<LoginModal :dialogVisible="loginModalVisible" @close="myDialogClose" />
 	</section>
@@ -550,15 +527,18 @@
 import TukarPoinService from "@/services/TukarPoinService"
 import UserService from "@/services/UserService"
 import LoginModal from "@/components/modal/LoginModal"
+import BottomNav from "@/components/BottomNav"
 import ShareButton2 from "@/components/common/ShareButton2"
 import WaNotif from "@/components/WaNotif"
 
 export default {
 	name: "RedeemDetail",
+	layout: "blank",
 	components: {
 		LoginModal,
 		ShareButton2,
 		WaNotif,
+		BottomNav,
 	},
 	async fetch({ store, params }) {
 		////console.log('fetch this')
