@@ -215,10 +215,7 @@
 		    BOTTOM NAVIGATION
         ooooooooooooooooooooooooooooooooooooo-->
 				<template v-if="$route.name == 'index'">
-					<div
-						:class="[wowtab == 1 ? 'd-block' : 'd-none']"
-						style="margin-top: -56px"
-					>
+					<div :class="[wowtab == 1 ? 'd-block' : 'd-none']">
 						<TukarPoin v-if="wowtab == 1" keep-alive />
 					</div>
 					<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
@@ -247,6 +244,7 @@
 					v-if="
 						$route.name == 'index' ||
 						$route.name == 'bantuan' ||
+						$route.name == 'tukarpoin-redeem-detail' ||
 						$route.name == 'member-daily-limit' ||
 						$route.name == 'member-purchase-daily' ||
 						$route.name == 'about-daily-limit'
