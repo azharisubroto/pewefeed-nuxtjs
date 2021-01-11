@@ -1,18 +1,6 @@
 <template>
 	<section class="tukarpoin-content">
-		<div
-			class="main-app-bar fixed top"
-			style="
-				background: #2c2c2d;
-				height: auto;
-				min-height: 56px;
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				z-index: 999;
-			"
-		>
+		<div class="main-app-bar fixed top">
 			<v-row align="center" class="pt-1 mx-0">
 				<v-col cols="2">
 					<v-btn @click="historyBack()" small icon>
@@ -76,13 +64,6 @@
 							<v-col cols="8" class="pr-4">
 								<!-- DESCRIPTION -->
 								<div class="deep-orange--text text-16">
-									<client-only
-										>Tersedia hingga
-										{{
-											[getTanggal(detail), "YYYY-MM-DD"]
-												| moment("DD MMM YYYY")
-										}}</client-only
-									>
 									<div></div>
 									Tersisa
 									{{
@@ -823,6 +804,18 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
+}
+.tukarpoin-content {
+	.main-app-bar {
+		background: #2c2c2d;
+		height: auto;
+		min-height: 56px;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 999;
+	}
 }
 .tukarpoin-content p {
 	font-size: 16px !important;
