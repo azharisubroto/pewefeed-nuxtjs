@@ -247,6 +247,7 @@
 					v-if="
 						$route.name == 'index' ||
 						$route.name == 'bantuan' ||
+						$route.name == 'tukarpoin-redeem-detail' ||
 						$route.name == 'member-daily-limit' ||
 						$route.name == 'member-purchase-daily' ||
 						$route.name == 'about-daily-limit'
