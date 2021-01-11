@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a :href="article.link">
+		<NuxtLink :to="makeSlug(article.link)">
 			<v-row :class="['topview-item', custclass ? custclass : '']">
 				<v-col cols="4">
 					<v-img
@@ -52,7 +52,7 @@
 					</div>
 				</v-col>
 			</v-row>
-		</a>
+		</NuxtLink>
 	</div>
 </template>
 
@@ -78,6 +78,9 @@ export default {
 			var rating = num / 20
 			rating = rating.toFixed(0)
 			return parseInt(rating)
+		},
+		makeSlug(link) {
+			return link.replace("https://pewefeed.com/", "/")
 		},
 	},
 }
