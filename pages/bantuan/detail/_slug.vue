@@ -179,14 +179,6 @@
 					</v-row>
 				</v-container>
 
-				<div class="devider-big my-4"></div>
-
-				<div class="text-center font-weight-bold">
-					TOPIK BANTUAN LAINNYA
-				</div>
-
-				<!-- <pre>{{others}}</pre> -->
-
 				<v-container>
 					<v-list v-if="others">
 						<v-list-item
@@ -203,7 +195,6 @@
 						</v-list-item>
 					</v-list>
 				</v-container>
-				<br /><br /><br />
 			</template>
 
 			<BantuanFooter />
