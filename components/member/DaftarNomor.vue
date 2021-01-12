@@ -71,7 +71,7 @@
 					block
 					depressed
 				>
-					<v-icon>mdi-plus</v-icon> Tambah Nomor Baru</v-btn
+					<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
 				>
 			</v-col>
 		</v-row>

@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<v-app-bar dark color="dark" flat fixed tile class="main-app-bar">
+		<v-app-bar dark color="dark" flat fixed tile grow class="main-app-bar">
 			<v-btn @click="$router.back()" small icon>
 				<v-icon>mdi-chevron-left</v-icon>
 			</v-btn>
@@ -13,7 +13,7 @@
 				"
 				class="px-0"
 			>
-				Profile
+				Profil Saya
 			</v-toolbar-title>
 			<div class="flex-grow-1"></div>
 
@@ -48,12 +48,12 @@
 			>
 				<v-btn
 					small
-					class="text-center"
+					class="text-center px-3"
 					v-for="item in tabItems"
 					:key="item.name"
 					:to="item.to"
 				>
-					<span style="font-size: 8px" v-html="item.name"></span>
+					<span style="font-size: 10px" v-html="item.name"></span>
 				</v-btn>
 			</v-bottom-navigation>
 
@@ -77,11 +77,11 @@ export default {
 					to: "/member/pengaturan/profil",
 				},
 				{
-					name: "Tujuan Pengiriman<br>Rewards Digital",
+					name: "Tujuan Pengiriman<br>Rewards<br>Digital",
 					to: "/member/pengaturan/daftar-nomor",
 				},
 				{
-					name: "Tujuan Pengiriman<br>Rewards Fisik",
+					name: "Tujuan Pengiriman<br>Rewards<br>Fisik",
 					to: "/member/pengaturan/daftar-alamat",
 				},
 				{

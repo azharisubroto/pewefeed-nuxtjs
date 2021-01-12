@@ -19,7 +19,7 @@
 					block
 					depressed
 				>
-					<v-icon>mdi-plus</v-icon> Tambah Nomor Baru</v-btn
+					<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
 				>
 			</v-col>
 		</v-row>
@@ -114,7 +114,7 @@
 								formData.type == 'Listrik'
 							"
 						>
-							<strong class="mb-2 d-block">Provider</strong>
+							<strong class="mb-2 d-block">Penyedia</strong>
 							<v-autocomplete
 								v-model="formData.provider"
 								outlined
@@ -146,7 +146,7 @@
 						/>
 
 						<strong class="mb-2 d-block"
-							>NOMOR AKUN / E-WALLETS</strong
+							>NOMOR AKUN / PONSEL</strong
 						>
 						<v-text-field
 							v-model="formData.number"
@@ -179,6 +179,11 @@
 						block
 						depressed
 						height="50"
+						:disabled="
+							formData.type == '' ||
+							formData.name == '' ||
+							formData.number == ''
+						"
 						@click="
 							pin_verification = !pin_verification
 							pin_action = 'edit'
@@ -203,7 +208,7 @@
 
 		<v-bottom-sheet dark v-model="pin_verification">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -254,7 +259,11 @@
 
 							<div class="mt-2">
 								Belum Punya PIN?
-								<v-btn text color="#ff4200" class="py-0"
+								<v-btn
+									to="/member/pengaturan/pin"
+									text
+									color="#ff4200"
+									class="py-0"
 									>Klik Disini</v-btn
 								>
 							</div>

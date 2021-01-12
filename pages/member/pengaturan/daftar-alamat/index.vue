@@ -11,7 +11,7 @@
 			depressed
 			class="mb-5"
 		>
-			<v-icon>mdi-plus</v-icon> Tambah Alamat Baru</v-btn
+			<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
 		>
 
 		<!-- ITEMS LOOP -->
@@ -209,6 +209,17 @@
 						block
 						depressed
 						height="40"
+						:disabled="
+							formData.title == '' ||
+							formData.receiver == '' ||
+							formData.phone == '' ||
+							formData.address == '' ||
+							formData.province == '' ||
+							formData.district == '' ||
+							formData.sub_district == '' ||
+							formData.village == '' ||
+							formData.zip_code == ''
+						"
 						@click="
 							pin_verification = !pin_verification
 							pin_action = !isEdit ? 'add' : 'edit'
@@ -237,7 +248,7 @@
 
 		<v-bottom-sheet dark width="100%" v-model="pin_verification">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -274,8 +285,8 @@
 							<v-btn
 								@click="
 									pin_action == 'add'
-										? addNumber()
-										: editNumber(currentId)
+										? addAddress()
+										: editAddress(currentId)
 								"
 								color="#ff4200"
 								medium
@@ -287,7 +298,11 @@
 
 							<div class="mt-2">
 								Belum Punya PIN?
-								<v-btn text color="#ff4200" class="py-0"
+								<v-btn
+									to="/member/pengaturan/pin"
+									text
+									color="#ff4200"
+									class="py-0"
 									>Klik Disini</v-btn
 								>
 							</div>
