@@ -262,7 +262,7 @@
 
 		<v-bottom-sheet dark width="600px" v-model="pin_verification">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -313,7 +313,11 @@
 
 							<div class="mt-2">
 								Belum Punya PIN?
-								<v-btn text color="#ff4200" class="py-0"
+								<v-btn
+									to="/member/pengaturan/pin"
+									text
+									color="#ff4200"
+									class="py-0"
 									>Klik Disini</v-btn
 								>
 							</div>

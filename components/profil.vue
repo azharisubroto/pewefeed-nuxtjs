@@ -131,7 +131,7 @@
 										<span>Keanggotaan VIP</span>
 										<span
 											class="d-block mt-3"
-											color="#FFAA8C"
+											style="color: #ffaa8c"
 										>
 											{{
 												userdata.status_expired == 1
@@ -246,8 +246,8 @@
 										<span
 											class="d-block mt-1"
 											style="color: #ffaa8c"
-											>{{ rewards_count }} Rewards
-											Diterima</span
+											>{{ rewards_count }} barang
+											menunggu</span
 										>
 									</v-list-item-title>
 								</v-list-item-content>
@@ -699,12 +699,7 @@ export default {
 			let opacityFormula = (targetHeight - window.scrollY) / targetHeight
 			this.profleOpacity = opacityFormula
 		},
-		async fetchRewards(
-			type = "finish",
-			paged = 1,
-			limit = 1,
-			reset = false
-		) {
+		async fetchRewards(type = "wait", paged = 1, limit = 1, reset = false) {
 			try {
 				const res = await UserService.rewards(type, paged, limit)
 				this.rewards_count = res.data.pagination.total

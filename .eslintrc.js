@@ -22,6 +22,6 @@ module.exports = {
 		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
 		"vue/max-attributes-per-line": "off",
 		"prettier/prettier": ["error", { semi: false }],
-		"progress/activate": 1,
+		"progress/activate": 0,
 	},
 }

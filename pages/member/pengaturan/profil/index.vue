@@ -73,7 +73,7 @@
 			</v-sheet>
 		</v-bottom-sheet>
 
-		<v-overlay :value="uploadloading">
+		<v-overlay :value="coverLoading">
 			<v-progress-circular
 				color="green"
 				indeterminate
@@ -91,7 +91,7 @@
 			></v-img>
 
 			<v-btn
-				@click="coverupload()"
+				@click="openCoverUpload()"
 				color="transparent"
 				absolute
 				right
@@ -142,9 +142,37 @@
 		<v-container class="pt-0">
 			<v-row class="pt-0 mt-0 profil-edit">
 				<v-col cols="12" class="pt-0">
-					<v-card outlined dark class="pa-4 mb-5">
-						<v-row class="pt-0">
+					<v-card outlined dark class="pa-4 mb-5 white-border">
+						<v-row class="pt-0" align="center">
 							<v-col cols="12" sm="9" md="9" lg="9" class="pt-0">
+								<div class="mb-2">PEWE ID</div>
+								<v-row no-gutters>
+									<v-col cols="10">
+										<v-text-field
+											solo
+											single-line
+											readonly
+											filled
+											class="krem--text"
+											:value="$auth.user.data.msisdn"
+										></v-text-field>
+									</v-col>
+									<v-col cols="2" class="text-right pl-1">
+										<v-btn
+											@click="copyToClipBoard()"
+											depressed
+											min-height="56"
+											width="100%"
+											color="#ff4200"
+										>
+											<v-icon
+												size="24"
+												style="margin-left: 3px"
+												>mdi-content-copy</v-icon
+											>
+										</v-btn>
+									</v-col>
+								</v-row>
 								<div class="mb-2">
 									Nama Depan
 									<span class="red--text">(Wajib diisi)</span>
@@ -243,7 +271,7 @@
 						</v-row>
 					</v-card>
 
-					<v-card outlined dark class="pa-4 mb-4">
+					<v-card outlined dark class="pa-4 mb-4 white-border">
 						<!-- NOMOR HAPE -->
 						<v-alert
 							v-if="$auth.user.verified == false"
@@ -339,7 +367,7 @@
 						</v-row>
 					</v-card>
 
-					<v-card outlined dark class="pa-4 mb-4">
+					<v-card outlined dark class="pa-4 mb-4 white-border">
 						<template v-for="social in socmed">
 							<div class="mb-1" :key="'label-' + social">
 								<span
@@ -354,7 +382,7 @@
 								>
 							</div>
 							<v-row no-gutters :key="'form-' + social">
-								<v-col md="9" class="pr-4">
+								<v-col md="12" class="pr-4">
 									<v-text-field
 										dense
 										:placeholder="social"
@@ -362,7 +390,7 @@
 										background-color="#404040"
 									/>
 								</v-col>
-								<v-col md="3">
+								<!-- <v-col md="3">
 									<v-btn
 										dark
 										depressed
@@ -372,7 +400,7 @@
 									>
 										Hubungkan
 									</v-btn>
-								</v-col>
+								</v-col> -->
 							</v-row>
 						</template>
 					</v-card>
@@ -382,7 +410,7 @@
 						dark
 						block
 						color="#FF4200"
-						@click="save()"
+						@click="pin_verification = !pin_verification"
 						class="mb-3"
 						>Simpan</v-btn
 					>
@@ -402,6 +430,68 @@
 			style="opacity: 0"
 			@change="handleCoverUpload"
 		/>
+
+		<v-bottom-sheet dark width="100%" v-model="pin_verification">
+			<v-sheet height="100%">
+				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+					<!-- Arrow -->
+					<v-btn
+						dark
+						icon
+						tile
+						style="border-right: 0px solid #717171"
+						light
+						@click="pin_verification = !pin_verification"
+					>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+
+					<!-- Title -->
+					<v-toolbar-items class="ml-2">
+						<v-btn dark text class="pl-0" style="margin-left: -10px"
+							>KONFIRMASI</v-btn
+						>
+					</v-toolbar-items>
+					<div class="flex-grow-1"></div>
+				</v-toolbar>
+
+				<div class="px-4 py-10 text-center pindialog">
+					<strong>Masukan 6 digit PIN</strong>
+					<div class="my-3">
+						<PincodeInput
+							v-model="pin_code"
+							:length="6"
+							characterPreview
+							secure
+							:autofocus="true"
+						/>
+
+						<div class="mt-4">
+							<v-btn
+								@click="save()"
+								color="#ff4200"
+								medium
+								height="40"
+								depressed
+							>
+								Lanjutkan
+							</v-btn>
+
+							<div class="mt-2">
+								Belum Punya PIN?
+								<v-btn
+									to="/member/pengaturan/pin"
+									text
+									color="#ff4200"
+									class="py-0"
+									>Klik Disini</v-btn
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</v-sheet>
+		</v-bottom-sheet>
 	</div>
 </template>
 <script>
@@ -415,6 +505,9 @@ export default {
 	layout: "profile",
 	data() {
 		return {
+			pin_verification: false,
+			pin_code: "",
+			pin_action: "",
 			profile: null,
 			token: null,
 			avatar_preview: "",
@@ -449,11 +542,19 @@ export default {
 			usermentah: [],
 			avatar_img: "",
 			uploadloading: false,
+			coverLoading: false,
 			savestatus: null,
 			fielderrors: null,
 		}
 	},
 	methods: {
+		copyToClipBoard(text) {
+			const copy = require("clipboard-copy")
+			copy(text)
+			setTimeout(() => {
+				alert("Nomor resi berhasil disalin")
+			}, 1000)
+		},
 		handleAvaUpload(e) {
 			//console.log(e.target.files);
 			let file = e.target.files[0]
@@ -463,7 +564,7 @@ export default {
 			let vm = this
 			let bearer = localStorage.getItem("access-token")
 			var formData = new FormData()
-			data.append("avatar", file)
+			formData.append("avatar", file)
 			vm.uploadloading = true
 			axios
 				.post("https://api.pewefeed.com/api/member/avatar", formData, {
@@ -488,10 +589,10 @@ export default {
 		},
 		doCoverUpload(file) {
 			let vm = this
-			vm.uploadloading = true
+			vm.coverLoading = true
 			let bearer = localStorage.getItem("access-token")
 			var formData = new FormData()
-			data.append("cover_image", file)
+			formData.append("cover_image", file)
 			axios
 				.post(
 					"https://api.pewefeed.com/api/member/cover-image",
@@ -505,11 +606,11 @@ export default {
 				.then((res) => {
 					//console.log(res);
 					vm.cover_preview = res.data.avatar_link
-					vm.uploadloading = false
+					vm.coverLoading = false
 				})
 				.catch((err) => {
 					console.log(err)
-					vm.uploadloading = false
+					vm.coverLoading = false
 				})
 		},
 		openCoverUpload() {
@@ -574,6 +675,13 @@ export default {
 		},
 		async save() {
 			let vm = this
+
+			this.pin_verification = false
+			if (this.$auth.user.data.pin != this.pin_code) {
+				alert("Pin Salah")
+				return false
+			}
+
 			var params = {
 				first_name: this.data.first_name,
 				username: this.data.username,
@@ -634,5 +742,14 @@ export default {
 }
 .grayscale {
 	filter: grayscale(1);
+}
+.v-card.white-border {
+	border: 1px solid #fff !important;
+}
+.krem--text {
+	color: #ffaa8c !important;
+	input {
+		color: #ffaa8c !important;
+	}
 }
 </style>
