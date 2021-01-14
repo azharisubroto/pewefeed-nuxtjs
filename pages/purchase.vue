@@ -501,7 +501,7 @@
 											<v-list-item-content>
 												Ketik SMS dengan format
 												<div class="text-thirdary">
-													PW3
+													PW5
 												</div>
 											</v-list-item-content>
 										</v-list-item>
