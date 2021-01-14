@@ -50,7 +50,7 @@
 									text-transform: initial !important;
 									letter-spacing: 0;
 								"
-								>Download Invoice</span
+								>Download Tanda Terima</span
 							></a
 						>
 					</div>
@@ -96,7 +96,7 @@ export default {
 			}
 		},
 		downloadUrl(order_id) {
-			return "https://payment.playworld.id/api/midtrans/print/" + order_id
+			return "https://payment.playworld.id/invoice" + order_id
 		},
 	},
 	mounted() {
