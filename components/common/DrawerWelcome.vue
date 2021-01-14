@@ -45,7 +45,9 @@
 						block
 						class="font-weight-bold"
 						@click="
-							$router.push('/member/histori_penggunaan_poin')
+							$router.push(
+								'/member/histori_penggunaan_poin?tab=1'
+							)
 							closeIt()
 						"
 						>Klaim Poin</v-btn
