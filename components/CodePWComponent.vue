@@ -369,7 +369,7 @@ export default {
 					message: "Kode VIP Valid<br>Keanggotaan VIP Anda Bertambah",
 					button: {
 						text: "Lihat Akun Saya",
-						to: "/?tab=3",
+						to: "/?tab=4",
 					},
 				})
 			} catch (err) {
@@ -385,7 +385,7 @@ export default {
 		// }
 	},
 	mounted() {
-		this.fetchContent()
+		//this.fetchContent()
 	},
 }
 </script>
