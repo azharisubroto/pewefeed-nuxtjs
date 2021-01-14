@@ -43,7 +43,7 @@
 						:key="item.name"
 						:to="item.to"
 					>
-						<span style="font-size: 8px" v-html="item.name"></span>
+						<span style="font-size: 11px" v-html="item.name"></span>
 					</v-btn>
 				</v-bottom-navigation>
 			</v-main>
@@ -58,7 +58,7 @@ export default {
 		return {
 			tabItems: [
 				{
-					name: "Paket VIP",
+					name: "Paket<br>VIP",
 					to: "/purchase",
 				},
 				{
