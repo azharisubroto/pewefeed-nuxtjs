@@ -141,6 +141,10 @@ export default {
 	mounted() {
 		this.fetchUserdata()
 		this.position = "all"
+
+		if (this.$router.currentRoute.query["tab"]) {
+			this.tab_state = parseInt(this.$router.currentRoute.query["tab"])
+		}
 	},
 }
 </script>
