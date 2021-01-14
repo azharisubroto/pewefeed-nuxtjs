@@ -18,7 +18,7 @@
 						<template v-if="list && list.length">
 							<v-card
 								v-for="item in list"
-								:key="item.id"
+								:key="type + '-' + item.id"
 								:elevation="2"
 								class="mb-4 bdr"
 								color="#303030"
@@ -32,14 +32,18 @@
 							</v-card>
 						</template>
 
-						<!-- PAGINATION -->
-						<v-pagination
-							v-if="totalpage > 1"
-							v-model="page"
-							:length="totalpage"
-							color="orange"
-							@input="next"
-						></v-pagination>
+						<div class="text-center">
+							<v-btn
+								v-if="page < totalpage"
+								depressed
+								medium
+								color="#ff4200"
+								dark
+								@click="fetchWait(type, parseInt(page + 1), 10)"
+							>
+								Show More
+							</v-btn>
+						</div>
 						<br />
 						<br />
 						<br />
@@ -860,15 +864,6 @@ export default {
 				console.log(error)
 				this.loading = false
 			}
-		},
-		next(num) {
-			this.loading = true
-			this.fetchWait(this.type, num, 10)
-			window.scrollTo({
-				top: 0,
-				left: 0,
-				behavior: "smooth",
-			})
 		},
 		async claimDigital() {
 			if (

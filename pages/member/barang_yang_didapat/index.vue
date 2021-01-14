@@ -51,6 +51,7 @@
 			color="white"
 			background-color="#2c2c2d"
 			v-model="tab"
+			style="z-index: 99"
 		>
 			<v-btn v-for="item in tabItems" :key="item">
 				<span
