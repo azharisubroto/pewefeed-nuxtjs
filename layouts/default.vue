@@ -185,7 +185,8 @@
 				</v-toolbar-title>
 				<div class="flex-grow-1"></div>
 
-				<div
+				<button
+					style="border: 0; display: inline-block"
 					@click="
 						$router.push('/')
 						clearStorage()
@@ -194,7 +195,7 @@
 					v-if="$route.name != 'index'"
 				>
 					<img src="/img/peweicon.svg" width="20" />
-				</div>
+				</button>
 
 				<div v-else @click="opensearch = true" class="pr-1">
 					<v-icon>mdi-magnify</v-icon>

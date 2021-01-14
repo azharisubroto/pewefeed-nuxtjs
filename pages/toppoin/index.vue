@@ -585,8 +585,7 @@ export default {
 			myrank: [],
 			topthree: null,
 			hadiahPeriode: null,
-			shareText:
-				"Yuk join di TOP POIN pewefeed.com kejar hadiah jutaan rupiah dengan klik pewefeed.com",
+			shareText: "",
 			bottomloading: false,
 			whereisme: "",
 			currentPoint: 0,
@@ -656,6 +655,7 @@ export default {
 			}
 		},
 		async fetchTopThree() {
+			let vm = this
 			try {
 				const res = await TopPoin.getTopThree()
 				this.topthree = res.data.current
@@ -663,12 +663,12 @@ export default {
 					var loop = res.data.current
 					loop.forEach((el) => {
 						if (el.active == true) {
-							this.currentPoint = el.poin.grand_total
+							vm.currentPoint = el.poin.grand_total
 							var currentRank = el.customer.ranked
-							this.shareText =
+							vm.shareText =
 								"Saya peringkat ke-" +
 								currentRank +
-								" di TOP POIN pewefeed.com untuk mengejar hadiah jutaan rupiah. Untuk ikutan klik pewefeed.com"
+								"  di Top Poin pewefeed.com untuk kejar pulsa ratusan ribu rupiah. Yuk join sekarang juga."
 							return false
 						}
 					})
@@ -714,7 +714,7 @@ export default {
 		this.fetchTopThree()
 		this.fetchHadiahPeriode()
 		if (localStorage.getItem("tptab")) {
-			this.tptab = parseInt(localStorage.getItem("tptab"))
+			//this.tptab = parseInt(localStorage.getItem("tptab"))
 		}
 	},
 }
