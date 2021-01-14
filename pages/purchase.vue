@@ -415,6 +415,9 @@
 															item.label
 														}}</strong
 													>
+													<div>
+														{{ item.desc }}
+													</div>
 													<div class="text-10">
 														{{
 															!prechoice.payment.includes(
@@ -762,10 +765,12 @@ export default {
 			ewalletspayment: [
 				{
 					label: "DANA",
+					desc: "Menggunakan XENDIT payment gateway",
 					key: "dana",
 				},
 				{
 					label: "LINKAJA",
+					desc: "Menggunakan XENDIT payment gateway",
 					key: "linkaja",
 				},
 			],
