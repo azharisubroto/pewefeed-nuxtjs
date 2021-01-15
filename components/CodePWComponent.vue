@@ -131,7 +131,7 @@
 		<!-- PIN -->
 		<v-bottom-sheet dark width="100%" v-model="pin_verification">
 			<v-sheet height="100%">
-				<v-toolbar :elevation="1" style="border-top: 2px solid #fff">
+				<v-toolbar :elevation="1">
 					<!-- Arrow -->
 					<v-btn
 						dark
@@ -177,11 +177,7 @@
 
 							<div class="mt-2">
 								Belum Punya PIN?
-								<v-btn
-									to="/member/pengaturan/pin"
-									text
-									color="#ff4200"
-									class="py-0"
+								<v-btn text color="#ff4200" class="py-0"
 									>Klik Disini</v-btn
 								>
 							</div>
@@ -346,7 +342,10 @@ export default {
 			}
 			// send the form
 			let vm = this
-			const sendform = this.formdata
+			const sendform = {
+				code: this.formdata.code,
+				msisdn: this.$auth.user.data.msisdn,
+			}
 			this.setloading()
 			vm.responsemessage = ""
 			try {
@@ -369,7 +368,7 @@ export default {
 					message: "Kode VIP Valid<br>Keanggotaan VIP Anda Bertambah",
 					button: {
 						text: "Lihat Akun Saya",
-						to: "/?tab=4",
+						to: "/?tab=3",
 					},
 				})
 			} catch (err) {
@@ -385,7 +384,7 @@ export default {
 		// }
 	},
 	mounted() {
-		//this.fetchContent()
+		this.fetchContent()
 	},
 }
 </script>
