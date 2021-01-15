@@ -78,7 +78,7 @@ export default {
 	},
 	methods: {
 		historyBack() {
-			this.$router.back()
+			window.history.back()
 		},
 	},
 }

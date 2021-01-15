@@ -36,83 +36,8 @@
 		<v-card :elevation="0">
 			<!-- Step -->
 			<v-stepper v-model="e1">
-				<v-stepper-header style="display: none !important">
-					<v-stepper-step
-						:complete="e1 > 1"
-						step="1"
-					></v-stepper-step>
-
-					<div class="devider-small"></div>
-
-					<v-stepper-step
-						:complete="e1 > 2"
-						step="2"
-					></v-stepper-step>
-
-					<div class="devider-small"></div>
-
-					<v-stepper-step step="3"></v-stepper-step>
-				</v-stepper-header>
-
 				<v-stepper-items>
-					<v-stepper-content step="1" class="px-0 pt-0">
-						<div
-							v-if="userdata.status_expired == 1"
-							style="background: #4dae50; color: #fff"
-							class="text-center px-5 py-10"
-						>
-							<strong
-								>VIP Active Until {{ userdata.expire }}</strong
-							>
-						</div>
-						<div
-							v-else
-							style="background: #ea3e3e; color: #fff"
-							class="text-center px-5 py-10"
-						>
-							<strong
-								>VIP Inactive Until
-								{{ userdata.expire }}</strong
-							>
-						</div>
-
-						<v-list-item-group color="dark">
-							<v-list-item class="py-3" @click="e1 = 2">
-								<v-list-item-content>
-									<v-list-item-title>
-										<span>Purchase KEANGGOTAAN VIP</span>
-									</v-list-item-title>
-								</v-list-item-content>
-								<v-list-item-icon>
-									<v-icon>mdi-chevron-right</v-icon>
-								</v-list-item-icon>
-							</v-list-item>
-							<div class="devider-small"></div>
-
-							<template v-for="(item, i) in purchasemenu">
-								<v-list-item
-									class="py-3"
-									:key="'purchase-menu' + i"
-									:to="item.to"
-								>
-									<v-list-item-content>
-										<v-list-item-title>
-											<span>{{ item.title }}</span>
-										</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-icon>mdi-chevron-right</v-icon>
-									</v-list-item-icon>
-								</v-list-item>
-								<div
-									class="devider-small"
-									:key="'purchase-menu-devider' + i"
-								></div>
-							</template>
-						</v-list-item-group>
-					</v-stepper-content>
-
-					<v-stepper-content step="2" class="px-0">
+					<v-stepper-content step="1" class="px-0">
 						<v-card
 							outlined
 							class="mx-3 my-3 text-16"
@@ -135,7 +60,7 @@
 										class="py-3"
 										:key="'purchase-menu' + i"
 										@click="
-											e1 = 3
+											e1 = 2
 											setPrechoices(item)
 										"
 									>
@@ -190,7 +115,7 @@
 										class="py-3"
 										:key="'purchase-menu-asdfd' + i"
 										@click="
-											e1 = 3
+											e1 = 2
 											setPrechoices(item)
 										"
 									>
@@ -226,7 +151,7 @@
 						</v-card>
 					</v-stepper-content>
 
-					<v-stepper-content step="3" class="px-0 pt-0">
+					<v-stepper-content step="2" class="px-0 pt-0">
 						<v-container>
 							<v-card
 								outlined
@@ -254,7 +179,7 @@
 												class="py-3"
 												:key="'purchase-menu' + i"
 												@click="
-													e1 = 4
+													e1 = 3
 													guessVoucher(item)
 													getWapType = item.key
 												"
@@ -415,6 +340,9 @@
 															item.label
 														}}</strong
 													>
+													<div>
+														{{ item.desc }}
+													</div>
 													<div class="text-10">
 														{{
 															!prechoice.payment.includes(
@@ -443,7 +371,7 @@
 					</v-stepper-content>
 
 					<!-- SMS CHECKPOINT -->
-					<v-stepper-content step="4" class="px-0 pt-0">
+					<v-stepper-content step="3" class="px-0 pt-0">
 						<v-container
 							style="
 								position: fixed;
@@ -498,7 +426,7 @@
 											<v-list-item-content>
 												Ketik SMS dengan format
 												<div class="text-thirdary">
-													PW3
+													PW5
 												</div>
 											</v-list-item-content>
 										</v-list-item>
@@ -625,7 +553,7 @@ export default {
 	data() {
 		return {
 			appBarLabel: null,
-			e1: 2,
+			e1: 1,
 			dialog: false,
 			itemprice: null,
 			itemname: null,
@@ -762,10 +690,12 @@ export default {
 			ewalletspayment: [
 				{
 					label: "DANA",
+					desc: "Menggunakan XENDIT payment gateway",
 					key: "dana",
 				},
 				{
 					label: "LINKAJA",
+					desc: "Menggunakan XENDIT payment gateway",
 					key: "linkaja",
 				},
 			],
@@ -978,7 +908,7 @@ export default {
 				this.itemhari = hari
 				this.itemvoucher = voucherId
 				this.current = currentstep
-				this.e1 = 4
+				this.e1 = 3
 			}
 		},
 
