@@ -53,7 +53,7 @@
 					:key="item.name"
 					:to="item.to"
 				>
-					<span style="font-size: 10px" v-html="item.name"></span>
+					<span class="text-11" v-html="item.name"></span>
 				</v-btn>
 			</v-bottom-navigation>
 
@@ -77,11 +77,11 @@ export default {
 					to: "/member/pengaturan/profil",
 				},
 				{
-					name: "Tujuan Pengiriman<br>Rewards<br>Digital",
+					name: "Tujuan Kirim<br>Rewards Digital",
 					to: "/member/pengaturan/daftar-nomor",
 				},
 				{
-					name: "Tujuan Pengiriman<br>Rewards<br>Fisik",
+					name: "Tujuan Kirim<br>Rewards Fisik",
 					to: "/member/pengaturan/daftar-alamat",
 				},
 				{

@@ -255,7 +255,7 @@
 										<v-list-item
 											class="py-3"
 											:key="'purchase-menu' + i"
-											@click="guessBank(item.label)"
+											@click="guessBank(item.value)"
 											:disabled="
 												!prechoice.payment.includes(
 													'bank'
@@ -764,9 +764,9 @@ export default {
 				return (this.prechoice.voucher_id = item.key == "xl" ? 17 : 13)
 			}
 		},
-		async guessBank(bank) {
+		async guessBank(provider) {
 			this.ewalletOverlay = true
-			if (bank == "BCA") {
+			if (provider == "midtrans") {
 				const sendvoucher = {
 					voucher_id: this.prechoice.voucher_id,
 				}
@@ -834,7 +834,7 @@ export default {
 		/* Change Icon Arrow Prev Step */
 		prev() {
 			if (this.e1 == 1) {
-				this.$router.push("/")
+				this.$router.push("/?tab=4")
 				//console.log(this.e1);
 			}
 			if (this.e1 != 0) {

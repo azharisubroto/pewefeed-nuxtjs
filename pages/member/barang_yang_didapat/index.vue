@@ -54,19 +54,19 @@
 			style="z-index: 99"
 		>
 			<v-btn v-for="item in tabItems" :key="item">
-				<span
+				<span class="text-11"
 					>{{ item }}
 					<br />
-					<template v-if="item == 'Menunggu'">
+					<template class="text-11" v-if="item == 'Menunggu'">
 						( {{ wait }} )
 					</template>
-					<template v-if="item == 'Diproses'">
+					<template class="text-11" v-if="item == 'Diproses'">
 						( {{ process }} )
 					</template>
-					<template v-if="item == 'Dikirim'">
+					<template class="text-11" v-if="item == 'Dikirim'">
 						( {{ confirmation }} )
 					</template>
-					<template v-if="item == 'Diterima'">
+					<template class="text-11" v-if="item == 'Diterima'">
 						( {{ finish }} )
 					</template>
 				</span>

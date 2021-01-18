@@ -62,15 +62,15 @@ export default {
 					to: "/purchase",
 				},
 				{
-					name: "Transaksi via<br>XENDIT/MIDTRANS",
+					name: "Transaksi<br>Via BANK",
 					to: "/member/status_transfer",
 				},
 				{
-					name: "Transaksi via<br>SMS",
+					name: "Transaksi<br>Via SMS",
 					to: "/member/status_transfer_sms",
 				},
 				{
-					name: "Aktivasi<br>32 Digit Kode VIP",
+					name: "Aktivasi<br>Kode VIP",
 					to: "/c/aktivasi",
 				},
 			],

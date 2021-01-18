@@ -203,70 +203,6 @@
 									filled
 									v-model="data.username"
 								></v-text-field>
-								<div
-									class="mb-2 d-flex justify-space-between align-center flex-wrap"
-								>
-									<div>Nomor Ponsel</div>
-									<!-- <v-btn
-                    v-if="!usermentah.verified"
-                    to="/member/otp"
-                    class="mt-2 text-10"
-                    color="red"
-                    dark
-                    small
-                    >Verify phone number (+50 POINT)</v-btn> -->
-								</div>
-								<v-text-field
-									solo
-									single-line
-									placeholder="Phone"
-									filled
-									v-model="data.no_telp"
-								>
-									<template v-slot:append>
-										<img
-											width="16"
-											height="16"
-											src="/img/icons/checkbadge.svg"
-											alt=""
-											style="vertical-align: middle"
-											class="mr-2"
-											:class="[
-												!usermentah.verified &&
-													'grayscale',
-											]"
-										/>
-
-										<span
-											class="text-12 d-inline-block"
-											:class="[
-												usermentah.verified
-													? 'deep-orange--text'
-													: 'grey--text gray--text',
-											]"
-											style="line-height: 1.4"
-										>
-											{{
-												usermentah.verified
-													? "Verified"
-													: "Not Verified"
-											}}
-										</span>
-									</template>
-								</v-text-field>
-								<div class="mb-2">
-									Email
-									<span class="red--text">(Wajib diisi)</span>
-								</div>
-								<v-text-field
-									solo
-									single-line
-									placeholder="Email"
-									filled
-									readonly
-									disabled
-									v-model="data.email"
-								></v-text-field>
 							</v-col>
 						</v-row>
 					</v-card>
@@ -340,6 +276,9 @@
 									block
 									color="#ff4200"
 									height="55"
+									:disabled="
+										$auth.user.verified ? true : false
+									"
 								>
 									<span class="white--text">Verifikasi</span>
 								</v-btn>
@@ -373,12 +312,6 @@
 								<span
 									class="text-uppercase mr-2 font-weight-bold"
 									>{{ social }}</span
-								>
-								<span class="grey--text text-14"
-									><v-icon color="#969696" size="16"
-										>mdi-check-decagram</v-icon
-									>
-									Not Verified</span
 								>
 							</div>
 							<v-row no-gutters :key="'form-' + social">

@@ -94,7 +94,7 @@
 										></div>
 										<v-list-item
 											class="py-3"
-											@click="purchaseLink(item.to)"
+											@click="purchaseLink(item.merchant)"
 											:key="'list-' + i"
 										>
 											<v-list-item-content
@@ -180,7 +180,7 @@
 										{{ item.title }}
 									</v-expansion-panel-header>
 									<v-expansion-panel-content>
-										{{ item.content }}
+										<p v-html="item.content"></p>
 									</v-expansion-panel-content>
 								</v-expansion-panel>
 							</v-expansion-panels>
@@ -234,6 +234,7 @@ import ProductCard from "@/components/ProductCard"
 import PurchaseService from "@/services/PurchaseService"
 import UserService from "@/services/UserService"
 import IframePreview from "@/components/modal/IframePreview"
+import HelpService from "@/services/HelpService"
 export default {
 	name: "PurcahsePage",
 	layout: "blank",
@@ -247,18 +248,7 @@ export default {
 			tab_state: 0,
 			tabItems: ["Paket Pembelian", "Informasi"],
 			info_state: 0,
-			informasi: [
-				{
-					title: "Tentang Batas Poin VIP Harian",
-					content:
-						'Setelah ia mencari maknanya di di literatur klasik, ia mendapatkan sebuah sumber yang tidak bisa diragukan. Lorem Ipsum berasal dari bagian 1.10.32 dan 1.10.33 dari naskah "de Finibus Bonorum et Malorum" (Sisi Ekstrim dari Kebaikan dan Kejahatan) karya Cicero, yang ditulis pada tahun 45 sebelum masehi.',
-				},
-				{
-					title: "Metode Pembelian",
-					content:
-						'Setelah ia mencari maknanya di di literatur klasik, ia mendapatkan sebuah sumber yang tidak bisa diragukan. Lorem Ipsum berasal dari bagian 1.10.32 dan 1.10.33 dari naskah "de Finibus Bonorum et Malorum" (Sisi Ekstrim dari Kebaikan dan Kejahatan) karya Cicero, yang ditulis pada tahun 45 sebelum masehi.',
-				},
-			],
+			informasi: [],
 			step: 1,
 			ewalletOverlay: false,
 			merchant: null,
@@ -288,7 +278,7 @@ export default {
 			menu: [
 				{
 					title: "Bank BRI / BNI / MANDIRI / PERMATA",
-					to: "bca",
+					to: "bri",
 					merchant: "xendit",
 				},
 				{
@@ -313,11 +303,20 @@ export default {
 	},
 	mounted() {
 		this.setProfile()
+		this.fetchHelp()
 	},
 	methods: {
 		fetchUserdata() {
 			this.setProfile()
 			this.isLoggedIn = true
+		},
+		async fetchHelp() {
+			try {
+				const res = await HelpService.getDailyLimit()
+				this.informasi = res.data.data
+			} catch (error) {
+				console.log(error)
+			}
 		},
 		setProfile() {
 			let vm = this
@@ -357,7 +356,7 @@ export default {
 		},
 		async purchaseLink(merchant) {
 			this.ewalletOverlay = true
-			if (merchant != "bca") {
+			if (merchant == "xendit") {
 				const sendvoucher = {
 					voucher_id: 204,
 					email: this.data.email,
@@ -375,7 +374,7 @@ export default {
 					console.log(error)
 					this.ewalletOverlay = false
 				}
-			} else if (merchant == "bca") {
+			} else {
 				const sendvoucher = {
 					voucher_id: 204,
 				}

@@ -74,7 +74,7 @@
 										{{ item.title }}
 									</v-expansion-panel-header>
 									<v-expansion-panel-content>
-										{{ item.content }}
+										<p v-html="item.content"></p>
 									</v-expansion-panel-content>
 								</v-expansion-panel>
 							</v-expansion-panels>
@@ -142,6 +142,8 @@
 
 <script>
 import ProductCard from "@/components/ProductCard"
+import StaticService from "@/services/HelpService"
+import HelpService from "@/services/HelpService"
 export default {
 	middleware: "auth",
 	layout: "blank",
@@ -244,6 +246,14 @@ export default {
 		percentage(partialValue, totalValue) {
 			return (100 * partialValue) / totalValue
 		},
+		async fetchHelp() {
+			try {
+				const res = await HelpService.getDailyLimit()
+				this.informasi = res.data.data
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		setProfile() {
 			let vm = this
 			this.$auth.fetchUser().then(() => {
@@ -286,6 +296,7 @@ export default {
 	},
 	mounted() {
 		this.setProfile()
+		this.fetchHelp()
 	},
 }
 </script>

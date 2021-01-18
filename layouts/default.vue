@@ -377,6 +377,12 @@
 
 		<!-- === DAILY POINT MODAL === -->
 		<DrawerWelcome
+			v-if="
+				(typeof $router.currentRoute.query['tab'] === 'undefined' &&
+					$route.name == 'index') ||
+				(typeof $router.currentRoute.query['tab'] === 'undefined' &&
+					$route.name == 'cat-subcat-articleslug')
+			"
 			:dialogVisible="dailyPointModalVisible"
 			@close="myDialogClose"
 		/>

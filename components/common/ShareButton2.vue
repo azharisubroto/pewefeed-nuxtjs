@@ -76,7 +76,6 @@
 										v-if="tipe == 'Sing'"
 										class="subtitle-1"
 									>
-										{{ shareSingTitle }}
 										<template v-if="shareSingTitle">
 											{{ share_SingTitle }}
 										</template>
