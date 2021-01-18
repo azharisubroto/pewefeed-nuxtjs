@@ -1109,7 +1109,7 @@ export default {
 					//   window.open(
 					//     "http://www.gudangapp.com/Wap_action.jsp?content=" +
 					//       this.wap +
-					//       "+WPW&dest=97789&&success=http://playworld.id/rand"
+					//       "+WPW&dest=97789&&success=http://pewefeed.com/rand"
 					//   );
 				}
 			} else {

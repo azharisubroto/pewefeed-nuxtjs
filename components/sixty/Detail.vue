@@ -786,7 +786,7 @@ export default {
 				articles.forEach((element) => {
 					if (i == 6) return false
 					var link = element.link
-					link = link.replace("http://m.playworld.id", "")
+					link = link.replace("http://m.pewefeed.com", "")
 
 					// //console.log(element)
 					var obj = {
@@ -817,7 +817,7 @@ export default {
 				articles.forEach((element) => {
 					if (i == 6) return false
 					var link = element.link
-					link = link.replace("http://m.playworld.id", "")
+					link = link.replace("http://m.pewefeed.com", "")
 					var obj = {
 						id: element.id,
 						image: {
