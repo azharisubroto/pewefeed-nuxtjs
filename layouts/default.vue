@@ -205,6 +205,11 @@
 			<!-- CONTENT -->
 			<v-main class="maincontent" :class="$route.name">
 				<div
+					:style="
+						wowtab != 4 && wowtab != 1
+							? 'padding-top: 56px'
+							: 'padding-top: 0px !important'
+					"
 					class="base-app"
 					:class="[wowtab == 0 ? 'home-show' : 'home-hide']"
 				>

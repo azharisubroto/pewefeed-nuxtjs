@@ -396,7 +396,7 @@ export default {
 				//console.log(vm.$refs.flickity2.selectedIndex());
 				let index = vm.$refs.flickity2.selectedIndex()
 				vm.activebg = document.getElementById("bg-" + index).value
-				console.log(vm.activebg)
+				// console.log(vm.activebg)
 			})
 		}, 3000)
 	},

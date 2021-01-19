@@ -91,7 +91,7 @@ export default {
 			this.loading = true
 			try {
 				const res = await UserService.fetchStatusSms(n)
-				console.log(res.data.data)
+				// console.log(res.data.data)
 				this.smsstatuses = res.data.data
 				this.pagination = res.data.paginate
 				this.loading = true

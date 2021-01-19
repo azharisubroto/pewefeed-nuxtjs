@@ -213,7 +213,7 @@ export default {
 		}
 
 		this.$bus.$on("toggleupload", (userid) => {
-			console.log(userid)
+			// console.log(userid)
 			let vm = this
 			if (userid) {
 				vm.uploadVisible = true

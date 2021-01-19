@@ -57,7 +57,11 @@
 						height="30"
 						class="px-0"
 						min-width="30"
-						@click="deleteAddress(item.id)"
+						@click="
+							pin_verification = !pin_verification
+							pin_action = 'delete'
+							currentId = item.id
+						"
 					>
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
@@ -286,7 +290,9 @@
 								@click="
 									pin_action == 'add'
 										? addAddress()
-										: editAddress(currentId)
+										: pin_action == 'edit'
+										? editAddress(currentId)
+										: deleteAddress(currentId)
 								"
 								color="#ff4200"
 								medium

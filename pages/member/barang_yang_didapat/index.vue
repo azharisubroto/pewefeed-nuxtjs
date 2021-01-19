@@ -138,7 +138,7 @@ export default {
 		this.fetchRewards("confirmation", 1, 1)
 		this.fetchRewards("finish", 1, 1)
 		this.$bus.$on("rewardtabclick", (tab) => {
-			console.log(tab)
+			// console.log(tab)
 			_self.tab = tab
 		})
 	},

@@ -72,7 +72,7 @@ export default {
 
 					let whereisme = loop.findIndex((x) => x.active === true)
 					this.whereisme = parseInt(whereisme + 1)
-					console.log(whereisme)
+					// console.log(whereisme)
 				}
 			} catch (error) {
 				console.log(error)

@@ -638,16 +638,16 @@
 								<img :src="pass_item_2.track.image" alt="" />
 							</div>
 						</template>
+					</template>
 
-						<template v-if="confirmed">
-							<v-img
-								src="/img/icons/success.svg"
-								max-width="45"
-								class="mx-auto mb-3"
-							></v-img>
+					<template v-if="type == 'confirmation' && confirmed">
+						<v-img
+							src="/img/icons/success.svg"
+							max-width="45"
+							class="mx-auto mb-3"
+						></v-img>
 
-							Terimakasih atas konfirmasi Anda
-						</template>
+						Terimakasih atas konfirmasi Anda
 					</template>
 
 					<!-- BUTTON CEK REWARDS -->
@@ -780,12 +780,12 @@ export default {
 			pin_verification: false,
 			pin_code: "",
 			nextAction: "",
-			confirmed: true,
+			confirmed: false,
 		}
 	},
 	methods: {
 		afterPin(nextAction) {
-			if (nextAction == "clainDigital") {
+			if (nextAction == "claimDigital") {
 				this.claimDigital()
 			} else if (nextAction == "claimFisik") {
 				this.claimFisik()

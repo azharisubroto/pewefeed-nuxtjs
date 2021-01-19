@@ -34,7 +34,7 @@
 		</v-app-bar>
 
 		<v-main>
-			<div class="pb-10 mb-10">
+			<div style="padding-top: 56px" class="pb-10 mb-10">
 				<nuxt keep-alive />
 			</div>
 

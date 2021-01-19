@@ -171,7 +171,7 @@ export default {
 				}
 				const { data } = await UserService.addPin(params)
 				const message = data.message
-				console.log(message)
+				// console.log(message)
 				if (message == "success") {
 					this.$store.commit("SET_PROFILE_DIALOG", true)
 					this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {
@@ -208,7 +208,7 @@ export default {
 
 				const { data } = await UserService.updatePin(params)
 				const message = data.message
-				console.log(message)
+				// console.log(message)
 				if (message == "success") {
 					this.$store.commit("SET_PROFILE_DIALOG", true)
 					this.$store.commit("SET_PROFILE_DIALOG_CONTENT", {

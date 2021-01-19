@@ -27,7 +27,7 @@
 			</v-app-bar>
 
 			<v-main>
-				<nuxt class="mb-10 pb-10"></nuxt>
+				<nuxt style="padding-top: 56px" class="mb-10 pb-10"></nuxt>
 				<!-- NAVIGATION -->
 				<v-bottom-navigation
 					fixed

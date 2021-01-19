@@ -67,7 +67,11 @@
 							height="30"
 							class="px-0"
 							min-width="30"
-							@click="deleteNumber(contact.id)"
+							@click="
+								pin_verification = !pin_verification
+								pin_action = 'delete'
+								currentId = contact.id
+							"
 						>
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
@@ -246,7 +250,9 @@
 								@click="
 									pin_action == 'add'
 										? addNumber()
-										: editNumber(currentId)
+										: pi_action == 'edit'
+										? editNumber(currentId)
+										: deleteNumber(currentId)
 									pin_code = ''
 								"
 								color="#ff4200"
@@ -311,6 +317,7 @@ export default {
 			pin_action: "",
 			isEdit: false,
 			mounted: false,
+			currentId: null,
 		}
 	},
 	watch: {

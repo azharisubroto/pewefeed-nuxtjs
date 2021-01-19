@@ -12,7 +12,7 @@
 		</template>
 		<template v-if="periode != null && isloading == false">
 			<!-- BANNER -->
-			<template v-if="tptab == 0 || tptab == 2">
+			<template v-if="isPrize || isWin">
 				<BannerStatic slug="article-detail" />
 				<v-img :src="periode.banner.desktop" class="mb-5"></v-img>
 				<div class="d-none pb-7 text-center">
@@ -37,7 +37,7 @@
 			</template>
 
 			<!-- PRIZES TAB -->
-			<template v-if="tptab == 0">
+			<template v-if="isPrize">
 				<!-- PERINGKAT SAYYAAA -->
 				<h4 v-if="topthree && currentPoint > 0" class="tp-head">
 					Peringkat Saya
@@ -257,7 +257,7 @@
 			</template>
 
 			<!-- RANKING TAB -->
-			<template v-if="tptab == 1">
+			<template v-if="isRank">
 				<v-container class="pb-0">
 					<v-alert color="#0057FF" prominent>
 						<template v-slot:prepend>
@@ -331,7 +331,7 @@
 			</template>
 
 			<!-- WINNERS TAB -->
-			<template v-if="tptab == 2">
+			<template v-if="isWin">
 				<div v-if="winners != null">
 					<div class="d-none pb-4 text-center">
 						Hadiah TOP POIN Periode
@@ -411,7 +411,7 @@
 			</template>
 
 			<!-- HOW TO TAB -->
-			<template v-if="tptab == 3">
+			<template v-if="isHow">
 				<section class="toppoin-acc" v-if="periode.howto">
 					<v-expansion-panels
 						v-for="(item, index) in periode.howto"
@@ -453,7 +453,14 @@
 			class="pwmenubottom"
 		>
 			<!-- v-if="$route.name != 'purchase' && $route.name != 'cat-subcat-articleslug' && $route.name != 'cat' && $route.name != 'tukarpoin'" -->
-			<v-btn>
+			<v-btn
+				@click="
+					isPrize = true
+					isRank = false
+					isWin = false
+					isHow = false
+				"
+			>
 				<span class="text-10">Peringkat<br />Peserta</span>
 				<img
 					:src="
@@ -466,7 +473,14 @@
 					height="20"
 				/>
 			</v-btn>
-			<v-btn>
+			<v-btn
+				@click="
+					isPrize = false
+					isRank = true
+					isWin = false
+					isHow = false
+				"
+			>
 				<span class="text-10">Hadiah<br />Periode Ini</span>
 				<img
 					:src="
@@ -479,7 +493,14 @@
 					height="20"
 				/>
 			</v-btn>
-			<v-btn>
+			<v-btn
+				@click="
+					isPrize = false
+					isRank = false
+					isWin = true
+					isHow = false
+				"
+			>
 				<span class="text-10">Histori<br />Pemenang</span>
 				<img
 					:src="
@@ -492,7 +513,14 @@
 					height="20"
 				/>
 			</v-btn>
-			<v-btn>
+			<v-btn
+				@click="
+					isPrize = false
+					isRank = false
+					isWin = false
+					isHow = true
+				"
+			>
 				<span class="text-10">Info & Cara<br />Bermain</span>
 				<img
 					src="/img/tukarpoin/howto-orange.png"
@@ -559,14 +587,13 @@ export default {
 		BannerStatic,
 		TopPointMe,
 	},
-	watch: {
-		tptab: function (newVal, oldVal) {
-			localStorage.setItem("tptab", this.tptab)
-		},
-	},
 	data() {
 		return {
-			tptab: null,
+			tptab: 0,
+			isPrize: true,
+			isRank: false,
+			isWin: false,
+			isHow: false,
 			isloading: true,
 			masterdata: null,
 			periode: null,
@@ -675,7 +702,7 @@ export default {
 
 					let whereisme = loop.findIndex((x) => x.active === true)
 					this.whereisme = parseInt(whereisme + 1)
-					console.log(whereisme)
+					// console.log(whereisme)
 				}
 			} catch (error) {
 				console.log(error)
@@ -713,9 +740,6 @@ export default {
 		this.fetchWinners(1)
 		this.fetchTopThree()
 		this.fetchHadiahPeriode()
-		if (localStorage.getItem("tptab")) {
-			//this.tptab = parseInt(localStorage.getItem("tptab"))
-		}
 	},
 }
 </script>

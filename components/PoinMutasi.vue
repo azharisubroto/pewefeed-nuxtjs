@@ -175,7 +175,7 @@ export default {
 				const res = await UserService.mutasiPoin(n, fil)
 				setTimeout(() => {
 					const items = res.data.data
-					console.log(items)
+					// console.log(items)
 					if (res.data.data.length > 0) {
 						this.notFound = false
 					} else {

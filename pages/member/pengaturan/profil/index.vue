@@ -307,35 +307,77 @@
 					</v-card>
 
 					<v-card outlined dark class="pa-4 mb-4 white-border">
-						<template v-for="social in socmed">
-							<div class="mb-1" :key="'label-' + social">
-								<span
-									class="text-uppercase mr-2 font-weight-bold"
-									>{{ social }}</span
-								>
-							</div>
-							<v-row no-gutters :key="'form-' + social">
-								<v-col md="12" class="pr-4">
-									<v-text-field
-										dense
-										:placeholder="social"
-										outlined
-										background-color="#404040"
-									/>
-								</v-col>
-								<!-- <v-col md="3">
-									<v-btn
-										dark
-										depressed
-										block
-										color="#ff4200"
-										height="40"
-									>
-										Hubungkan
-									</v-btn>
-								</v-col> -->
-							</v-row>
-						</template>
+						<!-- Instagram -->
+						<div class="mb-1" :key="'label-instagram'">
+							<span class="text-uppercase mr-2 font-weight-bold"
+								>Akun Instagram</span
+							>
+						</div>
+						<v-row no-gutters :key="'form-instagram'">
+							<v-col md="12" class="pr-4">
+								<v-text-field
+									dense
+									placeholder="instagram"
+									outlined
+									background-color="#404040"
+									v-model="data.instagram"
+								/>
+							</v-col>
+						</v-row>
+
+						<!-- Facebook -->
+						<div class="mb-1" :key="'label-facebook'">
+							<span class="text-uppercase mr-2 font-weight-bold"
+								>Akun Facebook</span
+							>
+						</div>
+						<v-row no-gutters :key="'form-facebook'">
+							<v-col md="12" class="pr-4">
+								<v-text-field
+									dense
+									placeholder="facebook"
+									outlined
+									background-color="#404040"
+									v-model="data.facebook"
+								/>
+							</v-col>
+						</v-row>
+
+						<!-- Twitter -->
+						<div class="mb-1" :key="'label-twitter'">
+							<span class="text-uppercase mr-2 font-weight-bold"
+								>Akun Twitter</span
+							>
+						</div>
+						<v-row no-gutters :key="'form-twitter'">
+							<v-col md="12" class="pr-4">
+								<v-text-field
+									dense
+									placeholder="twitter"
+									outlined
+									background-color="#404040"
+									v-model="data.twitter"
+								/>
+							</v-col>
+						</v-row>
+
+						<!-- Tiktok -->
+						<div class="mb-1" :key="'label-tiktok'">
+							<span class="text-uppercase mr-2 font-weight-bold"
+								>Akun Tiktok</span
+							>
+						</div>
+						<v-row no-gutters :key="'form-tiktok'">
+							<v-col md="12" class="pr-4">
+								<v-text-field
+									dense
+									placeholder="tiktok"
+									outlined
+									background-color="#404040"
+									v-model="data.tiktok"
+								/>
+							</v-col>
+						</v-row>
 					</v-card>
 
 					<v-btn
@@ -454,6 +496,9 @@ export default {
 				msisdn: "",
 				expire: "",
 				instagram: "",
+				facebook: "",
+				twitter: "",
+				tiktok: "",
 				no_no_: "",
 			},
 			socmed: ["instagram", "facebook", "twitter", "tiktok"],
@@ -594,6 +639,9 @@ export default {
 					this.data.msisdn = res.data.data.msisdn
 					this.data.no_telp = res.data.data.no_telp
 					this.data.instagram = res.data.data.instagram
+					this.data.facebook = res.data.data.facebook
+					this.data.twitter = res.data.data.twitter
+					this.data.tiktok = res.data.data.tiktok
 					this.data.email = res.data.data.email
 					this.data.expire = res.data.data.expire
 					this.expire_date = this.data.expire
@@ -621,6 +669,9 @@ export default {
 				last_name: this.data.last_name,
 				no_telp: this.data.no_telp,
 				instagram: this.data.instagram,
+				facebook: this.data.facebook,
+				twitter: this.data.twitter,
+				tiktok: this.data.tiktok,
 				avatar: this.data.avatar,
 			}
 
