@@ -201,7 +201,6 @@ export default {
 
 				setTimeout(() => {
 					this.overlay = false
-					location.reload()
 				}, 1000)
 			} catch (error) {
 				this.overlay = false

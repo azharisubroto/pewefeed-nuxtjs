@@ -3,13 +3,14 @@
 		<v-sheet>
 			<v-app-bar
 				v-if="
-					wowtab != 4 &&
-					wowtab != 1 &&
-					$route.name != 'cat-subcat-articleslug' &&
-					$route.name != 'purchase' &&
-					$route.name != 'member-daily-limit' &&
-					$route.name != 'member-purchase-daily' &&
-					!$route.name.includes('sing')
+					(wowtab != 4 &&
+						wowtab != 1 &&
+						$route.name != 'cat-subcat-articleslug' &&
+						$route.name != 'purchase' &&
+						$route.name != 'member-daily-limit' &&
+						$route.name != 'member-purchase-daily' &&
+						!$route.name.includes('sing')) ||
+					$route.name == 'member-histori_penggunaan_poin'
 				"
 				dark
 				color="dark"
@@ -206,7 +207,8 @@
 			<v-main class="maincontent" :class="$route.name">
 				<div
 					:style="
-						wowtab != 4 && wowtab != 1
+						(wowtab != 4 && wowtab != 1) ||
+						$route.name == 'member-histori_penggunaan_poin'
 							? 'padding-top: 56px'
 							: 'padding-top: 0px !important'
 					"
@@ -867,9 +869,7 @@ export default {
 	created() {
 		//console.log(this.$router.currentRoute.query["tab"])
 		if (this.$router.currentRoute.query["tab"]) {
-			if (this.$route.name != "member-histori_penggunaan_poin") {
-				this.wowtab = parseInt(this.$router.currentRoute.query["tab"])
-			}
+			this.wowtab = parseInt(this.$router.currentRoute.query["tab"])
 		}
 	},
 	mounted() {
