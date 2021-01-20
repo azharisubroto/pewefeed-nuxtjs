@@ -867,7 +867,9 @@ export default {
 	created() {
 		//console.log(this.$router.currentRoute.query["tab"])
 		if (this.$router.currentRoute.query["tab"]) {
-			this.wowtab = parseInt(this.$router.currentRoute.query["tab"])
+			if (this.$route.name != "member-histori_penggunaan_poin") {
+				this.wowtab = parseInt(this.$router.currentRoute.query["tab"])
+			}
 		}
 	},
 	mounted() {
