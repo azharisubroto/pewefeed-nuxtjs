@@ -106,7 +106,10 @@
 									<div
 										class="d-flex align-center justify-space-between"
 									>
-										<div class="black--text text-12">
+										<div
+											style="font-size: 0.875rem"
+											class="black--text"
+										>
 											{{ item.name ? item.name : "" }}
 										</div>
 										<div>
@@ -122,20 +125,21 @@
 
 			<section style="background: #1c1c1c" class="white--text">
 				<v-container>
-					<v-card outlined color="#303030" style="border-color: #fff">
-						<v-card-title
-							primary-title
-							style="
-								background: #404040;
-								border-bottom: 1px solid #fff;
-							"
+					<h4 class="pw-title white--text mb-5 mt-3">
+						Informasi dasar yang perlu kamu ketahui
+					</h4>
+					<v-card
+						v-if="basic.length > 0"
+						outlined
+						color="#303030"
+						style="border-color: #fff"
+						class="mb-3"
+					>
+						<v-card-text
+							style="margin-top: -15px !important"
+							class="px-0 pb-0"
 						>
-							<h4 class="pw-title white--text text-14">
-								Informasi dasar yang perlu kamu ketahui
-							</h4>
-						</v-card-title>
-						<v-card-text class="px-0 pb-0">
-							<template v-if="basic.length > 0">
+							<template>
 								<v-card
 									style="border-bottom: 1px solid #fff"
 									tile
@@ -150,10 +154,14 @@
 										class="align-center d-flex"
 									>
 										<v-list-item-content>
-											<v-list-item-title class="mb-3">{{
-												item.name ? item.name : ""
-											}}</v-list-item-title>
 											<v-list-item-subtitle
+												class="mb-3 font-weight-bold white--text"
+												>{{
+													item.name ? item.name : ""
+												}}</v-list-item-subtitle
+											>
+											<v-list-item-subtitle
+												class="white--text bantuan-subcontent"
 												v-html="item.content"
 											></v-list-item-subtitle>
 										</v-list-item-content>
@@ -346,6 +354,9 @@ export default {
 }
 </script>
 <style lang="scss">
+.bantuan-subcontent p {
+	height: 5px !important;
+}
 .fill-height {
 	min-height: 100vh;
 }

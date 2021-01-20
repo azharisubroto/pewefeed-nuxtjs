@@ -606,10 +606,18 @@
 										{{ pass_item_2.created_at }}
 									</v-col>
 									<!-- Resi -->
-									<v-col cols="5" class="pt-1">
+									<v-col
+										v-if="pass_item_2.typeId == 1"
+										cols="5"
+										class="pt-1"
+									>
 										Nomor Resi
 									</v-col>
-									<v-col cols="7" class="pt-1">
+									<v-col
+										v-if="pass_item_2.typeId == 1"
+										cols="7"
+										class="pt-1"
+									>
 										{{ pass_item_2.delivery.nomor_resi }}
 										<v-btn
 											small
@@ -826,10 +834,14 @@ export default {
 				const res = await UserService.confirmReward(params)
 				// console.log(res)
 				if (res.status == 200) {
-					this.fetchRewards("confirmation", 1, 10, true)
-					this.postProcess = !this.postProcess
 					this.success = true
 					this.confirmed = true
+					this.fetchWait("confirmation", 1, 10, true)
+					this.postProcess = !this.postProcess
+
+					setTimeout(() => {
+						location.reload()
+					}, 1000)
 				}
 			} catch (error) {
 				console.log(error)
@@ -842,6 +854,8 @@ export default {
 				const res = await UserService.rewards(type, paged, limit)
 				if (res.data.data.length > 0) {
 					const items = res.data.data
+
+					console.log(items)
 
 					if (reset != true) {
 						items.forEach((el) => {

@@ -13,7 +13,10 @@
 							href="https://www.instagram.com/pewefeed"
 							target="_BLANK"
 						>
-							<div class="d-flex align-center text-12">
+							<div
+								style="font-size: 0.875rem"
+								class="d-flex align-center"
+							>
 								<v-icon class="mr-1">mdi-instagram</v-icon>
 								<div>pewefeed</div>
 							</div>
@@ -28,7 +31,10 @@
 							href="https://www.facebook.com/pewefeeds"
 							target="_BLANK"
 						>
-							<div class="d-flex align-center text-12">
+							<div
+								style="font-size: 0.875rem"
+								class="d-flex align-center"
+							>
 								<v-icon class="mr-1">mdi-facebook</v-icon>
 								<div>pewefeed</div>
 							</div>
@@ -43,7 +49,10 @@
 							target="_BLANK"
 							class="py-2 px-2"
 						>
-							<div class="d-flex align-center text-12">
+							<div
+								style="font-size: 0.875rem"
+								class="d-flex align-center"
+							>
 								<v-icon class="mr-1">mdi-twitter</v-icon>
 								<div>pewefeed</div>
 							</div>
@@ -58,7 +67,10 @@
 							href="https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw"
 							target="_BLANK"
 						>
-							<div class="d-flex align-center text-12">
+							<div
+								style="font-size: 0.875rem"
+								class="d-flex align-center"
+							>
 								<v-icon class="mr-1">mdi-youtube</v-icon>
 								<div>pewefeed</div>
 							</div>

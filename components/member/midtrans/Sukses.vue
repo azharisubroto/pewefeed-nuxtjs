@@ -96,7 +96,7 @@ export default {
 			}
 		},
 		downloadUrl(order_id) {
-			return "https://payment.pewefeed.com/invoice" + order_id
+			return "https://payment.pewefeed.com/invoice/" + order_id
 		},
 	},
 	mounted() {
