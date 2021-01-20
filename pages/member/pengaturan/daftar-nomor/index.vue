@@ -375,6 +375,7 @@ export default {
 				alert("Pin Salah")
 				return false
 			}
+			this.pin_verification = false
 			this.overlay = true
 			var params = this.formData
 			let vm = this
@@ -390,6 +391,11 @@ export default {
 			}
 		},
 		async deleteNumber(itemID) {
+			if (this.$auth.user.data.pin != this.pin_code) {
+				alert("Pin Salah")
+				return false
+			}
+			this.pin_verification = false
 			let vm = this
 			let formData = {
 				id: itemID,
@@ -409,7 +415,7 @@ export default {
 				alert("Pin Salah")
 				return false
 			}
-
+			this.pin_verification = false
 			this.overlay = true
 			let vm = this
 			var params = {

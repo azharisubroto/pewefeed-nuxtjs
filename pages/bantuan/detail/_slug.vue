@@ -2,7 +2,7 @@
 	<section class="BantuanDetail">
 		<BantuanNavBar />
 
-		<v-main class="mt-10">
+		<v-main style="padding-top: 60px" class="mt-10">
 			<template v-if="bantuanMenu.length > 0 && deprecated">
 				<v-container>
 					<v-expansion-panels>

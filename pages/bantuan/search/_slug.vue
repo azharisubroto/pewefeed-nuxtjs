@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<BantuanNavBar title="Pencarian" />
-		<v-main class="pt-10 pb-5">
+		<v-main style="padding-top: 60px" class="pb-5">
 			<v-container>
 				<ProductCard :title="'Kata Kunci: ' + $route.params.slug">
 					<v-card

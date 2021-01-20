@@ -514,6 +514,11 @@ export default {
 			}
 		},
 		async deleteAddress(itemID) {
+			this.pin_verification = false
+			if (this.$auth.user.data.pin != this.pin_code) {
+				alert("Pin Salah")
+				return false
+			}
 			this.overlay = true
 			let vm = this
 			let payload = {

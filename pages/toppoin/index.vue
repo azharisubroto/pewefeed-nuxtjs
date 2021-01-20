@@ -531,6 +531,7 @@
 			</v-btn>
 			<v-btn>
 				<ShareButton2
+					v-if="shareText != null"
 					class="text-center"
 					independent
 					tipe="Sing"
@@ -612,7 +613,7 @@ export default {
 			myrank: [],
 			topthree: null,
 			hadiahPeriode: null,
-			shareText: "",
+			shareText: null,
 			bottomloading: false,
 			whereisme: "",
 			currentPoint: 0,
@@ -696,7 +697,7 @@ export default {
 								"Saya peringkat ke-" +
 								currentRank +
 								"  di Top Poin pewefeed.com untuk kejar pulsa ratusan ribu rupiah. Yuk join sekarang juga."
-							return false
+							return
 						}
 					})
 
@@ -705,6 +706,8 @@ export default {
 					// console.log(whereisme)
 				}
 			} catch (error) {
+				this.shareText =
+					"Ayo kumpulkan poin sebanyak banyaknya untuk mendapatkan rewards menarik"
 				console.log(error)
 			}
 		},
