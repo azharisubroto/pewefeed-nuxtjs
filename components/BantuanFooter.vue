@@ -110,13 +110,40 @@
 					</v-col>
 				</v-row>
 
-				<div class="mt-5">
-					<img
-						src="/img/bantuan-footer.svg"
-						style="width: 100%"
-						loading="lazy"
-						alt=""
-					/>
+				<div class="mt-4">
+					<v-row justify-center align-content-center no-gutters>
+						<v-col cols="11" class="text-10">
+							<span
+								>Situs pewefeed.com merupakan layanan resmi dari
+								PT.
+								<strong style="text-decoration: underline"
+									><a href="https://jayadata.id"
+										>Jayadata Indonesia</a
+									></strong
+								></span
+							><br />
+							<span
+								>Silahkan klik untuk
+								<strong style="text-decoration: underline"
+									><a
+										href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+										>Kebijakan Kerahasiaan</a
+									></strong
+								>
+								atau
+								<strong style="text-decoration: underline"
+									><a
+										href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+										>Penafian</a
+									></strong
+								>
+								&copy; {{ new Date().getFullYear() }}</span
+							>
+						</v-col>
+						<v-col cols="1">
+							<img width="100%" src="/img/peweicon.svg" />
+						</v-col>
+					</v-row>
 				</div>
 			</v-container>
 		</section>
