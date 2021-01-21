@@ -425,9 +425,10 @@
 											</v-list-item-icon>
 											<v-list-item-content>
 												Ketik SMS dengan format
-												<div class="text-thirdary">
-													PW5
-												</div>
+												<div
+													class="text-thirdary"
+													v-html="'REG<spasi>PW'"
+												></div>
 											</v-list-item-content>
 										</v-list-item>
 										<div class="devider-small"></div>
@@ -438,7 +439,7 @@
 											<v-list-item-content>
 												Kirim ke
 												<div class="text-thirdary">
-													97788
+													97789
 												</div>
 											</v-list-item-content>
 										</v-list-item>
@@ -449,7 +450,7 @@
 											</v-list-item-icon>
 											<v-list-item-content>
 												Selanjutnya tunggu SMS balasan
-												dari 97788 dan ikuti instruksi
+												dari 97789 dan ikuti instruksi
 												selanjutnya
 											</v-list-item-content>
 										</v-list-item>

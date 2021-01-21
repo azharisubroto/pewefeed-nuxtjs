@@ -53,7 +53,11 @@
 			v-model="tab"
 			style="z-index: 99"
 		>
-			<v-btn v-for="item in tabItems" :key="item">
+			<v-btn
+				@click="$bus.$emit('apply_drawer', false)"
+				v-for="item in tabItems"
+				:key="item"
+			>
 				<span class="text-11"
 					>{{ item }}
 					<br />

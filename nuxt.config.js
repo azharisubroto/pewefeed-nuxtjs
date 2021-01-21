@@ -99,6 +99,7 @@ export default {
 		{ src: "~/plugins/bus" },
 		{ src: "~/plugins/ga", mode: "client" },
 		{ src: "~/plugins/vue-google-adsense", ssr: false },
+		{ src: "~/plugins/PincodeInput", ssr: false },
 	],
 	/*
 	 ** Nuxt.js dev-modules

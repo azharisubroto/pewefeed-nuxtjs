@@ -662,8 +662,9 @@
 					<v-btn
 						v-if="type == 'wait' || type == 'finish'"
 						@click="
-							postProcess = !postProcess
-							pin_verification = !pin_verification
+							apply_drawer = false
+							postProcess = false
+							pin_verification = false
 							$bus.$emit('rewardtabclick', redirect)
 						"
 						color="#ff4200"
@@ -855,8 +856,6 @@ export default {
 				if (res.data.data.length > 0) {
 					const items = res.data.data
 
-					console.log(items)
-
 					if (reset != true) {
 						items.forEach((el) => {
 							this.list.push(el)
@@ -907,6 +906,8 @@ export default {
 					this.success = true
 				}
 				this.postProcess = true
+
+				this.fetchWait("wait", 1, 10, true)
 			} catch (error) {
 				console.log(error)
 				this.postProcess = true
@@ -941,6 +942,8 @@ export default {
 					this.success = true
 				}
 				this.postProcess = true
+
+				this.fetchWait("wait", 1, 10, true)
 			} catch (error) {
 				console.log(error)
 				this.postProcess = true
@@ -950,9 +953,9 @@ export default {
 	},
 	mounted() {
 		this.fetchWait(this.type, 1, 10)
-		// this.$bus.$on("refetchrewards", () => {
-		// 	this.fetchWait()
-		// })
+		this.$bus.$on("apply_drawer", (drawer) => {
+			this.apply_drawer = drawer
+		})
 		////console.log(JSON.parse(JSON.stringify(this.addresses)))
 	},
 }

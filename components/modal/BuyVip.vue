@@ -875,7 +875,7 @@ export default {
 						"https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/assets/frontend/img/koin/vip.svg",
 					label: "VIP 5 Hari",
 					price: "Rp 5.500",
-					code: "PW5",
+					code: "PW3",
 				},
 				{
 					id: 4,

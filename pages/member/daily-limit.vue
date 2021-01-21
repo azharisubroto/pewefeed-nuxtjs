@@ -30,7 +30,7 @@
 		</v-app-bar>
 
 		<v-main>
-			<div class="profile-page">
+			<div style="padding-top: 56px" class="profile-page">
 				<v-tabs-items v-model="tab_state">
 					<!-- PAKET PEMBELIAN -->
 					<v-tab-item key="Paket Pembelian">

@@ -118,13 +118,9 @@
 </template>
 
 <script>
-import PincodeInput from "vue-pincode-input"
 import UserService from "@/services/UserService"
 export default {
 	name: "Pin",
-	components: {
-		PincodeInput,
-	},
 	data() {
 		return {
 			old_pin: "",
