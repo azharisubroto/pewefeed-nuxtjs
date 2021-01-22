@@ -18,10 +18,7 @@
 			<div class="flex-grow-1"></div>
 
 			<div
-				@click="
-					$router.push('/')
-					clearStorage()
-				"
+				@click="$router.push('/')"
 				class="pr-1"
 				v-if="$route.name != 'index'"
 			>

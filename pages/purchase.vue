@@ -415,7 +415,12 @@
 											</v-list-item-icon>
 											<v-list-item-content>
 												Pastikan anda menggunakan nomor
-												ponsel dari XL Axiata
+												ponsel dari
+												{{
+													prechoice.type == "xl"
+														? "XL AXIATA"
+														: "INDOSAT"
+												}}
 											</v-list-item-content>
 										</v-list-item>
 										<div class="devider-small"></div>
@@ -427,7 +432,9 @@
 												Ketik SMS dengan format
 												<div
 													class="text-thirdary"
-													v-html="'REG<spasi>PW'"
+													v-html="
+														'REG ' + prechoice.code
+													"
 												></div>
 											</v-list-item-content>
 										</v-list-item>
@@ -439,7 +446,11 @@
 											<v-list-item-content>
 												Kirim ke
 												<div class="text-thirdary">
-													97789
+													{{
+														prechoice.code == "PW"
+															? "97789"
+															: "97788"
+													}}
 												</div>
 											</v-list-item-content>
 										</v-list-item>
@@ -450,13 +461,29 @@
 											</v-list-item-icon>
 											<v-list-item-content>
 												Selanjutnya tunggu SMS balasan
-												dari 97789 dan ikuti instruksi
-												selanjutnya
+												dari
+												{{
+													prechoice.code == "PW"
+														? "97789"
+														: "97788"
+												}}
+												dan ikuti instruksi selanjutnya
 											</v-list-item-content>
 										</v-list-item>
 									</v-list-item-group>
 								</div>
 							</v-card>
+
+							<v-btn
+								@click="
+									e1 = 2
+									prev()
+								"
+								width="100%"
+								color="#ff4200"
+							>
+								Kembali ke halaman paket VIP
+							</v-btn>
 						</v-container>
 					</v-stepper-content>
 				</v-stepper-items>
@@ -624,14 +651,14 @@ export default {
 					voucher_id: 3,
 					label: "1 Hari KEANGGOTAAN VIP",
 					price: "Rp 2.000",
-					code: "PW0",
+					code: "PW3",
 					payment: ["xl"],
 				},
 				{
 					voucher_id: 5,
 					label: "3 Hari KEANGGOTAAN VIP",
 					price: "Rp 5.000",
-					code: "PW0",
+					code: "PW5",
 					payment: ["xl"],
 				},
 				{
@@ -654,7 +681,7 @@ export default {
 					label: "6 Hari KEANGGOTAAN VIP",
 					price: "Rp 2.000",
 					desc: "3 SMS/Minggu - 1 SMS untuk 2 Hari VIP",
-					code: "PW0",
+					code: "PW",
 					payment: ["xl", "indosat"],
 				},
 			],
@@ -663,6 +690,8 @@ export default {
 				price: null,
 				desc: null,
 				payment: null,
+				type: null,
+				code: null,
 			},
 			smspayment: [
 				{
@@ -759,8 +788,10 @@ export default {
 			this.prechoice.price = item.price ? item.price : null
 			this.prechoice.desc = item.desc ? item.desc : null
 			this.prechoice.payment = item.payment ? item.payment : null
+			this.prechoice.code = item.code
 		},
 		guessVoucher(item) {
+			this.prechoice.type = item.key
 			if (this.prechoice.voucher_id == null) {
 				return (this.prechoice.voucher_id = item.key == "xl" ? 17 : 13)
 			}

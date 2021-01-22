@@ -18,18 +18,12 @@
 			</v-toolbar-title>
 			<div class="flex-grow-1"></div>
 
-			<div
-				@click="
-					$router.push('/')
-					clearStorage()
-				"
-				class="pr-1"
-			>
+			<div @click="$router.push('/')" class="pr-1">
 				<img src="/img/peweicon.svg" width="20" />
 			</div>
 		</v-app-bar>
 
-		<v-main>
+		<v-main style="padding-top: 56px">
 			<template v-if="step == 1">
 				<v-container>
 					<v-tabs-items v-model="tab_state">

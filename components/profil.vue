@@ -351,13 +351,7 @@
 						</v-toolbar-title>
 						<div class="flex-grow-1"></div>
 
-						<div
-							@click="
-								$router.push('/')
-								clearStorage()
-							"
-							class="pr-1"
-						>
+						<div @click="$router.push('/')" class="pr-1">
 							<img src="/img/peweicon.svg" width="20" />
 						</div>
 					</v-app-bar>

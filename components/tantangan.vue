@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="padding-top: 56px">
 		<template v-if="!loading && banners.length > 0 && banners != null">
 			<template v-for="(item, i) in banners">
 				<v-card
