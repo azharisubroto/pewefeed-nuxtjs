@@ -433,7 +433,8 @@
 												<div
 													class="text-thirdary"
 													v-html="
-														'REG ' + prechoice.code
+                          (prechoice.code == 'PW') ?
+														'REG ' + prechoice.code : prechoice.code
 													"
 												></div>
 											</v-list-item-content>
