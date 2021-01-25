@@ -9,7 +9,7 @@
 			dark
 			block
 			depressed
-			class="mb-5"
+			class="mb-3"
 		>
 			<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
 		>

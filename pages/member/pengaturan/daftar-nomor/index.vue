@@ -1,28 +1,25 @@
 <template>
 	<v-container v-if="mounted">
-		<v-row>
-			<v-col>
-				<v-snackbar v-model="snackbar" :timeout="timeout" top>
-					{{ responseMessage }}
-					<v-btn color="primary" text icon @click="snackbar = false">
-						<v-icon color="white">mdi-close-circle-outline</v-icon>
-					</v-btn>
-				</v-snackbar>
+		<v-btn
+			@click="
+				openForm = !openForm
+				resertFormData()
+			"
+			color="deep-orange"
+			dark
+			block
+			depressed
+			class="mb-3"
+		>
+			<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
+		>
 
-				<v-btn
-					@click="
-						openForm = !openForm
-						resertFormData()
-					"
-					color="deep-orange"
-					dark
-					block
-					depressed
-				>
-					<v-icon>mdi-plus</v-icon> Tambah Tujuan</v-btn
-				>
-			</v-col>
-		</v-row>
+		<v-snackbar v-model="snackbar" :timeout="timeout" top>
+			{{ responseMessage }}
+			<v-btn color="primary" text icon @click="snackbar = false">
+				<v-icon color="white">mdi-close-circle-outline</v-icon>
+			</v-btn>
+		</v-snackbar>
 
 		<template v-if="!isLoading">
 			<v-card
