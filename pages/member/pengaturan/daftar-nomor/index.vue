@@ -484,3 +484,12 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss">
+.v-sheet.v-card {
+	border-right-color: white !important;
+	border-left-color: white !important;
+	border-top-color: white !important;
+	border-bottom-color: white !important;
+}
+</style>
