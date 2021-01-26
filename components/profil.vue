@@ -574,6 +574,7 @@ export default {
 			localStorage.removeItem("auth.strategy")
 			localStorage.removeItem("useres")
 			this.isLoggedIn = false
+			this.login = false
 			//this.isLogin();
 			// if (window.location.pathname == '/member/login') {
 			// 	window.location.href = '/'
@@ -581,7 +582,7 @@ export default {
 			// 	window.location.href = window.location.pathname
 			// }
 			this.$auth.logout()
-			window.location.href = "/?tab=4"
+			// window.location.href = "/?tab=4"
 		},
 		isLogin() {
 			return this.isLoggedIn
@@ -598,10 +599,6 @@ export default {
 			this.avatar_preview =
 				"https://be2ad46f1850a93a8329-aa7428b954372836cd8898750ce2dd71.ssl.cf6.rackcdn.com/avatars/" +
 				response.file_name
-		},
-		fetchUserdata() {
-			this.setProfile()
-			this.isLoggedIn = true
 		},
 		setProfile() {
 			let vm = this
