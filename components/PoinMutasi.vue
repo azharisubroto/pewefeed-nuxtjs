@@ -36,7 +36,12 @@
 						<ProductItem :dense="true" label="Tautan">
 							<template v-slot:action>
 								<a :href="item.link">
-									{{ item.link }}
+									{{
+										item.link.length >= 35
+											? item.link.substring(0, 35) +
+											  " . . ."
+											: item.link
+									}}
 								</a>
 							</template>
 						</ProductItem>
