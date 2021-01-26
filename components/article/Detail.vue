@@ -373,7 +373,7 @@
 
 				<KomentarPoin
 					:dialogVisible="KomentarPoinVisible"
-					:comment_point="comment_point"
+					:comment_point="comment_point.toString()"
 					@close="myDialogClose"
 				/>
 			</template>
@@ -491,7 +491,10 @@
 									depressed
 									color="deep-orange"
 									:loading="sending"
-									@click="submitAnswer()"
+									@click="
+										pin_action = 'quiz'
+										pin_verification = true
+									"
 									>KIRIM JAWABAN</v-btn
 								>
 
@@ -1015,6 +1018,76 @@
 				</v-sheet>
 			</v-bottom-sheet>
 
+			<!-- PIN MODAL -->
+			<v-bottom-sheet dark width="100%" v-model="pin_verification">
+				<v-sheet height="100%">
+					<v-toolbar
+						:elevation="1"
+						style="border-top: 2px solid #fff"
+					>
+						<!-- Arrow -->
+						<v-btn
+							dark
+							icon
+							tile
+							style="border-right: 0px solid #717171"
+							light
+							@click="pin_verification = false"
+						>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+
+						<!-- Title -->
+						<v-toolbar-items class="ml-2">
+							<v-btn
+								dark
+								text
+								class="pl-0"
+								style="margin-left: -10px"
+								>KONFIRMASI</v-btn
+							>
+						</v-toolbar-items>
+						<div class="flex-grow-1"></div>
+					</v-toolbar>
+
+					<div class="px-4 py-10 text-center pindialog">
+						<strong>Masukan 6 digit PIN</strong>
+						<div class="my-3">
+							<PincodeInput
+								v-model="pin_code"
+								:length="6"
+								characterPreview
+								secure
+								:autofocus="true"
+							/>
+
+							<div class="mt-4">
+								<v-btn
+									@click="verifyPin()"
+									color="#ff4200"
+									medium
+									height="40"
+									depressed
+								>
+									Lanjutkan
+								</v-btn>
+
+								<div class="mt-2">
+									Belum Punya PIN?
+									<v-btn
+										to="/member/pengaturan/pin"
+										text
+										color="#ff4200"
+										class="py-0"
+										>Klik Disini</v-btn
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</v-sheet>
+			</v-bottom-sheet>
+
 			<!-- LIKE MODAL -->
 			<v-bottom-sheet v-if="likeModal" v-model="likeModal">
 				<v-sheet height="100%">
@@ -1083,6 +1156,14 @@
 					<br />
 				</v-sheet>
 			</v-bottom-sheet>
+
+			<v-overlay :value="overlay">
+				<v-progress-circular
+					color="green"
+					indeterminate
+					size="64"
+				></v-progress-circular>
+			</v-overlay>
 		</client-only>
 	</section>
 </template>
@@ -1198,6 +1279,10 @@ export default {
 			recaptchatrigger: 0,
 			redirecturl: null,
 			comment_point: 0,
+			pin_verification: false,
+			pin_code: "",
+			pin_action: "",
+			overlay: false,
 		}
 	},
 	// computed: {
@@ -1231,7 +1316,7 @@ export default {
 				this.answered = this.respon.quiz.answered
 			}
 			//console.log("fetch latest..");
-			this.fetchLatest(this.respon.article.slug)
+			this.fetchLatest(this.$route.params.articleslug)
 			let artid = this.respon.article.id
 			if (artid) {
 				this.checkLike(artid)
@@ -1437,6 +1522,29 @@ export default {
 			this.recaptchaToken = null
 		},
 
+		verifyPin() {
+			if (this.$auth.user) {
+				if (this.$auth.user.data.pin != this.pin_code) {
+					this.pin_verification = true
+					alert("Pin Salah")
+					return false
+				} else {
+					this.pin_verification = false
+					this.pin_code = ""
+					if (this.pin_action == "like") {
+						this.postLike()
+					} else if (this.pin_action == "comment") {
+						this.postComment()
+					} else {
+						this.submitAnswer()
+					}
+				}
+			} else {
+				this.notLogin = true
+				this.openModalLogin()
+			}
+		},
+
 		/* Validasi Form Rating */
 		validate() {
 			if (this.$refs.form.validate()) {
@@ -1458,10 +1566,16 @@ export default {
 				key: hash,
 				url: window.location.href,
 				token: vm.recaptchaToken,
+				pin: this.pin_code,
 			}
+
+			/* Open Overlay */
+			vm.overlay = true
 
 			try {
 				const res = await ArticleService.setLike(payload)
+
+				vm.overlay = false
 
 				// //console.log(res)
 				if (res.data.point == 1) {
@@ -1476,6 +1590,7 @@ export default {
 
 				setTimeout(() => {
 					this.recaptcha = false
+					this.pin_verification = false
 					this.recaptchalikemodal = false
 				}, 200)
 			} catch (error) {
@@ -1499,7 +1614,8 @@ export default {
 			if (this.total_counter < 20 && !isUrl) {
 				alert("Komentar harus mengandung minimal 20 kata")
 			} else if (this.total_counter >= 20 && !isUrl) {
-				this.recaptchaPreSend = true
+				this.pin_action = "comment"
+				this.pin_verification = true
 			} else if (this.total_counter > 20 && isUrl) {
 				alert("Komentar tidak boleh mengandung tautan")
 			}
@@ -1511,6 +1627,9 @@ export default {
 				msg: this.comment_message,
 				type: "news",
 			}
+
+			/* Open Overlay */
+			vm.overlay = true
 
 			try {
 				const res = await UserService.postComment(
@@ -1528,6 +1647,8 @@ export default {
 					this.KomentarPoinVisible = true
 				}
 				this.recaptchaPreSend = false
+
+				vm.overlay = false
 			} catch (error) {
 				////console.log(error.response.status)
 				this.commentIsPosting = false
@@ -1542,6 +1663,7 @@ export default {
 					alert("error! " + error.message)
 				}
 				this.recaptchaPreSend = false
+				vm.overlay = false
 			}
 		},
 		async submitAnswer() {
@@ -1687,7 +1809,6 @@ export default {
 		this.fetchPoint()
 
 		this.redirecturl = window.location.href
-		this.fetchLatest()
 	},
 	// updated() {
 	//   this.moveRedeemBeforeRelated();
