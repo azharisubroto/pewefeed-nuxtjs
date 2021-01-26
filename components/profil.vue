@@ -27,7 +27,7 @@
 					<!-- USER MENU -->
 					<v-list
 						color="transparent"
-						class="mb-10 profile-menus"
+						class="mb-10 profile-menus mt-12"
 						style="background: transparent"
 					>
 						<v-list-item-group
@@ -390,7 +390,7 @@
 			<v-container>
 				<v-card
 					color="#404040"
-					class="px-4 pt-4 mb-5"
+					class="px-4 pt-4 mb-5 mt-14"
 					style="border-radius: 5px"
 				>
 					<Login class="pt-0" />
@@ -581,7 +581,7 @@ export default {
 			// 	window.location.href = window.location.pathname
 			// }
 			this.$auth.logout()
-			location.reload()
+			window.location.href = "/?tab=4"
 		},
 		isLogin() {
 			return this.isLoggedIn
