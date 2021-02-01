@@ -3,7 +3,8 @@
 		<v-sheet>
 			<v-app-bar
 				v-if="
-					(wowtab == 1 &&
+					(wowtab != 4 &&
+						wowtab != 1 &&
 						$route.name != 'cat-subcat-articleslug' &&
 						$route.name != 'purchase' &&
 						$route.name != 'member-daily-limit' &&
@@ -202,119 +203,12 @@
 				</div>
 			</v-app-bar>
 
-			<!-- App Bar Home -->
-			<v-app-bar
-				dark
-				color="dark"
-				flat
-				fixed
-				tile
-				class="main-app-bar"
-				v-if="$route.name == 'index' && wowtab == 0"
-			>
-				<template v-if="$auth.loggedIn">
-					<v-avatar
-						@click="$router.push('/?tab=3')"
-						size="30"
-						color="grey"
-						class="mr-2"
-					>
-						<v-img
-							:src="
-								$auth.user.data.avatar
-									? $auth.user.data.avatar
-									: '/img/user.jpeg'
-							"
-							:aspect-ratio="1"
-						></v-img>
-					</v-avatar>
-					<span class="text-14">{{ $auth.user.data.username }}</span>
-					<v-icon>mdi-chevron-right</v-icon>
-					<div class="flex-grow-1"></div>
-					<img
-						@click="$router.push('/')"
-						src="/img/icons/vip.svg"
-						width="22"
-						class="mr-2"
-					/>
-					<span class="text-14 mr-5">{{
-						$auth.user.data.vip ? "VIP Aktif" : "VIP Tdk Aktif"
-					}}</span>
-					<img
-						@click="$router.push('/')"
-						src="/img/icons/poin-new.svg"
-						width="20"
-						class="mr-2"
-					/>
-					<span class="text-14">50.000 Poin</span>
-				</template>
-				<template v-else>
-					<img
-						@click="$router.push('/')"
-						src="/img/peweicon.svg"
-						width="30"
-						class="mr-2"
-					/>
-					<v-toolbar-title>
-						<strong>PeweFeed</strong>
-					</v-toolbar-title>
-					<div class="flex-grow-1"></div>
-					<v-btn color="deep-orange">Masuk</v-btn>
-				</template>
-			</v-app-bar>
-			<!-- Appbar Batas Poin Harian -->
-			<v-app-bar
-				dark
-				color="dark"
-				flat
-				fixed
-				tile
-				class="main-app-bar"
-				style="margin-top: 55px"
-				v-if="
-					$route.name == 'index' &&
-					wowtab == 0 &&
-					$auth.loggedIn &&
-					$auth.user.data.vip
-				"
-			>
-				<template>
-					<v-row no-gutters justify="center" align="center">
-						<v-col cols="4">
-							<span class="text-12">Batas Poin VIP Harian</span>
-						</v-col>
-						<v-col cols="6 pr-2">
-							<v-progress-linear
-								:value="remaining"
-								:buffer-value="batas"
-								color="green"
-								height="20"
-								reactive
-								rounded
-								style="
-									border-radius: 90px !important;
-									overflow: hidden;
-								"
-							></v-progress-linear>
-						</v-col>
-						<v-col cols="2">
-							<span class="text-12">{{
-								$auth.user.point_limit
-							}}</span>
-						</v-col>
-					</v-row>
-				</template>
-			</v-app-bar>
-
 			<!-- CONTENT -->
 			<v-main class="maincontent" :class="$route.name">
 				<div
 					:style="
-						wowtab == 0 && $route.name == 'index'
-							? $auth.loggedIn && $auth.user.data.vip
-								? 'padding-top: 120px'
-								: 'padding-top: 56px'
-							: $route.name == 'member-histori_penggunaan_poin'
+						(wowtab != 4 && wowtab != 1) ||
+						$route.name == 'member-histori_penggunaan_poin'
 							? 'padding-top: 56px'
 							: 'padding-top: 0px !important'
 					"
@@ -330,12 +224,15 @@
         ooooooooooooooooooooooooooooooooooooo-->
 				<template v-if="$route.name == 'index'">
 					<div :class="[wowtab == 1 ? 'd-block' : 'd-none']">
-						<Feed v-if="wowtab == 1" keep-alive />
+						<TukarPoin v-if="wowtab == 1" keep-alive />
 					</div>
 					<div :class="[wowtab == 2 ? 'd-block' : 'd-none']">
-						<TukarPoin v-if="wowtab == 2" keep-alive />
+						<tantangan />
 					</div>
 					<div :class="[wowtab == 3 ? 'd-block' : 'd-none']">
+						<tantangan />
+					</div>
+					<div :class="[wowtab == 4 ? 'd-block' : 'd-none']">
 						<profil />
 					</div>
 				</template>
@@ -368,12 +265,12 @@
 							wowtab = 0
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Home</span>
+						<span class="text-11 d-inline-block mt-1">Feeds</span>
 						<img
 							:src="
 								wowtab == 0
-									? '/img/icons/nav-0-color.svg'
-									: '/img/icons/nav-0-white.svg'
+									? '/img/icons/nav-1-color.svg'
+									: '/img/icons/nav-1-white.svg'
 							"
 							class="mb-1 d-block"
 							width="20"
@@ -386,12 +283,14 @@
 							wowtab = 1
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Feed</span>
+						<span class="text-11 d-inline-block mt-1"
+							>Tukar Poin</span
+						>
 						<img
 							:src="
 								wowtab == 1
-									? '/img/icons/nav-1-color.svg'
-									: '/img/icons/nav-1-white.svg'
+									? '/img/icons/nav-2-color.svg'
+									: '/img/icons/nav-2-white.svg'
 							"
 							class="mb-1 d-block"
 							width="20"
@@ -400,16 +299,18 @@
 					</v-btn>
 					<v-btn
 						@click="
-							$router.push('/?tab=2')
+							$router.push('/toppoin')
 							wowtab = 2
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Rewards</span>
+						<span class="text-11 d-inline-block mt-1"
+							>Top Poin</span
+						>
 						<img
 							:src="
 								wowtab == 2
-									? '/img/icons/nav-2-color.svg'
-									: '/img/icons/nav-2-white.svg'
+									? '/img/icons/header/3-o.svg'
+									: '/img/icons/header/3-w.svg'
 							"
 							class="mb-1 d-block"
 							width="20"
@@ -422,10 +323,28 @@
 							wowtab = 3
 						"
 					>
-						<span class="text-11 d-inline-block mt-1">Akun</span>
+						<span class="text-11 d-inline-block mt-1">Program</span>
 						<img
 							:src="
 								wowtab == 3
+									? '/img/icons/nav-3-color.svg'
+									: '/img/icons/nav-3-white.svg'
+							"
+							class="mb-1 d-block"
+							width="20"
+							height="20"
+						/>
+					</v-btn>
+					<v-btn
+						@click="
+							$router.push('/?tab=4')
+							wowtab = 4
+						"
+					>
+						<span class="text-11 d-inline-block mt-1">Akun</span>
+						<img
+							:src="
+								wowtab == 4
 									? '/img/icons/nav-5-color.svg'
 									: '/img/icons/nav-5-white.svg'
 							"
@@ -434,6 +353,21 @@
 							height="20"
 						/>
 					</v-btn>
+					<!-- <ShareButton2 v-if="$route.name == 'cat-subcat-articleslug'" />
+
+          <v-btn>
+            <span>Help</span>
+            <img
+              src="/img/icons/icon-contactus-orange.png"
+              class="mb-1 d-block"
+              width="20"
+              height="20"
+            />
+          </v-btn>
+          <v-btn>
+            <span>Me</span>
+            <img src="/img/icons/icon-profile-2.png" class="mb-1 d-block" width="20" height="20" />
+          </v-btn>-->
 				</v-bottom-navigation>
 			</v-main>
 			<!-- CONTENT -->
@@ -542,16 +476,16 @@ import MenuService from "../services/MenuService"
 import BuyVip from "@/components/modal/BuyVip"
 import DrawerWelcome from "@/components/common/DrawerWelcome"
 import profil from "@/components/profil"
+import tantangan from "@/components/tantangan"
 import TukarPoin from "@/components/TukarPoin/TukarPoin"
-import Feed from "@/pages/feed"
 
 export default {
 	name: "App",
 	components: {
 		BuyVip,
 		DrawerWelcome,
-		Feed,
 		profil,
+		tantangan,
 		TukarPoin,
 	},
 	data() {
@@ -744,8 +678,6 @@ export default {
 			singularDetail: null,
 			buyVipDialogVisible: false,
 			dailyPointModalVisible: false,
-			remaining: 0,
-			batas: 0,
 		}
 	},
 	computed: {
@@ -933,9 +865,6 @@ export default {
 				console.log(error)
 			}
 		},
-		percentage(partialValue, totalValue) {
-			return (100 * partialValue) / totalValue
-		},
 	},
 	created() {
 		//console.log(this.$router.currentRoute.query["tab"])
@@ -947,11 +876,6 @@ export default {
 		if (localStorage.getItem("loggedin")) {
 			this.generateDaily()
 			this.fetchDaily()
-			var limit = this.$auth.user.point_limit
-			limit = limit.split("/")
-			this.sekarang = limit[0]
-			this.batas = limit[1]
-			this.remaining = this.percentage(limit[0], limit[1])
 		}
 		if (localStorage.getItem("sing_to_login")) {
 			localStorage.removeItem("sing_to_login")

@@ -105,7 +105,7 @@
 						</div>
 
 						<div class="mb-1 mt-5">
-							<BannerStatic slug="toppoin" />
+							<BannerStatic :withButton="true" slug="toppoin" />
 							<v-row>
 								<v-col cols="12">
 									<!-- ADSENSE -->
