@@ -444,10 +444,10 @@
 					height="20"
 				/>
 			</v-btn>
-			<ShareButton2
+			<!-- <ShareButton2
 				tipe="Sing"
 				:customimage="content2.video.thumbnail_url"
-			/>
+			/> -->
 		</v-bottom-navigation>
 
 		<!-- Dapet bonus -->
@@ -589,7 +589,7 @@
 </template>
 
 <script>
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import SingAppBar from "@/components/sing/SingAppBar"
 import Video from "@/components/sing/Video"
 import ArticleService from "@/services/ArticleService"
@@ -602,7 +602,7 @@ import NotVip from "@/components/modal/NotVip"
 export default {
 	name: "SingVideoPage",
 	components: {
-		ShareButton2,
+		// ShareButton2,
 		SingAppBar,
 		CommentList,
 		LoginModal,

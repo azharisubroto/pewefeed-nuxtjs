@@ -81,7 +81,7 @@
 									></v-img>
 									<div class="mt-2 text-12">Prizes</div>
 								</v-col>
-								<v-col cols="4">
+								<!-- <v-col cols="4">
 									<ShareButton2 tipe="Sing" independent>
 										<v-img
 											src="/img/icons/lucu-share.svg"
@@ -91,7 +91,7 @@
 										></v-img>
 										<div class="mt-2 text-12">Share</div>
 									</ShareButton2>
-								</v-col>
+								</v-col> -->
 							</v-row>
 						</div>
 					</v-card>
@@ -225,7 +225,7 @@
 </template>
 
 <script>
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import SingAppBar from "@/components/sing/SingAppBar"
 import SingPrizes from "@/components/sing/SingPrizes"
 import Video from "@/components/sing/Video"
@@ -235,7 +235,7 @@ import SingService from "@/services/SingService"
 export default {
 	name: "Sing",
 	components: {
-		ShareButton2,
+		// ShareButton2,
 		SingAppBar,
 		Video,
 		SingPrizes,

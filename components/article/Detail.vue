@@ -832,7 +832,7 @@
 					/>
 				</v-btn>
 
-				<v-btn>
+				<!-- <v-btn>
 					<ShareButton2 class="text-center" independent>
 						<img
 							:src="
@@ -854,7 +854,7 @@
 							<br />(+1 Poin)
 						</span>
 					</ShareButton2>
-				</v-btn>
+				</v-btn> -->
 			</v-bottom-navigation>
 
 			<NotVip
@@ -1178,7 +1178,7 @@ import QuizModal from "@/components/common/QuizModal"
 import KomentarPoin from "@/components/modal/KomentarPoin"
 import CommentList from "@/components/common/CommentList"
 import NotVip from "@/components/modal/NotVip"
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import BannerStatic from "@/components/common/BannerStatic"
 
 export default {
@@ -1189,7 +1189,7 @@ export default {
 		NotVip,
 		KomentarPoin,
 		LoginModal,
-		ShareButton2,
+		// ShareButton2,
 		BannerStatic,
 	},
 	props: ["respon"],

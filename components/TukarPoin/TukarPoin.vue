@@ -261,19 +261,19 @@
 					height="20"
 				/>
 			</v-btn>
-			<ShareButton2 />
+			<!-- <ShareButton2 /> -->
 		</v-bottom-navigation>
 	</section>
 </template>
 
 <script>
 import TukarPoinService from "@/services/TukarPoinService"
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import WaNotif from "@/components/WaNotif"
 export default {
 	name: "TukarPoin",
 	components: {
-		ShareButton2,
+		// ShareButton2,
 		WaNotif,
 	},
 	data() {

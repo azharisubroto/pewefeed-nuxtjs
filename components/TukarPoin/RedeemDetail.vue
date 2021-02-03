@@ -43,7 +43,7 @@
 				Penukar ({{ histories != null ? histories.length : "0" }})
 			</v-tab>
 			<v-tab class="text-10"> Cara Tukar </v-tab>
-			<v-tab class="text-10">
+			<!-- <v-tab class="text-10">
 				<ShareButton2
 					tipe="Sing"
 					:customimage="detail.image"
@@ -55,7 +55,7 @@
 					independent
 					>Bagikan<br />(+1 Poin)</ShareButton2
 				>
-			</v-tab>
+			</v-tab> -->
 
 			<!-- Content -->
 			<v-tabs-items v-model="redeemtab">
@@ -572,13 +572,13 @@
 import TukarPoinService from "@/services/TukarPoinService"
 import UserService from "@/services/UserService"
 import LoginModal from "@/components/modal/LoginModal"
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 
 export default {
 	name: "RedeemDetail",
 	components: {
 		LoginModal,
-		ShareButton2,
+		// ShareButton2,
 	},
 	head() {
 		return {

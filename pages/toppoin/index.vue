@@ -529,7 +529,7 @@
 					height="20"
 				/>
 			</v-btn>
-			<v-btn>
+			<!-- <v-btn>
 				<ShareButton2
 					v-if="shareText != null"
 					class="text-center"
@@ -557,14 +557,14 @@
 						<br />(+1 Poin)
 					</span>
 				</ShareButton2>
-			</v-btn>
+			</v-btn> -->
 		</v-bottom-navigation>
 	</section>
 </template>
 
 <script>
 import TopPoin from "@/services/TopPoin"
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import WaNotif from "@/components/WaNotif"
 import BannerStatic from "@/components/common/BannerStatic"
 import TopPointMe from "@/components/TopPointMe"
@@ -583,7 +583,7 @@ export default {
 		}
 	},
 	components: {
-		ShareButton2,
+		// ShareButton2,
 		WaNotif,
 		BannerStatic,
 		TopPointMe,

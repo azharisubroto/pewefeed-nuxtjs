@@ -485,7 +485,7 @@
 					alt
 				/>
 			</v-btn>
-			<v-btn>
+			<!-- <v-btn>
 				<ShareButton2
 					class="text-center"
 					independent
@@ -513,7 +513,7 @@
 						<br />(+1 Poin)
 					</span>
 				</ShareButton2>
-			</v-btn>
+			</v-btn> -->
 		</v-bottom-navigation>
 
 		<!-- Dapet bonus -->
@@ -648,7 +648,7 @@
 </template>
 
 <script>
-import ShareButton2 from "@/components/common/ShareButton2"
+// import ShareButton2 from "@/components/common/ShareButton2"
 import SingAppBar from "@/components/sing/SingAppBar"
 import Video from "@/components/sing/Video"
 import ArticleService from "@/services/ArticleService"
@@ -661,7 +661,7 @@ import NotVip from "@/components/modal/NotVip"
 export default {
 	name: "SingVideoPage",
 	components: {
-		ShareButton2,
+		// ShareButton2,
 		SingAppBar,
 		CommentList,
 		LoginModal,
