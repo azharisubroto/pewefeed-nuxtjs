@@ -261,10 +261,11 @@
 					>
 						<v-row no-gutters class="py-4">
 							<v-col cols="12">
-								<v-img
+								<img
+									width="100%"
 									:src="feed.image.large"
-									:aspect-ratio="3 / 2"
-								></v-img>
+									alt=""
+								/>
 							</v-col>
 							<v-col cols="12 mt-2">
 								<span
@@ -275,7 +276,7 @@
 							<v-col cols="12 mt-2">
 								<span
 									class="text-14"
-									v-html="feed.created_at"
+									v-html="$helpers.indoDate(feed.created_at)"
 								></span>
 							</v-col>
 						</v-row>
