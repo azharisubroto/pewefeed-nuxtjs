@@ -165,15 +165,15 @@
 						/>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 1"
-							>Tukar Poin</strong
+							>Feed</strong
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 2"
-							>Top Poin</strong
+							>Rewards</strong
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 3"
-							>Program</strong
+							>Akun</strong
 						>
 						<strong
 							v-else-if="$route.name != 'purchase' && wowtab == 4"
