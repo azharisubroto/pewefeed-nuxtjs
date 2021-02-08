@@ -261,11 +261,10 @@
 					>
 						<v-row no-gutters class="py-4">
 							<v-col cols="12">
-								<img
-									width="100%"
+								<v-img
 									:src="feed.image.large"
-									alt=""
-								/>
+									:aspect-ratio="3 / 2"
+								></v-img>
 							</v-col>
 							<v-col cols="12 mt-2">
 								<span
@@ -603,8 +602,8 @@ export default {
 	}
 
 	.reward-item {
-		background-size: contain;
-		background-repeat: no-repeat;
+		background-size: cover !important;
+		background-repeat: no-repeat imp !important;
 	}
 }
 
