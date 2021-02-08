@@ -572,12 +572,13 @@ import TopPointMe from "@/components/TopPointMe"
 export default {
 	head() {
 		return {
-			title: "Tukar Poin",
+			title: "Top Poin",
 			meta: [
 				{
 					hid: "description",
 					name: "description",
-					content: "Tukar Poinmu dengan Hadiah-hadiah menarik",
+					content:
+						"Ayo kumpulkan poin sebanyak banyaknya untuk mendapatkan rewards menarik",
 				},
 			],
 		}
