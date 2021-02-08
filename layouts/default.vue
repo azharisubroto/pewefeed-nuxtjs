@@ -259,7 +259,9 @@
 						<strong>PeweFeed</strong>
 					</v-toolbar-title>
 					<div class="flex-grow-1"></div>
-					<v-btn color="deep-orange">Masuk</v-btn>
+					<v-btn @click="$router.push('/login')" color="deep-orange"
+						>Masuk</v-btn
+					>
 				</template>
 			</v-app-bar>
 			<!-- Appbar Batas Poin Harian -->
@@ -408,8 +410,8 @@
 						<img
 							:src="
 								wowtab == 2
-									? '/img/icons/nav-2-color.svg'
-									: '/img/icons/nav-2-white.svg'
+									? '/img/icons/rewards-saya.svg'
+									: '/img/icons/rewards-saya-white.svg'
 							"
 							class="mb-1 d-block"
 							width="20"

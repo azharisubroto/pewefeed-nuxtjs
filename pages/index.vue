@@ -8,6 +8,7 @@
 					cols="3"
 					v-for="(menu, i) in menus"
 					:key="'menu-' + i"
+					@click="$router.push(menu.link)"
 				>
 					<v-row no-gutters>
 						<v-col cols="12">
@@ -51,8 +52,7 @@
 						</a>
 						<v-container>
 							<span class="mt-1 text-14">
-								Yuk ikutan JOGED CHALLENGE dan dapatkan total
-								hadiah 30 juta rupiah!
+								{{ banner.tagline }}
 							</span>
 						</v-container>
 					</div>
@@ -74,7 +74,11 @@
 					<v-col cols="6">
 						<strong class="text-18">Tukar Poin</strong>
 					</v-col>
-					<v-col cols="6" class="text-right">
+					<v-col
+						@click="$router.push('/tukarpoin')"
+						cols="6"
+						class="text-right"
+					>
 						<strong class="text-14 deep-orange--text"
 							>Lihat Semua</strong
 						>
@@ -136,7 +140,11 @@
 				<v-col cols="6">
 					<strong class="text-18">Top Poin</strong>
 				</v-col>
-				<v-col cols="6" class="text-right">
+				<v-col
+					@click="$router.push('/toppoin')"
+					cols="6"
+					class="text-right"
+				>
 					<strong class="text-14 deep-orange--text"
 						>Lihat Semua</strong
 					>
@@ -169,7 +177,11 @@
 					<v-col cols="6">
 						<strong class="text-18">Kompetisi</strong>
 					</v-col>
-					<v-col cols="6" class="text-right">
+					<v-col
+						@click="$router.push('/kompetisi')"
+						cols="6"
+						class="text-right"
+					>
 						<strong class="text-14 deep-orange--text"
 							>Lihat Semua</strong
 						>
@@ -199,8 +211,7 @@
 							</v-col>
 							<v-col cols="12 mt-2">
 								<span class="text-14">
-									Tunjukan kemampuan jogedmu! raih voting
-									sebanyak banyaknya!
+									{{ challenge.title }}
 								</span>
 							</v-col>
 						</v-row>
@@ -223,7 +234,11 @@
 					<v-col cols="6">
 						<strong class="text-18">Feed</strong>
 					</v-col>
-					<v-col cols="6" class="text-right">
+					<v-col
+						@click="$router.push('/?tab=1')"
+						cols="6"
+						class="text-right"
+					>
 						<strong class="text-14 deep-orange--text"
 							>Lihat Semua</strong
 						>
@@ -242,6 +257,7 @@
 						:key="'feed-' + feed.id"
 						class="px-1"
 						:cols="index == 0 ? 12 : 6"
+						@click="$router.push(link(feed))"
 					>
 						<v-row no-gutters class="py-4">
 							<v-col cols="12">
@@ -269,7 +285,7 @@
 		</div>
 
 		<!-- Help -->
-		<!-- <div>
+		<div>
 			<v-divider
 				class="pt-1 mt-3"
 				style="
@@ -283,22 +299,22 @@
 						<strong class="text-18">Hubungi Kami</strong>
 					</v-col>
 					<v-row class="mt-5" no-gutters>
-						<v-col cols="6" class="pr-1">
+						<v-col cols="12" class="pt-1">
 							<a href="telp:02129385381">
 								<img
-									src="/img/help-telp.svg"
+									src="/img/help-telp-2.svg"
 									loading="lazy"
 									alt=""
 								/>
 							</a>
 						</v-col>
-						<v-col cols="6" class="pl-1">
+						<v-col cols="12" class="pt-1">
 							<a
 								href="https://wa.me/6281519060929"
 								target="_BLANK"
 							>
 								<img
-									src="/img/help-wa.svg"
+									src="/img/help-wa-2.svg"
 									loading="lazy"
 									alt=""
 								/>
@@ -307,7 +323,7 @@
 						<v-col cols="12" class="pt-1">
 							<a href="mailto:halo@pewefeed.com">
 								<img
-									src="/img/help-email.svg"
+									src="/img/help-email-2.svg"
 									loading="lazy"
 									alt=""
 								/>
@@ -316,7 +332,90 @@
 					</v-row>
 				</v-row>
 			</v-container>
-		</div> -->
+		</div>
+
+		<!-- Social -->
+		<div>
+			<v-container>
+				<v-row
+					no-gutters
+					justify="center"
+					align="center"
+					class="text-center"
+				>
+					<v-col
+						cols="3"
+						href="https://www.instagram.com/pewefeed"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-instagram</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://www.facebook.com/pewefeeds"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-facebook</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://twitter.com/pewefeed"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-twitter</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-youtube</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+				</v-row>
+			</v-container>
+		</div>
+
+		<!-- Tagline -->
+		<div>
+			<v-container>
+				<v-row justify-center align-content-center no-gutters>
+					<v-col cols="11" class="text-10">
+						<span
+							>Situs pewefeed.com merupakan layanan resmi dari PT.
+							<strong style="text-decoration: underline"
+								><a href="https://jayadata.id"
+									>Jayadata Indonesia</a
+								></strong
+							></span
+						><br />
+						<span
+							>Silahkan klik untuk
+							<strong style="text-decoration: underline"
+								><a
+									href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+									>Kebijakan Kerahasiaan</a
+								></strong
+							>
+							atau
+							<strong style="text-decoration: underline"
+								><a
+									href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+									>Penafian</a
+								></strong
+							>
+							&copy; {{ new Date().getFullYear() }}</span
+						>
+					</v-col>
+					<v-col cols="1">
+						<img width="100%" src="/img/peweicon.svg" />
+					</v-col>
+				</v-row>
+			</v-container>
+		</div>
 	</section>
 </template>
 
@@ -332,14 +431,42 @@ export default {
 	data() {
 		return {
 			menus: [
-				{ label: "Feed", icon: "/img/peweicon.svg" },
-				{ label: "Tukar Poin", icon: "/img/icons/nav-2-color.svg" },
-				{ label: "Top Poin", icon: "/img/icons/header/3-o.svg" },
-				{ label: "Kompetisi", icon: "/img/icons/nav-3-color.svg" },
-				{ label: "Rewards", icon: "/img/icons/rewards-saya.svg" },
-				{ label: "Beli VIP", icon: "/img/icons/vip.svg" },
-				{ label: "Batas Poin", icon: "/img/bataspoint.svg" },
-				{ label: "Bantuan", icon: "/img/icons/help-new.svg" },
+				{ label: "Feed", icon: "/img/peweicon.svg", link: "/?tab=1" },
+				{
+					label: "Tukar Poin",
+					icon: "/img/icons/nav-2-color.svg",
+					link: "/tukarpoin",
+				},
+				{
+					label: "Top Poin",
+					icon: "/img/icons/header/3-o.svg",
+					link: "/toppoin",
+				},
+				{
+					label: "Kompetisi",
+					icon: "/img/icons/nav-3-color.svg",
+					link: "/kompetisi",
+				},
+				{
+					label: "Rewards",
+					icon: "/img/icons/rewards-saya.svg",
+					link: "/?tab=2",
+				},
+				{
+					label: "Beli VIP",
+					icon: "/img/icons/vip.svg",
+					link: "/purchase",
+				},
+				{
+					label: "Batas Poin",
+					icon: "/img/bataspoint.svg",
+					link: "/member/daily-limit",
+				},
+				{
+					label: "Bantuan",
+					icon: "/img/icons/help-new.svg",
+					link: "/bantuan",
+				},
 			],
 			flickityOptions: {
 				groupCells: 1,
@@ -385,6 +512,17 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
+		},
+		link(article) {
+			var url, cropped
+			if (article.link != process.env.mobileUrl + "sixty") {
+				url = article.link
+				cropped = url.replace(process.env.baseUrl, "")
+			} else {
+				url = article.link_detail
+				cropped = url.replace(process.env.mobileUrl, "")
+			}
+			return cropped
 		},
 	},
 	mounted() {
