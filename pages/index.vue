@@ -100,7 +100,7 @@
 						:style="
 							'background-image: url(' +
 							reward.image +
-							') !important;'
+							') !important; background-size: cover !important; background-repeat: no-repeat imp !important;'
 						"
 						class="reward-item"
 					>
@@ -599,11 +599,6 @@ export default {
 		padding: 10px;
 		margin: 0 5px;
 		border-radius: 5px;
-	}
-
-	.reward-item {
-		background-size: cover !important;
-		background-repeat: no-repeat imp !important;
 	}
 }
 
