@@ -1,370 +1,514 @@
 <template>
 	<section>
-		<!-- <Home /> -->
-		<v-skeleton-loader
-			v-if="articles == ''"
-			class="mx-auto mt-5"
-			type="image"
-		></v-skeleton-loader>
-		<client-only>
-			<div v-if="articles">
-				<!-- LATEST -->
-				<client-only>
-					<flickity ref="flickity" :options="flickityOptions">
-						<div
-							v-for="article in articles"
-							:key="article.id"
-							@click="$router.push(link(article))"
-							class="featured-item"
-						>
+		<v-container>
+			<!-- MENU -->
+			<v-row justify="center" align="center">
+				<v-col
+					class="text-center"
+					cols="3"
+					v-for="(menu, i) in menus"
+					:key="'menu-' + i"
+					@click="$router.push(menu.link)"
+				>
+					<v-row no-gutters>
+						<v-col cols="12">
+							<v-avatar
+								style="background-color: #ffdacd"
+								width="50"
+								height="50"
+								class="pa-2"
+							>
+								<img :src="menu.icon" :alt="menu.label" />
+							</v-avatar>
+						</v-col>
+						<v-col cols="12" class="mt-2">
+							<span class="text-14">{{ menu.label }}</span>
+						</v-col>
+					</v-row>
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<!-- Banner -->
+		<div v-if="banners && banners.length > 0">
+			<client-only>
+				<flickity
+					class="carousel-banner"
+					ref="flickity"
+					:options="flickityOptions"
+				>
+					<div
+						style="width: 100%"
+						v-for="banner in banners"
+						:key="banner.id"
+					>
+						<a :href="banner">
 							<v-img
-								:src="article.image.small"
-								aspect-ratio="1"
+								:src="banner.image"
+								height="230"
+								position="center top"
 								class="grey lighten-2"
 							></v-img>
-							<div class="caption">
-								<div class="caption-inner">
-									<strong>{{
-										article.type == "LAGU"
-											? "MUSIK"
-											: article.type
-									}}</strong>
-									<h2 class="mt-1">{{ article.title }}</h2>
-								</div>
-							</div>
-						</div>
-					</flickity>
-				</client-only>
-			</div>
+						</a>
+						<v-container>
+							<span class="mt-1 text-14">
+								{{ banner.tagline }}
+							</span>
+						</v-container>
+					</div>
+				</flickity>
+				<v-divider
+					class="pt-1"
+					style="
+						background: #272727 !important;
+						border-color: #272727 !important;
+					"
+				></v-divider>
+			</client-only>
+		</div>
 
-			<!-- Ini vue-adsense : ini jalan -->
+		<!-- Tukar Point -->
+		<div v-if="rewards && rewards.length > 0">
 			<v-container>
-				<v-row no-gutters>
-					<v-col cols="12">
-						<BannerStatic slug="toppoin" />
+				<v-row no-gutters class="my-2">
+					<v-col cols="6">
+						<strong class="text-18">Tukar Poin</strong>
 					</v-col>
-					<v-col cols="12">
-						<RedeemCard />
+					<v-col
+						@click="$router.push('/tukarpoin')"
+						cols="6"
+						class="text-right"
+					>
+						<strong class="text-14 deep-orange--text"
+							>Lihat Semua</strong
+						>
+					</v-col>
+				</v-row>
+				<span class="text-14">
+					Dapatkan rewards langsung tanpa diundi dengan menukarkan
+					Poin kamu.
+				</span>
+			</v-container>
+			<div class="plainslide-wrapper">
+				<div class="plainslide">
+					<v-card
+						v-for="reward in rewards"
+						:key="'insideoout-' + reward.id"
+						:class="[reward.expired == true ? 'expired' : '']"
+						style="min-width: 140px; max-width: 140px"
+						@click="$router.push('/tukarpoin/redeem/' + reward.id)"
+						:style="
+							'background-image: url(' +
+							reward.image +
+							') !important;'
+						"
+						class="reward-item"
+					>
+						<div class="reward-detail">
+							<strong class="text-14">{{ reward.title }}</strong>
+							<v-row no-gutters>
+								<v-col cols="2">
+									<img
+										src="/img/icons/poin-new.svg"
+										width="10"
+										alt="point"
+										class="mt-2"
+									/>
+								</v-col>
+								<v-col cols="10">
+									<span class="text-12">{{
+										reward.point
+									}}</span>
+								</v-col>
+							</v-row>
+						</div>
+					</v-card>
+				</div>
+			</div>
+			<v-divider
+				class="pt-1 mt-8"
+				style="
+					background: #272727 !important;
+					border-color: #272727 !important;
+				"
+			></v-divider>
+		</div>
+
+		<!-- Top Point -->
+		<v-container>
+			<v-row no-gutters class="my-2">
+				<v-col cols="6">
+					<strong class="text-18">Top Poin</strong>
+				</v-col>
+				<v-col
+					@click="$router.push('/toppoin')"
+					cols="6"
+					class="text-right"
+				>
+					<strong class="text-14 deep-orange--text"
+						>Lihat Semua</strong
+					>
+				</v-col>
+			</v-row>
+			<v-row no-gutters>
+				<v-col cols="12 mb-2">
+					<span class="text-14">
+						Kejar peringkat kamu dengan cara kumpulkan Poin sebanyak
+						banyaknya dan dapatkan rewards langsung tanpa diundi.
+					</span>
+				</v-col>
+				<v-col cols="12">
+					<BannerStatic :withButton="false" slug="toppoin" />
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<!-- Kompetisi -->
+		<div v-if="challenges && challenges.length > 0">
+			<v-divider
+				class="pt-1 mt-8"
+				style="
+					background: #272727 !important;
+					border-color: #272727 !important;
+				"
+			></v-divider>
+			<v-container>
+				<v-row no-gutters class="my-2">
+					<v-col cols="6">
+						<strong class="text-18">Kompetisi</strong>
+					</v-col>
+					<v-col
+						@click="$router.push('/kompetisi')"
+						cols="6"
+						class="text-right"
+					>
+						<strong class="text-14 deep-orange--text"
+							>Lihat Semua</strong
+						>
+					</v-col>
+					<v-col cols="12 mt-2">
+						<span class="text-14">
+							Yuk ikutan kompetisinya dan dapatkan voting sebanyak
+							banyaknya agar kamu jadi juaranya!
+						</span>
+					</v-col>
+				</v-row>
+				<v-row no-gutters class="mt-3">
+					<v-col
+						cols="6"
+						v-for="challenge in challenges"
+						:key="'challenge-' + challenge.id"
+						class="px-1"
+					>
+						<v-row no-gutters>
+							<v-col cols="12">
+								<v-card>
+									<v-img
+										:src="challenge.image"
+										:aspect-ratio="3 / 2"
+									></v-img>
+								</v-card>
+							</v-col>
+							<v-col cols="12 mt-2">
+								<span class="text-14">
+									{{ challenge.title }}
+								</span>
+							</v-col>
+						</v-row>
 					</v-col>
 				</v-row>
 			</v-container>
-		</client-only>
+		</div>
 
-		<h1 style="text-indent: -9999px; height: 0; font-size: 0">
-			Hadiah Pulsa Gratis, Pulsa Telkomsel, Pulsa Darurat XL
-		</h1>
-
-		<div v-if="topviews">
-			<!-- PLAIN NEWS LOOP -->
-			<div class>
-				<v-container>
-					<template v-for="(article, i) in topviews">
-						<NewsLoop2
-							:key="'article-top-' + i"
-							:article="article"
-							ADSlayoutKey="-fb+5w+4e-db+86"
-							ADSclient="ca-pub-6581994114503986"
-							ADSslot="2653891769"
-							v-if="i < 6"
-						/>
-					</template>
-
-					<!-- TOP VIEWS -->
-					<client-only>
-						<v-row class="specuavg" justify="center">
-							<div
-								class="thebg"
-								:style="
-									'background-image:url(' + activebg + ')'
-								"
-							></div>
-							<v-col cols="12" class="px-0">
-								<flickity
-									class="pb-3 special"
-									v-if="specials.length > 0"
-									ref="flickity2"
-									:options="flickityOptions2"
-								>
-									<div
-										style="width: 100%"
-										v-for="(article, i) in specials"
-										:key="article.id"
-									>
-										<input
-											type="hidden"
-											:id="'bg-' + i"
-											:value="article.image.small"
-										/>
-										<a :href="link(article)">
-											<v-img
-												:src="article.image.small"
-												height="230"
-												position="center top"
-												class="grey lighten-2"
-											></v-img>
-										</a>
-										<div
-											class="pt-3 dark px-5"
-											@click="$router.push(link(article))"
-										>
-											<strong>{{
-												article.type == "LAGU"
-													? "MUSIK"
-													: article.type
-											}}</strong>
-											<h2 class="mt-1 mb-0 text-18">
-												{{ article.title }}
-											</h2>
-										</div>
-									</div>
-								</flickity>
-								<div class="pa-5 text-center dark" v-else>
-									Loading...
-								</div>
-							</v-col>
-						</v-row>
-						<v-row>
-							<v-col cols="12">
-								<!-- ADSENSE -->
-								<InFeedAdsense
-									data-ad-layout-key="-fb+5w+4e-db+86"
-									data-ad-client="ca-pub-6581994114503986"
-									data-ad-slot="2653891769"
-								></InFeedAdsense>
-							</v-col>
-						</v-row>
-					</client-only>
-
-					<!-- END TOP VIEWS -->
-
-					<template v-for="(article, i) in topviews">
-						<NewsLoop2
-							:key="'article-top-' + i"
-							:article="article"
-							ADSlayoutKey="-fb+5w+4e-db+86"
-							ADSclient="ca-pub-6581994114503986"
-							ADSslot="2653891769"
-							v-if="i > 6"
-						/>
-						<v-row
-							v-if="i % 5 == 0 && i != 0 && i > 7"
-							:key="'asdasd-' + i"
+		<!-- Feed -->
+		<div v-if="feeds && feeds.length > 0">
+			<v-divider
+				class="pt-1 mt-3"
+				style="
+					background: #272727 !important;
+					border-color: #272727 !important;
+				"
+			></v-divider>
+			<v-container>
+				<v-row no-gutters class="my-2">
+					<v-col cols="6">
+						<strong class="text-18">Feed</strong>
+					</v-col>
+					<v-col
+						@click="$router.push('/?tab=1')"
+						cols="6"
+						class="text-right"
+					>
+						<strong class="text-14 deep-orange--text"
+							>Lihat Semua</strong
 						>
+					</v-col>
+					<v-col cols="12 mt-2">
+						<span class="text-14">
+							Kumpulkan Poin dengan terus membaca artikel,
+							menyukai artikel, memberikan komentar, menjawab kuis
+							dan membagikan artikel.
+						</span>
+					</v-col>
+				</v-row>
+				<v-row no-gutters>
+					<v-col
+						v-for="(feed, index) in feeds"
+						:key="'feed-' + feed.id"
+						class="px-1"
+						:cols="index == 0 ? 12 : 6"
+						@click="$router.push(link(feed))"
+					>
+						<v-row no-gutters class="py-4">
 							<v-col cols="12">
-								<!-- ADSENSE -->
-								<InFeedAdsense
-									data-ad-layout-key="-fb+5w+4e-db+86"
-									data-ad-client="ca-pub-6581994114503986"
-									data-ad-slot="2653891769"
-								></InFeedAdsense>
+								<v-img
+									:src="feed.image.large"
+									:aspect-ratio="3 / 2"
+								></v-img>
+							</v-col>
+							<v-col cols="12 mt-2">
+								<span
+									class="text-14"
+									v-html="feed.title"
+								></span>
+							</v-col>
+							<v-col cols="12 mt-2">
+								<span
+									class="text-14"
+									v-html="feed.created_at"
+								></span>
 							</v-col>
 						</v-row>
-					</template>
-					<v-row v-if="isMore">
-						<v-col cols="12">
-							<v-btn
-								tile
-								block
-								depressed
-								dark
-								color="deep-orange"
-								@click="loadMore(next)"
-								>Load More</v-btn
+					</v-col>
+				</v-row>
+			</v-container>
+		</div>
+
+		<!-- Help -->
+		<div>
+			<v-divider
+				class="pt-1 mt-3"
+				style="
+					background: #272727 !important;
+					border-color: #272727 !important;
+				"
+			></v-divider>
+			<v-container>
+				<v-row no-gutters class="my-2">
+					<v-col cols="6">
+						<strong class="text-18">Hubungi Kami</strong>
+					</v-col>
+					<v-row class="mt-5" no-gutters>
+						<v-col cols="12" class="pt-1">
+							<a href="telp:02129385381">
+								<img
+									src="/img/help-telp-2.svg"
+									loading="lazy"
+									alt=""
+								/>
+							</a>
+						</v-col>
+						<v-col cols="12" class="pt-1">
+							<a
+								href="https://wa.me/6281519060929"
+								target="_BLANK"
 							>
-							<br />
+								<img
+									src="/img/help-wa-2.svg"
+									loading="lazy"
+									alt=""
+								/>
+							</a>
+						</v-col>
+						<v-col cols="12" class="pt-1">
+							<a href="mailto:halo@pewefeed.com">
+								<img
+									src="/img/help-email-2.svg"
+									loading="lazy"
+									alt=""
+								/>
+							</a>
 						</v-col>
 					</v-row>
-					<v-row>
-						<v-col cols="12">
-							<!-- ADSENSE -->
-							<InFeedAdsense
-								data-ad-layout-key="-fb+5w+4e-db+86"
-								data-ad-client="ca-pub-6581994114503986"
-								data-ad-slot="2653891769"
-							></InFeedAdsense>
-						</v-col>
-					</v-row>
-				</v-container>
-			</div>
+				</v-row>
+			</v-container>
+		</div>
+
+		<!-- Social -->
+		<div>
+			<v-container>
+				<v-row
+					no-gutters
+					justify="center"
+					align="center"
+					class="text-center"
+				>
+					<v-col
+						cols="3"
+						href="https://www.instagram.com/pewefeed"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-instagram</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://www.facebook.com/pewefeeds"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-facebook</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://twitter.com/pewefeed"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-twitter</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+					<v-col
+						cols="3"
+						href="https://www.youtube.com/channel/UCW7zo9pK4Vgd2xf68ayXlPw"
+						target="_BLANK"
+					>
+						<v-icon size="16" class="mr-1">mdi-youtube</v-icon>
+						<span class="text-14">pewefeed</span>
+					</v-col>
+				</v-row>
+			</v-container>
+		</div>
+
+		<!-- Tagline -->
+		<div>
+			<v-container>
+				<v-row justify-center align-content-center no-gutters>
+					<v-col cols="11" class="text-10">
+						<span
+							>Situs pewefeed.com merupakan layanan resmi dari PT.
+							<strong style="text-decoration: underline"
+								><a href="https://jayadata.id"
+									>Jayadata Indonesia</a
+								></strong
+							></span
+						><br />
+						<span
+							>Silahkan klik untuk
+							<strong style="text-decoration: underline"
+								><a
+									href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+									>Kebijakan Kerahasiaan</a
+								></strong
+							>
+							atau
+							<strong style="text-decoration: underline"
+								><a
+									href="https://pewefeed.com/bantuan/detail/privacy-policy-id-version"
+									>Penafian</a
+								></strong
+							>
+							&copy; {{ new Date().getFullYear() }}</span
+						>
+					</v-col>
+					<v-col cols="1">
+						<img width="100%" src="/img/peweicon.svg" />
+					</v-col>
+				</v-row>
+			</v-container>
 		</div>
 	</section>
 </template>
 
 <script>
-import ArticleService from "@/services/ArticleService"
-import NewsLoop2 from "@/components/common/NewsLoop2"
-import RedeemCard from "@/components/common/RedeemCard"
+import RedeemService from "~/services/RedeemService"
+import StaticService from "~/services/StaticService"
 import BannerStatic from "@/components/common/BannerStatic"
-import axios from "axios"
-
+import ArticleService from "~/services/ArticleService"
 export default {
+	components: {
+		BannerStatic,
+	},
 	data() {
 		return {
-			article: true,
-			pwpoin: false,
-			meta: this.$store.state.meta,
-			domainTitle: process.env.domainTitle,
-			model: null,
-			articles: [],
-			topviews: [],
-			specials: [],
-			activebg: null,
-			next: 2,
-			isMore: true,
-			toppoinbanner:
-				"http://b16e2bab9e94a9d05089-aa7428b954372836cd8898750ce2dd71.r41.cf6.rackcdn.com/assets/frontend/images/banner-toppoin.jpg",
-			garfik: "",
-			mainCategories: {
-				viral: null,
-				sport: null,
-				piknik: null,
-				lagu: null,
-				nonton: null,
-				tekno: null,
-			},
-			sixty: [],
+			menus: [
+				{ label: "Feed", icon: "/img/peweicon.svg", link: "/?tab=1" },
+				{
+					label: "Tukar Poin",
+					icon: "/img/icons/nav-2-color.svg",
+					link: "/tukarpoin",
+				},
+				{
+					label: "Top Poin",
+					icon: "/img/icons/header/3-o.svg",
+					link: "/toppoin",
+				},
+				{
+					label: "Kompetisi",
+					icon: "/img/icons/nav-3-color.svg",
+					link: "/kompetisi",
+				},
+				{
+					label: "Rewards",
+					icon: "/img/icons/rewards-saya.svg",
+					link: "/?tab=2",
+				},
+				{
+					label: "Beli VIP",
+					icon: "/img/icons/vip.svg",
+					link: "/purchase",
+				},
+				{
+					label: "Batas Poin",
+					icon: "/img/bataspoint.svg",
+					link: "/member/daily-limit",
+				},
+				{
+					label: "Bantuan",
+					icon: "/img/icons/help-new.svg",
+					link: "/bantuan",
+				},
+			],
 			flickityOptions: {
-				groupCells: 1,
-				prevNextButtons: false,
-				pageDots: true,
-				wrapAround: true,
-				adaptiveHeight: true,
-			},
-			flickityOptions2: {
 				groupCells: 1,
 				prevNextButtons: false,
 				pageDots: true,
 				wrapAround: false,
 				adaptiveHeight: true,
 			},
-			dataUrl: process.env.mobileUrl,
-			dataTitle:
-				"Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya! - " +
-				process.env.domainTitle,
-			// dataDescription: "Sumber konten VIRAL dari beragam informasi seperti Film, Musik, Olahraga, Travel, Teknologi. Tidak hanya itu, {{ domainTitle }} memberikan insentif dengan pengunjungnya dalam bentuk POIN. POIN bisa dikumpulkan atas interaksi memberikan Komentar, menjawab Quiz dan memberikan Star (Voting). Jumlah POIN yang cukup kemudian bisa ditukar dengan Reward",
-			dataDescription:
-				"Baca Artikelnya, Kumpulin Poinnya, Dapetin Hadiahnya!",
-		}
-	},
-	async asyncData({ query, error }) {
-		let data = await axios.get(
-			"https://api.pewefeed.com/api/article/top-views/?page=1"
-		)
-		return {
-			topviews: data.data.data,
+			banners: [],
+			rewards: [],
+			toppoints: [],
+			challenges: [],
+			feeds: [],
 		}
 	},
 	methods: {
-		async fetchTopViews() {
+		async fetchBanner() {
 			try {
-				const res = await ArticleService.getTopViews(1)
-				const items = res.data.data
-				items.forEach((element) => {
-					var link = element.link
-					if (link.includes("sixty")) {
-						var slug = "/sixty" + element.link
-					} else {
-						var slug = element.link
-					}
-					var obj = {
-						id: element.id,
-						image: element.image,
-						link: slug,
-						title: element.title,
-						type: element.type,
-						published_at: element.published_at,
-					}
-					this.topviews.push(obj)
-				})
+				this.banners = (await StaticService.getBanner()).data
 			} catch (error) {
 				console.log(error)
 			}
 		},
-		async fetchSpecial() {
+		async fetchRewards() {
 			try {
-				const res = await ArticleService.getSpecials()
-				const items = res.data.data
-				items.forEach((element) => {
-					var link = element.link
-					if (link.includes("sixty")) {
-						var slug = "/sixty" + element.link
-					} else {
-						var slug = element.link
-					}
-					var obj = {
-						id: element.id,
-						image: element.image,
-						link: slug,
-						title: element.title,
-						type: element.type,
-						published_at: element.publish_at,
-					}
-					this.specials.push(obj)
-				})
+				this.rewards = (
+					await RedeemService.getRandom()
+				).data.data.redeem
 			} catch (error) {
 				console.log(error)
 			}
 		},
-		async loadMore(n) {
+		async fetchChallenge() {
 			try {
-				const res = await ArticleService.getTopViews(n)
-				//console.log(JSON.parse(JSON.stringify(res.data.data)))
-				const items = res.data.data
-				items.forEach((element) => {
-					var link = element.link
-					if (link.includes("sixty")) {
-						var slug = "/sixty" + element.link
-					} else {
-						var slug = element.link
-					}
-					var obj = {
-						id: element.id,
-						image: element.image,
-						link: slug,
-						title: element.title,
-						type: element.type,
-						published_at: element.published_at,
-					}
-					this.topviews.push(obj)
-				})
-				this.next += 1
-				// console.log(res.data.meta)
-				if (res.data.meta.current_page == res.data.meta.last_page) {
-					this.isMore = false
-				}
+				this.challenges = (await StaticService.getChallenge()).data.data
 			} catch (error) {
 				console.log(error)
 			}
 		},
-		async fetchSixty() {
+		async fetchFeed() {
 			try {
-				const res = await ArticleService.getSixty()
-				this.sixty = res.data.data.sixty
-				//console.log(JSON.parse(JSON.stringify(res.data)))
-			} catch (error) {
-				console.log(error)
-			}
-		},
-		async fetchPromotedNews() {
-			try {
-				const res = await ArticleService.getLatest()
-				//console.log(JSON.parse(JSON.stringify(res.data.data)))
-				this.articles = res.data.data
-				// if (res.data.data.length > 0) {
-				this.$nextTick(function () {
-					this.$refs.flickity.rerender()
-				})
-				// }
-			} catch (error) {
-				console.log(error)
-			}
-		},
-		async fetchTopPoin() {
-			try {
-				const res = await ArticleService.getTopPoin()
-				//console.log(JSON.parse(JSON.stringify(res.data.data.ranked.garfik)))
-				this.toppoinbanner = res.data.data.periode.banner.desktop
-				this.garfik = res.data.data.ranked.garfik
+				this.feeds = (await ArticleService.getFeed(5)).data.data
 			} catch (error) {
 				console.log(error)
 			}
@@ -380,198 +524,95 @@ export default {
 			}
 			return cropped
 		},
-		random() {
-			return Math.random()
-		},
 	},
 	mounted() {
-		this.fetchPromotedNews()
-		//this.fetchTopViews();
-		this.fetchSpecial()
-
-		let vm = this
-		setTimeout(() => {
-			vm.activebg = document.getElementById("bg-0").value
-			vm.$refs.flickity2.on("change", (event) => {
-				//console.log(vm.$refs.flickity2.selectedIndex());
-				let index = vm.$refs.flickity2.selectedIndex()
-				vm.activebg = document.getElementById("bg-" + index).value
-				// console.log(vm.activebg)
-			})
-		}, 3000)
-	},
-	async fetch({ store, params }) {
-		let meta = await ArticleService.getDetailMeta("home").then((res) => {
-			return res.data.data
-		})
-		store.commit("SET_META", meta)
-		store.commit("SET_ITEM", {
-			article: {
-				title: meta.og_title,
-				short_title: meta.description,
-			},
-		})
-		//console.log(meta);
-	},
-	head() {
-		return {
-			title: this.meta.og_title.substring(0, 65),
-			meta: [
-				{
-					hid: "description",
-					name: "description",
-					content: this.meta.description,
-				},
-				{
-					hid: "keywords",
-					name: "keywords",
-					content: this.meta.keywords,
-				},
-
-				// Facebok
-				{
-					hid: "og:title",
-					property: "og:title",
-					content: this.meta.og_title,
-				},
-				{
-					hid: "og:description",
-					property: "og:description",
-					content: this.meta.og_description,
-				},
-				{
-					hid: "og:type",
-					property: "og:type",
-					content: this.meta.og_type,
-				},
-				{
-					hid: "og:url",
-					property: "og:url",
-					content: this.meta.og_url,
-				},
-				{
-					hid: "og:image",
-					property: "og:image",
-					content: this.meta.og_image,
-				},
-				{
-					hid: "og:locale",
-					property: "og:locale",
-					content: this.meta.og_locale,
-				},
-				{
-					hid: "og:site_name",
-					property: "og:site_name",
-					content: this.meta.og_site_name,
-				},
-				{
-					hid: "fb:admins",
-					property: "fb:admins",
-					content: "100006462279538",
-				},
-				{
-					hid: "fb:app_id",
-					property: "fb:app_id",
-					content: "107188393464738",
-				},
-
-				// Twitter
-				{
-					hid: "twitter:card",
-					name: "twitter:card",
-					content: this.meta.twitter_card,
-				},
-				{
-					hid: "twitter:creator",
-					name: "twitter:creator",
-					content: this.meta.twitter_creator,
-				},
-				{
-					hid: "twitter:site",
-					name: "twitter:site",
-					content: this.meta.twitter_site,
-				},
-				{
-					hid: "twitter:title",
-					name: "twitter:title",
-					content: this.meta.twitter_title,
-				},
-				{
-					hid: "twitter:description",
-					name: "twitter:description",
-					content: this.meta.twitter_description,
-				},
-				{
-					hid: "twitter:image",
-					name: "twitter:image",
-					content: this.meta.twitter_image,
-				},
-			],
-		}
-	},
-	components: {
-		NewsLoop2,
-		RedeemCard,
-		BannerStatic,
+		this.fetchBanner()
+		this.fetchRewards()
+		this.fetchChallenge()
+		this.fetchFeed()
 	},
 }
 </script>
 
 <style lang="scss">
-.v-slide-group__prev {
-	display: none !important;
-}
-.flickity-viewport {
-	transition: height 0.2s;
-}
-.special {
-	.flickity-page-dots {
-		bottom: -10px !important;
-	}
-}
-.dark {
-	color: #fff;
-}
-.specuavg {
-	position: relative;
-	z-index: 1;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	.thebg {
-		content: "";
+.carousel-banner {
+	background: #1c1c1c;
+	.carousel-banner-item {
 		width: 100%;
-		height: 100%;
-		left: 0;
-		top: 0;
-		position: absolute;
-		z-index: -1;
-		background-color: #000;
-		transform: skewY(-5deg);
-		overflow: hidden;
-		background-size: cover !important;
-		&:before {
-			content: "";
+		height: 230px !important;
+		background: rgba(2, 1, 1, 0.7);
+		.caption {
+			position: absolute;
 			width: 100%;
 			height: 100%;
-			position: absolute;
-			z-index: -1;
-			background: #000;
-			//backdrop-filter: blur(10px);
-			background-image: inherit;
-			background-size: cover !important;
-			filter: blur(20px);
-			transform: scale(1.2);
-		}
-		&:after {
-			content: "";
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			z-index: 0;
-			background: rgba(0, 0, 0, 0.4);
+			top: 0;
+			left: 0;
+			background: rgba(2, 1, 1, 0.7);
+			.caption-inner {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				padding: 30px;
+				h2 {
+					font-weight: 900;
+					font-size: 24px;
+					line-height: 1.3;
+				}
+			}
 		}
 	}
+	.flickity-page-dots {
+		background: transparent;
+		height: 48px;
+		line-height: 48px;
+		padding: 0 10px !important;
+		text-align: right;
+		top: 60%;
+
+		.dot {
+			width: 10px !important;
+			height: 10px !important;
+			border-radius: 90px !important;
+			opacity: 1 !important;
+		}
+	}
+}
+.plainslide-wrapper {
+	overflow-x: hidden;
+}
+.plainslide {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	display: flex;
+	padding-left: 10px !important;
+	padding-right: 0px !important;
+	& > div {
+		white-space: initial;
+		height: 235px;
+		color: #fff;
+		width: 123px;
+		background: #000;
+		padding: 10px;
+		margin: 0 5px;
+		border-radius: 5px;
+	}
+
+	.reward-item {
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+}
+
+.reward-detail {
+	width: 100%;
+	background-color: #272727;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 10px;
 }
 </style>

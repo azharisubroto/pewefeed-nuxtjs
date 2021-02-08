@@ -13,7 +13,7 @@
 			:topthree="topthree"
 			:currentPoint="currentPoint"
 			:whereisme="whereisme"
-			:withbutton="true"
+			:withbutton="withButton"
 		/>
 	</div>
 </template>
@@ -26,6 +26,7 @@ export default {
 	name: "BannerStatic",
 	props: {
 		slug: String,
+		withButton: Boolean,
 	},
 	components: {
 		TopPointMe,

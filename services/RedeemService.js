@@ -10,4 +10,7 @@ export default {
 	getCategory() {
 		return Api().get("/redeem/category")
 	},
+	getRandom() {
+		return Api().get("/redeem/random")
+	},
 }

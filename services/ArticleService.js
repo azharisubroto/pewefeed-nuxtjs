@@ -96,4 +96,9 @@ export default {
 				slug
 		)
 	},
+
+	/* V2 */
+	getFeed(limit) {
+		return Api().get("/v2/articles?limit=" + limit)
+	},
 }

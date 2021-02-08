@@ -11,7 +11,7 @@
 				<v-row>
 					<v-col cols="12"><h4>TOP POIN</h4></v-col>
 					<v-col cols="12">
-						<BannerStatic slug="toppoin" />
+						<BannerStatic :withButton="true" slug="toppoin" />
 					</v-col>
 				</v-row>
 			</v-container>
