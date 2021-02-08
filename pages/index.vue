@@ -100,7 +100,7 @@
 						:style="
 							'background-image: url(' +
 							reward.image +
-							') !important; background-size: cover !important; background-repeat: no-repeat imp !important;'
+							') !important; background-size: cover !important; background-repeat: no-repeat !important;'
 						"
 						class="reward-item"
 					>
