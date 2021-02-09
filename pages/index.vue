@@ -42,7 +42,7 @@
 						v-for="banner in banners"
 						:key="banner.id"
 					>
-						<a :href="banner">
+						<a :href="banner.url">
 							<v-img
 								:src="banner.image"
 								height="230"
