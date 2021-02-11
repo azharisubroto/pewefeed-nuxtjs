@@ -32,10 +32,12 @@
     </a>-->
 
 		<!-- SSR -->
-		<div class="mb-1">
-			<BannerStatic slug="article-detail" />
-		</div>
 		<v-container class="mb-5 pb-5 articlewrapper">
+			<v-row>
+				<v-col class="mt-8">
+					<BannerStatic slug="article-detail" />
+				</v-col>
+			</v-row>
 			<v-row>
 				<v-col>
 					<!-- TITLE -->

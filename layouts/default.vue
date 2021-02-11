@@ -246,7 +246,9 @@
 						width="20"
 						class="mr-2"
 					/>
-					<span class="text-14">50.000 Poin</span>
+					<span class="text-14"
+						>{{ $auth.user.point_total }} Poin</span
+					>
 				</template>
 				<template v-else>
 					<img

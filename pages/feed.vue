@@ -386,7 +386,7 @@ export default {
 	},
 	mounted() {
 		this.fetchPromotedNews()
-		//this.fetchTopViews();
+		this.fetchTopViews()
 		this.fetchSpecial()
 
 		let vm = this
