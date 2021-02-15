@@ -13,7 +13,8 @@
 		<template v-if="periode != null && isloading == false">
 			<!-- BANNER -->
 			<template v-if="isPrize || isWin">
-				<BannerStatic slug="toppoin" />
+				<img v-if="banner_url && banner_img" :src="banner_img" alt="" />
+				<!-- <BannerStatic slug="toppoin" /> -->
 				<v-img :src="periode.banner.desktop" class="mb-5"></v-img>
 				<div class="d-none pb-7 text-center">
 					Periode:
@@ -564,9 +565,10 @@
 
 <script>
 import TopPoin from "@/services/TopPoin"
+import UserService from "@/services/UserService"
 // import ShareButton2 from "@/components/common/ShareButton2"
 import WaNotif from "@/components/WaNotif"
-import BannerStatic from "@/components/common/BannerStatic"
+// import BannerStatic from "@/components/common/BannerStatic"
 import TopPointMe from "@/components/TopPointMe"
 
 export default {
@@ -586,7 +588,7 @@ export default {
 	components: {
 		// ShareButton2,
 		WaNotif,
-		BannerStatic,
+		// BannerStatic,
 		TopPointMe,
 	},
 	data() {
@@ -618,9 +620,22 @@ export default {
 			bottomloading: false,
 			whereisme: "",
 			currentPoint: 0,
+			banner_img: null,
+			banner_url: null,
 		}
 	},
 	methods: {
+		async fetchbanner(slug) {
+			try {
+				const res = await UserService.fetchBanner("toppoin")
+				//console.log('banner', res.data)
+				this.banner_img = res.data.image
+				this.banner_url = res.data.url
+				this.is_link = res.data.is_link
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		async fetchAll() {
 			try {
 				const res = await TopPoin.topPoinAll()
@@ -739,6 +754,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.fetchbanner()
 		this.fetchAll()
 		this.fetchLastRanked(1)
 		this.fetchWinners(1)
