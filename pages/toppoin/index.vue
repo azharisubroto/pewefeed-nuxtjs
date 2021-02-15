@@ -13,7 +13,7 @@
 		<template v-if="periode != null && isloading == false">
 			<!-- BANNER -->
 			<template v-if="isPrize || isWin">
-				<BannerStatic slug="article-detail" />
+				<BannerStatic slug="toppoin" />
 				<v-img :src="periode.banner.desktop" class="mb-5"></v-img>
 				<div class="d-none pb-7 text-center">
 					Periode:
